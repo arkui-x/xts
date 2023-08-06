@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "FeatureassistbAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "FeatureassistbAbility_label",
+      "value": "label"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "srcEntry": "./ets/Application/AbilityStage.ts",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:icon",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Main1Ability",
+        "srcEntry": "./ets/Main1Ability/Main1Ability.ets",
+        "description": "$string:Main1Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main1Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main2Ability",
+        "srcEntry": "./ets/Main2Ability/Main2Ability.ets",
+        "description": "$string:Main2Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main2Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main3Ability",
+        "srcEntry": "./ets/Main3Ability/Main3Ability.ets",
+        "description": "$string:Main3Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main3Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main4Ability",
+        "srcEntry": "./ets/Main4Ability/Main4Ability.ets",
+        "description": "$string:Main4Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main4Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main5Ability",
+        "srcEntry": "./ets/Main5Ability/Main5Ability.ets",
+        "description": "$string:Main5Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main5Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main6Ability",
+        "srcEntry": "./ets/Main6Ability/Main6Ability.ets",
+        "description": "$string:Main6Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main6Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main7Ability",
+        "srcEntry": "./ets/Main7Ability/Main7Ability.ets",
+        "description": "$string:Main7Ability_desc",
+        "launchType": "singleton",
+        "icon": "$media:icon",
+        "label": "$string:Main7Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main8Ability",
+        "srcEntry": "./ets/Main8Ability/Main8Ability.ets",
+        "description": "$string:Main8Ability_desc",
+        "launchType": "standard",
+        "icon": "$media:icon",
+        "label": "$string:Main8Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main9Ability",
+        "srcEntry": "./ets/Main9Ability/Main9Ability.ets",
+        "description": "$string:Main9Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main9Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main10Ability",
+        "srcEntry": "./ets/Main10Ability/Main10Ability.ets",
+        "description": "$string:Main10Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main10Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main11Ability",
+        "srcEntry": "./ets/Main11Ability/Main11Ability.ets",
+        "description": "$string:Main11Ability_desc",
+        "launchType": "singleton",
+        "icon": "$media:icon",
+        "label": "$string:Main11Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main12Ability",
+        "srcEntry": "./ets/Main12Ability/Main12Ability.ets",
+        "description": "$string:Main12Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main12Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main13Ability",
+        "srcEntry": "./ets/Main13Ability/Main13Ability.ets",
+        "description": "$string:Main13Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main13Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Main14Ability",
+        "srcEntry": "./ets/Main14Ability/Main14Ability.ets",
+        "description": "$string:Main14Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Main14Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Hap1Main1Ability",
+        "srcEntry": "./ets/Hap1Main1Ability/Hap1Main1Ability.ets",
+        "description": "$string:Hap1Main1Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Hap1Main1Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "Hap1Main2Ability",
+        "srcEntry": "./ets/Hap1Main2Ability/Hap1Main2Ability.ets",
+        "description": "$string:Hap1Main2Ability_desc",
+        "icon": "$media:icon",
+        "label": "$string:Hap1Main2Ability_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "MultiMainAbility",
+        "srcEntry": "./ets/MultiMainAbility/MultiMainAbility.ets",
+        "description": "$string:MultiMainAbility_desc",
+        "icon": "$media:icon",
+        "launchType": "standard",
+        "label": "$string:MultiMainAbility_label",
+        "startWindowIcon": "$media:icon",
+        "startWindowBackground": "$color:start_window_background"
+      }
+    ]
+  }
+}
