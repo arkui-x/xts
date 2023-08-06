@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lifecycle">
+
+<uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/arkuix"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:extractNativeLibs="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar">
+	<activity android:exported="true" android:name=".EntryEntryAbilityActivity"
+		android:windowSoftInputMode="adjustResize |stateHidden"
+		android:configChanges="orientation|keyboard|layoutDirection|screenSize|screenLayout|uiMode|smallestScreenSize|density"
+		>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+            android:name=".EntryMain1AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain2AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain3AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain4AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain5AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain6AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain7AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain8AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain9AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain10AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain11AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain12AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain13AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMain14AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryHap1Main1AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryHap1Main2AbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".EntryMultiMainAbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+        <activity 
+            android:name=".FeatureassistaFeatureassistaAbilityActivity"
+        android:exported="true" android:configChanges="uiMode|orientation|screenSize|density" />
+    </application>
+
+</manifest>
