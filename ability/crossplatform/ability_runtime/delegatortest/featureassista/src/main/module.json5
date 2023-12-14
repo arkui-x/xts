@@ -1,0 +1,28 @@
+{
+  module: {
+    name: 'featureassista',
+    type: 'feature',
+    description: '$string:module_desc',
+    srcEntry: './ets/Application/AbilityStage.ts',
+    mainElement: 'FeatureassistaAbility',
+    deviceTypes: [
+      'default',
+      'tablet',
+    ],
+    deliveryWithInstall: true,
+    installationFree: false,
+    pages: '$profile:main_pages',
+    abilities: [
+      {
+        name: 'FeatureassistaAbility',
+        srcEntry: './ets/featureassistaability/FeatureassistaAbility.ets',
+        description: '$string:FeatureassistaAbility_desc',
+        icon: '$media:icon',
+        label: '$string:FeatureassistaAbility_label',
+        startWindowIcon: '$media:icon',
+        startWindowBackground: '$color:start_window_background',
+        exported: true,
+      },
+    ],
+  },
+}
