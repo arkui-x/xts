@@ -13,15 +13,6 @@
     "pages": "$profile:main_pages",
     "requestPermissions": [
       {
-        "name": "ohos.permission.APPROXIMATELY_LOCATION"
-      },
-      {
-        "name": "ohos.permission.LOCATION"
-      },
-      {
-        "name": "ohos.permission.LOCATION_IN_BACKGROUND"
-      },
-      {
         "name": "ohos.permission.INTERNET"
       }
     ],
