@@ -92,12 +92,14 @@ export default function lifecycleTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       setTimeout(function () {
         console.log(TAG + " registerAbilityLifecycleCallback listKey : " + JSON.stringify(globalThis.list));
         console.log(TAG + " registerAbilityLifecycleCallback callbackid : " + JSON.stringify(globalThis.callbackid));
@@ -140,24 +142,30 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 500);
       setTimeout(function () {
         console.log(TAG + " registerAbilityLifecycleCallback listKey : " + JSON.stringify(globalThis.list1));
@@ -201,24 +209,30 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 500);
       setTimeout(function () {
         console.log(TAG + " registerAbilityLifecycleCallback listKey : " + JSON.stringify(globalThis.list1));
@@ -269,24 +283,30 @@ export default function lifecycleTest() {
         "abilityName": "Main3Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start3 successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start2 successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 500);
       setTimeout(function () {
         console.log(TAG + " registerAbilityLifecycleCallback listKey : " + JSON.stringify(globalThis.list3));
@@ -345,24 +365,30 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start1 successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main3Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start3 successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 500);
       setTimeout(function () {
         console.log(TAG + " start after callbackid3 : " + JSON.stringify(globalThis.callbackid3));
@@ -375,12 +401,15 @@ export default function lifecycleTest() {
           "abilityName": "Main4Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str2)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str2, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start4 failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start4 successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start4 failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 2800);
       setTimeout(function () {
         console.log(TAG + " listKey1 : " + JSON.stringify(globalThis.list1));
@@ -418,24 +447,30 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start1 successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main5Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start5 failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start5 successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start5 failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 500);
       setTimeout(function () {
         var str2 = {
@@ -443,12 +478,15 @@ export default function lifecycleTest() {
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str2)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str2, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start2 successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 1100);
       setTimeout(function () {
         console.log(TAG + " listKey1 : " + JSON.stringify(globalThis.list1));
@@ -610,24 +648,30 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
+      
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 1500);
       setTimeout(function () {
         var str1 = {
@@ -635,12 +679,15 @@ export default function lifecycleTest() {
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
+        
       }, 4500);
 
       setTimeout(function () {
@@ -649,12 +696,14 @@ export default function lifecycleTest() {
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
       }, 7500);
 
       setTimeout(function () {
@@ -699,24 +748,28 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       setTimeout(function () {
         var str1 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
       }, 500);
       setTimeout(function () {
         var str1 = {
@@ -724,12 +777,14 @@ export default function lifecycleTest() {
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str1)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str1, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
       }, 3000);
       setTimeout(function () {
         console.log(TAG + " registerAbilityLifecycleCallback listKey : " + JSON.stringify(globalThis.list1));
@@ -771,12 +826,14 @@ export default function lifecycleTest() {
         "abilityName": "Main8Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       setTimeout(function () {
         console.log(TAG + " firstCallback listKey : " + JSON.stringify(globalThis.list8));
         console.log(TAG + " firstCallback callbackid : " + JSON.stringify(globalThis.callbackid8));
@@ -787,12 +844,14 @@ export default function lifecycleTest() {
           "abilityName": "Main8Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str)
-          .then((data) => {
+        
+        globalThis.abilityContext.startAbility(str, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
             console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          }
+        });
       }, 2000);
       setTimeout(function () {
         console.log(TAG + " secondCallback listKey : " + JSON.stringify(globalThis.list8));
@@ -945,24 +1004,28 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
-          console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+        
+        globalThis.abilityContext.startAbility(str, (error, data) => {
+          if (error) {
+            console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+          } else {
+            console.info(TAG + ' start successful. Data: ' + data);
+          }
+        });
       setTimeout(function () {
         var str2 = {
           "bundleName": "com.example.lifecycle",
           "abilityName": "Main2Ability",
           "moduleName": moduleName
         }
-        globalThis.abilityContext.startAbility(str2)
-          .then((data) => {
-            console.info(TAG + ' start successful. Data: ' + data);
-          }).catch((error) => {
+        
+        globalThis.abilityContext.startAbility(str2, (error, data) => {
+          if (error) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-        })
+          } else {
+            console.info(TAG + ' start successful. Data: ' + data);
+          }
+        });
       }, 1000);
       setTimeout(function () {
         console.log(TAG + " firstCallback listKey1 : " + JSON.stringify(globalThis.list1));
@@ -1018,12 +1081,14 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(1000);
 
@@ -1034,13 +1099,14 @@ export default function lifecycleTest() {
       }
 
       let otherAppResult = 0
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-          otherAppResult = 1
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       await sleep(1000);
       expect(otherAppResult == 1).assertTrue();
       let list1 = globalThis.list1;
@@ -1063,12 +1129,14 @@ export default function lifecycleTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       setTimeout(function () {
         // abilitystage的onCreatre里注册了globalThis.applicationContext，globalThis.applicationContext不为null
         // 则oncreate触发成功。
@@ -1091,12 +1159,14 @@ export default function lifecycleTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       setTimeout(function () {
         // abilitystage的onCreatre里注册了globalThis.applicationContext，globalThis.applicationContext不为null
         // 则oncreate触发成功,且context能够获取。
@@ -1126,12 +1196,13 @@ export default function lifecycleTest() {
       }
 
       // 第一次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       await sleep(1500);
 
       var listtemp = [];
@@ -1147,12 +1218,13 @@ export default function lifecycleTest() {
       expect(listtemp).assertContain('MultiMainAbility onAbilityForeground');
 
       // 第二次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       await sleep(1500);
 
       var listtemp = [];
@@ -1185,12 +1257,13 @@ export default function lifecycleTest() {
       }
 
       // 第一次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2500);
       console.log(TAG + 'list1:' + globalThis.list13);
@@ -1292,12 +1365,13 @@ export default function lifecycleTest() {
       }
 
       // 第一次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(1000);
       let applicationContext = globalThis.ability14.getApplicationContext();
@@ -1357,14 +1431,14 @@ export default function lifecycleTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-
-      // 第一次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(3000);
       console.info(TAG + 'list:' + globalThis.list1);
@@ -1398,14 +1472,14 @@ export default function lifecycleTest() {
         "abilityName": "FeatureassistaAbility",
         "moduleName": otherModuleName
       }
-
-      // 第一次起MultiMainAbility
-      globalThis.abilityContext.startAbility(str)
-        .then((data) => {
+      
+      globalThis.abilityContext.startAbility(str, (error, data) => {
+        if (error) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2000);
       console.info(TAG + 'list:' + globalThis.featureList1);

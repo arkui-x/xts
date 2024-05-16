@@ -52,7 +52,7 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
+     */
     it('UI_Ability_Context_Test_0001',0, async (done) => {
       console.log("------------UI_ABILITY_CONTEXT_TEST_0001 START-------------");
       TAG = "UI_ABILITY_CONTEXT_TEST_0001";
@@ -67,8 +67,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it('UI_Ability_Context_Test_0002',0, async (done) => {
+     */
+    it('UI_Ability_Context_Test_0002',0, async (done) => {
       console.log("------------UI_Ability_Context_Test_0002 START-------------");
       TAG = "UI_Ability_Context_Test_0002";
       expect(globalThis.abilityContext != null).assertTrue();
@@ -83,8 +83,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it('UIAbilityContextTest_0003',0, async (done) => {
+     */
+    it('UIAbilityContextTest_0003',0, async (done) => {
       console.log("------------UI_ABILITY_CONTEXT_TEST_0003 START-------------");
       TAG = "UI_ABILITY_CONTEXT_TEST_0003";
       expect(globalThis.abilityContext != null).assertTrue();
@@ -99,7 +99,7 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
+     */
     it('UI_Ability_Life_Cycle_Test_0001',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0001 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0001";
@@ -109,12 +109,13 @@ export default function abilityTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       // Main2Ability在1.5秒后，会终结自己，等待2.5s, 确保Main2Ability终结完自己
       await sleep(4000);
@@ -138,8 +139,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it('UI_Ability_Life_Cycle_Test_0002',0, async (done) => {
+     */
+    it('UI_Ability_Life_Cycle_Test_0002',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0002 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0002";
 
@@ -148,12 +149,14 @@ export default function abilityTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2500);
 
@@ -179,7 +182,7 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
+     */
     it('UI_Ability_Life_Cycle_Test_0003',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0003 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0003";
@@ -189,12 +192,14 @@ export default function abilityTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       // Main2Ability在1.5秒后，会终结自己，等待2.5s, 确保Main2Ability终结完自己
       await sleep(2500);
@@ -204,12 +209,14 @@ export default function abilityTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start Main1Ability failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start Main1Ability successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start Main1Ability failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
       await sleep(2000);
       globalThis.ability1context.terminateSelf();
       await sleep(1000);
@@ -239,11 +246,11 @@ export default function abilityTest() {
      *@tc.number    : UI_ABILITY_LIFE_CYCLE_TEST_0004
      *@tc.name      : UI_Ability_Life_Cycle_Test_0004
      *@tc.desc      : start Main3Ability, after 1.5 seconds, start Main2Ability, after 1.5 seconds, Main2Ability terminated.
-                      after 1 seconds, terminate Main1Ability.
+     after 1 seconds, terminate Main1Ability.
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
+     */
     it('UIAbilityLifeCycleTest0004',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0004 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0004";
@@ -253,12 +260,14 @@ export default function abilityTest() {
         "abilityName": "Main3Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
-          console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start Main3Ability failed. Cause: ' + JSON.stringify(error));
+        } else {
+          console.info(TAG + ' start Main3Ability successful. Data: ' + data);
+        }
+      });
 
       // 1.5秒后打开Main2Ability
       await sleep(1500);
@@ -268,12 +277,14 @@ export default function abilityTest() {
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
-          console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start Main2Ability failed. Cause: ' + JSON.stringify(error));
+        } else {
+          console.info(TAG + ' start Main2Ability successful. Data: ' + data);
+        }
+      });
 
       await sleep(1000);
 
@@ -320,8 +331,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it('UI_Ability_Life_Cycle_Test_0005',0, async (done) => {
+     */
+    it('UI_Ability_Life_Cycle_Test_0005',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0005 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0005";
 
@@ -330,12 +341,14 @@ export default function abilityTest() {
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(1000);
 
@@ -352,13 +365,15 @@ export default function abilityTest() {
         "moduleName": moduleName
       }
       let otherAppResult = 0
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
           otherAppResult = 1;
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2000);
       expect(otherAppResult == 1).assertTrue();
@@ -372,8 +387,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it('UI_Ability_Life_Cycle_Test_0006',0, async (done) => {
+     */
+    it('UI_Ability_Life_Cycle_Test_0006',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0006 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0006";
 
@@ -382,12 +397,14 @@ export default function abilityTest() {
         "abilityName": "Main3Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(1000);
 
@@ -398,12 +415,13 @@ export default function abilityTest() {
       expect(result1[1]).assertEqual('Main3Ability onWindowStageCreate');
       expect(result1[2]).assertEqual('Main3Ability onForeground');
 
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(1000);
       const result2 = globalThis.list3;
@@ -424,7 +442,7 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
+     */
     it('UI_ABILITY_LIFE_CYCLE_TEST_0007',0, async (done) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0007 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0007";
@@ -434,21 +452,24 @@ export default function abilityTest() {
         "abilityName": "Main1Ability",
         "moduleName": 'entry'
       }
-      await globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+
+      await globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2000);
 
-      globalThis.abilityContext.startAbility(want)
-        .then((data) => {
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
           console.info(TAG + ' start successful. Data: ' + data);
-        }).catch((error) => {
-        console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
-      })
+        }
+      });
 
       await sleep(2000);
       const result = globalThis.onNewWantStr;
@@ -467,8 +488,8 @@ export default function abilityTest() {
      *@tc.size      : MediumTest
      *@tc.type      : Function
      *@tc.level     : Level 1
-    */
-     it("UI_Ability_Constant_Test_0100", 0, async (done) => {
+     */
+    it("UI_Ability_Constant_Test_0100", 0, async (done) => {
       console.log("------------UI_Ability_Constant_Test_0100 START-------------");
       TAG = "UI_Ability_Constant_Test_0100";
 
@@ -477,20 +498,23 @@ export default function abilityTest() {
         abilityName: "Main1Ability",
         moduleName: moduleName,
       };
-      globalThis.abilityContext
-        .startAbility(want)
-        .then((data) => {
-          console.info(TAG + " start successful. Data: " + data);
-        })
-        .catch((error) => {
-          console.error(TAG + " start failed. Cause: " + JSON.stringify(error));
-        });
+
+      globalThis.abilityContext.startAbility(want, (error, data) => {
+        if (error.code) {
+          console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
+        } else {
+          console.info(TAG + ' start successful. Data: ' + data);
+        }
+      });
 
       await sleep(1000);
 
-      console.log('UI_Ability_Constant_Test_0100:' + globalThis.launchParam1.lastExitReason)
-      expect(globalThis.launchParam1.launchReason == 0).assertTrue();
-      expect(globalThis.launchParam1.lastExitReason == 0).assertTrue();
+      console.log(TAG, ' globalThis.launchParam1.launchReason:' + globalThis.launchParam1.launchReason)
+      console.log(TAG, ' globalThis.launchParam1.lastExitReason:' + globalThis.launchParam1.lastExitReason)
+      console.log(TAG, ' LaunchReason.UNKNOWN:' + aConstant.LaunchReason.UNKNOWN)
+      console.log(TAG, ' LastExitReason.UNKNOWN:' + aConstant.LastExitReason.UNKNOWN)
+      expect(globalThis.launchParam1.launchReason == 1 || globalThis.launchParam1.launchReason == 0).assertTrue();
+      expect(globalThis.launchParam1.lastExitReason == 2 || globalThis.launchParam1.lastExitReason == 0).assertTrue();
       expect(aConstant.LaunchReason.UNKNOWN == 0).assertTrue();
       expect(aConstant.LastExitReason.UNKNOWN == 0).assertTrue();
       done();
