@@ -33,6 +33,36 @@ const textIndent_100 = 100;
 const maxLines_2 = 2;
 const maxLines_3 = 3;
 let driver = Driver.create();
+let textContentResult_width_base: Length|undefined;
+let textContentResult_height_base: Length|undefined;
+let constraintWidthResult_width_base: Length|undefined;
+let constraintWidthResult_height_base: Length|undefined;
+let fontSizeResult_width_base: Length|undefined;
+let fontSizeResult_height_base: Length|undefined;
+let fontStyleResult_width_base: Length|undefined;
+let fontStyleResult_height_base: Length|undefined;
+let fontWeightResult_width_base: Length|undefined;
+let fontWeightResult_height_base: Length|undefined;
+let fontFamilyResult_width_base: Length|undefined;
+let fontFamilyResult_height_base: Length|undefined;
+let letterSpacingResult_width_base: Length|undefined;
+let letterSpacingResult_height_base: Length|undefined;
+let textAlignResult_width_base: Length|undefined;
+let textAlignResult_height_base: Length|undefined;
+let overflowResult_width_base: Length|undefined;
+let overflowResult_height_base: Length|undefined;
+let maxLinesResult_width_base: Length|undefined;
+let maxLinesResult_height_base: Length|undefined;
+let lineHeightResult_width_base: Length|undefined;
+let lineHeightResult_height_base: Length|undefined;
+let baselineOffsetResult_width_base: Length|undefined;
+let baselineOffsetResult_height_base: Length|undefined;
+let textCaseResult_width_base: Length|undefined;
+let textCaseResult_height_base: Length|undefined;
+let textIndentResult_width_base: Length|undefined;
+let textIndentResult_height_base: Length|undefined;
+let wordBreakResult_width_base: Length|undefined;
+let wordBreakResult_height_base: Length|undefined;
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -54,136 +84,135 @@ async function startAbility(bundleName: string, abilityName: string) {
 
 export default function MeasureTextSizeTest() {
   describe('MeasureTextSizeTest', () => {
-    beforeAll(async () => {
+    beforeAll(async() => {
       await startAbility('com.example.measuretest', 'EntryAbility');
       await sleep(waitReadyMs_1000);
+      textContentResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text.'
+      }).width
+      textContentResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text.'
+      }).height
+      constraintWidthResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text'
+      }).width
+      constraintWidthResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text'
+      }).height
+      fontSizeResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontSize: '16fp'
+      }).width
+      fontSizeResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontSize: '16fp'
+      }).height
+      fontStyleResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontStyle: FontStyle.Normal
+      }).width
+      fontStyleResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontStyle: FontStyle.Normal
+      }).height
+      fontWeightResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontWeight: FontWeight.Normal
+      }).width
+      fontWeightResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontWeight: FontWeight.Normal
+      }).height
+      fontFamilyResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontFamily: 'HarmonyOS Sans'
+      }).width
+      fontFamilyResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        fontFamily: 'HarmonyOS Sans'
+      }).height
+      letterSpacingResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        letterSpacing: 0
+      }).width
+      letterSpacingResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        letterSpacing: 0
+      }).height
+      textAlignResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        textAlign: TextAlign.Start
+      }).width
+      textAlignResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        textAlign: TextAlign.Start
+      }).height
+      overflowResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        overflow: TextOverflow.None
+      }).width
+      overflowResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        overflow: TextOverflow.None
+      }).height
+      maxLinesResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        constraintWidth: '100vp',
+        maxLines: maxLines_3
+      }).width
+      maxLinesResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        constraintWidth: '100vp',
+        maxLines: maxLines_3
+      }).height
+      lineHeightResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+      }).width
+      lineHeightResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+      }).height
+      baselineOffsetResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        baselineOffset: 0
+      }).width
+      baselineOffsetResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        baselineOffset: 0
+      }).height
+      textCaseResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        textCase: TextCase.Normal
+      }).width
+      textCaseResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        textCase: TextCase.Normal
+      }).height
+      textIndentResult_width_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        constraintWidth: constraintWidth_150,
+        maxLines: maxLines_2,
+        textIndent: 0
+      }).width
+      textIndentResult_height_base = measure.measureTextSize({
+        textContent: 'This\'s a test text',
+        constraintWidth: constraintWidth_150,
+        maxLines: maxLines_2,
+        textIndent: 0
+      }).height
+      wordBreakResult_width_base = measure.measureTextSize({
+        textContent: 'abcdefghigklmnopqrstuvwxyz',
+        constraintWidth: '100vp',
+        wordBreak: WordBreak.BREAK_WORD
+      }).width
+      wordBreakResult_height_base = measure.measureTextSize({
+        textContent: 'abcdefghigklmnopqrstuvwxyz',
+        constraintWidth: '100vp',
+        wordBreak: WordBreak.BREAK_WORD
+      }).height
     })
     beforeEach(async() => {
       await sleep(waitReadyMs_100);
     })
-
-    let textContentResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text.'
-    }).width
-    let textContentResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text.'
-    }).height
-    let constraintWidthResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text'
-    }).width
-    let constraintWidthResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text'
-    }).height
-    let fontSizeResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontSize: '16fp'
-    }).width
-    let fontSizeResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontSize: '16fp'
-    }).height
-    let fontStyleResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontStyle: FontStyle.Normal
-    }).width
-    let fontStyleResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontStyle: FontStyle.Normal
-    }).height
-    let fontWeightResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontWeight: FontWeight.Normal
-    }).width
-    let fontWeightResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontWeight: FontWeight.Normal
-    }).height
-    let fontFamilyResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontFamily: 'HarmonyOS Sans'
-    }).width
-    let fontFamilyResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      fontFamily: 'HarmonyOS Sans'
-    }).height
-    let letterSpacingResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      letterSpacing: 0
-    }).width
-    let letterSpacingResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      letterSpacing: 0
-    }).height
-    let textAlignResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      textAlign: TextAlign.Start
-    }).width
-    let textAlignResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      textAlign: TextAlign.Start
-    }).height
-    let overflowResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      overflow: TextOverflow.None
-    }).width
-    let overflowResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      overflow: TextOverflow.None
-    }).height
-    let maxLinesResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      constraintWidth: '100vp',
-      maxLines: maxLines_3
-    }).width
-    let maxLinesResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      constraintWidth: '100vp',
-      maxLines: maxLines_3
-    }).height
-    let lineHeightResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-    }).width
-    let lineHeightResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-    }).height
-    let baselineOffsetResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      baselineOffset: 0
-    }).width
-    let baselineOffsetResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      baselineOffset: 0
-    }).height
-    let textCaseResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      textCase: TextCase.Normal
-    }).width
-    let textCaseResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      textCase: TextCase.Normal
-    }).height
-    let textIndentResult_width_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      constraintWidth: constraintWidth_150,
-      maxLines: maxLines_2,
-      textIndent: 0
-    }).width
-    let textIndentResult_height_base = measure.measureTextSize({
-      textContent: 'This\'s a test text',
-      constraintWidth: constraintWidth_150,
-      maxLines: maxLines_2,
-      textIndent: 0
-    }).height
-    let wordBreakResult_width_base = measure.measureTextSize({
-      textContent: 'abcdefghigklmnopqrstuvwxyz',
-      constraintWidth: '100vp',
-      wordBreak: WordBreak.BREAK_WORD
-    }).width
-    let wordBreakResult_height_base = measure.measureTextSize({
-      textContent: 'abcdefghigklmnopqrstuvwxyz',
-      constraintWidth: '100vp',
-      wordBreak: WordBreak.BREAK_WORD
-    }).height
 
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0010
