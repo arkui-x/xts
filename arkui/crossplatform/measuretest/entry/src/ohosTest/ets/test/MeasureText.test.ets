@@ -26,6 +26,12 @@ const fontSize_20 = 20;
 const fontWeight_100 = 100;
 const letterSpacing_10 = 10;
 let driver = Driver.create();
+let textContentResult_base: number;
+let fontSizeResult_base: number;
+let fontStyleResult_base: number;
+let fontWeightResult_base: number;
+let fontFamilyResult_base: number;
+let letterSpacingResult_base: number;
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -49,36 +55,35 @@ export default function MeasureTextTest() {
   beforeAll(async() => {
     await startAbility('com.example.measuretest', 'EntryAbility');
     await sleep(waitReadyMs_1000);
+    textContentResult_base = measure.measureText({
+      textContent: 'This\'s a test text.'
+    })
+    fontSizeResult_base = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontSize: '16fp'
+    })
+    fontStyleResult_base = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontStyle: FontStyle.Normal
+    })
+    fontWeightResult_base = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontWeight: FontWeight.Normal
+    })
+    fontFamilyResult_base = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontFamily: 'HarmonyOS Sans'
+    })
+    letterSpacingResult_base = measure.measureText({
+      textContent: 'This\'s a test text',
+      letterSpacing: 0
+    })
   })
   beforeEach(async() => {
     await sleep(waitReadyMs_100);
   })
 
   describe('MeasureTextTest', () => {
-    let textContentResult_base = measure.measureText({
-      textContent: 'This\'s a test text.'
-    })
-    let fontSizeResult_base = measure.measureText({
-      textContent: 'This\'s a test text',
-      fontSize: '16fp'
-    })
-    let fontStyleResult_base = measure.measureText({
-      textContent: 'This\'s a test text',
-      fontStyle: FontStyle.Normal
-    })
-    let fontWeightResult_base = measure.measureText({
-      textContent: 'This\'s a test text',
-      fontWeight: FontWeight.Normal
-    })
-    let fontFamilyResult_base = measure.measureText({
-      textContent: 'This\'s a test text',
-      fontFamily: 'HarmonyOS Sans'
-    })
-    let letterSpacingResult_base = measure.measureText({
-      textContent: 'This\'s a test text',
-      letterSpacing: 0
-    })
-
     /**
      * @tc.number : SUB_Measure_measureText_Func_0010
      * @tc.name   : MeasureText
