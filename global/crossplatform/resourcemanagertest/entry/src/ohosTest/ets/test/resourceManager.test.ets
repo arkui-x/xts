@@ -1374,14 +1374,8 @@ describe('resourceManagerTest', function () {
     */
     it('testGetRawFdCallback001', 0, async function (done) {
             context.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
-                let fdValue = rawfile.fd;
-                let offsetValue = rawfile.offset;
-                let lengthValue = rawfile.length;
                 expect(rawfile !== null).assertTrue();
-                console.log('testGetRawFdCallback001--'
-                +'fd:' + fdValue
-                + ' offset:' + offsetValue
-                + ' length:' + lengthValue);
+                console.log('testGetRawFdCallback001--' + JSON.stringify(rawfile));
                 done();
             })
     })
@@ -1396,15 +1390,8 @@ describe('resourceManagerTest', function () {
     */
     it('testGetRawFdPromise001', 0, async function (done) {
             context.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
-                rawfile.fd = 2000;
-                rawfile.offset = 20;
-                rawfile.length = 200;
                 expect(rawfile !== null).assertTrue();
                 console.log('testGetRawFdPromise001--' + JSON.stringify(rawfile));
-                console.log('testGetRawFdPromise001--'
-                +'fd:' + rawfile.fd
-                + ' offset:' + rawfile.offset
-                + ' length:' + rawfile.length);
                 done();
             })
     })
@@ -1466,5 +1453,3 @@ describe('resourceManagerTest', function () {
    
      console.log('*************end ResmgrTest*************');
 })}
-
-
