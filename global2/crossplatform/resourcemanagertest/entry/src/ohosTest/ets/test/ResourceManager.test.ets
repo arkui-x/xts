@@ -2989,7 +2989,7 @@ export default function resourceManagerTest() {
     */
     it('SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900', 0, async (done: Function) => {
       let rawfile: resourceManager.RawFileDescriptor = context.resourceManager.getRawFdSync('test/test.png');
-      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900 rawfile =` + JSON.stringify(rawfile);
+      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900 rawfile =` + JSON.stringify(rawfile));
       expect(rawfile != null).assertTrue();
       done();
     })
