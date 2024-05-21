@@ -15,8 +15,20 @@
 
 import abilityTest from './Ability.test';
 import certTest from './Cert.test';
+import certFrameworkSelectCertsJsAPIFunctionTestUnit from './selectCerts.test';
+import certFrameworkSelectCRLsJsAPIFunctionTestUnit from './selectCRLs.test';
+import certFrameworkCertMatchJsAPIFunctionTestUnit from './certMatch.test';
+import certFrameworkCRLMatchJsAPIFunctionTestUnit from './crlMatch.test';
+import certFrameworkCertChainExtJsAPIFunctionTestUnit from './certChainExt.test'
+import certFrameworkCreateTrustAnchorJsAPIFunctionTestUnit from './createTrustAnchor.test'
 
 export default function testsuite() {
   abilityTest();
   certTest();
+  certFrameworkSelectCertsJsAPIFunctionTestUnit();
+  certFrameworkSelectCRLsJsAPIFunctionTestUnit();
+  certFrameworkCertMatchJsAPIFunctionTestUnit();
+  certFrameworkCRLMatchJsAPIFunctionTestUnit();
+  certFrameworkCertChainExtJsAPIFunctionTestUnit();
+  certFrameworkCreateTrustAnchorJsAPIFunctionTestUnit();
 }
