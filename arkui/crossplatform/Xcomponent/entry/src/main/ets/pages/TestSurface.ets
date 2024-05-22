@@ -15,7 +15,6 @@
 
 import { Logger } from '../utils/Logger';
 import router from '@ohos.router';
-import { XcomponentNapiObject } from 'libxcomponent_napi.so'
 import promptAction from '@ohos.promptAction';
 
 @Entry
@@ -23,25 +22,13 @@ import promptAction from '@ohos.promptAction';
 struct TestSurface {
   @State getMsg: string = ""
   @State angleArray: Array<number> = new Array<number>();
-  @State shaftRotation: string = '';
   private xcomponentId: string = 'xcomponent_napi';
   private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.All });
-  @State nativeContext: XcomponentNapiObject = null;
   private xcomponentController: XComponentController = new XComponentController()
   @State testSurfaceId: string = '';
-  @State testGetContextResult: string = '';
-  @State testWidth: number = -1;
-  @State testHeight: number = -1;
-  @State testOffsetX: number = -1;
-  @State testOffsetY: number = -1;
-  @State testTouchInfo: string = '';
   @State XComponentProperty: string = '';
+  @State Context: string = '';
   scroller: Scroller = new Scroller()
-  @State XComponentSize: SizeOptions = { width: 0, height: 0 }
-  @State offsetX: number = 0;
-  @State offsetY: number = 0;
-  @State GetFocus: string = '';
-  @State LostFocus: string = '';
 
   async aboutToAppear() {
     Logger.info('aboutToAppear');
@@ -56,16 +43,12 @@ struct TestSurface {
           XComponent({
             id: this.xcomponentId,
             type: 'surface',
-            libraryname: 'xcomponent_napi',
             controller: this.xcomponentController
           })
             .width('400px')
             .height('400px')
-            .id('xComponent')
-            .backgroundColor(Color.Yellow)
-            .onLoad((context: XcomponentNapiObject) => {
-              this.nativeContext = context;
-
+            .key("xComponent")
+            .onLoad(() => {
               Logger.info('====Test:onLoad==');
               this.getMsg += "onload:已加载 \n"
               this.XComponentProperty = "onload:已加载"
@@ -90,10 +73,6 @@ struct TestSurface {
           PanGesture(this.panOption)
             .onActionStart((event: GestureEvent) => {
               Logger.info('Gesture onActionStart');
-            })
-            .onActionUpdate((event: GestureEvent) => {
-              this.angleArray = this.nativeContext.updateAngle(event.offsetX, event.offsetY);
-              Logger.info('Gesture onActionUpdate : offSet ' + event.offsetX + ',' + event.offsetY);
             })
             .onActionEnd(() => {
               Logger.info('Gesture onActionEnd');
@@ -136,14 +115,7 @@ struct TestSurface {
 
         Text('' + this.XComponentProperty)
           .id('result')
-        Text('' + this.XComponentSize.height)
-          .id('XComponentHeight')
-        Text('' + this.XComponentSize.width)
-          .id('XComponentWidth')
-        Text('' + this.offsetX)
-          .id('XComponentOffsetX')
-        Text('' + this.offsetY)
-          .id('XComponentOffsetY')
+
       }.width('50%')
 
       Column() {
@@ -166,54 +138,14 @@ struct TestSurface {
             this.XComponentProperty = this.testSurfaceId;
           })
 
-        Button('GetXComponentSize')
-          .id('GetXComponentSize')
-          .onClick(() => {
-            this.testWidth = this.nativeContext.GetXComponentSize_Width();
-            this.testHeight = this.nativeContext.GetXComponentSize_Height();
-            this.getMsg += 'Size:' + this.testWidth + '*' + this.testHeight + '\n';
-            this.XComponentSize.width = this.testWidth;
-            this.XComponentSize.height = this.testHeight;
-          })
 
         Button('GetXComponentContext')
           .id('GetXComponentContext')
           .onClick(() => {
-            let mycontext: XcomponentNapiObject = this.xcomponentController.getXComponentContext();
-            this.testGetContextResult = mycontext.GetXComponentId();
-            this.getMsg += 'Context:' + mycontext.GetXComponentId() + '\n';
-            this.XComponentProperty = mycontext.GetXComponentId();
-          })
-
-        Button('GetXComponentOffset')
-          .id('GetXComponentOffset')
-          .onClick(() => {
-            this.testOffsetX = this.nativeContext.GetXComponentOffset_x();
-            this.testOffsetY = this.nativeContext.GetXComponentOffset_y();
-            this.getMsg += 'Offset:' + '[' + this.testOffsetX + ',' + this.testOffsetY + ']' + '\n';
-            this.offsetX += this.testOffsetX;
-            this.offsetY += this.testOffsetY;
-          })
-
-        Text('XComponent 触摸事件')
-          .fontSize(12)
-          .fontFamily('HarmonyHeiTi-Bold')
-        Button('GetXComponent_TouchEvent')
-          .id('GetXComponent_TouchEvent')
-          .onClick(() => {
-            if (this.nativeContext.GetXComponent_TouchEvent()) {
-              this.testTouchInfo = this.nativeContext.GetXComponent_TouchEvent().touchInfo;
-              this.getMsg += "---------------------------- \n";
-              this.getMsg += 'TouchEvent:' + this.testTouchInfo + '\n';
-              this.XComponentProperty = "TouchEvent success";
-            } else {
-              this.XComponentProperty = "未获取TouchEvent";
-              promptAction.showToast({
-                message: "未获取TouchEvent，请滑动上面xcompoment组件 （三棱锥视图）后在点击此按钮获取touch事件~",
-                duration: 1000,
-                bottom: "30%",
-              })
-            }
+            let result = (this.xcomponentController.getXComponentContext() != null)
+            this.getMsg += 'getXComponentContextResult:' + result + '\n';
+            this.getMsg += 'getXComponentContext:' + this.xcomponentId + '\n';
+            this.XComponentProperty = this.xcomponentId;
           })
       }.width("50%")
 
