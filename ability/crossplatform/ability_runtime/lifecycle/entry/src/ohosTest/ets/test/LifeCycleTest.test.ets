@@ -94,7 +94,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -144,7 +144,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -159,7 +159,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -211,7 +211,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -226,7 +226,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -285,7 +285,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start3 successful. Data: ' + data);
@@ -300,7 +300,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start2 successful. Data: ' + data);
@@ -367,7 +367,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start1 successful. Data: ' + data);
@@ -382,7 +382,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start3 failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start3 successful. Data: ' + data);
@@ -403,7 +403,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str2, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start4 failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start4 successful. Data: ' + data);
@@ -449,7 +449,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start1 failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start1 successful. Data: ' + data);
@@ -464,7 +464,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start5 failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start5 successful. Data: ' + data);
@@ -480,7 +480,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str2, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start2 failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start2 successful. Data: ' + data);
@@ -650,7 +650,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -665,7 +665,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -681,7 +681,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -698,7 +698,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -750,7 +750,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -764,7 +764,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -779,7 +779,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str1, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -828,7 +828,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -846,7 +846,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -1006,7 +1006,7 @@ export default function lifecycleTest() {
       }
         
         globalThis.abilityContext.startAbility(str, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -1020,7 +1020,7 @@ export default function lifecycleTest() {
         }
         
         globalThis.abilityContext.startAbility(str2, (error, data) => {
-          if (error) {
+          if (error.code) {
             console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
           } else {
             console.info(TAG + ' start successful. Data: ' + data);
@@ -1083,7 +1083,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1098,13 +1098,14 @@ export default function lifecycleTest() {
         "moduleName": 'entry'
       }
 
-      let otherAppResult = 0
+      let otherAppResult = 0;
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
+          otherAppResult = 1;
         }
       });
       await sleep(1000);
@@ -1131,7 +1132,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1161,7 +1162,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1197,7 +1198,7 @@ export default function lifecycleTest() {
 
       // 第一次起MultiMainAbility
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1219,7 +1220,7 @@ export default function lifecycleTest() {
 
       // 第二次起MultiMainAbility
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1258,7 +1259,7 @@ export default function lifecycleTest() {
 
       // 第一次起MultiMainAbility
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1366,7 +1367,7 @@ export default function lifecycleTest() {
 
       // 第一次起MultiMainAbility
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1433,7 +1434,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
@@ -1474,7 +1475,7 @@ export default function lifecycleTest() {
       }
       
       globalThis.abilityContext.startAbility(str, (error, data) => {
-        if (error) {
+        if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
           console.info(TAG + ' start successful. Data: ' + data);
