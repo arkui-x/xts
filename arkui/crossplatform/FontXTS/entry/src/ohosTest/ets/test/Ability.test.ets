@@ -135,12 +135,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text11')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
@@ -158,12 +153,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text12')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
@@ -181,12 +171,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text13')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"HarmonyOS Sans\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
@@ -204,12 +189,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text14')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
@@ -227,12 +207,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text15')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
@@ -250,12 +225,7 @@ export default function abilityTest() {
       try {
         let strJson = getInspectorByKey('text16')
         console.info('strJson is ' + JSON.stringify(strJson))
-        if (platform == "Android") {
-        } else if (platform == "IOS") {
-
-        } else {
-          expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
-        }
+        expect(JSON.stringify(strJson)).assertContain("fontFamily\\\":\\\"\\\"")
       } catch (err) {
         console.info('try-catch err is ' + JSON.stringify(err))
         expect().assertFail()
