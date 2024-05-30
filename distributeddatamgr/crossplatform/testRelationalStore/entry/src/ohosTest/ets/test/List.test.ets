@@ -24,8 +24,10 @@ import RdbStoreExecuteSql from './RdbStoreExecuteSql.test'
 import RdbStoreTransaction from './RdbStoreTransaction.test'
 import RdbStoreBackupRestore from './RdbStoreBackupRestore.test'
 import RelationalStore from './RelationalStore.test'
-import RdbStoreIgnore from './RdbStoreIgnoretest'
+import RdbStoreIgnore from './RdbStoreIgnore.test'
 import relationalStoreAssetResultSetTest from './AssetResultSet.test'
+import relationalStoreCustomDirTest from './RelationalStoreCustomDir.test'
+import RelationalStoreSyncApiTest from './RelationalStoreSyncApiTest.test'
 
 export default function testsuite() {
   RdbPredicates()
@@ -41,5 +43,6 @@ export default function testsuite() {
   RelationalStore()
   RdbStoreIgnore()
   relationalStoreAssetResultSetTest()
+  relationalStoreCustomDirTest()
 
 }
