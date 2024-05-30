@@ -47,7 +47,6 @@ struct TestSurface {
           })
             .width('400px')
             .height('400px')
-            .key("xComponent")
             .onLoad(() => {
               Logger.info('====Test:onLoad==');
               this.getMsg += "onload:已加载 \n"

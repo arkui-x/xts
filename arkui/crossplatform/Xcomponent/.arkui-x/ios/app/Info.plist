@@ -9,11 +9,20 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>{{CFBundleName}}</string>
+	<string>xcomponent</string>
 	<key>CFBundleDisplayName</key>
-	<string>{{CFBundleDisplayName}}</string>
+	<string>Xcomponent</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.example.xcomponent</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(ACE_VERSION_CODE)</string>
 	<key>CFBundleShortVersionString</key>
