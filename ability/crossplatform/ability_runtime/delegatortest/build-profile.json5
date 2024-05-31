@@ -1,0 +1,97 @@
+{
+  app: {
+    signingConfigs: [],
+    products: [
+      {
+        name: 'default',
+        signingConfig: 'default',
+        compileSdkVersion: 10,
+        compatibleSdkVersion: 10,
+        runtimeOS: 'OpenHarmony',
+      },
+    ],
+    buildModeSet: [
+      {
+        name: 'debug',
+      },
+      {
+        name: 'release',
+      },
+    ],
+  },
+  modules: [
+    {
+      name: 'entry',
+      srcPath: './entry',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'featureassist',
+      srcPath: './featureassist',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'featureassista',
+      srcPath: './featureassista',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'featureassistb',
+      srcPath: './featureassistb',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'featureassistc',
+      srcPath: './featureassistc',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'featureassistd',
+      srcPath: './featureassistd',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+      ],
+    },
+  ],
+  crossplatform: true,
+}

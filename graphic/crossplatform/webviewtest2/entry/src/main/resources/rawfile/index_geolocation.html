@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>geolocation</title>
+	</head>
+
+	<body>
+		<h1>WebView onGeolocation Demo</h1>
+		<p id="geolocation_demo">
+			点击按钮获取您当前坐标 （可能需要比较长的时间获取）：
+		</p>
+		<script>
+			var watchId = 0;
+			function clearLoc() {
+				if (navigator.geolocation) {
+					navigator.geolocation.clearWatch(watchId);
+				}
+				return watchId;
+			}
+
+			async function my_getLocation() {
+				try {
+					const position = await getLocation();
+					return `${position.coords.latitude},${position.coords.longitude}`;
+				} catch (error) {
+					return error;
+				}
+			}
+
+			async function getLocation() {
+				const geolocation_demo = document.getElementById('geolocation_demo');
+				return new Promise((resolve, reject) => {
+					if (navigator.geolocation) {
+						watchId = navigator.geolocation.watchPosition(
+							(position) => {
+								geolocation_demo.innerHTML =
+									'纬度：' +
+									position.coords.latitude +
+									'，经度：' +
+									position.coords.longitude;
+								resolve(position);
+							},
+							(error) => {
+								switch (error.code) {
+									case error.PERMISSION_DENIED:
+										geolocation_demo.innerHTML =
+											'用户拒绝对获取地理位置的请求。';
+										break;
+									case error.POSITION_UNAVAILABLE:
+										geolocation_demo.innerHTML = '位置信息是不可用的。';
+										break;
+									case error.TIMEOUT:
+										geolocation_demo.innerHTML = '请求用户地理位置超时。';
+										break;
+									case error.UNKNOWN_ERROR:
+										geolocation_demo.innerHTML = '发生未知错误。';
+										break;
+								}
+								console.error(geolocation_demo.innerHTML);
+								reject('failed');
+							},
+							{
+								timeout: 5000, // 超时时间
+								maximumAge: 60000, // 最大缓存时间
+								enableHighAccuracy: true, // 开启高精度模式
+							}
+						);
+					} else {
+						geolocation_demo.innerHTML = '该浏览器不支持获取地理位置。';
+						reject('failed');
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
