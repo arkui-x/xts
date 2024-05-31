@@ -1428,7 +1428,7 @@ export default function XmlSerializerXmlPullParserTest() {
     it("testParseTag001", 0, function () {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<!DOCTYPE note [\n<!ENTITY foo "baa">]>' +
+        '<!DOCTYPE note [<!ENTITY foo "baa">]>' +
         '<note importance="high" logged="true">' +
         "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
         "    <!--Hello, World!-->" +
@@ -1450,7 +1450,7 @@ export default function XmlSerializerXmlPullParserTest() {
       };
       that.parse(options);
       const expectResult =
-        ':: note [<!ENTITY foo "baa">]note::    :funcrion matchwo(a,6){return 1;}:    :Hello, World!:    company::John amp;:amp;: Hanscompany::    title::Happytitle:note::';
+        ":: note [<!ENTITY foo \"baa\">]note::    :\\r\\nfuncrion matchwo(a,6)\\r\\n{\\r\\nreturn 1;\\r\\n}\\r\\n:    :Hello, World!:    company::John amp;:amp;: Hanscompany::    title::Happytitle:note::";
       expect(expectResult == str).assertTrue();
     });
     /**
@@ -1544,12 +1544,11 @@ export default function XmlSerializerXmlPullParserTest() {
         tagValueCallbackFunction: func1,
       };
       that.parse(options);
-      var str3 =
-        '  note [<!ENTITY foo "baa">] note      funcrion matchwo(a,6){return 1;}      Hello, World!      ' +
-        "company John  amp;amp;  Hans company      title Happy title      title Happy title      " +
-        "lens Work lens      lens Play lens      go there      a b b a      h:table          " +
-        "h:tr              h:td Apples h:td              h:td Bananas h:td          h:tr      " +
-        "h:table note  ";
+      var str3 = '  note [\n<!ENTITY foo "baa">] note      ' +
+        '\\r\\nfuncrion matchwo(a,6)\\r\\n{\\r\\nreturn 1;\\r\\n}\\r\\n      Hello, World!      company John  ' +
+        'amp;amp;  Hans company      title Happy title      title Happy title      lens Work lens      ' +
+        'lens Play lens      go there      a b b a      h:table          h:tr              h:td Apples h:td' +
+        '              h:td Bananas h:td          h:tr      h:table note  ';
       expect(str1).assertEqual(str3);
     });
 

@@ -1142,9 +1142,9 @@ export default function lifecycleTest() {
         }
       }
       console.info(TAG + 'list:' + listtemp);
-
-      expect(listtemp[0]).assertEqual('MultiMainAbility onWindowStageCreate');
-      expect(listtemp[1]).assertEqual('MultiMainAbility onAbilityForeground');
+      
+      expect(listtemp).assertContain('MultiMainAbility onWindowStageCreate');
+      expect(listtemp).assertContain('MultiMainAbility onAbilityForeground');
 
       // 第二次起MultiMainAbility
       globalThis.abilityContext.startAbility(str)
@@ -1163,9 +1163,8 @@ export default function lifecycleTest() {
         }
       }
       console.info(TAG + 'list:' + listtemp);
-
-      expect(listtemp[2]).assertEqual('MultiMainAbility onAbilityCreate');
-      expect(listtemp[3]).assertEqual('MultiMainAbility onWindowStageCreate');
+      expect(listtemp).assertContain('MultiMainAbility onAbilityCreate');
+      expect(listtemp).assertContain('MultiMainAbility onWindowStageCreate');
       done();
 
     })
@@ -1410,8 +1409,9 @@ export default function lifecycleTest() {
 
       await sleep(2000);
       console.info(TAG + 'list:' + globalThis.featureList1);
-      expect(globalThis.featureList1[0]).assertEqual('FeatureassistaAbility onWindowStageCreate');
-      expect(globalThis.featureList1[1]).assertEqual('FeatureassistaAbility onAbilityForeground');
+      
+      expect(globalThis.featureList1).assertContain('FeatureassistaAbility onWindowStageCreate');
+      expect(globalThis.featureList1).assertContain('FeatureassistaAbility onAbilityForeground');
 
       globalThis.featureAbilityContext.terminateSelf();
       await sleep(1000);

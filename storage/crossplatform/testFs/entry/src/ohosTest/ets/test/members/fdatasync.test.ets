@@ -17,7 +17,7 @@ import { FILE_CONTENT, nextFileName, prepareFile, describe, it, expect } from ".
 import fileIO from "@ohos.file.fs";
 
 export default function fileIOFdatasync() {
-  describe("fileIO_fs_fdatasync", async function () {
+  describe("fileIO_fs_fdatasync", function () {
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_FDATASYNC_ASYNC_0000
      * @tc.name   : fileIO_test_fdatasync_async_000

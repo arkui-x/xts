@@ -32,6 +32,12 @@
           }
         ]
       }
+    ],
+    "metadata": [
+      {
+        "name": "ExecuteArkTSLinter",
+        "value": "false"
+      }
     ]
   }
 }

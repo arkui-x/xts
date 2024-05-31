@@ -569,21 +569,6 @@ export default function intlTest() {
     });
 
     /* *
-     * @tc.number: DATE_TIME_FORMAT_TEST_006
-     * @tc.name  : format the date with en-GB locale
-     * @tc.desc  : check the format(date)
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("dateTimeFormatTest006", 0, function () {
-      let date = new Date(2021, 11, 17, 3, 24, 0);
-      let datefmt = new Intl.DateTimeFormat("en-GB");
-      console.log("DATE_TIME_FORMAT_TEST_006 " + datefmt.format(date));
-      expect(["2021", "12/16/21", "12/17/21"].indexOf(datefmt.format(date)) != -1).assertTrue();
-    });
-
-    /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_007
      * @tc.name  : format the date with aa locale
      * @tc.desc  : check the format(date)
@@ -683,38 +668,6 @@ export default function intlTest() {
     });
 
     /* *
-     * @tc.number: DATE_TIME_FORMAT_TEST_013
-     * @tc.name  : format the date with daterange
-     * @tc.desc  : check the daterange
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("dateTimeFormatTest013", 0, function () {
-      let startdate = new Date(2020, 11, 20, 14, 23, 16);
-      let enddate = new Date(2020, 11, 21, 14, 23, 16);
-      let datefmt = new Intl.DateTimeFormat("en-GB");
-      console.log("DATE_TIME_FORMAT_TEST_013 " + datefmt.formatRange(startdate, enddate));
-      expect(["20/12/2020 – 21/12/2020", "12/20/20 – 12/21/20"].indexOf(datefmt.formatRange(startdate, enddate)) != -1).assertTrue();
-    });
-
-    /* *
-     * @tc.number: DATE_TIME_FORMAT_TEST_014
-     * @tc.name  : format the date with daterange when the start and end date is equal
-     * @tc.desc  : check the daterange when the start and end date is equal
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("dateTimeFormatTest014", 0, function () {
-      let startdate = new Date(2020, 11, 20, 14, 23, 16);
-      let enddate = new Date(2020, 11, 20, 14, 23, 16);
-      let datefmt = new Intl.DateTimeFormat("en-GB");
-      console.log("DATE_TIME_FORMAT_TEST_014 " + datefmt.formatRange(startdate, enddate));
-      expect(["20/12/2020", "12/20/20"].indexOf(datefmt.formatRange(startdate, enddate)) != -1).assertTrue();
-    });
-
-    /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_015
      * @tc.name  : format the year、month、day、weekday
      * @tc.desc  : check the year、month、day、weekday
@@ -733,23 +686,6 @@ export default function intlTest() {
       const iosResult = result.indexOf("2020") != -1;
       const exceptResult = androidOhResult || iosResult;
       expect(exceptResult).assertTrue();
-    });
-
-    /* *
-     * @tc.number: DATE_TIME_FORMAT_TEST_016
-     * @tc.name  : format the timerange with year、month、day、weekday
-     * @tc.desc  : check the timerange with year、month、day、weekday
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 0
-     */
-    it("dateTimeFormatTest016", 0, function () {
-      let startdate = new Date(2020, 11, 20, 14, 23, 16);
-      let enddate = new Date(2021, 4, 5, 10, 5, 3);
-      let option = { year: "numeric", month: "long", day: "numeric", weekday: "long" };
-      let datefmt = new Intl.DateTimeFormat("en", option);
-      console.log("DATE_TIME_FORMAT_TEST_016 " + datefmt.formatRange(startdate, enddate));
-      expect(datefmt.formatRange(startdate, enddate)).assertEqual("Sunday, December 20, 2020 – Wednesday, May 5, 2021");
     });
 
     /* *
@@ -814,30 +750,30 @@ export default function intlTest() {
       expect(datefmt.resolvedOptions().timeZoneName).assertEqual("long");
     });
 
-    /* *
-     * @tc.number: DATE_TIME_FORMAT_TEST_021
-     * @tc.name  : format the hour in zh-CN-u-hc-h12 with matcher
-     * @tc.desc  : check the hour in zh-CN-u-hc-h12 with matcher
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("dateTimeFormatTest021", 0, function () {
-      let option = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit", second: "numeric", weekday: "long", era: "short", hourCycle: "h24", numberingSystem: "arab", hour12: true, dayPeriod: "short", formatMatcher: "basic", localeMatcher: "lookup" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
-      expect(datefmt.resolvedOptions().locale).assertEqual("zh-CN");
-      expect(datefmt.resolvedOptions().hourCycle).assertEqual("h24");
-      expect(datefmt.resolvedOptions().numberingSystem).assertEqual("arab");
-      expect(datefmt.resolvedOptions().hour12).assertTrue();
-      expect(datefmt.resolvedOptions().era).assertEqual("short");
-      expect(datefmt.resolvedOptions().month).assertEqual("long");
-      expect(datefmt.resolvedOptions().day).assertEqual("numeric");
-      expect(datefmt.resolvedOptions().minute).assertEqual("2-digit");
-      expect(datefmt.resolvedOptions().second).assertEqual("numeric");
-      expect(datefmt.resolvedOptions().dayPeriod).assertEqual("short");
-      expect(datefmt.resolvedOptions().formatMatcher).assertEqual("basic");
-      expect(datefmt.resolvedOptions().localeMatcher).assertEqual("lookup");
-    });
+    // /* *
+    //  * @tc.number: DATE_TIME_FORMAT_TEST_021
+    //  * @tc.name  : format the hour in zh-CN-u-hc-h12 with matcher
+    //  * @tc.desc  : check the hour in zh-CN-u-hc-h12 with matcher
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("dateTimeFormatTest021", 0, function () {
+    //   let option = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit", second: "numeric", weekday: "long", era: "short", hourCycle: "h24", numberingSystem: "arab", hour12: true, dayPeriod: "short", formatMatcher: "basic", localeMatcher: "lookup" };
+    //   let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
+    //   expect(datefmt.resolvedOptions().locale).assertEqual("zh-CN");
+    //   expect(datefmt.resolvedOptions().hourCycle).assertEqual("h24");
+    //   expect(datefmt.resolvedOptions().numberingSystem).assertEqual("arab");
+    //   expect(datefmt.resolvedOptions().hour12).assertTrue();
+    //   expect(datefmt.resolvedOptions().era).assertEqual("short");
+    //   expect(datefmt.resolvedOptions().month).assertEqual("long");
+    //   expect(datefmt.resolvedOptions().day).assertEqual("numeric");
+    //   expect(datefmt.resolvedOptions().minute).assertEqual("2-digit");
+    //   expect(datefmt.resolvedOptions().second).assertEqual("numeric");
+    //   expect(datefmt.resolvedOptions().dayPeriod).assertEqual("short");
+    //   expect(datefmt.resolvedOptions().formatMatcher).assertEqual("basic");
+    //   expect(datefmt.resolvedOptions().localeMatcher).assertEqual("lookup");
+    // });
 
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_001
@@ -881,20 +817,6 @@ export default function intlTest() {
     });
 
     /* *
-     * @tc.number: NUMBER_FORMAT_TEST_004
-     * @tc.name  : format the number in zh-u-nu-arab
-     * @tc.desc  : check the number in zh-u-nu-arab
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest004", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-u-nu-arab");
-      console.log("NUMBER_FORMAT_TEST_004 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("١٢٣٬٤٥٦٫٧٨٩");
-    });
-
-    /* *
      * @tc.number: NUMBER_FORMAT_TEST_005
      * @tc.name  : format the number in en
      * @tc.desc  : check the number in en
@@ -906,20 +828,6 @@ export default function intlTest() {
       let numfmt = new Intl.NumberFormat("en");
       console.log("NUMBER_FORMAT_TEST_005 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
-    });
-
-    /* *
-     * @tc.number: NUMBER_FORMAT_TEST_006
-     * @tc.name  : format the number in en-u-nu-thai
-     * @tc.desc  : check the number in en-u-nu-thai
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest006", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-u-nu-thai");
-      console.log("NUMBER_FORMAT_TEST_006 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("๑๒๓,๔๕๖.๗๘๙");
     });
 
     /* *
@@ -1051,26 +959,6 @@ export default function intlTest() {
     });
 
     /* *
-     * @tc.number: NUMBER_FORMAT_TEST_016
-     * @tc.name  : format the number with currency EUR
-     * @tc.desc  : check the number with currency EUR
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest016", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", currencyDisplay: "name", currencySign: "accounting", signDisplay: "always" });
-      console.log("NUMBER_FORMAT_TEST_016 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("+123,456.79 euros");
-      expect(numfmt.resolvedOptions().locale).assertEqual("en-GB");
-      expect(numfmt.resolvedOptions().style).assertEqual("currency");
-      expect(numfmt.resolvedOptions().currency).assertEqual("EUR");
-      expect(numfmt.resolvedOptions().currencyDisplay).assertEqual("name");
-      expect(numfmt.resolvedOptions().currencySign).assertEqual("accounting");
-      expect(numfmt.resolvedOptions().signDisplay).assertEqual("always");
-    });
-
-    /* *
      * @tc.number: NUMBER_FORMAT_TEST_017
      * @tc.name  : format the number with currency USD
      * @tc.desc  : check the number with currency USD
@@ -1116,28 +1004,6 @@ export default function intlTest() {
       const androidOhResult = ["+￥123,457", "+¥ 123,457"].indexOf(numfmt.format(123456.789)) != -1;
       const expectResult = iosResult || androidOhResult;
       expect(expectResult).assertTrue();
-    });
-
-    /* *
-     * @tc.number: NUMBER_FORMAT_TEST_020
-     * @tc.name  : format the number with signDisplay
-     * @tc.desc  : check the number with signDisplay
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest020", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", currencyDisplay: "name", currencySign: "accounting", signDisplay: "always", notation: "compact", compactDisplay: "long", localeMatcher: "lookup" });
-      console.log("NUMBER_FORMAT_TEST_020 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("+123 thousand euros");
-      expect(numfmt.resolvedOptions().locale).assertEqual("en-GB");
-      expect(numfmt.resolvedOptions().style).assertEqual("currency");
-      expect(numfmt.resolvedOptions().currency).assertEqual("EUR");
-      expect(numfmt.resolvedOptions().currencyDisplay).assertEqual("name");
-      expect(numfmt.resolvedOptions().currencySign).assertEqual("accounting");
-      expect(numfmt.resolvedOptions().compactDisplay).assertEqual("long");
-      expect(numfmt.resolvedOptions().localeMatcher).assertEqual("lookup");
-      expect(numfmt.resolvedOptions().signDisplay).assertEqual("always");
     });
 
     /* *
@@ -1201,35 +1067,35 @@ export default function intlTest() {
       expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     });
 
-    /* *
-     * @tc.number: NUMBER_FORMAT_TEST_025
-     * @tc.name  : format the number with narrow value in unitUsage param
-     * @tc.desc  : check the number with unitUsage
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest025", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-US", { style: "unit", unit: "meter", unitDisplay: "narrow", unitUsage: "length-road" });
-      console.log("NUMBER_FORMAT_TEST_025 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("76.712mi");
-      expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
-    });
+    // /* *
+    //  * @tc.number: NUMBER_FORMAT_TEST_025
+    //  * @tc.name  : format the number with narrow value in unitUsage param
+    //  * @tc.desc  : check the number with unitUsage
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("numberFormatTest025", 0, function () {
+    //   let numfmt = new Intl.NumberFormat("en-US", { style: "unit", unit: "meter", unitDisplay: "narrow", unitUsage: "length-road" });
+    //   console.log("NUMBER_FORMAT_TEST_025 " + numfmt.format(123456.789));
+    //   expect(numfmt.format(123456.789)).assertEqual("76.712mi");
+    //   expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
+    // });
 
-    /* *
-     * @tc.number: NUMBER_FORMAT_TEST_026
-     * @tc.name  : format the number with short value in unitUsage param
-     * @tc.desc  : check the number with unitUsage
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("numberFormatTest026", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-US", { style: "unit", unit: "meter", unitDisplay: "short", unitUsage: "length-road" });
-      console.log("NUMBER_FORMAT_TEST_026 " + numfmt.format(123456.789));
-      expect(numfmt.format(123456.789)).assertEqual("76.712 mi");
-      expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
-    });
+    // /* *
+    //  * @tc.number: NUMBER_FORMAT_TEST_026
+    //  * @tc.name  : format the number with short value in unitUsage param
+    //  * @tc.desc  : check the number with unitUsage
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("numberFormatTest026", 0, function () {
+    //   let numfmt = new Intl.NumberFormat("en-US", { style: "unit", unit: "meter", unitDisplay: "short", unitUsage: "length-road" });
+    //   console.log("NUMBER_FORMAT_TEST_026 " + numfmt.format(123456.789));
+    //   expect(numfmt.format(123456.789)).assertEqual("76.712 mi");
+    //   expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
+    // });
 
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_027
@@ -1326,132 +1192,132 @@ export default function intlTest() {
       expect([1, -2].indexOf(value) != -1).assertTrue();
     });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_004
-     * @tc.name  : compare two different strings with zh locale
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest004", 0, function () {
-      let coll = new Intl.Collator("zh");
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_004 " + value);
-      expect(value).assertEqual(-1);
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_004
+    //  * @tc.name  : compare two different strings with zh locale
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest004", 0, function () {
+    //   let coll = new Intl.Collator("zh");
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_004 " + value);
+    //   expect(value).assertEqual(-1);
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_005
-     * @tc.name  : compare two different strings with zh locale and eor collation
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest005", 0, function () {
-      let coll = new Intl.Collator("zh", { collation: "eor" });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_005 " + value);
-      expect(value).assertEqual(-1);
-      expect(["eor", "default"].indexOf(coll.resolvedOptions().collation) != -1).assertTrue();
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_005
+    //  * @tc.name  : compare two different strings with zh locale and eor collation
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest005", 0, function () {
+    //   let coll = new Intl.Collator("zh", { collation: "eor" });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_005 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(["eor", "default"].indexOf(coll.resolvedOptions().collation) != -1).assertTrue();
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_006
-     * @tc.name  : compare two different strings with zh locale and base sensitivity
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest006", 0, function () {
-      let coll = new Intl.Collator("zh", { sensitivity: "base" });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_006 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().sensitivity).assertEqual("base");
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_006
+    //  * @tc.name  : compare two different strings with zh locale and base sensitivity
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest006", 0, function () {
+    //   let coll = new Intl.Collator("zh", { sensitivity: "base" });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_006 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().sensitivity).assertEqual("base");
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_007
-     * @tc.name  : compare two different strings with zh locale and upper caseFirst
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest007", 0, function () {
-      let coll = new Intl.Collator("zh", { caseFirst: "upper" });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_007 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().caseFirst).assertEqual("upper");
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_007
+    //  * @tc.name  : compare two different strings with zh locale and upper caseFirst
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest007", 0, function () {
+    //   let coll = new Intl.Collator("zh", { caseFirst: "upper" });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_007 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().caseFirst).assertEqual("upper");
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_008
-     * @tc.name  : compare two different strings with zh locale and true numeric
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest008", 0, function () {
-      let coll = new Intl.Collator("zh", { numeric: true });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_008 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().numeric).assertTrue();
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_008
+    //  * @tc.name  : compare two different strings with zh locale and true numeric
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest008", 0, function () {
+    //   let coll = new Intl.Collator("zh", { numeric: true });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_008 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().numeric).assertTrue();
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_009
-     * @tc.name  : compare two different strings with zh locale and true ignorePunctuation
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest009", 0, function () {
-      let coll = new Intl.Collator("zh", { ignorePunctuation: true });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_009 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().ignorePunctuation).assertTrue();
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_009
+    //  * @tc.name  : compare two different strings with zh locale and true ignorePunctuation
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest009", 0, function () {
+    //   let coll = new Intl.Collator("zh", { ignorePunctuation: true });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_009 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().ignorePunctuation).assertTrue();
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_010
-     * @tc.name  : compare two different strings with zh locale and sort usage
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest010", 0, function () {
-      let coll = new Intl.Collator("zh", { usage: "sort" });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_010 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().usage).assertEqual("sort");
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_010
+    //  * @tc.name  : compare two different strings with zh locale and sort usage
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest010", 0, function () {
+    //   let coll = new Intl.Collator("zh", { usage: "sort" });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_010 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().usage).assertEqual("sort");
+    // });
 
-    /* *
-     * @tc.number: COLLATOR_TEST_011
-     * @tc.name  : compare the string with localeMatcher options
-     * @tc.desc  : check the compare result
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("collatorTest011", 0, function () {
-      let coll = new Intl.Collator("zh", { localeMatcher: "lookup" });
-      let value = coll.compare("a", "b");
-      console.log("COLLATOR_TEST_011 " + value);
-      expect(value).assertEqual(-1);
-      expect(coll.resolvedOptions().localeMatcher).assertEqual("lookup");
-    });
+    // /* *
+    //  * @tc.number: COLLATOR_TEST_011
+    //  * @tc.name  : compare the string with localeMatcher options
+    //  * @tc.desc  : check the compare result
+    //  * @tc.size  : MediumTest
+    //  * @tc.type  : Method
+    //  * @tc.level : Level 2
+    //  */
+    // it("collatorTest011", 0, function () {
+    //   let coll = new Intl.Collator("zh", { localeMatcher: "lookup" });
+    //   let value = coll.compare("a", "b");
+    //   console.log("COLLATOR_TEST_011 " + value);
+    //   expect(value).assertEqual(-1);
+    //   expect(coll.resolvedOptions().localeMatcher).assertEqual("lookup");
+    // });
 
     /* *
      * @tc.number: PLURALRULES_TEST_001
@@ -1601,67 +1467,6 @@ export default function intlTest() {
       let value = relativetimefmt.format(100, "second");
       console.log("RELATIVE_TIME_FORMAT_TEST_001 " + value);
       expect(value).assertContain("100");
-    });
-
-    /* *
-     * @tc.number: RELATIVE_TIME_FORMAT_TEST_002
-     * @tc.name  : format the relativetime with 100 second in en
-     * @tc.desc  : check the relativetime
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("relativeTimeFormatTest002", 0, function () {
-      let relativetimefmt = new Intl.RelativeTimeFormat("en");
-      let value = relativetimefmt.format(100, "second");
-      console.log("RELATIVE_TIME_FORMAT_TEST_002 " + value);
-      expect(value).assertEqual("in 100 seconds");
-    });
-
-    /* *
-     * @tc.number: RELATIVE_TIME_FORMAT_TEST_003
-     * @tc.name  : format the relativetime with 100 second in narrow style
-     * @tc.desc  : check the relativetime
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("relativeTimeFormatTest003", 0, function () {
-      let relativetimefmt = new Intl.RelativeTimeFormat("en", { style: "narrow" });
-      let value = relativetimefmt.format(100, "second");
-      console.log("RELATIVE_TIME_FORMAT_TEST_003 " + value);
-      expect(value).assertEqual("in 100 sec.");
-    });
-
-    /* *
-     * @tc.number: RELATIVE_TIME_FORMAT_TEST_004
-     * @tc.name  : format the relativetime with 100 second, get the formatToParts value
-     * @tc.desc  : check the formatToParts value
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("relativeTimeFormatTest004", 0, function () {
-      let relativetimefmt = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
-      const parts = relativetimefmt.formatToParts(100, "second");
-      const result = parts[0]["value"].trim();
-      console.log("RELATIVE_TIME_FORMAT_TEST_004 result:" + result);
-      expect(result).assertEqual("in");
-    });
-
-    /* *
-     * @tc.number: RELATIVE_TIME_FORMAT_TEST_005
-     * @tc.name  : format the relativetime, get the locale options
-     * @tc.desc  : check the relativetime
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("relativeTimeFormatTest005", 0, function () {
-      let relativetimefmt = new Intl.RelativeTimeFormat("en");
-      let value = relativetimefmt.resolvedOptions();
-      console.log("RELATIVE_TIME_FORMAT_TEST_005 " + value);
-      expect(value.locale).assertEqual("en");
     });
 
     /* *

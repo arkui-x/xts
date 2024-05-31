@@ -319,12 +319,12 @@ export default function requestUploadCrossplatformJSUnit() {
           expect(true).assertEqual((uploadTask != undefined));
           uploadTask.on('headerReceive', (header) => {
             console.info("====>SUB_REQUEST_CROSSPLATFORM_UPLOAD_API_PROMISE_0001 header = " + header);
-            expect(true).assertEqual((header != {} || header != undefined));
+            expect(true).assertEqual((JSON.stringify(header) !== '{}' || header !== undefined));
           });
 
           uploadTask.off('headerReceive', (header) => {
             console.info("====>SUB_REQUEST_CROSSPLATFORM_UPLOAD_API_PROMISE_0001 header = " + header);
-            expect(true).assertEqual((header != {} || header != undefined));
+            expect(true).assertEqual((JSON.stringify(header) !== '{}' || header !== undefined));
           });
 
           uploadTask.delete().then((result)=>{
@@ -438,7 +438,7 @@ export default function requestUploadCrossplatformJSUnit() {
         console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_uploadFile_STAGE_API_CALLBACK_0001 end-----------------------");
         clearTimeout(t);
         done();
-      }, 10000);
+      }, 8000);
     });
 
     /**
@@ -469,7 +469,7 @@ export default function requestUploadCrossplatformJSUnit() {
         console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_uploadFile_STAGE_API_PROMISE_0001 end-----------------------");
         clearTimeout(t);
         done();
-      }, 10000);
+      }, 8000);
     });
 
     /**

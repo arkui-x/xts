@@ -23,22 +23,22 @@ parentPort.onmessage = function(e) {
     let data = e.data;
     switch(data.type) {
         case "new":
-            ss = new worker.ThreadWorker("entry_test/ets/workers/newworker_0031.js");
+            const buffer = new ArrayBuffer(8)
+            ss = new worker.ThreadWorker("entry_test/ets/workers/newworker_031.js");
             ss.onexit = function () {
-
                 parentPort.postMessage(exception);
             }
-            const buffer = new ArrayBuffer(8)
-            ss.postMessage(buffer, [buffer])
-            try {
-                length = buffer.byteLength
-            } catch (e) {
-                exception = e.message
+            ss.onmessage = function () {
+                try {
+                    length = buffer.byteLength
+                } catch (e) {
+                    exception = e.message
+                }
+                console.log("worker:: length is " + length)
+                console.log("worker:: exception is " + exception)
+                ss.terminate()
             }
-
-            console.log("worker:: length is " + length)
-            console.log("worker:: exception is " + exception)
-            ss.terminate()
+            ss.postMessage(buffer, [buffer])
             break;
         default:
             break;

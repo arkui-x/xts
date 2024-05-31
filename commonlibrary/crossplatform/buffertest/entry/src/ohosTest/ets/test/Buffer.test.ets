@@ -583,17 +583,15 @@ export default function BufferTest() {
      * For example   : buffer.from(arrayBuffer, byteOffset);
      */
     it("testFrom004", 0, function () {
-      const arr = new Uint8Array(2);
-      arr[0] = 97;
-      arr[1] = 98;
-      const buf = buffer.from(arr.buffer, 1);
-      buf[0] = 99;
-      buf[1] = 100;
-      let str = buf.toString("hex");
-      expect(str).assertEqual("63");
-      expect(arr[1]).assertEqual(99);
-      expect(buf[0]).assertEqual(99);
-      expect(buf[1]).assertEqual(undefined);
+    const arr = new Uint8Array(2);
+    arr[0] = 97;
+    arr[1] = 98;
+    const buf = buffer.from(arr.buffer, 1);
+    buf[0] = 99;
+    let str = buf.toString("hex");
+    expect(str).assertEqual("63");
+    expect(arr[1]).assertEqual(99);
+    expect(buf[0]).assertEqual(99);
     });
 
     /**

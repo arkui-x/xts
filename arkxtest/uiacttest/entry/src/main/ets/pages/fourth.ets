@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import router from '@system.router';
+import router from '@ohos.router';
 
 @Entry
 @Component
@@ -31,7 +31,7 @@ struct Fourth
           .fontSize(20)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            router.push({ uri: 'pages/main_index' })
+            router.pushUrl({ url: 'pages/main_index' })
           })
       }.type(ButtonType.Capsule)
       .margin({

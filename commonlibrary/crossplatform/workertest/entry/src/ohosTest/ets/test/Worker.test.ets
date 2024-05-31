@@ -518,7 +518,7 @@ export default function WorkerTest() {
      */
     it("test_ThreadWorker_Constructor_005", 0, async function (done) {
       let ss = new worker.ThreadWorker(
-        "@bundle:com.example.threadWorkertest/entry_test/ets/workers/newworker.js"
+        "@bundle:com.example.workertest/entry_test/ets/workers/newworker.js"
       );
       let isTerminate = false;
       ss.onexit = function () {

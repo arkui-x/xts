@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ProcessTest from './Process.test.ets'
+import ProcessTest from './Process.test'
+import ProcessManager from './ProcessManager.test'
 
 export default function testsuite() {
   ProcessTest()
+  ProcessManager()
 }

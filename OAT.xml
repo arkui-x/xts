@@ -58,41 +58,32 @@ Note:If the text contains special characters, please escape them according to th
             <filefilter name="binaryFileTypePolicyFilter" desc="eTSHelloWorld二进制文件校验策略的过滤条件" >
                 <filteritem type="filename" name=".DS_Store" desc="工程自编译生成的二进制文件"/>
                 <filteritem type="filename" name="UserInterfaceState.xcuserstate" desc="ios依赖的二进制文件"/>
-                <filteritem type="filename" name="*.png" desc="already checked"/>
             </filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="LaunchScreen.storyboard" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="hvigorfile.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="AbilityStage.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="MainAbility.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="rawfiletest.xml" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*/android/gradlew" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.js" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.java" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.ets" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.bat" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.json5" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.plist" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.pbxproj" desc="示例展示无需添加版权头"/>  
-                <filteritem type="filepath" name=".*/.*/hvigorw" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*/android/gradlew" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.js" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.java" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.ets" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.bat" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.json5" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.plist" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.pbxproj" desc="示例展示无需添加版权头"/>  
+                <filteritem type="filepath" name=".*/crossplatform/.*/hvigorw" desc="示例展示无需添加版权头"/>
             </filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="LaunchScreen.storyboard" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="hvigorfile.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="AbilityStage.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="MainAbility.ts" desc="示例展示无需添加版权头"/>
-                <filteritem type="filename" name="rawfiletest.xml" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*/android/gradlew" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.js" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.java" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.ets" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.bat" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.json5" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.plist" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*.pbxproj" desc="示例展示无需添加版权头"/>
-                <filteritem type="filepath" name=".*/.*/hvigorw" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*/android/gradlew" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.js" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.java" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.ets" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.bat" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.json5" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.plist" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.pbxproj" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*/hvigorw" desc="示例展示无需添加版权头"/>
             </filefilter>
         </filefilterlist>
     </oatconfig>

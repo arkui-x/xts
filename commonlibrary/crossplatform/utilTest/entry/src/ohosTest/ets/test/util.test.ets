@@ -5646,7 +5646,7 @@ export default function UtilFunTest() {
     it("testLruCachePut001", 0, function () {
       let that = new util.LRUCache();
       let temp = that.put("1111", "bcjdshc");
-      expect(temp).assertEqual(undefined);
+      expect(temp).assertEqual('bcjdshc');
     });
 
     /**
@@ -5661,7 +5661,7 @@ export default function UtilFunTest() {
       let that = new util.LRUCache();
       let temp1 = that.put("1111", "bcjdshc");
       let temp2 = that.put("1111", 13);
-      expect(temp2).assertEqual("bcjdshc");
+      expect(temp2).assertEqual(13);
     });
 
     /**
@@ -5679,10 +5679,10 @@ export default function UtilFunTest() {
       let temp2 = that.put(2, 5);
       let temp3 = that.put(2, "adasfdad");
       let temp4 = that.put("abc", 10);
-      expect(temp1).assertEqual(undefined);
-      expect(temp2).assertEqual(undefined);
-      expect(temp3).assertEqual(5);
-      expect(temp4).assertEqual(undefined);
+      expect(temp1).assertEqual(12)
+      expect(temp2).assertEqual(5)
+      expect(temp3).assertEqual('adasfdad')
+      expect(temp4).assertEqual(10)
     });
 
     /**
@@ -5701,11 +5701,11 @@ export default function UtilFunTest() {
       that.updateCapacity(2);
       let temp3 = that.put(2, "adasfdad");
       let temp4 = that.put("1111", 10);
-      expect(temp).assertEqual(undefined);
-      expect(temp1).assertEqual(undefined);
-      expect(temp2).assertEqual(undefined);
-      expect(temp3).assertEqual(5);
-      expect(temp4).assertEqual(undefined);
+      expect(temp).assertEqual('bcjdshc')
+      expect(temp1).assertEqual(12)
+      expect(temp2).assertEqual(5)
+      expect(temp3).assertEqual('adasfdad')
+      expect(temp4).assertEqual(10)
     });
 
     /**
@@ -5724,12 +5724,12 @@ export default function UtilFunTest() {
       let temp3 = that.put(1, 10);
       let temp4 = that.put(2, 22);
       let temp5 = that.put(2, 30);
-      expect(temp).assertEqual(undefined);
-      expect(temp1).assertEqual(undefined);
-      expect(temp2).assertEqual(undefined);
-      expect(temp3).assertEqual(12);
-      expect(temp4).assertEqual(5);
-      expect(temp5).assertEqual(22);
+      expect(temp).assertEqual('bcjdshc')
+      expect(temp1).assertEqual(12)
+      expect(temp2).assertEqual(5)
+      expect(temp3).assertEqual(10)
+      expect(temp4).assertEqual(22)
+      expect(temp5).assertEqual(30)
     });
 
     /**

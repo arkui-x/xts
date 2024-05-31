@@ -22,8 +22,8 @@ XTS是为了保证ArkUI-x提供框架能力在不同平台一致性的测试套�
 ├─ hiviewdfx                             #DFX XTS用例
 ├─ storage                               #文件管理XTS用例
 ├─ request                               #网络管理XTS用例
-├─ startup                               #设备管理XTS用例        
-├─ arkxtest                              #测试框架XTS用例                       
+├─ startup                               #设备管理XTS用例   
+├─ arkxtest                              #测试框架XTS用例                           
 ├─ LICENSE                               #LICENSE文件
 ├─ README-EN.md                          #README-EN文件
 ├─ README.md                             #README文件

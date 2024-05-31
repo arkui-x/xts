@@ -551,7 +551,7 @@ export default function ImageSource() {
                         await imageSourceApi.getImageProperty(args);
                         expect(false).assertTrue();
                     } catch (error) {
-                        expect(error.code == 1).assertTrue();
+                        expect(error.code == 401).assertTrue();
                         console.log(`${testNum} error msg: ` + error);
                         done();
                     }
@@ -590,7 +590,7 @@ export default function ImageSource() {
                         });
                     } catch (error) {
                         console.log(`${testNum} error1 msg: ` + error);
-                        expect(error.code == 1).assertTrue();
+                        expect(error.code == 401).assertTrue();
                         done();
                     }
                 } else {
@@ -624,7 +624,7 @@ export default function ImageSource() {
                             expect(false).assertTrue();
                         });
                     } catch (error) {
-                        expect(error.code == 1).assertTrue();
+                        expect(error.code == 401).assertTrue();
                         console.log(`${testNum} error msg: ` + error);
                         done();
                     }

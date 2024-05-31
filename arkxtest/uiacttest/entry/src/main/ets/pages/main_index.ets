@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import router from '@system.router';
+import router from '@ohos.router';
 
 @Entry
 @Component
@@ -61,12 +61,12 @@ struct ScrollExample {
             .margin({ top: 20 })
             .enabled(false)
             .onClick(() => {
-              router.push({ uri: 'pages/second' })
+              router.pushUrl({ url: 'pages/second' })
             })
             .gesture(
               LongPressGesture({ repeat: false })
                 .onAction((event: GestureEvent) => {
-                  router.push({ uri: 'pages/fourth' })
+                  router.pushUrl({ url: 'pages/fourth' })
                 })
             )
 
@@ -82,7 +82,7 @@ struct ScrollExample {
             .gesture(
               TapGesture({ count: 1 })
                 .onAction(() => {
-                  router.push({ uri: 'pages/third' })
+                  router.pushUrl({ url: 'pages/third' })
                 })
             )
 
@@ -120,12 +120,12 @@ struct ScrollExample {
             .margin({ top: 20 })
 
             .onClick(() => {
-              router.push({ uri: 'pages/second' })
+              router.pushUrl({ url: 'pages/second' })
             })
             .gesture(
             LongPressGesture({ repeat: false })
               .onAction((event: GestureEvent) => {
-                router.push({ uri: 'pages/fourth' })
+                router.pushUrl({ url: 'pages/fourth' })
               })
             )
             Button() {
@@ -138,7 +138,7 @@ struct ScrollExample {
             .gesture(
             TapGesture({ count: 1 })
               .onAction(() => {
-                router.push({ uri: 'pages/third' })
+                router.pushUrl({ url: 'pages/third' })
               })
             )
             Button() {
@@ -168,12 +168,12 @@ struct ScrollExample {
               }
             })
             .onClick(() => {
-              router.push({ uri: 'pages/screen' })
+              router.pushUrl({ url: 'pages/screen' })
             })
             .gesture(
             LongPressGesture({ repeat: false })
               .onAction((event: GestureEvent) => {
-                router.push({ uri: 'pages/drag' })
+                router.pushUrl({ url: 'pages/drag' })
               })
             )
             Flex({direction: FlexDirection.Row,justifyContent: FlexAlign.Center}) {
@@ -253,7 +253,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/first`})
+                router.pushUrl({ url: `pages/first`})
               })
             Text('second')
               .width('100%')
@@ -264,7 +264,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/second`})
+                router.pushUrl({ url: `pages/second`})
               })
             Text('third')
               .width('100%')
@@ -275,7 +275,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/third`})
+                router.pushUrl({ url: `pages/third`})
               })
             Text('fourth')
               .width('100%')
@@ -286,7 +286,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('fifth')
               .width('100%')
@@ -297,7 +297,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('sixth')
               .width('100%')
@@ -308,7 +308,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('seventh')
               .width('100%')
@@ -319,7 +319,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('eighth')
               .width('100%')
@@ -330,7 +330,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('ninth')
               .width('100%')
@@ -341,7 +341,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
             Text('tenth')
               .width('100%')
@@ -352,7 +352,7 @@ struct ScrollExample {
               .textAlign(TextAlign.Center)
               .margin({ top: 10 })
               .onClick(() => {
-                router.push({ uri: `pages/fourth`})
+                router.pushUrl({ url: `pages/fourth`})
               })
         // 底部样式
             Flex({direction: FlexDirection.Row,justifyContent: FlexAlign.Center}) {
@@ -375,7 +375,7 @@ struct ScrollExample {
                 top: 10, left: 10
               })
               .onClick(() => {
-                router.push({ uri: 'pages/second' })
+                router.pushUrl({ url: 'pages/second' })
               })
             }
             // slider

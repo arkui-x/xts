@@ -11,7 +11,7 @@ struct Index {
       Column() {
         Scroll(this.scroller) {
           Flex({ direction: FlexDirection.Column }) {
-          ForEach(this.PageList, (item) => {
+          ForEach(this.PageList, (item: string) => {
               Button() {
               Text('' + item)
                 .width('100%')
@@ -27,7 +27,7 @@ struct Index {
                   router.pushUrl({ url: `pages/${item}` })
                 })
             }
-          }, item => item)
+          })
           }.width('90%')
         }
       }

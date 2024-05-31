@@ -14,6 +14,12 @@
  */
 import resourceManager from '@ohos.resourceManager'
 import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '@ohos/hypium'
+import common from '@ohos.app.ability.common';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+
+let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator()
+let context: common.Context = abilityDelegatorRegistry.getAppContext()
+context = context.createModuleContext("entry_test")
 
 export default function resourceManagerTest() {
 describe('resourceManagerTest', function () {
@@ -239,7 +245,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringValueResourceCallback001', 0, async function (done) {
-        globalThis.abilityContext.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+        context.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
             moduleName:"entry_test",
             id:$r('app.string.test_1').id}, (err, value) => {
             expect(value !== null).assertTrue();
@@ -257,7 +263,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringValueResourcePromise001', 0, async function (done) {
-        globalThis.abilityContext.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+        context.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
             moduleName:"entry_test",
             id:$r('app.string.test_1').id}).then(value => {
             console.info(`testGetStringValueResourcePromise001 ${JSON.stringify(Error)}`)
@@ -276,7 +282,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringValueResIdCallback001', 0, async function (done) {
-        globalThis.abilityContext.resourceManager.getStringValue($r('app.string.test_1').id, (err, value) => {
+        context.resourceManager.getStringValue($r('app.string.test_1').id, (err, value) => {
             expect(value !==null).assertTrue();
             console.log('testGetStringValueResIdCallback001 ' + value);
             expect(value).assertEqual('Test1');
@@ -295,7 +301,7 @@ describe('resourceManagerTest', function () {
     it('testGetStringValueResIdCallback002', 0, async function (done) {
         try{
             // 0x1001 id not exist,throw 9001001 error code
-            globalThis.abilityContext.resourceManager.getStringValue(0x1001, (err, value) => {
+            context.resourceManager.getStringValue(0x1001, (err, value) => {
                 if(err){
                     console.log('testGetStringValueResIdCallback002 err.code' + err.code);
                     console.log('testGetStringValueResIdCallback002 err.message' + err.message);
@@ -325,7 +331,7 @@ describe('resourceManagerTest', function () {
     it('testGetStringValueResIdCallback003', 0, async function (done) {
             try{
                 // 0x01000000 id is integer resource,throw 9001002 error code
-                globalThis.abilityContext.resourceManager.getStringValue($r('app.integer.integer_1').id, (err, value) => {
+                context.resourceManager.getStringValue($r('app.integer.integer_1').id, (err, value) => {
                     if(err){
                         console.log('testGetStringValueResIdCallback003 err.code' + err.code);
                         console.log('testGetStringValueResIdCallback003 err.message' + err.message);
@@ -355,7 +361,7 @@ describe('resourceManagerTest', function () {
     it('testGetStringValueResIdCallback004', 0, async function (done) {
             try{
                 // 0x01000006 id re-ref,throw 9001006 error code
-                globalThis.abilityContext.resourceManager.getStringValue($r('app.string.Test_name1').id, (err, value) => {
+                context.resourceManager.getStringValue($r('app.string.Test_name1').id, (err, value) => {
                     if(err){
                         console.log('testGetStringValueResIdCallback004 err.code' + err.code);
                         console.log('testGetStringValueResIdCallback004 err.message' + err.message);
@@ -374,36 +380,6 @@ describe('resourceManagerTest', function () {
     })
 
     /* *
-    * @tc.number   TEST_GETSTRINGVALUERESIDCALLBACK_005
-    * @tc.name     test getString method in callback mode
-    * @tc.desc     get the string in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetStringValueResIdCallback005', 0, async function (done) {
-            try{
-                // param type not correct,throw 401 error code
-                globalThis.abilityContext.resourceManager.getStringValue('name', (err, value) => {
-                    if(err){
-                        console.log('testGetStringValueResIdCallback005 err.code:' + err.code);
-                        console.log('testGetStringValueResIdCallback005 err.message:' + err.message);
-                        done();
-                    }else{
-                        expect(value !== null).assertTrue();
-                        console.log('testGetStringValueResIdCallback005 ' + value);
-                        done();
-                    }
-                })
-            }catch(e){
-                console.log('testGetStringValueResIdCallback005 e.code:' + e.code);
-                console.log('testGetStringValueResIdCallback005 e.message' + e.message);
-                expect(e.code == 401).assertTrue();
-                done();
-            }
-    })
-
-    /* *
         * @tc.number  TEST_GETSTRINGVALUERESIDPROMISE_001
         * @tc.name    test getString method in promise mode
         * @tc.desc    get the string in promise mode
@@ -413,7 +389,7 @@ describe('resourceManagerTest', function () {
         */
 
     it('testGetStringValueResIdPromise001', 0, async function (done) {
-        globalThis.abilityContext.resourceManager.getStringValue($r('app.string.test_1').id).then(value => {
+        context.resourceManager.getStringValue($r('app.string.test_1').id).then(value => {
             expect(value !== null).assertTrue();
             console.log('testGetStringValueResIdPromise001 ' + value);
             expect(value).assertEqual('Test1');
@@ -432,7 +408,7 @@ describe('resourceManagerTest', function () {
     it('testGetStringValueResIdPromise002', 0, async function (done) {
             try{
                 // 0x1001 id not exist,throw 9001001 error code
-                globalThis.abilityContext.resourceManager.getStringValue(0x1001).then(value => {
+                context.resourceManager.getStringValue(0x1001).then(value => {
                     expect(value !== null).assertTrue();
                     console.log('testGetStringValueResIdPromise002 ' + value);
                     expect(value).assertEqual('Test1');
@@ -462,7 +438,7 @@ describe('resourceManagerTest', function () {
             try{
                 // 0x01000000 id is integer resource,throw 9001002 error code
                 console.log('testGetStringValueResIdPromise003 promise start');
-                globalThis.abilityContext.resourceManager.getStringValue($r('app.integer.integer_1').id).then(value => {
+                context.resourceManager.getStringValue($r('app.integer.integer_1').id).then(value => {
                     console.log('testGetStringValueResIdPromise003 promise try' + value);
                     expect(value !== null).assertTrue();
                     console.log('testGetStringValueResIdPromise003 ' + value);
@@ -494,7 +470,7 @@ describe('resourceManagerTest', function () {
     it('testGetStringValueResIdPromise004', 0, async function (done) {
             try{
                 // 0x01000006 id re-ref,throw 9001006 error code
-                globalThis.abilityContext.resourceManager.getStringValue($r('app.string.Test_name1').id).then(value => {
+                context.resourceManager.getStringValue($r('app.string.Test_name1').id).then(value => {
                     expect(value !== null).assertTrue();
                     console.log('testGetStringValueResId009 ' + value);
                     expect(value).assertEqual('Test1');
@@ -513,35 +489,6 @@ describe('resourceManagerTest', function () {
     })
 
     /* *
-    * @tc.number TEST_GETSTRINGVALUERESIDPROMISE_005
-    * @tc.name   test getStringValue method in promise mode
-    * @tc.desc   get the string in promise mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-     it('testGetStringValueResIdPromise005', 0, async function (done) {
-            try{
-                // param type not correct,throw 401 error code
-                globalThis.abilityContext.resourceManager.getStringValue('name').then(value => {
-                    expect(value !== null).assertTrue();
-                    console.log('testGetStringValueResIdPromise005 ' + value);
-                    expect(value).assertEqual('Test1');
-                    done();
-                }).catch(error => {
-                    console.log('testGetStringValueResIdPromise005 error.code' + error.code);
-                    console.log('testGetStringValueResIdPromise005 error.message' + error.message);
-                    expect(error.code == 401).assertTrue();
-                    done();
-                })
-            } catch (err){
-                console.log('testGetStringValueResIdPromise005 err.code' + err.code);
-                console.log('testGetStringValueResIdPromise005 err.message' + err.message);
-                done();
-            }
-    })
-
-    /* *
     * @tc.number  TEST_GETSTRINGARRAYVALUERESOURCECALLBACK_001
     * @tc.name    test getStringValue method in callback mode
     * @tc.desc    get the string array in callback mode
@@ -550,7 +497,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStartArrayValueResourceCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.strarray.sizeList').id}, (err, value) => {
                 expect(value !== null).assertTrue();
@@ -568,7 +515,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStartArrayValueResourcePromise001', 0, async function (done) {
-             globalThis.abilityContext.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+             context.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.strarray.sizeList').id}).then(value => {
                 expect(value !== null).assertTrue();
@@ -586,7 +533,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStartArrayValueResIdCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id, (err, value) => {
+            context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id, (err, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStartArrayValueResIdCallback001 ' + value);
                 console.log('testGetStartArrayValueResIdCallback001 ' + value.length);
@@ -609,7 +556,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStartArrayValueResIdPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id).then(value => {
+            context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id).then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStartArrayValueResIdPromise001 ' + value);
                 console.log('testGetStartArrayValueResIdPromise001 ' + value.length);
@@ -633,7 +580,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentResourceCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.media.icon').id}, (err, value) => {
                 expect(value !== null).assertTrue();
@@ -651,7 +598,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentResourcePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.media.icon').id}).then(value => {
                 expect(value !== null).assertTrue();
@@ -669,7 +616,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentResIdCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContent($r('app.media.icon').id, (err, value) => {
+            context.resourceManager.getMediaContent($r('app.media.icon').id, (err, value) => {
                 console.log('testGetMediaContentResIdCallback001 ' + value.length);
                 expect(value.length > 0).assertTrue();
                 done();
@@ -685,7 +632,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentResIdPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContent($r('app.media.icon').id).then(value => {
+            context.resourceManager.getMediaContent($r('app.media.icon').id).then(value => {
                 console.log('testGetMediaContentResIdPromise001 ' + value.length);
                 expect(value.length > 0).assertTrue();
                 done();
@@ -702,7 +649,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentBase64ResourceCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.media.icon').id}, (err, value) => {
                 expect(value !== null).assertTrue();
@@ -720,7 +667,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentBase64ResourcePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.media.icon').id}).then(value => {
                 expect(value !== null).assertTrue();
@@ -738,7 +685,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentBase64ResIdCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContentBase64($r('app.media.icon').id, (err, value) => {
+            context.resourceManager.getMediaContentBase64($r('app.media.icon').id, (err, value) => {
                 expect(value.length > 0).assertTrue();
                 console.log('testGetMediaContentBase64ResIdCallback001 ' + value);
                 done();
@@ -754,7 +701,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaContentBase64ResIdPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaContentBase64($r('app.media.icon').id).then(value => {
+            context.resourceManager.getMediaContentBase64($r('app.media.icon').id).then(value => {
                 expect(value.length > 0).assertTrue();
                 console.log('testGetMediaContentBase64ResIdPromise001 ' + value);
                 done();
@@ -770,7 +717,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetDeviceCapabilityCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getDeviceCapability((error, dc) => {
+            context.resourceManager.getDeviceCapability((error, dc) => {
                 if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE){
                     console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_PHONE');
                 }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_TABLET){
@@ -799,7 +746,7 @@ describe('resourceManagerTest', function () {
         * @tc.level    level 2
         */
     it('testGetDeviceCapabilityPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getDeviceCapability().then(dc => {
+            context.resourceManager.getDeviceCapability().then(dc => {
                 if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE){
                     console.log('testGetDeviceCapabilityPromise001 DEVICE_TYPE_PHONE');
                 }
@@ -822,7 +769,7 @@ describe('resourceManagerTest', function () {
     */
     it('testGetConfigurationCallback001', 0, async function (done) {
             console.log('testGetConfigurationCallback001 0');
-            globalThis.abilityContext.resourceManager.getConfiguration((error, cfg) => {
+            context.resourceManager.getConfiguration((error, cfg) => {
                 console.log('testGetConfigurationCallback001 1');
                 expect(cfg.direction !== null).assertTrue();
                 console.log('testGetConfigurationCallback001 1' + cfg.direction);
@@ -850,7 +797,7 @@ describe('resourceManagerTest', function () {
         * @tc.level    level 2
         */
     it('testGetConfigurationPromise001', 0, async function (done) {
-        globalThis.abilityContext.resourceManager.getConfiguration().then(cfg => {
+        context.resourceManager.getConfiguration().then(cfg => {
             console.log('testGetConfigurationPromise001 ' + resourceManager.Direction.DIRECTION_HORIZONTAL);
             if(cfg.direction == resourceManager.Direction.DIRECTION_VERTICAL){
                 console.log('testGetConfigurationPromise001 DIRECTION_VERTICAL');
@@ -873,7 +820,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringValueResourceCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.plural.plural_name').id}, 1, (error, value) => {
                 expect(value !== null).assertTrue();
@@ -891,7 +838,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringValueResourcePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            context.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
                 moduleName:"entry_test",
                 id:$r('app.plural.plural_name').id}, 1).then(value => {
                 expect(value !== null).assertTrue();
@@ -909,7 +856,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringValueResIdCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1, (error, value) => {
+            context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1, (error, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetPluralStringValueResIdCallback001 ' + value);
                 expect(value).assertEqual('1 test other');
@@ -926,7 +873,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringValueResIdPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1).then(value => {
+            context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1).then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetPluralStringValueResIdPromise001 ' + value);
                 expect(value).assertEqual('1 test other');
@@ -943,7 +890,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringByNameCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringByName('test_1', (err, value) => {
+            context.resourceManager.getStringByName('test_1', (err, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStringByNameCallback001 ' + value);
                 expect(value).assertEqual('Test1');
@@ -960,7 +907,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringByNamePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringByName('test_1').then(value => {
+            context.resourceManager.getStringByName('test_1').then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStringByNamePromise001 ' + value);
                 expect(value).assertEqual('Test1');
@@ -978,7 +925,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringArrayByNameCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringArrayByName('sizeList', (err, value) => {
+            context.resourceManager.getStringArrayByName('sizeList', (err, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStringArrayByNameCallback001 ' + value);
                 console.log('testGetStringArrayByNameCallback001 ' + value.length);
@@ -1001,7 +948,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringArrayByNamePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getStringArrayByName('sizeList').then(value => {
+            context.resourceManager.getStringArrayByName('sizeList').then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetStringArrayByNamePromise001 ' + value);
                 console.log('testGetStringArrayByNamePromise001 ' + value.length);
@@ -1025,7 +972,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaByNameCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaByName('icon', (err, value) => {
+            context.resourceManager.getMediaByName('icon', (err, value) => {
                 expect(value.length > 0).assertTrue();
                 done();
             })
@@ -1040,7 +987,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaByNamePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaByName('icon').then(value => {
+            context.resourceManager.getMediaByName('icon').then(value => {
                 expect(value.length > 0).assertTrue();
                 done();
             })
@@ -1055,7 +1002,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaBase64ByNameCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaBase64ByName('icon', (err, value) => {
+            context.resourceManager.getMediaBase64ByName('icon', (err, value) => {
                 expect(value.length > 0).assertTrue();
                 console.log('testGetMediaBase64ByNameCallback001 ' + value);
                 done();
@@ -1071,7 +1018,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetMediaBase64ByNamePromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getMediaBase64ByName('icon').then(value => {
+            context.resourceManager.getMediaBase64ByName('icon').then(value => {
                 expect(value.length > 0).assertTrue();
                 console.log('testGetMediaBase64ByNamePromise001 ' + value);
                 done();
@@ -1087,7 +1034,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringByNameCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringByName('plural_name', 1, (error, value) => {
+            context.resourceManager.getPluralStringByName('plural_name', 1, (error, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetPluralStringByNameCallback001 ' + value);
                 expect(value).assertEqual('1 test other');
@@ -1104,7 +1051,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetPluralStringByName002', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getPluralStringByName('plural_name', 1).then(value => {
+            context.resourceManager.getPluralStringByName('plural_name', 1).then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetPluralStringByName002 ' + value);
                 expect(value).assertEqual('1 test other');
@@ -1121,7 +1068,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringSyncResId001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getStringSync($r('app.string.test_1').id);
+            let value = context.resourceManager.getStringSync($r('app.string.test_1').id);
             expect(value !== null).assertTrue();
             console.log('testGetStringSyncResId001 ' + value);
             expect(value).assertEqual('Test1');
@@ -1137,7 +1084,7 @@ describe('resourceManagerTest', function () {
    * @tc.level    level 2
    */
     it('testGetStringSyncResIdArgs001', 0, async function (done) {
-        let value = globalThis.abilityContext.resourceManager.getStringSync($r('app.string.test_2').id,2);
+        let value = context.resourceManager.getStringSync($r('app.string.test_2').id,2);
         expect(value !== null).assertTrue();
         console.log('testGetStringSyncResIdArgs001 ' + value);
         expect(value).assertEqual('Test2');
@@ -1153,7 +1100,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringSyncResource001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getStringSync({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            let value = context.resourceManager.getStringSync({bundleName:"com.example.resourcemanagertest",
                 moduleName:"entry_test",
                 id:$r('app.string.test_1').id});
             expect(value !== null).assertTrue();
@@ -1171,7 +1118,7 @@ describe('resourceManagerTest', function () {
     * @tc.level   level 2
     */
     it('testGetStringSyncResourceArgs001', 0, async function (done) {
-        let value = globalThis.abilityContext.resourceManager.getStringSync({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+        let value = context.resourceManager.getStringSync({bundleName:"com.example.resourcemanagertest",
             moduleName:"entry_test",
             id:$r('app.string.test_2').id},
             2);
@@ -1191,7 +1138,7 @@ describe('resourceManagerTest', function () {
     */
     it('testGetStringByNameSync001', 0, async function (done) {
             try{
-                let value = globalThis.abilityContext.resourceManager.getStringByNameSync('notexist');
+                let value = context.resourceManager.getStringByNameSync('notexist');
                 console.log('testGetStringByNameSync001 value');
                 expect(value !== null).assertTrue();
                 console.log('testGetStringByNameSync001 ' + value);
@@ -1213,7 +1160,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringByNameSync002', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getStringByNameSync('test_1');
+            let value = context.resourceManager.getStringByNameSync('test_1');
             expect(value !== null).assertTrue();
             expect(value).assertEqual('Test1');
             console.log('testGetStringByNameSync002 ' + value);
@@ -1229,7 +1176,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetStringByNameSyncArgs001', 0, async function (done) {
-        let value = globalThis.abilityContext.resourceManager.getStringByNameSync('test_2',2);
+        let value = context.resourceManager.getStringByNameSync('test_2',2);
         expect(value !== null).assertTrue();
         expect(value).assertEqual('Test2');
         console.log('testGetStringByNameSyncArgs001 ' + value);
@@ -1246,7 +1193,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetBooleanResId001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getBoolean($r('app.boolean.boolean_1').id);
+            let value = context.resourceManager.getBoolean($r('app.boolean.boolean_1').id);
             console.log('testGetBooleanResId001 ' + value);
             expect(value!==null).assertTrue();
             done();
@@ -1261,7 +1208,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetBooleanResource001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getBoolean({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            let value = context.resourceManager.getBoolean({bundleName:"com.example.resourcemanagertest",
                 moduleName:"entry_test",
                 id:$r('app.boolean.boolean_1').id});
             console.log('testGetBooleanResource001 ' + value);
@@ -1278,7 +1225,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetBooleanByName001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getBooleanByName('boolean_1');
+            let value = context.resourceManager.getBooleanByName('boolean_1');
             console.log('testGetBooleanByName001 ' + value);
             expect(value).assertTrue();
             done();
@@ -1294,7 +1241,7 @@ describe('resourceManagerTest', function () {
     */
     it('testGetNumberResId001', 0, async function (done) {
             console.log('testGetNumberResId001 0');
-            let value = globalThis.abilityContext.resourceManager.getNumber($r('app.integer.integer_1').id);
+            let value = context.resourceManager.getNumber($r('app.integer.integer_1').id);
             console.log('testGetNumberResId001 1');
             console.log('testGetNumberResId001 ' + value);
             expect(value).assertEqual(100);
@@ -1311,7 +1258,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetNumberResId002', 0, async function (done) {
-        let value = globalThis.abilityContext.resourceManager.getNumber($r('app.float.float_1').id);
+        let value = context.resourceManager.getNumber($r('app.float.float_1').id);
         console.log('testGetNumberResId002 ' + value);
         expect(value > 0).assertTrue();
         done();
@@ -1327,7 +1274,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetNumberResource001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getNumber({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            let value = context.resourceManager.getNumber({bundleName:"com.example.resourcemanagertest",
                 moduleName:"entry_test",
                 id:$r('app.integer.integer_1').id});
             console.log('testGetNumberResource001 ' + value);
@@ -1346,7 +1293,7 @@ describe('resourceManagerTest', function () {
     */
     it('testGetNumberResource002', 0, async function (done) {
 
-            let value = globalThis.abilityContext.resourceManager.getNumber({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
+            let value = context.resourceManager.getNumber({bundleName:"com.example.resourcemanagertest",
                 moduleName:"entry_test",
                 id:$r('app.float.float_1').id});
             console.log('testGetNumberResource002 ' + value);
@@ -1364,7 +1311,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetNumberByName001', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getNumberByName('integer_1');
+            let value = context.resourceManager.getNumberByName('integer_1');
             console.log('testGetNumberByName001 ' + value);
             expect(value).assertEqual(100);
             done();
@@ -1379,7 +1326,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetNumberByName002', 0, async function (done) {
-            let value = globalThis.abilityContext.resourceManager.getNumberByName('float_1');
+            let value = context.resourceManager.getNumberByName('float_1');
             console.log('testGetNumberByName002 ' + value);
             expect(value > 0).assertTrue();
             done();
@@ -1394,11 +1341,11 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testRelease001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getString($r('app.string.test_1').id, (err, value) => {
+            context.resourceManager.getString($r('app.string.test_1').id, (err, value) => {
                 expect(value !== null).assertTrue();
                 done();
             })
-            globalThis.abilityContext.resourceManager.release();
+            context.resourceManager.release();
     })
 
     /* *
@@ -1410,7 +1357,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetRawFileContentCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getRawFileContent('rawfile/rawfiletest.xml', (error, value) => {
+            context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml', (error, value) => {
                 expect(value !== null).assertTrue();
                 console.log('testGetRawFileContentCallback001 ' + value);
                 done();
@@ -1426,7 +1373,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetRawFileContentPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getRawFileContent('rawfile/rawfiletest.xml').then(value => {
+            context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml').then(value => {
                 expect(value !== null).assertTrue();
                 console.log('testGetRawFileContentPromise001 ' + value);
                 done();
@@ -1442,7 +1389,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetRawFdCallback001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
+            context.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
                 let fdValue = rawfile.fd;
                 let offsetValue = rawfile.offset;
                 let lengthValue = rawfile.length;
@@ -1464,7 +1411,7 @@ describe('resourceManagerTest', function () {
     * @tc.level    level 2
     */
     it('testGetRawFdPromise001', 0, async function (done) {
-            globalThis.abilityContext.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
+            context.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
                 rawfile.fd = 2000;
                 rawfile.offset = 20;
                 rawfile.length = 200;
@@ -1488,7 +1435,7 @@ describe('resourceManagerTest', function () {
     */
     it('testCloseRawFdCallback001', 0, async function (done) {
             try{
-                globalThis.abilityContext.resourceManager.closeRawFd('notexist.xml', (error, value) => {
+                context.resourceManager.closeRawFd('notexist.xml', (error, value) => {
                     if(error){
                         console.log('testCloseRawFdCallback001 err.code:' + error.code);
                         console.log('testCloseRawFdCallback001 err.message:' + error.message);
@@ -1517,7 +1464,7 @@ describe('resourceManagerTest', function () {
     it('testCloseRawFdPromise001', 0, async function (done) {
             try {
                 // param not exist throw 9001005 error code
-                globalThis.abilityContext.resourceManager.closeRawFd('notexist.xml').then(value => {
+                context.resourceManager.closeRawFd('notexist.xml').then(value => {
                     console.log('testCloseRawFdPromise001 ' + value);
                     done();
                 }).catch(error => {
@@ -1532,35 +1479,7 @@ describe('resourceManagerTest', function () {
                 done();
             }
     })
-
-    /*
-    * @tc.number  TEST_CLOSERAWFDPROMISE_002
-    * @tc.name    test closeRawFd method in promise mode throw 401 error code
-    * @tc.desc    get the closeRawFd in promise mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testCloseRawFdPromise002', 0, async function (done) {
-            try {
-                // param type not correct,throw 401 error code
-                globalThis.abilityContext.resourceManager.closeRawFd($r('app.integer.integer_1').id).then(value => {
-                    console.log('testCloseRawFdPromise002 ' + value);
-                    done();
-                }).catch(error => {
-                    console.log('testCloseRawFdPromise002 error.code' + error.code);
-                    console.log('testCloseRawFdPromise002 error.message' + error.message);
-                    expect(error.code == 401).assertTrue();
-                    done();
-                })
-            } catch (err) {
-                console.log('testCloseRawFdPromise002 err.code' + err.code);
-                console.log('testCloseRawFdPromise002 err.message' + err.message);
-                done();
-            }
-    })
-
-    
+   
      console.log('*************end ResmgrTest*************');
 })}
 
