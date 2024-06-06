@@ -105,6 +105,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0AF1AE627D36856008C55DD /* Build configuration list for PBXNativeTarget "app" */;
 			buildPhases = (
+				DA901AF3B79E48BEAB89C4DF /* Run Script */,
 				F0AF1AC927D3684F008C55DD /* Sources */,
 				F0AF1ACA27D3684F008C55DD /* Frameworks */,
 				F0AF1ACB27D3684F008C55DD /* Resources */,
@@ -120,6 +121,28 @@
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXShellScriptBuildPhase section */
+      DA901AF3B79E48BEAB89C4DF /* Run Script */ = {
+          isa = PBXShellScriptBuildPhase;
+          buildActionMask = 2147483647;
+          files = (
+          );
+          inputPaths = (
+          );
+          name = "Run My Script";
+          outputPaths = (
+          );
+          runOnlyForDeploymentPostprocessing = 0;
+          shellPath = "/bin/sh";
+          shellScript = '# Select whether you want to execute the compile arkts script.
+configBuildFlag=false
+if [ "$configBuildFlag" = "false" ]; then
+	exit 0
+fi
+sh ${SRCROOT}/buildArkTS.sh';
+      };
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXProject section */
 		F0AF1AC527D3684F008C55DD /* Project object */ = {

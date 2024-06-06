@@ -20,11 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:exported="true" android:name=".EntryMainAbilityActivity"
-            android:windowSoftInputMode="adjustNothing |stateHidden"
-            android:configChanges="orientation|keyboard|layoutDirection|screenSize|screenLayout|uiMode|smallestScreenSize|density"
-            >
-        </activity>
     </application>
 
 </manifest>
