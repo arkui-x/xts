@@ -74,14 +74,12 @@
     
     id subStageVC = nil;
     
-    if ([moduleName isEqualToString:@"entry"]) {
+    if ([moduleName isEqualToString:@"entry"] && [abilityName isEqualToString:@"EntryAbility"]) {
         NSString *instanceName = [NSString stringWithFormat:@"%@:%@:%@",bundleName, moduleName, abilityName];
         EntryEntryAbilityViewController *entryOtherVC = [[EntryEntryAbilityViewController alloc] initWithInstanceName:instanceName];
         entryOtherVC.params = params;
         subStageVC = (EntryEntryAbilityViewController *)entryOtherVC;
     } // other ViewController
-
-
     
     if (!subStageVC) {
         return NO;
