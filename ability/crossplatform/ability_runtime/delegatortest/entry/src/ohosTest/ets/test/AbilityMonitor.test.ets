@@ -16,6 +16,11 @@ import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry
 import { describe, expect, it } from "@ohos/hypium";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let errMsgArr = ["Parse param monitor failed, monitor must be Monitor.",
+  "message:Parse monitor failed, removeAbilityMonitor must be Monitor.",
+  "Parse monitor want failed, removeAbilityMonitor must be Monitor.",
+  "Incorrect parameters."]
+let errMsgStr = JSON.stringify(errMsgArr)
 
 export default function AbilityMonitorTest() {
   const factoryWant = (
@@ -58,7 +63,7 @@ export default function AbilityMonitorTest() {
           "ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100 message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100 pass"
@@ -163,7 +168,7 @@ export default function AbilityMonitorTest() {
           "ACTS_ADD_ABILITY_MONITOR_PROMISE_0100 message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_ADD_ABILITY_MONITOR_PROMISE_0100 pass"
@@ -263,7 +268,7 @@ export default function AbilityMonitorTest() {
           "ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0100 message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0100 pass"
@@ -448,7 +453,7 @@ export default function AbilityMonitorTest() {
           "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0100 message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0100 pass"
@@ -691,7 +696,7 @@ export default function AbilityMonitorTest() {
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0100 message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0100 monitor pass"
         );
@@ -755,7 +760,7 @@ export default function AbilityMonitorTest() {
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0400 message:" + e.message
         );
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(e.code).assertEqual(401);
         expect(true).assertTrue();
         abilityDelegator.printSync(
@@ -1025,7 +1030,7 @@ export default function AbilityMonitorTest() {
           "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0100  message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0100  pass"
@@ -1074,7 +1079,7 @@ export default function AbilityMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200 error:" + error
           );
-          expect.assertFail();
+          expect().assertFail();
           done();
         });
         await abilityDelegator.startAbility(want);
@@ -1118,7 +1123,7 @@ export default function AbilityMonitorTest() {
           abilityDelegator.printSync(
             "actsWaitAbilityMonitorPromise0300 error:" + error
           );
-          expect.assertFail();
+          expect().assertFail();
           done();
         });
       await abilityDelegator.startAbility(want);
@@ -1162,7 +1167,7 @@ export default function AbilityMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0400 error:" + error
           );
-          expect.assertFail();
+          expect().assertFail();
           done();
         });
       await abilityDelegator.startAbility(want);

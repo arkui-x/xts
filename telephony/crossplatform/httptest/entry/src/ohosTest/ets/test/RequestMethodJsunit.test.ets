@@ -627,7 +627,8 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         }
         var httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        //httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestMethod_head Test end-----------------------");
@@ -662,7 +663,8 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         }
         var httpRequest = http.createHttp();
-        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
+        //httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestMethod_DELETE Test end-----------------------");
@@ -696,7 +698,8 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         }
         var httpRequest = http.createHttp();
-        httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
+       // httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
+        httpRequest.request("https://www.4399.cn/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestMethod_DELETE_01 Test end-----------------------");

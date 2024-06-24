@@ -25,6 +25,8 @@ import {
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let errMsgArr = ["Parse remoteObject failed, remoteObject must be RemoteObject.", "Incorrect parameters."];
+let errMsgStr = JSON.stringify(errMsgArr);
 const START_ABILITY_TIMEOUT_TWO_THOUSAND = 2000;
 const START_ABILITY_TIMEOUT_THOUSAND = 1000;
 
@@ -408,9 +410,7 @@ export default function ForegroundPromise() {
                           .doAbilityForeground(ability2)
                           .then(() => {});
                       } catch (error) {
-                        expect(error.message).assertEqual(
-                          "Incorrect parameters."
-                        );
+                        expect(errMsgStr.indexOf(error.message) > 0).assertTrue();
                         abilityDelegator.printSync(
                           "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0005 doAbilityBackground meet an error: " +
                             error

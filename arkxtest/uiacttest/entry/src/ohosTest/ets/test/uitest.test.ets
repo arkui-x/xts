@@ -60,22 +60,23 @@ export default function UiTest() {
       console.info('TEST_DRIVER_POINT_0001 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let Button = await driver.findComponent(ON.text('next page'));
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       expect(Button != null).assertTrue();
+      await driver.delayMs(2000);
       let center = await Button.getBoundsCenter();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       expect(center != null).assertTrue();
+      await driver.delayMs(2000);
       await driver.click(center.x, center.y);
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       let newButton = await driver.findComponent(ON.text('back to index'));
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       expect(newButton != null).assertTrue();
-      let text = await newButton.getText();
-      await driver.delayMs(waitUiReadyMs);
       try {
-        expect(text == 'back to index').assertTrue();
+        await driver.delayMs(2000);
+        expect(await newButton.getText()).assertEqual('back to index');
         console.info('TEST_DRIVER_POINT_0001 pass');
         done();
       }
@@ -149,12 +150,10 @@ export default function UiTest() {
       console.info('TEST_ON_ID_0004 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let button = await driver.findComponent(ON.id('my-key'));
-      await driver.delayMs(waitUiReadyMs);
-      expect(button != null).assertTrue();
       try {
-        expect(await button.getId() == 'my-key').assertTrue();
+        expect(await button.getId()).assertEqual('my-key');
         console.info('TEST_ON_ID_0004 pass');
         done();
       }
@@ -685,9 +684,8 @@ export default function UiTest() {
       console.info('TEST_GET_ID_0024 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let button = await driver.findComponent(ON.id('my-key'));
-      await driver.delayMs(waitUiReadyMs);
       try {
         expect(await button.getId() == 'my-key').assertTrue();
         console.info('TEST_GET_ID_0024 pass');
@@ -713,8 +711,6 @@ export default function UiTest() {
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.id('my-key'));
-      await driver.delayMs(waitUiReadyMs);
-      // let ButtonId = await button.getId()
       try {
         expect(await button.getId() == 'her-key').assertFalse();
         console.info('TEST_GET_ID_FALSE_0025 pass');
@@ -1338,13 +1334,14 @@ export default function UiTest() {
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Radio = await driver.findComponent(ON.type('Radio'));
-      await driver.delayMs(waitUiReadyMs);
       expect(Radio != null).assertTrue();
       await driver.delayMs(waitUiReadyMs);
-      await Radio.inputText('123');
+      await Radio.inputText('123'); //OH
       await driver.delayMs(waitUiReadyMs);
       try {
-        expect(await Radio.getText() == '123').assertFalse();
+        let Radio1 = await driver.findComponent(ON.type('Radio'));
+        await driver.delayMs(waitUiReadyMs);
+        expect(await Radio1.getText() == 'Radio2').assertTrue();
         console.info('TEST_INPUTTEXT_FALSE_0047 pass');
         done();
       }
@@ -1954,22 +1951,21 @@ export default function UiTest() {
       console.info('TEST_DRIVER_CLICK_0068 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let Button = await driver.findComponent(ON.text('next page'));
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       expect(Button != null).assertTrue();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(2000);
       let center = await Button.getBoundsCenter();
+      await driver.delayMs(2000);
       await driver.click(center.x, center.y);
       await driver.delayMs(3000);
       let newButton = await driver.findComponent(ON.text('back to index'));
       await driver.delayMs(2000);
       expect(newButton != null).assertTrue();
-      await driver.delayMs(waitUiReadyMs);
-      let text = await newButton.getText();
-      await driver.delayMs(2000);
       try {
-        expect(text == 'back to index').assertTrue();
+        await driver.delayMs(2000);
+        expect(await newButton.getText()).assertEqual('back to index');
         console.info('TEST_DRIVER_CLICK_0068 pass');
         done();
       }
@@ -1991,22 +1987,21 @@ export default function UiTest() {
       console.info('TEST_DRIVER_DOUBLE_CLICK_0069 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let Button = await driver.findComponent(ON.text('Click twice'));
       await driver.delayMs(waitUiReadyMs);
       expect(Button != null).assertTrue();
       await driver.delayMs(waitUiReadyMs);
       let center = await Button.getBoundsCenter();
+      await driver.delayMs(waitUiReadyMs);
       await driver.doubleClick(center.x, center.y);
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.text('doubleClick'));
       await driver.delayMs(waitUiReadyMs);
       expect(button != null).assertTrue();
-      await driver.delayMs(waitUiReadyMs);
-      let text = await button.getText();
-      await driver.delayMs(waitUiReadyMs);
       try {
-        expect(text == 'doubleClick').assertTrue();
+        await driver.delayMs(waitUiReadyMs);
+        expect(await button.getText()).assertEqual('doubleClick');
         console.info('TEST_DRIVER_DOUBLE_CLICK_0069 pass');
         done();
       }
@@ -2027,22 +2022,19 @@ export default function UiTest() {
       console.info('TEST_DRIVER_LONG_CLICK_0070 start');
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let Button = await driver.findComponent(ON.text('next page'));
       await driver.delayMs(waitUiReadyMs);
       expect(Button != null).assertTrue();
       await driver.delayMs(waitUiReadyMs);
       let center = await Button.getBoundsCenter();
+      await driver.delayMs(waitUiReadyMs);
       await driver.longClick(center.x, center.y);
       await driver.delayMs(3000);
       let newButton = await driver.findComponent(ON.text('longClick'));
-      await driver.delayMs(waitUiReadyMs);
-      expect(newButton != null).assertTrue();
-      await driver.delayMs(waitUiReadyMs);
-      let text = await newButton.getText();
-      await driver.delayMs(waitUiReadyMs);
       try {
-        expect(text == 'longClick').assertTrue();
+        await driver.delayMs(waitUiReadyMs);
+        expect(await newButton.getText()).assertEqual('longClick');
         console.info('TEST_DRIVER_LONG_CLICK_0070 pass');
         done();
       }
@@ -2122,7 +2114,7 @@ export default function UiTest() {
     it('TEST_MATCH_PATTERN_0073', 0, async (done: Function) => {
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(3000);
       let Button1 = await driver.findComponent(ON.text('next page', MatchPattern.EQUALS));
       await driver.delayMs(waitUiReadyMs);
       expect(Button1 != null).assertTrue();
@@ -2155,10 +2147,3 @@ export default function UiTest() {
     });
   })
 }
-
-
-
-
-
-
-

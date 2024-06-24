@@ -17,8 +17,8 @@ import { describe, beforeAll, afterAll, it, expect, beforeEach } from '@ohos/hyp
 import certFramework from '@ohos.security.cert';
 import { BusinessError } from '@ohos.base';
 import cryptoFramework from '@ohos.security.cryptoFramework';
-import { certDataDer, pubKeyData, priKeyData, extData } from "./utils/publicParam";
-import { getEncodingBlob, getEncodingBlobCrl, getEncodingBlobForCrlTest, dataArray, sleep } from "./utils/index";
+import { certDataDer, pubKeyData, priKeyData, extData } from "./utils/common/publicParam";
+import { getEncodingBlob, getEncodingBlobCrl, getEncodingBlobForCrlTest, dataArray, sleep } from "./utils/common/index";
 
 let x509CertPem: certFramework.X509Cert;
 let x509CertDer: certFramework.X509Cert;

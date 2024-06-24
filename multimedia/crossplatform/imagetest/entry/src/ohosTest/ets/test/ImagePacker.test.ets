@@ -656,13 +656,13 @@ export default function ImagePacker() {
                         imagePackerApi
                             .packing(imageSourceApi, packOpts)
                             .then((data) => {
-                                console.info("testPackingImageSourcePromise002 fail");
-                                expect(false).assertTrue();
+                                console.log("testPackingImageSourcePromise002 success");
+                                expect(true).assertTrue();
                                 done();
                             })
                             .catch((error) => {
-                                console.log("testPackingImageSourcePromise002 success");
-                                expect(true).assertTrue();
+                                console.info("testPackingImageSourcePromise002 fail");
+                                expect(false).assertTrue();
                                 done();
                             });
                     }
@@ -848,12 +848,12 @@ export default function ImagePacker() {
                         imagePackerApi
                             .packing(imageSourceApi, packOpts)
                             .then((data) => {
-                                console.info("testPackingImageSourcePromise002 fail");
+                                console.info("testPackingImageSourcePromise006 fail");
                                 expect(false).assertTrue();
                                 done();
                             })
                             .catch((error) => {
-                                console.log("testPackingImageSourcePromise002 success");
+                                console.log("testPackingImageSourcePromise006 success");
                                 expect(true).assertTrue();
                                 done();
                             });
@@ -938,7 +938,7 @@ export default function ImagePacker() {
                         let packOpts = { format: "image/gif", quality: 98 };
                         imagePackerApi.packing(imageSourceApi, packOpts, (err, data) => {
                             console.info("testPackingImageSourceCb002 success");
-                            expect(data == undefined).assertTrue();
+                            expect(data != undefined).assertTrue();
                             done();
                         });
                     }

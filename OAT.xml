@@ -58,6 +58,8 @@ Note:If the text contains special characters, please escape them according to th
             <filefilter name="binaryFileTypePolicyFilter" desc="eTSHelloWorld二进制文件校验策略的过滤条件" >
                 <filteritem type="filename" name=".DS_Store" desc="工程自编译生成的二进制文件"/>
                 <filteritem type="filename" name="UserInterfaceState.xcuserstate" desc="ios依赖的二进制文件"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.png" desc="工程自编译生成的二进制文件"/>
+                <filteritem type="filename" name=".*.*" desc="测试依赖二进制文件"/>
             </filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="LaunchScreen.storyboard" desc="示例展示无需添加版权头"/>
@@ -71,6 +73,9 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name=".*/crossplatform/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
                 <filteritem type="filepath" name=".*/crossplatform/.*.pbxproj" desc="示例展示无需添加版权头"/>  
                 <filteritem type="filepath" name=".*/crossplatform/.*/hvigorw" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.ts" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.projectInfo" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*" desc="示例展示无需添加版权头"/>
             </filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
                 <filteritem type="filename" name="LaunchScreen.storyboard" desc="示例展示无需添加版权头"/>
@@ -84,6 +89,9 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name=".*/crossplatform/.*.xcworkspacedata" desc="示例展示无需添加版权头"/>
                 <filteritem type="filepath" name=".*/crossplatform/.*.pbxproj" desc="示例展示无需添加版权头"/>
                 <filteritem type="filepath" name=".*/crossplatform/.*/hvigorw" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.ts" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*/crossplatform/.*.projectInfo" desc="示例展示无需添加版权头"/>
+                <filteritem type="filepath" name=".*" desc="示例展示无需添加版权头"/>
             </filefilter>
         </filefilterlist>
     </oatconfig>

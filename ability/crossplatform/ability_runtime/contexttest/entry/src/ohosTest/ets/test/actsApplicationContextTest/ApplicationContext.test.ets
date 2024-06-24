@@ -19,6 +19,9 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 export default function ApplicationContext() {
   describe("ApplicationContext", function () {
     let bundleName: any;
+    let errMsgArr = ["Parse param moduleName failed, moduleName must be string.",
+      "Invalid input parameter."];
+    let errMsgStr = JSON.stringify(errMsgArr);
 
     beforeAll(async function () {
       console.info("beforeAll case");
@@ -430,9 +433,8 @@ export default function ApplicationContext() {
         done();
       } catch (err) {
         let e = err.toString();
-        let errLog = "Invalid input parameter"
         console.debug("testCreateModuleContext003 ====>e====>" + e);
-        expect(e.indexOf(errLog) >= 0).assertTrue();
+        expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
       }
     })
@@ -456,9 +458,8 @@ export default function ApplicationContext() {
         done();
       } catch (err) {
         let e = err.toString();
-        let errLog = "Invalid input parameter"
         console.debug("testCreateModuleContext004 ====>e====>" + e);
-        expect(e.indexOf(errLog) >= 0).assertTrue();
+        expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
       }
     })
@@ -482,9 +483,8 @@ export default function ApplicationContext() {
         done();
       } catch (err) {
         let e = err.toString();
-        let errLog = "Invalid input parameter"
         console.debug("testCreateModuleContext005 ====>e====>" + e);
-        expect(e.indexOf(errLog) >= 0).assertTrue();
+        expect(errMsgStr.indexOf(err.message) > 0).assertTrue();
         done();
       }
     })

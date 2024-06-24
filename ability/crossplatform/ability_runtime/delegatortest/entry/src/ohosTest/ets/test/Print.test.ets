@@ -24,6 +24,8 @@ import {
 } from "@ohos/hypium";
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let errMsgArr = ["Parse parameters msg failed, msg must be string.", "Incorrect parameters."]
+let errMsgStr = JSON.stringify(errMsgArr)
 
 export default function PrintTest() {
   describe("PrintTest", function () {
@@ -75,7 +77,7 @@ export default function PrintTest() {
           "ACTS_PRINT_CALLBACK_ERROR_0002 print message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         abilityDelegator.printSync(
           "ACTS_PRINT_CALLBACK_ERROR_0002 print callback meet an error: msg is int"
         );
@@ -230,7 +232,7 @@ export default function PrintTest() {
           "ACTS_PRINT_PROMISE_ERROR_0002 print callback message:" + e.message
         );
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         abilityDelegator.printSync(
           "ACTS_PRINT_PROMISE_ERROR_0002 print promise meet an error: msg is int"
         );

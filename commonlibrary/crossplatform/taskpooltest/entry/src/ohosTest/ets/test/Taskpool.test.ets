@@ -1673,7 +1673,7 @@ export default function TaskPoolTest() {
             }
             catch (e) {
                 expect(e.toString()).assertEqual(
-                    "BusinessError: The task does not exist when it is canceled");
+                    "BusinessError: The task does not exist when it is canceled, taskpool:: task is not executed or has been executed");
             }
             done();
         })

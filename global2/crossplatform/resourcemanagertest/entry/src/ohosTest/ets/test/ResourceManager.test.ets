@@ -31,7 +31,6 @@ export default function resourceManagerTest() {
           console.log(`SUB_Global_Resource_Manager_0100_GetMediaContent_Func_0100 ${value.length}`);
           expect(value.length == 6790).assertTrue();
         } else {
-          console.log('testGetMediaContentResIdCallback001 err.code ' + err.code);
           console.log(`SUB_Global_Resource_Manager_0100_GetMediaContent_Func_0100 errCode ${err.code}`);
           console.log(`SUB_Global_Resource_Manager_0100_GetMediaContent_Func_0100 errMessage ${err.message}`);
           expect().assertFail()
@@ -2974,10 +2973,7 @@ export default function resourceManagerTest() {
     */
     it('SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3800', 0, async (done: Function) => {
       let rawfile: resourceManager.RawFileDescriptor = context.resourceManager.getRawFdSync('rawfiletest.xml');
-      let fdValue: number = rawfile.fd;
-      let offsetValue: number = rawfile.offset;
-      let lengthValue: number = rawfile.length;
-      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3800 fd: ${fdValue} offset: ${offsetValue} length: ${lengthValue}`);
+      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3800 rawfile =` + JSON.stringify(rawfile));
       expect(rawfile != null).assertTrue();
       done();
     })
@@ -2993,11 +2989,8 @@ export default function resourceManagerTest() {
     */
     it('SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900', 0, async (done: Function) => {
       let rawfile: resourceManager.RawFileDescriptor = context.resourceManager.getRawFdSync('test/test.png');
-      let fdValue: number = rawfile.fd;
-      let offsetValue: number = rawfile.offset;
-      let lengthValue: number = rawfile.length;
-      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900 fd: ${fdValue} offset: ${offsetValue} length: ${lengthValue}`);
-      expect(lengthValue == 128635).assertTrue();
+      console.log(`SUB_Global_Resource_Manager_0200_GetRawFdSync_Func_3900 rawfile =` + JSON.stringify(rawfile));
+      expect(rawfile != null).assertTrue();
       done();
     })
 

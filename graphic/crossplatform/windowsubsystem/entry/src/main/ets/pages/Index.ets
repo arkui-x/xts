@@ -1,4 +1,5 @@
 import common from '@ohos.app.ability.common';
+import router from '@ohos.router';
 
 @Entry
 @Component
@@ -36,14 +37,15 @@ struct Index {
               .fontWeight(FontWeight.Bold)
               .margin({ top: 20 })
               .onClick(() => {
-                this.context.startAbility({
-                  deviceId: '',
-                  bundleName: "com.example.windowsubsystem",
-                  abilityName: "MainAbility",
-                  moduleName: "entry"
-                }).then(() => {
-                  console.info('Succeeded in starting ability.');
-                })
+                // this.context.startAbility({
+                //   deviceId: '',
+                //   bundleName: "com.example.windowsubsystem",
+                //   abilityName: "MainAbility",
+                //   moduleName: "entry"
+                // }).then(() => {
+                //   console.info('Succeeded in starting ability.');
+                // })
+                router.pushUrl({url:"pages/Main"})
               })
           }
         }

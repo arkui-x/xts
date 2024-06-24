@@ -1339,7 +1339,7 @@ export default function Window() {
       tempWnd = await windowStage.createSubWindow(windowId);
       expect(!!tempWnd).assertTrue();
       console.log(msgStr + 'tempWnd.loadContent start');
-      await tempWnd.loadContent('testability/pages/index1', storage).then(async () => {
+      await tempWnd.loadContent('testability/pages/Index1', storage).then(async () => {
         console.log(msgStr + 'tempWnd.loadContent() success');
         expect(TRUE_FLAG).assertTrue();
         await tempWnd.destroyWindow();
@@ -1393,7 +1393,7 @@ export default function Window() {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
         console.log(msgStr + 'tempWnd() success');
-        tempWnd.loadContent('testability/pages/index1', storage, async (err) => {
+        tempWnd.loadContent('testability/pages/Index1', storage, async (err) => {
           if (err && err.code) {
             console.log(msgStr + 'tempWnd.loadContent() success');
 
@@ -1492,7 +1492,7 @@ export default function Window() {
       try {
         win = await windowStage.createSubWindow('testSetUIContentPromise001');
         expect(win != null);
-        await win.setUIContent('testability/pages/index1').then(async () => {
+        await win.setUIContent('testability/pages/Index1').then(async () => {
           console.info('setUIContent1 . Cause: success');
           expect(TRUE_FLAG).assertTrue();
           await win.destroyWindow();
@@ -1574,7 +1574,7 @@ export default function Window() {
           done();
         }).catch(async (err) => {
           console.error('Failed to setUIContent3 . Cause:' + JSON.stringify(err));
-          expect().assertFail();
+          expect(err.code).assertEqual(401);
           await win.destroyWindow();
           done();
         });
@@ -1597,7 +1597,7 @@ export default function Window() {
       winData = await windowStage.createSubWindow('testSetUIContentCb001');
       expect(!!winData).assertTrue();
       try {
-        winData.setUIContent('testability/pages/index1', async (err) => {
+        winData.setUIContent('testability/pages/Index1', async (err) => {
           try {
             if (err.code) {
               console.error('Failed to load the content callback. Cause:' + JSON.stringify(err));

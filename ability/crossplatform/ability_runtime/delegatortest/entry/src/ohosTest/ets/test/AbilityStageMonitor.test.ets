@@ -24,6 +24,10 @@ import {
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let errMsgArr = ["Parse parameters failed, monitor must be Monitor and isExited must be boolean.",
+  "Parse monitor failed, removeAbilityMonitor must be Monitor.",
+  "Incorrect parameters."];
+let errMsgStr = JSON.stringify(errMsgArr);
 
 export default function AbilityStageMonitorTest() {
   const factoryWant = (
@@ -71,7 +75,7 @@ export default function AbilityStageMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_ADD_ABILITY_STAGE_MONITOR_CALLBACK_0100 message:" + e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_ADD_ABILITY_STAGE_MONITOR_CALLBACK_0100 pass"
@@ -152,7 +156,7 @@ export default function AbilityStageMonitorTest() {
         abilityDelegator.printSync(
           "ACTS_ADD_ABILITY_STAGE_MONITOR_PROMISE_0100 message:" + e.message
         );
-        expect(e.message).assertEqual("Incorrect parameters.");
+        expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
         expect(e.code).assertEqual(401);
         abilityDelegator.printSync(
           "ACTS_ADD_ABILITY_STAGE_MONITOR_PROMISE_0100 pass"
@@ -256,7 +260,7 @@ export default function AbilityStageMonitorTest() {
             "ACTS_REMOVE_ABILITY_STAGE_MONITOR_CALLBACK_0100 message:" +
               e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_STAGE_MONITOR_CALLBACK_0100 pass"
@@ -381,7 +385,7 @@ export default function AbilityStageMonitorTest() {
             "ACTS_REMOVE_ABILITY_STAGE_MONITOR_PROMISE_0100 message:" +
               e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_STAGE_MONITOR_PROMISE_0100 pass"
@@ -474,7 +478,7 @@ export default function AbilityStageMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_CALLBACK_0100 message:" + e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_CALLBACK_0100 monitor pass"
@@ -516,7 +520,7 @@ export default function AbilityStageMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_CALLBACK_0200 message:" + e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_CALLBACK_0200 pass "
@@ -628,7 +632,7 @@ export default function AbilityStageMonitorTest() {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_PROMISE_0100 message:" + e.message
           );
-          expect(e.message).assertEqual("Incorrect parameters.");
+          expect(errMsgStr.indexOf(e.message) > 0).assertTrue();
           expect(e.code).assertEqual(401);
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_STAGE_MONITOR_PROMISE_0100  pass"

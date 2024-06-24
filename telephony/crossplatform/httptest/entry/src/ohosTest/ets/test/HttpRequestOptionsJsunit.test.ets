@@ -221,7 +221,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExpectDataType001", 0, async function (done) {
-      var casename = 'Telephony_Http_HttpRequestOptions_expectDataType_0100';
+      var casename = 'Telephony_Http_HttpRequestOptions_expectDataType_010011';
       console.log("-----------------------HttpRequestOptions_extraData Test is starting-----------------------");
       try {
         let httpRequestOptions = {
@@ -242,6 +242,10 @@ export default function HttpRequestOptionsJsunit() {
         }
         var httpRequest = http.createHttp();
         httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+          console.log(casename +'1111111111111111111');
+          console.log(casename +JSON.stringify(data.responseCode));
+          console.log(casename +'1111111122222222');
+          console.log(casename +JSON.stringify(err));
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");

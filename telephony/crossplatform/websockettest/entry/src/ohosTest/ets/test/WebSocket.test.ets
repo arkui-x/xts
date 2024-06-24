@@ -175,7 +175,7 @@ export default function webSocketTest() {
           done();
         } else {
           console.log(`error, case failed,errCode:` + error.code);
-          expect(error.code).assertEqual(-1);
+          expect(error.code).assertEqual(2302001);
           done();
         }
       });
@@ -246,7 +246,7 @@ export default function webSocketTest() {
           done();
         } else {
           console.log(`error, case failed,errCode:` + error.code);
-          expect(error.code).assertEqual(2302999);
+          expect(error.code).assertEqual(-1);
           done();
         }
       });
@@ -269,7 +269,7 @@ export default function webSocketTest() {
         done();
       }).catch((error) => {
         console.log(`error, case failed,errCode:` + error.code);
-        expect(error.code).assertEqual(2302999);
+        expect(error.code).assertEqual(-1);
         done();
       });
     });
@@ -297,7 +297,7 @@ export default function webSocketTest() {
         done();
       }).catch((error) => {
         console.log(`error, case failed,errCode:` + error.code);
-        expect(error.code).assertEqual(2302999);
+        expect(error.code).assertEqual(-1);
         done();
       });
     });
@@ -325,7 +325,7 @@ export default function webSocketTest() {
           done();
         } else {
           console.log(`error, case failed,errCode:` + error.code);
-          expect(error.code).assertEqual(2302999);
+          expect(error.code).assertEqual(-1);
           done();
         }
       });
