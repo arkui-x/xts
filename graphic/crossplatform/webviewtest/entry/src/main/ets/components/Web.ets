@@ -427,11 +427,6 @@ export struct WebContent {
               this.ON_EVENT_VALUE = event.mimetype
             }
           })
-          .onSearchResultReceive((event) => {
-            if (event) {
-              this.ON_EVENT_VALUE = `查找到:${event.numberOfMatches}个，当前第${event.activeMatchOrdinal}个`
-            }
-          })
           .onConsole((event) => {
             if (event) {
               if (!this.htmlName.includes('permission') && !this.htmlName.includes('http')) {

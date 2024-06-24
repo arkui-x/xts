@@ -14,7 +14,15 @@
  */
 
 import CryptoFrameworkTest from './CryptoFramework.test'
+import SecurityCryptoFwSignRecoverRSARecoverTestUnit from './SecurityCryptoFwSignVerifyRSARecover.test'
+import SecurityCryptoFwSymKeyGeneratorTestUnit from './SecurityCryptoFwSymKeyGenerator.test'
+import SecurityCryptoFwSymEncryptAndDecryptTestUnit from './SecurityCryptoFwSymEncryptAndDecrypt.test'
+import SecurityCryptoFwAsyKeyGeneratorTestUnit from './SecurityCryptoFwAsyKeyGenerator.test'
 
 export default function testsuite() {
-  CryptoFrameworkTest()
+  CryptoFrameworkTest();
+  SecurityCryptoFwAsyKeyGeneratorTestUnit();
+  SecurityCryptoFwSignRecoverRSARecoverTestUnit();
+  SecurityCryptoFwSymKeyGeneratorTestUnit();
+  SecurityCryptoFwSymEncryptAndDecryptTestUnit();
 }

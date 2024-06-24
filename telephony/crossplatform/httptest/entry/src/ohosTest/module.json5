@@ -11,6 +11,17 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:test_pages",
+    "metadata": [
+
+      {
+        "name": "ExecuteArkTSLinter",
+        "value": "false"
+      }
+
+    ],
+    "requestPermissions": [
+      {"name": 'ohos.permission.INTERNET'}
+    ],
     "abilities": [
       {
         "name": "TestAbility",
@@ -31,6 +42,12 @@
             ]
           }
         ]
+      }
+    ],
+    "metadata": [
+      {
+        "name": "ExecuteArkTSLinter",
+        "value": "false"
       }
     ]
   }

@@ -5653,7 +5653,7 @@ export default function ImageSource() {
             modifyPromise(
                 done,
                 "testModifyImagePropertyPromise001",
-                "buffer",
+                "fd",
                 ORIENTATION,
                 "2",
                 checkProps
@@ -5677,7 +5677,7 @@ export default function ImageSource() {
             modifyPromise(
                 done,
                 "testModifyImagePropertyPromise002",
-                "buffer",
+                "fd",
                 GPS_LATITUDE,
                 "114,3",
                 checkProps
@@ -5701,7 +5701,7 @@ export default function ImageSource() {
             modifyPromise(
                 done,
                 "testModifyImagePropertyPromise003",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE,
                 "18,2",
                 checkProps
@@ -5725,7 +5725,7 @@ export default function ImageSource() {
             modifyPromise(
                 done,
                 "testModifyImagePropertyPromise004",
-                "buffer",
+                "fd",
                 GPS_LATITUDE_REF,
                 "N",
                 checkProps
@@ -5749,7 +5749,7 @@ export default function ImageSource() {
             modifyPromise(
                 done,
                 "testModifyImagePropertyPromise005",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE_REF,
                 "W",
                 checkProps
@@ -5983,7 +5983,7 @@ export default function ImageSource() {
             modifyImageErrPromise(
                 done,
                 "testModifyImagePropertyPromise016",
-                "buffer",
+                "fd",
                 ORIENTATION,
                 "abcdef"
             );
@@ -6003,7 +6003,7 @@ export default function ImageSource() {
             modifyImageErrPromise(
                 done,
                 "testModifyImagePropertyPromise017",
-                "buffer",
+                "fd",
                 GPS_LATITUDE,
                 "abc,3"
             );
@@ -6023,7 +6023,7 @@ export default function ImageSource() {
             modifyImageErrPromise(
                 done,
                 "testModifyImagePropertyPromise018",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE,
                 "abc,2"
             );
@@ -6043,7 +6043,7 @@ export default function ImageSource() {
             modifyImageErrPromise(
                 done,
                 "testModifyImagePropertyPromise019",
-                "buffer",
+                "fd",
                 GPS_LATITUDE_REF,
                 "456"
             );
@@ -6063,7 +6063,7 @@ export default function ImageSource() {
             modifyImageErrPromise(
                 done,
                 "testModifyImagePropertyPromise020",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE_REF,
                 "1234"
             );
@@ -6083,7 +6083,7 @@ export default function ImageSource() {
             function checkProps(result) {
                 expect(result == "Top-right").assertTrue();
             }
-            modifyCb(done, "testModifyImagePropertyCb001", "buffer", ORIENTATION, "2", checkProps);
+            modifyCb(done, "testModifyImagePropertyCb001", "fd", ORIENTATION, "2", checkProps);
         });
 
         /**
@@ -6103,7 +6103,7 @@ export default function ImageSource() {
             modifyCb(
                 done,
                 "testModifyImagePropertyCb002",
-                "buffer",
+                "fd",
                 GPS_LATITUDE,
                 "114,3",
                 checkProps
@@ -6127,7 +6127,7 @@ export default function ImageSource() {
             modifyCb(
                 done,
                 "testModifyImagePropertyCb003",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE,
                 "18,2",
                 checkProps
@@ -6151,7 +6151,7 @@ export default function ImageSource() {
             modifyCb(
                 done,
                 "testModifyImagePropertyCb004",
-                "buffer",
+                "fd",
                 GPS_LATITUDE_REF,
                 "N",
                 checkProps
@@ -6175,7 +6175,7 @@ export default function ImageSource() {
             modifyCb(
                 done,
                 "testModifyImagePropertyCb005",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE_REF,
                 "W",
                 checkProps
@@ -6351,7 +6351,7 @@ export default function ImageSource() {
             modifyErrCb(
                 done,
                 "testModifyImagePropertyCb016",
-                "buffer",
+                "fd",
                 ORIENTATION,
                 "abcdef"
             );
@@ -6368,7 +6368,7 @@ export default function ImageSource() {
          * @tc.level     : Level 2
          */
         it("testModifyImagePropertyCb017", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb017", "buffer", GPS_LATITUDE, "abc,3");
+            modifyErrCb(done, "testModifyImagePropertyCb017", "fd", GPS_LATITUDE, "abc,3");
         });
 
         /**
@@ -6385,7 +6385,7 @@ export default function ImageSource() {
             modifyErrCb(
                 done,
                 "testModifyImagePropertyCb018",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE,
                 "abc,2"
             );
@@ -6405,7 +6405,7 @@ export default function ImageSource() {
             modifyErrCb(
                 done,
                 "testModifyImagePropertyCb019",
-                "buffer",
+                "fd",
                 GPS_LATITUDE_REF,
                 "456"
             );
@@ -6425,7 +6425,7 @@ export default function ImageSource() {
             modifyErrCb(
                 done,
                 "testModifyImagePropertyCb020",
-                "buffer",
+                "fd",
                 GPS_LONGITUDE_REF,
                 "1234"
             );

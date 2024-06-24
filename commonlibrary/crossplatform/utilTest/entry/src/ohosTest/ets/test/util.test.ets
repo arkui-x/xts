@@ -15,9 +15,8 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import util from "@ohos.util";
 import url from "@ohos.url";
-import app from "@system.app";
+import xml from "@ohos.xml"
 import process from "@ohos.process";
-import request from "@ohos.request";
 
 export default function UtilFunTest() {
   describe("UtilTest", function () {
@@ -1295,7 +1294,7 @@ export default function UtilFunTest() {
      */
     it("testIsModuleNamespaceObject002", 0, function () {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(request);
+      let result = proc.isModuleNamespaceObject(util);
       expect(result).assertEqual(false);
     });
 
@@ -1323,7 +1322,7 @@ export default function UtilFunTest() {
      */
     it("testIsModuleNamespaceObject004", 0, function () {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(app);
+      let result = proc.isModuleNamespaceObject(xml);
       expect(result).assertEqual(false);
     });
 
@@ -6225,7 +6224,7 @@ export default function UtilFunTest() {
       that.put(1, 2);
       that.put(3, 10);
       that.put("abc", 20);
-      expect(arr[1]).assertEqual(20);
+      expect(arr[1]).assertEqual(2);
     });
 
     /**

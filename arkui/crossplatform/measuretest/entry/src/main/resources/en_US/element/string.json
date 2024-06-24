@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "my_fontSize",
+      "value": "25fp"
+    },
+    {
+      "name": "my_textContent",
+      "value": "This's a test Resource text.!"
+    },
+    {
+      "name": "my_fontFamily",
+      "value": "HarmonyOS Sans"
+    },
+    {
+      "name": "my_constraintWidth",
+      "value": "220vp"
+    },
+    {
+      "name": "my_lineHeight",
+      "value": "25vp"
+    }
+  ]
+}

@@ -11,6 +11,20 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "metadata": [
+      {
+        "name": "ArkTSPartialUpdate",
+        "value": "true"
+      },
+      {
+        "name": "ExecuteArkTSLinter",
+        "value": "false"
+      }
+
+    ],
+    "requestPermissions": [
+      {'name': 'ohos.permission.GET_NETWORK_INFO'}
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
@@ -33,5 +47,5 @@
         ]
       }
     ]
-  }
+  },
 }

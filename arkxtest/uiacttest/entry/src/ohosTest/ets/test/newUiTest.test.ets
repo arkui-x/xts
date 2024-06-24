@@ -171,9 +171,9 @@ export default function NewUiTest() {
       await startAbility('com.example.uiacttest', 'UiTestAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
-      let Button1 = await driver.findComponent(ON.text('ext', MatchPattern.STARTS_WITH));
+      let Button1 = await driver.findComponent(ON.text('dddd', MatchPattern.STARTS_WITH));
       try {
-        expect(await Button1.getText() == null).assertTrue();
+        expect(await Button1.getText()).assertEqual(null);
         console.info('TEST_MATCH_STARTS_WITH_NULL_0011 pass');
         done();
       }

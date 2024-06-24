@@ -14,24 +14,70 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { ValuesBucket } from '@ohos.data.ValuesBucket';
+import { BusinessError } from '@ohos.base';
 
+let context: Context;
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const TAG = "[RDB_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT UNIQUE, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
-const STORE_CONFIG = {
+const STORE_CONFIG: relationalStore.StoreConfig = {
   name: "Delete.db",
   securityLevel: relationalStore.SecurityLevel.S1,
 };
 
 let rdbStore = undefined;
 
+async function createTest1() {
+  console.info(TAG + "createTest start");
+  {
+    const valueBucket: ValuesBucket = {
+      name: "zhangsan",
+      age: 18,
+      salary: 100.5,
+      blobType: new Uint8Array([1, 2, 3]),
+    };
+    await rdbStore.insert("test", valueBucket);
+  }
+}
+
+async function createTest2() {
+  console.info(TAG + "createTest start");
+  {
+    const valueBucket: ValuesBucket = {
+      name: "lisi",
+      age: 28,
+      salary: 200.5,
+      blobType: new Uint8Array([1, 2, 3]),
+    };
+    await rdbStore.insert("test", valueBucket);
+  }
+}
+
+async function createTest3() {
+  console.info(TAG + "createTest start");
+  {
+    const valueBucket: ValuesBucket = {
+      name: "lisi2",
+      age: 28,
+      salary: 200.5,
+      blobType: new Uint8Array([1, 2, 3]),
+    };
+    await rdbStore.insert("test", valueBucket);
+  }
+}
+
 export default function rdbStoreDeleteTest() {
-  describe("rdbStoreDeleteTest", function () {
-    beforeAll(async function () {
+  describe("rdbStoreDeleteTest", () => {
+    beforeAll(async () => {
       console.info(TAG + "beforeAll");
+      let ability = await delegator.getCurrentTopAbility();
+      context = ability.context;
+      console.info(TAG + 'Get context successful. context=' + context);
     });
 
-    beforeEach(async function () {
-      let context = globalThis.abilityContext;
+    beforeEach(async () => {
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await rdbStore.executeSql(CREATE_TABLE_TEST, null);
@@ -40,55 +86,15 @@ export default function rdbStoreDeleteTest() {
       await createTest3();
     });
 
-    afterEach(async function () {
-      let context = globalThis.abilityContext;
+    afterEach(async () => {
       console.info(TAG + "afterEach");
       rdbStore = null;
       await relationalStore.deleteRdbStore(context, "Delete.db");
     });
 
-    afterAll(async function () {
+    afterAll(async () => {
       console.info(TAG + "afterAll");
     });
-
-    async function createTest1() {
-      console.info(TAG + "createTest start");
-      {
-        const valueBucket = {
-          name: "zhangsan",
-          age: 18,
-          salary: 100.5,
-          blobType: new Uint8Array([1, 2, 3]),
-        };
-        await rdbStore.insert("test", valueBucket);
-      }
-    }
-
-    async function createTest2() {
-      console.info(TAG + "createTest start");
-      {
-        const valueBucket = {
-          name: "lisi",
-          age: 28,
-          salary: 200.5,
-          blobType: new Uint8Array([1, 2, 3]),
-        };
-        await rdbStore.insert("test", valueBucket);
-      }
-    }
-
-    async function createTest3() {
-      console.info(TAG + "createTest start");
-      {
-        const valueBucket = {
-          name: "lisi2",
-          age: 28,
-          salary: 200.5,
-          blobType: new Uint8Array([1, 2, 3]),
-        };
-        await rdbStore.insert("test", valueBucket);
-      }
-    }
 
     console.info(TAG + "*************Unit Test Begin*************");
 
@@ -100,7 +106,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete001", 0, async function (done) {
+    it("testRdbStoreDelete001", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete001 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 18);
@@ -132,14 +138,14 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete002", 0, async function (done) {
+    it("testRdbStoreDelete002", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete002 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("aaa id", 1);
       rdbStore.delete(predicates, async (err, rows) => {
         if (err) {
           console.error(`Delete failed, code is ${err.code},message is ${err.message}`);
-          expect(err.code === 14800000).assertTrue();
+          expect(err.code === 14800021).assertTrue();
           console.info(TAG + "delete with wrong conditions");
           let predicates = new relationalStore.RdbPredicates("test");
           predicates.equalTo("age", 18);
@@ -162,7 +168,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete003", 0, async function (done) {
+    it("testRdbStoreDelete003", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete003 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 28);
@@ -192,7 +198,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete004", 0, async function (done) {
+    it("testRdbStoreDelete004", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete004 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 18);
@@ -211,7 +217,7 @@ export default function rdbStoreDeleteTest() {
           resultSet.close();
           done();
         })
-        .catch((err) => {
+        .catch((err: BusinessError) => {
           console.error(`Delete failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
         });
@@ -226,7 +232,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete005", 0, async function (done) {
+    it("testRdbStoreDelete005", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete005 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("aaa id", 1);
@@ -236,9 +242,9 @@ export default function rdbStoreDeleteTest() {
           console.info(TAG + "Delete done: " + ret);
           expect(ret !== null).assertFail();
         })
-        .catch(async (err) => {
+        .catch(async (err: BusinessError) => {
           console.error(`Delete failed, code is ${err.code},message is ${err.message}`);
-          expect(err.code === 14800000).assertTrue();
+          expect(err.code === 14800021).assertTrue();
           console.info(TAG + "delete with wrong conditions");
           let predicates = new relationalStore.RdbPredicates("test");
           predicates.equalTo("age", 18);
@@ -258,7 +264,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete006", 0, async function (done) {
+    it("testRdbStoreDelete006", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete006 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", "28");
@@ -274,7 +280,7 @@ export default function rdbStoreDeleteTest() {
           resultSet.close();
           done();
         })
-        .catch((err) => {
+        .catch((err: BusinessError) => {
           console.error(`Delete failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
         });
@@ -289,7 +295,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete007", 0, async function (done) {
+    it("testRdbStoreDelete007", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete007 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 18);
@@ -326,7 +332,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDelete008", 0, async function (done) {
+    it("testRdbStoreDelete008", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDelete008 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 88);
@@ -358,7 +364,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDeleteError001", 0, async function (done) {
+    it("testRdbStoreDeleteError001", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDeleteError001 start *************");
       try {
         rdbStore.delete(undefined, async (err, rows) => {
@@ -387,7 +393,7 @@ export default function rdbStoreDeleteTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRdbStoreDeleteError005", 0, async function (done) {
+    it("testRdbStoreDeleteError005", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreDeleteError005 start *************");
       try {
         rdbStore
@@ -396,7 +402,7 @@ export default function rdbStoreDeleteTest() {
             console.info(TAG + "Delete done: " + ret);
             expect().asserFail();
           })
-          .catch(async (err) => {
+          .catch(async (err: BusinessError) => {
             console.error('testRdbStoreDeleteError005');
             done();
           });

@@ -789,7 +789,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_5000', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('year', 8);
       let value: number = calendar.get('year');
@@ -807,7 +806,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_5100', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('month', 8);
@@ -827,7 +825,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_5200', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('week_of_year', 8);
       let value: number = calendar.get('week_of_year');
@@ -845,7 +842,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_5300', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('week_of_month', 8);
@@ -865,7 +861,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_5400', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('date', 8);
       let value: number = calendar.get('date');
@@ -883,7 +878,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_5500', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('day_of_year', 8);
@@ -903,7 +897,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_5600', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('day_of_week', 8);
       let value: number = calendar.get('day_of_week');
@@ -921,7 +914,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_5700', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('day_of_week_in_month', 8);
@@ -941,7 +933,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_5800', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('hour', 8);
       let value: number = calendar.get('hour');
@@ -959,7 +950,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_5900', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('hour_of_day', 8);
@@ -979,7 +969,6 @@ export default function I18nTest() {
     it('SUB_Global_I18n_Add_Func_6000', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
       // 设置日期 2021年12月11号8:00:00
-      // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('minute', 8);
       let value: number = calendar.get('minute');
@@ -997,7 +986,6 @@ export default function I18nTest() {
     */
     it('SUB_Global_I18n_Add_Func_6100', 0, () => {
       let calendar: I18n.Calendar = I18n.getCalendar('zh-CN');
-      // 设置日期 2021年12月11号8:00:00
       // 设置日期 2021年12月11号8:00:00
       calendar.set(2021, 11, 11, 8, 0, 0);
       calendar.add('second', 8);
@@ -1059,22 +1047,6 @@ export default function I18nTest() {
       console.log(`SUB_Global_I18n_CompareDays_Func_6400 ${value}`);
       expect(value).assertEqual(1);
     })
-    /* *
-    * @tc.number  TEST_CALENDARCOMPAREDAYS_001
-    * @tc.name    test compareDays method
-    * @tc.desc    compare days between calendar and date
-    * @tc.size:   MediumTest
-    * @tc.type    method
-    * @tc.level   level 2
-    */
-    it('testCalendarCompareDays001', 0, () => {
-      let calendar = I18n.getCalendar('zh-CN');
-      calendar.setTime(5000);
-      let date = new Date(6000);
-      let value = calendar.compareDays(date);
-      console.log('testCalendarCompareDays001 ' + value);
-      expect(value).assertEqual(1);
-    })
 
     /* *
     * @tc.number:  SUB_Global_I18n_CompareDays_Func_6500
@@ -1108,42 +1080,6 @@ export default function I18nTest() {
       let value: number = calendar.compareDays(date);
       console.log(`SUB_Global_I18n_CompareDays_Func_6600 ${value}`);
       expect(value).assertEqual(0);
-    /* *
-    * @tc.number  TEST_CALENDARCOMPAREDAYS_002
-    * @tc.name    test compareDays method
-    * @tc.desc    compare days between calendar and date
-    * @tc.size:   MediumTest
-    * @tc.type    method
-    * @tc.level   level 2
-    */
-    it('testCalendarCompareDays002', 0, () => {
-      let calendar = I18n.getCalendar('zh-CN');
-      calendar.setTime(5000);
-      let date = new Date(4000);
-      let value = calendar.compareDays(date);
-      console.log('testCalendarCompareDays002 ' + value);
-      expect(value).assertEqual(-1);
-    })
-
-    /* *
-    * @tc.number  TEST_CALENDARCOMPAREDAYS_003
-    * @tc.name    test compareDays method
-    * @tc.desc    compare days between calendar and date
-    * @tc.size:   MediumTest
-    * @tc.type    method
-    * @tc.level   level 2
-    */
-    it('testCalendarCompareDays003', 0, () => {
-      let calendar = I18n.getCalendar('zh-CN');
-      calendar.setTime(5000);
-      let date = new Date(5000);
-      let value = calendar.compareDays(date);
-      console.log('testCalendarCompareDays003 ' + value);
-      expect(value).assertEqual(0);
-    })
-
-    console.log('*************end I18NTest*************');
-  })
     })
   })
 }

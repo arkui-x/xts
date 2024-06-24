@@ -33,5 +33,5 @@
       ]
     }
   ],
-  "crossplatform": true
+  "crossplatform": false
 }

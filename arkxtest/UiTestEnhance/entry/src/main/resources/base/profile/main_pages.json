@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/NavigationPage",
+    "pages/TextInputPage",
+    "pages/GetBoundsHalfPage",
+    "pages/GetBoundsFullPage",
+    "pages/MultiFingerOperationPage",
+    "pages/MultiFingerSlidingPage",
+    "pages/HorizontallySlidePage",
+    "pages/WithBeforAfterPage",
+    "pages/RotatePage"
+  ]
+}

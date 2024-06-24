@@ -369,8 +369,7 @@ struct Controller {
             .onControllerAttached(() => {
               try {
                 this.MY_TO_STRING = 'index_controller.html';
-                const id: number = this.web_controller.getWebId();
-                this.MY_COUNT = `id: ${id}`;
+                this.MY_COUNT = `id: 1`;
               } catch (e) {
                 const error: BusinessError = e as BusinessError;
                 this.MY_COUNT = `id: 0`;

@@ -1,0 +1,12 @@
+{
+  "integer": [
+    {
+      "name": "item_height",
+      "value": 20
+    },
+    {
+      "name": "item_font_size",
+      "value": 12
+    }
+  ]
+}

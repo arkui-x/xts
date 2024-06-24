@@ -4,6 +4,6 @@ import commonEventMgrUnsubscribeTest from './CEMUnsubscribe.test'
 
 export default function testsuite() {
   commonEventMgrCreateSubscriberTest()
-  commonEventMgrSubscribeTest()
   commonEventMgrUnsubscribeTest()
+  commonEventMgrSubscribeTest()
 }

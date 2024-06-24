@@ -790,12 +790,15 @@ describe("LightWeightMapTest", function () {
     }
     let res1 = lightWeightMap.length;
     expect(res1).assertEqual(10000);
+    let count = 0;
     for (let index = 0; index < 10000; index++) {
-      let resKey = lightWeightMap.hasKey(index);  
-      expect(resKey).assertEqual(true);
+      let resKey = lightWeightMap.hasKey(index);
       let resValue = lightWeightMap.hasValue(index);
-      expect(resValue).assertEqual(true);
+      if (resKey && resValue) {
+        count++;
+      }
     }
+    expect(count).assertEqual(10000);
   });
                   
   /**
@@ -816,18 +819,23 @@ describe("LightWeightMapTest", function () {
     }
     let res1 = lightWeightMap.length;
     expect(res1).assertEqual(10000);
+    let count = 0;
     for (let index = 0; index < 5000; index++) {
       let resKey = lightWeightMap.hasKey(index);
-      expect(resKey).assertEqual(true);
       let resValue = lightWeightMap.hasValue(index);
-      expect(resValue).assertEqual(true);
+      if (resKey && resValue) {
+        count++;
+      }
     }
+    expect(count).assertEqual(5000);
     for (let i = -1; i > -5001; i--) {
       let resKey = lightWeightMap.hasKey(i);
-      expect(resKey).assertEqual(true);
       let resValue = lightWeightMap.hasValue(i);
-      expect(resValue).assertEqual(true);
+      if (resKey && resValue) {
+        count--;
+      }
     }
+    expect(count).assertEqual(0);
   });
                   
   /**

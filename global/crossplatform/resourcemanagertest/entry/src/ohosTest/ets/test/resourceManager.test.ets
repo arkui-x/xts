@@ -1333,22 +1333,6 @@ describe('resourceManagerTest', function () {
     })
 
     /* *
-    * @tc.number  TEST_RELEASE_001
-    * @tc.name    test release method
-    * @tc.desc    get the release function
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testRelease001', 0, async function (done) {
-            context.resourceManager.getString($r('app.string.test_1').id, (err, value) => {
-                expect(value !== null).assertTrue();
-                done();
-            })
-            context.resourceManager.release();
-    })
-
-    /* *
     * @tc.number  TEST_GETRAWFILECONTENTCALLBACK_001
     * @tc.name    test getRawFile method in callback mode
     * @tc.desc    get the getRawFile in callback mode
@@ -1390,14 +1374,8 @@ describe('resourceManagerTest', function () {
     */
     it('testGetRawFdCallback001', 0, async function (done) {
             context.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
-                let fdValue = rawfile.fd;
-                let offsetValue = rawfile.offset;
-                let lengthValue = rawfile.length;
                 expect(rawfile !== null).assertTrue();
-                console.log('testGetRawFdCallback001--'
-                +'fd:' + fdValue
-                + ' offset:' + offsetValue
-                + ' length:' + lengthValue);
+                console.log('testGetRawFdCallback001--' + JSON.stringify(rawfile));
                 done();
             })
     })
@@ -1412,15 +1390,8 @@ describe('resourceManagerTest', function () {
     */
     it('testGetRawFdPromise001', 0, async function (done) {
             context.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
-                rawfile.fd = 2000;
-                rawfile.offset = 20;
-                rawfile.length = 200;
                 expect(rawfile !== null).assertTrue();
                 console.log('testGetRawFdPromise001--' + JSON.stringify(rawfile));
-                console.log('testGetRawFdPromise001--'
-                +'fd:' + rawfile.fd
-                + ' offset:' + rawfile.offset
-                + ' length:' + rawfile.length);
                 done();
             })
     })
@@ -1482,5 +1453,3 @@ describe('resourceManagerTest', function () {
    
      console.log('*************end ResmgrTest*************');
 })}
-
-

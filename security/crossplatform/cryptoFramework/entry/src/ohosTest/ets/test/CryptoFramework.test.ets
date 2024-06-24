@@ -30,7 +30,7 @@ import {
   pubKeyGenPromise,
   cipher,
   signer
-} from '../utils/CommonVariables';
+} from '../utils/common/CommonVariables';
 
 /**
  * Thread sleeps

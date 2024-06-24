@@ -272,6 +272,7 @@ export default function OnHttpAuthReqTest() {
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       const ON_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
+      await driver.delayMs(waitUiReadyMs);
       const url: string = await ON_EVENT_URL.getText();
       expect(url).assertContain('www.spincast.org');
       const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
@@ -281,5 +282,6 @@ export default function OnHttpAuthReqTest() {
       console.log('SUB_Web_WebView_On_Http_Error_Receive_Func_0100 success');
       console.log('SUB_Web_WebView_On_Http_Error_Receive_Func_0100 test end');
     });
+
   });
 }

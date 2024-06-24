@@ -26,7 +26,7 @@ export default function httpResponseJsunit() {
      *@tc.type      : Function
      *@tc.level     : Level 2
      */
-     it("testTelephonyHttpResponseCacheSize001", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize001", 0, async function (done) {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       var caseName = 'telephonyHttpResponseCacheSize_0001';
       try {
@@ -59,6 +59,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -76,7 +77,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
     /**
@@ -87,7 +88,7 @@ export default function httpResponseJsunit() {
      *@tc.type      : Function
      *@tc.level     : Level 2
      */
-     it("testTelephonyHttpResponseCacheSize002", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize002", 0, async function (done) {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       var caseName = 'telephonyHttpResponseCacheSize_0002';
       try {
@@ -120,6 +121,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -137,7 +139,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
     /**
@@ -148,7 +150,7 @@ export default function httpResponseJsunit() {
      *@tc.type      : Function
      *@tc.level     : Level 2
      */
-     it("testTelephonyHttpResponseCacheSize003", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize003", 0, async function (done) {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       var caseName = 'telephonyHttpResponseCacheSize_0003';
       try {
@@ -181,6 +183,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -198,7 +201,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+     // httpRequest.destroy();
     });
 
     /**
@@ -242,6 +245,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -259,7 +263,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
 
@@ -304,6 +308,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -321,7 +326,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+     // httpRequest.destroy();
     });
 
     /**
@@ -360,6 +365,7 @@ export default function httpResponseJsunit() {
               expect().assertFail();
               done();
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -377,7 +383,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
     /**
@@ -415,6 +421,7 @@ export default function httpResponseJsunit() {
               expect().assertFail();
               done();
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -432,7 +439,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+     // httpRequest.destroy();
     });
 
 
@@ -479,6 +486,7 @@ export default function httpResponseJsunit() {
                 done();
               }
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -496,7 +504,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
     /**
@@ -534,6 +542,7 @@ export default function httpResponseJsunit() {
               expect().assertFail();
               done();
             });
+            httpRequest.destroy();
           }).catch(error => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
@@ -551,7 +560,7 @@ export default function httpResponseJsunit() {
         expect().assertFail();
         done();
       }
-      httpRequest.destroy();
+      //httpRequest.destroy();
     });
 
   })

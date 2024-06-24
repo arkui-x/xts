@@ -1,0 +1,49 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:\\Users\\86135\\.ohos\\config\\openharmony\\auto_ohos_default_UiTestEnhance_com.example.uitest.cer",
+          "storePassword": "0000001B8DFC715233C39809856AE6EB620D4313959CCA23D83D3E19BDCA23BBA2A4A3B890D1C204E334A8",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B0B5CE9077E22F6ADAAF65195F2A33AF0D195401651BAA974E13F11B43683DF360BD7F041C5CD4A",
+          "profile": "C:\\Users\\86135\\.ohos\\config\\openharmony\\auto_ohos_default_UiTestEnhance_com.example.uitest.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\86135\\.ohos\\config\\openharmony\\auto_ohos_default_UiTestEnhance_com.example.uitest.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 10,
+        "compatibleSdkVersion": 10,
+        "runtimeOS": "OpenHarmony",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ],
+}

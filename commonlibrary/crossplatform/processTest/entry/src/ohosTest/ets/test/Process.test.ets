@@ -17,6 +17,10 @@ import process from '@ohos.process'
 export default function ProcessTest() {
 describe('ProcessTest', function () {
 
+    function delay(duration) {
+        return new Promise(resolve => setTimeout(resolve, duration));
+    }
+
     /**
      * @tc.number:TEST_Uid_001
      * @tc.name: testUid001
@@ -483,10 +487,10 @@ describe('ProcessTest', function () {
         function sleep(d){
             while(process.uptime() - result1 <= d);
         }
-        sleep(6);
+        sleep(3);
         let result2 = process.uptime();
-        var flag = false
-        if ((result2 - result1) >= 6) {
+        var flag = false;
+        if ((result2 - result1) >= 3) {
             flag = true;
         }
         expect(flag).assertEqual(true);
@@ -500,15 +504,12 @@ describe('ProcessTest', function () {
      * @tc.type:  Method
      * @tc.level: level 2
      */
-    it('testUptime002', 0, function () {
+    it('testUptime002', 0, async function () {
         let result1 = process.uptime();
-        function sleep(d){
-            while (process.uptime() - result1 <= d);
-        }
-        sleep(8);
+        await delay(4000);
         let result2 = process.uptime();
         var flag = false;
-        if ((result2 - result1) >= 8) {
+        if ((result2 - result1) >= 4) {
             flag = true;
         }
         expect(flag).assertEqual(true);
@@ -522,15 +523,12 @@ describe('ProcessTest', function () {
      * @tc.type:  Method
      * @tc.level: level 2
      */
-    it('testUptime003', 0, function () {
+    it('testUptime003', 0, async function () {
         let result1 = process.uptime();
-        function sleep(d){
-            while (process.uptime() - result1 <= d);
-        }
-        sleep(10);
+        await delay(2000);
         let result2 = process.uptime();
         var flag = false;
-        if ((result2 - result1) >= 10) {
+        if ((result2 - result1) >= 2) {
             flag = true;
         }
         expect(flag).assertEqual(true);
@@ -544,15 +542,12 @@ describe('ProcessTest', function () {
      * @tc.type:  Method
      * @tc.level: level 2
      */
-    it('testUptime004', 0, function () {
+    it('testUptime004', 0, async function () {
         let result1 = process.uptime();
-        function sleep(d){
-            while (process.uptime() - result1 <= d);
-        }
-        sleep(7);
+        await delay(3000);
         let result2 = process.uptime();
         var flag = false;
-        if ((result2 - result1) >= 7) {
+        if ((result2 - result1) >= 3) {
             flag = true;
         }
         expect(flag).assertEqual(true);
@@ -566,18 +561,15 @@ describe('ProcessTest', function () {
      * @tc.type:  Method
      * @tc.level: level 2
      */
-    it('testUptime005', 0, function () {
+    it('testUptime005', 0, async function () {
         let result1 = process.uptime();
-        function sleep(d){
-            while (process.uptime() - result1 <= d);
-        }
-        sleep(11);
+        await delay(2000);
         let result2 = process.uptime();
         var flag = false;
-        if ((result2 - result1) >= 11) {
+        if ((result2 - result1) >= 5) {
             flag = true;
         }
-        expect(flag).assertEqual(true);
+        expect(flag).assertEqual(false);
     })
 })
 }

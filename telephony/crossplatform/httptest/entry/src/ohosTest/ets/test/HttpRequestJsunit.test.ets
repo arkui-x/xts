@@ -327,7 +327,7 @@ export default function httpRequestJsunit() {
           done();
         });
         httpRequest.request("https://www.baidu.com/", (err, data) => {
-          console.log(casename + " data: " + JSON.stringify(data.responseCode) + " err: " + JSON.stringify(err));
+          console.log(casename + " data: " + JSON.stringify(data) + " err: " + JSON.stringify(err));
         });
       } catch (error) {
         console.log("testTelephonyHttpRequestOnheadersReceive001 : error = " + error);
@@ -357,7 +357,7 @@ export default function httpRequestJsunit() {
           done();
         });
         httpRequest.request("https://www.baidu.com/", (err, data) => {
-          console.log(casename + " data: " + JSON.stringify(data.responseCode) + " err: " + JSON.stringify(err));
+          console.log(casename + " data: " + JSON.stringify(data) + " err: " + JSON.stringify(err));
           done();
         });
       } catch (error) {
@@ -412,7 +412,7 @@ export default function httpRequestJsunit() {
           done();
         });
         httpRequest.request("https://www.baidu.com/", (err, data) => {
-          console.log(casename + " data: " + JSON.stringify(data.responseCode) + " err: " + JSON.stringify(err));
+          console.log(casename + " data: " + JSON.stringify(data) + " err: " + JSON.stringify(err));
         });
       } catch (error) {
         console.log("testTelephonyHttpRequestOnceheadersReceive001 : error = " + error);
@@ -442,7 +442,7 @@ export default function httpRequestJsunit() {
           done();
         });
         httpRequest.request("https://app.4399.cn/", (err, data) => {
-          console.log(casename + " data: " + JSON.stringify(data.responseCode) + " err: " + JSON.stringify(err));
+          console.log(casename + " data: " + JSON.stringify(data) + " err: " + JSON.stringify(err));
         });
       } catch (error) {
         console.log("testTelephonyHttpRequestOnceheadersReceive002 : error = " + error);

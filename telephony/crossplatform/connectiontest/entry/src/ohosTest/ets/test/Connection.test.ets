@@ -67,7 +67,7 @@ export default function connectionTest() {
           console.log('testHasDefaultNet001 7');
           expect().assertFail();
           done();
-		  return;
+          return;
         }
       });
       console.log('testHasDefaultNet001 9');
@@ -90,7 +90,7 @@ export default function connectionTest() {
         console.log(`error, case failed,errCode:` + error.code);
         expect().assertFail();
         done();
-		return;
+        return;
       });
     });
 
@@ -103,22 +103,22 @@ export default function connectionTest() {
      * @tc.level : Level 2
      */
     it('testRegister001', 0, function (done) {
-	console.log('testRegister001 1');
+      console.log('testRegister001 1');
       let netConn = connection.createNetConnection();
-	  console.log('testRegister001 2 netConn:' + JSON.stringify(netConn));
+      console.log('testRegister001 2 netConn:' + JSON.stringify(netConn));
       netConn.register((error) => {
         if (!error) {
           console.log(`register success11`);
-		  console.log('testRegister001 3');
+          console.log('testRegister001 3');
           netConn.unregister((error) => {
-		  console.log('testRegister001 4');
+            console.log('testRegister001 4');
             expect(true).assertTrue();
             done();
           });
         } else {
-		  console.log('testRegister001 5');
+          console.log('testRegister001 5');
           console.log(`testRegister001 failed,errCode:` + error.code);
-		  console.log('testRegister001 6');
+          console.log('testRegister001 6');
           expect().assertFail();
           done();
         }
@@ -176,7 +176,7 @@ export default function connectionTest() {
             expect(true).assertTrue();
             done();
           }
-        });	
+        });
       } catch (err) {
         console.log(`register failed,errCode:` + err);
         expect().assertFail();
