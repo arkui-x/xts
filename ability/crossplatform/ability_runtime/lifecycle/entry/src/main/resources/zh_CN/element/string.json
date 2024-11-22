@@ -1,0 +1,152 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "Main1Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main1Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main2Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main2Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main3Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main3Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main4Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main4Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main5Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main5Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main6Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main6Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main7Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main7Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main8Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main8Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main9Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main9Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main10Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main10Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main11Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main11Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main12Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main12Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main13Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main13Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Main14Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Main14Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Hap1Main1Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Hap1Main1Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "Hap1Main2Ability_desc",
+      "value": "description"
+    },
+    {
+      "name": "Hap1Main2Ability_label",
+      "value": "label"
+    },
+    {
+      "name": "MultiMainAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "MultiMainAbility_label",
+      "value": "label"
+    }
+  ]
+}

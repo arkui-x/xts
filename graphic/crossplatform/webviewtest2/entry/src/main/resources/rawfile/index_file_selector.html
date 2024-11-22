@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>file_selector</title>
+		<style>
+			html,
+			body {
+				box-sizing: border-box;
+				height: 100%;
+				width: 100%;
+				font-size: 16px;
+				margin: 0;
+			}
+			.theShow {
+				height: 100%;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				flex-wrap: wrap;
+			}
+			body > h1 {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#upload {
+				width: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>WebView selectFiles Demo</h1>
+		<div class="theShow">
+			<input type="file" id="upload" name="upload"/>
+		</div>
+	</body>
+</html>
