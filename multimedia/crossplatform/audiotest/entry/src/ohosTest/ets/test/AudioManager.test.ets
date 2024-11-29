@@ -3,9 +3,8 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import audio from '@ohos.multimedia.audio';
 
 const waitReadyMs_100 = 100;
-const waitReadyMs_300 = 300;
 const waitReadyMs_600 = 600;
-const waitReadyMs_3000 = 3000;
+const waitReadyMs_5000 = 5000;
 let isPass = false;
 let audioManager: audio.AudioManager;
 
@@ -23,8 +22,8 @@ export default function audioManagerTest() {
       isPass = false;
       await sleep(waitReadyMs_100);
     })
-	afterAll(async() => {
-      await sleep(waitReadyMs_3000);
+	  afterAll(async() => {
+      await sleep(waitReadyMs_5000);
     })
 
     /**
@@ -42,7 +41,6 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getAudioManager_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_300);
       done();
     })
     /**
@@ -53,21 +51,25 @@ export default function audioManagerTest() {
      */
     it('SUB_ArkUIX_Audio_getAudioScene_Func_0100', 0, async (done: Function) => {
       try{
-        audioManager.getAudioScene((err, value) => {
-          if (err) {
-            console.error('SUB_ArkUIX_Audio_getAudioScene_Func_0100 fail');
-          } else {
-            if(value == 0) {
-              isPass = true;
-            }
+        await (async (): Promise<audio.AudioScene> => {
+          return new Promise((resolve, reject) => {
+            audioManager.getAudioScene((err, value) => {
+              err == undefined ? resolve(value) : reject(err)
+            });
+          });
+        })().then(value => {
+          if(value == 0) {
+            isPass = true;
           }
+        }).catch((err: BusinessError) => {
+          console.error('SUB_ArkUIX_Audio_getAudioScene_Func_0100 fail');
         });
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getAudioScene_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -90,7 +92,7 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getAudioScene_Func_0200 error' + error);
       }
-      await sleep(waitReadyMs_300);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -109,7 +111,6 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getAudioScene_Func_0300 error' + error);
       }
-      await sleep(waitReadyMs_300);
       done();
     })
     /**
@@ -127,7 +128,6 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getVolumeManager_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_300);
       done();
     })
     /**
@@ -145,7 +145,6 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getStreamManager_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_300);
       done();
     })
     /**
@@ -163,7 +162,6 @@ export default function audioManagerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getRoutingManager_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_600);
       done();
     })
   })

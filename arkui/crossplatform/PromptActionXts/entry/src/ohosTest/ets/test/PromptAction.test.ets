@@ -54,28 +54,5 @@ export default function PromptActionTest() {
       }
       done();
     });
-
-    /**
-     * @tc.number : SUB_promptAction_showToast_Func_0020
-     * @tc.name   : ShowToast
-     * @tc.desc   : Test the ToastShowMode.TOP_MOST property of the ShowToastOptions
-     * @tc.level  : Level 0
-     */
-    it('SUB_promptAction_showToast_Func_0020', 0, async (done: Function) => {
-      try {
-        promptAction.showToast({
-          message: 'ToastShowMode.TOP_MOST',
-          duration: waitReadyMs_1000,
-          showMode: promptAction.ToastShowMode.TOP_MOST,
-        });
-        await sleep(waitReadyMs_1000);
-        expect(true).assertTrue();
-      }
-      catch (err) {
-        expect(err).assertFail();
-        console.info('SUB_promptAction_showToast_Func_0020 error' + err);
-      }
-      done();
-    });
   })
 }

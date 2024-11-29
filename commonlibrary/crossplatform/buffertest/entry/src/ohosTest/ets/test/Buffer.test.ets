@@ -124,7 +124,7 @@ export default function BufferTest() {
         let buf = buffer.alloc(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -218,7 +218,7 @@ export default function BufferTest() {
         let buf = buffer.allocUninitialized(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -328,7 +328,7 @@ export default function BufferTest() {
         let buf = buffer.allocUninitializedFromPool(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -2437,7 +2437,7 @@ export default function BufferTest() {
         buf1.swap16();
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual("Buffer size must be a multiple of 16-bits");
+        expect(err.message).assertEqual("The buffer size must be a multiple of 16-bits");
       }
     });
 
@@ -2472,7 +2472,7 @@ export default function BufferTest() {
         buf1.swap32();
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual("Buffer size must be a multiple of 32-bits");
+        expect(err.message).assertEqual("The buffer size must be a multiple of 32-bits");
       }
     });
 
@@ -2507,7 +2507,7 @@ export default function BufferTest() {
         buf1.swap64();
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual("Buffer size must be a multiple of 64-bits");
+        expect(err.message).assertEqual("The buffer size must be a multiple of 64-bits");
       }
     });
 

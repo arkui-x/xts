@@ -103,7 +103,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let mag = pro.isAppUid("asdad");
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be number.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of code must be number.");
         }
     })
 
@@ -170,7 +170,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let pres = pro.getUidForName(12);
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be string.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of code must be string.");
         }
     })
 
@@ -246,7 +246,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let pri = pro.getThreadPriority("asdad");
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be number.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of code must be number.");
         }
     })
 
@@ -363,7 +363,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let pri = pro.getSystemConfig("asdad");
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be number.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of name must be number.");
         }
     })
 
@@ -436,7 +436,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let pri = pro.getEnvironmentVar(123);
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be string.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of name must be string.");
         }
     })
 
@@ -514,7 +514,7 @@ describe('ProcessManager', function () {
             //@ts-ignore
             let result = pro.kill("asd", 123);
         } catch (e) {
-            expect(e.toString()).assertEqual("BuisnessError: The type of v must be number.");
+            expect(e.toString()).assertEqual("BuisnessError: Parameter error. The type of signal or pid must be number.");
         }
     })
 })

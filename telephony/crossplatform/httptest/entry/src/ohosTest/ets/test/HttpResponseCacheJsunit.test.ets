@@ -16,217 +16,219 @@ import {describe,it, expect} from '@ohos/hypium';
 import http from '@ohos.net.http';
 
 export default function httpResponseJsunit() {
-  describe("HttpResponseCacheJsunitTest", function () {
-
+  describe("HttpResponseCacheJsunitTest", () => {
     /**
-     *@tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_001
-     *@tc.name      : testTelephonyHttpResponseCacheSize001
-     *@tc.desc      : Test HttpResponseCache method: flush:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_001
+     * @tc.name      : testTelephonyHttpResponseCacheSize001
+     * @tc.desc      : Test HttpResponseCache method: flush:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheSize001", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize001", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheSize_0001';
+      let caseName = 'telephonyHttpResponseCacheSize_0001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
-            const httpResponseCache = http.createHttpResponseCache(1*1024*1024);
+            const httpResponseCache = http.createHttpResponseCache(1 * 1024 * 1024);
             httpResponseCache.flush(err => {
               try {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_002
-     *@tc.name      : testTelephonyHttpResponseCacheSize002
-     *@tc.desc      : Test HttpResponseCache method: flush:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_002
+     * @tc.name      : testTelephonyHttpResponseCacheSize002
+     * @tc.desc      : Test HttpResponseCache method: flush:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheSize002", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize002", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheSize_0002';
+      let caseName = 'telephonyHttpResponseCacheSize_0002';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
-            const httpResponseCache = http.createHttpResponseCache(5*1024*1024);
+            const httpResponseCache = http.createHttpResponseCache(5 * 1024 * 1024);
             httpResponseCache.flush(err => {
               try {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_003
-     *@tc.name      : testTelephonyHttpResponseCacheSize003
-     *@tc.desc      : Test HttpResponseCache method: flush:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_003
+     * @tc.name      : testTelephonyHttpResponseCacheSize003
+     * @tc.desc      : Test HttpResponseCache method: flush:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheSize003", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheSize003", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheSize_0003';
+      let caseName = 'telephonyHttpResponseCacheSize_0003';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
-            const httpResponseCache = http.createHttpResponseCache(10*1024*1024);
+            const httpResponseCache = http.createHttpResponseCache(10 * 1024 * 1024);
             httpResponseCache.flush(err => {
               try {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
-     // httpRequest.destroy();
+      // httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_001
-     *@tc.name      : testTelephonyHttpResponseCacheFlush001
-     *@tc.desc      : Test HttpResponseCache method: flush:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_001
+     * @tc.name      : testTelephonyHttpResponseCacheFlush001
+     * @tc.desc      : Test HttpResponseCache method: flush:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheFlush001", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheFlush001", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheFlush_0001';
+      let caseName = 'telephonyHttpResponseCacheFlush_0001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
@@ -236,60 +238,60 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
-
     /**
-     *@tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_002
-     *@tc.name      : testTelephonyHttpResponseCacheFlush002
-     *@tc.desc      : Test HttpResponseCache method: flush:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_002
+     * @tc.name      : testTelephonyHttpResponseCacheFlush002
+     * @tc.desc      : Test HttpResponseCache method: flush:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheFlush002", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheFlush002", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheFlush_0001';
+      let caseName = 'telephonyHttpResponseCacheFlush_0001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://app.4399.cn/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
@@ -299,116 +301,115 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
-     // httpRequest.destroy();
+      // httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_003
-     *@tc.name      : testTelephonyHttpResponseCacheFlush_003
-     *@tc.desc      : Test HttpResponseCache method: flush:promise.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_003
+     * @tc.name      : testTelephonyHttpResponseCacheFlush_003
+     * @tc.desc      : Test HttpResponseCache method: flush:promise.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheFlush_003", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheFlush_003", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheFlush_0002';
+      let caseName = 'telephonyHttpResponseCacheFlush_0002';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
-
             const httpResponseCache = http.createHttpResponseCache();
             httpResponseCache.flush().then(() => {
               expect(true).assertTrue();
               done();
-            }).catch(err => {
+            }).catch((err: Object) => {
               console.info(caseName + "err: " + JSON.stringify(err));
               expect().assertFail();
               done();
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log("Telephony_http_HttpRequestOptions_method_0200 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_004
-     *@tc.name      : testTelephonyHttpResponseCacheFlush_004
-     *@tc.desc      : Test HttpResponseCache method: flush:promise.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_004
+     * @tc.name      : testTelephonyHttpResponseCacheFlush_004
+     * @tc.desc      : Test HttpResponseCache method: flush:promise.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheFlush_004", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheFlush_004", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'telephonyHttpResponseCacheFlush_0002';
+      let caseName = 'telephonyHttpResponseCacheFlush_0002';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://app.4399.cn/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
@@ -416,58 +417,54 @@ export default function httpResponseJsunit() {
             httpResponseCache.flush().then(() => {
               expect(true).assertTrue();
               done();
-            }).catch(err => {
+            }).catch((err: Object) => {
               console.info(caseName + "err: " + JSON.stringify(err));
               expect().assertFail();
               done();
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log("Telephony_http_HttpRequestOptions_method_0200 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
-     // httpRequest.destroy();
+      // httpRequest.destroy();
     });
-
-
-
-
     /**
-     *@tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_001
-     *@tc.name      : testTelephonyHttpResponseCacheDelete001
-     *@tc.desc      : Test HttpResponseCache method: delete:callback.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_001
+     * @tc.name      : testTelephonyHttpResponseCacheDelete001
+     * @tc.desc      : Test HttpResponseCache method: delete:callback.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheDelete001", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheDelete001", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'testTelephonyHttpResponseCacheDelete001';
+      let caseName = 'testTelephonyHttpResponseCacheDelete001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
@@ -477,59 +474,60 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' delete fail: ' + err);
                   expect().assertFail();
-                } else {
+                }
+                else {
                   expect(true).assertTrue();
                 }
                 done();
-              } catch (err) {
+              }
+              catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log("testTelephonyHttpResponseCacheDelete001 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
     /**
-     *@tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_002
-     *@tc.name      : testTelephonyHttpResponseCacheDelete002
-     *@tc.desc      : Test HttpResponseCache method: delete:promise.
-     *@tc.size      : MediumTest
-     *@tc.type      : Function
-     *@tc.level     : Level 2
+     * @tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_002
+     * @tc.name      : testTelephonyHttpResponseCacheDelete002
+     * @tc.desc      : Test HttpResponseCache method: delete:promise.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
      */
-    it("testTelephonyHttpResponseCacheDelete002", 0, async function (done) {
+    it("testTelephonyHttpResponseCacheDelete002", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      var caseName = 'testTelephonyHttpResponseCacheDelete002';
+      let caseName = 'testTelephonyHttpResponseCacheDelete002';
       try {
         console.log("-----------------------telephonyHttpResponseCacheDelete_0002 Test is starting-----------------------");
         try {
-          let httpRequestOptions = {
+          let httpRequestOptions: http.HttpRequestOptions = {
             method: http.RequestMethod.GET,
-            extraData: null,
+            extraData: undefined,
             header: "content-type': 'application/json",
             readTimeout: 60000,
             connectTimeout: 60000,
             usingCache: true
-          }
-          var httpRequest = http.createHttp();
+          };
+          let httpRequest = http.createHttp();
           httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
@@ -537,32 +535,31 @@ export default function httpResponseJsunit() {
             httpResponseCache.delete().then(() => {
               expect(true).assertTrue();
               done();
-            }).catch(err => {
+            }).catch((err: Object) => {
               console.info(caseName + "err: " + JSON.stringify(err));
               expect().assertFail();
               done();
             });
             httpRequest.destroy();
-          }).catch(error => {
+          }).catch((error: Object) => {
             console.info(caseName + "errocode" + JSON.stringify(error));
             expect(false).assertTrue();
             done();
           });
-
-        } catch (error) {
+        }
+        catch (error) {
           console.log("telephonyHttpResponseCacheDelete_0001 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-
-      } catch (error) {
+      }
+      catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
-
   })
 };
 

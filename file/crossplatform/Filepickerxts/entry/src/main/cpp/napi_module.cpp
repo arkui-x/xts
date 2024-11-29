@@ -31,9 +31,9 @@
 #endif
 
 
-#if defined(ANDROID_PLATFORM)
-static napi_value SelectFilePicker(napi_env env, napi_callback_info info)
-{
+#if defined(ANDROID_PLATFORM) 
+
+static napi_value SelectFilePicker(napi_env env, napi_callback_info info) {
     auto platformNAPIPlugin = PlatformNAPI::Create();
     CHECK_AND_RETURN(platformNAPIPlugin, "platformNAPIPlugin", nullptr);
     platformNAPIPlugin->SelectFilePicker();
@@ -42,8 +42,7 @@ static napi_value SelectFilePicker(napi_env env, napi_callback_info info)
     return result;
 }
 
-static napi_value CloseFilePicker(napi_env env, napi_callback_info info)
-{
+static napi_value CloseFilePicker(napi_env env, napi_callback_info info) {
     auto platformNAPIPlugin = PlatformNAPI::Create();
     CHECK_AND_RETURN(platformNAPIPlugin, "platformNAPIPlugin", nullptr);
     platformNAPIPlugin->CloseFilePicker();
@@ -55,8 +54,8 @@ static napi_value CloseFilePicker(napi_env env, napi_callback_info info)
 
 
 #if defined(IOS_PLATFORM)
-static napi_value Select(napi_env env, napi_callback_info info)
-{
+
+static napi_value Select(napi_env env, napi_callback_info info) {
 #if !defined(ANDROID_PLATFORM)
     RenderSurface::select();
 #endif
@@ -65,8 +64,7 @@ static napi_value Select(napi_env env, napi_callback_info info)
 #endif
 
 EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports)
-{
+static napi_value Init(napi_env env, napi_value exports) {
     napi_property_descriptor desc[] = {
 #if defined(ANDROID_PLATFORM)
         {"SelectFilePicker", nullptr, SelectFilePicker, nullptr, nullptr, nullptr, napi_default, nullptr},
@@ -92,15 +90,13 @@ static napi_module demoModule = {
 };
 
 #ifdef ANDROID_PLATFORM
-static void PlatformNAPIJniRegister()
-{
+static void PlatformNAPIJniRegister() {
     const char className[] = "com.example.filepickerxts.DeviceInfo";
     ARKUI_X_Plugin_RegisterJavaPlugin(&PlatformNAPIJni::Register, className);
 }
 #endif
 
-extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
-{
+extern "C" __attribute__((constructor)) void RegisterEntryModule(void) {
     napi_module_register(&demoModule);
 #ifdef ANDROID_PLATFORM
     ARKUI_X_Plugin_RunAsyncTask(&PlatformNAPIJniRegister, ARKUI_X_Plugin_Thread_Mode::ARKUI_X_PLUGIN_PLATFORM_THREAD);

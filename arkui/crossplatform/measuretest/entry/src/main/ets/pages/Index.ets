@@ -12,107 +12,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import measure from '@ohos.measure'
 
 @Entry
 @Component
 struct Index {
+  async aboutToAppear() {
+    globalThis.MeasureText_0020 = measure.measureText({
+      textContent: $r('app.string.my_textContent')
+    });
+    globalThis.MeasureText_0170 = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontSize: $r('app.string.my_fontSize')
+    });
+    globalThis.MeasureText_0490 = measure.measureText({
+      textContent: 'This\'s a test text',
+      fontFamily: $r('app.string.my_fontFamily')
+    });
+    globalThis.MeasureTextSize_0020 = measure.measureTextSize({
+      textContent: $r('app.string.my_textContent')
+    });
+    globalThis.MeasureTextSize_0170 = measure.measureTextSize({
+      textContent: 'This\'s a test text',
+      constraintWidth: $r('app.string.my_constraintWidth')
+    });
+    globalThis.MeasureTextSize_0300 = measure.measureTextSize({
+      textContent: 'This\'s a test text',
+      fontSize: $r('app.string.my_fontSize')
+    });
+    globalThis.MeasureTextSize_0620 = measure.measureTextSize({
+      textContent: 'This\'s a test text',
+      fontFamily: $r('app.string.my_fontFamily')
+    });
+    globalThis.MeasureTextSize_1080 = measure.measureTextSize({
+      textContent: 'This\'s a test text',
+      lineHeight: $r('app.string.my_lineHeight')
+    });
+  }
+  @State message: string = 'Hello World'
+
   build() {
     Row() {
       Column() {
-        Flex() {
-          Text('measureText_0020: ')
-          Text('' + measure.measureText({
-            textContent: $r('app.string.my_textContent')
-          }))
-            .id('SUB_Measure_measureText_Func_0020:textContentResult_test')
-        }
-        Flex() {
-          Text('measureText_0170: ')
-          Text('' + measure.measureText({
-            textContent: 'This\'s a test text',
-            fontSize: $r('app.string.my_fontSize')
-          }))
-            .id('SUB_Measure_measureText_Func_0170:fontSizeResult_test')
-        }
-        Flex() {
-          Text('measureText_0490: ')
-          Text('' + measure.measureText({
-            textContent: 'This\'s a test text',
-            fontFamily: $r('app.string.my_fontFamily')
-          }))
-            .id('SUB_Measure_measureText_Func_0490:fontFamilyResult_test')
-        }
-
-        Flex() {
-          Text('measureTextSize_0020: ')
-          Text('' + measure.measureTextSize({
-            textContent: $r('app.string.my_textContent')
-          }).width)
-            .id('SUB_Measure_measureTextSize_Func_0020:textContentResult_width_test')
-          Text(', ')
-          Text('' + measure.measureTextSize({
-            textContent: $r('app.string.my_textContent')
-          }).height)
-            .id('SUB_Measure_measureTextSize_Func_0020:textContentResult_height_test')
-        }
-        Flex() {
-          Text('measureTextSize_0170: ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            constraintWidth: $r('app.string.my_constraintWidth')
-          }).width)
-            .id('SUB_Measure_measureTextSize_Func_0170:constraintWidthResult_width_test')
-          Text(', ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            constraintWidth: $r('app.string.my_constraintWidth')
-          }).height)
-            .id('SUB_Measure_measureTextSize_Func_0170:constraintWidthResult_height_test')
-        }
-        Flex() {
-          Text('measureTextSize_0300: ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            fontSize: $r('app.string.my_fontSize')
-          }).width)
-            .id('SUB_Measure_measureTextSize_Func_0300:fontSizeResult_width_test')
-          Text(', ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            fontSize: $r('app.string.my_fontSize')
-          }).height)
-            .id('SUB_Measure_measureTextSize_Func_0300:fontSizeResult_height_test')
-        }
-        Flex() {
-          Text('measureTextSize_0620: ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            fontFamily: $r('app.string.my_fontFamily')
-          }).width)
-            .id('SUB_Measure_measureTextSize_Func_0620:fontFamilyResult_width_test')
-          Text(', ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            fontFamily: $r('app.string.my_fontFamily')
-          }).height)
-            .id('SUB_Measure_measureTextSize_Func_0620:fontFamilyResult_height_test')
-        }
-        Flex() {
-          Text('measureTextSize_1080: ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            lineHeight: $r('app.string.my_lineHeight')
-          }).width)
-            .id('SUB_Measure_measureTextSize_Func_1080:lineHeightResult_width_test')
-          Text(', ')
-          Text('' + measure.measureTextSize({
-            textContent: 'This\'s a test text',
-            lineHeight: $r('app.string.my_lineHeight')
-          }).height)
-            .id('SUB_Measure_measureTextSize_Func_1080:lineHeightResult_height_test')
-        }
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
       }
       .width('100%')
     }

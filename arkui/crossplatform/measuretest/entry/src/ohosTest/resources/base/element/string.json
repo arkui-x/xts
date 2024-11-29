@@ -11,6 +11,26 @@
     {
       "name": "TestAbility_label",
       "value": "test label"
+    },
+    {
+      "name": "my_fontSize",
+      "value": "25fp"
+    },
+    {
+      "name": "my_textContent",
+      "value": "This's a test Resource text.!"
+    },
+    {
+      "name": "my_fontFamily",
+      "value": "HarmonyOS Sans"
+    },
+    {
+      "name": "my_constraintWidth",
+      "value": "220vp"
+    },
+    {
+      "name": "my_lineHeight",
+      "value": "34vp"
     }
   ]
 }

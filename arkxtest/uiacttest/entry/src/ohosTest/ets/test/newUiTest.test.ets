@@ -49,7 +49,7 @@ export default function NewUiTest() {
 
     it('NewTEST_ON_TEXT_test', 0, async (done: Function) => {
       console.info('NewTEST_ON_TEXT_0001_null start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.text("test"));
@@ -68,7 +68,7 @@ export default function NewUiTest() {
     //------error
     it('TEST_ON_TEXT_NULL_0003', 0, async (done: Function) => {
       console.info('TEST_ON_TEXT_NULL_0003 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       try {
@@ -89,7 +89,7 @@ export default function NewUiTest() {
     //------error
     it('TEST_ON_TEXT_RESULT_NULL_004', 0, async (done: Function) => {
       console.info('TEST_ON_TEXT_RESULT_NULL_004 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.text("aaaaaa"));
@@ -107,7 +107,7 @@ export default function NewUiTest() {
     //error
     it('TEST_ON_TEXT_RESULT_SPE_CHAR_0005', 0, async (done: Function) => {
       console.info('TEST_ON_TEXT_RESULT_SPE_CHAR_0005 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.text("❤❥웃유♋"));
@@ -123,7 +123,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_EQUALS_NULL_007', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('next page111', MatchPattern.EQUALS));
@@ -138,7 +138,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_CONTAINS_008', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('xt pa', MatchPattern.CONTAINS));
@@ -153,7 +153,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_CONTAINS_NULL_009', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('xt page111', MatchPattern.CONTAINS));
@@ -168,7 +168,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_STARTS_WITH_NULL_0011', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('dddd', MatchPattern.STARTS_WITH));
@@ -183,7 +183,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_ENDS_WITH_0012', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('page', MatchPattern.ENDS_WITH));
@@ -199,7 +199,7 @@ export default function NewUiTest() {
       }
     });
     it('TEST_MATCH_PATTERN_ENDS_WITH_0013', 0, async (done: Function) => {
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button1 = await driver.findComponent(ON.text('next', MatchPattern.ENDS_WITH));
@@ -216,7 +216,7 @@ export default function NewUiTest() {
     // ------error
     it('TEST_ON_ID_NULL_15', 0, async (done: Function) => {
       console.info('TEST_ON_ID_NULL_15 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       try {
@@ -238,7 +238,7 @@ export default function NewUiTest() {
     //------error
     it('TEST_ON_TYPE_NULL_0018', 0, async (done: Function) => {
       console.info('TEST_ON_TYPE_NULL start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       // console.info('------------------------------'+JSON.stringify(ON.type(null)))
@@ -261,7 +261,7 @@ export default function NewUiTest() {
     });
     it('TEST_ON_CLICKABLE_Null_0020', 0, async (done: Function) => {
       console.info('TEST_ON_CLICKABLE_Null_0020 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let radio = await driver.findComponent(ON.clickable());
@@ -278,7 +278,7 @@ export default function NewUiTest() {
     });
     it('TEST_ON_LONG_CLICKABLE_NULL_0025', 0, async (done: Function) => {
       console.info('TEST_ON_LONG_CLICKABLE_NULL_0025 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.longClickable());
@@ -295,7 +295,7 @@ export default function NewUiTest() {
     });
     it('TEST_ON_SCROLLABLE_NULL_0028', 0, async (done: Function) => {
       console.info('TEST_ON_SCROLLABLE_NULL_0028 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let scrollBar = await driver.findComponent(ON.scrollable());
@@ -312,7 +312,7 @@ export default function NewUiTest() {
     });
     it('TEST_ON_ENABLED_NUll_0031', 0, async (done: Function) => {
       console.info('TEST_ON_ENABLED_NUll_0031 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.enabled().text('next page'));
@@ -329,13 +329,17 @@ export default function NewUiTest() {
     });
     it('TEST_ON_FOCUSED_NUll_0034', 0, async (done: Function) => {
       console.info('TEST_ON_FOCUSED_NUll_0034 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
+      await driver.delayMs(waitUiReadyMs);
+      let input = await driver.findComponent(ON.id('TextInput'));
+      await driver.delayMs(waitUiReadyMs);
+      await input.click();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.focused());
       let focused = await button.isFocused();
       try {
-        expect(focused == true).assertTrue();
+        expect(focused).assertTrue();
         console.info('TEST_ON_FOCUSED_NUll_0034 pass');
         done();
       }
@@ -347,7 +351,7 @@ export default function NewUiTest() {
     //error
     it('TEST_ON_SELECTED_NULL_0037', 0, async (done: Function) => {
       console.info('TEST_ON_SELECTED_NULL_0037 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.selected(true));
@@ -363,7 +367,7 @@ export default function NewUiTest() {
     });
     it('TEST_ON_CHECKED_NULL_0040', 0, async (done: Function) => {
       console.info('TEST_ON_CHECKED_NULL_0040 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let radio = await driver.findComponent(ON.checked(false).type('Toggle'));
@@ -381,7 +385,7 @@ export default function NewUiTest() {
     //------error
     it('TEST_CONTROL_CLICK_0045', 0, async (done: Function) => {
       console.info('TEST_CONTROL_CLICK_0045 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button = await driver.findComponent(ON.text('next page false'));
@@ -401,7 +405,7 @@ export default function NewUiTest() {
     // next page false
     it('TEST_CONTROL_DOUBLE_CLICK_FALSE_0047', 0, async (done: Function) => {
       console.info('TEST_CONTROL_DOUBLE_CLICK_FALSE_0047 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button = await driver.findComponent(ON.text('Click twice false'));
@@ -420,7 +424,7 @@ export default function NewUiTest() {
     });
     it('TEST_CONTROL_LONG_CLICK_0049', 0, async (done: Function) => {
       console.info('TEST_CONTROL_LONG_CLICK_0058 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let Button = await driver.findComponent(ON.text('next page false'));
@@ -440,7 +444,7 @@ export default function NewUiTest() {
     //error
     it('TEST_GETTEXT_FALSE_0053', 0, async (done: Function) => {
       console.info('TEST_GETTEXT_FALSE_0053 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.id('my-key-new'));
@@ -457,7 +461,7 @@ export default function NewUiTest() {
     });
     it('TEST_GET_TYPE_FALSE_0055', 0, async (done: Function) => {
       console.info('TEST_GET_TYPE_FALSE_0055 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let text = await driver.findComponent(ON.type('Text'));
@@ -476,7 +480,7 @@ export default function NewUiTest() {
     //error
     it('TEST_IS_CLICKABLE_TRUE_0057', 0, async (done: Function) => {
       console.info('TEST_IS_CLICKABLE_TRUE_0057 start');
-      await startAbility('com.example.uiacttest', 'UiTestAbility');
+      await startAbility('com.example.uiacttest', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
       let button = await driver.findComponent(ON.clickable(false).type('Toggle'));

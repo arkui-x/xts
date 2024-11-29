@@ -286,7 +286,7 @@ describe("LightWeightMapTest", function () {
     } catch (err) {
       expect(err.name).assertEqual("BusinessError");
       expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "minimumCapacity" must be number. Received value is: qwe`);
+      expect(err.message).assertEqual(`The type of "minimumCapacity" must be small integer. Received value is: qwe`);
     }
   });
 
@@ -499,7 +499,7 @@ describe("LightWeightMapTest", function () {
     } catch (err) {
       expect(err.name).assertEqual("BusinessError");
       expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "index" must be number. Received value is: a`);
+      expect(err.message).assertEqual(`The type of "index" must be small integer. Received value is: a`);
     }
   });
 
@@ -983,7 +983,7 @@ describe("LightWeightMapTest", function () {
     } catch (err) {
       expect(err.name).assertEqual("BusinessError");
       expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "index" must be number. Received value is: a`);
+      expect(err.message).assertEqual(`The type of "index" must be small integer. Received value is: a`);
     }
   });
 
@@ -1144,7 +1144,7 @@ describe("LightWeightMapTest", function () {
     } catch (err) {
       expect(err.name).assertEqual("BusinessError");
       expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "index" must be number. Received value is: a`);
+      expect(err.message).assertEqual(`The type of "index" must be small integer. Received value is: a`);
     }
   });
 

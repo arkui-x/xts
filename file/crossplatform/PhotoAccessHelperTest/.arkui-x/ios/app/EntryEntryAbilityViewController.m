@@ -29,50 +29,32 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
 }
 
 - (void)select {
-    NSLog(@"--jiayi--: 成功调用select");
     UIViewController *topController = [self getApplicationTopViewController];
-    NSLog(@"--jiayi--: 1");
     if (topController == nil) {
-        NSLog(@"--jiayi--:Top controller is nil");
         return;
     }
-    if(@available(iOS 14, *)) {
+    if (@available(iOS 14, *)) {
         PHPickerViewController *picker = [self findPHPickerInViewController:topController];
         if (picker) {
             [self selectImageInPicker:picker];
             [picker dismissViewControllerAnimated:true completion:nil];
-        } else {
-            NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
         }
-    }else {
+    } else {
         UIImagePickerController *picker = [self findPHPickerInViewController:topController];
         if (picker) {
             [self selectImageInPicker:picker];
             [picker dismissViewControllerAnimated:true completion:nil];
-        } else {
-            NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
         }
     }
-  
-
-//    UIImagePickerController *picker = [self findImagePickerInViewController:topController];
-//    if (picker) {
-//        [self selectImageInPicker:picker];
-//        [picker dismissViewControllerAnimated:true completion:nil];
-//    } else {
-//        NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
-//    }
 }
 
 - (UIViewController *)getApplicationTopViewController {
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     if (!window) {
-        NSLog(@"--jiayi--:Window is nil");
         return nil;
     }
     UIViewController *viewController = window.rootViewController;
     if (!viewController) {
-        NSLog(@"--jiayi--:Root view controller is nil");
         return nil;
     }
     return [self findTopViewController:viewController];
@@ -80,18 +62,9 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
 
 - (UIImagePickerController *)findImagePickerInViewController:(UIViewController *)viewController {
     if (!viewController) {
-        NSLog(@"--jiayi--:viewController is nil");
         return nil;
     }
-    NSLog(@"--jiayi--: a");
-    NSLog(@"--jiayi--:Current top controller: %@", NSStringFromClass([viewController class]));
     return (UIImagePickerController *)viewController;
-//    if ([viewController isKindOfClass:[UIImagePickerController class]]) {
-//        NSLog(@"--jiayi--: a");
-//        return (UIImagePickerController *)viewController;
-//    }
-//    NSLog(@"--jiayi--: b");
-//    return [self findImagePickerInViewController:viewController.presentedViewController];
 }
 
 - (id)findPHPickerInViewController:(UIViewController *)viewController{
@@ -110,8 +83,6 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
             return (UIImagePickerController *)viewController;
         }
     }
-
-    
     return [self findPHPickerInViewController:viewController.presentedViewController];
 }
 
@@ -147,35 +118,16 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
     }
     Ivar ivar = class_getInstanceVariable([obj class], "_currentPhotoPickerResult");
     if (!ivar) {
-        NSLog(@"--jiayi--:_selectResult ivar not found");
         return;
     }
 
     CallBack block = object_getIvar(obj, ivar);
     
     if (block) {
-        NSLog(@"--jiayi--:start select !!!");
         block(@[@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0714.PNG"], 0);
     } else {
-        NSLog(@"--jiayi--:Block is nil");
+        NSLog(@"Block is nil");
     }
 }
-//- (void)selectImageInPicker:(UIImagePickerController *)picker {
-//    NSObject *obj = picker.delegate;
-//    Ivar ivar = class_getInstanceVariable([obj class], "_selectResult");
-//    if (!ivar) {
-//        NSLog(@"_selectResult ivar not found");
-//        return;
-//    }
-//
-//    CallBack block = object_getIvar(obj, ivar);
-//
-//    if (block) {
-//        block(@[@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0714.PNG"], 0);
-//    } else {
-//        NSLog(@"Block is nil");
-//    }
-//}
 
 @end
-

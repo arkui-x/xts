@@ -153,19 +153,6 @@ struct ScrollExample {
               if (isHover) {
                 this.hoverText = 'hover'
               }
-          })
-            .onMouse((event: MouseEvent) => {
-              switch (event.button) {
-                case MouseButton.Left :
-                  this.hoverText = 'left'
-                  break
-                case MouseButton.Right :
-                  this.hoverText = 'right'
-                  break
-                case MouseButton.Middle :
-                  this.hoverText = 'middle'
-                  break
-              }
             })
             .onClick(() => {
               router.pushUrl({ url: 'pages/screen' })
@@ -185,7 +172,7 @@ struct ScrollExample {
 
               // 单选框组件
               Toggle({ type: ToggleType.Switch})
-                .key('Toggle')
+                .id('Toggle')
                 .margin({ top: 10 })
                 .size({width:50,height:30})
                 .selectedColor('#007DFF')
@@ -205,7 +192,7 @@ struct ScrollExample {
               Radio({ value: 'Radio2', group: this.radioGroup }).checked(true)
                 .height(40)
                 .width(40)
-                .key('Radio')
+                .id('Radio')
                 .enabled(false)
                 .focusable(true)
                 .onChange((isChecked: boolean) => {
@@ -225,7 +212,7 @@ struct ScrollExample {
                 .fontSize(24)
                 .enabled(true)
                 .margin({ top: 10 })
-                .key('TextInput')
+                .id('TextInput')
                 .textAlign(TextAlign.Center)
               // TextArea
               TextArea({
@@ -358,7 +345,7 @@ struct ScrollExample {
             Flex({direction: FlexDirection.Row,justifyContent: FlexAlign.Center}) {
               TextClock({ timeZoneOffset: this.timeZoneOffset, controller: this.TextClockController })
                 .format(this.format)
-                .key('textClock')
+                .id('textClock')
                 .onDateChange((value: number) => {
                   this.change = 'change'
                   this.accumulateTime = value
@@ -398,7 +385,7 @@ struct ScrollExample {
             .width('80%')
             // slider结束
             // datapanel
-            DataPanel({ values: this.valueArr, max: 100, type: DataPanelType.Line }).width(300).height(10).key('dp3')
+            DataPanel({ values: this.valueArr, max: 100, type: DataPanelType.Line }).width(300).height(10).id('dp3')
             // dataPanel结束
             // rating 评分开始
             Row() {

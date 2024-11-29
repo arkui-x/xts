@@ -5628,9 +5628,9 @@ export default function UtilFunTest() {
         let result1 = that.get(un);
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of undefined must be Object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of undefined must be Object");
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Parameter error.The type of undefined must be Object");
+        expect(e.message).assertEqual("Parameter error. The type of undefined must be Object");
       }
     });
 
@@ -5746,9 +5746,9 @@ export default function UtilFunTest() {
         that.put(un, "bcjdshc");
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of undefined must be Object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of undefined must be Object");
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Parameter error.The type of undefined must be Object");
+        expect(e.message).assertEqual("Parameter error. The type of undefined must be Object");
       }
     });
 
@@ -6069,9 +6069,9 @@ export default function UtilFunTest() {
         that.remove(un);
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of undefined must be Object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of undefined must be Object");
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Parameter error.The type of undefined must be Object");
+        expect(e.message).assertEqual("Parameter error. The type of undefined must be Object");
       }
     });
 
@@ -6388,9 +6388,9 @@ export default function UtilFunTest() {
         that.contains(un);
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of undefined must be Object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of undefined must be Object");
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Parameter error.The type of undefined must be Object");
+        expect(e.message).assertEqual("Parameter error. The type of undefined must be Object");
       }
     });
 
@@ -6481,9 +6481,9 @@ export default function UtilFunTest() {
         that.createDefault(un);
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of undefined must be Object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of undefined must be Object");
         expect(e.code).assertEqual(401);
-        expect(e.message).assertEqual("Parameter error.The type of undefined must be Object");
+        expect(e.message).assertEqual("Parameter error. The type of undefined must be Object");
       }
     });
 
@@ -6788,7 +6788,7 @@ export default function UtilFunTest() {
         let range = new util.ScopeHelper(1, 2);
         expect(0).assertEqual(1);
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of 1 must be object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of 1 must be object");
       }
     });
 
@@ -7006,7 +7006,7 @@ export default function UtilFunTest() {
         let result = rangeHp.intersect(tempMiDF, 123);
         expect(result.toString()).assertEqual("[35, 39]");
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of 123 must be ScopeType");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of 123 must be ScopeType");
       }
     });
 
@@ -7413,7 +7413,7 @@ export default function UtilFunTest() {
         let result = rangeHp.clamp(123);
         expect(result.toString()).assertEqual("30");
       } catch (e) {
-        expect(e.toString()).assertEqual("BusinessError: Parameter error.The type of 123 must be object");
+        expect(e.toString()).assertEqual("BusinessError: Parameter error. The type of 123 must be object");
       }
     });
 

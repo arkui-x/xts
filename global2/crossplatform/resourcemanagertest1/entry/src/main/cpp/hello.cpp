@@ -6,7 +6,8 @@
 napi_value CreateJsBool(napi_env env, bool &bValue)
 {
     napi_value jsValue = nullptr;
-    if (napi_get_boolean(env, bValue, &jsValue) != napi_ok) {
+    if (napi_get_boolean(env, bValue, &jsValue) != napi_ok)
+    {
         return nullptr;
     }
     return jsValue;
@@ -26,7 +27,8 @@ static napi_value IsRawDir(napi_env env, napi_callback_info info)
 
     napi_valuetype valueType1;
     napi_typeof(env, argv[1], &valueType1);
-    if (valueType1 == napi_undefined || valueType1 == napi_null) {
+    if (valueType1 == napi_undefined || valueType1 == napi_null)
+    {
         bool temp = false;
         return CreateJsBool(env, temp);
     }

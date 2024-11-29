@@ -75,17 +75,21 @@ async function startCallback(audioCapturer: audio.AudioCapturer) {
     console.warn('Capturer:audioCapturer is null');
     return;
   }
-  audioCapturer.start((err: BusinessError) => {
-    if (err) {
+  await (async (): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      audioCapturer.start((err: BusinessError) => {
+        err == undefined ? resolve(true) : reject(err)
+      });
+    });
+  })().then(bool => {
+    if (audioCapturer.state != audio.AudioState.STATE_RUNNING) {
       isPass = false;
-      console.error('audioCapturer.start Invoked: Error: ' + err);
-    } else {
-      if (audioCapturer.state != audio.AudioState.STATE_RUNNING) {
-        isPass = false;
-      }
     }
+  }).catch((err: BusinessError) => {
+    isPass = false;
+    console.error('audioCapturer.start Invoked: Error: ' + JSON.stringify(err));
   });
-  await sleep(waitReadyMs_1500);
+  await sleep(waitReadyMs_1000);
 }
 
 async function startPromise(audioCapturer: audio.AudioCapturer) {
@@ -109,17 +113,21 @@ async function stopCallback(audioCapturer: audio.AudioCapturer) {
     console.warn('Capturer:audioCapturer is null');
     return;
   }
-  audioCapturer.stop((err: BusinessError) => {
-    if (err) {
+  await (async (): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      audioCapturer.stop((err: BusinessError) => {
+        err == undefined ? resolve(true) : reject(err)
+      });
+    });
+  })().then(bool => {
+    if (audioCapturer.state != audio.AudioState.STATE_STOPPED) {
       isPass = false;
-      console.error('audioCapturer.stop Invoked: Error: ' + err);
-    } else {
-      if (audioCapturer.state != audio.AudioState.STATE_STOPPED) {
-        isPass = false;
-      }
     }
+  }).catch((err: BusinessError) => {
+    isPass = false;
+    console.error('audioCapturer.stop Invoked: Error: ' + JSON.stringify(err));
   });
-  await sleep(waitReadyMs_600);
+  await sleep(waitReadyMs_100);
 }
 
 async function stopPromise(audioCapturer: audio.AudioCapturer) {
@@ -135,6 +143,7 @@ async function stopPromise(audioCapturer: audio.AudioCapturer) {
     isPass = false;
     console.error('audioCapturer.stop Invoked: Error: ' + err);
   });
+  await sleep(waitReadyMs_100);
 }
 
 async function releaseCallback(audioCapturer: audio.AudioCapturer) {
@@ -142,17 +151,21 @@ async function releaseCallback(audioCapturer: audio.AudioCapturer) {
     console.warn('Capturer:audioCapturer is null');
     return;
   }
-  audioCapturer.release((err: BusinessError) => {
-    if (err) {
+  await (async (): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      audioCapturer.release((err: BusinessError) => {
+        err == undefined ? resolve(true) : reject(err)
+      });
+    });
+  })().then(bool => {
+    if (audioCapturer.state != audio.AudioState.STATE_RELEASED) {
       isPass = false;
-      console.error('audioCapturer.release Invoked: Error: ' + err);
-    } else {
-      if (audioCapturer.state != audio.AudioState.STATE_RELEASED) {
-        isPass = false;
-      }
     }
+  }).catch((err: BusinessError) => {
+    isPass = false;
+    console.error('audioCapturer.release Invoked: Error: ' + JSON.stringify(err));
   });
-  await sleep(waitReadyMs_600);
+  await sleep(waitReadyMs_100);
 }
 
 async function releasePromise(audioCapturer: audio.AudioCapturer) {
@@ -168,6 +181,7 @@ async function releasePromise(audioCapturer: audio.AudioCapturer) {
     isPass = false;
     console.error('audioCapturer.release Invoked: Error: ' + err);
   });
+  await sleep(waitReadyMs_100);
 }
 
 async function onReadData(audioCapturer: audio.AudioCapturer) {
@@ -189,7 +203,7 @@ async function onReadData(audioCapturer: audio.AudioCapturer) {
   }
   try {
     audioCapturer.on('readData', readDataCallback);
-    await sleep(waitReadyMs_300);
+    await sleep(waitReadyMs_600);
   } catch (error) {
     expect().assertFail();
     console.error('Capturer:onReadData fail:' + error);
@@ -237,7 +251,7 @@ export default function audioCapturerTest() {
           capturerOffsetStart = startOffset;
         }
         audioCapturer.on('readData', readDataCallback);
-        await sleep(waitReadyMs_300);
+        await sleep(waitReadyMs_600);
         await startPromise(audioCapturer);
         await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_RUNNING);
@@ -265,7 +279,7 @@ export default function audioCapturerTest() {
           });
           await onReadData(audioCapturer);
           await startPromise(audioCapturer);
-          await sleep(waitReadyMs_300);
+          await sleep(waitReadyMs_600);
         }
         catch (error) {
           expect(error).assertFail();
@@ -290,7 +304,7 @@ export default function audioCapturerTest() {
             console.info('SUB_ArkUIX_Audio_capturerOnMarkReach_Func_0200 fail');
           });
           await startCallback(audioCapturer);
-          await sleep(waitReadyMs_300);
+          await sleep(waitReadyMs_600);
         }
         catch (error) {
           expect(true).assertTrue();
@@ -480,22 +494,26 @@ export default function audioCapturerTest() {
     it('SUB_ArkUIX_Audio_getCapturerInfo_Func_0100', 0, async (done: Function) => {
       try{
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
-        audioCapturer.getCapturerInfo((err, capturerInfo) => {
-          if (err) {
-            console.error('getCapturerInfo Invoked: Error: ' + err.code);
-          } else {
-            if(capturerInfo.source == audioCapturerInfo.source &&
-              capturerInfo.capturerFlags == audioCapturerInfo.capturerFlags) {
-              isPass = true;
-            }
+        await (async (): Promise<audio.AudioCapturerInfo> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.getCapturerInfo((err, capturerInfo) => {
+              err == undefined ? resolve(capturerInfo) : reject(err)
+            });
+          });
+        })().then(capturerInfo => {
+          if(capturerInfo.source == audioCapturerInfo.source &&
+            capturerInfo.capturerFlags == audioCapturerInfo.capturerFlags) {
+            isPass = true;
           }
+        }).catch((err: BusinessError) => {
+          console.error('getCapturerInfo Invoked: Error: ' + JSON.stringify(err));
         });
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getCapturerInfo_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -521,7 +539,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getCapturerInfo_Func_0200 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -543,7 +561,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_getCapturerInfoSync_Func_0300 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -555,24 +573,28 @@ export default function audioCapturerTest() {
      */
     it('SUB_ArkUIX_Audio_capturerGetStreamInfo_Func_0100', 0, async (done: Function) => {
       try{
-        audioCapturer.getStreamInfo((err, streamInfo) => {
-          if (err) {
-            console.error('getStreamInfo Invoked: Error: ' + err.code);
-          } else {
-            if(streamInfo.samplingRate == audioStreamInfo.samplingRate &&
-              streamInfo.channels == audioStreamInfo.channels &&
-              streamInfo.sampleFormat == audioStreamInfo.sampleFormat &&
-              streamInfo.encodingType == audioStreamInfo.encodingType) {
-              isPass = true;
-            }
+        await (async (): Promise<audio.AudioStreamInfo> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.getStreamInfo((err, streamInfo) => {
+              err == undefined ? resolve(streamInfo) : reject(err)
+            });
+          });
+        })().then(streamInfo => {
+          if(streamInfo.samplingRate == audioStreamInfo.samplingRate &&
+            streamInfo.channels == audioStreamInfo.channels &&
+            streamInfo.sampleFormat == audioStreamInfo.sampleFormat &&
+            streamInfo.encodingType == audioStreamInfo.encodingType) {
+            isPass = true;
           }
+        }).catch((err: BusinessError) => {
+          console.error('getStreamInfo Invoked: Error: ' + JSON.stringify(err));
         });
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetStreamInfo_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -600,7 +622,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetStreamInfo_Func_0200 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -624,7 +646,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetStreamInfoSync_Func_0300 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -636,21 +658,25 @@ export default function audioCapturerTest() {
      */
     it('SUB_ArkUIX_Audio_capturerGetAudioStreamId_Func_0100', 0, async (done: Function) => {
       try{
-        audioCapturer.getAudioStreamId((err, streamId) => {
-          if (err) {
-            console.error('getAudioStreamId Invoked: Error: ' + err);
-          } else {
-            if(streamId >= 0) {
-              isPass = true;
-            }
+        await (async (): Promise<number> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.getAudioStreamId((err, streamId) => {
+              err == undefined ? resolve(streamId) : reject(err)
+            });
+          });
+        })().then(streamId => {
+          if(streamId >= 0) {
+            isPass = true;
           }
+        }).catch((err: BusinessError) => {
+          console.error('getAudioStreamId Invoked: Error: ' + JSON.stringify(err));
         });
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetAudioStreamId_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -675,7 +701,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetAudioStreamId_Func_0200 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -696,7 +722,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerGetAudioStreamIdSync_Func_0300 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -713,17 +739,19 @@ export default function audioCapturerTest() {
           await onReadData(audioCapturer);
           await startCallback(audioCapturer);
           await sleep(waitReadyMs_300);
-
-          audioCapturer.getAudioTime((err, timestamp) => {
-            if (err) {
-              console.error('getAudioTime Invoked: Error: ' + err.code);
-            } else {
-              if(timestamp != null) {
-                isPass = true;
-              }
+          await (async (): Promise<number> => {
+            return new Promise((resolve, reject) => {
+              audioCapturer.getAudioTime((err, timestamp) => {
+                err == undefined ? resolve(timestamp) : reject(err)
+              });
+            });
+          })().then(timestamp => {
+            if(timestamp != null) {
+              isPass = true;
             }
+          }).catch((err: BusinessError) => {
+            console.error('getAudioTime Invoked: Error: ' + JSON.stringify(err));
           });
-          await sleep(waitReadyMs_300);
         }
         catch (error) {
           expect(error).assertFail();
@@ -794,14 +822,18 @@ export default function audioCapturerTest() {
      */
     it('SUB_ArkUIX_Audio_capturerGetBufferSize_Func_0100', 0, async (done: Function) => {
       try{
-        audioCapturer.getBufferSize((err, data) => {
-          if (err) {
-            console.error('getBufferSize Invoked: Error: ' + err);
-          } else {
-            if(data >= 0) {
-              isPass = true;
-            }
+        await (async (): Promise<number> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.getBufferSize((err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          if(data >= 0) {
+            isPass = true;
           }
+        }).catch((err: BusinessError) => {
+          console.error('getBufferSize Invoked: Error: ' + JSON.stringify(err));
         });
       }
       catch (error) {
@@ -911,14 +943,18 @@ export default function audioCapturerTest() {
       try{
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
-        audioCapturer.start((err) => {
-          if (err) {
-            console.error('audioCapturer.start Invoked: Error: ' + err);
-          } else {
-            isPass = true;
-          }
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.start((err) => {
+              err == undefined ? resolve(true) : reject(err)
+            });
+          });
+        })().then(bool => {
+          isPass = true;
+        }).catch((err: BusinessError) => {
+          console.error('audioCapturer.start Invoked: Error: ' + JSON.stringify(err));
         });
-        await sleep(waitReadyMs_1500);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_RUNNING);
       }
       catch (error) {
@@ -968,14 +1004,18 @@ export default function audioCapturerTest() {
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await startCallback(audioCapturer);
         await sleep(waitReadyMs_300);
-        audioCapturer.stop((err) => {
-          if (err) {
-            console.error('audioCapturer.stop Invoked: Error: ' + err);
-          } else {
-            isPass = true;
-          }
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.stop((err) => {
+              err == undefined ? resolve(true) : reject(err)
+            });
+          });
+        })().then(bool => {
+          isPass = true;
+        }).catch((err: BusinessError) => {
+          console.error('audioCapturer.stop Invoked: Error: ' + JSON.stringify(err));
         });
-        await sleep(waitReadyMs_600);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_STOPPED);
       }
       catch (error) {
@@ -1004,7 +1044,7 @@ export default function audioCapturerTest() {
           expect(err).assertFail();
           console.error('audioCapturer.stop Invoked: Error: ' + err);
         });
-        await sleep(waitReadyMs_600);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_STOPPED);
       }
       catch (error) {
@@ -1025,14 +1065,18 @@ export default function audioCapturerTest() {
     it('SUB_ArkUIX_Audio_capturerRelease_Func_0100', 0, async (done: Function) => {
       try{
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
-        audioCapturer.release((err) => {
-          if (err) {
-            console.error('audioCapturer.release Invoked: Error: ' + err);
-          } else {
-            isPass = true;
-          }
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.release((err) => {
+              err == undefined ? resolve(true) : reject(err)
+            });
+          });
+        })().then(bool => {
+          isPass = true;
+        }).catch((err: BusinessError) => {
+          console.error('audioCapturer.release Invoked: Error: ' + JSON.stringify(err));
         });
-        await sleep(waitReadyMs_600);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_RELEASED);
       }
       catch (error) {
@@ -1080,7 +1124,7 @@ export default function audioCapturerTest() {
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
         await startCallback(audioCapturer);
-        await sleep(waitReadyMs_300);
+        await sleep(waitReadyMs_1000);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_RUNNING);
       }
       catch (error) {
@@ -1101,13 +1145,17 @@ export default function audioCapturerTest() {
       try{
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
-        audioCapturer.stop((err: BusinessError) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0200 fail');
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.stop((err: BusinessError) => {
+              err == undefined ? resolve(false) : reject(err)
+            });
+          });
+        })().then(bool => {
+          console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0200 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1115,7 +1163,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0200 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_300);
       expect(isPass).assertTrue();
       await audioCapturer.release();
       done();
@@ -1151,13 +1199,17 @@ export default function audioCapturerTest() {
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
         await startCallback(audioCapturer);
-        audioCapturer.start((err: BusinessError) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0400 fail');
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.start((err: BusinessError) => {
+              err == undefined ? resolve(false) : reject(err)
+            });
+          });
+        })().then(bool => {
+          console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0400 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1165,7 +1217,7 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0400 error' + error);
       }
-      await sleep(waitReadyMs_600);
+      await sleep(waitReadyMs_300);
       expect(isPass).assertTrue();
       await audioCapturer.release();
       done();
@@ -1189,7 +1241,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0500 error' + error);
       }
-      await sleep(waitReadyMs_600);
       await audioCapturer.release();
       done();
     })
@@ -1235,7 +1286,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0700 error' + error);
       }
-      await sleep(waitReadyMs_600);
       await audioCapturer.release();
       done();
     })
@@ -1252,23 +1302,31 @@ export default function audioCapturerTest() {
         await startCallback(audioCapturer);
         await stopCallback(audioCapturer);
         if (platform.startsWith('OpenHarmony')) {
-          audioCapturer.stop((err: BusinessError) => {
-            if (err) {
-              console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0800 fail');
-            } else {
-              if (audioCapturer.state == audio.AudioState.STATE_STOPPED) {
-                isPass = true;
-              }
+          await (async (): Promise<boolean> => {
+            return new Promise((resolve, reject) => {
+              audioCapturer.stop((err: BusinessError) => {
+                err == undefined ? resolve(true) : reject(err)
+              });
+            });
+          })().then(bool => {
+            if (audioCapturer.state == audio.AudioState.STATE_STOPPED) {
+              isPass = true;
             }
+          }).catch((err: BusinessError) => {
+            console.error('audioCapturer.stop Invoked: Error: ' + JSON.stringify(err));
           });
         } else {
-          audioCapturer.stop((err: BusinessError) => {
-            if (err) {
-              if (err.code == errCode_6800301) {
-                isPass = true;
-              }
-            } else {
-              console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0800 fail');
+          await (async (): Promise<boolean> => {
+            return new Promise((resolve, reject) => {
+              audioCapturer.stop((err: BusinessError) => {
+                err == undefined ? resolve(false) : reject(err)
+              });
+            });
+          })().then(bool => {
+            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0800 fail');
+          }).catch((err: BusinessError) => {
+            if (err.code == errCode_6800301) {
+              isPass = true;
             }
           });
         }
@@ -1315,13 +1373,17 @@ export default function audioCapturerTest() {
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
         await releaseCallback(audioCapturer);
-        audioCapturer.start((err: BusinessError) => {
-          if (err) {
-            if(err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1000 fail');
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.start((err: BusinessError) => {
+              err == undefined ? resolve(false) : reject(err)
+            });
+          });
+        })().then(bool => {
+          console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1000 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1344,13 +1406,17 @@ export default function audioCapturerTest() {
         audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
         await onReadData(audioCapturer);
         await releaseCallback(audioCapturer);
-        audioCapturer.stop((err: BusinessError) => {
-          if (err) {
-            if(err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1100 fail');
+        await (async (): Promise<boolean> => {
+          return new Promise((resolve, reject) => {
+            audioCapturer.stop((err: BusinessError) => {
+              err == undefined ? resolve(false) : reject(err)
+            });
+          });
+        })().then(bool => {
+          console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1100 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1374,23 +1440,31 @@ export default function audioCapturerTest() {
         await onReadData(audioCapturer);
         await releaseCallback(audioCapturer);
         if (platform.startsWith('OpenHarmony')) {
-          audioCapturer.release((err: BusinessError) => {
-            if (err) {
-              console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1200 fail');
-            } else {
-              if (audioCapturer.state == audio.AudioState.STATE_RELEASED) {
-                isPass = true;
-              }
+          await (async (): Promise<boolean> => {
+            return new Promise((resolve, reject) => {
+              audioCapturer.release((err: BusinessError) => {
+                err == undefined ? resolve(true) : reject(err)
+              });
+            });
+          })().then(bool => {
+            if (audioCapturer.state == audio.AudioState.STATE_RELEASED) {
+              isPass = true;
             }
+          }).catch((err: BusinessError) => {
+            console.error('audioCapturer.release Invoked: Error: ' + JSON.stringify(err));
           });
         } else {
-          audioCapturer.release((err: BusinessError) => {
-            if (err) {
-              if (err.code == errCode_6800301) {
-                isPass = true;
-              }
-            } else {
-              console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1200 fail');
+          await (async (): Promise<boolean> => {
+            return new Promise((resolve, reject) => {
+              audioCapturer.release((err: BusinessError) => {
+                err == undefined ? resolve(false) : reject(err)
+              });
+            });
+          })().then(bool => {
+            console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1200 fail');
+          }).catch((err: BusinessError) => {
+            if (err.code == errCode_6800301) {
+              isPass = true;
             }
           });
         }
@@ -1399,7 +1473,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1200 error' + error);
       }
-      await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
       done();
     })
@@ -1421,7 +1494,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1300 error' + error);
       }
-      await sleep(waitReadyMs_600);
       await audioCapturer.release();
       done();
     })
@@ -1470,7 +1542,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1500 error' + error);
       }
-      await sleep(waitReadyMs_600);
       done();
     })
     /**
@@ -1520,7 +1591,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1700 error' + error);
       }
-      await sleep(waitReadyMs_600);
       await audioCapturer.release();
       done();
     })
@@ -1543,7 +1613,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1800 error' + error);
       }
-      await sleep(waitReadyMs_600);
       done();
     })
     /**
@@ -1567,7 +1636,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1900 error' + error);
       }
-      await sleep(waitReadyMs_600);
       await audioCapturer.release();
       done();
     })
@@ -1630,7 +1698,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_2100 error' + error);
       }
-      await sleep(waitReadyMs_600);
       done();
     })
     /**

@@ -21,10 +21,12 @@ import audioManagerTest from './AudioManager.test'
 import audioVolumeManagerTest from './AudioVolumeManager.test'
 import audioStreamManagerTest from './AudioStreamManager.test'
 import audioRoutingManagerTest from './AudioRoutingManager.test'
+import audioRendererCombinedTest from './AudioRendererCombined.test'
 
 export default function testsuite() {
    audioStreamManagerTest()
    audioRendererTest()
+   audioRendererCombinedTest()
    audioCapturerTest()
    audioCapturer_CreateTest()
    audioVolumeManagerTest()

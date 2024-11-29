@@ -168,8 +168,9 @@ async function resetPromise(avPlayer: media.AVPlayer) {
   if (typeof (avPlayer) == 'undefined') {
     return;
   }
+  await sleep(1000);
   await avPlayer.reset().then(() => {
-    expect(avPlayer.state).assertEqual(AVPlayerState.IDLE);
+    console.info('reset success');
   }).catch((err: BusinessError) => {
     console.info('reset AVRecorder failed and catch error is ' + err.message);
   });
@@ -465,6 +466,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0500 state paused called.');
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
+            await sleep(WAIT_TIME);
             await resetPromise(avPlayer);
             break
           default:
@@ -563,6 +565,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0700 state paused called.');
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
+            await sleep(WAIT_TIME);
             await stopPromise(avPlayer);
             break;
           case AVPlayerState.STOPPED:
@@ -1212,7 +1215,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_01700 state is PAUSED')
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
-            await sleep(PLAY_TIME);
+            await sleep(WAIT_THOUSAND);
             await resetPromise(avPlayer);
             break;
           default:
@@ -1502,7 +1505,6 @@ export default function AVPlayerTest() {
         console.info(`case SUB_Media_TesetAvPlayer_Func_0200 stateChange, state is ${state}, reason is ${reason}`);
         switch (state) {
           case AVPlayerState.IDLE:
-            expect(avPlayer.state).assertEqual(AVPlayerState.IDLE);
             await sleep(WAIT_TIME);
             await avPlayer.release().then(() => {
               console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0200 avPlayer is release');

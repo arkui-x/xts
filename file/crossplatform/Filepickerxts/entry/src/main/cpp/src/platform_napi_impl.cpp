@@ -19,18 +19,17 @@
 #include "native_common.h"
 #include "platform_napi_jni.h"
 
-std::unique_ptr<PlatformNAPI> PlatformNAPI::Create()
-{
+std::unique_ptr<PlatformNAPI> PlatformNAPI::Create() { 
     // Create
     return std::make_unique<PlatformNAPIImpl>();
 }
 
-void PlatformNAPIImpl::SelectFilePicker(void)
-{
-    PlatformNAPIJni::SelectFilePicker();
+void PlatformNAPIImpl::SelectFilePicker(void) 
+{ 
+    PlatformNAPIJni::SelectFilePicker(); 
 }
 
-void PlatformNAPIImpl::CloseFilePicker(void)
+void PlatformNAPIImpl::CloseFilePicker(void) 
 {
-    PlatformNAPIJni::CloseFilePicker();
+    PlatformNAPIJni::CloseFilePicker(); 
 }

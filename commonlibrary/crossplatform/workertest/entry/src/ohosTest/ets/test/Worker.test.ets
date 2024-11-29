@@ -1035,7 +1035,7 @@ export default function WorkerTest() {
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(
-          "Worker instance is not running, maybe worker is terminated"
+          "The Worker instance is not running, maybe worker is terminated"
         );
 
         done();
@@ -1130,7 +1130,7 @@ export default function WorkerTest() {
         await promiseCase();
       } catch (error) {
         let msg =
-          "Worker instance is not running, maybe worker is terminated when PostMessage";
+          "The Worker instance is not running, maybe worker is terminated when PostMessage";
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(msg);
         done();
@@ -1276,7 +1276,7 @@ export default function WorkerTest() {
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(
-          "Worker instance is not running, maybe worker is terminated"
+          "The Worker instance is not running, maybe worker is terminated"
         );
         done();
       }
@@ -1315,7 +1315,7 @@ export default function WorkerTest() {
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(
-          "Worker instance is not running, maybe worker has been terminated"
+          "The Worker instance is not running, maybe worker has been terminated"
         );
         done();
       }
@@ -1462,7 +1462,7 @@ export default function WorkerTest() {
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(
-          "Worker instance is not running, maybe worker is terminated"
+          "The Worker instance is not running, maybe worker is terminated"
         );
         done();
       }
@@ -1548,7 +1548,7 @@ export default function WorkerTest() {
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
         expect(error.message).assertEqual(
-          "Worker instance is not running, maybe worker is terminated"
+          "The Worker instance is not running, maybe worker is terminated"
         );
         done();
       }

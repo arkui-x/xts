@@ -29,9 +29,9 @@ export function UriTest() {
       try {
         let that = new uri.URI("#http://username:password@host:8080/directory/file?foo=1&bar=2");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: The #It can't be the first");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The #It can't be the first");
       }
     });
 
@@ -83,9 +83,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("http://username:password@host:8080/directory/file?foo^=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The Query does not conform to the rule");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The Query does not conform to the rule");
       }
     });
 
@@ -101,9 +102,11 @@ export function UriTest() {
       try {
         let that = new uri.URI("1http://username:password@host:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The Scheme the first character must be a letter");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: " +
+          "The Scheme the first character must be a letter");
       }
     });
 
@@ -119,9 +122,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("ht@tp://username:password@host:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The scheme does not conform to the rule");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The scheme does not conform to the rule");
       }
     });
 
@@ -137,9 +141,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("http://username:password@[::]:80r80/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The Prot does not conform to the rule");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The Prot does not conform to the rule");
       }
     });
 
@@ -155,9 +160,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("http://username:password@[::12:55:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The IPv6 is missing a closing bracket");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The IPv6 is missing a closing bracket");
       }
     });
 
@@ -173,9 +179,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("http://username:pa^ssword@[::12:55]:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The userInfo does not conform to the rule");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The userInfo does not conform to the rule");
       }
     });
 
@@ -191,9 +198,10 @@ export function UriTest() {
       try {
         let that = new uri.URI("http://username:password@[::1你2:55]:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
-        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string");
+        expect(err.toString()).assertEqual("BusinessError: Syntax Error. Invalid Uri string: " +
+          "The ipv6 does not conform to the rule");
         expect(err.code).assertEqual(10200002);
-        expect(err.message).assertEqual("Syntax Error. Invalid Uri string");
+        expect(err.message).assertEqual("Syntax Error. Invalid Uri string: The ipv6 does not conform to the rule");
       }
     });
 
@@ -421,7 +429,8 @@ export function UriTest() {
     it("testToString004", 0, function () {
       let gaogao = new uri.URI("http://gg:gao你好gao@199.98.55.44:99/path/p你好ath?qu你好ery#fag你好ment");
       let res = gaogao.toString();
-      expect(res).assertEqual("http://gg:gao%E4%BD%A0%E5%A5%BDgao@199.98.55.44:99/path/" + "p%E4%BD%A0%E5%A5%BDath?qu%E4%BD%A0%E5%A5%BDery#fag%E4%BD%A0%E5%A5%BDment");
+      expect(res).assertEqual("http://gg:gao%E4%BD%A0%E5%A5%BDgao@199.98.55.44:99/path/" +
+        "p%E4%BD%A0%E5%A5%BDath?qu%E4%BD%A0%E5%A5%BDery#fag%E4%BD%A0%E5%A5%BDment");
     });
 
     /**

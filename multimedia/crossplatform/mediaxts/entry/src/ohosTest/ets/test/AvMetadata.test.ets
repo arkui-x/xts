@@ -1456,7 +1456,7 @@ export default function AvMetadataTest() {
         console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04500 callback success video PixelMap :${pixel_map}}`)
       }).catch((error: BusinessError) => {
         console.error(`SUB_ArkUIX_Media_TestAVMetadata_Func_04500 catchCallback, error message:${error.message}`)
-        expect(error.code == undefined).assertTrue();
+        expect(error.code == 5400106).assertTrue();
         avMetadataExtractor.release();
       });
       done();

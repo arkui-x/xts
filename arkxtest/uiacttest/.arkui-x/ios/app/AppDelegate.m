@@ -14,7 +14,6 @@
  */
 
 #import "AppDelegate.h"
-#import "EntryUiTestAbilityViewController.h"
 #import "EntryEntryAbilityViewController.h"
 #import <libarkui_ios/StageApplication.h>
 
@@ -80,11 +79,6 @@
         EntryEntryAbilityViewController *entryOtherVC = [[EntryEntryAbilityViewController alloc] initWithInstanceName:instanceName];
         entryOtherVC.params = params;
         subStageVC = (EntryEntryAbilityViewController *)entryOtherVC;
-    } else if ([moduleName isEqualToString:@"entry"] && [abilityName isEqualToString:@"UiTestAbility"]) {
-        NSString *instanceName = [NSString stringWithFormat:@"%@:%@:%@",bundleName, moduleName, abilityName];
-        EntryUiTestAbilityViewController *entryOtherVC = [[EntryUiTestAbilityViewController alloc] initWithInstanceName:instanceName];
-        entryOtherVC.params = params;
-        subStageVC = (EntryUiTestAbilityViewController *)entryOtherVC;
     } // other ViewController
     
     if (!subStageVC) {

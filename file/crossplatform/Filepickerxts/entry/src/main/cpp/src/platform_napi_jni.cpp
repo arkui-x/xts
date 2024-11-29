@@ -31,8 +31,7 @@ struct {
     jobject globalRef;
 } g_pluginClass;
 
-bool PlatformNAPIJni::Register(void *env)
-{
+bool PlatformNAPIJni::Register(void *env) {
     auto *jniEnv = static_cast<JNIEnv *>(env);
     CHECK_AND_RETURN(jniEnv, "jniEnv", false);
 
@@ -49,8 +48,7 @@ bool PlatformNAPIJni::Register(void *env)
     return true;
 }
 
-void PlatformNAPIJni::NativeInit(JNIEnv *env, jobject jobj)
-{
+void PlatformNAPIJni::NativeInit(JNIEnv *env, jobject jobj) {
     g_pluginClass.globalRef = env->NewGlobalRef(jobj);
     CHECK_AND_RETURN_VOID(g_pluginClass.globalRef, "g_pluginClass.globalRef");
 
@@ -66,8 +64,7 @@ void PlatformNAPIJni::NativeInit(JNIEnv *env, jobject jobj)
     env->DeleteLocalRef(cls);
 }
 
-void PlatformNAPIJni::SelectFilePicker(void)
-{
+void PlatformNAPIJni::SelectFilePicker(void) {
     auto env = ARKUI_X_Plugin_GetJniEnv();
     CHECK_AND_RETURN_VOID(env, "env=null");
 
@@ -76,8 +73,7 @@ void PlatformNAPIJni::SelectFilePicker(void)
     env->CallObjectMethod(g_pluginClass.globalRef, g_pluginClass.SelectFilePicker);
 }
 
-void PlatformNAPIJni::CloseFilePicker(void)
-{
+void PlatformNAPIJni::CloseFilePicker(void) {
     auto env = ARKUI_X_Plugin_GetJniEnv();
     CHECK_AND_RETURN_VOID(env, "env=null");
     CHECK_AND_RETURN_VOID(g_pluginClass.CloseFilePicker, "g_pluginClass.SelectFilePicker");

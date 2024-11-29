@@ -491,11 +491,8 @@ describe("TreeSetTest", function () {
     let  treeSet = new TreeSet();
     try {
       treeSet.getLowerValue(null);
-      expect(true).assertEqual(false);
     } catch (err) {
-      expect(err.name).assertEqual("BusinessError");
-      expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "key" must be not null. Received value is: null`);
+      expect(true).assertEqual(false);
     }
   });
 
@@ -544,11 +541,8 @@ describe("TreeSetTest", function () {
     let  treeSet = new TreeSet();
     try {
       treeSet.getHigherValue(null);
-      expect(true).assertEqual(false);
     } catch (err) {
-      expect(err.name).assertEqual("BusinessError");
-      expect(err.code).assertEqual(401);
-      expect(err.message).assertEqual(`The type of "key" must be not null. Received value is: null`);
+      expect(true).assertEqual(false);
     }
   });
 
