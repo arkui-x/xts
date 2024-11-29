@@ -1,3 +1,0 @@
-<div style="background-color: {{ $r('colors.background') }}">
-    <image src="{{ $r('image.clockFace') }}"></image>
-</div>

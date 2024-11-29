@@ -1,1 +1,0 @@
-export const isRawDir: (a : object, b : string) => Boolean;

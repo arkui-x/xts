@@ -1,9 +1,0 @@
-{
-  "src": [
-    "pages/HTMLControl",
-    "pages/Index",
-    "pages/accessStep",
-    "pages/operation",
-    "pages/load"
-  ]
-}
