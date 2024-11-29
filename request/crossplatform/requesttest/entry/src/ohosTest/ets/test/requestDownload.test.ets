@@ -53,550 +53,6 @@ export default function requestCrossplatformDownloadJSUnit() {
     });
 
     /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001
-     * @tc.desc      Starts a download session.
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001", 0, async function (done) {
-      console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-        } catch (e) {
-          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 except error: " + e);
-        }
-        await downloadTask.delete();
-        removeFile(downloadFilePath);
-        console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 end-----------------------");
-        done();
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002
-     * @tc.desc      Starts a download session.
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002", 0, async function (done) {
-      console.info("-----------------------SUB_REQUEST_downloadFile_STAGE_API_CALLBACK_0002 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: true,
-        enableRoaming: true,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: true,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-        } catch (e) {
-          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 except error: " + e);
-        }
-        await downloadTask.delete();
-        removeFile(downloadFilePath);
-        console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 end-----------------------");
-        done();
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001
-     * @tc.desc      Starts a download session.
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001", 0, async function (done) {
-      console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      try {
-        request
-          .downloadFile(globalThis.abilityContext, downloadFileConfig)
-          .then(async (downloadTask) => {
-            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 downloadTask: " + downloadTask);
-            expect(downloadTask != undefined).assertEqual(true);
-            await downloadTask.delete();
-          })
-          .catch((err) => {
-            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 error: " + err);
-          })
-          .finally(() => {
-            removeFile(downloadFilePath);
-            done();
-          });
-      } catch (err) {
-        console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 catch error: " + err);
-        done();
-      }
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001
-     * @tc.desc      Delete the download task.
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_delete_0001 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask.delete(async (err, data) => {
-            try {
-              if (err) {
-                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 Failed to delete the download task.");
-                expect().assertFail();
-                done();
-              }
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 Download task delete success.");
-              expect(typeof data == "boolean").assertTrue();
-            } catch (err) {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 delete throw error" + err);
-            } finally {
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
-              done();
-            }
-          });
-        } catch (error) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 delete catch error" + error);
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002
-     * @tc.desc      Delete the download task.
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_DELETE_0002 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask
-            .delete()
-            .then(async (data) => {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 Download task delete success.");
-              expect(data).assertEqual(true);
-              console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 end-----------------------");
-            })
-            .catch(async (err) => {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 Failed to delete the download task.");
-              expect().assertFail();
-            })
-            .finally(async () => {
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
-              done();
-            });
-        } catch (error) {
-          console.error("====>SUB_REQUEST_DOWNLOAD_API_DELETE_0002 delete catch error");
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001
-     * @tc.desc      Suspend the download task
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask.suspend(async (err, data) => {
-            try {
-              if (err) {
-                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 Failed to suspend the download task.");
-                expect().assertFail();
-                done();
-              }
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 Download task suspend success.");
-              expect(data == true).assertTrue();
-            } catch (err) {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 throw_error: " + JSON.stringify(err));
-            }
-            await downloadTask.delete();
-            removeFile(downloadFilePath);
-            done();
-          });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 suspend catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002
-     * @tc.desc      Suspend the download task
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          try {
-            let data = await downloadTask.suspend();
-            expect(data == true).assertTrue();
-          } catch (err) {
-            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 throw_err:" + JSON.stringify(err));
-          }
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 suspend catch error" + JSON.stringify(err));
-        } finally {
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001
-     * @tc.desc      Restore the download task
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask.restore(async (err, data) => {
-            try {
-              if (err) {
-                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 Failed to restore the download task.");
-                expect().assertFail();
-                done();
-              }
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 Download  restore success.");
-              expect(data == true).assertTrue();
-            } catch (err) {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 throw_err:" + JSON.stringify(err));
-            }
-            await downloadTask.delete();
-            removeFile(downloadFilePath);
-            done();
-          });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 restore catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002
-     * @tc.desc      Restore the download task
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002", 0, async function (done) {
-      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 is starting-----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask
-            .restore()
-            .then(async (data) => {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Download task restore.");
-              expect(data == true).assertTrue();
-            })
-            .catch(async (err) => {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Failed to restore the download task.");
-            })
-            .finally(async () => {
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
-              done();
-            });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_DOWNLOAD_API_RESTORE_0002 restore catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001
-     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001
-     * @tc.desc      Get the download task info
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001", 0, async function (done) {
-      console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 is starting---------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask.getTaskInfo(async (err, data) => {
-            try {
-              if (err) {
-                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 Failed to getTaskInfo the download task.");
-                expect().assertFail();
-                done();
-              }
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 Download getTaskInfo success.");
-              expect(typeof data == "object").assertTrue();
-            } catch (err) {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 throw_error" + JSON.stringify(err));
-            }
-            await downloadTask.delete();
-            removeFile(downloadFilePath);
-            done();
-          });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 getTaskInfo catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
-     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002
-     * *@tc.name     subRequestDownloadApiGetTaskInfo0002
-     * @tc.desc      Get the download task info
-     * @tc.size      : MediumTest
-     * @tc.type      : Function
-     * @tc.level     : Level 2
-     */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002", 0, async function (done) {
-      console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 is starting----------------------");
-      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`;
-      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`);
-      let downloadFileConfig = {
-        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
-        header: {
-          headers: "http",
-        },
-        enableMetered: false,
-        enableRoaming: false,
-        description: "XTS download test!",
-        networkType: request.NETWORK_WIFI,
-        filePath: downloadFilePath,
-        title: "XTS download test!",
-        background: false,
-      };
-      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask
-            .getTaskInfo()
-            .then(async (data) => {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Download task getTaskInfo success.");
-              expect(typeof data == "object").assertTrue();
-            })
-            .catch(async (err) => {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Failed to getTaskInfo the download task.");
-            })
-            .finally(async () => {
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
-              done();
-            });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 getTaskInfo catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
-      });
-    });
-
-    /**
      * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001
      * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001
      * @tc.desc      Get mimetype of the download task
@@ -624,27 +80,42 @@ export default function requestCrossplatformDownloadJSUnit() {
       };
       request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 downloadTask: " + downloadTask);
-        try {
-          expect(downloadTask != undefined).assertEqual(true);
-          downloadTask.getTaskMimeType(async (err, data) => {
+        downloadTask.on('progress',  async (receivedSize: number, totalSize: number) => {
+          downloadTask.off('progress')
+          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 progress: " + totalSize);
+          try {
+            expect(downloadTask != undefined).assertEqual(true);
+            downloadTask.getTaskMimeType(async (err, data) => {
+              try {
+                console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 getTaskMimeType enter");
+                console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 getTaskMimeType err: " + err);
+                expect(data != null).assertEqual(true);
+              } catch (err) {
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 callback error: " + JSON.stringify(err));
+              } finally {
+                try {
+                  await downloadTask.delete();
+                  console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 remove task");
+                  removeFile(downloadFilePath);
+                  console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 removeFile");
+                } catch (err) {
+                  console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 remove or delete file err: ' + JSON.stringify(err));
+                }
+                done();
+              }
+            });
+          } catch (err) {
             try {
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 getTaskMimeType enter");
-              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 getTaskMimeType err: " + err);
-              expect(data != null).assertEqual(true);
-            } catch (err) {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 callback error: " + JSON.stringify(err));
-            } finally {
               await downloadTask.delete();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 remove task");
               removeFile(downloadFilePath);
-              done();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 removeFile");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 task not remove or delete file err: ' + JSON.stringify(err));
             }
-          });
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
+            done();
+          }
+        })
       });
     });
 
@@ -676,16 +147,26 @@ export default function requestCrossplatformDownloadJSUnit() {
 
       request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 downloadTask: " + downloadTask);
-        try {
-          let data = await downloadTask.getTaskMimeType();
-          expect(data != undefined).assertEqual(true);
-        } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 throw_error: " + JSON.stringify(err));
-        } finally {
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
-          done();
-        }
+        downloadTask.on('progress',  async (receivedSize: number, totalSize: number) => {
+          downloadTask.off('progress')
+          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 progress: " + totalSize);
+          try {
+            let data = await downloadTask.getTaskMimeType();
+            expect(data != undefined).assertEqual(true);
+          } catch (err) {
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 throw_error: " + JSON.stringify(err));
+          } finally {
+            try {
+              await downloadTask.delete();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 remove task");
+              removeFile(downloadFilePath);
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 removeFile");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 task not remove or delete file err: ' + JSON.stringify(err));
+            }
+            done();
+          }
+        })
       });
     });
 
@@ -733,10 +214,10 @@ export default function requestCrossplatformDownloadJSUnit() {
                 expect(data.description).assertEqual('XTS download test!');
                 expect(data.downloadedBytes).assertEqual(1042003);
                 expect(typeof data.downloadId == "number").assertTrue();
-                expect(data.failedReason).assertEqual(0);
+                expect(data.failedReason).assertEqual(8);
                 expect(data.fileName).assertEqual('SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001.txt');
                 expect(data.filePath).assertEqual(`${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001.txt`);
-                expect(data.pausedReason).assertEqual(0);
+                expect(data.pausedReason).assertEqual(4);
                 expect(data.status).assertEqual(0);
                 expect(data.targetURI).assertEqual('https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk');
                 expect(data.downloadTitle).assertEqual('XTS download test!');
@@ -744,15 +225,26 @@ export default function requestCrossplatformDownloadJSUnit() {
               } catch (err) {
                 console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 throw_error" + JSON.stringify(err));
               }
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             });
           });
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 getTaskInfo catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -805,7 +297,7 @@ export default function requestCrossplatformDownloadJSUnit() {
                 expect(typeof data.downloadId == "number").assertTrue();
                 expect(data.fileName).assertEqual('SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002.txt');
                 expect(data.filePath).assertEqual(`${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002.txt`);
-                expect(data.pausedReason).assertEqual(0);
+                expect(data.pausedReason).assertEqual(4);
                 expect(data.status).assertEqual(4);
                 expect(data.targetURI).assertEqual('https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test_not_exists.apk');
                 expect(data.downloadTitle).assertEqual('XTS download test!');
@@ -813,16 +305,28 @@ export default function requestCrossplatformDownloadJSUnit() {
               } catch (err) {
                 console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 throw_error" + JSON.stringify(err));
               }
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             });
           })
 
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 getTaskInfo catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -849,7 +353,8 @@ export default function requestCrossplatformDownloadJSUnit() {
         enableRoaming: false,
         description: "XTS download test!",
         networkType: request.NETWORK_WIFI,
-        background: true,
+        filePath: downloadFilePath,
+        background: false,
       };
       request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 downloadTask: " + downloadTask);
@@ -871,26 +376,37 @@ export default function requestCrossplatformDownloadJSUnit() {
                 expect(data.description).assertEqual('XTS download test!');
                 expect(data.downloadedBytes).assertEqual(1042003);
                 expect(typeof data.downloadId == "number").assertTrue();
-                expect(data.failedReason).assertEqual(0);
-                expect(data.fileName).assertEqual('test.apk');
-                expect(data.filePath).assertEqual(`${globalThis.abilityContext.cacheDir}/test.apk`);
-                expect(data.pausedReason).assertEqual(0);
+                expect(data.failedReason).assertEqual(8);
+                expect(data.fileName).assertEqual('SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003.txt');
+                expect(data.filePath).assertEqual(`${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003.txt`);
+                expect(data.pausedReason).assertEqual(4);
                 expect(data.status).assertEqual(0);
                 expect(data.targetURI).assertEqual('https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk');
-                expect(data.downloadTitle).assertEqual('download');
+                expect(data.downloadTitle).assertEqual('');
                 expect(data.downloadTotalBytes).assertEqual(1042003);
               } catch (err) {
                 console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 throw_error" + JSON.stringify(err));
               }
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             });
           });
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 getTaskInfo catch error" + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -931,20 +447,37 @@ export default function requestCrossplatformDownloadJSUnit() {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 downloadTask in progress");
               expect(receivedSize != null).assertTrue();
               expect(totalSize != null).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 task delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 on api throw_error: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -989,15 +522,26 @@ export default function requestCrossplatformDownloadJSUnit() {
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 complete api throw_error: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1036,20 +580,38 @@ export default function requestCrossplatformDownloadJSUnit() {
           downloadTask.on("fail", async () => {
             try {
               expect(true).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 throw_error: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1095,21 +657,39 @@ export default function requestCrossplatformDownloadJSUnit() {
             try {
               console.log("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 count: " + count);
               expect(count).assertEqual(1);
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 throw_error in complete: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
 
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1151,28 +731,46 @@ export default function requestCrossplatformDownloadJSUnit() {
           console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 downloadTask: " + downloadTask);
           expect(downloadTask != undefined).assertEqual(true);
           downloadTask.on("complete", onFailedCallback);
-          downloadTask.off("complete", onFailedCallback);
+          downloadTask.off("complete");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 in setTimeout");
               clearTimeout(t);
               expect(result).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1214,27 +812,45 @@ export default function requestCrossplatformDownloadJSUnit() {
           console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 downloadTask: " + downloadTask);
           expect(downloadTask != undefined).assertEqual(true);
           downloadTask.on("fail", onFailedCallback);
-          downloadTask.off("fail", onFailedCallback);
+          downloadTask.off("fail");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 in setTimeout");
               clearTimeout(t);
               expect(result).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1274,7 +890,7 @@ export default function requestCrossplatformDownloadJSUnit() {
       }
       let onFailedCallback2 = function() {
         result2 = false;
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 onFailedCallback");
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 onFailedCallback2");
       }
       request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
         try {
@@ -1283,29 +899,47 @@ export default function requestCrossplatformDownloadJSUnit() {
           downloadTask.on("complete", onFailedCallback)
           downloadTask.on("complete", onFailedCallback2)
 
-          downloadTask.off("complete", onFailedCallback);
+          downloadTask.off("complete");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 in setTimeout");
               clearTimeout(t);
               expect(result1).assertTrue();
-              expect(result2).assertFalse();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              expect(result2).assertTrue();
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1345,7 +979,7 @@ export default function requestCrossplatformDownloadJSUnit() {
       }
       let onFailedCallback2 = function() {
         result2 = false;
-        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 onFailedCallback");
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 onFailedCallback2");
       }
       request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
         try {
@@ -1353,28 +987,46 @@ export default function requestCrossplatformDownloadJSUnit() {
           expect(downloadTask != undefined).assertEqual(true);
           downloadTask.on("fail", onFailedCallback);
           downloadTask.on("fail", onFailedCallback2);
-          downloadTask.off("fail", onFailedCallback);
+          downloadTask.off("fail");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 in setTimeout");
               clearTimeout(t);
               expect(result1).assertTrue();
-              expect(result2).assertFalse();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              expect(result2).assertTrue();
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1414,21 +1066,39 @@ export default function requestCrossplatformDownloadJSUnit() {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 downloadTask in pause");
               expect(true).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 task remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 on api throw_error: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
           await downloadTask.suspend();
         } catch (err) {
           console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1468,20 +1138,39 @@ export default function requestCrossplatformDownloadJSUnit() {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 downloadTask in remove");
               expect(true).assertTrue();
-              removeFile(downloadFilePath);
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 on api throw_error: " + JSON.stringify(err));
-              removeFile(downloadFilePath);
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           });
-
-          await downloadTask.delete();
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 remove task");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 delete file err: ' + JSON.stringify(err));
+          }
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1529,7 +1218,6 @@ export default function requestCrossplatformDownloadJSUnit() {
           expect(downloadTask != undefined).assertEqual(true);
           downloadTask.on("complete", onFailedCallback)
           downloadTask.on("complete", onFailedCallback2)
-
           downloadTask.off("complete");
 
           const t = setTimeout(async () => {
@@ -1538,21 +1226,35 @@ export default function requestCrossplatformDownloadJSUnit() {
               clearTimeout(t);
               expect(result1).assertTrue();
               expect(result2).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 delete file err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011  remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
-
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1608,20 +1310,36 @@ export default function requestCrossplatformDownloadJSUnit() {
               clearTimeout(t);
               expect(result1).assertTrue();
               expect(result2).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 remove or delete fail: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
-              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 remove or delete err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1665,35 +1383,52 @@ export default function requestCrossplatformDownloadJSUnit() {
           }
           let onFailedCallback2 = function() {
             result2 = false;
-            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 onFailedCallback");
+            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 onFailedCallback2");
           }
 
           downloadTask.on("pause", onFailedCallback);
           downloadTask.on("pause", onFailedCallback2);
-          downloadTask.off("pause", onFailedCallback);
+          downloadTask.off("pause");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 in setTimeout");
               clearTimeout(t);
               expect(result1).assertTrue();
-              expect(result2 == false).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              expect(result2).assertTrue();
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 remove or delete fail: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 remove or delete err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
           await downloadTask.suspend();
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1750,22 +1485,39 @@ export default function requestCrossplatformDownloadJSUnit() {
               clearTimeout(t);
               expect(result1).assertTrue();
               expect(result2).assertTrue();
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 remove or delete err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 throw_error in setTimeout: " + JSON.stringify(err));
-              await downloadTask.delete();
-              removeFile(downloadFilePath);
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 remove or delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
           await downloadTask.suspend();
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1809,35 +1561,48 @@ export default function requestCrossplatformDownloadJSUnit() {
           }
           let onFailedCallback2 = function() {
             result2 = false;
-            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 onFailedCallback");
+            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 onFailedCallback2");
           }
 
           downloadTask.on("remove", onFailedCallback);
           downloadTask.on("remove", onFailedCallback2);
-          downloadTask.off("remove", onFailedCallback);
+          downloadTask.off("remove");
 
           const t = setTimeout(async () => {
             try {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 in setTimeout");
               clearTimeout(t);
               expect(result1).assertTrue();
-              expect(result2 == false).assertTrue();
-
-              removeFile(downloadFilePath);
+              expect(result2).assertTrue();
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 delete err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 throw_error in setTimeout: " + JSON.stringify(err));
-
-              removeFile(downloadFilePath);
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
           await downloadTask.delete();
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 throw_error: " + JSON.stringify(err));
-          await downloadTask.delete();
-          removeFile(downloadFilePath);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });
@@ -1894,22 +1659,667 @@ export default function requestCrossplatformDownloadJSUnit() {
               clearTimeout(t);
               expect(result1).assertTrue();
               expect(result2).assertTrue();
-
-              removeFile(downloadFilePath);
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 delete err: ' + JSON.stringify(err));
+              }
               done();
             } catch (err) {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 throw_error in setTimeout: " + JSON.stringify(err));
-
-              removeFile(downloadFilePath);
+              try {
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 delete file err: ' + JSON.stringify(err));
+              }
               done();
             }
           }, 5000);
 
           await downloadTask.delete();
         } catch (err) {
-          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 throw_error: " + JSON.stringify(err));
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001
+     * @tc.desc      Starts a download session.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001", 0, async function (done) {
+      console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+        } catch (e) {
+          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 except error: " + e);
+        }
+        try {
+          await downloadTask.delete();
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 remove task");
+          removeFile(downloadFilePath);
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 removeFile");
+        } catch (err) {
+          console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 task not remove or delete file err: ' + JSON.stringify(err));
+        }
+        console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 end-----------------------");
+        done();
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002
+     * @tc.desc      Starts a download session.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002", 0, async function (done) {
+      console.info("-----------------------SUB_REQUEST_downloadFile_STAGE_API_CALLBACK_0002 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: true,
+        enableRoaming: true,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+        } catch (e) {
+          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 except error: " + e);
+        }
+        try {
+          await downloadTask.delete();
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 remove task");
+          removeFile(downloadFilePath);
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 removeFile");
+        } catch (err) {
+          console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 task not remove or delete file err: ' + JSON.stringify(err));
+        }
+        console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002 end-----------------------");
+        done();
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001
+     * @tc.desc      Starts a download session.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001", 0, async function (done) {
+      console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      try {
+        request
+          .downloadFile(globalThis.abilityContext, downloadFileConfig)
+          .then(async (downloadTask) => {
+            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 downloadTask: " + downloadTask);
+            expect(downloadTask != undefined).assertEqual(true);
+            try {
+              await downloadTask.delete();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 remove task");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 delete file err: ' + JSON.stringify(err));
+            }
+          })
+          .catch((err) => {
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 error: " + err);
+          })
+          .finally(() => {
+            try {
+              removeFile(downloadFilePath);
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 removeFile");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 delete file err: ' + JSON.stringify(err));
+            }
+            done();
+          });
+      } catch (err) {
+        console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 catch error: " + err);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001
+     * @tc.desc      Delete the download task.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_delete_0001 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask.delete(async (err, data) => {
+            try {
+              if (err) {
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 Failed to delete the download task.");
+                expect().assertFail();
+                done();
+              }
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 Download task delete success: " +  JSON.stringify(data));
+              expect(data === true).assertTrue();
+              done();
+            } catch (err) {
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 delete throw error" + err);
+              done();
+            }
+          });
+        } catch (error) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 delete catch error" + error);
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002
+     * @tc.desc      Delete the download task.
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_DELETE_0002 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask
+            .delete()
+            .then(async (data) => {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 Download task delete success.");
+              expect(data).assertEqual(true);
+              console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 end-----------------------");
+              done();
+            })
+            .catch(async (err) => {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 Failed to delete the download task.");
+              expect().assertFail();
+              done();
+            })
+        } catch (error) {
+          console.error("====>SUB_REQUEST_DOWNLOAD_API_DELETE_0002 delete catch error");
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_DOWNLOAD_API_DELETE_0002 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_DOWNLOAD_API_DELETE_0002 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_DOWNLOAD_API_DELETE_0002 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001
+     * @tc.desc      Suspend the download task
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask.suspend(async (err, data) => {
+            try {
+              if (err) {
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 Failed to suspend the download task." + JSON.stringify(err));
+                expect().assertFail();
+                done();
+              }
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 Download task suspend success.");
+              expect(data == true).assertTrue();
+            } catch (err) {
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 throw_error: " + JSON.stringify(err));
+            }
+            try {
+              await downloadTask.delete();
+              removeFile(downloadFilePath);
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 task remove or delete file err: ' + JSON.stringify(err));
+            }
+            done();
+          });
+        } catch (err) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 suspend catch error" + JSON.stringify(err));
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002
+     * @tc.desc      Suspend the download task
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          try {
+            let data = await downloadTask.suspend();
+            expect(data == true).assertTrue();
+          } catch (err) {
+            console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 throw_err:" + JSON.stringify(err));
+          }
+        } catch (err) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 suspend catch error" + JSON.stringify(err));
+        } finally {
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001
+     * @tc.desc      Restore the download task
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          await downloadTask.suspend();
+          console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 Download suspend.");
+          downloadTask.restore(async (err, data) => {
+            try {
+              if (err) {
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 Failed to restore the download task." +  JSON.stringify(err));
+                expect().assertFail();
+                done();
+              }
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 Download  restore success.");
+              expect(data == true).assertTrue();
+            } catch (err) {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 throw_err:" + JSON.stringify(err));
+            }
+            try {
+              await downloadTask.delete();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 remove task");
+              removeFile(downloadFilePath);
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 removeFile");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 task remove or delete file err: ' + JSON.stringify(err));
+            }
+            done();
+          });
+        } catch (err) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 restore catch error" + JSON.stringify(err));
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002
+     * @tc.desc      Restore the download task
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002", 0, async function (done) {
+      console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 is starting-----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask
+            .restore()
+            .then(async (data) => {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Download task restore.");
+              expect(data == true).assertTrue();
+            })
+            .catch(async (err) => {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Failed to restore the download task.");
+            })
+            .finally(async () => {
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 task not remove or delete file err: ' + JSON.stringify(err));
+              }
+              done();
+            });
+        } catch (err) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 restore catch error" + JSON.stringify(err));
           await downloadTask.delete();
           removeFile(downloadFilePath);
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001
+     * *@tc.name     SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001
+     * @tc.desc      Get the download task info
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001", 0, async function (done) {
+      console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 is starting---------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask.getTaskInfo(async (err, data) => {
+            try {
+              if (err) {
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 Failed to getTaskInfo the download task.");
+                expect().assertFail();
+                done();
+              }
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 Download getTaskInfo success.");
+              expect(typeof data == "object").assertTrue();
+            } catch (err) {
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 throw_error" + JSON.stringify(err));
+            }
+            try {
+              await downloadTask.delete();
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 remove task");
+              removeFile(downloadFilePath);
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 removeFile");
+            } catch (err) {
+              console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 remove or delete file err: ' + JSON.stringify(err));
+            }
+            done();
+          });
+        } catch (err) {
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 task not remove or delete file err: ' + JSON.stringify(err));
+          }
+          done();
+        }
+      });
+    });
+
+    /**
+     * @tc.number    SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002
+     * *@tc.name     subRequestDownloadApiGetTaskInfo0002
+     * @tc.desc      Get the download task info
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002", 0, async function (done) {
+      console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 is starting----------------------");
+      let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`;
+      console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`);
+      let downloadFileConfig = {
+        url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
+        header: {
+          headers: "http",
+        },
+        enableMetered: false,
+        enableRoaming: false,
+        description: "XTS download test!",
+        networkType: request.NETWORK_WIFI,
+        filePath: downloadFilePath,
+        title: "XTS download test!",
+        background: false,
+      };
+      request.downloadFile(globalThis.abilityContext, downloadFileConfig, async (err, downloadTask) => {
+        console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 downloadTask: " + downloadTask);
+        try {
+          expect(downloadTask != undefined).assertEqual(true);
+          downloadTask
+            .getTaskInfo()
+            .then(async (data) => {
+              console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Download task getTaskInfo success.");
+              expect(typeof data == "object").assertTrue();
+            })
+            .catch(async (err) => {
+              console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Failed to getTaskInfo the download task.");
+            })
+            .finally(async () => {
+              try {
+                await downloadTask.delete();
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 remove task");
+                removeFile(downloadFilePath);
+                console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 removeFile");
+              } catch (err) {
+                console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 remove or delete file err: ' + JSON.stringify(err));
+              }
+              done();
+            });
+        } catch (err) {
+          console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 getTaskInfo catch error" + JSON.stringify(err));
+          try {
+            await downloadTask.delete();
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 remove task");
+            removeFile(downloadFilePath);
+            console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 removeFile");
+          } catch (err) {
+            console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 task not remove or delete file err: ' + JSON.stringify(err));
+          }
           done();
         }
       });

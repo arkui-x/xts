@@ -437,7 +437,7 @@ describe('I18nTest', function () {
     * @tc.type    Method
     * @tc.level   Level 2
     */
-    it(' testGetSystemLocale001', 0, function () {
+    it('testGetSystemLocale001', 0, function () {
         let locale = I18n.System.getSystemLocale();
         console.log(' testGetSystemLocale001 ' + locale);
         expect(locale).assertInstanceOf('String');
@@ -512,8 +512,8 @@ describe('I18nTest', function () {
     * @tc.type    Method
     * @tc.level   Level 2
     */
-     it(' testGetCalendar001', 0, function () {
-        console.log(' testGetCalendar001 ' + 'start');
+     it('testGetCalendar001', 0, function () {
+        console.log('testGetCalendar001 ' + 'start');
         let calendar = I18n.getCalendar('ja', 'japanese');
         expect(calendar != null).assertTrue();
     })

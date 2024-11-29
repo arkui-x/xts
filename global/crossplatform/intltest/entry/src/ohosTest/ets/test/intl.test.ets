@@ -578,7 +578,7 @@ export default function intlTest() {
      */
     it("dateTimeFormatTest006", 0, function () {
       let date = new Date(2021, 11, 17, 3, 24, 0);
-      let datefmt = new Intl.DateTimeFormat("en-GB");
+      let datefmt = new Intl.DateTimeFormat("en-US");
       console.log("DATE_TIME_FORMAT_TEST_006 " + datefmt.format(date));
       expect(["2021", "12/16/21", "12/17/21"].indexOf(datefmt.format(date)) != -1).assertTrue();
     });
