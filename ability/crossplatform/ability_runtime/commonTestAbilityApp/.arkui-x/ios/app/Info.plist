@@ -10,6 +10,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.example.commontestabilityapp</string>
+				<string>com.gxy.test1</string>
 			</array>
 		</dict>
 	</array>

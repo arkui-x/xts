@@ -1,11 +1,24 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "/Users/gxy/.ohos/config/openharmony/default_commonTestAbilityApp_2o7Us6T4UeHU8-xAiQSmutFN7nikH20G-3NhIlLN37Q=.cer",
+          "storePassword": "0000001B12E79880CDDDD8502F706B9FEB6CD2F9F73050D71147095A9479617083DD6DF625272AED024671",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BD8C188B34A76DC58139D10FBC3FEC7613020F90BD9FE1C67DD4078818ECD8B6B2DD0E45AFFF39C",
+          "profile": "/Users/gxy/.ohos/config/openharmony/default_commonTestAbilityApp_2o7Us6T4UeHU8-xAiQSmutFN7nikH20G-3NhIlLN37Q=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/gxy/.ohos/config/openharmony/default_commonTestAbilityApp_2o7Us6T4UeHU8-xAiQSmutFN7nikH20G-3NhIlLN37Q=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 10,
+        "compileSdkVersion": 14,
         "compatibleSdkVersion": 10,
         "runtimeOS": "OpenHarmony",
       }
@@ -33,5 +46,4 @@
       ]
     }
   ],
-  "crossplatform": true
 }
