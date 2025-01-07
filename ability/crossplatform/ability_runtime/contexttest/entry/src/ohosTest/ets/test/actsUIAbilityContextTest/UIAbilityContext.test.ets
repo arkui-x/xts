@@ -14,11 +14,16 @@
  */
 
 import common from '@ohos.app.ability.common';
+import Want from '@ohos.app.ability.Want';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
+function sleep(time: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, time));
+}
+
 export default function UIAbilityContext() {
-  describe("UIAbilityContext", function () {
-    let bundleName: any;
+  describe("UIAbilityContext", () => {
+    let bundleName: string;
     let errMsgArr = [
       "Can not match any component.",
       "Internal error.",
@@ -29,25 +34,21 @@ export default function UIAbilityContext() {
     let errCodeArr = [16000050, 16000019];
     let errCodeStr = JSON.stringify(errCodeArr);
 
-    function sleep(time) {
-      return new Promise((resolve) => setTimeout(resolve, time))
-    }
-
-    beforeAll(async function () {
+    beforeAll(async () => {
       console.info("beforeAll case");
     });
 
-    beforeEach(async function () {
+    beforeEach(async () => {
       console.info("beforeEach case");
     });
 
-    afterEach(async function () {
+    afterEach(async () => {
       console.info('afterEach case');
       globalThis.list1 = [];
       globalThis.parameters = null;
     });
 
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll case");
     });
 
@@ -59,7 +60,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testAbilityInfo001', 0, async function (done) {
+    it('testAbilityInfo001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
@@ -108,7 +109,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testUIAbilityContextCurrentHapModuleInfo001', 0, async function (done) {
+    it('testUIAbilityContextCurrentHapModuleInfo001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
@@ -193,7 +194,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testUIAbilityContextConfig001', 0, async function (done) {
+    it('testUIAbilityContextConfig001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
@@ -222,12 +223,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise001', 0, async function (done) {
+    it('testStartAbilityPromise001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -243,7 +244,7 @@ export default function UIAbilityContext() {
 
 
         await sleep(1500);
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('result: ' + JSON.stringify(result));
         expect(result[0]).assertEqual('Main1Ability onCreate');
 
@@ -268,10 +269,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise002', 0, async function (done) {
+    it('testStartAbilityPromise002', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.abc",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -305,10 +306,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise003', 0, async function (done) {
+    it('testStartAbilityPromise003', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": " ",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -341,10 +342,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise004', 0, async function (done) {
+    it('testStartAbilityPromise004', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "abilityName": "Main1Ability",
           "moduleName": "entry"
         }
@@ -376,10 +377,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise005', 0, async function (done) {
+    it('testStartAbilityPromise005', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "abc"
@@ -411,10 +412,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise006', 0, async function (done) {
+    it('testStartAbilityPromise006', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": " "
@@ -447,11 +448,11 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise007', 0, async function (done) {
+    it('testStartAbilityPromise007', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "MainAbility1"
         }
@@ -481,10 +482,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise008', 0, async function (done) {
+    it('testStartAbilityPromise008', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "abc",
           "moduleName": "entry"
@@ -516,10 +517,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise009', 0, async function (done) {
+    it('testStartAbilityPromise009', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": " ",
           "moduleName": "entry"
@@ -551,10 +552,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise010', 0, async function (done) {
+    it('testStartAbilityPromise010', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "moduleName": "entry"
         }
@@ -587,10 +588,10 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise011', 0, async function (done) {
+    it('testStartAbilityPromise011', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
-        var want = {}
+        let want:Want = {}
 
         context.startAbility(want, (error) => {
           if (error) {
@@ -619,12 +620,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise012', 0, async function (done) {
+    it('testStartAbilityPromise012', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry",
@@ -644,8 +645,8 @@ export default function UIAbilityContext() {
         });
 
         await sleep(1500);
-        const result = globalThis.list1;
-        const parameters = globalThis.parameters;
+        const result:Array<string> = globalThis.list1;
+        const parameters:Record<string,object> = globalThis.parameters;
         console.info('result: ' + JSON.stringify(result));
         console.info('parameters: ' + JSON.stringify(parameters));
         expect(result[0]).assertEqual('Main1Ability onCreate');
@@ -673,12 +674,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityPromise013', 0, async function (done) {
+    it('testStartAbilityPromise013', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -693,7 +694,7 @@ export default function UIAbilityContext() {
         });
 
         await sleep(1000);
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('result: ' + JSON.stringify(result));
         expect(result[0]).assertEqual('Main1Ability onCreate');
         let context1: common.UIAbilityContext = globalThis.ability1Context;
@@ -707,7 +708,7 @@ export default function UIAbilityContext() {
         });
 
         await sleep(1000);
-        const result2 = globalThis.list1;
+        const result2:Array<string> = globalThis.list1;
         console.info('result2: ' + JSON.stringify(result2));
         expect(result2[0]).assertEqual('Main1Ability onCreate');
         let context2: common.UIAbilityContext = globalThis.ability1Context;
@@ -734,13 +735,13 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallbackMulti001', 0, async function (done) {
+    it('testStartAbilityCallbackMulti001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
         console.log(`testStartAbilityCallbackMulti001 start`);
         await sleep(1500);
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry",
@@ -760,8 +761,8 @@ export default function UIAbilityContext() {
           console.info('testStartAbilityCallbackMulti001 startAbility succeed');
         })
         await sleep(1500);
-        const result = globalThis.list1;
-        const parameters = globalThis.parameters;
+        const result:Array<string> = globalThis.list1;
+        const parameters:Record<string,object> = globalThis.parameters;
         console.info('testStartAbilityCallbackMulti001 result: ' + JSON.stringify(result));
         console.info('testStartAbilityCallbackMulti001 parameters: ' + JSON.stringify(parameters));
         expect(result[0]).assertEqual('Main1Ability onCreate');
@@ -790,13 +791,13 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallbackMulti002', 0, async function (done) {
+    it('testStartAbilityCallbackMulti002', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
         console.log(`testStartAbilityCallbackMulti002 start`);
         await sleep(1500);
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -812,7 +813,7 @@ export default function UIAbilityContext() {
           console.info('testStartAbilityCallbackMulti002 startAbility1 succeed');
         })
         await sleep(1000);
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('testStartAbilityCallbackMulti002 result: ' + JSON.stringify(result));
         expect(result[0]).assertEqual('Main1Ability onCreate');
         let context1: common.UIAbilityContext = globalThis.ability1Context;
@@ -827,7 +828,7 @@ export default function UIAbilityContext() {
           console.info('testStartAbilityCallbackMulti002 startAbility2 succeed');
         })
         await sleep(1000);
-        const result2 = globalThis.list1;
+        const result2:Array<string> = globalThis.list1;
         console.info('testStartAbilityCallbackMulti002 result: ' + JSON.stringify(result2));
         expect(result2[0]).assertEqual('Main1Ability onCreate');
         let context2: common.UIAbilityContext = globalThis.ability1Context;
@@ -854,12 +855,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback001', 0, async function (done) {
+    it('testStartAbilityCallback001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -873,7 +874,7 @@ export default function UIAbilityContext() {
           console.info('testStartAbilityCallback001 startAbility succeed');
         })
         await sleep(1500);
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('result: ' + JSON.stringify(result));
         expect(result[0]).assertEqual('Main1Ability onCreate');
 
@@ -898,12 +899,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback002', 0, async function (done) {
+    it('testStartAbilityCallback002', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.abc",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -934,12 +935,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback003', 0, async function (done) {
+    it('testStartAbilityCallback003', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": " ",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -970,12 +971,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback004', 0, async function (done) {
+    it('testStartAbilityCallback004', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "abilityName": "Main1Ability",
           "moduleName": "entry"
         }
@@ -1005,12 +1006,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback005', 0, async function (done) {
+    it('testStartAbilityCallback005', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "abc"
@@ -1041,12 +1042,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback006', 0, async function (done) {
+    it('testStartAbilityCallback006', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": " "
@@ -1072,12 +1073,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback007', 0, async function (done) {
+    it('testStartAbilityCallback007', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability"
         }
@@ -1100,12 +1101,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback008', 0, async function (done) {
+    it('testStartAbilityCallback008', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "abc",
           "moduleName": "entry"
@@ -1136,12 +1137,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback009', 0, async function (done) {
+    it('testStartAbilityCallback009', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": " ",
           "moduleName": "entry"
@@ -1172,12 +1173,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback010', 0, async function (done) {
+    it('testStartAbilityCallback010', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "moduleName": "entry"
         }
@@ -1207,12 +1208,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testStartAbilityCallback011', 0, async function (done) {
+    it('testStartAbilityCallback011', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {}
+        let want:Want = {}
         context.startAbility(want, (error) => {
           if (error.code) {
             console.log(`testStartAbilityCallback011 err.code: ` + error.code);
@@ -1239,12 +1240,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testTerminateSelfPromise001', 0, async function (done) {
+    it('testTerminateSelfPromise001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
         console.log(`testTerminateSelfPromise001 start`);
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -1263,7 +1264,7 @@ export default function UIAbilityContext() {
         context1.terminateSelf();
         await sleep(1000);
 
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('testTerminateSelfPromise001 result: ' + JSON.stringify(result));
         let resultStr = JSON.stringify(result);
         expect(resultStr.indexOf('Main1Ability onDestroy') > 0).assertTrue();
@@ -1285,12 +1286,12 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testTerminateSelfCallback001', 0, async function (done) {
+    it('testTerminateSelfCallback001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
 
-        var want = {
+        let want:Want = {
           "bundleName": "com.example.contexttest",
           "abilityName": "Main1Ability",
           "moduleName": "entry"
@@ -1315,7 +1316,7 @@ export default function UIAbilityContext() {
         })
         await sleep(1000);
 
-        const result = globalThis.list1;
+        const result:Array<string> = globalThis.list1;
         console.info('result: ' + JSON.stringify(result));
         expect(result[1]).assertEqual('Main1Ability onDestroy');
 
@@ -1336,7 +1337,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testStageMode001', 0, async function (done) {
+    it('testStageMode001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context.stageMode).assertTrue();
@@ -1357,7 +1358,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testResourceManager001', 0, async function (done) {
+    it('testResourceManager001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context.resourceManager != null).assertTrue();
@@ -1378,7 +1379,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testApplicationInfo001', 0, async function (done) {
+    it('testApplicationInfo001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         expect(context != null).assertTrue();
@@ -1419,7 +1420,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testCacheDir001', 0, async function (done) {
+    it('testCacheDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testCacheDir001 cacheDir:` + context.cacheDir);
@@ -1441,7 +1442,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testTempDir001', 0, async function (done) {
+    it('testTempDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testTempDir001 tempDir:` + context.tempDir);
@@ -1463,7 +1464,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testFilesDir001', 0, async function (done) {
+    it('testFilesDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testFilesDir001 filesDir:` + context.filesDir);
@@ -1485,7 +1486,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testDatabaseDir001', 0, async function (done) {
+    it('testDatabaseDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testDatabaseDir001 databaseDir:` + context.databaseDir);
@@ -1507,7 +1508,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testPreferencesDir001', 0, async function (done) {
+    it('testPreferencesDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testPreferencesDir001 preferencesDir:` + context.preferencesDir);
@@ -1529,7 +1530,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testBundleCodeDir001', 0, async function (done) {
+    it('testBundleCodeDir001', 0, async (done: Function) => {
       try {
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testBundleCodeDir001 bundleCodeDir:` + context.bundleCodeDir);
@@ -1551,7 +1552,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext001", 0, async function (done) {
+    it("testCreateModuleContext001", 0, async (done: Function) => {
       try {
         console.info("testCreateModuleContext001 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
@@ -1577,7 +1578,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext002", 0, async function (done) {
+    it("testCreateModuleContext002", 0, async (done: Function) => {
       try {
         console.log("testCreateModuleContext002 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
@@ -1603,7 +1604,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext003", 0, async function (done) {
+    it("testCreateModuleContext003", 0, async (done: Function) => {
       try {
         console.info("testCreateModuleContext003 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
@@ -1611,7 +1612,7 @@ export default function UIAbilityContext() {
         expect(!moduleContext).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext003 ====>e====>" + e);
         expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
@@ -1626,7 +1627,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext004", 0, async function (done) {
+    it("testCreateModuleContext004", 0, async (done: Function) => {
       try {
         console.info("testCreateModuleContext004 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
@@ -1634,7 +1635,7 @@ export default function UIAbilityContext() {
         expect(!moduleContext).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext004 ====>e====>" + e);
         expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
@@ -1649,7 +1650,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext005", 0, async function (done) {
+    it("testCreateModuleContext005", 0, async (done: Function) => {
       try {
         console.info("testCreateModuleContext005 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
@@ -1657,7 +1658,7 @@ export default function UIAbilityContext() {
         expect(moduleContext != null).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext005 ====>e====>" + e);
         expect(errMsgStr.indexOf(err.message) > 0).assertTrue();
         done();
@@ -1672,7 +1673,7 @@ export default function UIAbilityContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testGetApplicationContext001", 0, async function (done) {
+    it("testGetApplicationContext001", 0, async (done: Function) => {
       try {
         console.info("testGetApplicationContext001 begin");
         let context: common.UIAbilityContext = globalThis.abilityContext;
