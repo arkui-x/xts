@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button style='height: 500px; width: 1000px; font-size: 30px;' onclick='getLocation()'>获取位置</button>
+<p id='locationInfo' style='font-size: 30px;'>位置信息</p>
+<script>
+    let locationInfo = document.getElementById('locationInfo');
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    function showPosition(position) {
+      let locationText = `Latitude: ${position.coords.latitude}<br />Longitude: ${position.coords.longitude}`;
+      locationInfo.innerHTML = locationText;
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+

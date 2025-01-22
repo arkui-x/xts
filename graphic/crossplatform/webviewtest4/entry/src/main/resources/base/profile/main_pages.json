@@ -1,0 +1,32 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/GeolocationPermissions/allowGeolocation",
+    "pages/GeolocationPermissions/deleteAllGeolocation",
+    "pages/GeolocationPermissions/deleteGeolocation",
+    "pages/GeolocationPermissions/GeolocationPermissionsIndex",
+    "pages/GeolocationPermissions/getAccessibleGeolocation_callback",
+    "pages/GeolocationPermissions/getAccessibleGeolocation_promise",
+    "pages/GeolocationPermissions/getStoredGeolocation_callback",
+    "pages/GeolocationPermissions/getStoredGeolocation_promise",
+    "pages/GeolocationPermissions/jsGeolocation_invoke_false",
+    "pages/GeolocationPermissions/jsGeolocation_invoke_true",
+    "pages/WebStorage/DeleteOrigin",
+    "pages/WebStorage/deleteAllData",
+    "pages/WebStorage/WebStorageIndex",
+    "pages/WebStorage/WebStorage_GetOriginQuota_Callback",
+    "pages/WebStorage/WebStorage_GetOriginQuota_Promise",
+    "pages/WebStorage/WebStorage_GetOriginUsage_Callback",
+    "pages/WebStorage/WebStorage_GetOriginUsage_Promise",
+    "pages/WebStorage/WebStorage_GetOrigins_Callback",
+    "pages/WebStorage/WebStorage_GetOrigins_Callback_error",
+    "pages/WebStorage/WebStorage_GetOrigins_Promise",
+    "pages/WebStorage/WebStorage_GetOrigins_Promise_error",
+    "pages/CookieManage/clearSessionCookie",
+    "pages/CookieManage/existCookieTrue",
+    "pages/CookieManage/existCookieFalse",
+    "pages/CookieManage/incognitoModeTrue",
+    "pages/CookieManage/incognitoModeFalse",
+    "pages/CookieManage/WebCookieManage"
+  ]
+}

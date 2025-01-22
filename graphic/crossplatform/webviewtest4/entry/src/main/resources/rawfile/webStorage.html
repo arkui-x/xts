@@ -1,0 +1,51 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <title>test</title>
+    <script type="text/javascript">
+
+        // 打开数据库
+        let request = window.indexedDB.open('MyDatabase', 1);
+
+        // 数据库创建或打开成功的回调
+        request.onsuccess = function(event) {
+            // 获取数据库实例
+            let db = event.target.result;
+
+            // 创建事务
+            let transaction = db.transaction(['MyObjectStore'], 'readwrite');
+
+            // 获取对象存储空间
+            let objectStore = transaction.objectStore('MyObjectStore');
+
+            let data = { key: 'myKey', value: 'myValue' };
+
+            // 添加数据记录
+            let requestAdd = objectStore.add(data);
+            // 添加成功的回调
+            requestAdd.onsuccess = function(successEvent) {
+                document.querySelector('#status').innerHTML = '<p>数据表已创建,且插入了一条数据。</p>';
+            };
+            // 错误处理
+            requestAdd.onerror = function(errorEvent) {};
+        };
+
+        // 数据库创建或打开失败的回调
+        request.onerror = function(event) {};
+
+        // 数据库升级的回调
+        request.onupgradeneeded = function(event) {
+            let db = event.target.result;
+            // 如果对象存储空间不存在，则创建它
+            if (!db.objectStoreNames.contains('MyObjectStore')) {
+                const objectStore = db.createObjectStore('MyObjectStore', { keyPath: 'key' });
+            }
+        };
+    </script>
+</head>
+<body>
+<div id="status" name="status">状态信息</div>
+</body>
+</html>
