@@ -47,7 +47,7 @@ export default function systemDateTimeTest() {
     })
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTime_Func_0100
-     * @tc.name   : getTime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTime_Func_0100
      * @tc.desc   : set systemDateTime getTime without parameter
      * @tc.level  : Level 0
      */
@@ -64,7 +64,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimeFalse_Func_0200
-     * @tc.name   : getTime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimeFalse_Func_0200
      * @tc.desc   : Set the systemDateTime getTime parameter to false
      * @tc.level  : Level 0
      */
@@ -81,7 +81,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimeNull_Func_0300
-     * @tc.name   : getTime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimeNull_Func_0300
      * @tc.desc   : Set the systemDateTime getTime parameter to null
      * @tc.level  : Level 2
      */
@@ -98,7 +98,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimeUndefined_Func_0400
-     * @tc.name   : getTime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimeUndefined_Func_0400
      * @tc.desc   : Set the systemDateTime getTime parameter to undefined
      * @tc.level  : Level 2
      */
@@ -115,7 +115,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimeTure_Func_0500
-     * @tc.name   : getTime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimeTure_Func_0500
      * @tc.desc   : Set the systemDateTime getTime parameter to true
      * @tc.level  : Level 0
      */
@@ -132,7 +132,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeNull_Func_0100
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeNull_Func_0100
      * @tc.desc   : Set the systemDateTime getUptime parameter to null
      * @tc.level  : Level 2
      */
@@ -149,7 +149,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeUndefined_Func_0200
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeUndefined_Func_0200
      * @tc.desc   : Set the systemDateTime getUptime parameter to undefined
      * @tc.level  : Level 2
      */
@@ -166,7 +166,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeNullAndTure_Func_0300
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeNullAndTure_Func_0300
      * @tc.desc   : Set the systemDateTime getUptime parameter to null and true
      * @tc.level  : Level 2
      */
@@ -183,7 +183,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeNullAndFalse_Func_0400
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeNullAndFalse_Func_0400
      * @tc.desc   : Set the systemDateTime getUptime parameter to null and false
      * @tc.level  : Level 2
      */
@@ -200,7 +200,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeNullAndNull_Func_0500
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeNullAndNull_Func_0500
      * @tc.desc   : Set the systemDateTime getUptime parameter to null and null
      * @tc.level  : Level 2
      */
@@ -217,7 +217,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeNullAndUndefined_Func_0600
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeNullAndUndefined_Func_0600
      * @tc.desc   : Set the systemDateTime getUptime parameter to null and undefined
      * @tc.level  : Level 2
      */
@@ -234,7 +234,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndTure_Func_0700
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndTure_Func_0700
      * @tc.desc   : Set the systemDateTime getUptime parameter to undefined and true
      * @tc.level  : Level 2
      */
@@ -251,7 +251,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndFalse_Func_0800
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndFalse_Func_0800
      * @tc.desc   : Set the systemDateTime getUptime parameter to undefined and false
      * @tc.level  : Level 2
      */
@@ -268,7 +268,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndNull_Func_0900
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndNull_Func_0900
      * @tc.desc   : Set the systemDateTime getUptime parameter to undefined and null
      * @tc.level  : Level 2
      */
@@ -285,11 +285,11 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_Array_constructor_Func_1000
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_Array_constructor_Func_1000
      * @tc.desc   : Set the systemDateTime getUptime parameter to undefined and undefined
      * @tc.level  : Level 2
      */
-    it('ACTS_ARKUIX_systemDateTime_getUptimeUndefinedAndUndefined_Func_1000', 0, async (done: Function) => {
+    it('ACTS_ARKUIX_Array_constructor_Func_1000', 0, async (done: Function) => {
       try {
         await sleep(waitReadyMs_1000);
         systemDateTime.getUptime(undefined, undefined);
@@ -302,7 +302,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeACTIVE_Func_1100
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeACTIVE_Func_1100
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.ACTIVE
      * @tc.level  : Level 0
      */
@@ -318,7 +318,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndFalse_Func_1200
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndFalse_Func_1200
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.ACTIVE and false
      * @tc.level  : Level 0
      */
@@ -334,7 +334,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndTure_Func_1300
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndTure_Func_1300
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.ACTIVE and true
      * @tc.level  : Level 0
      */
@@ -350,7 +350,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndNull_Func_1400
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndNull_Func_1400
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.ACTIVE and null
      * @tc.level  : Level 0
      */
@@ -366,7 +366,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndUndefined_Func_1500
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeACTIVEAndUndefined_Func_1500
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.ACTIVE and undefined
      * @tc.level  : Level 0
      */
@@ -382,7 +382,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUP_Func_1600
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUP_Func_1600
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.STARTUP
      * @tc.level  : Level 0
      */
@@ -398,7 +398,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndFalse_Func_1700
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndFalse_Func_1700
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.STARTUP and false
      * @tc.level  : Level 0
      */
@@ -414,7 +414,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndTure_Func_1800
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndTure_Func_1800
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.STARTUP and true
      * @tc.level  : Level 0
      */
@@ -430,7 +430,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndNull_Func_1900
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndNull_Func_1900
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.STARTUP and null
      * @tc.level  : Level 0
      */
@@ -446,7 +446,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndUndefined_Func_2000
-     * @tc.name   : getUptime
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getUptimeSTARTUPAndUndefined_Func_2000
      * @tc.desc   : Set the systemDateTime getUptime parameter to TimeType.STARTUP and undefined
      * @tc.level  : Level 0
      */
@@ -462,7 +462,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimezone_callback_Func_0100
-     * @tc.name   : getTimezone
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimezone_callback_Func_0100
      * @tc.desc   : Set the systemDateTime getTimezone callback
      * @tc.level  : Level 0
      */
@@ -484,7 +484,7 @@ export default function systemDateTimeTest() {
 
     /**
      * @tc.number : ACTS_ARKUIX_systemDateTime_getTimezone_Promise_Func_0200
-     * @tc.name   : getTimezone
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimezone_Promise_Func_0200
      * @tc.desc   : Set the systemDateTime getTimezone Promise
      * @tc.level  : Level 0
      */
@@ -503,8 +503,8 @@ export default function systemDateTimeTest() {
     })
 
     /**
-     * @tc.number : ACTS_ARKUIX_systemDateTime_getTimezone_Func_0100
-     * @tc.name   : getTimezoneSync
+     * @tc.number : ACTS_ARKUIX_systemDateTime_getTimezoneSync_Func_0100
+     * @tc.name   : ACTS_ARKUIX_systemDateTime_getTimezoneSync_Func_0100
      * @tc.desc   : Set the systemDateTime getTimezoneSync
      * @tc.level  : Level 0
      */
