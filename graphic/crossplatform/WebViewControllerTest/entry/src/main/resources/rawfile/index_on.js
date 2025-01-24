@@ -19,8 +19,8 @@ window.addEventListener('message', (event) => {
     if (event.data === 'init_web_messageport') {
         if (event.ports[0] !== null) {
             const [h5Port] = event.ports;
-            h5Port.onmessage = (event) => {
-                let result = event.data;
+            h5Port.onmessage = (messageEvent) => {
+                let result = messageEvent.data;
                 if (typeof(result) === 'string') {
                     document.getElementById('msg').innerHTML = `String:${result}`;
                     if (result === 'string') {
