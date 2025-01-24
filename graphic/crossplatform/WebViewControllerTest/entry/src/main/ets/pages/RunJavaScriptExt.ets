@@ -79,7 +79,7 @@ struct WebComponent {
             .backgroundColor('#0D9FFB')
             .onClick(() => {
               this.controller.refresh();
-              this.runJavaScriptFunc = 'getArray_number()';
+              this.runJavaScriptFunc = 'getNumberArray()';
             })
 
           Button("runJavaScript getArray_string_withString")
@@ -91,7 +91,7 @@ struct WebComponent {
             .backgroundColor('#0D9FFB')
             .onClick(() => {
               this.controller.refresh();
-              this.runJavaScriptFunc = 'getArray_string()';
+              this.runJavaScriptFunc = 'getStringArray()';
             })
 
           Button("runJavaScript getArray_boolean_withString")
@@ -103,7 +103,7 @@ struct WebComponent {
             .backgroundColor('#0D9FFB')
             .onClick(() => {
               this.controller.refresh();
-              this.runJavaScriptFunc = 'getArray_boolean()';
+              this.runJavaScriptFunc = 'getBooleanArray()';
             })
 
           Button('runJavaScript Null')
