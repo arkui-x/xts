@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        video, canvas {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border: 1px solid #000;
+        }
+        input[type="button"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<video id="video" autoplay></video>
+<canvas id="canvas"></canvas>
+<br>
+<input type="button" title="HTML5摄像头" value="开启摄像头" onclick="getMedia()"/>
+<script>
+    function getMedia() {
+        let constraints = {
+            video: { width: { ideal: 500 }, height: { ideal: 500 } },
+            audio: false,
+        };
+        let video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then((MediaStream) => {
+                video.srcObject = MediaStream;
+                video.play; 
+            });
+    }
+
+    // 自动调用 getMedia 函数
+    window.onload = function() {
+        getMedia();
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/OnPageEndEvent",
+    "pages/OnPageBeginEvent",
+    "pages/OnProgressChangeEvent",
+    "pages/OnTitleReceiveEvent",
+    "pages/OnGeolocationShowEvent",
+    "pages/OnPromptEvent_handleConfirm",
+    "pages/OnPromptEvent_handlePromptConfirm",
+    "pages/OnConsoleEvent",
+    "pages/OnErrorReceiveEvent",
+    "pages/OnHttpErrorReceiveEvent",
+    "pages/OnDownloadStartEvent",
+    "pages/OnScaleChangeEvent",
+    "pages/OnHttpAuthRequestEvent",
+    "pages/OnPermissionRequestEvent",
+    "pages/OnScrollEvent",
+    "pages/OnPageVisibleEvent",
+    "pages/OnLoadInterceptEvent",
+    "pages/one",
+    "pages/two",
+    "pages/OnAlertEvent",
+    "pages/OnConfirmEvent"
+  ]
+}
