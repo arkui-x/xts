@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/OnMessageEventExt",
+    "pages/PostMessageEventExt",
+    "pages/RunJavaScriptExt",
+    "pages/RunJavaScriptExt_withoutWeb",
+    "pages/WebDownloadDelegate"
+  ]
+}
