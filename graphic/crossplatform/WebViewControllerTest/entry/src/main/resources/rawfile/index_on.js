@@ -44,9 +44,6 @@ window.addEventListener('message', (event) => {
                     document.getElementById('msg').innerHTML = 'incorrect type';
                     h5Port.postMessage('incorrect type');
                 }
-            }
-            h5Port.onmessageerror = (event) => {
-                h5Port.postMessage(`html Error:${event}`);
             };
         }
     }

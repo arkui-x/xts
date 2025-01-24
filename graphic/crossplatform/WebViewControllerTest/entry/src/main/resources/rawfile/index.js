@@ -20,7 +20,7 @@ window.addEventListener('message', (event) => {
         if (event.ports[0] !== null) {
             const [h5Port] = event.ports;
             h5Port.onmessage = (event) => {
-                var result = event.data;
+                let result = event.data;
                 if (typeof(result) === 'string') {
                     document.getElementById('msg').innerHTML = `String:${result}`;
                     h5Port.postMessage(`String:${result}`);
@@ -45,9 +45,6 @@ window.addEventListener('message', (event) => {
                     document.getElementById('msg').innerHTML = 'not support type';
                     h5Port.postMessage('not support type');
                 }
-            }
-            h5Port.onmessageerror = (event) => {
-                h5Port.postMessage(`html Error:${event}`);
             };
         }
     }
