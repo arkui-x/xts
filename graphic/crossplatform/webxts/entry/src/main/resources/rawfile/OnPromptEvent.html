@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <script>
+        // 页面加载完成后执行的代码
+        window.onload = function() {
+            myFunction(); // 自动触发 myFunction 函数
+        };
+
+        // 定义 myFunction 函数
+        function myFunction() {
+            let message = prompt('Message info', 'Hello World');
+            if (message !== null && message !== '') {
+                document.getElementById('demo').innerHTML = message;
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>WebView onPrompt Demo</h1>
+<button onclick="myFunction()">Click here</button>
+<p id="demo"></p>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中 */
+            align-items: center; /* 水平居中 */
+            height: 100vh; /* 使高度占满整个视口 */
+            margin: 0; /* 去除默认的外边距 */
+            font-size: 20px; /* 增大字体大小 */
+        }
+        #locationInfo {
+            margin-top: 30px; /* 按钮和输出框之间的间距 */
+            padding: 20px; /* 输出框内边距 */
+            border: 2px solid #000; /* 添加边框 */
+            width: 300px; /* 固定宽度 */
+            text-align: center; /* 文字居中 */
+        }
+        button {
+            width: 200px; /* 增大按钮宽度 */
+            height: 70px; /* 增大按钮高度 */
+            font-size: 24px; /* 增大按钮字体 */
+        }
+    </style>
+</head>
+<body>
+<button onclick="getLocation()">获取位置</button>
+<p id="locationInfo">位置信息</p>
+
+<script>
+    let locationInfo = document.getElementById('locationInfo');
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            // 前端页面访问设备地理位置
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+
+    function showPosition(position) {
+        locationInfo.innerHTML = `Latitude: ${position.coords.latitude}<br />Longitude: ${position.coords.longitude}`;
+    }
+
+    // 自动调用 getLocation 函数
+    window.onload = function() {
+        getLocation();
+    };
+</script>
+</body>
+</html>
