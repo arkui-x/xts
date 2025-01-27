@@ -132,7 +132,7 @@ export default function arkTSUtilsTest() {
         ArkTSUtils.locks.AsyncLock.query(lockName);
         expect().assertFail();
       } catch (error) {
-        console.error(`${TAG} catch error: ${error}`);
+        expect(error.code).assertEqual(10200030);
       }
     })
 
@@ -151,7 +151,7 @@ export default function arkTSUtilsTest() {
         ArkTSUtils.locks.AsyncLock.query(lockName);
         expect().assertFail();
       } catch (error) {
-        console.error(`${TAG} catch error: ${error}`);
+        expect(error.code).assertEqual(10200030);
       }
     })
 
@@ -333,7 +333,7 @@ export default function arkTSUtilsTest() {
         ArkTSUtils.locks.AsyncLock.query(newLockName);
         expect().assertFail();
       } catch (error) {
-        console.error(`${TAG} catch error: ${error}`);
+        expect(error.code).assertEqual(10200030);
       }
     })
 
@@ -354,7 +354,7 @@ export default function arkTSUtilsTest() {
         }, ArkTSUtils.locks.AsyncLockMode.SHARED);
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: code => ${err.code} message => ${err.message}`);
+        expect(err.code).assertEqual(10200030);
       }
     })
 
@@ -422,7 +422,7 @@ export default function arkTSUtilsTest() {
         }, ArkTSUtils.locks.AsyncLockMode.EXCLUSIVE, options);
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(`${err}`).assertContain('The lock is acquired');
       }
     })
 
@@ -527,7 +527,7 @@ export default function arkTSUtilsTest() {
         }, ArkTSUtils.locks.AsyncLockMode.EXCLUSIVE, options);
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(`${err}`).assertContain('Aborted');
       }
     })
 
@@ -585,7 +585,7 @@ export default function arkTSUtilsTest() {
         }, ArkTSUtils.locks.AsyncLockMode.SHARED, options);
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(err.code).assertEqual(10200031);
       }
     })
 
@@ -1662,7 +1662,7 @@ export default function arkTSUtilsTest() {
         console.info(`${TAG} result:` + (numberObj as object)?.["largeNumber"]);
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(`${err}`).assertContain('SyntaxError: Unexpected Number in JSON Array Or Object');
       }
     })
 
@@ -1760,7 +1760,7 @@ export default function arkTSUtilsTest() {
         ArkTSUtils.ASON.parse(text) as ISendable;
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(`${err}`).assertContain('SyntaxError: Unexpected Text in JSON: Empty Text');
       }
     })
 
@@ -1780,7 +1780,7 @@ export default function arkTSUtilsTest() {
         ArkTSUtils.ASON.parse(text) as ISendable;
         expect().assertFail();
       } catch (err) {
-        console.error(`${TAG} failed, error: ${err}`);
+        expect(`${err}`).assertContain('SyntaxError: Unexpected Object in JSON');
       }
     })
 
