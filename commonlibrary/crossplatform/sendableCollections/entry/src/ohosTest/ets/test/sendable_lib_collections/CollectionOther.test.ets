@@ -35,6 +35,9 @@ import {
 } from '../../util/ComcurrentFunction';
 import { JSON } from '@kit.ArkTS';
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function collectionsOtherTest() {
   describe('CollectionsOtherTest', () => {
@@ -53,15 +56,15 @@ export default function collectionsOtherTest() {
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
     })
-    afterAll(() => {
+    afterAll(async () => {
+      await wait(1000);
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
-
-
+    
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0100
-    * @tc.name  : ArrayPop
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0100
     * @tc.desc  : Removes and returns the last element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -79,12 +82,12 @@ export default function collectionsOtherTest() {
           expect(3).assertEqual(array.length);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -92,7 +95,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0200
-    * @tc.name  : ArrayPush
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0200
     * @tc.desc  : Add one or more elements to the end of the ArkTS Array and return the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -110,12 +113,12 @@ export default function collectionsOtherTest() {
           expect(6).assertEqual(array.length);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -123,7 +126,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0300
-    * @tc.name  : ArrayJoin
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0300
     * @tc.desc  : Concatenates all elements of ArkTS Array into a string that can be separated by a specified delimiter.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -141,12 +144,12 @@ export default function collectionsOtherTest() {
           expect('1-2-3-4').assertEqual(e);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -154,7 +157,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0400
-    * @tc.name  : ArrayShift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0400
     * @tc.desc  : Removes and returns the first element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -172,12 +175,12 @@ export default function collectionsOtherTest() {
           expect(3).assertEqual(array.length);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -185,7 +188,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0500
-    * @tc.name  : ArrayUnshift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0500
     * @tc.desc  : Inserts one or more elements at the head of the ArkTS Array and returns the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -203,12 +206,12 @@ export default function collectionsOtherTest() {
           expect(6).assertEqual(array.length);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -216,7 +219,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0600
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0600
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -234,12 +237,12 @@ export default function collectionsOtherTest() {
           expect(2).assertEqual(e);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -247,7 +250,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0700
-    * @tc.name  : ArrayIndexOf
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0700
     * @tc.desc  : Returns the index where the search element first appears in ArkTS Array, or-1 if it does not exist.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -266,12 +269,12 @@ export default function collectionsOtherTest() {
           expect(-1).assertEqual(index);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -279,7 +282,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0800
-    * @tc.name  : ArrayAt
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0800
     * @tc.desc  : Returns the index where the search element first appears in ArkTS Array, or-1 if it does not exist.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -298,12 +301,12 @@ export default function collectionsOtherTest() {
           expect('b').assertEqual(array[0]);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -311,7 +314,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0900
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0900
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -329,12 +332,12 @@ export default function collectionsOtherTest() {
           expect(0).assertEqual(e);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -342,7 +345,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_1000
-    * @tc.name  : MapClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_1000
     * @tc.desc  : Delete all elements in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -360,12 +363,12 @@ export default function collectionsOtherTest() {
           expect(0).assertEqual(map.size);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -373,7 +376,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_1100
-    * @tc.name  : MapDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_1100
     * @tc.desc  : Deletes the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -391,12 +394,12 @@ export default function collectionsOtherTest() {
           expect(2).assertEqual(map.size);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -404,7 +407,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_1200
-    * @tc.name  : MapGet
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_1200
     * @tc.desc  : Returns the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -423,12 +426,12 @@ export default function collectionsOtherTest() {
           expect(undefined).assertEqual(value);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -436,7 +439,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_1300
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_1300
     * @tc.desc  : Determines whether the specified element exists in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -455,12 +458,12 @@ export default function collectionsOtherTest() {
           expect(false).assertEqual(flg);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -468,7 +471,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_1400
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_1400
     * @tc.desc  : Adds or updates a specified key-value pair to the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -486,12 +489,12 @@ export default function collectionsOtherTest() {
           expect(0).assertEqual(map.size);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -499,7 +502,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_1500
-    * @tc.name  : SetClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_1500
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -517,12 +520,12 @@ export default function collectionsOtherTest() {
           expect(0).assertEqual(set.size);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -530,7 +533,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_1600
-    * @tc.name  : SetDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_1600
     * @tc.desc  : Deletes the specified element in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -549,12 +552,12 @@ export default function collectionsOtherTest() {
           expect(false).assertEqual(flg);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);
@@ -562,7 +565,7 @@ export default function collectionsOtherTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_1700
-    * @tc.name  : SetAdd
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_1700
     * @tc.desc  : If there is no same element, a new element is inserted into the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -580,12 +583,12 @@ export default function collectionsOtherTest() {
           expect(5).assertEqual(set.size);
         }).catch((e: Object) => {
           console.info(`${caseName} task1 catch ${JSON.stringify(e)}`);
-          expect(false);
+          expect().assertFail();
         });
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
-        expect(false);
+        expect().assertFail();
         done();
       }
       console.log(`${caseName} test end `);

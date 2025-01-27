@@ -40,7 +40,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0100
-    * @tc.name  : MapConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0100
     * @tc.desc  : Constructor that is used to create an ArkTS Map object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -64,7 +64,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0200
-    * @tc.name  : MapConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0200
     * @tc.desc  : Constructor that is used to create an ArkTS Map object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -88,7 +88,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0300
-    * @tc.name  : MapConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0300
     * @tc.desc  : Constructor that is used to create an ArkTS Map object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -112,7 +112,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0400
-    * @tc.name  : MapConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapConstructor_0400
     * @tc.desc  : Constructor that is used to create an ArkTS Map object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -136,7 +136,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0100
-    * @tc.name  : MapEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0100
     * @tc.desc  : Returns a Map iterator object that contains the [key, value] pairs of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -162,7 +162,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0200
-    * @tc.name  : MapEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0200
     * @tc.desc  : Returns a Map iterator object that contains the [key, value] pairs of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -189,7 +189,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0300
-    * @tc.name  : MapEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapEntries_0300
     * @tc.desc  : Returns a Map iterator object that contains the [key, value] pairs of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -215,7 +215,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0100
-    * @tc.name  : MapKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0100
     * @tc.desc  : Returns an Map iterator object that contains the key of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -241,7 +241,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0200
-    * @tc.name  : MapKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0200
     * @tc.desc  : Returns an Map iterator object that contains the key of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -268,7 +268,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0300
-    * @tc.name  : MapKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapKeys_0300
     * @tc.desc  : Returns an Map iterator object that contains the key of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -293,7 +293,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0100
-    * @tc.name  : MapValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0100
     * @tc.desc  : Returns an Map iterator object that contains the value of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -319,7 +319,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0200
-    * @tc.name  : MapValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0200
     * @tc.desc  : Returns an Map iterator object that contains the value of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -346,7 +346,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0300
-    * @tc.name  : MapValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapValues_0300
     * @tc.desc  : Returns an Map iterator object that contains the value of each element in this Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -371,7 +371,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0100
-    * @tc.name  : MapClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0100
     * @tc.desc  : Delete all elements in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -397,7 +397,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0200
-    * @tc.name  : MapClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0200
     * @tc.desc  : Delete all elements in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -423,7 +423,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0300
-    * @tc.name  : MapClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapClear_0300
     * @tc.desc  : Delete all elements in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -449,7 +449,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0100
-    * @tc.name  : MapDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0100
     * @tc.desc  : Deletes the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -475,7 +475,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0200
-    * @tc.name  : MapDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0200
     * @tc.desc  : Deletes the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -501,7 +501,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0300
-    * @tc.name  : MapDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapDelete_0300
     * @tc.desc  : Deletes the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -527,7 +527,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapForEach_0100
-    * @tc.name  : MapForEach
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapForEach_0100
     * @tc.desc  : The callback function is executed once for each key / value pair in the Map in the insertion order.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -556,7 +556,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapForEach_0200
-    * @tc.name  : MapForEach
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapForEach_0200
     * @tc.desc  : The callback function is executed once for each key / value pair in the Map in the insertion order.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -585,7 +585,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0100
-    * @tc.name  : MapGet
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0100
     * @tc.desc  : Returns the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -611,7 +611,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0200
-    * @tc.name  : MapGet
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0200
     * @tc.desc  : Returns the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -637,7 +637,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0300
-    * @tc.name  : MapGet
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapGet_0300
     * @tc.desc  : Returns the specified element in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -664,7 +664,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0100
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0100
     * @tc.desc  : Determines whether the specified element exists in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -690,7 +690,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0200
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0200
     * @tc.desc  : Determines whether the specified element exists in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -716,7 +716,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0300
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapHas_0300
     * @tc.desc  : Determines whether the specified element exists in the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -742,7 +742,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0100
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0100
     * @tc.desc  : Adds or updates a specified key-value pair to the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -768,7 +768,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0200
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0200
     * @tc.desc  : Adds or updates a specified key-value pair to the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -794,7 +794,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0300
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0300
     * @tc.desc  : Adds or updates a specified key-value pair to the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -820,7 +820,7 @@ export default function collectionsMapTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0400
-    * @tc.name  : MapHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_MapSetHas_0400
     * @tc.desc  : Adds or updates a specified key-value pair to the Map.
     * @tc.size  : MediumTest
     * @tc.type  : Function

@@ -40,7 +40,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0100
-    * @tc.name  : ArrayConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0100
     * @tc.desc  : Create a constructor for ArkTS Array,Empty parameter constructor.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -64,7 +64,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0200
-    * @tc.name  : ArrayConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0200
     * @tc.desc  : Create a constructor for ArkTS Array,Parameters 1, 2, 3, 4.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -88,7 +88,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0300
-    * @tc.name  : ArrayConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0300
     * @tc.desc  : Create a constructor for ArkTS Array,Parameters 1, 2, 3, 4.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -112,7 +112,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0400
-    * @tc.name  : ArrayConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayConstructor_0400
     * @tc.desc  : Create a constructor for ArkTS Array,The array object calls constructor().
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -137,13 +137,13 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0100
-    * @tc.name  : ArrayCreate
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0100
     * @tc.desc  : Generate a fixed-length Array, where the initial value of each element is initialValue,Array.create<number>(3, 10);.
     * @tc.size  : MediumTest
     * @tc.type  : Function
     * @tc.level : level 2
     */
-    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0500', 0, async (done: Function) => {
+    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0100', 0, async (done: Function) => {
       let caseName: string = 'ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0100';
       console.log(`${caseName} test start `);
       try {
@@ -162,7 +162,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0200
-    * @tc.name  : ArrayCreate
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0200
     * @tc.desc  : Generate a fixed-length Array, where the initial value of each element is initialValue,Array.create<number>(2.5, 10).
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -186,7 +186,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0300
-    * @tc.name  : ArrayCreate
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0300
     * @tc.desc  : Generate a fixed-length Array, where the initial value of each element is initialValue,Array.create<number>(0, 10).
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -210,7 +210,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0400
-    * @tc.name  : ArrayCreate
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayCreate_0400
     * @tc.desc  : Generate a fixed-length Array, where the initial value of each element is initialValue,Array.create<number>(0, 10).
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -235,7 +235,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0100
-    * @tc.name  : ArrayFrom
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0100
     * @tc.desc  : Create a new ArkTS Array from an object that implements the ArrayLike interface.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -260,7 +260,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0200
-    * @tc.name  : ArrayFrom
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0200
     * @tc.desc  : Create a new ArkTS Array from an object that implements the ArrayLike interface.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -285,7 +285,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0300
-    * @tc.name  : ArrayFrom
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFrom_0300
     * @tc.desc  : Create a new ArkTS Array from an object that implements the ArrayLike interface.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -310,7 +310,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0100
-    * @tc.name  : ArrayPop
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0100
     * @tc.desc  : Removes and returns the last element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -336,7 +336,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0200
-    * @tc.name  : ArrayPop
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0200
     * @tc.desc  : Removes and returns the last element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -363,7 +363,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0300
-    * @tc.name  : ArrayPop
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0300
     * @tc.desc  : Removes and returns the last element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -389,7 +389,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0400
-    * @tc.name  : ArrayPop
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPop_0400
     * @tc.desc  : Removes and returns the last element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -417,7 +417,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0100
-    * @tc.name  : ArrayPush
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0100
     * @tc.desc  : Add one or more elements to the end of the ArkTS Array and return the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -443,7 +443,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0200
-    * @tc.name  : ArrayPush
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayPush_0200
     * @tc.desc  : Add one or more elements to the end of the ArkTS Array and return the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -469,7 +469,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0100
-    * @tc.name  : ArrayJoin
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0100
     * @tc.desc  : Concatenates all elements of ArkTS Array into a string that can be separated by a specified delimiter.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -495,7 +495,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0200
-    * @tc.name  : ArrayJoin
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0200
     * @tc.desc  : Concatenates all elements of ArkTS Array into a string that can be separated by a specified delimiter.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -521,7 +521,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0300
-    * @tc.name  : ArrayJoin
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayJoin_0300
     * @tc.desc  : Concatenates all elements of ArkTS Array into a string that can be separated by a specified delimiter.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -547,7 +547,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0100
-    * @tc.name  : ArrayShift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0100
     * @tc.desc  : Removes and returns the first element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -573,7 +573,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0200
-    * @tc.name  : ArrayShift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0200
     * @tc.desc  : Removes and returns the first element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -599,7 +599,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0300
-    * @tc.name  : ArrayShift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0300
     * @tc.desc  : Removes and returns the first element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -625,7 +625,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0400
-    * @tc.name  : ArrayShift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShift_0400
     * @tc.desc  : Removes and returns the first element from the ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -652,7 +652,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0100
-    * @tc.name  : ArrayUnshift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0100
     * @tc.desc  : Inserts one or more elements at the head of the ArkTS Array and returns the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -678,7 +678,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0200
-    * @tc.name  : ArrayUnshift
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayUnshift_0200
     * @tc.desc  : Inserts one or more elements at the head of the ArkTS Array and returns the new Array length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -704,7 +704,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0100
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0100
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -730,7 +730,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0200
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0200
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -756,7 +756,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0300
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0300
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -782,7 +782,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0400
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0400
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -808,7 +808,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0500
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0500
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -834,7 +834,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0600
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0600
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -860,7 +860,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0700
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0700
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -886,7 +886,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0800
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0800
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -913,7 +913,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0900
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_0900
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -939,7 +939,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_1000
-    * @tc.name  : ArraySlice
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySlice_1000
     * @tc.desc  : Returns a new Array, which is a slice of the original ArkTS Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -965,7 +965,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0100
-    * @tc.name  : ArraySort
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0100
     * @tc.desc  : Sorts the ArkTS Array and returns the sorted Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -991,7 +991,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0200
-    * @tc.name  : ArraySort
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0200
     * @tc.desc  : Sorts the ArkTS Array and returns the sorted Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1017,7 +1017,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0300
-    * @tc.name  : ArraySort
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArraySort_0300
     * @tc.desc  : Sorts the ArkTS Array and returns the sorted Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1043,7 +1043,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0100
-    * @tc.name  : ArrayIndexOf
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0100
     * @tc.desc  : Returns the index where the search element first appears in ArkTS Array, or-1 if it does not exist.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1068,7 +1068,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0300
-    * @tc.name  : ArrayIndexOf
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0300
     * @tc.desc  : Returns the index where the search element first appears in ArkTS Array, or-1 if it does not exist.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1093,13 +1093,13 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0400
-    * @tc.name  : ArrayIndexOf
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0400
     * @tc.desc  : Returns the index where the search element first appears in ArkTS Array, or-1 if it does not exist.
     * @tc.size  : MediumTest
     * @tc.type  : Function
     * @tc.level : level 2
     */
-    it('ACTS_ARKUIX_ArkTS_testArrayIndexOf0400', 0, async (done: Function) => {
+    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIndexOf_0400', 0, async (done: Function) => {
       let caseName: string = 'ACTS_ARKUIX_ArkTS_testArrayIndexOf0400';
       console.log(`${caseName} test start `);
       try {
@@ -1118,7 +1118,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0100
-    * @tc.name  : ArrayForEach
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0100
     * @tc.desc  : Executes the provided callback function on each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1145,14 +1145,14 @@ export default function collectionsArrayTest() {
 
 
     /* *
-    * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0300
-    * @tc.name  : ArrayForEach
+    * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0200
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0200
     * @tc.desc  : Executes the provided callback function on each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
     * @tc.level : level 2
     */
-    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0300', 0, async (done: Function) => {
+    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0200', 0, async (done: Function) => {
       let caseName: string = 'ACTS_ARKUIX_ArkTS_Language_Backend_ArrayForEach_0300';
       console.log(`${caseName} test start `);
       try {
@@ -1171,7 +1171,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayMap_0100
-    * @tc.name  : ArrayMap
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayMap_0100
     * @tc.desc  : Executes the provided callback function on each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1199,7 +1199,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayMap_0200
-    * @tc.name  : ArrayMap
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayMap_0200
     * @tc.desc  : Executes the provided callback function on each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1227,7 +1227,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFilter_0100
-    * @tc.name  : ArrayFilter
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFilter_0100
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1255,7 +1255,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFilter_0200
-    * @tc.name  : ArrayFilter
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFilter_0200
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1284,7 +1284,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0100
-    * @tc.name  : ArrayReduce
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0100
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1310,7 +1310,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0200
-    * @tc.name  : ArrayReduce
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0200
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1336,7 +1336,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0300
-    * @tc.name  : ArrayReduce
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0300
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1362,7 +1362,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0400
-    * @tc.name  : ArrayReduce
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayReduce_0400
     * @tc.desc  : Returns a new Array that contains all the elements tested by the specified callback function.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1388,7 +1388,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0100
-    * @tc.name  : ArrayAt
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0100
     * @tc.desc  : Returns the element at the specified index position in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1414,7 +1414,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0200
-    * @tc.name  : ArrayAt
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0200
     * @tc.desc  : Returns the element at the specified index position in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1440,7 +1440,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0300
-    * @tc.name  : ArrayAt
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0300
     * @tc.desc  : Returns the element at the specified index position in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1466,7 +1466,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0400
-    * @tc.name  : ArrayAt
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayAt_0400
     * @tc.desc  : Returns the element at the specified index position in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1492,7 +1492,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayEntries_0100
-    * @tc.name  : ArrayEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayEntries_0100
     * @tc.desc  : Returns a new iterable object that contains key-value pairs for each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1518,7 +1518,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayEntries_0200
-    * @tc.name  : ArrayEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayEntries_0200
     * @tc.desc  : Returns a new iterable object that contains key-value pairs for each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1546,7 +1546,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayKeys_0100
-    * @tc.name  : ArrayKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayKeys_0100
     * @tc.desc  : Returns a new iterable object that contains the key for each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1572,7 +1572,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayKeys_0200
-    * @tc.name  : ArrayKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayKeys_0200
     * @tc.desc  : Returns a new iterable object that contains the key for each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1600,7 +1600,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayValues_0100
-    * @tc.name  : ArrayValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayValues_0100
     * @tc.desc  : Returns a new iterable object that contains the value of each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1626,7 +1626,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayValues_0200
-    * @tc.name  : ArrayValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayValues_0200
     * @tc.desc  : Returns a new iterable object that contains the value of each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1654,7 +1654,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0100
-    * @tc.name  : ArrayFind
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0100
     * @tc.desc  : Returns a new iterable object that contains the value of each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1680,7 +1680,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0200
-    * @tc.name  : ArrayFind
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0200
     * @tc.desc  : Returns a new iterable object that contains the value of each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1706,7 +1706,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0300
-    * @tc.name  : ArrayFind
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFind_0300
     * @tc.desc  : Returns a new iterable object that contains the value of each element in the Array.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1732,7 +1732,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0100
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0100
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1758,7 +1758,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0200
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0200
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1784,7 +1784,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0300
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0300
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1810,7 +1810,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0400
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0400
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1836,7 +1836,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0500
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0500
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1862,7 +1862,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0600
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0600
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1888,7 +1888,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0700
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0700
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1914,7 +1914,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0800
-    * @tc.name  : ArrayIncludes
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayIncludes_0800
     * @tc.desc  : Determines whether the Array contains the specified element and returns a Boolean value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1940,7 +1940,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0100
-    * @tc.name  : ArrayFindIndex
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0100
     * @tc.desc  : Returns the index of the first element in Array that satisfies the specified test function, or-1 if none of the elements are satisfied.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1966,7 +1966,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0200
-    * @tc.name  : ArrayFindIndex
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0200
     * @tc.desc  : Returns the index of the first element in Array that satisfies the specified test function, or-1 if none of the elements are satisfied.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -1992,7 +1992,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0300
-    * @tc.name  : ArrayFindIndex
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFindIndex_0300
     * @tc.desc  : Returns the index of the first element in Array that satisfies the specified test function, or-1 if none of the elements are satisfied.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2018,7 +2018,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0100
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0100
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2045,7 +2045,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0200
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0200
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2072,7 +2072,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0300
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0300
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2099,7 +2099,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0400
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0400
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2126,7 +2126,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0500
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0500
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2153,7 +2153,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0600
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0600
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2180,7 +2180,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0700
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0700
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2207,7 +2207,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0800
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0800
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2234,13 +2234,13 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0900
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0900
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
     * @tc.level : level 2
     */
-    it('ACTS_ARKUIX_ArkTS_testArrayFill0900', 0, async (done: Function) => {
+    it('ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_0900', 0, async (done: Function) => {
       let caseName: string = 'ACTS_ARKUIX_ArkTS_testArrayFill0900';
       console.log(`${caseName} test start `);
       try {
@@ -2261,7 +2261,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_1000
-    * @tc.name  : ArrayFill
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayFill_1000
     * @tc.desc  : Fills all elements in the specified range of Array with the specified values.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2288,7 +2288,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0100
-    * @tc.name  : ArrayShrinkTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0100
     * @tc.desc  : Shrinks the Array to the specified length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2314,7 +2314,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0200
-    * @tc.name  : ArrayShrinkTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0200
     * @tc.desc  : Shrinks the Array to the specified length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2340,7 +2340,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0300
-    * @tc.name  : ArrayShrinkTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0300
     * @tc.desc  : Shrinks the Array to the specified length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2366,7 +2366,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0400
-    * @tc.name  : ArrayShrinkTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0400
     * @tc.desc  : Shrinks the Array to the specified length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2380,7 +2380,7 @@ export default function collectionsArrayTest() {
         console.log(`${caseName} array ${array.length}`);
         array.shrinkTo(-1);
         console.log(`${caseName} shrinkTo ${array.length} `);
-        expect(false);
+        expect().assertFail();
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
@@ -2392,7 +2392,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0500
-    * @tc.name  : ArrayShrinkTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayShrinkTo_0500
     * @tc.desc  : Shrinks the Array to the specified length.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2406,7 +2406,7 @@ export default function collectionsArrayTest() {
         console.log(`${caseName} array ${array.length}`);
         array.shrinkTo(1.2);
         console.log(`${caseName} shrinkTo ${array.length} `);
-        expect(false);
+        expect().assertFail();
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
@@ -2418,7 +2418,7 @@ export default function collectionsArrayTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0100
-    * @tc.name  : ArrayExtendTo
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0100
     * @tc.desc  : Expands the Array to the specified length, and the extended part is filled with the given value.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -2444,7 +2444,7 @@ export default function collectionsArrayTest() {
 
     /* *
      * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0200
-     * @tc.name  : ArrayExtendTo
+     * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0200
      * @tc.desc  : Expands the Array to the specified length, and the extended part is filled with the given value.
      * @tc.size  : MediumTest
      * @tc.type  : Function
@@ -2470,7 +2470,7 @@ export default function collectionsArrayTest() {
 
     /* *
      * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0300
-     * @tc.name  : ArrayExtendTo
+     * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0300
      * @tc.desc  : Expands the Array to the specified length, and the extended part is filled with the given value.
      * @tc.size  : MediumTest
      * @tc.type  : Function
@@ -2484,7 +2484,7 @@ export default function collectionsArrayTest() {
         console.log(`${caseName} array ${array.length}`);
         array.extendTo(-1, 10);
         console.log(`${caseName} extendTo ${array.length} `);
-        expect(false);
+        expect().assertFail();
         done();
       } catch (error) {
         console.log(`${caseName} catchError ${JSON.stringify(error)}}`);
@@ -2496,7 +2496,7 @@ export default function collectionsArrayTest() {
 
     /* *
      * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0400
-     * @tc.name  : ArrayExtendTo
+     * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0400
      * @tc.desc  : Expands the Array to the specified length, and the extended part is filled with the given value.
      * @tc.size  : MediumTest
      * @tc.type  : Function
@@ -2522,7 +2522,7 @@ export default function collectionsArrayTest() {
 
     /* *
      * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0500
-     * @tc.name  : ArrayExtendTo
+     * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_ArrayExtendTo_0500
      * @tc.desc  : Expands the Array to the specified length, and the extended part is filled with the given value.
      * @tc.size  : MediumTest
      * @tc.type  : Function

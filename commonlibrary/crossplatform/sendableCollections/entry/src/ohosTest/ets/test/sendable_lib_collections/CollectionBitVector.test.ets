@@ -91,7 +91,7 @@ export default function collectionsBitVectorTest() {
 
     /**
      * @tc.number    : ACTS_ARKUIX_ArkTS_Collections_TestClass_0100
-     * @tc.name      : ArkTS Collections bitvector
+     * @tc.name      : ACTS_ARKUIX_ArkTS_Collections_TestClass_0100
      * @tc.desc      : ArkTS Collections bitvector
      * @tc.size      : MEDIUM
      * @tc.type      : Function
@@ -112,7 +112,7 @@ export default function collectionsBitVectorTest() {
           await promiseCase();
         }
       } catch(err) {
-          console.log("Transfer bitvector fail:" + err);
+        console.log("Transfer bitvector fail:" + err);
       }
       expect(flag).assertEqual(true);
       done();
@@ -120,7 +120,7 @@ export default function collectionsBitVectorTest() {
 
     /**
      * @tc.number    : ACTS_ARKUIX_ArkTS_Collections_TestClass_0200
-     * @tc.name      : ArkTS Collections bitvector
+     * @tc.name      : ACTS_ARKUIX_ArkTS_Collections_TestClass_0200
      * @tc.desc      : ArkTS Collections bitvector
      * @tc.size      : MEDIUM
      * @tc.type      : Function
@@ -132,16 +132,17 @@ export default function collectionsBitVectorTest() {
         console.log("taskpool execute fail" + err);
       })
       if (await t.Has(0, 0, 1)) {
-          console.info("SendableTest: test success");
+        console.info("SendableTest: test success");
       } else {
-          console.error("SendableTest: test fail");
+        console.error("SendableTest: test fail");
+        expect().assertFail();
       }
       done();
     });
 
     /**
      * @tc.number    : ACTS_ARKUIX_ArkTS_Collections_TestClass_0300
-     * @tc.name      : ArkTS Collections bitvector
+     * @tc.name      : ACTS_ARKUIX_ArkTS_Collections_TestClass_0300
      * @tc.desc      : ArkTS Collections bitvector
      * @tc.size      : MEDIUM
      * @tc.type      : Function

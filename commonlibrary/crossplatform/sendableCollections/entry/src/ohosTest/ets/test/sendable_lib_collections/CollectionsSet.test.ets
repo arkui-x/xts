@@ -16,7 +16,6 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import collections from '@arkts.collections';
 
-
 export default function collectionsSetTest() {
   describe('CollectionsSetTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
@@ -41,7 +40,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0100
-    * @tc.name  : SetConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0100
     * @tc.desc  : Constructor that is used to create an ArkTS Set object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -65,7 +64,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0200
-    * @tc.name  : SetConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0200
     * @tc.desc  : Constructor that is used to create an ArkTS Set object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -89,7 +88,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0300
-    * @tc.name  : SetConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0300
     * @tc.desc  : Constructor that is used to create an ArkTS Set object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -113,7 +112,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0400
-    * @tc.name  : SetConstructor
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetConstructor_0400
     * @tc.desc  : Constructor that is used to create an ArkTS Set object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -137,7 +136,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0100
-    * @tc.name  : SetEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0100
     * @tc.desc  : Returns a Set iterator object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -163,7 +162,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0200
-    * @tc.name  : SetEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0200
     * @tc.desc  : Returns a Set iterator object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -191,7 +190,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0300
-    * @tc.name  : SetEntries
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetEntries_0300
     * @tc.desc  : Returns a Set iterator object.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -218,7 +217,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0100
-    * @tc.name  : SetKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0100
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -244,7 +243,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0200
-    * @tc.name  : SetKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0200
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -272,7 +271,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0300
-    * @tc.name  : SetKeys
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetKeys_0300
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -299,7 +298,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0100
-    * @tc.name  : SetValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0100
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -325,7 +324,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0200
-    * @tc.name  : SetValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0200
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -353,7 +352,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0300
-    * @tc.name  : SetValues
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetValues_0300
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -380,7 +379,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0100
-    * @tc.name  : SetClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0100
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -406,7 +405,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0200
-    * @tc.name  : SetClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0200
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -432,7 +431,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0300
-    * @tc.name  : SetClear
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetClear_0300
     * @tc.desc  : Returns an Set iterator object that contains the value of each element in this Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -458,7 +457,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0100
-    * @tc.name  : SetDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0100
     * @tc.desc  : Deletes the specified element in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -484,7 +483,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0200
-    * @tc.name  : SetDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0200
     * @tc.desc  : Deletes the specified element in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -510,7 +509,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0300
-    * @tc.name  : SetDelete
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetDelete_0300
     * @tc.desc  : Deletes the specified element in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -536,7 +535,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetForEach_0100
-    * @tc.name  : SetForEach
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetForEach_0100
     * @tc.desc  : The callback function is executed once for each key / value pair in the Set in the insertion order.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -565,7 +564,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetForEach_0200
-    * @tc.name  : SetForEach
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetForEach_0200
     * @tc.desc  : The callback function is executed once for each key / value pair in the Set in the insertion order.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -594,7 +593,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0100
-    * @tc.name  : SetHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0100
     * @tc.desc  : Determines whether the specified element exists in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -619,7 +618,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0200
-    * @tc.name  : SetHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0200
     * @tc.desc  : Determines whether the specified element exists in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -644,7 +643,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0300
-    * @tc.name  : SetHas
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetHas_0300
     * @tc.desc  : Determines whether the specified element exists in the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -669,7 +668,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0100
-    * @tc.name  : SetAdd
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0100
     * @tc.desc  : If there is no same element, a new element is inserted into the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -695,7 +694,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0200
-    * @tc.name  : SetAdd
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0200
     * @tc.desc  : If there is no same element, a new element is inserted into the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
@@ -721,7 +720,7 @@ export default function collectionsSetTest() {
 
     /* *
     * @tc.number: ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0300
-    * @tc.name  : SetAdd
+    * @tc.name  : ACTS_ARKUIX_ArkTS_Language_Backend_SetAdd_0300
     * @tc.desc  : If there is no same element, a new element is inserted into the Set.
     * @tc.size  : MediumTest
     * @tc.type  : Function
