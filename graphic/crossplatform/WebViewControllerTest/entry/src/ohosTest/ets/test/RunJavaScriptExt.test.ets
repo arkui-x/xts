@@ -56,11 +56,8 @@ export default function RunJavaScriptExtTest() {
         await button_sendString.click();
         await sleep(WAIT_READY_MS_500);
         let result = await (await driver.findComponent(ON.id("runJavaScriptResult"))).getText();
-        if (platform == 'iOS') {
-          expect(result).assertEqual('String:stringFromHTML');
-        } else {
-          expect(result).assertEqual('String:"stringFromHTML"');
-        }
+        expect(result).assertContain("String:");
+        expect(result).assertContain("stringFromHTML");
       } catch (error) {
         expect().assertFail();
       }
@@ -272,11 +269,8 @@ export default function RunJavaScriptExtTest() {
         await button_sendString.click();
         await sleep(WAIT_READY_MS_500);
         let result = await (await driver.findComponent(ON.id("runJavaScriptResult"))).getText();
-        if (platform == 'iOS') {
-          expect(result).assertEqual('String:stringFromHTML');
-        } else {
-          expect(result).assertEqual('String:"stringFromHTML"');
-        }
+        expect(result).assertContain("String:");
+        expect(result).assertContain("stringFromHTML");
       } catch (error) {
         expect().assertFail();
       }

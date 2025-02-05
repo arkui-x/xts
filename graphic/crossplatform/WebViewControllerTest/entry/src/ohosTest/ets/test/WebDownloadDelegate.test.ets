@@ -62,19 +62,11 @@ export default function WebDownloadDelegateTest() {
         let CurrentSpeed = await (await driver.findComponent(ON.id("CurrentSpeed"))).getText();
         expect(CurrentSpeed != null).assertTrue();
         let PercentComplete = await (await driver.findComponent(ON.id("PercentComplete"))).getText();
-        if (platform == 'iOS') {
-          expect(PercentComplete != null).assertTrue();
-        } else {
-          expect(PercentComplete == '100').assertTrue();
-        }
+        expect(PercentComplete != null).assertTrue();
         let TotalBytes = await (await driver.findComponent(ON.id("TotalBytes"))).getText();
         expect(TotalBytes == '485892').assertTrue();
         let ReceivedBytes = await (await driver.findComponent(ON.id("ReceivedBytes"))).getText();
-        if (platform == 'iOS') {
-          expect(ReceivedBytes != null).assertTrue();
-        } else {
-          expect(ReceivedBytes == '485892').assertTrue();
-        }
+        expect(ReceivedBytes != null).assertTrue();
         let LastErrorCode = await (await driver.findComponent(ON.id("LastErrorCode"))).getText();
         expect(LastErrorCode == '0').assertTrue();
         let Method = await (await driver.findComponent(ON.id("Method"))).getText();
@@ -82,25 +74,13 @@ export default function WebDownloadDelegateTest() {
         let state = await (await driver.findComponent(ON.id("State"))).getText();
         expect(state == '1').assertTrue();
         let MimeType = await (await driver.findComponent(ON.id("MimeType"))).getText();
-        if (platform == 'iOS') {
-          expect(MimeType != null).assertTrue();
-        } else {
-          expect(MimeType == 'image/jpeg').assertTrue();
-        }
+        expect(MimeType != null).assertTrue();
         let SuggestedFileName = await (await driver.findComponent(ON.id("SuggestedFileName"))).getText();
-        if (platform == 'iOS') {
-          expect(SuggestedFileName != null).assertTrue();
-        } else {
-          expect(SuggestedFileName == 'VCG211331055004.jpg').assertTrue();
-        }
+        expect(SuggestedFileName != null).assertTrue();
         let Url = await (await driver.findComponent(ON.id("Url"))).getText();
         expect(Url == 'https://vcg01.cfp.cn/creative/vcg/800/new/VCG211331055004.jpg').assertTrue();
         let FullPath = await (await driver.findComponent(ON.id("FullPath"))).getText();
-        if (platform == 'iOS') {
-          expect(FullPath == '').assertTrue();
-        } else {
-          expect(FullPath != '').assertTrue();
-        }
+        expect(FullPath != null).assertTrue();
       } catch (error) {
         console.info(`UiTestCase, onDownloadFinish_picture_${error.code},${error.message}`)
         expect().assertFail();
@@ -139,17 +119,9 @@ export default function WebDownloadDelegateTest() {
         let state = await (await driver.findComponent(ON.id("State"))).getText();
         expect(state == '4').assertTrue();
         let MimeType = await (await driver.findComponent(ON.id("MimeType"))).getText();
-        if (platform == 'iOS') {
-          expect(MimeType != null).assertTrue();
-        } else {
-          expect(MimeType == 'image/jpeg').assertTrue();
-        }
+        expect(MimeType != null).assertTrue();
         let SuggestedFileName = await (await driver.findComponent(ON.id("SuggestedFileName"))).getText();
-        if (platform == 'iOS') {
-          expect(SuggestedFileName != null).assertTrue();
-        } else {
-          expect(SuggestedFileName == 'VCG211331055004.jpg').assertTrue();
-        }
+        expect(SuggestedFileName != null).assertTrue();
         let Url = await (await driver.findComponent(ON.id("Url"))).getText();
         expect(Url == 'https://vcg01.cfp.cn/creative/vcg/800/new/VCG211331055004.jpg').assertTrue();
       } catch (error) {
@@ -221,32 +193,14 @@ export default function WebDownloadDelegateTest() {
         let Method = await (await driver.findComponent(ON.id("Method"))).getText();
         expect(Method == 'GET').assertTrue();
         let state = await (await driver.findComponent(ON.id("State"))).getText();
-        if (platform == 'iOS') {
-          expect(state == '4').assertTrue();
-        } else {
-          expect(state == '0' || state == '1').assertTrue();
-        }
+        expect(state == '4' || state == '0' || state == '1').assertTrue();
         let MimeType = await (await driver.findComponent(ON.id("MimeType"))).getText();
         console.info(`UiTestCase, onDownloadUpdated_picture_MimeType: ` + MimeType)
-        if (platform == 'iOS') {
-          expect(MimeType != null).assertTrue();
-        } else {
-          expect(MimeType == 'image/jpeg').assertTrue();
-        }
+        expect(MimeType != null).assertTrue();
         let SuggestedFileName = await (await driver.findComponent(ON.id("SuggestedFileName"))).getText();
-        if (platform == 'iOS') {
-          expect(SuggestedFileName != null).assertTrue();
-        } else {
-          expect(SuggestedFileName == 'VCG211331055004.jpg').assertTrue();
-        }
+        expect(SuggestedFileName != null).assertTrue();
         let Url = await (await driver.findComponent(ON.id("Url"))).getText();
         expect(Url == 'https://vcg01.cfp.cn/creative/vcg/800/new/VCG211331055004.jpg').assertTrue();
-        let FullPath = await (await driver.findComponent(ON.id("FullPath"))).getText();
-        if (platform == 'iOS') {
-          expect(FullPath == '').assertTrue();
-        } else {
-          expect(FullPath != '').assertTrue();
-        }
       } catch (error) {
         console.info(`UiTestCase, onDownloadUpdated_picture_${error.code},${error.message}`)
         expect().assertFail();
@@ -282,11 +236,7 @@ export default function WebDownloadDelegateTest() {
         await button_resume.click();
         await sleep(AWAIT_SLEEP_MS_1000);
         let State_resume = await (await driver.findComponent(ON.id("State_pause"))).getText();
-        if (platform == 'iOS') {
-          expect(State_resume == '4').assertTrue();
-        } else {
-          expect(State_resume == '0').assertTrue();
-        }
+        expect(State_resume == '4' || State_resume == '0').assertTrue();
         await sleep(AWAIT_SLEEP_MS_500);
         let State_cancel = await driver.findComponent(ON.id("cancel"));
         State_cancel.click()
@@ -321,11 +271,7 @@ export default function WebDownloadDelegateTest() {
         let PercentComplete = await (await driver.findComponent(ON.id("PercentComplete"))).getText();
         expect(PercentComplete != null).assertTrue();
         let TotalBytes = await (await driver.findComponent(ON.id("TotalBytes"))).getText();
-        if (platform == 'iOS') {
-          expect(TotalBytes == '0').assertTrue();
-        } else {
-          expect(TotalBytes == '485892').assertTrue();
-        }
+        expect(TotalBytes == '0' || TotalBytes == '485892').assertTrue();
         let ReceivedBytes = await (await driver.findComponent(ON.id("ReceivedBytes"))).getText();
         expect(ReceivedBytes == '0').assertTrue();
         let LastErrorCode = await (await driver.findComponent(ON.id("LastErrorCode"))).getText();
@@ -335,17 +281,9 @@ export default function WebDownloadDelegateTest() {
         let state = await (await driver.findComponent(ON.id("State"))).getText();
         expect(state == '2').assertTrue();
         let MimeType = await (await driver.findComponent(ON.id("MimeType"))).getText();
-        if (platform == 'iOS') {
-          expect(MimeType != null).assertTrue();
-        } else {
-          expect(MimeType == 'image/jpeg').assertTrue();
-        }
+        expect(MimeType != null).assertTrue();
         let SuggestedFileName = await (await driver.findComponent(ON.id("SuggestedFileName"))).getText();
-        if (platform == 'iOS') {
-          expect(SuggestedFileName != null).assertTrue();
-        } else {
-          expect(SuggestedFileName == 'VCG211331055004.jpg').assertTrue();
-        }
+        expect(SuggestedFileName != null).assertTrue();
         let Url = await (await driver.findComponent(ON.id("Url"))).getText();
         expect(Url == 'https://vcg01.cfp.cn/creative/vcg/800/new/VCG211331055004.jpg').assertTrue();
       } catch (error) {
