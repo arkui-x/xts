@@ -1,0 +1,160 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  describe,
+  it,
+  expect,
+  beforeAll,
+  beforeEach,
+  afterEach,
+  afterAll,
+} from '@ohos/hypium';
+import { Driver, ON, Component } from '@ohos.UiTest';
+import { startAbility, stopAbility, waitUiReadyMs } from '../utils/index';
+import deviceInfo from '@ohos.deviceInfo'
+
+export default function WebAttribute_DomStorageAccess() {
+  describe('WebAttribute_DomStorageAccess', () => {
+    /**
+     * beforeAll: PrePageControlTest at the test suite level, which are executed before the test suite is executed.
+     */
+    beforeAll(async () => {
+      await startAbility('com.example.webviewtest3', 'EntryAbility');
+      const driver: Driver = Driver.create();
+      await driver.delayMs(waitUiReadyMs);
+    });
+
+    /**
+     * beforeEach: PrePageControlTest at the test case level, which are executed before each test case is executed.
+     */
+    /**
+     * beforeEach: PrePageControlTest at the test case level, which are executed before each test case is executed.
+     */
+    beforeEach(async () => {
+      const driver: Driver = Driver.create();
+      await driver.delayMs(waitUiReadyMs);
+      const Page: Component = await driver.findComponent(ON.text('WebAttribute_Index'));
+      await Page.click();
+      await driver.delayMs(waitUiReadyMs);
+      const TAB: Component = await driver.findComponent(ON.text('WebAttribute_DomStorageAccess'));
+      await TAB.click();
+      await driver.delayMs(waitUiReadyMs);
+    });
+
+    /**
+     * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
+     */
+    afterEach(() => {
+    });
+
+    /**
+     * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
+     */
+    afterAll(async () => {
+      await stopAbility();
+      const driver: Driver = Driver.create();
+      await driver.delayMs(waitUiReadyMs);
+    });
+
+    /**
+     * @tc.number: SUB_Web_WebView_WebAttribute_DomStorageAccess_0100
+     * @tc.name  : SUB_Web_WebView_WebAttribute_DomStorageAccess_0100
+     * @tc.desc  : test WebAttribute DomStorageAccess
+     * @tc.size  : MediumTest
+     * @tc.type  : Func
+     * @tc.level : 0
+     */
+    it('SUB_Web_WebView_WebAttribute_DomStorageAccess_0100', 0, async () => {
+      console.log('SUB_Web_WebAttribute_DomStorageAccess_0100 test start');
+      let osName: string = deviceInfo.osFullName;
+      if (osName.startsWith('OpenHarmony')) {
+      const driver: Driver = Driver.create();
+      await driver.delayMs(1000);
+
+      const domStorageAccessTrueButton: Component = await driver.findComponent(ON.text('domStorageAccess true'));
+      await domStorageAccessTrueButton.click();
+      await driver.delayMs(2000);
+
+      const domStorageAccessTrue: Component = await driver.findComponent(ON.id('domStorageAccessTrue'));
+      const domStorageAccessTrueTextValue: string = await domStorageAccessTrue.getText();
+
+      expect(domStorageAccessTrueTextValue).assertContain('localStorage: "domapi"');
+      } else if (osName.startsWith('Android')) {
+        const driver: Driver = Driver.create();
+        await driver.delayMs(1000);
+
+        const domStorageAccessTrueButton: Component = await driver.findComponent(ON.text('domStorageAccess true'));
+        await domStorageAccessTrueButton.click();
+        await driver.delayMs(2000);
+
+        const domStorageAccessTrue: Component = await driver.findComponent(ON.id('domStorageAccessTrue'));
+        const domStorageAccessTrueTextValue: string = await domStorageAccessTrue.getText();
+        expect(domStorageAccessTrueTextValue).assertContain('localStorage: "domapi"');
+      } else if (osName.startsWith('iOS')) {
+        console.log('当前设配不支持')
+        expect("true").assertContain("true");
+      }
+    });
+
+    /**
+     * @tc.number: SUB_Web_WebView_WebAttribute_DomStorageAccess_0200
+     * @tc.name  : SUB_Web_WebView_WebAttribute_DomStorageAccess_0200
+     * @tc.desc  : test WebAttribute DomStorageAccess
+     * @tc.size  : MediumTest
+     * @tc.type  : Func
+     * @tc.level : 0
+     */
+    it('SUB_Web_WebView_WebAttribute_DomStorageAccess_0200', 0, async () => {
+      console.log('SUB_Web_WebAttribute_DomStorageAccess_0200 test start');
+      let osName: string = deviceInfo.osFullName;
+      if (osName.startsWith('OpenHarmony')) {
+      const driver: Driver = Driver.create();
+      await driver.delayMs(1000);
+
+      const backButton: Component = await driver.findComponent(ON.text('返回'));
+      await backButton.click();
+      await driver.delayMs(1500);
+
+      const domStorageAccessFalseButton: Component = await driver.findComponent(ON.text('domStorageAccess false'));
+      await domStorageAccessFalseButton.click();
+      await driver.delayMs(2000);
+
+      const domStorageAccessFalse: Component = await driver.findComponent(ON.id('domStorageAccessFalse'));
+      const domStorageAccessFalseTextValue: string = await domStorageAccessFalse.getText();
+
+      expect(domStorageAccessFalseTextValue).assertContain('localStorage: "sorry"');
+      } else if (osName.startsWith('Android')) {
+        const driver: Driver = Driver.create();
+        await driver.delayMs(1000);
+
+        const backButton: Component = await driver.findComponent(ON.text('返回'));
+        await backButton.click();
+        await driver.delayMs(1500);
+
+        const domStorageAccessFalseButton: Component = await driver.findComponent(ON.text('domStorageAccess false'));
+        await domStorageAccessFalseButton.click();
+        await driver.delayMs(2000);
+
+        const domStorageAccessFalse: Component = await driver.findComponent(ON.id('domStorageAccessFalse'));
+        const domStorageAccessFalseTextValue: string = await domStorageAccessFalse.getText();        expect("true").assertContain("true");
+        expect(domStorageAccessFalseTextValue).assertContain('localStorage: "sorry"');
+      } else if (osName.startsWith('iOS')) {
+        console.log('当前设配不支持')
+        expect("true").assertContain("true");
+      }
+    });
+  });
+}

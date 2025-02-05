@@ -1,0 +1,42 @@
+<!--index.html-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+</head>
+<body onbeforeunload="return myFunction()">
+<h1>WebView onBeforeUnload Demo</h1>
+<h3>1.a链接跳转</h3>
+<a href="https://www.baidu.com/">Click 链接</a>
+<h3>2.按钮点击跳转</h3>
+<button onclick="myClickFunction()">Click 按钮</button>
+<h3>3.页面刷新</h3>
+<button onclick="myReloadFunction()">Click 刷新</button>
+<p id="reloadMessage"></p>
+
+<h4>4.进入百度</h4>
+<button onclick="myFunctionTest()">Click here</button>
+<script>
+  function myFunction() {
+    return 'onBeforeUnload Event';
+  }
+  function myClickFunction() {
+    window.location.href = 'https://www.baidu.com/';
+  }
+  function myReloadFunction() {
+    window.location.reload();
+    document.getElementById('reloadMessage').innerText = '页面未刷新';
+  }
+  function myFunctionTest() {
+    window.location.href = 'https://www.baidu.com/';
+  }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
