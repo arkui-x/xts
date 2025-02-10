@@ -26,8 +26,16 @@ function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function DecimalTest() {
   describe('DecimalTest', () => {
+    afterAll(async () => {
+      await wait(3000);
+    })
+
     /**
      * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_DECIMAL_COMPARED_TO_0100
      * @tc.name       : testComparedTo0001
