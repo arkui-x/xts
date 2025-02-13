@@ -77,7 +77,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array pop before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayPop, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.info(`${caseName} array pop after  ${array.length}`);
           expect(3).assertEqual(array.length);
         }).catch((e: Object) => {
@@ -108,7 +108,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array push before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayPush, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.info(`${caseName} array push after   ${array.length}`);
           expect(6).assertEqual(array.length);
         }).catch((e: Object) => {
@@ -139,7 +139,10 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array join before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayJoin, array);
-        taskpool.execute(task1).then((e: Object) => {
+        task1.onReceiveData((str: string) => {
+          expect('1-2-3-4').assertEqual(str);
+        });
+        await taskpool.execute(task1).then((e: Object) => {
           console.info(`${caseName} array join after   ${e}`);
           expect('1-2-3-4').assertEqual(e);
         }).catch((e: Object) => {
@@ -170,7 +173,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array shift before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayShift, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} array shift after ${array.length}  firstElement  ${e}`);
           expect(3).assertEqual(array.length);
         }).catch((e: Object) => {
@@ -201,7 +204,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array Unshift before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayUnshift, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} array Unshift after ${array.length}  pushLength ${e}`);
           expect(6).assertEqual(array.length);
         }).catch((e: Object) => {
@@ -232,7 +235,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3, 4);
         console.log(`${caseName} array Unshift before ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arraySlice, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} array slice after newArray ${e}`);
           expect(2).assertEqual(e);
         }).catch((e: Object) => {
@@ -262,7 +265,7 @@ export default function collectionsOtherTest() {
       try {
         let array: collections.Array<string> = new collections.Array<string>('a', 'b', 'c', 'd');
         let task1: taskpool.Task = new taskpool.Task(arrayIndexOf, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           let index: number = array.indexOf('a');
           console.log(`${caseName} index ${index}`);
           console.log(`${caseName} array indexOf after value ${e}`);
@@ -294,7 +297,7 @@ export default function collectionsOtherTest() {
       try {
         let array: collections.Array<string> = new collections.Array<string>('a', 'b', 'c', 'd');
         let task1: taskpool.Task = new taskpool.Task(arrayAt, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           let index: string | undefined = array.at(0);
           console.log(`${caseName} at ${index}`);
           console.log(`${caseName} array at after value ${e}`);
@@ -327,7 +330,7 @@ export default function collectionsOtherTest() {
         let array: collections.Array<number> = new collections.Array<number>(1, 2, 3);
         console.log(`${caseName} array ${array.length}`);
         let task1: taskpool.Task = new taskpool.Task(arrayFill, array);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} array fill after value ${e}`);
           expect(0).assertEqual(e);
         }).catch((e: Object) => {
@@ -358,7 +361,7 @@ export default function collectionsOtherTest() {
         let map: collections.Map<number, string> = new collections.Map<number, string>([[1, '1']]);
         console.log(`${caseName} map.size ${map.size}`);
         let task1: taskpool.Task = new taskpool.Task(mapClear, map);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} array map after value ${map.size}`);
           expect(0).assertEqual(map.size);
         }).catch((e: Object) => {
@@ -389,7 +392,7 @@ export default function collectionsOtherTest() {
         let map: collections.Map<number, string> = new collections.Map<number, string>([[0, '1'], [1, '1'], [2, '2']]);
         console.log(`${caseName} map.size ${map.size}`);
         let task1: taskpool.Task = new taskpool.Task(mapDelete, map);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} deleteFlg ${map.size}`);
           expect(2).assertEqual(map.size);
         }).catch((e: Object) => {
@@ -420,7 +423,7 @@ export default function collectionsOtherTest() {
         let map: collections.Map<number, string> = new collections.Map<number, string>([[0, '1'], [1, '1'], [2, '2']]);
         console.log(`${caseName} map.size ${map.size}`);
         let task1: taskpool.Task = new taskpool.Task(mapGet, map);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           let value: string | undefined = map.get(0);
           console.log(`${caseName} get ${value}`);
           expect(undefined).assertEqual(value);
@@ -452,7 +455,7 @@ export default function collectionsOtherTest() {
         let map: collections.Map<number, string> = new collections.Map<number, string>([[0, '1'], [1, '1'], [2, '2']]);
         console.log(`${caseName} map.size ${map.size}`);
         let task1: taskpool.Task = new taskpool.Task(mapGet, map);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           let flg: boolean = map.has(0);
           console.log(`${caseName} has ${flg}`);
           expect(false).assertEqual(flg);
@@ -484,7 +487,7 @@ export default function collectionsOtherTest() {
         let map: collections.Map<number, string> = new collections.Map<number, string>();
         console.log(`${caseName} map.size ${map.size}`);
         let task1: taskpool.Task = new taskpool.Task(mapGet, map);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} set ${map.size}`);
           expect(0).assertEqual(map.size);
         }).catch((e: Object) => {
@@ -515,7 +518,7 @@ export default function collectionsOtherTest() {
         let set: collections.Set<number> = new collections.Set<number>([1, 2, 3, 4]);
         console.log(`${caseName} set.size ${set.size}`);
         let task1: taskpool.Task = new taskpool.Task(setClear, set);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} clear ${set.size}`);
           expect(0).assertEqual(set.size);
         }).catch((e: Object) => {
@@ -546,7 +549,7 @@ export default function collectionsOtherTest() {
         let set: collections.Set<number> = new collections.Set<number>([1, 2, 3, 4]);
         console.log(`${caseName} set.size ${set.size}`);
         let task1: taskpool.Task = new taskpool.Task(setDelete, set);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           let flg: boolean = set.has(1);
           console.log(`${caseName} delete ${set.size} ${flg}`);
           expect(false).assertEqual(flg);
@@ -578,7 +581,7 @@ export default function collectionsOtherTest() {
         let set: collections.Set<number> = new collections.Set<number>([1, 2, 3, 4]);
         console.log(`${caseName} set.size ${set.size}`);
         let task1: taskpool.Task = new taskpool.Task(setAdd, set);
-        taskpool.execute(task1).then((e: Object) => {
+        await taskpool.execute(task1).then((e: Object) => {
           console.log(`${caseName} delete ${set.size}`);
           expect(5).assertEqual(set.size);
         }).catch((e: Object) => {
