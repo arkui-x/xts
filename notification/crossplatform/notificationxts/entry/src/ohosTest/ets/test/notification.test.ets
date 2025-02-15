@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -85,6 +85,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(`SUB_NotificationManager_TestPublish_Func_0100 errCode: ${err.code}, errMes: ${err.message}`);
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_0100 END`);
@@ -384,6 +385,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(` SUB_NotificationManager_TestPublish_Func_0900 errCode: ${err.code}, errMes: ${err.message}`);
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_0900 END`);
@@ -564,6 +566,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(` SUB_NotificationManager_TestPublish_Func_01400 errCode: ${err.code}, errMes: ${err.message}`);
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_01400 END`);
@@ -597,6 +600,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(`SUB_NotificationManager_TestPublish_Func_01500 errCode: ${err.code}, errMes: ${err.message}`);
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_01500 END`);
@@ -862,6 +866,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(`SUB_NotificationManager_TestPublish_Func_02200 errCode: ${err.code}, errMes: ${err.message}`)
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_02200 END`);
@@ -898,6 +903,7 @@ export default function notificationTest() {
         });
       } catch (err) {
         console.info(`SUB_NotificationManager_TestPublish_Func_02300 errCode: ${err.code}, errMes: ${err.message}`);
+        expect(err.code).assertEqual(401);
         done();
       }
       console.info(`SUB_NotificationManager_TestPublish_Func_02300 END`);
@@ -1010,7 +1016,7 @@ export default function notificationTest() {
         done();
       }).catch((err: BusinessError) => {
         console.info(`${TAG} SUB_NotificationManager_TestPublish_Func_02600 publish err: ${err.code}`);
-        expect(err.code).assertEqual(160004);
+        expect(err.code).assertEqual(1600004);
         done();
       })
       console.info(`${TAG} SUB_NotificationManager_TestPublish_Func_02600 END`);
@@ -1215,6 +1221,7 @@ export default function notificationTest() {
         })
       } catch (err) {
         console.info(`${TAG} requestEnableNotification AsyncCallback errCode: ${err.code}, errMes: ${err.message}`);
+        expect().assertFail()
         done();
       }
       console.info(`${TAG} SUB_NotificationManager_TestRequestEnableNotification_Func_03400 END`);
@@ -1262,6 +1269,7 @@ export default function notificationTest() {
         })
       } catch (err) {
         console.log(`setBadgeNumber failed, catch error code: ${err.code}, message: ${err.message}`);
+        expect().assertFail()
         done();
       }
     })
@@ -1287,6 +1295,7 @@ export default function notificationTest() {
         })
       } catch (err) {
         console.log(`setBadgeNumber failed, catch error code: ${err.code}, message: ${err.message}`);
+        expect().assertFail()
         done();
       }
     })
@@ -1310,6 +1319,7 @@ export default function notificationTest() {
         })
       } catch (err) {
         console.log(`setBadgeNumber failed, catch error code: ${err.code}, message: ${err.message}`);
+        expect().assertFail()
         done();
       }
     })
@@ -1332,6 +1342,7 @@ export default function notificationTest() {
         })
       } catch (err) {
         console.log(`setBadgeNumber failed, catch error code: ${err.code}, message: ${err.message}`);
+        expect().assertFail()
         done();
       }
     })
