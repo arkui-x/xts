@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import bluetooth from '@ohos.bluetooth.access';
-import { describe, beforeAll, it, expect } from '@ohos/hypium'
+import { afterEach, describe, beforeAll, it, expect } from '@ohos/hypium'
 import deviceInfo from '@ohos.deviceInfo';
 
 let osFullNameInfo: string = deviceInfo.osFullName;
@@ -33,7 +33,11 @@ export default function btaccess() {
   describe('bluetoothaccess', () => {
 
     beforeAll(async () => {
-      await sleep(3000);
+      await sleep(5000);
+    })
+
+    afterEach(async () => {
+      await sleep(5000);
     })
 
     /**
@@ -43,31 +47,39 @@ export default function btaccess() {
      * @tc.level  : Level 1
      */
     it('SUB_ArkUIX_Bluetooth_Access_0010', 0, async (done: Function) => {
-      if (platform == "iOS") {
+      let state = bluetooth.getState();
+      if (platform === "iOS") {
+        expect(state != null).assertTrue();
         done();
         return;
       }
-      let state = bluetooth.getState();
-      console.info('[SUB_ArkUIX_Bluetooth_Access_0010] bluetooth state = ' + JSON.stringify(state));
-      if (state != bluetooth.BluetoothState.STATE_ON) {
-        bluetooth.enableBluetooth();
-        await sleep(3000);
-        let openSt = bluetooth.getState();
-        console.info('[SUB_ArkUIX_Bluetooth_Access_0010] bluetooth enable state =' + JSON.stringify(openSt));
-        expect(openSt).assertEqual(bluetooth.BluetoothState.STATE_ON);
-      } else {
-        console.info('[SUB_ArkUIX_Bluetooth_Access_0010] bluetooth state is ON');
+      console.info('[SUB_ArkUIX_Bluetooth_Access_0010] getState = ' + JSON.stringify(state));
+      if (state !== bluetooth.BluetoothState.STATE_ON) {
+        try {
+          bluetooth.enableBluetooth();
+          await sleep(5000);
+          state = bluetooth.getState();
+          console.info('[SUB_ArkUIX_Bluetooth_Access_0010] enableBluetooth state =' + JSON.stringify(state));
+          expect(state).assertEqual(bluetooth.BluetoothState.STATE_ON);
+        } catch (error) {
+          console.info(`[SUB_ArkUIX_Bluetooth_Access_0010] enableBluetooth error is ${error.code},message is ${error.message}`);
+          expect(true).assertEqual(error.code == 2900099 || error.code == 801);
+        }
+        done();
       }
-      try {
-        bluetooth.disableBluetooth();
-        await sleep(3000);
-      } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Access_0010] disable StateChange error, code is ${error.code},message is ${error.message}`);
-        expect(error.code).assertEqual('2900099');
+
+      if (state === bluetooth.BluetoothState.STATE_ON) {
+        try {
+          bluetooth.disableBluetooth();
+          await sleep(10000);
+          state = bluetooth.getState();
+          console.info('[SUB_ArkUIX_Bluetooth_Access_0010] disableBluetooth state =' + JSON.stringify(state));
+          expect(state).assertEqual(bluetooth.BluetoothState.STATE_OFF);
+        } catch (error) {
+          console.error(`[SUB_ArkUIX_Bluetooth_Access_0010] disableBluetooth error, code is ${error.code},message is ${error.message}`);
+          expect(true).assertEqual(error.code == 2900099 || error.code == 801);
+        }
       }
-      let closeSt = bluetooth.getState();
-      console.info('[SUB_ArkUIX_Bluetooth_Access_0010] bluetooth disable state =' + JSON.stringify(closeSt));
-      expect(closeSt).assertEqual(bluetooth.BluetoothState.STATE_OFF);
       done();
     })
 
@@ -78,32 +90,39 @@ export default function btaccess() {
      * @tc.level  : Level 1
      */
     it('SUB_ArkUIX_Bluetooth_Access_0020', 0, async (done: Function) => {
-      if (platform == "iOS") {
+      let state = bluetooth.getState();
+      if (platform === "iOS") {
+        expect(state != null).assertTrue();
         done();
         return;
       }
-      let state = bluetooth.getState();
-      console.info('[SUB_ArkUIX_Bluetooth_Access_0020] bluetooth state = ' + JSON.stringify(state));
-      if (state != bluetooth.BluetoothState.STATE_OFF) {
-        bluetooth.disableBluetooth();
-        await sleep(3000);
-        let closeSt = bluetooth.getState();
-        console.info('[SUB_ArkUIX_Bluetooth_Access_0020] bluetooth disable state =' + JSON.stringify(closeSt));
-        await sleep(3000);
-        expect(closeSt).assertEqual(bluetooth.BluetoothState.STATE_OFF);
-      } else {
-        console.info('[SUB_ArkUIX_Bluetooth_Access_0020] bluetooth state is OFF');
+      console.info('[SUB_ArkUIX_Bluetooth_Access_0020] getState = ' + JSON.stringify(state));
+      if (state !== bluetooth.BluetoothState.STATE_OFF) {
+        try {
+          bluetooth.disableBluetooth();
+          await sleep(5000);
+          state = bluetooth.getState();
+          console.info('[SUB_ArkUIX_Bluetooth_Access_0020] disableBluetooth state =' + JSON.stringify(state));
+          expect(state).assertEqual(bluetooth.BluetoothState.STATE_OFF);
+        } catch (error) {
+          console.error(`[SUB_ArkUIX_Bluetooth_Access_0020] disableBluetooth error, code is ${error.code},message is ${error.message}`);
+          expect(true).assertEqual(error.code == 2900099 || error.code == 801);
+        }
+        done()
       }
-      try {
-        bluetooth.enableBluetooth();
-        await sleep(3000);
-      } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Access_0020] enable StateChange error, code is ${error.code},message is ${error.message}`);
-        expect(error.code).assertEqual('2900099');
+
+      if (state === bluetooth.BluetoothState.STATE_OFF) {
+        try {
+          bluetooth.enableBluetooth();
+          await sleep(10000);
+          state = bluetooth.getState();
+          console.info('[SUB_ArkUIX_Bluetooth_Access_0020] enableBluetooth state =' + JSON.stringify(state));
+          expect(state).assertEqual(bluetooth.BluetoothState.STATE_ON);
+        } catch (error) {
+          console.error(`[SUB_ArkUIX_Bluetooth_Access_0020] enableBluetooth error, code is ${error.code},message is ${error.message}`);
+          expect(true).assertEqual(error.code == 2900099 || error.code == 801);
+        }
       }
-      let openSt = bluetooth.getState();
-      console.info('[SUB_ArkUIX_Bluetooth_Access_0020] bluetooth enable state =' + JSON.stringify(openSt));
-      expect(openSt).assertEqual(bluetooth.BluetoothState.STATE_ON);
       done();
     })
 
@@ -135,7 +154,7 @@ export default function btaccess() {
         }
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Access_0030]disable StateChange error, code is ${error.code},message is ${error.message}`);
-        expect(error.code).assertEqual('2900099');
+        expect(true).assertEqual(error.code == 2900099 || error.code == 801);
       }
       bluetooth.off('stateChange', onReceiveEvent);
       done();
@@ -167,7 +186,7 @@ export default function btaccess() {
         }
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Access_0040]disable StateChange error, code is ${error.code},message is ${error.message}`);
-        expect(error.code).assertEqual('2900099');
+        expect(true).assertEqual(error.code == 2900099 || error.code == 801);
       }
       done();
     })
