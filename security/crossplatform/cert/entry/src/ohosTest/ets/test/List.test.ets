@@ -19,8 +19,11 @@ import certFrameworkSelectCertsJsAPIFunctionTestUnit from './selectCerts.test';
 import certFrameworkSelectCRLsJsAPIFunctionTestUnit from './selectCRLs.test';
 import certFrameworkCertMatchJsAPIFunctionTestUnit from './certMatch.test';
 import certFrameworkCRLMatchJsAPIFunctionTestUnit from './crlMatch.test';
-import certFrameworkCertChainExtJsAPIFunctionTestUnit from './certChainExt.test'
-import certFrameworkCreateTrustAnchorJsAPIFunctionTestUnit from './createTrustAnchor.test'
+import certFrameworkCertChainExtJsAPIFunctionTestUnit from './certChainExt.test';
+import certFrameworkCreateTrustAnchorJsAPIFunctionTestUnit from './createTrustAnchor.test';
+import certFrameworkCertCsrTestUnit from './certCsr.test';
+import certFrameworkParseP12CertTestUnit from './parseP12Cert.test';
+import certFrameworkCertPkcs7ExtCMSFunctionTestUnit from './certP7.test';
 
 export default function testsuite() {
   abilityTest();
@@ -31,4 +34,7 @@ export default function testsuite() {
   certFrameworkCRLMatchJsAPIFunctionTestUnit();
   certFrameworkCertChainExtJsAPIFunctionTestUnit();
   certFrameworkCreateTrustAnchorJsAPIFunctionTestUnit();
+  certFrameworkCertCsrTestUnit();
+  certFrameworkParseP12CertTestUnit();
+  certFrameworkCertPkcs7ExtCMSFunctionTestUnit();
 }
