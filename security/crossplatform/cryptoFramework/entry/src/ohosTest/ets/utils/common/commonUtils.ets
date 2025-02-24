@@ -47,8 +47,35 @@ async function createData(dataLen: number): Promise<cryptoFramework.DataBlob>{
   }
 }
 
+async function createFullData(dataLen: number): Promise<cryptoFramework.DataBlob>{
+  try {
+    let rand: cryptoFramework.Random = cryptoFramework.createRandom();
+    let rawData: cryptoFramework.DataBlob = await rand.generateRandom(dataLen);
+
+    return rawData;
+  } catch (error) {
+    console.error('sync error, ' + error.code + " errorMsg " + error.message);
+    throw error as Error;
+  }
+}
+
+async function doScryptCallback(kdf: cryptoFramework.Kdf,
+  spec: cryptoFramework.ScryptSpec): Promise<cryptoFramework.DataBlob> {
+  return new Promise((resolve, reject) => {
+    kdf.generateSecret(spec, (err, rawData) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rawData);
+      }
+    });
+  });
+}
+
 export {
   stringToUint8Array,
   compareDataBlob,
-  createData
+  createData,
+  createFullData,
+  doScryptCallback
 }

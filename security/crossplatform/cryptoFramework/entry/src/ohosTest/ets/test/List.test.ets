@@ -18,6 +18,9 @@ import SecurityCryptoFwSignRecoverRSARecoverTestUnit from './SecurityCryptoFwSig
 import SecurityCryptoFwSymKeyGeneratorTestUnit from './SecurityCryptoFwSymKeyGenerator.test'
 import SecurityCryptoFwSymEncryptAndDecryptTestUnit from './SecurityCryptoFwSymEncryptAndDecrypt.test'
 import SecurityCryptoFwAsyKeyGeneratorTestUnit from './SecurityCryptoFwAsyKeyGenerator.test'
+import SecurityCryptoFwRSAEncodeDecodeWithSecretTestUnit from './SecurityCryptoFwRSAencodeDecodeWithSecret.test'
+import SecurityCryptoFwCmacTestUnit from './SecurityCryptoFwCmac.test'
+import SecurityCryptoFwScryptKdfTestUnit from './SecurityCryptoFwScryptKdf.test'
 
 export default function testsuite() {
   CryptoFrameworkTest();
@@ -25,4 +28,7 @@ export default function testsuite() {
   SecurityCryptoFwSignRecoverRSARecoverTestUnit();
   SecurityCryptoFwSymKeyGeneratorTestUnit();
   SecurityCryptoFwSymEncryptAndDecryptTestUnit();
+  SecurityCryptoFwRSAEncodeDecodeWithSecretTestUnit();
+  SecurityCryptoFwCmacTestUnit();
+  SecurityCryptoFwScryptKdfTestUnit();
 }
