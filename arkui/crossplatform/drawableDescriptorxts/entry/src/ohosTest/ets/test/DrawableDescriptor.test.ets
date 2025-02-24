@@ -15,7 +15,7 @@
 import image from '@ohos.multimedia.image';
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 import { DrawableDescriptor, LayeredDrawableDescriptor } from '@ohos.arkui.drawableDescriptor';
 
 let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -27,6 +27,10 @@ async function sleep(ms: number): Promise<void> {
 
 export default function drawableDescriptorTest() {
   describe('DawableDescriptorTest', () => {
+
+    afterEach(async ()=>{
+      await sleep(1000)
+    })
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0010
