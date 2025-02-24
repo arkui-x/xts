@@ -14,8 +14,16 @@
  */
 import HashSet from "@ohos.util.HashSet";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function HashSetTest() {
-  describe("HashSetTest", function () {
+  describe("HashSetTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
      * @tc.name  : testConstructor001
@@ -24,8 +32,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
-      let hashSet = new HashSet();
+    it("testConstructor001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       expect(hashSet != null).assertTrue();
     });
 
@@ -37,8 +45,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("testLength001", 0, function () {
-      let hashSet = new HashSet();
+    it("testLength001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(2);
       let res = hashSet.length;
@@ -53,8 +61,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let hashSet = new HashSet();
+    it("testIsEmpty001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(4);
       hashSet.add(1);
       let res = hashSet.isEmpty();
@@ -69,8 +77,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty002", 0, function () {
-      let hashSet = new HashSet();
+    it("testIsEmpty002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(2);
       hashSet.clear();
@@ -86,8 +94,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty003", 0, function () {
-      let hashSet = new HashSet();
+    it("testIsEmpty003", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       try {
         hashSet.isEmpty.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -106,8 +114,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let hashSet = new HashSet();
+    it("testHas001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(4);
       hashSet.add(1);
       hashSet.add(3);
@@ -127,8 +135,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas002", 0, function () {
-      let hashSet = new HashSet();
+    it("testHas002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       let res = hashSet.has(1);
       expect(res).assertEqual(false);
     });
@@ -141,8 +149,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas003", 0, function () {
-      let hashSet = new HashSet();
+    it("testHas003", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       try {
         hashSet.has.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -161,8 +169,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd001", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       let res = hashSet.has(1);
       expect(res).assertEqual(true);
@@ -176,8 +184,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd002", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add("b");
       hashSet.add("a");
       hashSet.add("g");
@@ -193,8 +201,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd003", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd003", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       let c = [1, 2, 3];
       hashSet.add(c);
       let res = hashSet.has(c);
@@ -209,9 +217,11 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd004", 0, function () {
-      let hashSet = new HashSet();
-      let c = { name: "lili", age: "13" };
+    it("testAdd004", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
+      let c: ESObject = {
+        name: "lili", age: "13"
+      };
       hashSet.add(c);
       let res = hashSet.has(c);
       expect(res).assertEqual(true);
@@ -225,8 +235,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd005", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd005", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add("");
       let res = hashSet.has("");
       expect(res).assertEqual(true);
@@ -240,8 +250,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd006", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd006", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add("$");
       let res = hashSet.has("$");
       expect(res).assertEqual(true);
@@ -255,8 +265,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd007", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd007", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1.34);
       let res = hashSet.has(1.34);
       expect(res).assertEqual(true);
@@ -270,8 +280,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd008", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd008", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(-1);
       let res = hashSet.has(-1);
       expect(res).assertEqual(true);
@@ -285,9 +295,9 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd009", 0, function () {
-      let hashSet = new HashSet();
-      let a = {};
+    it("testAdd009", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
+      let a: ESObject = {};
       hashSet.add(a);
       let res = hashSet.has(a);
       expect(res).assertEqual(true);
@@ -301,8 +311,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd010", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd010", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       for (let i = 0; i < 100; i++) {
         hashSet.add(i);
         let res = hashSet.has(i);
@@ -320,8 +330,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd011", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd011", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(1);
       let has = hashSet.has(1);
@@ -338,8 +348,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd012", 0, function () {
-      let hashSet = new HashSet();
+    it("testAdd012", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       try {
         hashSet.add.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -358,8 +368,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let hashSet = new HashSet();
+    it("testRemove001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(4);
       hashSet.add(1);
       hashSet.add(3);
@@ -367,8 +377,8 @@ export default function HashSetTest() {
       hashSet.add(5);
       let res = hashSet.remove(1);
       expect(res).assertEqual(true);
-      let arr = [];
-      hashSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      hashSet.forEach((value: number, index: number) => {
         arr.push(value);
       });
       for (let i = 0; i < arr.length; i++) {
@@ -385,8 +395,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove002", 0, function () {
-      let hashSet = new HashSet();
+    it("testRemove002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       let res = hashSet.remove(1);
       expect(res).assertEqual(false);
     });
@@ -399,8 +409,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let hashSet = new HashSet();
+    it("testClear001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(4);
       hashSet.add(1);
       hashSet.add(3);
@@ -421,8 +431,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear002", 0, function () {
-      let hashSet = new HashSet();
+    it("testClear002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       let res = hashSet.clear();
       expect(res).assertEqual(undefined);
     });
@@ -435,15 +445,15 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let hashSet = new HashSet();
+    it("testForEach001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(2);
       hashSet.add(3);
       hashSet.add(4);
       hashSet.add(5);
-      let arr = [];
-      hashSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      hashSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       for (let i = 0; i < arr.length; i++) {
@@ -460,10 +470,10 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach002", 0, function () {
-      let hashSet = new HashSet();
-      let arr = [];
-      hashSet.forEach((value, index) => {
+    it("testForEach002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
+      let arr: ESObject = [];
+      hashSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       expect(arr.length).assertEqual(0);
@@ -477,17 +487,17 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach003", 0, function () {
-      let hashSet = new HashSet();
+    it("testForEach003", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       for (let i = 0; i < 100; i++) {
         hashSet.add(i);
       }
-      let arr = [];
-      hashSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      hashSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       for (let i = 0; i < 100; i++) {
-        let a = arr[i];
+        let a: ESObject = arr[i];
         let res = hashSet.has(a);
         expect(res).assertEqual(true);
       }
@@ -501,8 +511,8 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach004", 0, function () {
-      let hashSet = new HashSet();
+    it("testForEach004", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       try {
         hashSet.forEach.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -521,14 +531,14 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testValues001", 0, function () {
-      let hashSet = new HashSet();
+    it("testValues001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add("A");
       hashSet.add("B");
       hashSet.add("C");
       hashSet.add("D");
       hashSet.add("E");
-      let res = hashSet.values();
+      let res: ESObject = hashSet.values();
       for (let i = 0; i < hashSet.length; i++) {
         let has = hashSet.has(res.next().value);
         expect(has).assertEqual(true);
@@ -543,14 +553,14 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEntries001", 0, function () {
-      let hashSet = new HashSet();
+    it("testEntries001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(2);
       hashSet.add(3);
       hashSet.add(4);
       hashSet.add(5);
-      let res = hashSet.entries();
+      let res: ESObject = hashSet.entries();
       for (let i = 0; i < hashSet.length; i++) {
         let has = hashSet.has(res.next().value[1]);
         expect(has).assertEqual(true);
@@ -565,9 +575,9 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEntries002", 0, function () {
-      let hashSet = new HashSet();
-      let res = hashSet.entries();
+    it("testEntries002", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
+      let res: ESObject = hashSet.entries();
       expect(res.next().value).assertEqual(undefined);
     });
 
@@ -579,21 +589,21 @@ export default function HashSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let hashSet = new HashSet();
+    it("testIterator001", 0, () => {
+      let hashSet: HashSet<ESObject> = new HashSet();
       hashSet.add(1);
       hashSet.add(2);
       hashSet.add(3);
       hashSet.add(4);
       hashSet.add(5);
-      let res = hashSet[Symbol.iterator]();
+      let res: ESObject = hashSet[Symbol.iterator]();
       let temp = undefined;
-      let arr = [];
+      let arr: ESObject = [];
       do {
         temp = res.next().value;
         arr.push(temp);
       } while (temp != undefined);
-      arr.sort(function (a, b) {
+      arr.sort((a: ESObject, b: ESObject) => {
         return a - b;
       });
       let arr1 = [1, 2, 3, 4, 5];
