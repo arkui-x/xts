@@ -14,9 +14,17 @@
  */
 import TreeMap from "@ohos.util.TreeMap";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function TreeMapTest() {
-describe("TreeMapTest", function () {
-                          
+describe("TreeMapTest", ()=> {
+  afterEach(async () => {
+    await sleep(1000)
+  });
+
   /**
    * @tc.number: TEST_CONSTRUCTOR_001
    * @tc.name  : testConstructor001
@@ -25,9 +33,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testConstructor001", 0, function () {
+  it("testConstructor001", 0, ()=> {
     try {
-      let treeMap = new TreeMap();
+      let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
       expect(treeMap != undefined).assertEqual(true);
     } catch (err) {
       expect(err.name).assertEqual("BusinessError");
@@ -44,8 +52,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Field
    * @tc.level : Level 1
    */
-  it("testLength001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testLength001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
@@ -63,8 +71,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Field
    * @tc.level : Level 1
    */
-  it("testLength002", 0, function () {
-    let treeMap = new TreeMap();
+  it("testLength002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     let res = treeMap.length;
     expect(res).assertEqual(0);
   });
@@ -77,8 +85,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */                                                                                              
-  it("testIsEmpty001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testIsEmpty001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
@@ -99,8 +107,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testHasKey001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testHasKey001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     let res = treeMap.hasKey(1);
@@ -117,8 +125,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testHasValue001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testHasValue001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
@@ -136,12 +144,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGet001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGet001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
-    let res = treeMap.get(1);
+    let res :ESObject= treeMap.get(1);
     expect(res).assertEqual("b");
   });
 
@@ -153,9 +161,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGet002", 0, function () {
-    let treeMap = new TreeMap();
-    let res = treeMap.get(1);
+  it("testGet002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let res:ESObject = treeMap.get(1);
     expect(res).assertEqual(undefined);
   });
 
@@ -167,12 +175,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGet003", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGet003", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.clear();
     expect(treeMap.length).assertEqual(0);
-    let res = treeMap.get(0);
+    let res :ESObject= treeMap.get(0);
      expect(res).assertEqual(undefined);
   });
 
@@ -184,12 +192,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetFirstKey001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGetFirstKey001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
-    let res = treeMap.getFirstKey();
+    let res :ESObject= treeMap.getFirstKey();
     expect(res).assertEqual(0);
   });
 
@@ -201,9 +209,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetFirstKey002", 0, function () {
-    let treeMap = new TreeMap();
-    let res = treeMap.getFirstKey();
+  it("testGetFirstKey002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let res:ESObject = treeMap.getFirstKey();
     expect(res).assertEqual(undefined);
   });
 
@@ -215,12 +223,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetLastKey001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGetLastKey001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
-    let res = treeMap.getLastKey();
+    let res :ESObject= treeMap.getLastKey();
     expect(res).assertEqual(2);
   });
 
@@ -232,9 +240,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetLastKey002", 0, function () {
-    let treeMap = new TreeMap();
-    let res = treeMap.getLastKey();
+  it("testGetLastKey002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let res :ESObject= treeMap.getLastKey();
     expect(res).assertEqual(undefined);
   });
 
@@ -246,20 +254,20 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSetAll001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSetAll001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
-    let treeMap1 = new TreeMap();
+    let treeMap1 :TreeMap<ESObject,ESObject>= new TreeMap();
     treeMap1.set(0, "a");
     treeMap1.set(1, "b");
     treeMap1.set(2, "c");
     treeMap.setAll(treeMap1);
-    let res = treeMap.get(0);
+    let res:ESObject = treeMap.get(0);
     expect(res).assertEqual("a");
-    let res1 = treeMap.get(1);
+    let res1 :ESObject= treeMap.get(1);
     expect(res1).assertEqual("b");
-    let res2 = treeMap.get(2);
+    let res2 :ESObject= treeMap.get(2);
     expect(res2).assertEqual("c");
   });
 
@@ -271,10 +279,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "四");
-    let res = treeMap.get(0);
+    let res:ESObject = treeMap.get(0);
     expect(res).assertEqual("四");
   });
 
@@ -286,10 +294,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet002", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, 8);
-    let res = treeMap.get(0);
+    let res:ESObject = treeMap.get(0);
     expect(res).assertEqual(8);
   });
 
@@ -301,11 +309,11 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet003", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet003", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     let a = [1, 2, 3, 4];
     treeMap.set(0, a);
-    let res = treeMap.get(0);
+    let res :ESObject= treeMap.get(0);
     expect(res).assertEqual(a);
   });
 
@@ -317,11 +325,11 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet004", 0, function () {
-    let treeMap = new TreeMap();
-    let a = {name: "lala", age: "13"};
+  it("testSet004", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let a :ESObject= {name: "lala", age: "13"};
     treeMap.set(0, a);
-    let res = treeMap.get(0);
+    let res :ESObject= treeMap.get(0);
     expect(res).assertEqual(a);
   });
 
@@ -333,10 +341,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet005", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet005", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(2, "*");
-    let res = treeMap.get(2);
+    let res :ESObject= treeMap.get(2);
     expect(res).assertEqual("*");
   });
 
@@ -348,10 +356,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet006", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet006", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(-2, 3.14);
-    let res = treeMap.get(-2);
+    let res :ESObject= treeMap.get(-2);
     expect(res).assertEqual(3.14);
   });
 
@@ -363,10 +371,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet007", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet007", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(100, true);
-    let res = treeMap.get(100);
+    let res :ESObject= treeMap.get(100);
     expect(res).assertEqual(true);
   });
 
@@ -378,10 +386,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet008", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet008", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(100, "");
-    let res = treeMap.get(100);
+    let res :ESObject= treeMap.get(100);
     expect(res).assertEqual("");
   });
 
@@ -393,10 +401,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet009", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet009", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set("a", "四");
-    let res = treeMap.get("a");
+    let res :ESObject= treeMap.get("a");
     expect(res).assertEqual("四");
   });
 
@@ -408,12 +416,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testSet010", 0, function () {
-    let treeMap = new TreeMap();
+  it("testSet010", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     for (let i = 0; i < 10000; i++) {
       treeMap.set(0, 8);
     }
-    let res = treeMap.get(0);
+    let res :ESObject= treeMap.get(0);
     expect(res).assertEqual(8);
     expect(treeMap.length).assertEqual(1);
   });
@@ -426,12 +434,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testRemove001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testRemove001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
-    let res = treeMap.remove(1);
+    let res :ESObject= treeMap.remove(1);
     expect(res).assertEqual("b");
   });
 
@@ -443,10 +451,10 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testRemove002", 0, function () {
-    let treeMap = new TreeMap();
+  it("testRemove002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
-    let res = treeMap.remove(1);
+    let res:ESObject = treeMap.remove(1);
     expect(res).assertEqual(undefined);
   });
 
@@ -458,8 +466,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testClear001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testClear001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
@@ -476,8 +484,8 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testClear002", 0, function () {
-    let treeMap = new TreeMap();
+  it("testClear002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
@@ -485,7 +493,7 @@ describe("TreeMapTest", function () {
     let res = treeMap.length;
     expect(res).assertEqual(0);
     treeMap.set(3, "d");
-    let va = treeMap.get(3);
+    let va :ESObject= treeMap.get(3);
     expect(va).assertEqual("d");
   });
 
@@ -498,14 +506,14 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetLowerKey001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGetLowerKey001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let res = treeMap.getLowerKey(2);
+    let res :ESObject= treeMap.getLowerKey(2);
     expect(res).assertEqual(1);
   });
 
@@ -517,9 +525,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetLowerKey002", 0, function () {
-    let treeMap = new TreeMap();
-    let res = treeMap.getLowerKey(2);
+  it("testGetLowerKey002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let res :ESObject= treeMap.getLowerKey(2);
     expect(res).assertEqual(undefined);
   });
 
@@ -531,14 +539,14 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetHigherKey001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testGetHigherKey001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let res = treeMap.getHigherKey(2);
+    let res :ESObject= treeMap.getHigherKey(2);
     expect(res).assertEqual(3);
   });
 
@@ -550,9 +558,9 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testGetHigherKey002", 0, function () {
-    let treeMap = new TreeMap();
-    let res = treeMap.getHigherKey(2);
+  it("testGetHigherKey002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
+    let res :ESObject = treeMap.getHigherKey(2);
     expect(res).assertEqual(undefined);
   });
 
@@ -564,14 +572,14 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testKeys001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testKeys001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let res = treeMap.keys();
+    let res :ESObject= treeMap.keys();
     expect(res.next().value).assertEqual(0);
     expect(res.next().value).assertEqual(1);
     expect(res.next().value).assertEqual(2);
@@ -587,14 +595,14 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testValues001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testValues001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let res = treeMap.values();
+    let res :ESObject= treeMap.values();
     expect(res.next().value).assertEqual("a");
     expect(res.next().value).assertEqual("b");
     expect(res.next().value).assertEqual("c");
@@ -610,15 +618,15 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testReplace001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testReplace001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let res = treeMap.replace(2, "B");
-    let res1 = treeMap.get(2);
+    let res:ESObject = treeMap.replace(2, "B");
+    let res1 :ESObject= treeMap.get(2);
     expect(res1).assertEqual("B");
   });
 
@@ -630,12 +638,12 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testReplace002", 0, function () {
-    let treeMap = new TreeMap();
+  it("testReplace002", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     let res = treeMap.replace(2, "B");
     expect(res).assertEqual(false);
-    let res1 = treeMap.get(2);
+    let res1 :ESObject= treeMap.get(2);
     expect(res1).assertEqual(undefined);
   });
 
@@ -647,19 +655,19 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testForEach001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testForEach001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let arr1 = [];
-    let arr2 = [];
-    treeMap.forEach((value, key) => {
+    let arr1 :ESObject= [];
+    let arr2 :ESObject= [];
+    treeMap.forEach((value:ESObject, key:ESObject) => {
       arr1.push(value);
     });
-    treeMap.forEach((value, key) => {
+    treeMap.forEach((value:ESObject, key:ESObject) => {
       arr2.push(key);
     });
     let arr = ["a", "b", "c", "d", "g"];
@@ -680,18 +688,18 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testEntries001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testEntries001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let entries = treeMap.entries();
+    let entries :ESObject= treeMap.entries();
     let flag = true;
     for (let i = 0, len = treeMap.length; i < len; i++) {
-      let entry = entries.next().value;
-      let res = treeMap.get(entry[0]);
+      let entry :ESObject= entries.next().value;
+      let res :ESObject= treeMap.get(entry[0]);
       if (res != entry[1]) {
         flag = false;
         break;
@@ -708,18 +716,18 @@ describe("TreeMapTest", function () {
    * @tc.type  : Method
    * @tc.level : Level 2
    */
-  it("testIterator001", 0, function () {
-    let treeMap = new TreeMap();
+  it("testIterator001", 0, ()=> {
+    let treeMap:TreeMap<ESObject,ESObject> = new TreeMap();
     treeMap.set(0, "a");
     treeMap.set(1, "b");
     treeMap.set(2, "c");
     treeMap.set(3, "d");
     treeMap.set(4, "g");
-    let iters = treeMap[Symbol.iterator]();
+    let iters :ESObject= treeMap[Symbol.iterator]();
     let flag = true;
     for (let i = 0, len = treeMap.length; i < len; i++) {
-      let entry = iters.next().value;
-      let res = treeMap.get(entry[0]);
+      let entry :ESObject= iters.next().value;
+      let res :ESObject= treeMap.get(entry[0]);
       if (res != entry[1]) {
         flag = false;
         break;
