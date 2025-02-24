@@ -14,8 +14,17 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import Url from "@ohos.url";
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function UrlFunTest() {
-  describe("UrlFunTest", function () {
+  describe("UrlFunTest", ()=> {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     /**
      * @tc.number: TEST_PARAMS_APPEND_001
      * @tc.name  : testParamsAppend001
@@ -24,7 +33,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend001", 0, function () {
+    it("testParamsAppend001", 0, ()=> {
       let that = Url.URL.parseURL("http://username:password@host:8080/directory/file?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.append("ma", "jk");
@@ -40,7 +49,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend002", 0, function () {
+    it("testParamsAppend002", 0, ()=> {
       let that = Url.URL.parseURL("http://username:password@host:8080/directory/file?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.append("ma 大", "jk￥");
@@ -56,7 +65,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend003", 0, function () {
+    it("testParamsAppend003", 0, ()=> {
       let that = Url.URL.parseURL("http://username:password@host:8080/directory/file?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.append("foo~!@#$%^&*()_+-=", "jk");
@@ -72,7 +81,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend004", 0, function () {
+    it("testParamsAppend004", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.append("app", "par");
@@ -88,7 +97,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend005", 0, function () {
+    it("testParamsAppend005", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.append("123", "456");
@@ -104,7 +113,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsAppend006", 0, function () {
+    it("testParamsAppend006", 0, ()=> {
       let a = "123";
       let b = undefined;
       try {
@@ -113,9 +122,9 @@ export default function UrlFunTest() {
         params.append(a, b);
         expect(0).assertEqual(1);
       } catch (err) {
-        expect(err.toString()).assertEqual(`BusinessError: Parameter error.The type of ${b} must be string`);
+        expect(err.toString()).assertEqual(`BusinessError: Parameter error. The type of ${b} must be string`);
         expect(err.code).assertEqual(401);
-        expect(err.message).assertEqual(`Parameter error.The type of ${b} must be string`);
+        expect(err.message).assertEqual(`Parameter error. The type of ${b} must be string`);
       }
     });
 
@@ -127,7 +136,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsDelete001", 0, function () {
+    it("testParamsDelete001", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.delete("foo");
@@ -143,7 +152,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsDelete002", 0, function () {
+    it("testParamsDelete002", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo大=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.delete("foo");
@@ -159,7 +168,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsDelete003", 0, function () {
+    it("testParamsDelete003", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo大=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.delete("foo大");
@@ -175,7 +184,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsDelete004", 0, function () {
+    it("testParamsDelete004", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.delete("bar");
@@ -191,7 +200,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsDelete005", 0, function () {
+    it("testParamsDelete005", 0, ()=> {
       let that = Url.URL.parseURL("https://example.com?foo=1&bar=2");
       let params = new Url.URLParams(that.search);
       params.delete("faa");
@@ -207,7 +216,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGetAll001", 0, function () {
+    it("testParamsGetAll001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("key1", "AAA");
       let result = params.getAll("key1");
@@ -222,7 +231,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGetAll002", 0, function () {
+    it("testParamsGetAll002", 0, ()=> {
       let params = new Url.URLParams("key1=value1&8=DEF");
       params.append("8", "A8A");
       let result = params.getAll("8");
@@ -237,7 +246,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGetAll003", 0, function () {
+    it("testParamsGetAll003", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2&key3=da");
       params.append("key3", "A3A");
       let result = params.getAll("key3");
@@ -252,7 +261,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGetAll004", 0, function () {
+    it("testParamsGetAll004", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2&key3=大");
       params.append("key3", "A3A");
       let result = params.getAll("key4");
@@ -267,7 +276,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGetAll005", 0, function () {
+    it("testParamsGetAll005", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2&key3=大");
       params.append("key3", "A3A");
       let result = params.getAll("key2");
@@ -282,11 +291,11 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsEntries001", 0, function () {
+    it("testParamsEntries001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
 
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params.entries()) {
         arr[i] = pair[0];
         i++;
@@ -304,10 +313,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsEntries002", 0, function () {
+    it("testParamsEntries002", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let i = 0;
-      let arr = {};
+      let arr :ESObject= {};
       for (let pair of params.entries()) {
         arr[i] = pair[0];
         i++;
@@ -325,11 +334,11 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsEntries003", 0, function () {
+    it("testParamsEntries003", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("foo", "jk");
       let i = 0;
-      let arr = {};
+      let arr :ESObject= {};
       for (let pair of params.entries()) {
         arr[i] = pair[0];
         i++;
@@ -347,10 +356,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsEntries004", 0, function () {
+    it("testParamsEntries004", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let i = 0;
-      let arr = {};
+      let arr:ESObject = {};
       for (let pair of params.entries()) {
         arr[i] = pair[0];
         i++;
@@ -368,11 +377,11 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsEntries005", 0, function () {
+    it("testParamsEntries005", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("jss", "txt");
       let i = 0;
-      let arr = {};
+      let arr :ESObject= {};
       for (let pair of params.entries()) {
         arr[i] = pair[0];
         i++;
@@ -390,15 +399,14 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsForEach001", 0, function () {
+    it("testParamsForEach001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
-      let arr = {};
+      let arr :ESObject= {};
       let i = 0;
-      function func(value, key, SearchParams) {
+      params.forEach((value, key, SearchParams) => {
         arr[i] = value + " " + key + " " + (params === SearchParams);
         i++;
-      }
-      params.forEach(func);
+      });
       expect(arr[0]).assertEqual("value1 key1 true");
     });
 
@@ -410,15 +418,14 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsForEach002", 0, function () {
+    it("testParamsForEach002", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
-      function func(value, key, SearchParams) {
+      params.forEach((value, key, SearchParams) => {
         arr[i] = value + " " + key + " " + (params === SearchParams);
         i++;
-      }
-      params.forEach(func);
+      });
       expect(arr[1]).assertEqual("value2 key2 true");
     });
 
@@ -430,16 +437,15 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsForEach003", 0, function () {
+    it("testParamsForEach003", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("foo", "jk");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
-      function func(value, key, SearchParams) {
+      params.forEach((value, key, SearchParams) => {
         arr[i] = value + " " + key + " " + (params === SearchParams);
         i++;
-      }
-      params.forEach(func);
+      });
       expect(arr[2]).assertEqual("jk foo true");
     });
 
@@ -451,15 +457,14 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsForEach004", 0, function () {
+    it("testParamsForEach004", 0, ()=> {
       let params = new Url.URLParams("foo=bar&jss=txt");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
-      function func(value, key, SearchParams) {
+      params.forEach((value, key, SearchParams) => {
         arr[i] = value + " " + key + " " + (params === SearchParams);
         i++;
-      }
-      params.forEach(func);
+      });
       expect(arr[1]).assertEqual("txt jss true");
     });
 
@@ -471,16 +476,15 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsForEach005", 0, function () {
+    it("testParamsForEach005", 0, ()=> {
       let params = new Url.URLParams("foo=bar&jss=txt");
       params.append("foo", "jk");
-      let arr = {};
+      let arr :ESObject = {};
       let i = 0;
-      function func(value, key, SearchParams) {
+      params.forEach((value, key, SearchParams) => {
         arr[i] = value + " " + key + " " + (params === SearchParams);
         i++;
-      }
-      params.forEach(func);
+      });
       expect(arr[0]).assertEqual("bar foo true");
     });
 
@@ -492,7 +496,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGet001", 0, function () {
+    it("testParamsGet001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let result = params.get("1");
       expect(result).assertEqual(undefined);
@@ -506,7 +510,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGet002", 0, function () {
+    it("testParamsGet002", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let result = params.get("key2");
       expect(result).assertEqual("value2");
@@ -520,7 +524,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGet003", 0, function () {
+    it("testParamsGet003", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("5", "JKL");
       let result = params.get("5");
@@ -535,7 +539,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGet004", 0, function () {
+    it("testParamsGet004", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let result = params.get("key1");
       expect(result).assertEqual("value1");
@@ -549,7 +553,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsGet005", 0, function () {
+    it("testParamsGet005", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("jss", "JL");
       let result = params.get("jss");
@@ -564,7 +568,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsHas001", 0, function () {
+    it("testParamsHas001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2&key3=大");
       let result = params.has("2");
       expect(result).assertEqual(false);
@@ -578,7 +582,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsHas002", 0, function () {
+    it("testParamsHas002", 0, ()=> {
       let params = new Url.URLParams("小=value1&key2=value2&key3=大");
       let result = params.has("小");
       expect(result).assertEqual(true);
@@ -592,7 +596,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsHas003", 0, function () {
+    it("testParamsHas003", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大");
       params.append("￥", "ACA");
       let result = params.has("￥");
@@ -607,7 +611,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsHas004", 0, function () {
+    it("testParamsHas004", 0, ()=> {
       let params = new Url.URLParams("小=value1&key2=value2&key3=大");
       let result = params.has("无");
       expect(result).assertEqual(false);
@@ -621,7 +625,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsHas005", 0, function () {
+    it("testParamsHas005", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大");
       params.append("￥", "ACA");
       let result = params.has("￥11");
@@ -638,7 +642,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet001", 0, function () {
+    it("testParamsSet001", 0, ()=> {
       let params = new Url.URLParams("1=value1&2=value2&key3=3");
       params.set("11", "CCC");
       let res = params.toString();
@@ -655,7 +659,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet002", 0, function () {
+    it("testParamsSet002", 0, ()=> {
       let params = new Url.URLParams("1=value1&2=value2&key3=3");
       params.set("10", "BBB");
       let res = params.toString();
@@ -672,7 +676,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet003", 0, function () {
+    it("testParamsSet003", 0, ()=> {
       let params = new Url.URLParams("1=value1&2=value2&key3=3");
       params.set("ma 大", "10￥");
       let res = params.toString();
@@ -689,7 +693,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet004", 0, function () {
+    it("testParamsSet004", 0, ()=> {
       let params = new Url.URLParams("1=value1&2=value2&key3=3");
       params.set("1", "CCC");
       let res = params.toString();
@@ -706,7 +710,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet005", 0, function () {
+    it("testParamsSet005", 0, ()=> {
       let params = new Url.URLParams("1=value1&2=value2&key3=3");
       params.set("12", "BBB");
       let res = params.toString();
@@ -723,7 +727,7 @@ export default function UrlFunTest() {
      * If there were several matching values, this method deletes the others.
      * If the search parameter doesn't exist, this method creates it.
      */
-    it("testParamsSet006", 0, function () {
+    it("testParamsSet006", 0, ()=> {
       let b = undefined;
       try {
         let params = new Url.URLParams("1=value1&2=value2&key3=3");
@@ -731,9 +735,9 @@ export default function UrlFunTest() {
         let res = params.toString();
         expect(0).assertEqual(1);
       } catch (err) {
-        expect(err.toString()).assertEqual(`BusinessError: Parameter error.The type of ${b} must be string`);
+        expect(err.toString()).assertEqual(`BusinessError: Parameter error. The type of ${b} must be string`);
         expect(err.code).assertEqual(401);
-        expect(err.message).assertEqual(`Parameter error.The type of ${b} must be string`);
+        expect(err.message).assertEqual(`Parameter error. The type of ${b} must be string`);
       }
     });
 
@@ -745,7 +749,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSort001", 0, function () {
+    it("testParamsSort001", 0, ()=> {
       let params = new Url.URLParams("1=value1&3=value3&2=key2");
       params.sort();
       let res = params.toString();
@@ -760,7 +764,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSort002", 0, function () {
+    it("testParamsSort002", 0, ()=> {
       let params = new Url.URLParams("a=value1&c=value2&b=key2");
       params.sort();
       let res = params.toString();
@@ -775,7 +779,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSort003", 0, function () {
+    it("testParamsSort003", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=33");
       params.append("a", "ACA");
       params.sort();
@@ -791,7 +795,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSort004", 0, function () {
+    it("testParamsSort004", 0, ()=> {
       let params = new Url.URLParams("1=value1&3=value3&2=key2&4=key4");
       params.sort();
       let res = params.toString();
@@ -806,7 +810,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSort005", 0, function () {
+    it("testParamsSort005", 0, ()=> {
       let params = new Url.URLParams("a=value1&c=value2&4=key4&b=key2");
       params.sort();
       let res = params.toString();
@@ -821,9 +825,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsKeys001", 0, function () {
+    it("testParamsKeys001", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let key of params.keys()) {
         arr[i] = key;
@@ -840,9 +844,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsKeys002", 0, function () {
+    it("testParamsKeys002", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大");
-      let arr = {};
+      let arr:ESObject = {};
       let i = 0;
       for (let key of params.keys()) {
         arr[i] = key;
@@ -859,9 +863,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsKeys003", 0, function () {
+    it("testParamsKeys003", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大");
-      let arr = {};
+      let arr :ESObject= {};
       let i = 0;
       for (let key of params.keys()) {
         arr[i] = key;
@@ -878,9 +882,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsKeys004", 0, function () {
+    it("testParamsKeys004", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大&key4=六");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let key of params.keys()) {
         arr[i] = key;
@@ -897,9 +901,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsKeys005", 0, function () {
+    it("testParamsKeys005", 0, ()=> {
       let params = new Url.URLParams("小=value1&￥=value2&key3=大&key4=六&key5=发");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let key of params.keys()) {
         arr[i] = key;
@@ -916,9 +920,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsValues001", 0, function () {
+    it("testParamsValues001", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let value of params.values()) {
         arr[i] = value;
@@ -935,9 +939,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsValues002", 0, function () {
+    it("testParamsValues002", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let value of params.values()) {
         arr[i] = value;
@@ -954,10 +958,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsValues003", 0, function () {
+    it("testParamsValues003", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大");
       params.append("a", "ACA");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let value of params.values()) {
         arr[i] = value;
@@ -974,9 +978,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsValues004", 0, function () {
+    it("testParamsValues004", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大&4=key4");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let value of params.values()) {
         arr[i] = value;
@@ -993,9 +997,9 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsValues005", 0, function () {
+    it("testParamsValues005", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大&4=key4&5=key5");
-      let arr = {};
+       let arr:ESObject = {};
       let i = 0;
       for (let value of params.values()) {
         arr[i] = value;
@@ -1012,10 +1016,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSymbolIterator001", 0, function () {
+    it("testParamsSymbolIterator001", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params[Symbol.iterator]()) {
         arr[i] = pair[0];
         i++;
@@ -1033,10 +1037,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSymbolIterator002", 0, function () {
+    it("testParamsSymbolIterator002", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params[Symbol.iterator]()) {
         arr[i] = pair[0];
         i++;
@@ -1054,11 +1058,11 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSymbolIterator003", 0, function () {
+    it("testParamsSymbolIterator003", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("foo", "jk");
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params[Symbol.iterator]()) {
         arr[i] = pair[0];
         i++;
@@ -1076,10 +1080,10 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSymbolIterator004", 0, function () {
+    it("testParamsSymbolIterator004", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params[Symbol.iterator]()) {
         arr[i] = pair[0];
         i++;
@@ -1097,11 +1101,11 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsSymbolIterator005", 0, function () {
+    it("testParamsSymbolIterator005", 0, ()=> {
       let params = new Url.URLParams("key1=value1&key2=value2");
       params.append("jss", "txt");
       let i = 0;
-      let arr = {};
+       let arr:ESObject = {};
       for (let pair of params[Symbol.iterator]()) {
         arr[i] = pair[0];
         i++;
@@ -1119,7 +1123,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsToString001", 0, function () {
+    it("testParamsToString001", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大");
       let result = params.toString();
       expect(result).assertEqual("d=value1&c=value2&b=%E5%A4%A7");
@@ -1133,7 +1137,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsToString002", 0, function () {
+    it("testParamsToString002", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b= 大");
       params.append("1 12", "QQQ");
       let result = params.toString();
@@ -1148,7 +1152,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsToString003", 0, function () {
+    it("testParamsToString003", 0, ()=> {
       let params = new Url.URLParams("$=()");
       params.delete("5");
       let result = params.toString();
@@ -1163,7 +1167,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsToString004", 0, function () {
+    it("testParamsToString004", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b=大&4=key4");
       let result = params.toString();
       expect(result).assertEqual("d=value1&c=value2&b=%E5%A4%A7&4=key4");
@@ -1177,7 +1181,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsToString005", 0, function () {
+    it("testParamsToString005", 0, ()=> {
       let params = new Url.URLParams("d=value1&c=value2&b= 大&4=key4&5=key5");
       params.append("1 12", "QQQ");
       let result = params.toString();
@@ -1192,7 +1196,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToString001", 0, function () {
+    it("testUrlToString001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.toString();
       expect(result).assertEqual("http://username:password@host:8080/directory/file?query#fragment");
@@ -1206,7 +1210,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToString002", 0, function () {
+    it("testUrlToString002", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file");
       let result = params.toString();
       expect(result).assertEqual("http://username:password@host:8080/directory/file");
@@ -1220,7 +1224,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToString003", 0, function () {
+    it("testUrlToString003", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080#fragment");
       let result = params.toString();
       expect(result).assertEqual("http://username:password@host:8080/#fragment");
@@ -1234,7 +1238,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToString004", 0, function () {
+    it("testUrlToString004", 0, ()=> {
       let params = Url.URL.parseURL("http1://host/directory/file?query#fragment");
       let result = params.toString();
       expect(result).assertEqual("http1://host/directory/file?query#fragment");
@@ -1248,7 +1252,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToString005", 0, function () {
+    it("testUrlToString005", 0, ()=> {
       let params = Url.URL.parseURL("http:host:8080/directory/file?query#fragment");
       let result = params.toString();
       expect(result).assertEqual("http://host:8080/directory/file?query#fragment");
@@ -1262,7 +1266,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl001", 0, function () {
+    it("testUrlParseUrl001", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL("https://developer.mozilla.org");
@@ -1278,7 +1282,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl002", 0, function () {
+    it("testUrlParseUrl002", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL("https://developer.mozilla.org", "flie:/developer.mozilla.org");
@@ -1294,7 +1298,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl003", 0, function () {
+    it("testUrlParseUrl003", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL("https://developer.mozilla.org", "ftp://www.example.com");
@@ -1310,7 +1314,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl004", 0, function () {
+    it("testUrlParseUrl004", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL(" ", "http://www.example.com");
@@ -1326,7 +1330,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl005", 0, function () {
+    it("testUrlParseUrl005", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL(".", "http://www.example.com");
@@ -1342,7 +1346,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl006", 0, function () {
+    it("testUrlParseUrl006", 0, ()=> {
       let params = new Url.URL();
       expect(params != null).assertTrue();
       let params2 = Url.URL.parseURL("../h:", "http://www.example.com");
@@ -1358,7 +1362,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl007", 0, function () {
+    it("testUrlParseUrl007", 0, ()=> {
       let a = undefined;
       try {
         let params = new Url.URL();
@@ -1366,9 +1370,9 @@ export default function UrlFunTest() {
         Url.URL.parseURL(a);
         expect(0).assertEqual(1);
       } catch (err) {
-        expect(err.toString()).assertEqual(`BusinessError: Parameter error.The type of ${a} must be string`);
+        expect(err.toString()).assertEqual(`BusinessError: Parameter error. The type of ${a} must be string`);
         expect(err.code).assertEqual(401);
-        expect(err.message).assertEqual(`Parameter error.The type of ${a} must be string`);
+        expect(err.message).assertEqual(`Parameter error. The type of ${a} must be string`);
       }
     });
 
@@ -1380,7 +1384,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlParseUrl008", 0, function () {
+    it("testUrlParseUrl008", 0, ()=> {
       try {
         let params = new Url.URL();
         expect(params != null).assertTrue();
@@ -1403,7 +1407,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToJson001", 0, function () {
+    it("testUrlToJson001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query=pppppp#qwer=da");
       let result = params.toJSON();
       expect(result).assertEqual("http://username:password@host:8080/directory/file?query=pppppp#qwer=da");
@@ -1417,7 +1421,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToJson002", 0, function () {
+    it("testUrlToJson002", 0, ()=> {
       let params = Url.URL.parseURL("http://host:8080/directory/file?query=pppppp#qwer=da");
       let result = params.toJSON();
       expect(result).assertEqual("http://host:8080/directory/file?query=pppppp#qwer=da");
@@ -1431,7 +1435,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToJson003", 0, function () {
+    it("testUrlToJson003", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080");
       let result = params.toJSON();
       expect(result).assertEqual("http://username:password@host:8080/");
@@ -1445,7 +1449,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToJson004", 0, function () {
+    it("testUrlToJson004", 0, ()=> {
       let params = Url.URL.parseURL("http11://username:password@host:8080?query=pppppp#qwer=da");
       let result = params.toJSON();
       expect(result).assertEqual("http11://username:password@host:8080?query=pppppp#qwer=da");
@@ -1459,7 +1463,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUrlToJson005", 0, function () {
+    it("testUrlToJson005", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory");
       let result = params.toJSON();
       expect(result).assertEqual("http://username:password@host:8080/directory");
@@ -1473,7 +1477,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction001", 0, function () {
+    it("testParamsConstruction001", 0, ()=> {
       let params = new Url.URLParams("?user=abc&query=xyz");
       let result = params.toString();
       expect(result).assertEqual("user=abc&query=xyz");
@@ -1487,7 +1491,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction002", 0, function () {
+    it("testParamsConstruction002", 0, ()=> {
       let params = new Url.URLParams({
         user: "abc",
         query: "first",
@@ -1504,7 +1508,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction003", 0, function () {
+    it("testParamsConstruction003", 0, ()=> {
       let params = new Url.URLParams([
         ["user", "abc"],
         ["query", "first"],
@@ -1522,7 +1526,7 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction004", 0, function () {
+    it("testParamsConstruction004", 0, ()=> {
       let params = new Url.URLParams();
       params.append("abcde", "fghki");
       let paramsResult = params.toString();
@@ -1537,8 +1541,8 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction005", 0, function () {
-      let param;
+    it("testParamsConstruction005", 0, ()=> {
+      let param:ESObject;
       let params = new Url.URLParams(param);
       params.append("abcde", "fghki");
       let paramsResult = params.toString();
@@ -1553,14 +1557,14 @@ export default function UrlFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParamsConstruction006", 0, function () {
+    it("testParamsConstruction006", 0, ()=> {
       let param = [["user", "abc", "error"]];
       try {
         let params = new Url.URLParams(param);
       } catch (err) {
-        expect(err.toString()).assertEqual(`BusinessError: Parameter error.The type of ${param} must be string[][]`);
+        expect(err.toString()).assertEqual(`BusinessError: Parameter error. The type of ${param} must be string[][]`);
         expect(err.code).assertEqual(401);
-        expect(err.message).assertEqual(`Parameter error.The type of ${param} must be string[][]`);
+        expect(err.message).assertEqual(`Parameter error. The type of ${param} must be string[][]`);
       }
     });
 
@@ -1572,7 +1576,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlHash001", 0, function () {
+    it("testUrlHash001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query=pppppp#fragment");
       let result = params.hash;
       expect(result).assertEqual("#fragment");
@@ -1586,7 +1590,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlHost001", 0, function () {
+    it("testUrlHost001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.host;
       expect(result).assertEqual("host:8080");
@@ -1600,7 +1604,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlHostName001", 0, function () {
+    it("testUrlHostName001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.hostname;
       expect(result).assertEqual("host");
@@ -1614,7 +1618,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlHref001", 0, function () {
+    it("testUrlHref001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.href;
       expect(result).assertEqual("http://username:password@host:8080/directory/file?query#fragment");
@@ -1628,7 +1632,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlOrigin001", 0, function () {
+    it("testUrlOrigin001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.origin;
       expect(result).assertEqual("http://host:8080");
@@ -1642,7 +1646,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlPassword001", 0, function () {
+    it("testUrlPassword001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:11@host:8080/directory/file?query#fragment");
       let result = params.password;
       expect(result).assertEqual("11");
@@ -1656,7 +1660,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlPathName001", 0, function () {
+    it("testUrlPathName001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.pathname;
       expect(result).assertEqual("/directory/file");
@@ -1670,7 +1674,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlPort001", 0, function () {
+    it("testUrlPort001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.port;
       expect(result).assertEqual("8080");
@@ -1684,7 +1688,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlProtocol001", 0, function () {
+    it("testUrlProtocol001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.protocol;
       expect(result).assertEqual("http:");
@@ -1698,7 +1702,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlSearch001", 0, function () {
+    it("testUrlSearch001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query=qqqq#fragment");
       let result = params.search;
       expect(result).assertEqual("?query=qqqq");
@@ -1712,7 +1716,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlURLParams001", 0, function () {
+    it("testUrlURLParams001", 0, ()=> {
       let that = Url.URL.parseURL("http://username:password@host:8080/directory/file?foo=1&bar=2");
       let seach = that.params;
       let result = seach.toString();
@@ -1727,7 +1731,7 @@ export default function UrlFunTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("testUrlUserName001", 0, function () {
+    it("testUrlUserName001", 0, ()=> {
       let params = Url.URL.parseURL("http://username:password@host:8080/directory/file?query#fragment");
       let result = params.username;
       expect(result).assertEqual("username");

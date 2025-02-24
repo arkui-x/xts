@@ -14,8 +14,16 @@
  */
 import List from "@ohos.util.List";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ListTest() {
-  describe("ListTest", function () {
+  describe("ListTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
@@ -25,9 +33,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
+    it("testConstructor001", 0, () => {
       try {
-        let list = new List();
+        let list: List<ESObject> = new List();
         expect(list != undefined).assertEqual(true);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
@@ -44,8 +52,8 @@ export default function ListTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it("testLength001", 0, function () {
-      let list = new List();
+    it("testLength001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(4);
       list.add(3);
       list.add(1);
@@ -63,10 +71,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd001", 0, function () {
-      let list = new List();
+    it("testAdd001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(8);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(8);
     });
 
@@ -79,11 +87,11 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd002", 0, function () {
-      let list = new List();
+    it("testAdd002", 0, () => {
+      let list: List<ESObject> = new List();
       let a = [1, 2, 3, 4];
       list.add(a);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(a);
     });
 
@@ -96,11 +104,13 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd003", 0, function () {
-      let list = new List();
-      let a = {name: "lala", age: "13"};
+    it("testAdd003", 0, () => {
+      let list: List<ESObject> = new List();
+      let a: ESObject = {
+        name: "lala", age: "13"
+      };
       list.add(a);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(a);
     });
     /**
@@ -111,12 +121,12 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd004", 0, function () {
-      let list = new List();
+    it("testAdd004", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(".");
       list.add("*");
       list.add("|");
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(".");
     });
 
@@ -128,13 +138,13 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd005", 0, function () {
-      let list = new List();
+    it("testAdd005", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(".");
       list.add("*");
       list.add("|");
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [".", "*", "|"];
@@ -151,10 +161,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd006", 0, function () {
-      let list = new List();
+    it("testAdd006", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(" ");
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(" ");
     });
 
@@ -166,12 +176,12 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd007", 0, function () {
-      let list = new List();
+    it("testAdd007", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("a");
-      let res = list.get(0);
-      let res1 = list.get(1);
+      let res: ESObject = list.get(0);
+      let res1: ESObject = list.get(1);
       expect(res).assertEqual("a");
       expect(res1).assertEqual("a");
     });
@@ -183,12 +193,12 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd008", 0, function () {
-      let list = new List();
+    it("testAdd008", 0, () => {
+      let list: List<ESObject> = new List();
       for (let i = 0; i < 100; i++) {
         list.add(i);
       }
-      let res = list.get(99);
+      let res: ESObject = list.get(99);
       let res1 = list.length;
       expect(res).assertEqual(99);
       expect(res1).assertEqual(100);
@@ -202,10 +212,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd009", 0, function () {
-      let list = new List();
+    it("testAdd009", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(null);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(null);
     });
 
@@ -217,10 +227,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd010", 0, function () {
-      let list = new List();
+    it("testAdd010", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(0.1111);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(0.1111);
     });
 
@@ -232,10 +242,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd011", 0, function () {
-      let list = new List();
+    it("testAdd011", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(-1);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(-1);
     });
 
@@ -247,11 +257,11 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd012", 0, function () {
-      let list = new List();
-      const obj = {};
+    it("testAdd012", 0, () => {
+      let list: List<ESObject> = new List();
+      const obj: ESObject = {};
       list.add(obj);
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual(obj);
     });
 
@@ -263,8 +273,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testAdd013', 0, function () {
-      let  list = new List();
+    it('testAdd013', 0, () => {
+      let list: List<ESObject> = new List();
       try {
         list.add.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -283,16 +293,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert001", 0, function () {
-      let list = new List();
+    it("testInsert001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       list.insert("d", 3);
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["a", "b", "c", "d", "a", "b"];
@@ -309,8 +319,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert002", 0, function () {
-      let list = new List();
+    it("testInsert002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -319,10 +329,11 @@ export default function ListTest() {
       try {
         let res = list.insert("d", 8);
         expect(true).assertEqual(false);
-      } catch(err) {
+      } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 5. Received value is: 8`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 5. Received value is: 8`);
       }
     });
 
@@ -334,10 +345,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet001", 0, function () {
-      let list = new List();
+    it("testGet001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("四");
-      let res = list.get(0);
+      let res: ESObject = list.get(0);
       expect(res).assertEqual("四");
     });
 
@@ -349,15 +360,15 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet002", 0, function () {
-      let list = new List();
+    it("testGet002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       list.add("b");
-      let res = list.get(2);
+      let res: ESObject = list.get(2);
       expect(res).assertEqual("c");
     });
 
@@ -369,15 +380,15 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet003", 0, function () {
-      let list = new List();
+    it("testGet003", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       list.add("b");
-      let res = list.get(6);
+      let res: ESObject = list.get(6);
       expect(res).assertEqual(undefined);
     });
 
@@ -389,9 +400,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet004", 0, function () {
-      let list = new List();
-      let res = list.get(1);
+    it("testGet004", 0, () => {
+      let list: List<ESObject> = new List();
+      let res: ESObject = list.get(1);
       expect(res).assertEqual(undefined);
     });
 
@@ -403,8 +414,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet005", 0, function () {
-      let list = new List();
+    it("testGet005", 0, () => {
+      let list: List<ESObject> = new List();
       try {
         list.get.bind({}, 1)();
         expect(true).assertEqual(false);
@@ -423,8 +434,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let list = new List();
+    it("testHas001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -440,8 +451,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas002", 0, function () {
-      let list = new List();
+    it("testHas002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -457,8 +468,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas003", 0, function () {
-      let list = new List();
+    it("testHas003", 0, () => {
+      let list: List<ESObject> = new List();
       let res = list.has(1);
       expect(res).assertEqual(false);
     });
@@ -472,8 +483,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOf001", 0, function () {
-      let list = new List();
+    it("testGetIndexOf001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -493,8 +504,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOf002", 0, function () {
-      let list = new List();
+    it("testGetIndexOf002", 0, () => {
+      let list: List<ESObject> = new List();
       let res = list.getIndexOf(1);
       expect(res).assertEqual(-1);
     });
@@ -507,16 +518,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByIndex001", 0, function () {
-      let list = new List();
+    it("testRemoveByIndex001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       list.removeByIndex(2);
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["a", "b", "a", "b"];
@@ -533,20 +544,21 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByIndex002", 0, function () {
-      let list = new List();
+    it("testRemoveByIndex002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       try {
-        let res = list.removeByIndex(5);
+        let res: ESObject = list.removeByIndex(5);
         expect(true).assertEqual(false);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 5`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 5`);
       }
     });
 
@@ -558,15 +570,15 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByIndex003", 0, function () {
-      let list = new List();
+    it("testRemoveByIndex003", 0, () => {
+      let list: List<ESObject> = new List();
       try {
-        let res = list.removeByIndex(1);
+        let res: ESObject = list.removeByIndex(1);
         expect(true).assertEqual(false);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 0. Received value is: 1`);
+        expect(err.message).assertEqual(`Container is empty`);
       }
     });
 
@@ -578,16 +590,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let list = new List();
+    it("testRemove001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       let res = list.remove("a");
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["b", "c", "a", "b"];
@@ -605,8 +617,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLastIndexOf001", 0, function () {
-      let list = new List();
+    it("testGetLastIndexOf001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -626,8 +638,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLastIndexOf002", 0, function () {
-      let list = new List();
+    it("testGetLastIndexOf002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -646,14 +658,14 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetFirst001", 0, function () {
-      let list = new List();
+    it("testGetFirst001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
-      let res = list.getFirst();
+      let res: ESObject = list.getFirst();
       expect(res).assertEqual("a");
     });
 
@@ -665,9 +677,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetFirst002", 0, function () {
-      let list = new List();
-      let res = list.getFirst();
+    it("testGetFirst002", 0, () => {
+      let list: List<ESObject> = new List();
+      let res: ESObject = list.getFirst();
       expect(res).assertEqual(undefined);
     });
 
@@ -679,14 +691,14 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLast001", 0, function () {
-      let list = new List();
+    it("testGetLast001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
-      let res = list.getLast();
+      let res: ESObject = list.getLast();
       expect(res).assertEqual("b");
     });
 
@@ -698,9 +710,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLast002", 0, function () {
-      let list = new List();
-      let res = list.getLast();
+    it("testGetLast002", 0, () => {
+      let list: List<ESObject> = new List();
+      let res: ESObject = list.getLast();
       expect(res).assertEqual(undefined);
     });
 
@@ -712,14 +724,14 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet001", 0, function () {
-      let list = new List();
+    it("testSet001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.set(2, "d");
-      let res1 = list.get(2);
+      let res1: ESObject = list.get(2);
       expect(res1).assertEqual("d");
     });
 
@@ -731,8 +743,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet002", 0, function () {
-      let list = new List();
+    it("testSet002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -742,7 +754,8 @@ export default function ListTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 2. Received value is: 6`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 2. Received value is: 6`);
       }
     });
 
@@ -754,9 +767,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual001", 0, function () {
-      let list = new List();
-      let list1 = new List();
+    it("testEqual001", 0, () => {
+      let list: List<ESObject> = new List();
+      let list1: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -775,9 +788,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual002", 0, function () {
-      let list = new List();
-      let list1 = new List();
+    it("testEqual002", 0, () => {
+      let list: List<ESObject> = new List();
+      let list1: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -796,9 +809,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual003", 0, function () {
-      let list = new List();
-      let list1 = new List();
+    it("testEqual003", 0, () => {
+      let list: List<ESObject> = new List();
+      let list1: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -816,9 +829,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual004", 0, function () {
-      let list = new List();
-      let list1 = new List();
+    it("testEqual004", 0, () => {
+      let list: List<ESObject> = new List();
+      let list1: List<ESObject> = new List();
       let res = list.equal(list1);
       expect(res).assertEqual(true);
     });
@@ -831,8 +844,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let list = new List();
+    it("testForEach001", 0, () => {
+      let list: List<ESObject> = new List();
       let c = [1, 2, 3, 4];
       list.add(8);
       list.add("一");
@@ -842,8 +855,8 @@ export default function ListTest() {
       list.add(6);
       list.add("三");
       list.add("四");
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [8, "一", "二", 5, c, 6, "三", "四"];
@@ -860,10 +873,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach002", 0, function () {
-      let list = new List();
+    it("testForEach002", 0, () => {
+      let list: List<ESObject> = new List();
       let num = 0;
-      list.forEach((item, index) => {
+      list.forEach((item: ESObject, index) => {
         num++;
       });
       expect(num).assertEqual(0);
@@ -877,8 +890,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testForEach003', 0, function () {
-      let  list = new List();
+    it('testForEach003', 0, () => {
+      let list: List<ESObject> = new List();
       try {
         list.forEach.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -897,16 +910,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort001", 0, function () {
-      let list = new List();
+    it("testSort001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(4);
       list.add(3);
       list.add(1);
       list.add(2);
       list.add(14);
-      list.sort((a:any, b:any) => a - b);
-      let arr = [];
-      list.forEach((item, index) => {
+      list.sort((a: number, b: number) => a - b);
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [1, 2, 3, 4, 14];
@@ -923,17 +936,17 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort002", 0, function () {
-      let list = new List();
+    it("testSort002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(";");
       list.add("一");
       list.add("a");
       list.add("1");
       list.add("2");
       list.add("14");
-      list.sort((a:any, b:any) => a - b);
-      let arr = [];
-      list.forEach((item, index) => {
+      list.sort((a: number, b: number) => a - b);
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [";", "一", "a", "1", "2", "14"];
@@ -950,9 +963,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort003", 0, function () {
-      let list = new List();
-      list.sort((a:any, b:any) => a - b);
+    it("testSort003", 0, () => {
+      let list: List<ESObject> = new List();
+      list.sort((a: number, b: number) => a - b);
       let res1 = list.length;
       expect(res1).assertEqual(0);
     });
@@ -965,8 +978,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let list = new List();
+    it("testClear001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
@@ -984,8 +997,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear002", 0, function () {
-      let list = new List();
+    it("testClear002", 0, () => {
+      let list: List<ESObject> = new List();
       list.clear();
       let res1 = list.length;
       expect(res1).assertEqual(0);
@@ -1000,16 +1013,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetSubList001", 0, function () {
-      let list = new List();
+    it("testGetSubList001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(4);
       list.add(3);
       list.add(1);
       list.add(2);
       list.add(14);
-      let res = list.getSubList(2, 4);
-      let arr = [];
-      res.forEach((item, index) => {
+      let res: List<ESObject> = list.getSubList(2, 4);
+      let arr: ESObject = [];
+      res.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [1, 2];
@@ -1027,8 +1040,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetSubList002", 0, function () {
-      let list = new List();
+    it("testGetSubList002", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("4");
       list.add("3");
       list.add("1");
@@ -1040,7 +1053,8 @@ export default function ListTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "toIndex" is out of range. It must be >= 0 && <= 5. Received value is: 8`);
+        expect(err.message)
+          .assertEqual(`The value of "toIndex" is out of range. It must be >= 0 && <= 5. Received value is: 8`);
       }
     });
 
@@ -1053,8 +1067,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetSubList003", 0, function () {
-      let list = new List();
+    it("testGetSubList003", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("4");
       list.add("3");
       list.add("1");
@@ -1066,7 +1080,8 @@ export default function ListTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
       }
     });
 
@@ -1079,8 +1094,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetSubList004", 0, function () {
-      let list = new List();
+    it("testGetSubList004", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("4");
       list.add("3");
       list.add("1");
@@ -1092,7 +1107,8 @@ export default function ListTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 1. Received value is: 6`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 1. Received value is: 6`);
       }
     });
 
@@ -1105,17 +1121,17 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testReplaceAllElements001", 0, function () {
-      let list = new List();
+    it("testReplaceAllElements001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(1);
       list.add(2);
       list.add(4);
       list.add(5);
-      list.replaceAllElements((item:number, index) => {
+      list.replaceAllElements((item: number, index) => {
         return (item = 2 * item);
       });
-      let arr = [];
-      list.forEach((item, index) => {
+      let arr: ESObject = [];
+      list.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [2, 4, 8, 10];
@@ -1133,10 +1149,10 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testReplaceAllElements002", 0, function () {
-      let list = new List();
+    it("testReplaceAllElements002", 0, () => {
+      let list: List<ESObject> = new List();
       let num = 0;
-      list.replaceAllElements((item, index) => {
+      list.replaceAllElements((item: ESObject, index) => {
         num++;
       });
       expect(num).assertEqual(0);
@@ -1150,14 +1166,14 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConvertToArray001", 0, function () {
-      let list = new List();
+    it("testConvertToArray001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(4);
       list.add(3);
       list.add(1);
       list.add(2);
       list.add(14);
-      let res = list.convertToArray();
+      let res: ESObject = list.convertToArray();
 
       let a = [4, 3, 1, 2, 14];
       for (let i = 0; i < a.length; i++) {
@@ -1173,9 +1189,9 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConvertToArray002", 0, function () {
-      let list = new List();
-      const res = list.convertToArray();
+    it("testConvertToArray002", 0, () => {
+      let list: List<ESObject> = new List();
+      const res: ESObject = list.convertToArray();
       expect(res.length).assertEqual(0);
     });
 
@@ -1187,8 +1203,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let list = new List();
+    it("testIsEmpty001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add(8);
       list.add("一");
       list.add("二");
@@ -1210,8 +1226,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty002", 0, function () {
-      let list = new List();
+    it("testIsEmpty002", 0, () => {
+      let list: List<ESObject> = new List();
       let res = list.isEmpty();
       expect(res).assertEqual(true);
     });
@@ -1224,8 +1240,8 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty003", 0, function () {
-      let  list = new List();
+    it("testIsEmpty003", 0, () => {
+      let list: List<ESObject> = new List();
       try {
         list.isEmpty.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -1244,16 +1260,16 @@ export default function ListTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let list = new List();
+    it("testIterator001", 0, () => {
+      let list: List<ESObject> = new List();
       list.add("a");
       list.add("b");
       list.add("c");
       list.add("a");
       list.add("b");
       list.removeByIndex(2);
-      let arr = [];
-      let itr = list[Symbol.iterator]();
+      let arr: ESObject = [];
+      let itr: ESObject = list[Symbol.iterator]();
       let tmp = undefined;
       do {
         tmp = itr.next().value;
@@ -1264,7 +1280,6 @@ export default function ListTest() {
         expect(arr[i]).assertEqual(a[i]);
       }
     });
-
 
 
   })

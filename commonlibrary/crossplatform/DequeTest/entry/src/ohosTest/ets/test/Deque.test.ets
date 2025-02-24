@@ -14,8 +14,17 @@
  */
 import Deque from "@ohos.util.Deque";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function DequeTest() {
-  describe("DequeTest", function () {
+  describe("DequeTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
      * @tc.name  : testConstructor001
@@ -24,8 +33,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
-      let deque = new Deque();
+    it("testConstructor001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       expect(deque != null).assertTrue();
     });
 
@@ -37,8 +46,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("testLength001", 0, function () {
-      let deque = new Deque();
+    it("testLength001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertEnd(9);
       let size = deque.length;
@@ -53,10 +62,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront001", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront("一");
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual("一");
     });
 
@@ -68,10 +77,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront002", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront(8);
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(8);
     });
 
@@ -83,11 +92,13 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront003", 0, function () {
-      let deque = new Deque();
-      let a = { name: "lala", age: "15" };
+    it("testInsertFront003", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let a: ESObject = {
+        name: "lala", age: "15"
+      };
       deque.insertFront(a);
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(a);
     });
 
@@ -99,10 +110,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront004", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront004", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront("$");
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual("$");
     });
 
@@ -114,10 +125,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront005", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront005", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront(" ");
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(" ");
     });
 
@@ -129,10 +140,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront006", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront006", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront(null);
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(null);
     });
 
@@ -144,10 +155,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront007", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront007", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertFront(undefined);
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(undefined);
     });
 
@@ -159,11 +170,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront008", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront008", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       for (let i = 0; i < 100; i++) {
         deque.insertFront(i);
-        let res = deque.getFirst();
+        let res: ESObject = deque.getFirst();
         expect(res).assertEqual(i);
       }
       let res1 = deque.length;
@@ -178,11 +189,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront009", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront009", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       let a = [1, 2, 3, 4];
       deque.insertFront(a);
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(a);
     });
 
@@ -194,8 +205,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertFront010", 0, function () {
-      let deque = new Deque();
+    it("testInsertFront010", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       try {
         deque.insertFront.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -214,10 +225,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd001", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(8);
     });
 
@@ -229,11 +240,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd002", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       let a = ["a", "b", "c"];
       deque.insertEnd(a);
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(a);
     });
 
@@ -245,11 +256,13 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd003", 0, function () {
-      let deque = new Deque();
-      let a = { class: "6班", say: "we" };
+    it("testInsertEnd003", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let a: ESObject = {
+        class: "6班", say: "we"
+      };
       deque.insertEnd(a);
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(a);
     });
 
@@ -261,10 +274,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd004", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd004", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd("$");
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual("$");
     });
 
@@ -276,10 +289,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd005", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd005", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(" ");
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(" ");
     });
 
@@ -291,10 +304,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd006", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd006", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(null);
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(null);
     });
 
@@ -306,10 +319,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd007", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd007", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(undefined);
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(undefined);
     });
 
@@ -321,11 +334,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsertEnd008", 0, function () {
-      let deque = new Deque();
+    it("testInsertEnd008", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       for (let i = 0; i < 100; i++) {
         deque.insertEnd(i);
-        let res = deque.getLast();
+        let res: ESObject = deque.getLast();
         expect(res).assertEqual(i);
       }
       let res1 = deque.length;
@@ -340,10 +353,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let deque = new Deque();
+    it("testHas001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(6);
-      let res = deque.has(6);
+      let res: ESObject = deque.has(6);
       expect(res).assertEqual(true);
     });
 
@@ -355,10 +368,10 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas002", 0, function () {
-      let deque = new Deque();
+    it("testHas002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
-      let res = deque.has(6);
+      let res: ESObject = deque.has(6);
       expect(res).assertEqual(false);
     });
 
@@ -370,9 +383,9 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas003", 0, function () {
-      let deque = new Deque();
-      let res = deque.has(6);
+    it("testHas003", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let res: ESObject = deque.has(6);
       expect(res).assertEqual(false);
     });
 
@@ -384,11 +397,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetFirst001", 0, function () {
-      let deque = new Deque();
+    it("testGetFirst001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd("四");
       deque.insertEnd("三");
-      let res = deque.getFirst();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual("四");
     });
 
@@ -400,9 +413,9 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetFirst002", 0, function () {
-      let deque = new Deque();
-      let res = deque.getFirst();
+    it("testGetFirst002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let res: ESObject = deque.getFirst();
       expect(res).assertEqual(undefined);
     });
 
@@ -414,11 +427,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLast001", 0, function () {
-      let deque = new Deque();
+    it("testGetLast001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertEnd("三");
-      let res = deque.getLast();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual("三");
     });
 
@@ -430,9 +443,9 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLast002", 0, function () {
-      let deque = new Deque();
-      let res = deque.getLast();
+    it("testGetLast002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let res: ESObject = deque.getLast();
       expect(res).assertEqual(undefined);
     });
 
@@ -444,11 +457,11 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testPopFirst001", 0, function () {
-      let deque = new Deque();
+    it("testPopFirst001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertFront("一");
-      let res = deque.popFirst();
+      let res: ESObject = deque.popFirst();
       expect(res).assertEqual("一");
     });
 
@@ -460,9 +473,9 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testPopFirst002", 0, function () {
-      let deque = new Deque();
-      let res = deque.popFirst();
+    it("testPopFirst002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let res: ESObject = deque.popFirst();
       expect(res).assertEqual(undefined);
     });
 
@@ -474,12 +487,12 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testPopLast001", 0, function () {
-      let deque = new Deque();
+    it("testPopLast001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertFront("一");
       deque.insertFront("二");
-      let res = deque.popLast();
+      let res: ESObject = deque.popLast();
       expect(res).assertEqual(8);
     });
 
@@ -491,9 +504,9 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testPopLast002", 0, function () {
-      let deque = new Deque();
-      let res = deque.popLast();
+    it("testPopLast002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
+      let res: ESObject = deque.popLast();
       expect(res).assertEqual(undefined);
     });
 
@@ -505,8 +518,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let deque = new Deque();
+    it("testForEach001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertFront("一");
       deque.insertFront("二");
@@ -518,8 +531,8 @@ export default function DequeTest() {
       deque.insertEnd(6);
       deque.insertFront("三");
       deque.insertFront("四");
-      let arr = [];
-      deque.forEach((item, index) => {
+      let arr: ESObject = [];
+      deque.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["四", "三", "二", "一", 8, 1, 2, 3, 4, 5, 6];
@@ -536,8 +549,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach002", 0, function () {
-      let deque = new Deque();
+    it("testForEach002", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertEnd(1);
       deque.insertEnd(2);
@@ -550,8 +563,8 @@ export default function DequeTest() {
       deque.popLast();
       deque.insertFront(8);
       deque.insertEnd(6);
-      let arr = [];
-      deque.forEach((item, index) => {
+      let arr: ESObject = [];
+      deque.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [8, 1, 2, 3, 3, 4, 5, 6];
@@ -568,8 +581,8 @@ export default function DequeTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let deque = new Deque();
+    it("testIterator001", 0, () => {
+      let deque: Deque<ESObject> = new Deque();
       deque.insertEnd(8);
       deque.insertFront("a");
       deque.insertFront("b");
@@ -582,8 +595,8 @@ export default function DequeTest() {
       deque.insertFront("g");
       deque.insertEnd(6);
       let size = deque.length;
-      let arr = [];
-      let itr = deque[Symbol.iterator]();
+      let arr: ESObject = [];
+      let itr: ESObject = deque[Symbol.iterator]();
       for (let i = 0; i < size; i++) {
         arr.push(itr.next().value);
       }
