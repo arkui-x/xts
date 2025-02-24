@@ -14,8 +14,18 @@
  */
 import HashMap from "@ohos.util.HashMap";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function HashMapTest() {
-  describe("HashMapTest", function () {
+  describe("HashMapTest", () => {
+
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
      * @tc.name  : testConstructor001
@@ -24,8 +34,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
-      let hashMap = new HashMap();
+    it("testConstructor001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       expect(hashMap != undefined).assertEqual(true);
     });
 
@@ -37,8 +47,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("testLength001", 0, function () {
-      let hashMap = new HashMap();
+    it("testLength001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -56,8 +66,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let hashMap = new HashMap();
+    it("testIsEmpty001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -77,8 +87,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty002", 0, function () {
-      let hashMap = new HashMap();
+    it("testIsEmpty002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -99,8 +109,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty003", 0, function () {
-      let hashMap = new HashMap();
+    it("testIsEmpty003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.isEmpty.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -119,8 +129,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasKey001", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasKey001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -140,8 +150,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasKey002", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasKey002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       let res = hashMap.hasKey(8);
       expect(res).assertEqual(false);
     });
@@ -154,14 +164,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testKeys003", 0, function () {
-      let hashMap = new HashMap();
+    it("testKeys003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.keys();
+      let res: ESObject = hashMap.keys();
       for (let i = 0; i < hashMap.length; i++) {
         let result = hashMap.hasKey(res.next().value);
         expect(result).assertEqual(true);
@@ -176,8 +186,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasKey004", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasKey004", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.hasKey.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -196,8 +206,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasValue001", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasValue001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -217,8 +227,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasValue002", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasValue002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       let res = hashMap.hasValue(8);
       expect(res).assertEqual(false);
     });
@@ -231,14 +241,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasValue003", 0, function () {
-      let hashMap = new HashMap();
+    it("testHasValue003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.values();
+      let res: ESObject = hashMap.values();
       for (let i = 0; i < hashMap.length; i++) {
         let has = hashMap.hasValue(res.next().value);
         expect(has).assertEqual(true);
@@ -253,14 +263,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet001", 0, function () {
-      let hashMap = new HashMap();
+    it("testGet001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.get(3);
+      let res: ESObject = hashMap.get(3);
       expect(res).assertEqual("C");
     });
 
@@ -272,9 +282,9 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet002", 0, function () {
-      let hashMap = new HashMap();
-      let res = hashMap.get(3);
+    it("testGet002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let res: ESObject = hashMap.get(3);
       expect(res).assertEqual(undefined);
     });
 
@@ -286,8 +296,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet003", 0, function () {
-      let hashMap = new HashMap();
+    it("testGet003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.get.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -306,22 +316,25 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAll001", 0, function () {
-      let hashMap = new HashMap();
+    it("testSetAll001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let hashMap1 = new HashMap();
+      let hashMap1: HashMap<ESObject, ESObject> = new HashMap();
       hashMap1.set(1, 1);
       hashMap1.set(2, 2);
       hashMap.setAll(hashMap1);
-      let arr = [];
-      for (let [key, value] of hashMap) {
-        arr.push([key, value]);
+      let arr: Array<ESObject> = [];
+      let iter: ESObject = hashMap[Symbol.iterator]();
+      let temp: IteratorResult<Object[]> = iter.next();
+      while (!temp.done) {
+        arr.push([temp.value[0], temp.value[1]]);
+        temp = iter.next();
       }
-      arr.sort(function (a, b) {
+      arr.sort((a: ESObject, b: ESObject) => {
         return a[0] - b[0];
       });
 
@@ -339,17 +352,20 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAll002", 0, function () {
-      let hashMap = new HashMap();
-      let hashMap1 = new HashMap();
+    it("testSetAll002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let hashMap1: HashMap<ESObject, ESObject> = new HashMap();
       hashMap1.set(1, 1);
       hashMap1.set(2, 2);
       hashMap.setAll(hashMap1);
-      let arr = [];
-      for (let [key, value] of hashMap) {
-        arr.push([key, value]);
+      let arr: Array<ESObject> = [];
+      let iter: ESObject = hashMap[Symbol.iterator]();
+      let temp: IteratorResult<Object[]> = iter.next();
+      while (!temp.done) {
+        arr.push([temp.value[0], temp.value[1]]);
+        temp = iter.next();
       }
-      arr.sort(function (a, b) {
+      arr.sort((a: ESObject, b: ESObject) => {
         return a[0] - b[0];
       });
       for (let i = 0; i < arr.length; i++) {
@@ -365,10 +381,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet001", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual("A");
     });
 
@@ -380,10 +396,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet002", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, 2);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(2);
     });
 
@@ -395,11 +411,11 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet003", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       let c = [1, 2, 3];
       hashMap.set(1, c);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(c);
     });
 
@@ -411,11 +427,13 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet004", 0, function () {
-      let hashMap = new HashMap();
-      let c = { name: "lili", age: "13" };
+    it("testSet004", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let c: ESObject = {
+        name: "lili", age: "13"
+      };
       hashMap.set(1, c);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(c);
     });
 
@@ -427,10 +445,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet005", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet005", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set("a", "A");
-      let res = hashMap.get("a");
+      let res: ESObject = hashMap.get("a");
       expect(res).assertEqual("A");
     });
 
@@ -442,10 +460,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet006", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet006", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set("", "A");
-      let res = hashMap.get("");
+      let res: ESObject = hashMap.get("");
       expect(res).assertEqual("A");
     });
 
@@ -457,10 +475,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet007", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet007", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set("$", "A");
-      let res = hashMap.get("$");
+      let res: ESObject = hashMap.get("$");
       expect(res).assertEqual("A");
     });
 
@@ -472,10 +490,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet008", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet008", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(3.14, "A");
-      let res = hashMap.get(3.14);
+      let res: ESObject = hashMap.get(3.14);
       expect(res).assertEqual("A");
     });
 
@@ -487,10 +505,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet009", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet009", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(0.3, "A");
-      let res = hashMap.get(0.3);
+      let res: ESObject = hashMap.get(0.3);
       expect(res).assertEqual("A");
     });
 
@@ -502,10 +520,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet010", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet010", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(-1, "A");
-      let res = hashMap.get(-1);
+      let res: ESObject = hashMap.get(-1);
       expect(res).assertEqual("A");
     });
 
@@ -517,11 +535,11 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet011", 0, function () {
-      let hashMap = new HashMap();
-      let a = {};
+    it("testSet011", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let a: ESObject = {};
       hashMap.set(a, "A");
-      let res = hashMap.get(a);
+      let res: ESObject = hashMap.get(a);
       expect(res).assertEqual("A");
     });
 
@@ -533,10 +551,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet012", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet012", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, null);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(null);
     });
 
@@ -548,10 +566,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet013", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet013", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "$");
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual("$");
     });
 
@@ -563,10 +581,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet014", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet014", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, 3.14);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(3.14);
     });
 
@@ -578,10 +596,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet015", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet015", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, -1);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(-1);
     });
 
@@ -593,11 +611,11 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet016", 0, function () {
-      let hashMap = new HashMap();
-      let a = {};
+    it("testSet016", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let a: ESObject = {};
       hashMap.set(1, a);
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       expect(res).assertEqual(a);
     });
 
@@ -609,12 +627,12 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet017", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet017", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       for (let i = 0; i < 100; i++) {
         hashMap.set(1, i);
       }
-      let res = hashMap.get(1);
+      let res: ESObject = hashMap.get(1);
       let res1 = hashMap.length;
       expect(res).assertEqual(99);
       expect(res1).assertEqual(1);
@@ -628,11 +646,11 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet018", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet018", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       for (let i = 0; i < 100; i++) {
         hashMap.set(i, 1);
-        let res = hashMap.get(i);
+        let res: ESObject = hashMap.get(i);
         expect(res).assertEqual(1);
       }
       let res1 = hashMap.length;
@@ -647,8 +665,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSet019", 0, function () {
-      let hashMap = new HashMap();
+    it("testSet019", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.set.bind({}, 1, "A")();
         expect(true).assertEqual(false);
@@ -667,14 +685,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let hashMap = new HashMap();
+    it("testRemove001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.remove(3);
+      let res: ESObject = hashMap.remove(3);
       expect(res).assertEqual("C");
       let res1 = hashMap.length;
       expect(res1).assertEqual(4);
@@ -688,9 +706,9 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove002", 0, function () {
-      let hashMap = new HashMap();
-      let res = hashMap.remove(3);
+    it("testRemove002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let res: ESObject = hashMap.remove(3);
       expect(res).assertEqual(undefined);
     });
 
@@ -702,8 +720,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove003", 0, function () {
-      let hashMap = new HashMap();
+    it("testRemove003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.remove.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -722,8 +740,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let hashMap = new HashMap();
+    it("testClear001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -744,8 +762,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear002", 0, function () {
-      let hashMap = new HashMap();
+    it("testClear002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.clear();
       let res = hashMap.length;
       expect(res).assertEqual(0);
@@ -759,14 +777,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testKeys001", 0, function () {
-      let hashMap = new HashMap();
+    it("testKeys001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.keys();
+      let res: ESObject = hashMap.keys();
       for (let i = 0; i < hashMap.length; i++) {
         let result = hashMap.hasKey(res.next().value);
         expect(result).assertEqual(true);
@@ -781,14 +799,14 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testValues001", 0, function () {
-      let hashMap = new HashMap();
+    it("testValues001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.values();
+      let res: ESObject = hashMap.values();
       for (let i = 0; i < hashMap.length; i++) {
         let has = hashMap.hasValue(res.next().value);
         expect(has).assertEqual(true);
@@ -803,8 +821,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testReplace001", 0, function () {
-      let hashMap = new HashMap();
+    it("testReplace001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
@@ -823,8 +841,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testReplace002", 0, function () {
-      let hashMap = new HashMap();
+    it("testReplace002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       let res = hashMap.replace(2, "G");
       expect(res).assertEqual(false);
     });
@@ -837,16 +855,16 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let hashMap = new HashMap();
+    it("testForEach001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let vals = [];
-      let keys = [];
-      hashMap.forEach((value, key) => {
+      let vals: ESObject = [];
+      let keys: ESObject = [];
+      hashMap.forEach((value: ESObject, key: ESObject) => {
         keys.push(key);
         vals.push(value);
       });
@@ -868,10 +886,10 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach002", 0, function () {
-      let hashMap = new HashMap();
-      let arr = [];
-      hashMap.forEach((item, index) => {
+    it("testForEach002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let arr: ESObject = [];
+      hashMap.forEach((item: ESObject, index: ESObject) => {
         arr.push(item);
       });
       expect(arr.length).assertEqual(0);
@@ -885,8 +903,8 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach003", 0, function () {
-      let hashMap = new HashMap();
+    it("testForEach003", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       try {
         hashMap.forEach.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -905,20 +923,20 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEntries001", 0, function () {
-      let hashMap = new HashMap();
+    it("testEntries001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
-      let res = hashMap.entries();
-      let arr = [];
+      let res: ESObject = hashMap.entries();
+      let arr: Array<ESObject> = [];
       for (let i = 0; i < hashMap.length; i++) {
-        let obj = res.next();
+        let obj: ESObject = res.next();
         arr.push([obj.value[0], obj.value[1]]);
       }
-      arr.sort(function (a, b) {
+      arr.sort((a: ESObject, b: ESObject) => {
         return a[0] - b[0];
       });
       for (let i = 0; i < arr.length; i++) {
@@ -935,9 +953,9 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEntries002", 0, function () {
-      let hashMap = new HashMap();
-      let res = hashMap.entries();
+    it("testEntries002", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
+      let res: ESObject = hashMap.entries();
       expect(undefined).assertEqual(res.next().value);
     });
 
@@ -949,19 +967,19 @@ export default function HashMapTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let hashMap = new HashMap();
+    it("testIterator001", 0, () => {
+      let hashMap: HashMap<ESObject, ESObject> = new HashMap();
       hashMap.set(1, "A");
       hashMap.set(2, "B");
       hashMap.set(3, "C");
       hashMap.set(4, "D");
       hashMap.set(5, "E");
       let arr = [];
-      let iters = hashMap[Symbol.iterator]();
+      let iters: ESObject = hashMap[Symbol.iterator]();
       let flag = true;
       for (let i = 0, len = hashMap.length; i < len; i++) {
-        let entry = iters.next().value;
-        let res = hashMap.get(entry[0]);
+        let entry: ESObject = iters.next().value;
+        let res: ESObject = hashMap.get(entry[0]);
         if (res != entry[1]) {
           flag = false;
           break;
@@ -969,5 +987,7 @@ export default function HashMapTest() {
       }
       expect(flag).assertEqual(true);
     });
-  });
+  }
+
+  );
 }
