@@ -54,12 +54,10 @@ export default function SetTest() {
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
     })
-    afterAll(() => {
+    afterAll(async () => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
-      afterAll(async () => {
-        await wait(3000);
-      })
+      await wait(3000);
     })
     /**
      * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_0100
@@ -2970,6 +2968,139 @@ export default function SetTest() {
         console.error(`${TAG} failed, error: ${err.message}`);
         expect().assertFail();
       }
-    })
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_13600
+     * @tc.name       : testSet0136
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0136', 0, () => {
+      const TAG = "testSet0136";
+      try {
+        let set : collections.Set<number> = new collections.Set<number>([1, 2, 3]);
+        let iter: Iterable<number> = set.values();
+        let newSet : collections.Set<number> = new collections.Set<number>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual(1);
+        expect(iterValues.next().value).assertEqual(2);
+        expect(iterValues.next().value).assertEqual(3);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_13700
+     * @tc.name       : testSet0137
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0137', 0, () => {
+      const TAG = "testSet0137";
+      try {
+        let set : collections.Set<string> = new collections.Set<string>(['str1', 'str2', 'str3']);
+        let iter: Iterable<string> = set.values();
+        let newSet : collections.Set<string> = new collections.Set<string>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual('str1');
+        expect(iterValues.next().value).assertEqual('str2');
+        expect(iterValues.next().value).assertEqual('str3');
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_13800
+     * @tc.name       : testSet0138
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0138', 0, () => {
+      const TAG = "testSet0138";
+      try {
+        let set : collections.Set<boolean> = new collections.Set<boolean>([true, false]);
+        let iter: Iterable<boolean> = set.values();
+        let newSet : collections.Set<boolean> = new collections.Set<boolean>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual(true);
+        expect(iterValues.next().value).assertEqual(false);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_13900
+     * @tc.name       : testSet0139
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0139', 0, () => {
+      const TAG = "testSet0139";
+      try {
+        let set : collections.Set<bigint> = new collections.Set<bigint>([123456781n, 123456782n, 123456783n]);
+        let iter: Iterable<bigint> = set.values();
+        let newSet : collections.Set<bigint> = new collections.Set<bigint>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual(123456781n);
+        expect(iterValues.next().value).assertEqual(123456782n);
+        expect(iterValues.next().value).assertEqual(123456783n);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_14000
+     * @tc.name       : testSet0140
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0140', 0, () => {
+      const TAG = "testSet0140";
+      try {
+        let set : collections.Set<null> = new collections.Set<null>([null]);
+        let iter: Iterable<null> = set.values();
+        let newSet : collections.Set<null> = new collections.Set<null>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual(null);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_SET_14100
+     * @tc.name       : testSet0141
+     * @tc.desc       : Testing the Constructor of set.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testSet0141', 0, () => {
+      const TAG = "testSet0141";
+      try {
+        let set : collections.Set<undefined> = new collections.Set<undefined>([undefined]);
+        let iter: Iterable<undefined> = set.values();
+        let newSet : collections.Set<undefined> = new collections.Set<undefined>(iter);
+        let iterValues = newSet.values();
+        expect(iterValues.next().value).assertEqual(undefined);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
   })
 }

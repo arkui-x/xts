@@ -1354,5 +1354,169 @@ export default function MapTest() {
         expect().assertFail();
       }
     });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6100
+     * @tc.name       : testCollectionsMap0061
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0061', 0, () => {
+      const TAG = "testCollectionsMap0061";
+      try {
+        let map = new collections.Map<number, string>([
+          [1, 'str1'], [2, 'str2'], [3, 'str3']
+        ]);
+        let iter: Iterable<[number, string]> = map.entries();
+        let newMap: collections.Map<number, string> = new collections.Map<number, string>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual(1);
+        expect(iterKeys.next().value).assertEqual(2);
+        expect(iterKeys.next().value).assertEqual(3);
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual('str1');
+        expect(iterValues.next().value).assertEqual('str2');
+        expect(iterValues.next().value).assertEqual('str3');
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6200
+     * @tc.name       : testCollectionsMap0062
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0062', 0, () => {
+      const TAG = "testCollectionsMap0062";
+      try {
+        let map = new collections.Map<string, boolean>([
+          ['str1', true], ['str2', false], ['str3', true]
+        ]);
+        let iter: Iterable<[string, boolean]> = map.entries();
+        let newMap: collections.Map<string, boolean> = new collections.Map<string, boolean>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual('str1');
+        expect(iterKeys.next().value).assertEqual('str2');
+        expect(iterKeys.next().value).assertEqual('str3');
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual(true);
+        expect(iterValues.next().value).assertEqual(false);
+        expect(iterValues.next().value).assertEqual(true);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6300
+     * @tc.name       : testCollectionsMap0063
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0063', 0, () => {
+      const TAG = "testCollectionsMap0063";
+      try {
+        let map = new collections.Map<boolean, bigint>([
+          [true, 123456781n], [false, 123456782n]
+        ]);
+        let iter: Iterable<[boolean, bigint]> = map.entries();
+        let newMap: collections.Map<boolean, bigint> = new collections.Map<boolean, bigint>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual(true);
+        expect(iterKeys.next().value).assertEqual(false);
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual(123456781n);
+        expect(iterValues.next().value).assertEqual(123456782n);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6400
+     * @tc.name       : testCollectionsMap0064
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0064', 0, () => {
+      const TAG = "testCollectionsMap0064";
+      try {
+        let map = new collections.Map<bigint, null>([
+          [123456781n, null], [123456782n, null], [123456783n, null]
+        ]);
+        let iter: Iterable<[bigint, null]> = map.entries();
+        let newMap: collections.Map<bigint, null> = new collections.Map<bigint, null>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual(123456781n);
+        expect(iterKeys.next().value).assertEqual(123456782n);
+        expect(iterKeys.next().value).assertEqual(123456783n);
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual(null);
+        expect(iterValues.next().value).assertEqual(null);
+        expect(iterValues.next().value).assertEqual(null);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6500
+     * @tc.name       : testCollectionsMap0065
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0065', 0, () => {
+      const TAG = "testCollectionsMap0065";
+      try {
+        let map = new collections.Map<null, undefined>([
+          [null, undefined]
+        ]);
+        let iter: Iterable<[null, undefined]> = map.entries();
+        let newMap: collections.Map<null, undefined> = new collections.Map<null, undefined>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual(null);
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual(undefined);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_MAP_6600
+     * @tc.name       : testCollectionsMap0066
+     * @tc.desc       : Testing Collections of Map, create Map, with constructor.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsMap0066', 0, () => {
+      const TAG = "testCollectionsMap0066";
+      try {
+        let map = new collections.Map<undefined, string>([
+          [undefined, 'str1']
+        ]);
+        let iter: Iterable<[undefined, string]> = map.entries();
+        let newMap: collections.Map<undefined, string> = new collections.Map<undefined, string>(iter);
+        let iterKeys = newMap.keys();
+        expect(iterKeys.next().value).assertEqual(undefined);
+        let iterValues = newMap.values();
+        expect(iterValues.next().value).assertEqual('str1');
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
   })
 }

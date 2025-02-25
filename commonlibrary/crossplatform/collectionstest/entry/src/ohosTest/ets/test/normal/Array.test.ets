@@ -4638,5 +4638,137 @@ export default function ArrayTest() {
         expect().assertFail();
       }
     });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21200
+     * @tc.name       : testCollectionsArray0212
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0212', 0, () => {
+      const TAG = "testCollectionsArray0212";
+      try {
+        let array : collections.Array<number> = new collections.Array<number>(1, 2, 3);
+        let iter: Iterable<number> = array.values();
+        let newArray : collections.Array<number> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual(1);
+        expect(newArray[1]).assertEqual(2);
+        expect(newArray[2]).assertEqual(3);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21300
+     * @tc.name       : testCollectionsArray0213
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0213', 0, () => {
+      const TAG = "testCollectionsArray0213";
+      try {
+        let array : collections.Array<string> = new collections.Array<string>('str1', 'str2', 'str3');
+        let iter: Iterable<string> = array.values();
+        let newArray : collections.Array<string> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual('str1');
+        expect(newArray[1]).assertEqual('str2');
+        expect(newArray[2]).assertEqual('str3');
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21400
+     * @tc.name       : testCollectionsArray0214
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0214', 0, () => {
+      const TAG = "testCollectionsArray0214";
+      try {
+        let array : collections.Array<boolean> = new collections.Array<boolean>(true, false, true);
+        let iter: Iterable<boolean> = array.values();
+        let newArray : collections.Array<boolean> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual(true);
+        expect(newArray[1]).assertEqual(false);
+        expect(newArray[2]).assertEqual(true);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21500
+     * @tc.name       : testCollectionsArray0215
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0215', 0, () => {
+      const TAG = "testCollectionsArray0215";
+      try {
+        let array : collections.Array<bigint> = new collections.Array<bigint>(123456781n, 123456782n, 123456783n);
+        let iter: Iterable<bigint> = array.values();
+        let newArray : collections.Array<bigint> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual(123456781n);
+        expect(newArray[1]).assertEqual(123456782n);
+        expect(newArray[2]).assertEqual(123456783n);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21600
+     * @tc.name       : testCollectionsArray0216
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0216', 0, () => {
+      const TAG = "testCollectionsArray0216";
+      try {
+        let array : collections.Array<null> = new collections.Array<null>(null, null, null);
+        let iter: Iterable<null> = array.values();
+        let newArray : collections.Array<null> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual(null);
+        expect(newArray[1]).assertEqual(null);
+        expect(newArray[2]).assertEqual(null);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
+    /**
+     * @tc.number     : SUB_COMMONLIBRARY_UTIL_BASE_COLLECTIONS_ARRAY_21700
+     * @tc.name       : testCollectionsArray0217
+     * @tc.desc       : Testing Collections of Array, create collection Array, with from.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it('testCollectionsArray0217', 0, () => {
+      const TAG = "testCollectionsArray0217";
+      try {
+        let array : collections.Array<undefined> = new collections.Array<undefined>(undefined, undefined, undefined);
+        let iter: Iterable<undefined> = array.values();
+        let newArray : collections.Array<undefined> = collections.Array.from(iter);
+        expect(newArray[0]).assertEqual(undefined);
+        expect(newArray[1]).assertEqual(undefined);
+        expect(newArray[2]).assertEqual(undefined);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    });
   })
 }
