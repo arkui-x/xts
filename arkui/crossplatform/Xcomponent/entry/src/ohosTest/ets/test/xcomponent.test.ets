@@ -14,7 +14,7 @@
  */
 
 import { Driver, ON } from '@ohos.UiTest'
-import { describe, afterEach, it, expect } from '@ohos/hypium';
+import { describe, afterEach, it, expect,afterAll } from '@ohos/hypium';
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
 
@@ -34,8 +34,12 @@ async function startAbility(bundleName: string, abilityName: string) {
   })
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function xcomponent() {
-  describe('ActsAbilityTest', () => {
+  describe('ActsAbilityTest', async () => {
 
     const WAIT_TIME = 2000;
     afterEach(async () => {
@@ -43,6 +47,11 @@ export default function xcomponent() {
       await topAbility.context.terminateSelf();
       let driver = Driver.create()
       await driver.delayMs(WAIT_TIME);
+      await sleep(2000)
+    })
+
+    afterAll(async () => {
+      await sleep(5000)
     })
 
     /**

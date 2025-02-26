@@ -26,6 +26,10 @@ const bundleName = abilityDelegatorRegistry.getArguments().bundleName
 const osFullNameInfo: string = deviceInfo.osFullName
 const platform = osFullNameInfo.split(' ')[0]
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
 
@@ -45,7 +49,8 @@ export default function abilityTest() {
     beforeEach(async () => {
     })
     afterEach(async () => {
-    })
+      await sleep(1000);
+    });
     afterAll(async () => {
     })
 

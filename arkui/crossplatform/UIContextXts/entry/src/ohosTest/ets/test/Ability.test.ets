@@ -47,6 +47,11 @@ export default function abilityTest() {
       await sleep(waitReadyMs_3000);
     })
 
+    afterAll(async () => {
+      await sleep(waitReadyMs_3000);
+    })
+
+
     /**
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0100
      * @tc.name   : setKeyboardAvoidMode
