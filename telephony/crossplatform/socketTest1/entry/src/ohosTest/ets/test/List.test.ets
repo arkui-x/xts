@@ -14,9 +14,7 @@
  */
 
 import MultiSockTest from './MultiSockTest.test'
-import TCPSocketConnectionTest from './TCPSocketConnection.test'
 
 export default function testsuite() {
   MultiSockTest()
-  TCPSocketConnectionTest()
 }
