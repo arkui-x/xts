@@ -31,11 +31,9 @@ import androidx.core.content.ContextCompat;
 /**
  * Example ace activity class, which will load ArkUI-X ability instance.
  * StageActivity is provided by ArkUI-X
- *
  * @see <a href=
  * "https://gitee.com/arkui-crossplatform/doc/blob/master/contribute/tutorial/how-to-build-Android-app.md">
  * to build android library</a>
- * @since 2024-06-25
  */
 public class EntryEntryAbilityActivity extends StageActivity {
     @Override
