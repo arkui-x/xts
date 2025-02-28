@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -476,7 +476,7 @@ export default function abilityTest() {
             console.error(`getAssets fail with error: ${err.code}, ${err.message}`);
           }
         });
-        await sleep(waitReadyMs_600);
+        await sleep(waitReadyMs_3000);
         expect(isPass).assertTrue();
       }
       catch (error) {
