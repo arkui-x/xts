@@ -207,7 +207,8 @@ export default function btble() {
         gattClient.disconnect();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0010]disconnect failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == '2900099' || error.code == '401');
+        expect(error.code).assertEqual(2900099);
+
       }
       done();
     })
@@ -232,7 +233,7 @@ export default function btble() {
         await sleep(1000);
       } catch (err) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0020] error, code is ${err.code},message is ${err.message}`);
-        expect(true).assertEqual(err.code == 2900099 || err.code == '2900099');
+        expect(err.code).assertEqual(2900099);
         done();
       }
       done();
@@ -257,7 +258,7 @@ export default function btble() {
         await sleep(1000);
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0030]GetDeviceName failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -281,7 +282,7 @@ export default function btble() {
         await sleep(1000);
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0040] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -302,7 +303,8 @@ export default function btble() {
         await sleep(1000);
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0050] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
+
       }
       done();
     })
@@ -321,7 +323,8 @@ export default function btble() {
       let descriptor: bluetoothBle.BLEDescriptor = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB', descriptorValue: bufferDesc
+        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB',
+        descriptorValue: bufferDesc
       };
       descriptors[0] = descriptor;
       let bufferCCC = new ArrayBuffer(8);
@@ -330,7 +333,8 @@ export default function btble() {
       let characteristic: bluetoothBle.BLECharacteristic = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        characteristicValue: bufferCCC, descriptors: descriptors
+        characteristicValue: bufferCCC,
+        descriptors: descriptors
       };
       try {
         gattClient.readCharacteristicValue(characteristic);
@@ -338,7 +342,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0060]readDescrValue failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -357,7 +361,8 @@ export default function btble() {
       let descriptor: bluetoothBle.BLEDescriptor = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB', descriptorValue: bufferDesc
+        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB',
+        descriptorValue: bufferDesc
       };
       descriptors[0] = descriptor;
 
@@ -367,7 +372,8 @@ export default function btble() {
       let characteristic: bluetoothBle.BLECharacteristic = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        characteristicValue: bufferCCC, descriptors: descriptors
+        characteristicValue: bufferCCC,
+        descriptors: descriptors
       };
       try {
         gattClient.readCharacteristicValue(characteristic, readCcc);
@@ -375,7 +381,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_0070]readCharacteristicValue failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -402,7 +408,7 @@ export default function btble() {
         done();
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_Ble_0080 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        expect(err.code).assertEqual(401);
         done();
       }
     })
@@ -429,7 +435,7 @@ export default function btble() {
         done();
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_Ble_0090 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        expect(err.code).assertEqual(401);
         done();
       }
     })
@@ -448,7 +454,8 @@ export default function btble() {
       let descriptor: bluetoothBle.BLEDescriptor = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB', descriptorValue: bufferDesc
+        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB',
+        descriptorValue: bufferDesc
       };
       descriptors[0] = descriptor;
       let bufferCCC = new ArrayBuffer(8);
@@ -457,7 +464,8 @@ export default function btble() {
       let characteristic: bluetoothBle.BLECharacteristic = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        characteristicValue: bufferCCC, descriptors: descriptors
+        characteristicValue: bufferCCC,
+        descriptors: descriptors
       };
 
       try {
@@ -471,7 +479,9 @@ export default function btble() {
         });
         await sleep(1000);
       } catch (err) {
-        console.error('errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
+        console.error('SUB_ArkUIX_Bluetooth_Ble_00100 errCode: ' + (err as BusinessError).code + ', errMessage: ' +
+        (err as BusinessError).message);
+        expect(err.code).assertEqual(401);
         done();
       }
     })
@@ -490,7 +500,8 @@ export default function btble() {
       let descriptor: bluetoothBle.BLEDescriptor = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB', descriptorValue: bufferDesc
+        descriptorUuid: '00002903-0000-1000-8000-00805F9B34FB',
+        descriptorValue: bufferDesc
       };
       descriptors[0] = descriptor;
 
@@ -501,7 +512,8 @@ export default function btble() {
       let characteristic: bluetoothBle.BLECharacteristic = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        characteristicValue: bufferCCC, descriptors: descriptors
+        characteristicValue: bufferCCC,
+        descriptors: descriptors
       };
 
       try {
@@ -514,7 +526,9 @@ export default function btble() {
         });
         await sleep(1000);
       } catch (err) {
-        console.error(' errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
+        console.error('SUB_ArkUIX_Bluetooth_Ble_00110 errCode: ' + (err as BusinessError).code + ', errMessage: ' +
+        (err as BusinessError).message);
+        expect(err.code).assertEqual(401);
         done();
       }
     })
@@ -551,7 +565,7 @@ export default function btble() {
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00120]writeDescriptorValue failed, code is ${error.code},
             message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -589,7 +603,7 @@ export default function btble() {
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00130]writeDescriptorValue failed, code is ${error.code},
             message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -610,7 +624,7 @@ export default function btble() {
         console.info("[SUB_ArkUIX_Bluetooth_Ble_00140]setBLEMtuSize success");
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00140]MtuSize failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -629,7 +643,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00150]GattConnect failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -652,7 +666,7 @@ export default function btble() {
         await sleep(1000);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Ble_00160 mtu errCode:" + err.code + ", errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 2900099 || err.code == '2900099');
+        expect(err.code).assertEqual(2900099);
       }
       gattClient.off('BLEMtuChange');
       done();
@@ -673,7 +687,7 @@ export default function btble() {
         gattClient.off('BLEMtuChange');
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Ble_00170 mtu errCode:" + err.code + ", errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 2900099 || err.code == '2900099');
+        expect(err.code).assertEqual(2900099);
       }
       done();
     })
@@ -693,7 +707,7 @@ export default function btble() {
         expect(result != null).assertTrue();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00180]getConnDev failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -716,7 +730,8 @@ export default function btble() {
       let descriptor: bluetoothBle.BLEDescriptor = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        descriptorUuid: '00002902-0000-1000-8000-00805F9B34FB', descriptorValue: arrayBuffer
+        descriptorUuid: '00002902-0000-1000-8000-00805F9B34FB',
+        descriptorValue: arrayBuffer
       };
       descriptors[0] = descriptor;
       let characteristics: Array<bluetoothBle.BLECharacteristic> = [];
@@ -726,19 +741,22 @@ export default function btble() {
       let characteristic: bluetoothBle.BLECharacteristic = {
         serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
         characteristicUuid: '00001820-0000-1000-8000-00805F9B34FB',
-        characteristicValue: arrayBufferC, descriptors: descriptors
+        characteristicValue: arrayBufferC,
+        descriptors: descriptors
       };
       characteristics[0] = characteristic;
       let gattService: bluetoothBle.GattService = {
-        serviceUuid: '00001810-0000-1000-8000-00805F9B34FB', isPrimary: false,
-        characteristics: characteristics, includeServices: []
+        serviceUuid: '00001810-0000-1000-8000-00805F9B34FB',
+        isPrimary: false,
+        characteristics: characteristics,
+        includeServices: []
       };
       try {
         await sleep(2000);
         gattServer.addService(gattService);
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00190] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -755,7 +773,7 @@ export default function btble() {
         await sleep(2000);
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00200] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == '2900099' || error.code == '401');
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -785,7 +803,7 @@ export default function btble() {
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_Ble_00210 errCode:" + err.code + ",errMessage:" + err.message);
         if (platform = 'iOS') {
-          expect(true).assertEqual(err.code == '201' || err.code == '401');
+          expect(err.code).assertEqual(401);
         }
       }
       bluetoothBle.off("BLEDeviceFind", onReceiveEvent);
@@ -806,7 +824,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00220] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
         done();
       }
     })
@@ -824,7 +842,7 @@ export default function btble() {
         done();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Ble_00230 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 2900099 || err.code == '2900099');
+        expect(err.code).assertEqual(2900099);
       }
       gattServer.off("characteristicRead");
       done();
@@ -843,7 +861,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00240] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -857,6 +875,7 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00250', 0, async (done: Function) => {
       if (platform == "iOS") {
         done();
+        return;
       }
       try {
         gattServer.on("descriptorWrite", WriteDescriptorReq);
@@ -865,7 +884,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00250] failed, code is ${error.code}, message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -884,7 +903,7 @@ export default function btble() {
         done();
       } catch (error) {
         console.error(`[SUB_ArkUIX_Bluetooth_Ble_00260] failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        expect(error.code).assertEqual(2900099);
       }
       done();
     })
@@ -904,7 +923,8 @@ export default function btble() {
       let advHandle = 0xFF;
       try {
         bluetoothBle.startAdvertising(advertisingParams).then((outAdvHandle) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270]startAdvertising promise info03:' + JSON.stringify(outAdvHandle));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270]startAdvertising promise info03:' +
+          JSON.stringify(outAdvHandle));
           advHandle = outAdvHandle;
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00270]startAdvertising promise info03:' + JSON.stringify(advHandle));
           expect(advHandle != null).assertTrue();
@@ -940,9 +960,11 @@ export default function btble() {
           if (err) {
             console.info('SUB_ArkUIX_Bluetooth_Ble_00280 startAdvertising callback failed' + err);
           } else {
-            console.info('[SUB_ArkUIX_Bluetooth_Ble_00280]startAdvertising callback info01:' + JSON.stringify(outAdvHandle));
+            console.info('[SUB_ArkUIX_Bluetooth_Ble_00280]startAdvertising callback info01:' +
+            JSON.stringify(outAdvHandle));
             advHandle = outAdvHandle;
-            console.info('[SUB_ArkUIX_Bluetooth_Ble_00280]startAdvertising callback info01:' + JSON.stringify(advHandle));
+            console.info('[SUB_ArkUIX_Bluetooth_Ble_00280]startAdvertising callback info01:' +
+            JSON.stringify(advHandle));
             expect(advHandle != null).assertTrue();
           }
         });
@@ -956,7 +978,7 @@ export default function btble() {
         });
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Ble_00280 errCode:" + err.code + ",04errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        expect(err.code).assertEqual(401);
       }
       await sleep(2000);
       done();
@@ -978,7 +1000,8 @@ export default function btble() {
       try {
         bluetoothBle.on('advertisingStateChange', onReceiveEvent1);
         bluetoothBle.startAdvertising(advertisingParams).then((outAdvHandle) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00290]startAdvertising promise info03:' + JSON.stringify(outAdvHandle));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00290]startAdvertising promise info03:' +
+          JSON.stringify(outAdvHandle));
           advHandle = outAdvHandle;
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00290]startAdvertising promise info03:' + JSON.stringify(advHandle));
           expect(advHandle != null).assertTrue();
@@ -1009,9 +1032,11 @@ export default function btble() {
         gattClient.connect();
         await sleep(2000);
         gattClient.disconnect();
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00300 fail");
+        expect().assertFail();
       } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Ble_0010]disconnect failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00300] pass, code is ${error.code},message is ${error.message}`);
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -1028,9 +1053,11 @@ export default function btble() {
         gattClient.connect();
         await sleep(2000);
         gattClient.disconnect();
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00310 fail");
+        expect().assertFail();
       } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Ble_0010]disconnect failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00310] pass, code is ${error.code},message is ${error.message}`);
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -1047,8 +1074,11 @@ export default function btble() {
           console.info('BLEMtuChange, mtu: ' + mtu);
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00320 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00320] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1065,8 +1095,11 @@ export default function btble() {
           console.info('BLEMtuChange, mtu: ' + mtu);
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00330 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00330] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1084,8 +1117,11 @@ export default function btble() {
         });
         await sleep(1000);
         gattClient.off('BLEMtuChange');
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00340 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00340] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1103,8 +1139,11 @@ export default function btble() {
         });
         await sleep(1000);
         gattClient.off('BLEMtuChange');
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00350 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00350] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1119,8 +1158,11 @@ export default function btble() {
       try {
         bluetoothBle.on(undefined, onReceiveEvent);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00360 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00360] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1135,8 +1177,11 @@ export default function btble() {
       try {
         bluetoothBle.on(null, onReceiveEvent);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00370 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00370] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1152,8 +1197,11 @@ export default function btble() {
         bluetoothBle.on(null, onReceiveEvent);
         await sleep(1000);
         bluetoothBle.off(null, onReceiveEvent);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00380 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00380] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1169,8 +1217,11 @@ export default function btble() {
         bluetoothBle.on(undefined, onReceiveEvent);
         await sleep(1000);
         bluetoothBle.off(undefined, onReceiveEvent);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00390 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00390] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1185,8 +1236,11 @@ export default function btble() {
       try {
         gattClient.on(null, ConnectStateChanged);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00400 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00400] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1201,8 +1255,11 @@ export default function btble() {
       try {
         gattClient.on(undefined, ConnectStateChanged);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00410 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00410] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1218,8 +1275,11 @@ export default function btble() {
         gattClient.on(undefined, ConnectStateChanged);
         await sleep(1000);
         gattClient.off("BLEConnectionStateChange");
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00420 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00420] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1235,8 +1295,11 @@ export default function btble() {
         gattClient.on(null, ConnectStateChanged);
         await sleep(1000);
         gattClient.off("BLEConnectionStateChange");
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00430 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00430] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1251,8 +1314,11 @@ export default function btble() {
       try {
         gattServer.on(undefined, WriteCharacteristicReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00440 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00440] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1267,8 +1333,11 @@ export default function btble() {
       try {
         gattServer.on(null, WriteCharacteristicReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00450 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00450] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1284,8 +1353,11 @@ export default function btble() {
         gattServer.on(undefined, WriteCharacteristicReq);
         await sleep(1000);
         await gattServer.off(undefined);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00460 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00460] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1301,8 +1373,11 @@ export default function btble() {
         gattServer.on(null, WriteCharacteristicReq);
         await sleep(1000);
         await gattServer.off(null);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00470 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00470] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1317,8 +1392,11 @@ export default function btble() {
       try {
         await gattServer.on(undefined, ReadCharacteristicReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00480 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00480] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1333,8 +1411,11 @@ export default function btble() {
       try {
         await gattServer.on(null, ReadCharacteristicReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00490 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00490]disconnect pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1350,8 +1431,11 @@ export default function btble() {
         await gattServer.on(null, ReadCharacteristicReq);
         await sleep(1000);
         await gattServer.off(null);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00500 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00500] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1367,8 +1451,11 @@ export default function btble() {
         await gattServer.on(undefined, ReadCharacteristicReq);
         await sleep(1000);
         await gattServer.off(undefined);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00510 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00510] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1383,8 +1470,11 @@ export default function btble() {
       try {
         await gattServer.on(undefined, ReadDescriptorReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00520 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00520] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1399,8 +1489,11 @@ export default function btble() {
       try {
         await gattServer.on(null, ReadDescriptorReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00530 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00530] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1416,8 +1509,11 @@ export default function btble() {
         await gattServer.on(undefined, ReadDescriptorReq);
         await sleep(1000);
         await gattServer.off(undefined);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00540 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00540] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1433,8 +1529,11 @@ export default function btble() {
         await gattServer.on(null, ReadDescriptorReq);
         await sleep(1000);
         await gattServer.off(null);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00550 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00550] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1449,8 +1548,11 @@ export default function btble() {
       try {
         gattServer.on(null, WriteDescriptorReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00560 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00560] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1465,8 +1567,11 @@ export default function btble() {
       try {
         gattServer.on(undefined, WriteDescriptorReq);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00570 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00570] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1482,8 +1587,11 @@ export default function btble() {
         gattServer.on(undefined, WriteDescriptorReq);
         await sleep(1000);
         gattServer.off(undefined);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00580 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00580] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1499,8 +1607,11 @@ export default function btble() {
         gattServer.on(null, WriteDescriptorReq);
         await sleep(1000);
         gattServer.off(null);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00590 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00590] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1515,8 +1626,11 @@ export default function btble() {
       try {
         gattServer.on(null, Connected);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00600 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00600] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1531,8 +1645,11 @@ export default function btble() {
       try {
         gattServer.on(undefined, Connected);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00610 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00610] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1548,8 +1665,11 @@ export default function btble() {
         gattServer.on(undefined, Connected);
         await sleep(1000);
         gattServer.off(undefined);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00620 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00620] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1565,8 +1685,11 @@ export default function btble() {
         gattServer.on(null, Connected);
         await sleep(1000);
         gattServer.off(null);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00630 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00630] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1581,8 +1704,11 @@ export default function btble() {
       try {
         bluetoothBle.on(null, onReceiveEvent1);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00640 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00640] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1598,8 +1724,11 @@ export default function btble() {
 
         bluetoothBle.on(undefined, onReceiveEvent1);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00650 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00650] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1615,8 +1744,11 @@ export default function btble() {
         bluetoothBle.on(undefined, onReceiveEvent1);
         await sleep(1000);
         bluetoothBle.off(undefined, onReceiveEvent1);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00660 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00660] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1632,8 +1764,11 @@ export default function btble() {
         bluetoothBle.on(null, onReceiveEvent1);
         await sleep(1000);
         bluetoothBle.off(null, onReceiveEvent1);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00670 fail");
+        expect().assertFail();
       } catch (err) {
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00670] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1647,12 +1782,14 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00680', 0, async (done: Function) => {
       try {
         bluetoothBle.startAdvertising(null).then((data) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270]startAdvertising promise info03:' + JSON.stringify(data));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00680]startAdvertising promise fail');
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00680 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00680] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1666,12 +1803,14 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00690', 0, async (done: Function) => {
       try {
         bluetoothBle.startAdvertising(undefined).then((data) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270]startAdvertising promise info03:' + JSON.stringify(data));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00690]startAdvertising promise fail');
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00690 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00690] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1686,9 +1825,11 @@ export default function btble() {
       try {
         bluetoothBle.startAdvertising(setting, advData, null);
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00700 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00700] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1702,12 +1843,14 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00710', 0, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(undefined).then((data) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270] stopAdvertising promise result03:' + JSON.stringify(data));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00710] stopAdvertising promise fail');
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00710 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00710] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1721,12 +1864,14 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00720', 0, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(null).then((data) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270] stopAdvertising promise result03:' + JSON.stringify(data));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00720] stopAdvertising promise fail');
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00720 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00720] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1740,12 +1885,14 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00730', 0, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(88).then((data) => {
-          console.info('[SUB_ArkUIX_Bluetooth_Ble_00270] stopAdvertising promise result03:' + JSON.stringify(data));
+          console.info('[SUB_ArkUIX_Bluetooth_Ble_00730] stopAdvertising promise fail');
         });
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00730 fail");
+        expect().assertFail();
       } catch (err) {
-        console.info("SUB_ArkUIX_Bluetooth_Ble_00270 errCode:" + err.code + ",03errMessage:" + err.message);
-        expect(true).assertEqual(err.code == 401 || err.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00730] pass, code is ${err.code},message is ${err.message}`);
+        expect(err.code).assertEqual(401);
       }
       done();
     })
@@ -1759,11 +1906,12 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00740', 0, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(undefined);
-        console.info("[SUB_ArkUIX_Bluetooth_Ble_00140]setBLEMtuSize success");
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00740 fail");
+        expect().assertFail();
       } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00140]MtuSize failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00740] pass, code is ${error.code},message is ${error.message}`);
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -1777,11 +1925,12 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00750', 0, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(null);
-        console.info("[SUB_ArkUIX_Bluetooth_Ble_00140]setBLEMtuSize success");
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00750 fail");
+        expect().assertFail();
       } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00140]MtuSize failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 401 || error.code == '401');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00750] pass, code is ${error.code},message is ${error.message}`);
+        expect(error.code).assertEqual(401);
       }
       done();
     })
@@ -1795,11 +1944,13 @@ export default function btble() {
     it('SUB_ArkUIX_Bluetooth_Ble_00760', 0, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(1000);
-        console.info("[SUB_ArkUIX_Bluetooth_Ble_00140]setBLEMtuSize success");
+        console.info("[SUB_ArkUIX_Bluetooth_Ble_00760]setBLEMtuSize fail");
         await sleep(1000);
+        console.info("SUB_ArkUIX_Bluetooth_Ble_00760 fail");
+        expect().assertFail();
       } catch (error) {
-        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00140]MtuSize failed, code is ${error.code},message is ${error.message}`);
-        expect(true).assertEqual(error.code == 2900099 || error.code == '2900099');
+        console.error(`[SUB_ArkUIX_Bluetooth_Ble_00760] pass, code is ${error.code},message is ${error.message}`);
+        expect(true).assertEqual(error.code == 2900099);
       }
       done();
     })
