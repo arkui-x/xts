@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterAll } from '@ohos/hypium';
 import { ArkTSUtils, collections, lang, taskpool } from '@kit.ArkTS';
 import { Sleep } from '../utils/utils';
 import {
@@ -30,8 +30,15 @@ import {
   sharedTimeTask
 } from '../utils/arkTSUtilsCommon';
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function arkTSUtilsTest() {
   describe('arkTSUtilsTest', () => {
+    afterAll(async () => {
+      await wait(3000);
+    })
 
     /**
      * @tc.number    : SUB_RUNTIME_LANGUAGE_BACKEND_ARK_TS_UTILS_1200
@@ -2960,6 +2967,84 @@ export default function arkTSUtilsTest() {
       const TAG = "testIsSendable0043";
       try {
         expect(ArkTSUtils.isSendable(sendableFunction)).assertEqual(true);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    })
+
+    /**
+     * @tc.number     : SUB_RUNTIME_LANGUAGE_BACKEND_ARK_TS_UTILS_12200
+     * @tc.name       : testParse0008
+     * @tc.desc       : Test the function of the interface Parse.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it("testParse0008", 0, () => {
+      const TAG = "testParse0008";
+      try {
+        let jsonText = '{"age": 30, "bigInt": 1234567890123456789012345678901234567890}';
+        let options: ArkTSUtils.ASON.ParseOptions = {
+          bigIntMode: ArkTSUtils.ASON.BigIntMode.DEFAULT,
+          parseReturnType: ArkTSUtils.ASON.ParseReturnType.MAP,
+        };
+        const map = ArkTSUtils.ASON.parse(jsonText, undefined, options) as collections.Map<string, bigint>;
+        expect(map.get("bigInt")).assertEqual(1.2345678901234568e+39);
+        expect(map.get("age")).assertEqual(30);
+        expect(ArkTSUtils.isSendable(map)).assertEqual(true);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    })
+
+    /**
+     * @tc.number     : SUB_RUNTIME_LANGUAGE_BACKEND_ARK_TS_UTILS_12300
+     * @tc.name       : testParse0009
+     * @tc.desc       : Test the function of the interface Parse.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it("testParse0009", 0, () => {
+      const TAG = "testParse0009";
+      try {
+        let jsonText = '{"age": 30, "bigInt": 1234567890123456789012345678901234567890}';
+        let options: ArkTSUtils.ASON.ParseOptions = {
+          bigIntMode: ArkTSUtils.ASON.BigIntMode.PARSE_AS_BIGINT,
+          parseReturnType: ArkTSUtils.ASON.ParseReturnType.MAP,
+        }
+        const map = ArkTSUtils.ASON.parse(jsonText, undefined, options) as collections.Map<string, bigint>;
+        expect(map.get("bigInt")).assertEqual(1234567890123456789012345678901234567890n);
+        expect(map.get("age")).assertEqual(30);
+        expect(ArkTSUtils.isSendable(map)).assertEqual(true);
+      } catch (err) {
+        console.error(`${TAG} failed, error: ${err}`);
+        expect().assertFail();
+      }
+    })
+
+    /**
+     * @tc.number     : SUB_RUNTIME_LANGUAGE_BACKEND_ARK_TS_UTILS_12400
+     * @tc.name       : testParse0010
+     * @tc.desc       : Test the function of the interface Parse.
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     * @tc.level      : Level 1
+     */
+    it("testParse0010", 0, () => {
+      const TAG = "testParse0010";
+      try {
+        let jsonText = '{"age": 30, "bigInt": 1234567890123456789012345678901234567890}';
+        let options: ArkTSUtils.ASON.ParseOptions = {
+          bigIntMode: ArkTSUtils.ASON.BigIntMode.ALWAYS_PARSE_AS_BIGINT,
+          parseReturnType: ArkTSUtils.ASON.ParseReturnType.MAP,
+        }
+        const map = ArkTSUtils.ASON.parse(jsonText, undefined, options) as collections.Map<string, bigint>;
+        expect(map.get("bigInt")).assertEqual(1234567890123456789012345678901234567890n);
+        expect(map.get("age")).assertEqual(30n);
+        expect(ArkTSUtils.isSendable(map)).assertEqual(true);
       } catch (err) {
         console.error(`${TAG} failed, error: ${err}`);
         expect().assertFail();
