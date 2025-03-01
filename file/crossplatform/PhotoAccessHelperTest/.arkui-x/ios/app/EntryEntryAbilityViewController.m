@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #import "EntryEntryAbilityViewController.h"
 #import <WebKit/WebKit.h>
 #import <objc/runtime.h>
@@ -29,112 +44,55 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
 }
 
 - (void)select {
-    NSLog(@"--jiayi--: 成功调用select");
-    UIViewController *topController = [self getApplicationTopViewController];
-    NSLog(@"--jiayi--: 1");
-    if (topController == nil) {
-        NSLog(@"--jiayi--:Top controller is nil");
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if (rootViewController == nil) {
         return;
     }
-    if(@available(iOS 14, *)) {
-        PHPickerViewController *picker = [self findPHPickerInViewController:topController];
+    if (@available(iOS 14, *)) {
+        PHPickerViewController *picker = [self findPHPickerInViewController:rootViewController];
         if (picker) {
             [self selectImageInPicker:picker];
             [picker dismissViewControllerAnimated:true completion:nil];
-        } else {
-            NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
         }
-    }else {
-        UIImagePickerController *picker = [self findPHPickerInViewController:topController];
+    } else {
+        UIImagePickerController *picker = [self findPHPickerInViewController:rootViewController];
         if (picker) {
             [self selectImageInPicker:picker];
             [picker dismissViewControllerAnimated:true completion:nil];
-        } else {
-            NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
         }
     }
-  
-
-//    UIImagePickerController *picker = [self findImagePickerInViewController:topController];
-//    if (picker) {
-//        [self selectImageInPicker:picker];
-//        [picker dismissViewControllerAnimated:true completion:nil];
-//    } else {
-//        NSLog(@"--jiayi--:Image picker not found in view controller hierarchy");
-//    }
 }
 
-- (UIViewController *)getApplicationTopViewController {
-    UIWindow *window = [[UIApplication sharedApplication].delegate window];
-    if (!window) {
-        NSLog(@"--jiayi--:Window is nil");
-        return nil;
-    }
-    UIViewController *viewController = window.rootViewController;
-    if (!viewController) {
-        NSLog(@"--jiayi--:Root view controller is nil");
-        return nil;
-    }
-    return [self findTopViewController:viewController];
-}
-
-- (UIImagePickerController *)findImagePickerInViewController:(UIViewController *)viewController {
-    if (!viewController) {
-        NSLog(@"--jiayi--:viewController is nil");
-        return nil;
-    }
-    NSLog(@"--jiayi--: a");
-    NSLog(@"--jiayi--:Current top controller: %@", NSStringFromClass([viewController class]));
-    return (UIImagePickerController *)viewController;
-//    if ([viewController isKindOfClass:[UIImagePickerController class]]) {
-//        NSLog(@"--jiayi--: a");
-//        return (UIImagePickerController *)viewController;
-//    }
-//    NSLog(@"--jiayi--: b");
-//    return [self findImagePickerInViewController:viewController.presentedViewController];
-}
-
-- (id)findPHPickerInViewController:(UIViewController *)viewController{
+- (id)findPHPickerInViewController:(UIViewController *)viewController {
     if (!viewController) {
         return nil;
     }
-    
+
     NSLog(@"Current top controller: %@", NSStringFromClass([viewController class]));
-    
-    if(@available(iOS 14, *)) {
+
+    if (@available(iOS 14, *)) {
         if ([viewController isKindOfClass:[PHPickerViewController class]]) {
             return (PHPickerViewController *)viewController;
+        } else {
+            if ([viewController.presentingViewController isKindOfClass:[PHPickerViewController class]]) {
+                return (PHPickerViewController *)viewController.presentingViewController;
+            }
         }
     } else {
         if ([viewController isKindOfClass:[UIImagePickerController class]]) {
             return (UIImagePickerController *)viewController;
+        } else {
+            if ([viewController.presentingViewController isKindOfClass:[UIImagePickerController class]]) {
+                return (UIImagePickerController *)viewController.presentingViewController;
+            }
         }
     }
-
-    
     return [self findPHPickerInViewController:viewController.presentedViewController];
 }
 
-- (UIViewController *)findTopViewController:(UIViewController*)topViewController {
-    while (true) {
-        if (topViewController.presentedViewController) {
-            topViewController = topViewController.presentedViewController;
-        } else if ([topViewController isKindOfClass:[UINavigationController class]]
-                    && [(UINavigationController*)topViewController topViewController]) {
-            topViewController = [(UINavigationController *)topViewController topViewController];
-        } else if ([topViewController isKindOfClass:[UITabBarController class]]) {
-            UITabBarController *tab = (UITabBarController *)topViewController;
-            topViewController = tab.selectedViewController;
-        } else {
-            break;
-        }
-    }
-    return topViewController;
-}
-
-- (void)selectImageInPicker:(id)picker{
+- (void)selectImageInPicker:(id)picker {
     NSObject *obj;
-    if(@available(iOS 14, *)) {
+    if (@available(iOS 14, *)) {
         if ([picker isKindOfClass:[PHPickerViewController class]]) {
             PHPickerViewController * controller = (PHPickerViewController *)picker;
             obj = controller.delegate;
@@ -147,35 +105,15 @@ typedef void(^CallBack)(NSArray<NSString *> * _Nonnull results, int errorCode);
     }
     Ivar ivar = class_getInstanceVariable([obj class], "_currentPhotoPickerResult");
     if (!ivar) {
-        NSLog(@"--jiayi--:_selectResult ivar not found");
         return;
     }
 
     CallBack block = object_getIvar(obj, ivar);
-    
     if (block) {
-        NSLog(@"--jiayi--:start select !!!");
         block(@[@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0714.PNG"], 0);
     } else {
-        NSLog(@"--jiayi--:Block is nil");
+        NSLog(@"Block is nil");
     }
 }
-//- (void)selectImageInPicker:(UIImagePickerController *)picker {
-//    NSObject *obj = picker.delegate;
-//    Ivar ivar = class_getInstanceVariable([obj class], "_selectResult");
-//    if (!ivar) {
-//        NSLog(@"_selectResult ivar not found");
-//        return;
-//    }
-//
-//    CallBack block = object_getIvar(obj, ivar);
-//
-//    if (block) {
-//        block(@[@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0714.PNG"], 0);
-//    } else {
-//        NSLog(@"Block is nil");
-//    }
-//}
 
 @end
-
