@@ -15,28 +15,30 @@
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import deviceinfo from '@ohos.deviceInfo'
+import Utils from './Utils'
 
 export default function DeviceInfoTest() {
-    describe('DeviceInfoTest', function () {
+    describe('DeviceInfoTest', async() => {
 
         const MAX_CHARACTERS_NUM_ONE = 33;
         const MAX_CHARACTERS_NUM_TWO = 65;
         const MAX_CHARACTERS_NUM = 0;
 
-        beforeAll(function () {
+        beforeAll(() => {
             console.info('beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.');
 
         })
 
-        beforeEach(function () {
+        beforeEach(() => {
             console.info('beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.');
 
         })
-        afterEach(function () {
+        afterEach(async () => {
+            await Utils.sleep(1000)
             console.info('afterEach: Test case-level clearance conditions, which are executed after each test case is executed.');
 
         })
-        afterAll(function () {
+        afterAll(() => {
             console.info('afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed');
 
         })
@@ -51,7 +53,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest001', 0, function () {
+        it('deviceInfoTest001', 0, () => {
             console.info('device_info_test_001 start');
             let ret = false;
             let deviceTypeInfo = deviceinfo.deviceType;
@@ -73,7 +75,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest002', 0, function () {
+        it('deviceInfoTest002', 0, () => {
             console.info('device_info_test_002 start');
 
             let manufactureInfo = deviceinfo.manufacture;
@@ -81,10 +83,10 @@ export default function DeviceInfoTest() {
             expect(manufactureInfo).assertInstanceOf('String');
             if (manufactureInfo != "" && manufactureInfo != null && manufactureInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = manufactureInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(manufactureInfo).assertEqual(bufferstr);
+                let arr = manufactureInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(manufactureInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -101,7 +103,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest003', 0, function () {
+        it('deviceInfoTest003', 0, () => {
             console.info('testGetDeviceBrand01 start');
 
             let brandInfo = deviceinfo.brand;
@@ -110,10 +112,10 @@ export default function DeviceInfoTest() {
             expect(brandInfo).assertInstanceOf('String');
             if (brandInfo != "" && brandInfo != null && brandInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = brandInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(brandInfo).assertEqual(bufferstr);
+                let arr = brandInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(brandInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -130,7 +132,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest004', 0, function () {
+        it('deviceInfoTest004', 0, () => {
             console.info('testGetMarketName01 start')
             let ret = false;
             let marketNameInfo = deviceinfo.marketName;
@@ -153,7 +155,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest005', 0, function () {
+        it('deviceInfoTest005', 0, () => {
             console.info('testGetProductSeries01 start');
 
             let productSeriesInfo = deviceinfo.productSeries;
@@ -162,10 +164,10 @@ export default function DeviceInfoTest() {
             expect(productSeriesInfo).assertInstanceOf('String');
             if (productSeriesInfo != "" && productSeriesInfo != null && productSeriesInfo != undefined) {
                 let str = /[\w-\.\(\)\s:;~/]/g;
-                let arr = productSeriesInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(productSeriesInfo).assertEqual(bufferstr);
+                let arr = productSeriesInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(productSeriesInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -182,7 +184,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest006', 0, function () {
+        it('deviceInfoTest006', 0, () => {
             console.info('testGetProductModel01 start');
             let ret = false;
             let productModelInfo = deviceinfo.productModel;
@@ -205,7 +207,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : const
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest007', 0, function () {
+        it('deviceInfoTest007', 0, () => {
             console.info('testGetSoftwareModel01 start');
 
             let softwareModelInfo = deviceinfo.softwareModel;
@@ -214,10 +216,10 @@ export default function DeviceInfoTest() {
             expect(softwareModelInfo).assertInstanceOf('String');
             if (softwareModelInfo != "" && softwareModelInfo != null && softwareModelInfo != undefined) {
                 let str = /[\w-\.\(\)\s]/g;
-                let arr = softwareModelInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(softwareModelInfo).assertEqual(bufferstr);
+                let arr = softwareModelInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(softwareModelInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -234,7 +236,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest008', 0, function () {
+        it('deviceInfoTest008', 0, () => {
             console.info('testGetHardWareModel01 start');
 
             let hardwareModelInfo = deviceinfo.hardwareModel;
@@ -243,10 +245,10 @@ export default function DeviceInfoTest() {
             expect(hardwareModelInfo).assertInstanceOf('String');
             if (hardwareModelInfo != "" && hardwareModelInfo != null && hardwareModelInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = hardwareModelInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(hardwareModelInfo).assertEqual(bufferstr);
+                let arr = hardwareModelInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(hardwareModelInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -263,7 +265,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest009', 0, function () {
+        it('deviceInfoTest009', 0, () => {
             console.info('testGetBootLoaderVersion01 start');
 
             let bootloaderVersionInfo = deviceinfo.bootloaderVersion;
@@ -272,10 +274,10 @@ export default function DeviceInfoTest() {
             expect(bootloaderVersionInfo).assertInstanceOf('String');
             if (bootloaderVersionInfo != "" && bootloaderVersionInfo != null && bootloaderVersionInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = bootloaderVersionInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(bootloaderVersionInfo).assertEqual(bufferstr);
+                let arr = bootloaderVersionInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(bootloaderVersionInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -292,7 +294,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest010', 0, function () {
+        it('deviceInfoTest010', 0, () => {
             console.info('testGetabiList01 start');
 
             let abiListInfo = deviceinfo.abiList;
@@ -301,10 +303,10 @@ export default function DeviceInfoTest() {
             expect(abiListInfo).assertInstanceOf('String');
             if (abiListInfo != "" && abiListInfo != null && abiListInfo != undefined) {
                 let str = /[\w-\.\(\)\,]/g;
-                let arr = abiListInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(abiListInfo).assertEqual(bufferstr);
+                let arr = abiListInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(abiListInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -322,7 +324,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest011', 0, function () {
+        it('deviceInfoTest011', 0, () => {
             console.info('testGetSecurityPatchTag01 start');
 
             let securityPatchTagInfo = deviceinfo.securityPatchTag;
@@ -331,10 +333,10 @@ export default function DeviceInfoTest() {
             expect(securityPatchTagInfo).assertInstanceOf('String');
             if (securityPatchTagInfo != "" && securityPatchTagInfo != null && securityPatchTagInfo != undefined) {
                 let str = /[\w\/\.\(\)]/g;
-                let arr = securityPatchTagInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(securityPatchTagInfo).assertEqual(bufferstr);
+                let arr = securityPatchTagInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(securityPatchTagInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -351,7 +353,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest012', 0, function () {
+        it('deviceInfoTest012', 0, () => {
             console.info('testGetDisplayVersion01 start');
             let ret = false;
             let displayVersionInfo = deviceinfo.displayVersion;
@@ -373,7 +375,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest013', 0, function () {
+        it('deviceInfoTest013', 0, () => {
             console.info('testGetIncrementalVersion01 start');
 
             let incrementalVersionInfo = deviceinfo.incrementalVersion;
@@ -382,10 +384,10 @@ export default function DeviceInfoTest() {
             expect(incrementalVersionInfo).assertInstanceOf('String');
             if (incrementalVersionInfo != "" && incrementalVersionInfo != null && incrementalVersionInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = incrementalVersionInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(incrementalVersionInfo).assertEqual(bufferstr);
+                let arr = incrementalVersionInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(incrementalVersionInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -402,7 +404,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest014', 0, function () {
+        it('deviceInfoTest014', 0, () => {
             console.info('testGetOSReleaserType01 start');
 
             let osReleaseTypeInfo = deviceinfo.osReleaseType;
@@ -411,10 +413,10 @@ export default function DeviceInfoTest() {
             expect(osReleaseTypeInfo).assertInstanceOf('String');
             if (osReleaseTypeInfo != "" && osReleaseTypeInfo != null && osReleaseTypeInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = osReleaseTypeInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(osReleaseTypeInfo).assertEqual(bufferstr);
+                let arr = osReleaseTypeInfo.match(str)?.join('')
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(osReleaseTypeInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -431,7 +433,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest015', 0, function () {
+        it('deviceInfoTest015', 0, () => {
             console.info('testGetOSFullName01 start');
 
             let osFullNameInfo = deviceinfo.osFullName;
@@ -440,10 +442,10 @@ export default function DeviceInfoTest() {
             expect(osFullNameInfo).assertInstanceOf('String');
             if (osFullNameInfo != "" && osFullNameInfo != null && osFullNameInfo != undefined) {
                 let str = /[\w-\.\(\)\s]/g;
-                let arr = osFullNameInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(osFullNameInfo).assertEqual(bufferstr);
+                let arr = osFullNameInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the arr is :' + arr);
+                expect(osFullNameInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -460,7 +462,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest016', 0, function () {
+        it('deviceInfoTest016', 0, () => {
             console.info('testGetMajorVersion01 start');
 
             let majorVersionInfo = deviceinfo.majorVersion;
@@ -469,9 +471,9 @@ export default function DeviceInfoTest() {
             expect(majorVersionInfo).assertInstanceOf('Number');
             if (majorVersionInfo >= 1 && majorVersionInfo <= 99) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = majorVersionInfo.toString().match(str);
-                let substr = arr.join('');
-                let numstr = parseInt(substr);
+                let arr = majorVersionInfo.toString().match(str)?.join('');
+                // let substr = arr.join('');
+                let numstr =parseInt(arr || '{}');
                 console.info('the value of the bufferstr is :' + numstr);
                 expect(majorVersionInfo).assertEqual(numstr);
             } else {
@@ -490,7 +492,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest017', 0, function () {
+        it('deviceInfoTest017', 0, () => {
             console.info('testGetSeniorVersion01 start');
 
             let seniorVersionInfo = deviceinfo.seniorVersion;
@@ -499,9 +501,9 @@ export default function DeviceInfoTest() {
             expect(seniorVersionInfo).assertInstanceOf('Number');
             if (seniorVersionInfo >= 0 && seniorVersionInfo <= 99) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = seniorVersionInfo.toString().match(str);
-                let substr = arr.join('');
-                let numstr = parseInt(substr);
+                let arr = seniorVersionInfo.toString().match(str)?.join('');
+                // let substr = arr.join('');
+                let numstr = parseInt(arr || '{}');
                 console.info('the value of the bufferstr is :' + numstr);
                 expect(seniorVersionInfo).assertEqual(numstr);
             } else {
@@ -521,7 +523,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest018', 0, function () {
+        it('deviceInfoTest018', 0, () => {
             console.info('testGetFeatureVersion01 start');
 
             let featureVersionInfo = deviceinfo.featureVersion;
@@ -530,9 +532,9 @@ export default function DeviceInfoTest() {
             expect(featureVersionInfo).assertInstanceOf('Number');
             if ((featureVersionInfo >= 1 && featureVersionInfo <= 99) || featureVersionInfo == 0) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = featureVersionInfo.toString().match(str);
-                let substr = arr.join('');
-                let numstr = parseInt(substr);
+                let arr = featureVersionInfo.toString().match(str)?.join('');
+                // let substr = arr.join('');
+                let numstr = parseInt(arr || '{}');
                 console.info('the value of the bufferstr is :' + numstr);
                 expect(featureVersionInfo).assertEqual(numstr);
             } else {
@@ -551,7 +553,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest019', 0, function () {
+        it('deviceInfoTest019', 0, () => {
             console.info('testGetBuildVersion01 start');
 
             let buildVersionInfo = deviceinfo.buildVersion;
@@ -560,9 +562,9 @@ export default function DeviceInfoTest() {
             expect(buildVersionInfo).assertInstanceOf('Number');
             if (buildVersionInfo == 0 || (buildVersionInfo >= 1 && buildVersionInfo <= 999)) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = buildVersionInfo.toString().match(str);
-                let substr = arr.join('');
-                let numstr = parseInt(substr);
+                let arr = buildVersionInfo.toString().match(str)?.join('');
+                // let substr = arr.join('');
+                let numstr = parseInt(arr || '{}');
                 console.info('the value of the bufferstr is :' + numstr);
                 expect(buildVersionInfo).assertEqual(numstr);
             } else {
@@ -581,7 +583,7 @@ export default function DeviceInfoTest() {
          * @tc.type    : Constant
          * @tc.level   : Level 0
          */
-        it('deviceInfoTest020', 0, function () {
+        it('deviceInfoTest020', 0, () => {
             console.info('testGetSdkApiVersion01 start');
             let ret = false;
             let sdkApiVersionInfo = deviceinfo.sdkApiVersion;
@@ -594,9 +596,9 @@ export default function DeviceInfoTest() {
             expect(ret).assertTrue();
 
             let str = /[\w-\.\(\)]/g;
-            let arr = sdkApiVersionInfo.toString().match(str);
-            let substr = arr.join('');
-            let numstr = parseInt(substr);
+            let arr = sdkApiVersionInfo.toString().match(str)?.join('');
+            // let substr = arr.join('');
+            let numstr = parseInt(arr || '{}');
             console.info('the value of the bufferstr is :' + numstr);
             expect(sdkApiVersionInfo).assertEqual(numstr);
 
@@ -611,7 +613,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest021', 0, function () {
+        it('deviceInfoTest021', 0, () => {
             console.info('testGetFirstApiVersion01 start');
             let ret = true;
             let firstApiVersionInfo = deviceinfo.firstApiVersion;
@@ -624,9 +626,9 @@ export default function DeviceInfoTest() {
             expect(ret).assertTrue();
 
             let str = /[\w-\.\(\)]/g;
-            let arr = firstApiVersionInfo.toString().match(str);
-            let substr = arr.join('');
-            let numstr = parseInt(substr);
+            let arr = firstApiVersionInfo.toString().match(str)?.join('');
+            // let substr = arr.join('');
+            let numstr = parseInt(arr || '{}');
             console.info('the value of the bufferstr is :' + numstr);
             expect(firstApiVersionInfo).assertEqual(numstr);
 
@@ -641,7 +643,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest022', 0, function () {
+        it('deviceInfoTest022', 0, () => {
             console.info('testGetVersionId01 start');
             let ret = false;
             let versionIdInfo = deviceinfo.versionId;
@@ -663,7 +665,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest023', 0, function () {
+        it('deviceInfoTest023', 0, () => {
             console.info('testGetBuildType01 start');
 
             let buildTypeInfo = deviceinfo.buildType;
@@ -672,10 +674,10 @@ export default function DeviceInfoTest() {
             expect(buildTypeInfo).assertInstanceOf('String');
             if (buildTypeInfo != "" && buildTypeInfo != null && buildTypeInfo != undefined) {
                 let str = /[\w-\.\(\)\:]/g;
-                let arr = buildTypeInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(buildTypeInfo).assertEqual(bufferstr);
+                let arr = buildTypeInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the bufferstr is :' + arr);
+                expect(buildTypeInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
@@ -692,7 +694,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest024', 0, function () {
+        it('deviceInfoTest024', 0, () => {
             console.info('testGetBuildUser01 start');
             let ret = true;
             let buildUserInfo = deviceinfo.buildUser;
@@ -714,7 +716,7 @@ export default function DeviceInfoTest() {
          * @tc.type    : Constant
          * @tc.level   : Level 0
          */
-        it('deviceInfoTest025', 0, function () {
+        it('deviceInfoTest025', 0, () => {
             console.info('testGetBuildHost01 start');
             let ret = false;
             let buildHostInfo = deviceinfo.buildHost;
@@ -736,7 +738,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest026', 0, function () {
+        it('deviceInfoTest026', 0, () => {
             console.info('testGetBuildTime01 start');
             let ret = false;
             let buildTimeInfo = deviceinfo.buildTime;
@@ -758,7 +760,7 @@ export default function DeviceInfoTest() {
          * @tc.type      : Constant
          * @tc.level     : Level 0
          */
-        it('deviceInfoTest027', 0, function () {
+        it('deviceInfoTest027', 0, () => {
             console.info('testGetBuildRootHash01 start');
 
             let buildRootHashInfo = deviceinfo.buildRootHash;
@@ -767,10 +769,10 @@ export default function DeviceInfoTest() {
             expect(buildRootHashInfo).assertInstanceOf('String');
             if (buildRootHashInfo != "" && buildRootHashInfo != null && buildRootHashInfo != undefined) {
                 let str = /[\w-\.\(\)]/g;
-                let arr = buildRootHashInfo.match(str);
-                let bufferstr = arr.join('');
-                console.info('the value of the bufferstr is :' + bufferstr);
-                expect(buildRootHashInfo).assertEqual(bufferstr);
+                let arr = buildRootHashInfo.match(str)?.join('');
+                // let bufferstr = arr.join('');
+                console.info('the value of the bufferstr is :' + arr);
+                expect(buildRootHashInfo).assertEqual(arr);
             } else {
                 console.info('the return value is null or incorrect.');
                 expect(false).assertFalse();
