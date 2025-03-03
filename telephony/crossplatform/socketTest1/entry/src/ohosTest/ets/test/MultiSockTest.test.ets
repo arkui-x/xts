@@ -14,7 +14,7 @@
  */
 
 import { BusinessError } from '@ohos.base'
-import { describe, it, expect } from '@ohos/hypium'
+import { describe, it, expect, afterEach, afterAll } from '@ohos/hypium'
 import deviceInfo from '@ohos.deviceInfo'
 import socket from '@ohos.net.socket'
 
@@ -81,12 +81,20 @@ async function getLoopbackModeFunc(multicast: socket.MulticastSocket) {
   })
 }
 
-function sleep(ms: number): Promise<void> {
+async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default function MultiSockTest() {
   describe('MultiSockTest', () => {
+
+    afterEach(async()=>{
+      await sleep(1000);
+    })
+
+    afterAll(async ()=>{
+      await sleep(3000);
+    })
 
     /**
      * @tc.number : SUB_netSocket_constructMulticastSocketInstance_Func_0010
