@@ -13,18 +13,26 @@
  * limitations under the License.
  */
 import resourceManager from '@ohos.resourceManager'
-import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { BusinessError } from '@ohos.base';
 
 let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator()
 let context: common.Context = abilityDelegatorRegistry.getAppContext()
 context = context.createModuleContext("entry_test")
 
-export default function resourceManagerTest() {
-describe('resourceManagerTest', function () {
-    console.log('*************start resourceManagerTest*************');
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+export default function resourceManagerTest() {
+  describe('resourceManagerTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
+    console.log('*************start resourceManagerTest*************');
     /* *
     * @tc.number  TEST_DIRECTION_VERTICAL_001
     * @tc.name    test DIRECTION_VERTICAL
@@ -33,13 +41,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDirectionVertical001', 0, async function (done) {
-        console.log('testDirectionVertical001 0');
-        expect(resourceManager.Direction.DIRECTION_VERTICAL).assertEqual(0);
-        console.log('testDirectionVertical001 1');
-        done();
-    })
-
+    it('testDirectionVertical001', 0, async (done: Function) => {
+      console.log('testDirectionVertical001 0');
+      expect(resourceManager.Direction.DIRECTION_VERTICAL).assertEqual(0);
+      console.log('testDirectionVertical001 1');
+      done();
+    });
     /* *
    * @tc.number  TEST_DIRECTION_HORIZONTAL_001
    * @tc.name    test DIRECTION_HORIZONTAL
@@ -48,13 +55,12 @@ describe('resourceManagerTest', function () {
    * @tc.type     method
    * @tc.level    level 0
    */
-    it('testDirectionHorizontal001', 0, async function (done) {
-        console.log('testDirectionHorizontal001 0');
-        expect(resourceManager.Direction.DIRECTION_HORIZONTAL).assertEqual(1);
-        console.log('testDirectionHorizontal001 1');
-        done();
-    })
-
+    it('testDirectionHorizontal001', 0, async (done: Function) => {
+      console.log('testDirectionHorizontal001 0');
+      expect(resourceManager.Direction.DIRECTION_HORIZONTAL).assertEqual(1);
+      console.log('testDirectionHorizontal001 1');
+      done();
+    });
     /* *
         * @tc.number  TEST_DEVICE_TYPE_PHONE_001
         * @tc.name    test DEVICE_TYPE_PHONE
@@ -63,13 +69,12 @@ describe('resourceManagerTest', function () {
         * @tc.type     method
         * @tc.level    level 0
         */
-    it('testDeviceTypePhone001', 0, async function (done) {
-        console.log('testDeviceTypePhone001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_PHONE).assertEqual(0);
-        console.log('testDeviceTypePhone001 1');
-        done();
-    })
-
+    it('testDeviceTypePhone001', 0, async (done: Function) => {
+      console.log('testDeviceTypePhone001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_PHONE).assertEqual(0);
+      console.log('testDeviceTypePhone001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_DEVICE_TYPE_TABLET_001
     * @tc.name    test DEVICE_TYPE_TABLET
@@ -78,13 +83,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDeviceTypeTable001', 0, async function (done) {
-        console.log('testDeviceTypeTable001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_TABLET).assertEqual(1);
-        console.log('testDeviceTypeTable001 1');
-        done();
-    })
-
+    it('testDeviceTypeTable001', 0, async (done: Function) => {
+      console.log('testDeviceTypeTable001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_TABLET).assertEqual(1);
+      console.log('testDeviceTypeTable001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_DEVICE_TYPE_CAR_001
     * @tc.name    test DEVICE_TYPE_CAR
@@ -93,13 +97,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDeviceTypeCar001', 0, async function (done) {
-        console.log('testDeviceTypeCar001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_CAR).assertEqual(2);
-        console.log('testDeviceTypeCar001 1');
-        done();
-    })
-
+    it('testDeviceTypeCar001', 0, async (done: Function) => {
+      console.log('testDeviceTypeCar001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_CAR).assertEqual(2);
+      console.log('testDeviceTypeCar001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_DEVICE_TYPE_PC_001
     * @tc.name    test DEVICE_TYPE_PC
@@ -108,13 +111,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDeviceTypePC001', 0, async function (done) {
-        console.log('testDeviceTypePC001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_PC).assertEqual(3);
-        console.log('testDeviceTypePC001 1');
-        done();
-    })
-
+    it('testDeviceTypePC001', 0, async (done: Function) => {
+      console.log('testDeviceTypePC001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_PC).assertEqual(3);
+      console.log('testDeviceTypePC001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_DEVICE_TYPE_TV_001
     * @tc.name    test DEVICE_TYPE_TV
@@ -123,74 +125,68 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDeviceTypeTV001', 0, async function (done) {
-        console.log('testDeviceTypeTV001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_TV).assertEqual(4);
-        console.log('testDeviceTypeTV001 1');
-        done();
-    })
-
+    it('testDeviceTypeTV001', 0, async (done: Function) => {
+      console.log('testDeviceTypeTV001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_TV).assertEqual(4);
+      console.log('testDeviceTypeTV001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_DEVICE_TYPE_WEARABLE_001
     * @tc.name    test DEVICE_TYPE_WEARABLE
-    * @tc.desc    get the 
+    * @tc.desc    get the
     * @tc.size:    MediumTest
     * @tc.type     method
     * @tc.level    level 0
     */
-    it('testDeviceTypeWearable001', 0, async function (done) {
-        console.log('testDeviceTypeWearable001 0');
-        expect(resourceManager.DeviceType.DEVICE_TYPE_WEARABLE).assertEqual(6);
-        console.log('testDeviceTypeWearable001 1');
-        done();
-    })
-
-
-     /* *
-    * @tc.number:  TEST_SCREEN_SDIP_001
-    * @tc.name:    test SCREEN_SDPI
-    * @tc.desc:    get the value of SCREEN_SDPI
-    * @tc.size:    MediumTest
-    * @tc.type     enum
-    * @tc.level    level 0
-    */
-    it('testScreenSdip001', 0, async function (done) {
-        console.log('testScreenSdip001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_SDPI).assertEqual(120);
-        console.log('testScreenSdip001 1');
-        done();
-    })
-
-     /* *
-    * @tc.number  TEST_SCREEN_MDPI_001
-    * @tc.name    test SCREEN_MDPI
-    * @tc.desc    get the value of SCREEN_MDPI
-    * @tc.size:    MediumTest
-    * @tc.type     enum
-    * @tc.level    level 0
-    */
-    it('testScreenMdpi001', 0, async function (done) {
-        console.log('testScreenMdpi001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_MDPI).assertEqual(160);
-        console.log('testScreenMdpi001 1');
-        done();
-    })
-
-     /* *
-    * @tc.number  TEST_SCREEN_LDPI-001
-    * @tc.name    test SCREEN_LDPI
-    * @tc.desc    get the value of SCREEN_LDPI
-    * @tc.size:    MediumTest
-    * @tc.type     enum
-    * @tc.level    level 0
-    */
-    it('testScreenLdpi001', 0, async function (done) {
-        console.log('testScreenLdpi001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_LDPI).assertEqual(240);
-        console.log('testScreenLdpi001 1');
-        done();
-    })
-
+    it('testDeviceTypeWearable001', 0, async (done: Function) => {
+      console.log('testDeviceTypeWearable001 0');
+      expect(resourceManager.DeviceType.DEVICE_TYPE_WEARABLE).assertEqual(6);
+      console.log('testDeviceTypeWearable001 1');
+      done();
+    });
+    /* *
+   * @tc.number:  TEST_SCREEN_SDIP_001
+   * @tc.name:    test SCREEN_SDPI
+   * @tc.desc:    get the value of SCREEN_SDPI
+   * @tc.size:    MediumTest
+   * @tc.type     enum
+   * @tc.level    level 0
+   */
+    it('testScreenSdip001', 0, async (done: Function) => {
+      console.log('testScreenSdip001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_SDPI).assertEqual(120);
+      console.log('testScreenSdip001 1');
+      done();
+    });
+    /* *
+   * @tc.number  TEST_SCREEN_MDPI_001
+   * @tc.name    test SCREEN_MDPI
+   * @tc.desc    get the value of SCREEN_MDPI
+   * @tc.size:    MediumTest
+   * @tc.type     enum
+   * @tc.level    level 0
+   */
+    it('testScreenMdpi001', 0, async (done: Function) => {
+      console.log('testScreenMdpi001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_MDPI).assertEqual(160);
+      console.log('testScreenMdpi001 1');
+      done();
+    });
+    /* *
+   * @tc.number  TEST_SCREEN_LDPI-001
+   * @tc.name    test SCREEN_LDPI
+   * @tc.desc    get the value of SCREEN_LDPI
+   * @tc.size:    MediumTest
+   * @tc.type     enum
+   * @tc.level    level 0
+   */
+    it('testScreenLdpi001', 0, async (done: Function) => {
+      console.log('testScreenLdpi001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_LDPI).assertEqual(240);
+      console.log('testScreenLdpi001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_SCREEN_XLDPI_001
     * @tc.name    test SCREEN_XLDPI
@@ -199,13 +195,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     enum
     * @tc.level    level 0
     */
-    it('testScreenXldpi001', 0, async function (done) {
-        console.log('testScreenXldpi001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_XLDPI).assertEqual(320);
-        console.log('testScreenXldpi001 1');
-        done();
-    })
-
+    it('testScreenXldpi001', 0, async (done: Function) => {
+      console.log('testScreenXldpi001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_XLDPI).assertEqual(320);
+      console.log('testScreenXldpi001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_SCREEN_XXLDPI_001
     * @tc.name    test SCREEN_XXLDPI
@@ -214,13 +209,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     enum
     * @tc.level    level 0
     */
-    it('testScreenXxldpi001', 0, async function (done) {
-        console.log('testScreenXxldpi001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_XXLDPI).assertEqual(480);
-        console.log('testScreenXxldpi001 1');
-        done();
-    })
-
+    it('testScreenXxldpi001', 0, async (done: Function) => {
+      console.log('testScreenXxldpi001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_XXLDPI).assertEqual(480);
+      console.log('testScreenXxldpi001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_SCREEN_XXXLDPI_001
     * @tc.name    test SCREEN_XXXLDPI
@@ -229,13 +223,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     enum
     * @tc.level    level 0
     */
-    it('testScreenXxxldpi001', 0, async function (done) {
-        console.log('testScreenXxxldpi001 0');
-        expect(resourceManager.ScreenDensity.SCREEN_XXXLDPI).assertEqual(640);
-        console.log('testScreenXxxldpi001 1');
-        done();
-    })
-
+    it('testScreenXxxldpi001', 0, async (done: Function) => {
+      console.log('testScreenXxxldpi001 0');
+      expect(resourceManager.ScreenDensity.SCREEN_XXXLDPI).assertEqual(640);
+      console.log('testScreenXxxldpi001 1');
+      done();
+    });
     /* *
     * @tc.number  TEST_GETSTRINGVALUERERESOURCECALLBACK_001
     * @tc.name    test getString method in callback mode
@@ -244,16 +237,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResourceCallback001', 0, async function (done) {
-        context.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-            moduleName:"entry_test",
-            id:$r('app.string.test_1').id}, (err, value) => {
-            expect(value !== null).assertTrue();
-            console.log('testGetStringValueResourceCallback001 ' + value);
-            done();
-        })
-    })
-
+    it('testGetStringValueResourceCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.string.test_1').id
+      }, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringValueResourceCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGVALUERESOURCEPROMISE_001
     * @tc.name    test getString method in promise mode
@@ -262,17 +256,18 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResourcePromise001', 0, async function (done) {
-        context.resourceManager.getStringValue({ bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-            moduleName:"entry_test",
-            id:$r('app.string.test_1').id}).then(value => {
-            console.info(`testGetStringValueResourcePromise001 ${JSON.stringify(Error)}`)
-            expect(value !== null).assertTrue();
-            console.log('testGetStringValueResourcePromise001 ' + value);
-        })
-        done();
-    })
-
+    it('testGetStringValueResourcePromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.string.test_1').id
+      }).then(value => {
+        console.info(`testGetStringValueResourcePromise001 ${JSON.stringify(Error)}`);
+        expect(value !== null).assertTrue();
+        console.log('testGetStringValueResourcePromise001 ' + value);
+      });
+      done();
+    });
     /* *
     * @tc.number  TEST_GETSTRINGVALUERESIDCALLBACK_001
     * @tc.name    test getString method in callback mode
@@ -281,15 +276,14 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdCallback001', 0, async function (done) {
-        context.resourceManager.getStringValue($r('app.string.test_1').id, (err, value) => {
-            expect(value !==null).assertTrue();
-            console.log('testGetStringValueResIdCallback001 ' + value);
-            expect(value).assertEqual('Test1');
-            done();
-        })
-    })
-
+    it('testGetStringValueResIdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringValue($r('app.string.test_1').id, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringValueResIdCallback001 ' + value);
+        expect(value).assertEqual('Test1');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGVALUERESIDCallback_002
     * @tc.name    test getString method in callback mode
@@ -298,28 +292,27 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdCallback002', 0, async function (done) {
-        try{
-            // 0x1001 id not exist,throw 9001001 error code
-            context.resourceManager.getStringValue(0x1001, (err, value) => {
-                if(err){
-                    console.log('testGetStringValueResIdCallback002 err.code' + err.code);
-                    console.log('testGetStringValueResIdCallback002 err.message' + err.message);
-                    expect(err.code == 9001001).assertTrue();
-                    done();
-                }else{
-                    console.log('testGetStringValueResIdCallback002 2');
-                    expect(value !== null).assertTrue();
-                    console.log('testGetStringValueResIdCallback002 ' + value);
-                    done();
-                }
-            })
-        }catch(e){
-            console.log('testGetStringValueResIdCallback002 e.code' + e.code);
-            console.log('testGetStringValueResIdCallback002 e.message' + e.message);
-        }
-    })
-
+    it('testGetStringValueResIdCallback002', 0, async (done: Function) => {
+      try {
+        // 0x1001 id not exist,throw 9001001 error code
+        context.resourceManager.getStringValue(0x1001, (err, value) => {
+          if (err) {
+            console.log('testGetStringValueResIdCallback002 err.code' + err.code);
+            console.log('testGetStringValueResIdCallback002 err.message' + err.message);
+            expect(err.code == 9001001).assertTrue();
+            done();
+          } else {
+            console.log('testGetStringValueResIdCallback002 2');
+            expect(value !== null).assertTrue();
+            console.log('testGetStringValueResIdCallback002 ' + value);
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('testGetStringValueResIdCallback002 e.code' + e.code);
+        console.log('testGetStringValueResIdCallback002 e.message' + e.message);
+      }
+    });
     /* *
     * @tc.number   TEST_GETSTRINGVALUERESIDCALLBACK_003
     * @tc.name     test getString method in callback mode
@@ -328,28 +321,26 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdCallback003', 0, async function (done) {
-            try{
-                // 0x01000000 id is integer resource,throw 9001002 error code
-                context.resourceManager.getStringValue($r('app.integer.integer_1').id, (err, value) => {
-                    if(err){
-                        console.log('testGetStringValueResIdCallback003 err.code' + err.code);
-                        console.log('testGetStringValueResIdCallback003 err.message' + err.message);
-                        expect(err.code == 9001002).assertTrue();
-                        done();
-                    }else{
-                        expect(value !== null).assertTrue();
-                        console.log('testGetStringValueResIdCallback003 ' + value);
-                        done();
-                    }
-                })
-            }catch(e){
-                console.log('testGetStringValueResIdCallback003 e.code' + e.code);
-                console.log('testGetStringValueResIdCallback003 e.message' + e.message);
-            }
-
-    })
-
+    it('testGetStringValueResIdCallback003', 0, async (done: Function) => {
+      try {
+        // 0x01000000 id is integer resource,throw 9001002 error code
+        context.resourceManager.getStringValue($r('app.integer.integer_1').id, (err, value) => {
+          if (err) {
+            console.log('testGetStringValueResIdCallback003 err.code' + err.code);
+            console.log('testGetStringValueResIdCallback003 err.message' + err.message);
+            expect(err.code == 9001002).assertTrue();
+            done();
+          } else {
+            expect(value !== null).assertTrue();
+            console.log('testGetStringValueResIdCallback003 ' + value);
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('testGetStringValueResIdCallback003 e.code' + e.code);
+        console.log('testGetStringValueResIdCallback003 e.message' + e.message);
+      }
+    });
     /* *
     * @tc.number   TEST_GETSTRINGVALUERESIDCALLBACK_004
     * @tc.name     test getString method in callback mode
@@ -358,27 +349,26 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdCallback004', 0, async function (done) {
-            try{
-                // 0x01000006 id re-ref,throw 9001006 error code
-                context.resourceManager.getStringValue($r('app.string.Test_name1').id, (err, value) => {
-                    if(err){
-                        console.log('testGetStringValueResIdCallback004 err.code' + err.code);
-                        console.log('testGetStringValueResIdCallback004 err.message' + err.message);
-                        expect(err.code == 9001006).assertTrue();
-                        done();
-                    }else{
-                        expect(value !== null).assertTrue();
-                        console.log('testGetStringValueResIdCallback004 ' + value);
-                        done();
-                    }
-                })
-            }catch(e){
-                console.log('testGetStringValueResIdCallback004 e.code' + e.code);
-                console.log('testGetStringValueResIdCallback004 e.message' + e.message);
-            }
-    })
-
+    it('testGetStringValueResIdCallback004', 0, async (done: Function) => {
+      try {
+        // 0x01000006 id re-ref,throw 9001006 error code
+        context.resourceManager.getStringValue($r('app.string.Test_name1').id, (err, value) => {
+          if (err) {
+            console.log('testGetStringValueResIdCallback004 err.code' + err.code);
+            console.log('testGetStringValueResIdCallback004 err.message' + err.message);
+            expect(err.code == 9001006).assertTrue();
+            done();
+          } else {
+            expect(value !== null).assertTrue();
+            console.log('testGetStringValueResIdCallback004 ' + value);
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('testGetStringValueResIdCallback004 e.code' + e.code);
+        console.log('testGetStringValueResIdCallback004 e.message' + e.message);
+      }
+    });
     /* *
         * @tc.number  TEST_GETSTRINGVALUERESIDPROMISE_001
         * @tc.name    test getString method in promise mode
@@ -387,16 +377,14 @@ describe('resourceManagerTest', function () {
         * @tc.type     method
         * @tc.level    level 2
         */
-
-    it('testGetStringValueResIdPromise001', 0, async function (done) {
-        context.resourceManager.getStringValue($r('app.string.test_1').id).then(value => {
-            expect(value !== null).assertTrue();
-            console.log('testGetStringValueResIdPromise001 ' + value);
-            expect(value).assertEqual('Test1');
-            done();
-        })
-    })
-
+    it('testGetStringValueResIdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringValue($r('app.string.test_1').id).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringValueResIdPromise001 ' + value);
+        expect(value).assertEqual('Test1');
+        done();
+      });
+    });
     /* *
     * @tc.number TEST_GETSTRINGVALUERESIDPROMISE_002
     * @tc.name   test getString method in promise mode
@@ -405,27 +393,26 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdPromise002', 0, async function (done) {
-            try{
-                // 0x1001 id not exist,throw 9001001 error code
-                context.resourceManager.getStringValue(0x1001).then(value => {
-                    expect(value !== null).assertTrue();
-                    console.log('testGetStringValueResIdPromise002 ' + value);
-                    expect(value).assertEqual('Test1');
-                    done();
-                }).catch(error => {
-                    console.log('testGetStringValueResIdPromise002 error.code' + error.code);
-                    console.log('testGetStringValueResIdPromise002 error.message' + error.message);
-                    expect(error.code == 9001001).assertTrue();
-                    done();
-                })
-            } catch (err){
-                console.log('testGetStringValueResIdPromise002 err.code' + err.code);
-                console.log('testGetStringValueResIdPromise002 err.message' + err.message);
-                done();
-            }
-    })
-
+    it('testGetStringValueResIdPromise002', 0, async (done: Function) => {
+      try {
+        // 0x1001 id not exist,throw 9001001 error code
+        context.resourceManager.getStringValue(0x1001).then(value => {
+          expect(value !== null).assertTrue();
+          console.log('testGetStringValueResIdPromise002 ' + value);
+          expect(value).assertEqual('Test1');
+          done();
+        }).catch((error: BusinessError) => {
+          console.log('testGetStringValueResIdPromise002 error.code' + error.code);
+          console.log('testGetStringValueResIdPromise002 error.message' + error.message);
+          expect(error.code == 9001001).assertTrue();
+          done();
+        });
+      } catch (err) {
+        console.log('testGetStringValueResIdPromise002 err.code' + err.code);
+        console.log('testGetStringValueResIdPromise002 err.message' + err.message);
+        done();
+      }
+    });
     /* *
     * @tc.number TEST_GETSTRINGVALUERESIDPROMISE_003
     * @tc.name   test getString method in promise mode
@@ -434,31 +421,30 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdPromise003', 0, async function (done) {
-            try{
-                // 0x01000000 id is integer resource,throw 9001002 error code
-                console.log('testGetStringValueResIdPromise003 promise start');
-                context.resourceManager.getStringValue($r('app.integer.integer_1').id).then(value => {
-                    console.log('testGetStringValueResIdPromise003 promise try' + value);
-                    expect(value !== null).assertTrue();
-                    console.log('testGetStringValueResIdPromise003 ' + value);
-                    expect(value).assertEqual('Test1');
-                    done();
-                }).catch(error => {
-                    console.log('testGetStringValueResIdPromise003 promise catch');
-                    console.log('testGetStringValueResIdPromise003 error.code' + error.code);
-                    console.log('testGetStringValueResIdPromise003 error.message' + error.message);
-                    expect(error.code == 9001002).assertTrue();
-                    done();
-                })
-            } catch (err){
-                console.log('testGetStringValueResIdPromise003 err.code' + err.code);
-                console.log('testGetStringValueResIdPromise003 err.message' + err.message);
-                done();
-            }
-            console.log('testGetStringValueResIdPromise003 promise end');
-    })
-
+    it('testGetStringValueResIdPromise003', 0, async (done: Function) => {
+      try {
+        // 0x01000000 id is integer resource,throw 9001002 error code
+        console.log('testGetStringValueResIdPromise003 promise start');
+        context.resourceManager.getStringValue($r('app.integer.integer_1').id).then(value => {
+          console.log('testGetStringValueResIdPromise003 promise try' + value);
+          expect(value !== null).assertTrue();
+          console.log('testGetStringValueResIdPromise003 ' + value);
+          expect(value).assertEqual('Test1');
+          done();
+        }).catch((error: BusinessError) => {
+          console.log('testGetStringValueResIdPromise003 promise catch');
+          console.log('testGetStringValueResIdPromise003 error.code' + error.code);
+          console.log('testGetStringValueResIdPromise003 error.message' + error.message);
+          expect(error.code == 9001002).assertTrue();
+          done();
+        });
+      } catch (err) {
+        console.log('testGetStringValueResIdPromise003 err.code' + err.code);
+        console.log('testGetStringValueResIdPromise003 err.message' + err.message);
+        done();
+      }
+      console.log('testGetStringValueResIdPromise003 promise end');
+    });
     /* *
     * @tc.number TEST_GETSTRINGVALUERESIDPROMISE_004
     * @tc.name   test getString method in promise mode
@@ -467,27 +453,26 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringValueResIdPromise004', 0, async function (done) {
-            try{
-                // 0x01000006 id re-ref,throw 9001006 error code
-                context.resourceManager.getStringValue($r('app.string.Test_name1').id).then(value => {
-                    expect(value !== null).assertTrue();
-                    console.log('testGetStringValueResId009 ' + value);
-                    expect(value).assertEqual('Test1');
-                    done();
-                }).catch(error => {
-                    console.log('testGetStringValueResIdPromise004 error.code' + error.code);
-                    console.log('testGetStringValueResIdPromise004 error.message' + error.message);
-                    expect(error.code == 9001006).assertTrue();
-                    done();
-                })
-            } catch (err){
-                console.log('testGetStringValueResIdPromise004 err.code' + err.code);
-                console.log('testGetStringValueResIdPromise004 err.message' + err.message);
-                done();
-            }
-    })
-
+    it('testGetStringValueResIdPromise004', 0, async (done: Function) => {
+      try {
+        // 0x01000006 id re-ref,throw 9001006 error code
+        context.resourceManager.getStringValue($r('app.string.Test_name1').id).then(value => {
+          expect(value !== null).assertTrue();
+          console.log('testGetStringValueResId009 ' + value);
+          expect(value).assertEqual('Test1');
+          done();
+        }).catch((error: BusinessError) => {
+          console.log('testGetStringValueResIdPromise004 error.code' + error.code);
+          console.log('testGetStringValueResIdPromise004 error.message' + error.message);
+          expect(error.code == 9001006).assertTrue();
+          done();
+        });
+      } catch (err) {
+        console.log('testGetStringValueResIdPromise004 err.code' + err.code);
+        console.log('testGetStringValueResIdPromise004 err.message' + err.message);
+        done();
+      }
+    });
     /* *
     * @tc.number  TEST_GETSTRINGARRAYVALUERESOURCECALLBACK_001
     * @tc.name    test getStringValue method in callback mode
@@ -496,16 +481,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStartArrayValueResourceCallback001', 0, async function (done) {
-            context.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.strarray.sizeList').id}, (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStartArrayValueResourceCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetStartArrayValueResourceCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.strarray.sizeList').id
+      }, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStartArrayValueResourceCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGARRAYVALUERESOURCEPROMISE_001
     * @tc.name    test getStringArrayValue method in promise mode
@@ -514,16 +500,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStartArrayValueResourcePromise001', 0, async function (done) {
-             context.resourceManager.getStringArrayValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.strarray.sizeList').id}).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStartArrayValueResourcePromise001 ' + value);
-            })
-        done();
-    })
-
+    it('testGetStartArrayValueResourcePromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.strarray.sizeList').id
+      }).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStartArrayValueResourcePromise001 ' + value);
+      });
+      done();
+    });
     /* *
     * @tc.number  TEST_GETSTARTARRAYVALUERESIDCALLBACK_001
     * @tc.name    test getStringArrayValue method in callback mode
@@ -532,21 +519,20 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStartArrayValueResIdCallback001', 0, async function (done) {
-            context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id, (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStartArrayValueResIdCallback001 ' + value);
-                console.log('testGetStartArrayValueResIdCallback001 ' + value.length);
-                console.log('testGetStartArrayValueResIdCallback001 ' + value[0]);
-                expect(value.length).assertEqual(4);
-                expect(value[0]).assertEqual('small');
-                expect(value[1]).assertEqual('middle');
-                expect(value[2]).assertEqual('large');
-                expect(value[3]).assertEqual('extra large');
-                done();
-            })
-    })
-
+    it('testGetStartArrayValueResIdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStartArrayValueResIdCallback001 ' + value);
+        console.log('testGetStartArrayValueResIdCallback001 ' + value.length);
+        console.log('testGetStartArrayValueResIdCallback001 ' + value[0]);
+        expect(value.length).assertEqual(4);
+        expect(value[0]).assertEqual('small');
+        expect(value[1]).assertEqual('middle');
+        expect(value[2]).assertEqual('large');
+        expect(value[3]).assertEqual('extra large');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTARTARRAYVALUERESIDPROMISE_001
     * @tc.name    test getStringArrayValue method in promise mode
@@ -555,22 +541,20 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStartArrayValueResIdPromise001', 0, async function (done) {
-            context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStartArrayValueResIdPromise001 ' + value);
-                console.log('testGetStartArrayValueResIdPromise001 ' + value.length);
-                console.log('testGetStartArrayValueResIdPromise001 ' + value[0]);
-                expect(value.length).assertEqual(4);
-                expect(value[0]).assertEqual('small');
-                expect(value[1]).assertEqual('middle');
-                expect(value[2]).assertEqual('large');
-                expect(value[3]).assertEqual('extra large');
-                done();
-            })
-    })
-
-
+    it('testGetStartArrayValueResIdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayValue($r('app.strarray.sizeList').id).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStartArrayValueResIdPromise001 ' + value);
+        console.log('testGetStartArrayValueResIdPromise001 ' + value.length);
+        console.log('testGetStartArrayValueResIdPromise001 ' + value[0]);
+        expect(value.length).assertEqual(4);
+        expect(value[0]).assertEqual('small');
+        expect(value[1]).assertEqual('middle');
+        expect(value[2]).assertEqual('large');
+        expect(value[3]).assertEqual('extra large');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTRESOURCECALLBACK_001
     * @tc.name    test getMediaContent method in callback mode
@@ -579,16 +563,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentResourceCallback001', 0, async function (done) {
-            context.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.media.icon').id}, (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetMediaContentResourceCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetMediaContentResourceCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContent({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.media.icon').id
+      }, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetMediaContentResourceCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTRESOURCEPROMISE_001
     * @tc.name    test getMediaContent method in promise mode
@@ -597,16 +582,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentResourcePromise001', 0, async function (done) {
-            context.resourceManager.getMediaContent({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.media.icon').id}).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetMediaContentResourcePromise001 ' + value);
-            })
-        done();
-    })
-
+    it('testGetMediaContentResourcePromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContent({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.media.icon').id
+      }).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetMediaContentResourcePromise001 ' + value);
+      });
+      done();
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTRESIDCALLBACK_001
     * @tc.name    test getMediaContent method in callback mode
@@ -615,14 +601,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentResIdCallback001', 0, async function (done) {
-            context.resourceManager.getMediaContent($r('app.media.icon').id, (err, value) => {
-                console.log('testGetMediaContentResIdCallback001 ' + value.length);
-                expect(value.length > 0).assertTrue();
-                done();
-            })
-    })
-
+    it('testGetMediaContentResIdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContent($r('app.media.icon').id, (err, value) => {
+        console.log('testGetMediaContentResIdCallback001 ' + value.length);
+        expect(value.length > 0).assertTrue();
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTRESIDPROMISE_001
     * @tc.name    test getMediaContent method in callback mode
@@ -631,33 +616,32 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentResIdPromise001', 0, async function (done) {
-            context.resourceManager.getMediaContent($r('app.media.icon').id).then(value => {
-                console.log('testGetMediaContentResIdPromise001 ' + value.length);
-                expect(value.length > 0).assertTrue();
-                done();
-            })
-    })
-
-
-     /* *
-    * @tc.number  TEST_GETMEDIACONTENTBASE64RESOURCECALLBACK_001
-    * @tc.name    test getMediaContentBase64 method in callback mode
-    * @tc.desc    get the media base64 in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetMediaContentBase64ResourceCallback001', 0, async function (done) {
-            context.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.media.icon').id}, (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetMediaContentBase64ResourceCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetMediaContentResIdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContent($r('app.media.icon').id).then(value => {
+        console.log('testGetMediaContentResIdPromise001 ' + value.length);
+        expect(value.length > 0).assertTrue();
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETMEDIACONTENTBASE64RESOURCECALLBACK_001
+   * @tc.name    test getMediaContentBase64 method in callback mode
+   * @tc.desc    get the media base64 in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetMediaContentBase64ResourceCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContentBase64({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.media.icon').id
+      }, (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetMediaContentBase64ResourceCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTBASE64RESOURCEPROMISE_001
     * @tc.name    test getMediaContentBase64 method in promise mode
@@ -666,16 +650,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentBase64ResourcePromise001', 0, async function (done) {
-            context.resourceManager.getMediaContentBase64({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.media.icon').id}).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetMediaContentBase64ResourcePromise001 ' + value);
-            })
-        done();
-    })
-
+    it('testGetMediaContentBase64ResourcePromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContentBase64({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.media.icon').id
+      }).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetMediaContentBase64ResourcePromise001 ' + value);
+      });
+      done();
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTBASE64RESIDCALLBACK_001
     * @tc.name    test getMediaContentBase64 method in callback mode
@@ -684,14 +669,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentBase64ResIdCallback001', 0, async function (done) {
-            context.resourceManager.getMediaContentBase64($r('app.media.icon').id, (err, value) => {
-                expect(value.length > 0).assertTrue();
-                console.log('testGetMediaContentBase64ResIdCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetMediaContentBase64ResIdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContentBase64($r('app.media.icon').id, (err, value) => {
+        expect(value.length > 0).assertTrue();
+        console.log('testGetMediaContentBase64ResIdCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIACONTENTBASE64RESIDPROMISE_001
     * @tc.name    test getMediaContentBase64 method in promise mode
@@ -700,94 +684,90 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaContentBase64ResIdPromise001', 0, async function (done) {
-            context.resourceManager.getMediaContentBase64($r('app.media.icon').id).then(value => {
-                expect(value.length > 0).assertTrue();
-                console.log('testGetMediaContentBase64ResIdPromise001 ' + value);
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST_GETDEVICECAPABILITYCALLBACK_001
-    * @tc.name    test getDeviceCapability method in callback mode
-    * @tc.desc    get the device capability in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetDeviceCapabilityCallback001', 0, async function (done) {
-            context.resourceManager.getDeviceCapability((error, dc) => {
-                if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_PHONE');
-                }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_TABLET){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_TABLET');
-                }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_CAR){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_CAR');
-                }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PC){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_PC');
-                }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_TV){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_TV');
-                }else if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_WEARABLE){
-                    console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_WEARABLE');
-                }
-                expect(dc !== null).assertTrue();
-                console.log('testGetDeviceCapabilityCallback001 ' + JSON.stringify(dc));
-                done();
-            })
-    })
-
-      /* *
-        * @tc.number  TEST_GETDEVICECAPABILITYPROMISE_001
-        * @tc.name    test getDeviceCapability method in promise mode
-        * @tc.desc    get the device capability in promise mode
-        * @tc.size:    MediumTest
-        * @tc.type     method
-        * @tc.level    level 2
-        */
-    it('testGetDeviceCapabilityPromise001', 0, async function (done) {
-            context.resourceManager.getDeviceCapability().then(dc => {
-                if(dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE){
-                    console.log('testGetDeviceCapabilityPromise001 DEVICE_TYPE_PHONE');
-                }
-                if(dc.screenDensity == resourceManager.ScreenDensity.SCREEN_LDPI){
-                    console.log('testGetDeviceCapabilityPromise001 SCREEN_LDPI');
-                }
-                expect(dc !== null).assertTrue();
-                console.log('testGetDeviceCapabilityPromise001 ' + JSON.stringify(dc));
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST-GETCONFIGURATIONCALLBACK_001
-    * @tc.name    test getConfiguration method in callback mode
-    * @tc.desc    get the configuration in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetConfigurationCallback001', 0, async function (done) {
-            console.log('testGetConfigurationCallback001 0');
-            context.resourceManager.getConfiguration((error, cfg) => {
-                console.log('testGetConfigurationCallback001 1');
-                expect(cfg.direction !== null).assertTrue();
-                console.log('testGetConfigurationCallback001 1' + cfg.direction);
-                expect(cfg.locale !== null).assertTrue();
-                console.log('testGetConfigurationCallback001 1' + cfg.locale);
-                console.log('testGetConfigurationCallback001 1' + resourceManager.Direction.DIRECTION_HORIZONTAL);
-                console.log('testGetConfigurationCallback001 11');
-                if(cfg.direction == resourceManager.Direction.DIRECTION_VERTICAL){
-                    console.log('testGetConfigurationCallback001 DIRECTION_VERTICAL');
-                }else if(cfg.direction == resourceManager.Direction.DIRECTION_HORIZONTAL){
-                    console.log('testGetConfigurationCallback001 DIRECTION_HORIZONTAL');
-                }
-                expect(cfg !== null).assertTrue();
-                console.log('testGetConfigurationCallback001 ' + JSON.stringify(cfg));
-                done();
-            })
-    })
-
+    it('testGetMediaContentBase64ResIdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaContentBase64($r('app.media.icon').id).then(value => {
+        expect(value.length > 0).assertTrue();
+        console.log('testGetMediaContentBase64ResIdPromise001 ' + value);
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETDEVICECAPABILITYCALLBACK_001
+   * @tc.name    test getDeviceCapability method in callback mode
+   * @tc.desc    get the device capability in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetDeviceCapabilityCallback001', 0, async (done: Function) => {
+      context.resourceManager.getDeviceCapability((error, dc) => {
+        if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_PHONE');
+        } else if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_TABLET) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_TABLET');
+        } else if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_CAR) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_CAR');
+        } else if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PC) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_PC');
+        } else if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_TV) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_TV');
+        } else if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_WEARABLE) {
+          console.log('testGetDeviceCapabilityCallback001 DEVICE_TYPE_WEARABLE');
+        }
+        expect(dc !== null).assertTrue();
+        console.log('testGetDeviceCapabilityCallback001 ' + JSON.stringify(dc));
+        done();
+      });
+    });
+    /* *
+      * @tc.number  TEST_GETDEVICECAPABILITYPROMISE_001
+      * @tc.name    test getDeviceCapability method in promise mode
+      * @tc.desc    get the device capability in promise mode
+      * @tc.size:    MediumTest
+      * @tc.type     method
+      * @tc.level    level 2
+      */
+    it('testGetDeviceCapabilityPromise001', 0, async (done: Function) => {
+      context.resourceManager.getDeviceCapability().then(dc => {
+        if (dc.deviceType == resourceManager.DeviceType.DEVICE_TYPE_PHONE) {
+          console.log('testGetDeviceCapabilityPromise001 DEVICE_TYPE_PHONE');
+        }
+        if (dc.screenDensity == resourceManager.ScreenDensity.SCREEN_LDPI) {
+          console.log('testGetDeviceCapabilityPromise001 SCREEN_LDPI');
+        }
+        expect(dc !== null).assertTrue();
+        console.log('testGetDeviceCapabilityPromise001 ' + JSON.stringify(dc));
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST-GETCONFIGURATIONCALLBACK_001
+   * @tc.name    test getConfiguration method in callback mode
+   * @tc.desc    get the configuration in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetConfigurationCallback001', 0, async (done: Function) => {
+      console.log('testGetConfigurationCallback001 0');
+      context.resourceManager.getConfiguration((error, cfg) => {
+        console.log('testGetConfigurationCallback001 1');
+        expect(cfg.direction !== null).assertTrue();
+        console.log('testGetConfigurationCallback001 1' + cfg.direction);
+        expect(cfg.locale !== null).assertTrue();
+        console.log('testGetConfigurationCallback001 1' + cfg.locale);
+        console.log('testGetConfigurationCallback001 1' + resourceManager.Direction.DIRECTION_HORIZONTAL);
+        console.log('testGetConfigurationCallback001 11');
+        if (cfg.direction == resourceManager.Direction.DIRECTION_VERTICAL) {
+          console.log('testGetConfigurationCallback001 DIRECTION_VERTICAL');
+        } else if (cfg.direction == resourceManager.Direction.DIRECTION_HORIZONTAL) {
+          console.log('testGetConfigurationCallback001 DIRECTION_HORIZONTAL');
+        }
+        expect(cfg !== null).assertTrue();
+        console.log('testGetConfigurationCallback001 ' + JSON.stringify(cfg));
+        done();
+      });
+    });
     /* *
         * @tc.number  TEST_GETCONFIGURATIONPROMISE_001
         * @tc.name    test getConfiguration method in promise mode
@@ -796,39 +776,38 @@ describe('resourceManagerTest', function () {
         * @tc.type     method
         * @tc.level    level 2
         */
-    it('testGetConfigurationPromise001', 0, async function (done) {
-        context.resourceManager.getConfiguration().then(cfg => {
-            console.log('testGetConfigurationPromise001 ' + resourceManager.Direction.DIRECTION_HORIZONTAL);
-            if(cfg.direction == resourceManager.Direction.DIRECTION_VERTICAL){
-                console.log('testGetConfigurationPromise001 DIRECTION_VERTICAL');
-            }else if(cfg.direction == resourceManager.Direction.DIRECTION_HORIZONTAL){
-                console.log('testGetConfigurationPromise001 DIRECTION_HORIZONTAL');
-            }
-            expect(cfg !== null).assertTrue();
-            console.log('testGetConfigurationPromise001 ' + JSON.stringify(cfg));
-            done();
-        })
-    })
-
-
-     /* *
-    * @tc.number  TEST_GETPLURALSTRINGVALUERESOURCECALLBACK_001
-    * @tc.name    test getPluralStringValue method in callback mode
-    * @tc.desc    get the plural string in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetPluralStringValueResourceCallback001', 0, async function (done) {
-            context.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.plural.plural_name').id}, 1, (error, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringValueResourceCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetConfigurationPromise001', 0, async (done: Function) => {
+      context.resourceManager.getConfiguration().then(cfg => {
+        console.log('testGetConfigurationPromise001 ' + resourceManager.Direction.DIRECTION_HORIZONTAL);
+        if (cfg.direction == resourceManager.Direction.DIRECTION_VERTICAL) {
+          console.log('testGetConfigurationPromise001 DIRECTION_VERTICAL');
+        } else if (cfg.direction == resourceManager.Direction.DIRECTION_HORIZONTAL) {
+          console.log('testGetConfigurationPromise001 DIRECTION_HORIZONTAL');
+        }
+        expect(cfg !== null).assertTrue();
+        console.log('testGetConfigurationPromise001 ' + JSON.stringify(cfg));
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETPLURALSTRINGVALUERESOURCECALLBACK_001
+   * @tc.name    test getPluralStringValue method in callback mode
+   * @tc.desc    get the plural string in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetPluralStringValueResourceCallback001', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.plural.plural_name').id
+      }, 1, (error, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringValueResourceCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETPLURALSTRINGVALUERESOURCEPROMISE_001
     * @tc.name    test getPluralStringValue method in promise mode
@@ -837,16 +816,17 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetPluralStringValueResourcePromise001', 0, async function (done) {
-            context.resourceManager.getPluralStringValue({bundleName:"ohos.acts.global.crossplatform.resourceManager.normal",
-                moduleName:"entry_test",
-                id:$r('app.plural.plural_name').id}, 1).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringValueResourcePromise001 ' + value);
-            })
-        done();
-    })
-
+    it('testGetPluralStringValueResourcePromise001', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringValue({
+        bundleName: "ohos.acts.global.crossplatform.resourceManager.normal",
+        moduleName: "entry_test",
+        id: $r('app.plural.plural_name').id
+      }, 1).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringValueResourcePromise001 ' + value);
+      });
+      done();
+    });
     /* *
     * @tc.number  TEST_GETPLURALSTRINGVALUERESIDCALLBACK_001
     * @tc.name    test getPluralStringValue method in callback mode
@@ -855,15 +835,14 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetPluralStringValueResIdCallback001', 0, async function (done) {
-            context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1, (error, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringValueResIdCallback001 ' + value);
-                expect(value).assertEqual('1 test other');
-                done();
-            })
-    })
-
+    it('testGetPluralStringValueResIdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1, (error, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringValueResIdCallback001 ' + value);
+        expect(value).assertEqual('1 test other');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETPLURALSTRINGVALUERESIDPROMISE_001
     * @tc.name    test getPluralStringValue method in promise mode
@@ -872,15 +851,14 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetPluralStringValueResIdPromise001', 0, async function (done) {
-            context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringValueResIdPromise001 ' + value);
-                expect(value).assertEqual('1 test other');
-                done();
-            })
-    })
-
+    it('testGetPluralStringValueResIdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringValue($r('app.plural.plural_name').id, 1).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringValueResIdPromise001 ' + value);
+        expect(value).assertEqual('1 test other');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGBYNAMECALLBACK_001
     * @tc.name    test getStringByName method in callback mode
@@ -889,15 +867,14 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringByNameCallback001', 0, async function (done) {
-            context.resourceManager.getStringByName('test_1', (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStringByNameCallback001 ' + value);
-                expect(value).assertEqual('Test1');
-                done();
-            })
-    })
-
+    it('testGetStringByNameCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringByName('test_1', (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringByNameCallback001 ' + value);
+        expect(value).assertEqual('Test1');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGBYNAMEPromise_001
     * @tc.name    test getStringByName method in promise mode
@@ -906,39 +883,36 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringByNamePromise001', 0, async function (done) {
-            context.resourceManager.getStringByName('test_1').then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStringByNamePromise001 ' + value);
-                expect(value).assertEqual('Test1');
-                done();
-            })
-    })
-
-
-     /* *
-    * @tc.number  TEST_GETSTRINGARRAYBYNAMECALLBACK_001
-    * @tc.name    test getStringArrayByName method in callback mode
-    * @tc.desc    get the string array in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetStringArrayByNameCallback001', 0, async function (done) {
-            context.resourceManager.getStringArrayByName('sizeList', (err, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStringArrayByNameCallback001 ' + value);
-                console.log('testGetStringArrayByNameCallback001 ' + value.length);
-                console.log('testGetStringArrayByNameCallback001 ' + value[0]);
-                expect(value.length).assertEqual(4);
-                expect(value[0]).assertEqual('small');
-                expect(value[1]).assertEqual('middle');
-                expect(value[2]).assertEqual('large');
-                expect(value[3]).assertEqual('extra large');
-                done();
-            })
-    })
-
+    it('testGetStringByNamePromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringByName('test_1').then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringByNamePromise001 ' + value);
+        expect(value).assertEqual('Test1');
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETSTRINGARRAYBYNAMECALLBACK_001
+   * @tc.name    test getStringArrayByName method in callback mode
+   * @tc.desc    get the string array in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetStringArrayByNameCallback001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayByName('sizeList', (err, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringArrayByNameCallback001 ' + value);
+        console.log('testGetStringArrayByNameCallback001 ' + value.length);
+        console.log('testGetStringArrayByNameCallback001 ' + value[0]);
+        expect(value.length).assertEqual(4);
+        expect(value[0]).assertEqual('small');
+        expect(value[1]).assertEqual('middle');
+        expect(value[2]).assertEqual('large');
+        expect(value[3]).assertEqual('extra large');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETSTRINGARRAYBYNAMEPROMISE_001
     * @tc.name    test getStringArrayByName method in promise mode
@@ -947,22 +921,20 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringArrayByNamePromise001', 0, async function (done) {
-            context.resourceManager.getStringArrayByName('sizeList').then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetStringArrayByNamePromise001 ' + value);
-                console.log('testGetStringArrayByNamePromise001 ' + value.length);
-                console.log('testGetStringArrayByNamePromise001 ' + value[0]);
-                expect(value.length).assertEqual(4);
-                expect(value[0]).assertEqual('small');
-                expect(value[1]).assertEqual('middle');
-                expect(value[2]).assertEqual('large');
-                expect(value[3]).assertEqual('extra large');
-                done();
-            })
-    })
-
-
+    it('testGetStringArrayByNamePromise001', 0, async (done: Function) => {
+      context.resourceManager.getStringArrayByName('sizeList').then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetStringArrayByNamePromise001 ' + value);
+        console.log('testGetStringArrayByNamePromise001 ' + value.length);
+        console.log('testGetStringArrayByNamePromise001 ' + value[0]);
+        expect(value.length).assertEqual(4);
+        expect(value[0]).assertEqual('small');
+        expect(value[1]).assertEqual('middle');
+        expect(value[2]).assertEqual('large');
+        expect(value[3]).assertEqual('extra large');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIABYNAMECALLBACK_001
     * @tc.name    test getMediaByName method in callback mode
@@ -971,13 +943,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaByNameCallback001', 0, async function (done) {
-            context.resourceManager.getMediaByName('icon', (err, value) => {
-                expect(value.length > 0).assertTrue();
-                done();
-            })
-    })
-
+    it('testGetMediaByNameCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaByName('icon', (err, value) => {
+        expect(value.length > 0).assertTrue();
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIABYNAMEPROMISE_001
     * @tc.name    test getMediaByName method in promise mode
@@ -986,29 +957,27 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaByNamePromise001', 0, async function (done) {
-            context.resourceManager.getMediaByName('icon').then(value => {
-                expect(value.length > 0).assertTrue();
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST_GETMEDIABASE64BYNAMECALLBACK_001
-    * @tc.name    test getMediaBase64ByName method in callback mode
-    * @tc.desc    get the media base64 in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetMediaBase64ByNameCallback001', 0, async function (done) {
-            context.resourceManager.getMediaBase64ByName('icon', (err, value) => {
-                expect(value.length > 0).assertTrue();
-                console.log('testGetMediaBase64ByNameCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetMediaByNamePromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaByName('icon').then(value => {
+        expect(value.length > 0).assertTrue();
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETMEDIABASE64BYNAMECALLBACK_001
+   * @tc.name    test getMediaBase64ByName method in callback mode
+   * @tc.desc    get the media base64 in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetMediaBase64ByNameCallback001', 0, async (done: Function) => {
+      context.resourceManager.getMediaBase64ByName('icon', (err, value) => {
+        expect(value.length > 0).assertTrue();
+        console.log('testGetMediaBase64ByNameCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETMEDIABASE64BYNAMEPROMISE_001
     * @tc.name    test getMediaBase64ByName method in promise mode
@@ -1017,31 +986,29 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetMediaBase64ByNamePromise001', 0, async function (done) {
-            context.resourceManager.getMediaBase64ByName('icon').then(value => {
-                expect(value.length > 0).assertTrue();
-                console.log('testGetMediaBase64ByNamePromise001 ' + value);
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST_GETPLURALSTRINGBYNAMECALLBACK_001
-    * @tc.name    test getPluralStringByName method in callback mode
-    * @tc.desc    get the plural string in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetPluralStringByNameCallback001', 0, async function (done) {
-            context.resourceManager.getPluralStringByName('plural_name', 1, (error, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringByNameCallback001 ' + value);
-                expect(value).assertEqual('1 test other');
-                done();
-            })
-    })
-
+    it('testGetMediaBase64ByNamePromise001', 0, async (done: Function) => {
+      context.resourceManager.getMediaBase64ByName('icon').then(value => {
+        expect(value.length > 0).assertTrue();
+        console.log('testGetMediaBase64ByNamePromise001 ' + value);
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETPLURALSTRINGBYNAMECALLBACK_001
+   * @tc.name    test getPluralStringByName method in callback mode
+   * @tc.desc    get the plural string in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetPluralStringByNameCallback001', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringByName('plural_name', 1, (error, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringByNameCallback001 ' + value);
+        expect(value).assertEqual('1 test other');
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETPLURALSTRINGBYNAMEPROMISE_001
     * @tc.name    test getPluralStringByName method in promise mode
@@ -1050,31 +1017,29 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetPluralStringByName002', 0, async function (done) {
-            context.resourceManager.getPluralStringByName('plural_name', 1).then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetPluralStringByName002 ' + value);
-                expect(value).assertEqual('1 test other');
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST_GETSTRINGSYNCRESID_001
-    * @tc.name    test getStringSync method in sync mode
-    * @tc.desc    get the string in sync mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetStringSyncResId001', 0, async function (done) {
-            let value = context.resourceManager.getStringSync($r('app.string.test_1').id);
-            expect(value !== null).assertTrue();
-            console.log('testGetStringSyncResId001 ' + value);
-            expect(value).assertEqual('Test1');
-            done();
-    })
-
+    it('testGetPluralStringByName002', 0, async (done: Function) => {
+      context.resourceManager.getPluralStringByName('plural_name', 1).then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetPluralStringByName002 ' + value);
+        expect(value).assertEqual('1 test other');
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_GETSTRINGSYNCRESID_001
+   * @tc.name    test getStringSync method in sync mode
+   * @tc.desc    get the string in sync mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetStringSyncResId001', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringSync($r('app.string.test_1').id);
+      expect(value !== null).assertTrue();
+      console.log('testGetStringSyncResId001 ' + value);
+      expect(value).assertEqual('Test1');
+      done();
+    });
     /* *
    * @tc.number  TEST_GETSTRINGSYNCRESIDARGS_001
    * @tc.name    test getStringSync method in sync mode
@@ -1083,14 +1048,13 @@ describe('resourceManagerTest', function () {
    * @tc.type     method
    * @tc.level    level 2
    */
-    it('testGetStringSyncResIdArgs001', 0, async function (done) {
-        let value = context.resourceManager.getStringSync($r('app.string.test_2').id,2);
-        expect(value !== null).assertTrue();
-        console.log('testGetStringSyncResIdArgs001 ' + value);
-        expect(value).assertEqual('Test2');
-        done();
-    })
-
+    it('testGetStringSyncResIdArgs001', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringSync($r('app.string.test_2').id, 2);
+      expect(value !== null).assertTrue();
+      console.log('testGetStringSyncResIdArgs001 ' + value);
+      expect(value).assertEqual('Test2');
+      done();
+    });
     /* *
     * @tc.number TEST_GETSTRINGSYNCRESOURCE_001
     * @tc.name    test getStringSync method in sync mode
@@ -1099,16 +1063,16 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringSyncResource001', 0, async function (done) {
-            let value = context.resourceManager.getStringSync({bundleName:"com.example.resourcemanagertest",
-                moduleName:"entry_test",
-                id:$r('app.string.test_1').id});
-            expect(value !== null).assertTrue();
-            console.log('testGetStringSyncResource001 ' + value);
-        done();
-    })
-
-
+    it('testGetStringSyncResource001', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringSync({
+        bundleName: "com.example.resourcemanagertest",
+        moduleName: "entry_test",
+        id: $r('app.string.test_1').id
+      });
+      expect(value !== null).assertTrue();
+      console.log('testGetStringSyncResource001 ' + value);
+      done();
+    });
     /* *
     * @tc.number  TEST_GETSTRINGSYNCRESOURCEARGS_001
     * @tc.name    test getStringSync method in sync mode
@@ -1117,17 +1081,16 @@ describe('resourceManagerTest', function () {
     * @tc.type    method
     * @tc.level   level 2
     */
-    it('testGetStringSyncResourceArgs001', 0, async function (done) {
-        let value = context.resourceManager.getStringSync({bundleName:"com.example.resourcemanagertest",
-            moduleName:"entry_test",
-            id:$r('app.string.test_2').id},
-            2);
-        expect(value !== null).assertTrue();
-        console.log('testGetStringSyncResourceArgs001 ' + value);
-        done();
-    })
-
-
+    it('testGetStringSyncResourceArgs001', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringSync({
+        bundleName: "com.example.resourcemanagertest",
+        moduleName: "entry_test",
+        id: $r('app.string.test_2').id
+      }, 2);
+      expect(value !== null).assertTrue();
+      console.log('testGetStringSyncResourceArgs001 ' + value);
+      done();
+    });
     /* *
     * @tc.number  TEST-GETSTRINGBYNAMESYNC_001
     * @tc.name    test getStringByNameSync method in sync mode
@@ -1136,21 +1099,20 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringByNameSync001', 0, async function (done) {
-            try{
-                let value = context.resourceManager.getStringByNameSync('notexist');
-                console.log('testGetStringByNameSync001 value');
-                expect(value !== null).assertTrue();
-                console.log('testGetStringByNameSync001 ' + value);
-                done();
-            }catch(e){
-                console.log('testGetStringByNameSync001 err.code' + e.code);
-                console.log('testGetStringByNameSync001 err.message' + e.message);
-                expect(e.code == 9001003).assertTrue();
-                done();
-            }
-    })
-
+    it('testGetStringByNameSync001', 0, async (done: Function) => {
+      try {
+        let value = context.resourceManager.getStringByNameSync('notexist');
+        console.log('testGetStringByNameSync001 value');
+        expect(value !== null).assertTrue();
+        console.log('testGetStringByNameSync001 ' + value);
+        done();
+      } catch (e) {
+        console.log('testGetStringByNameSync001 err.code' + e.code);
+        console.log('testGetStringByNameSync001 err.message' + e.message);
+        expect(e.code == 9001003).assertTrue();
+        done();
+      }
+    });
     /* *
     * @tc.number  TEST-GETSTRINGBYNAMESYNC_002
     * @tc.name    test getStringByNameSync method in sync mode
@@ -1159,14 +1121,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringByNameSync002', 0, async function (done) {
-            let value = context.resourceManager.getStringByNameSync('test_1');
-            expect(value !== null).assertTrue();
-            expect(value).assertEqual('Test1');
-            console.log('testGetStringByNameSync002 ' + value);
-            done();
-    })
-
+    it('testGetStringByNameSync002', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringByNameSync('test_1');
+      expect(value !== null).assertTrue();
+      expect(value).assertEqual('Test1');
+      console.log('testGetStringByNameSync002 ' + value);
+      done();
+    });
     /* *
     * @tc.number  TEST-GETSTRINGBYNAMESYNCARGS_001
     * @tc.name    test getStringByNameSync method in sync mode
@@ -1175,30 +1136,27 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetStringByNameSyncArgs001', 0, async function (done) {
-        let value = context.resourceManager.getStringByNameSync('test_2',2);
-        expect(value !== null).assertTrue();
-        expect(value).assertEqual('Test2');
-        console.log('testGetStringByNameSyncArgs001 ' + value);
-        done();
-    })
-
-
-     /* *
-    * @tc.number  TEST-GETBOOLEANRESID_001
-    * @tc.name    test getBoolean method
-    * @tc.desc    get the boolean value
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testGetBooleanResId001', 0, async function (done) {
-            let value = context.resourceManager.getBoolean($r('app.boolean.boolean_1').id);
-            console.log('testGetBooleanResId001 ' + value);
-            expect(value!==null).assertTrue();
-            done();
-    })
-
+    it('testGetStringByNameSyncArgs001', 0, async (done: Function) => {
+      let value = context.resourceManager.getStringByNameSync('test_2', 2);
+      expect(value !== null).assertTrue();
+      expect(value).assertEqual('Test2');
+      console.log('testGetStringByNameSyncArgs001 ' + value);
+      done();
+    });
+    /* *
+   * @tc.number  TEST-GETBOOLEANRESID_001
+   * @tc.name    test getBoolean method
+   * @tc.desc    get the boolean value
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testGetBooleanResId001', 0, async (done: Function) => {
+      let value = context.resourceManager.getBoolean($r('app.boolean.boolean_1').id);
+      console.log('testGetBooleanResId001 ' + value);
+      expect(value !== null).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETBOOLEANRESOURCE_001
     * @tc.name    test getBoolean method
@@ -1207,15 +1165,16 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetBooleanResource001', 0, async function (done) {
-            let value = context.resourceManager.getBoolean({bundleName:"com.example.resourcemanagertest",
-                moduleName:"entry_test",
-                id:$r('app.boolean.boolean_1').id});
-            console.log('testGetBooleanResource001 ' + value);
-            expect(value !== null).assertTrue();
-            done();
-    })
-
+    it('testGetBooleanResource001', 0, async (done: Function) => {
+      let value = context.resourceManager.getBoolean({
+        bundleName: "com.example.resourcemanagertest",
+        moduleName: "entry_test",
+        id: $r('app.boolean.boolean_1').id
+      });
+      console.log('testGetBooleanResource001 ' + value);
+      expect(value !== null).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETBOOLEANBYNAME_001
     * @tc.name    test getBooleanByName method
@@ -1224,13 +1183,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetBooleanByName001', 0, async function (done) {
-            let value = context.resourceManager.getBooleanByName('boolean_1');
-            console.log('testGetBooleanByName001 ' + value);
-            expect(value).assertTrue();
-            done();
-    })
-
+    it('testGetBooleanByName001', 0, async (done: Function) => {
+      let value = context.resourceManager.getBooleanByName('boolean_1');
+      console.log('testGetBooleanByName001 ' + value);
+      expect(value).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERRESID_001
     * @tc.name    test getNumber method with interger id
@@ -1239,16 +1197,14 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberResId001', 0, async function (done) {
-            console.log('testGetNumberResId001 0');
-            let value = context.resourceManager.getNumber($r('app.integer.integer_1').id);
-            console.log('testGetNumberResId001 1');
-            console.log('testGetNumberResId001 ' + value);
-            expect(value).assertEqual(100);
-            done();
-    })
-
-
+    it('testGetNumberResId001', 0, async (done: Function) => {
+      console.log('testGetNumberResId001 0');
+      let value = context.resourceManager.getNumber($r('app.integer.integer_1').id);
+      console.log('testGetNumberResId001 1');
+      console.log('testGetNumberResId001 ' + value);
+      expect(value).assertEqual(100);
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERRESID_002
     * @tc.name    test getNumber with float id
@@ -1257,14 +1213,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberResId002', 0, async function (done) {
-        let value = context.resourceManager.getNumber($r('app.float.float_1').id);
-        console.log('testGetNumberResId002 ' + value);
-        expect(value > 0).assertTrue();
-        done();
-    })
-
-
+    it('testGetNumberResId002', 0, async (done: Function) => {
+      let value = context.resourceManager.getNumber($r('app.float.float_1').id);
+      console.log('testGetNumberResId002 ' + value);
+      expect(value > 0).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERRESOURCE_001
     * @tc.name    test getNumber method with interger id
@@ -1273,16 +1227,16 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberResource001', 0, async function (done) {
-            let value = context.resourceManager.getNumber({bundleName:"com.example.resourcemanagertest",
-                moduleName:"entry_test",
-                id:$r('app.integer.integer_1').id});
-            console.log('testGetNumberResource001 ' + value);
-            expect(value !== null).assertTrue();
-            done();
-    })
-
-    
+    it('testGetNumberResource001', 0, async (done: Function) => {
+      let value = context.resourceManager.getNumber({
+        bundleName: "com.example.resourcemanagertest",
+        moduleName: "entry_test",
+        id: $r('app.integer.integer_1').id
+      });
+      console.log('testGetNumberResource001 ' + value);
+      expect(value !== null).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERRESOURCE_002
     * @tc.name    test getNumber with float id
@@ -1291,17 +1245,16 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberResource002', 0, async function (done) {
-
-            let value = context.resourceManager.getNumber({bundleName:"com.example.resourcemanagertest",
-                moduleName:"entry_test",
-                id:$r('app.float.float_1').id});
-            console.log('testGetNumberResource002 ' + value);
-            expect(value !== null).assertTrue();
-            done();
-
-    })
-
+    it('testGetNumberResource002', 0, async (done: Function) => {
+      let value = context.resourceManager.getNumber({
+        bundleName: "com.example.resourcemanagertest",
+        moduleName: "entry_test",
+        id: $r('app.float.float_1').id
+      });
+      console.log('testGetNumberResource002 ' + value);
+      expect(value !== null).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERBYNAME_001
     * @tc.name    test getNumberByName with interger
@@ -1310,13 +1263,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberByName001', 0, async function (done) {
-            let value = context.resourceManager.getNumberByName('integer_1');
-            console.log('testGetNumberByName001 ' + value);
-            expect(value).assertEqual(100);
-            done();
-    })
-
+    it('testGetNumberByName001', 0, async (done: Function) => {
+      let value = context.resourceManager.getNumberByName('integer_1');
+      console.log('testGetNumberByName001 ' + value);
+      expect(value).assertEqual(100);
+      done();
+    });
     /* *
     * @tc.number  TEST_GETNUMBERBYNAME_002
     * @tc.name    test getNumberByName with float
@@ -1325,13 +1277,12 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetNumberByName002', 0, async function (done) {
-            let value = context.resourceManager.getNumberByName('float_1');
-            console.log('testGetNumberByName002 ' + value);
-            expect(value > 0).assertTrue();
-            done();
-    })
-
+    it('testGetNumberByName002', 0, async (done: Function) => {
+      let value = context.resourceManager.getNumberByName('float_1');
+      console.log('testGetNumberByName002 ' + value);
+      expect(value > 0).assertTrue();
+      done();
+    });
     /* *
     * @tc.number  TEST_GETRAWFILECONTENTCALLBACK_001
     * @tc.name    test getRawFile method in callback mode
@@ -1340,14 +1291,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetRawFileContentCallback001', 0, async function (done) {
-            context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml', (error, value) => {
-                expect(value !== null).assertTrue();
-                console.log('testGetRawFileContentCallback001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetRawFileContentCallback001', 0, async (done: Function) => {
+      context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml', (error, value) => {
+        expect(value !== null).assertTrue();
+        console.log('testGetRawFileContentCallback001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST_GETRAWFILECONTENTPROMISE_001
     * @tc.name    test getRawFile method in promise mode
@@ -1356,14 +1306,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetRawFileContentPromise001', 0, async function (done) {
-            context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml').then(value => {
-                expect(value !== null).assertTrue();
-                console.log('testGetRawFileContentPromise001 ' + value);
-                done();
-            })
-    })
-
+    it('testGetRawFileContentPromise001', 0, async (done: Function) => {
+      context.resourceManager.getRawFileContent('rawfile/rawfiletest.xml').then(value => {
+        expect(value !== null).assertTrue();
+        console.log('testGetRawFileContentPromise001 ' + value);
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST-GETRAWFDCALLBACK_001
     * @tc.name    test getRawFileDescriptor method in callback mode
@@ -1372,14 +1321,13 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetRawFdCallback001', 0, async function (done) {
-            context.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
-                expect(rawfile !== null).assertTrue();
-                console.log('testGetRawFdCallback001--' + JSON.stringify(rawfile));
-                done();
-            })
-    })
-
+    it('testGetRawFdCallback001', 0, async (done: Function) => {
+      context.resourceManager.getRawFd('rawfiletest.xml', (error, rawfile) => {
+        expect(rawfile !== null).assertTrue();
+        console.log('testGetRawFdCallback001--' + JSON.stringify(rawfile));
+        done();
+      });
+    });
     /* *
     * @tc.number  TEST-GETRAWFDPROMISE_001
     * @tc.name    test getRawFileDescriptor method in promise mode
@@ -1388,42 +1336,40 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testGetRawFdPromise001', 0, async function (done) {
-            context.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
-                expect(rawfile !== null).assertTrue();
-                console.log('testGetRawFdPromise001--' + JSON.stringify(rawfile));
-                done();
-            })
-    })
-
-     /* *
-    * @tc.number  TEST_CLOSERAWFDCALLBACK_001
-    * @tc.name    test closeRawFileDescriptor method in callback mode
-    * @tc.desc    get the closeRawFileDescriptor in callback mode
-    * @tc.size:    MediumTest
-    * @tc.type     method
-    * @tc.level    level 2
-    */
-    it('testCloseRawFdCallback001', 0, async function (done) {
-            try{
-                context.resourceManager.closeRawFd('notexist.xml', (error, value) => {
-                    if(error){
-                        console.log('testCloseRawFdCallback001 err.code:' + error.code);
-                        console.log('testCloseRawFdCallback001 err.message:' + error.message);
-                        expect(error.code == 9001005).assertTrue();
-                        done();
-                    }else{
-                        expect(value !== null).assertTrue();
-                        console.log('testCloseRawFdCallback001 ' + value);
-                        done();
-                    }
-                })
-            }catch(e){
-                console.log('testCloseRawFdCallback001 e.code' + e.code);
-                console.log('testCloseRawFdCallback001 e.message' + e.message);
-            }
-    })
-
+    it('testGetRawFdPromise001', 0, async (done: Function) => {
+      context.resourceManager.getRawFd('rawfiletest.xml').then(rawfile => {
+        expect(rawfile !== null).assertTrue();
+        console.log('testGetRawFdPromise001--' + JSON.stringify(rawfile));
+        done();
+      });
+    });
+    /* *
+   * @tc.number  TEST_CLOSERAWFDCALLBACK_001
+   * @tc.name    test closeRawFileDescriptor method in callback mode
+   * @tc.desc    get the closeRawFileDescriptor in callback mode
+   * @tc.size:    MediumTest
+   * @tc.type     method
+   * @tc.level    level 2
+   */
+    it('testCloseRawFdCallback001', 0, async (done: Function) => {
+      try {
+        context.resourceManager.closeRawFd('notexist.xml', (error, value) => {
+          if (error) {
+            console.log('testCloseRawFdCallback001 err.code:' + error.code);
+            console.log('testCloseRawFdCallback001 err.message:' + error.message);
+            expect(error.code == 9001005).assertTrue();
+            done();
+          } else {
+            expect(value !== null).assertTrue();
+            console.log('testCloseRawFdCallback001 ' + value);
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('testCloseRawFdCallback001 e.code' + e.code);
+        console.log('testCloseRawFdCallback001 e.message' + e.message);
+      }
+    });
     /* *
     * @tc.number  TEST_CLOSERAWFDPROMISE_001
     * @tc.name    test closeRawFd method in promise mode throw 9001005 error code
@@ -1432,24 +1378,24 @@ describe('resourceManagerTest', function () {
     * @tc.type     method
     * @tc.level    level 2
     */
-    it('testCloseRawFdPromise001', 0, async function (done) {
-            try {
-                // param not exist throw 9001005 error code
-                context.resourceManager.closeRawFd('notexist.xml').then(value => {
-                    console.log('testCloseRawFdPromise001 ' + value);
-                    done();
-                }).catch(error => {
-                    console.log('testCloseRawFdPromise001 error.code' + error.code);
-                    console.log('testCloseRawFdPromise001 error.message' + error.message);
-                    expect(error.code == 9001005).assertTrue();
-                    done();
-                })
-            } catch (err) {
-                console.log('testCloseRawFdPromise001 err.code' + err.code);
-                console.log('testCloseRawFdPromise001 err.message' + err.message);
-                done();
-            }
-    })
-   
-     console.log('*************end ResmgrTest*************');
-})}
+    it('testCloseRawFdPromise001', 0, async (done: Function) => {
+      try {
+        // param not exist throw 9001005 error code
+        context.resourceManager.closeRawFd('notexist.xml').then(value => {
+          console.log('testCloseRawFdPromise001 ' + value);
+          done();
+        }).catch((error: BusinessError) => {
+          console.log('testCloseRawFdPromise001 error.code' + error.code);
+          console.log('testCloseRawFdPromise001 error.message' + error.message);
+          expect(error.code == 9001005).assertTrue();
+          done();
+        });
+      } catch (err) {
+        console.log('testCloseRawFdPromise001 err.code' + err.code);
+        console.log('testCloseRawFdPromise001 err.message' + err.message);
+        done();
+      }
+    });
+    console.log('*************end ResmgrTest*************');
+  })
+}
