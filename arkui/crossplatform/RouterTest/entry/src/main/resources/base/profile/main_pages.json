@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/replaceUrl/ReplaceUrl_OneParameter_Promise",
+    "pages/replaceUrl/TestPage",
+    "pages/replaceUrl/ReplaceUrl_OneParameter_Callback",
+    "pages/replaceUrl/ReplaceUrl_TwoParameter_Promise",
+    "pages/replaceUrl/ReplaceUrl_TwoParameter_Callback",
+    "pages/back/Back_OneParameter",
+    "pages/back/BackPage",
+    "pages/back/Back_TwoParameter"
+  ]
+}
