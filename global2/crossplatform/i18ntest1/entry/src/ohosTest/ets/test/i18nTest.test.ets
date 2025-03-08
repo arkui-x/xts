@@ -3,8 +3,11 @@ import I18n from '@ohos.i18n'
 import Intl from '@ohos.intl'
 import { BusinessError } from '@ohos.base';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import Device from '@system.device';
 import deviceInfo from '@ohos.deviceInfo';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function i18nTest() {
   describe('i18nTest', () => {
@@ -80,14 +83,16 @@ export default function i18nTest() {
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
     })
-    afterEach(() => {
+    afterEach(async () => {
       // Presets a clear action, which is performed after each unit test case ends.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
+      await sleep(1000)
     })
-    afterAll(() => {
+    afterAll(async () => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
+      await sleep(2000)
     })
 
     /**
