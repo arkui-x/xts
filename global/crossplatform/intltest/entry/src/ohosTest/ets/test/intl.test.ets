@@ -17,10 +17,17 @@ import I18n from "@ohos.i18n";
 import Intl from "@ohos.intl";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 
-export default function intlTest() {
-  describe("intlTest", function () {
-    console.log("*************start IntlTest*************");
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+export default function intlTest() {
+  describe("intlTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
+    console.log("*************start IntlTest*************");
     /* *
      * @tc.number: LOCALE_TEST_001
      * @tc.name  : test the language in en-Latn-GB locale
@@ -29,12 +36,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest001", 0, function () {
+    it("localeTest001", 0, () => {
       let locale = new Intl.Locale("en-Latn-GB");
       console.log("LOCALE_TEST_001 " + locale.language);
       expect(locale.language).assertEqual("en");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_002
      * @tc.name  : test the numeric with false value
@@ -43,12 +49,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest002", 0, function () {
+    it("localeTest002", 0, () => {
       let locale = new Intl.Locale("en-Latn-GB", undefined);
       console.log("LOCALE_TEST_002 " + locale.numeric);
       expect(locale.numeric).assertFalse();
     });
-
     /* *
      * @tc.number: LOCALE_TEST_003
      * @tc.name  : test the script in locale
@@ -57,12 +62,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest003", 0, function () {
+    it("localeTest003", 0, () => {
       let locale = new Intl.Locale("en-Latn-GB");
       console.log("LOCALE_TEST_003 " + locale.script);
       expect(locale.script).assertEqual("Latn");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_004
      * @tc.name  : test the region in locale
@@ -71,12 +75,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest004", 0, function () {
+    it("localeTest004", 0, () => {
       let locale = new Intl.Locale("en-Latn-GB");
       console.log("LOCALE_TEST_004 " + locale.region);
       expect(locale.region).assertEqual("GB");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_005
      * @tc.name  : test the basename in locale
@@ -85,12 +88,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest005", 0, function () {
+    it("localeTest005", 0, () => {
       let locale = new Intl.Locale("en-Latn-GB");
       console.log("LOCALE_TEST_005 " + locale.baseName);
       expect(locale.baseName).assertEqual("en-Latn-GB");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_006
      * @tc.name  : test the hourCycle
@@ -99,12 +101,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest006", 0, function () {
-      let locale = new Intl.Locale("zh-CN", { hourCycle: "h24", calendar: "gregory" });
+    it("localeTest006", 0, () => {
+      let locale = new Intl.Locale("zh-CN", {
+        hourCycle: "h24", calendar: "gregory"
+      });
       console.log("LOCALE_TEST_006 " + locale.hourCycle);
       expect(locale.hourCycle).assertEqual("h24");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_007
      * @tc.name  : test the calendar
@@ -113,12 +116,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest007", 0, function () {
-      let locale = new Intl.Locale("zh-CN", { hourCycle: "h24", calendar: "gregory" });
+    it("localeTest007", 0, () => {
+      let locale = new Intl.Locale("zh-CN", {
+        hourCycle: "h24", calendar: "gregory"
+      });
       console.log("LOCALE_TEST_007 " + locale.calendar);
       expect(locale.calendar).assertEqual("gregory");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_008
      * @tc.name  : test the japanese calendar
@@ -127,12 +131,11 @@ export default function intlTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("localeTest008", 0, function () {
+    it("localeTest008", 0, () => {
       let locale = new Intl.Locale("ja-Jpan-JP-u-ca-japanese-hc-h12");
       console.log("LOCALE_TEST_008 " + locale.calendar);
       expect(locale.calendar).assertEqual("japanese");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_009
      * @tc.name  : test the h12 hourCycle
@@ -141,12 +144,11 @@ export default function intlTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("localeTest009", 0, function () {
+    it("localeTest009", 0, () => {
       let locale = new Intl.Locale("ja-Jpan-JP-u-ca-japanese-hc-h12");
       console.log("LOCALE_TEST_009 " + locale.hourCycle);
       expect(locale.hourCycle).assertEqual("h12");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_010
      * @tc.name  : test the caseFirst with upper
@@ -155,12 +157,13 @@ export default function intlTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("localeTest010", 0, function () {
-      let locale = new Intl.Locale("ja-Jpan-JP", { caseFirst: "upper" });
+    it("localeTest010", 0, () => {
+      let locale = new Intl.Locale("ja-Jpan-JP", {
+        caseFirst: "upper"
+      });
       console.log("LOCALE_TEST_010 " + locale.caseFirst);
       expect(locale.caseFirst).assertEqual("upper");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_011
      * @tc.name  : test the collation
@@ -169,12 +172,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest011", 0, function () {
-      let locale = new Intl.Locale("ja-Jpan-JP", { collation: "big5han" });
+    it("localeTest011", 0, () => {
+      let locale = new Intl.Locale("ja-Jpan-JP", {
+        collation: "big5han"
+      });
       console.log("LOCALE_TEST_011 " + locale.collation);
       expect(locale.collation).assertEqual("big5han");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_012
      * @tc.name  : test the numeric with true value
@@ -183,12 +187,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest012", 0, function () {
-      let locale = new Intl.Locale("ja-Jpan-JP", { numeric: true });
+    it("localeTest012", 0, () => {
+      let locale = new Intl.Locale("ja-Jpan-JP", {
+        numeric: true
+      });
       console.log("LOCALE_TEST_012 " + locale.numeric);
       expect(locale.numeric).assertTrue();
     });
-
     /* *
      * @tc.number: LOCALE_TEST_013
      * @tc.name  : test the numberingSystem
@@ -197,12 +202,13 @@ export default function intlTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      */
-    it("LOCALE_TEST_013", 0, function () {
-      let locale = new Intl.Locale("ja-Jpan-JP", { numberingSystem: "arab" });
+    it("LOCALE_TEST_013", 0, () => {
+      let locale = new Intl.Locale("ja-Jpan-JP", {
+        numberingSystem: "arab"
+      });
       console.log("LOCALE_TEST_013 " + locale.numberingSystem);
       expect(locale.numberingSystem).assertEqual("arab");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_014
      * @tc.name  : test the toString interface with zh
@@ -211,12 +217,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest014", 0, function () {
+    it("localeTest014", 0, () => {
       let locale = new Intl.Locale("zh");
       console.log("LOCALE_TEST_14 " + locale.toString());
       expect(locale.toString()).assertEqual("zh");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_015
      * @tc.name  : test the toString interface with zh-CN
@@ -225,12 +230,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest015", 0, function () {
+    it("localeTest015", 0, () => {
       let locale = new Intl.Locale("zh-CN");
       console.log("LOCALE_TEST_015 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-CN");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_016
      * @tc.name  : test the toString interface with zh-Hans-CN
@@ -239,12 +243,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest016", 0, function () {
+    it("localeTest016", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN");
       console.log("LOCALE_TEST_016 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-Hans-CN");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_017
      * @tc.name  : test the toString interface with zh-Hans-CN-u-hc-h12-ca-japanese
@@ -253,12 +256,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest017", 0, function () {
+    it("localeTest017", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN-u-ca-japanese-hc-h12");
       console.log("LOCALE_TEST_017 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-Hans-CN-u-hc-h12-ca-japanese");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_018
      * @tc.name  : test the maximize interface with zh-u-ca-gregory-co-compact param
@@ -267,12 +269,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest018", 0, function () {
-      let locale = new Intl.Locale("zh", { calendar: "gregory", collation: "compact" });
+    it("localeTest018", 0, () => {
+      let locale = new Intl.Locale("zh", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_018 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_019
      * @tc.name  : test the toString interface with zh-CN-u-ca-gregory-co-compact param
@@ -281,12 +284,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest019", 0, function () {
-      let locale = new Intl.Locale("zh-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest019", 0, () => {
+      let locale = new Intl.Locale("zh-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_019 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_020
      * @tc.name  : test the toString interface with zh-hans-CN-u-ca-gregory-co-compact param
@@ -295,12 +299,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest020", 0, function () {
-      let locale = new Intl.Locale("zh-hans-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest020", 0, () => {
+      let locale = new Intl.Locale("zh-hans-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_020 " + locale.toString());
       expect(locale.toString()).assertEqual("zh-hans-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_021
      * @tc.name  : test the minimize interface with one param zh
@@ -309,12 +314,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest021", 0, function () {
+    it("localeTest021", 0, () => {
       let locale = new Intl.Locale("zh");
       console.log("LOCALE_TEST_021 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_022
      * @tc.name  : test the minimize interface with one param zh-CN
@@ -323,12 +327,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest022", 0, function () {
+    it("localeTest022", 0, () => {
       let locale = new Intl.Locale("zh-CN");
       console.log("LOCALE_TEST_022 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_023
      * @tc.name  : test the minimize interface with one param zh-Hans-CN
@@ -337,12 +340,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest023", 0, function () {
+    it("localeTest023", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN");
       console.log("LOCALE_TEST_023 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_024
      * @tc.name  : test the minimize interface with one param zh-Hans-CN-u-ca-gregory-co-compact
@@ -351,12 +353,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest024", 0, function () {
+    it("localeTest024", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN-u-ca-gregory-co-compact");
       console.log("LOCALE_TEST_024 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_025
      * @tc.name  : test the minimize interface with zh lcoale
@@ -365,12 +366,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest025", 0, function () {
-      let locale = new Intl.Locale("zh", { calendar: "gregory", collation: "compact" });
+    it("localeTest025", 0, () => {
+      let locale = new Intl.Locale("zh", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_025 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_026
      * @tc.name  : test the minimize interface with zh-CN lcoale
@@ -379,12 +381,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest026", 0, function () {
-      let locale = new Intl.Locale("zh-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest026", 0, () => {
+      let locale = new Intl.Locale("zh-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_026 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_027
      * @tc.name  : test the minimize interface with zh-Hans-CN lcoale
@@ -393,12 +396,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest027", 0, function () {
-      let locale = new Intl.Locale("zh-hans-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest027", 0, () => {
+      let locale = new Intl.Locale("zh-hans-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_027 " + locale.minimize().toString());
       expect(locale.minimize().toString()).assertEqual("zh-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_028
      * @tc.name  : test the maximize interface with one param zh
@@ -407,12 +411,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest028", 0, function () {
+    it("localeTest028", 0, () => {
       let locale = new Intl.Locale("zh");
       console.log("LOCALE_TEST_028 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_029
      * @tc.name  : test the maximize interface with one param zh-CN
@@ -421,12 +424,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest029", 0, function () {
+    it("localeTest029", 0, () => {
       let locale = new Intl.Locale("zh-CN");
       console.log("LOCALE_TEST_029 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_030
      * @tc.name  : test the maximize interface with one param zh-Hans-CN-u-ca-gregory-co-compact
@@ -435,12 +437,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest030", 0, function () {
+    it("localeTest030", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN");
       console.log("LOCALE_TEST_030 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_031
      * @tc.name  : test the maximize interface with zh-Hans-CN-u-ca-gregory-co-compact locale
@@ -449,12 +450,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest031", 0, function () {
+    it("localeTest031", 0, () => {
       let locale = new Intl.Locale("zh-Hans-CN-u-ca-gregory-co-compact");
       console.log("LOCALE_TEST_031 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_032
      * @tc.name  : test the maximize interface with zh locale
@@ -463,12 +463,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest032", 0, function () {
-      let locale = new Intl.Locale("zh", { calendar: "gregory", collation: "compact" });
+    it("localeTest032", 0, () => {
+      let locale = new Intl.Locale("zh", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_032 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_033
      * @tc.name  : test the maximize interface with zh-CN locale
@@ -477,12 +478,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest033", 0, function () {
-      let locale = new Intl.Locale("zh-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest033", 0, () => {
+      let locale = new Intl.Locale("zh-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_033 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: LOCALE_TEST_034
      * @tc.name  : test the maximize interface with zh-Hans-CN locale
@@ -491,12 +493,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("localeTest034", 0, function () {
-      let locale = new Intl.Locale("zh-Hans-CN", { calendar: "gregory", collation: "compact" });
+    it("localeTest034", 0, () => {
+      let locale = new Intl.Locale("zh-Hans-CN", {
+        calendar: "gregory", collation: "compact"
+      });
       console.log("LOCALE_TEST_034 " + locale.maximize().toString());
       expect(locale.maximize().toString()).assertEqual("zh-Hans-CN-u-ca-gregory-co-compact");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_001
      * @tc.name  : format the datetime with en-GB locale
@@ -505,11 +508,10 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest001", 0, function () {
+    it("dateTimeFormatTest001", 0, () => {
       let datefmt = new Intl.DateTimeFormat("en-GB");
       expect(datefmt !== null).assertTrue();
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_002
      * @tc.name  : format the datetime with en-GB locale
@@ -518,11 +520,10 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest002", 0, function () {
+    it("dateTimeFormatTest002", 0, () => {
       let datefmt = new Intl.DateTimeFormat();
       expect(datefmt !== null).assertTrue();
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_003
      * @tc.name  : format the date with zh locale
@@ -531,13 +532,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest003", 0, function () {
+    it("dateTimeFormatTest003", 0, () => {
       let date = new Date(2021, 11, 17, 3, 24, 0);
       let datefmt = new Intl.DateTimeFormat("zh");
       console.log("DATE_TIME_FORMAT_TEST_003 " + datefmt.format(date));
       expect(datefmt.format(date)).assertContain("2021");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_004
      * @tc.name  : format the date with en locale
@@ -546,13 +546,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest004", 0, function () {
+    it("dateTimeFormatTest004", 0, () => {
       let date = new Date(2021, 11, 17, 3, 24, 0);
       let datefmt = new Intl.DateTimeFormat("en");
       console.log("DATE_TIME_FORMAT_TEST_004 " + datefmt.format(date));
       expect(datefmt.format(date)).assertContain("21");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_005
      * @tc.name  : format the date with en-US locale
@@ -561,13 +560,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest005", 0, function () {
+    it("dateTimeFormatTest005", 0, () => {
       let date = new Date(2021, 11, 17, 3, 24, 0);
       let datefmt = new Intl.DateTimeFormat("en-US");
       console.log("DATE_TIME_FORMAT_TEST_005 " + datefmt.format(date));
       expect(datefmt.format(date)).assertContain("21");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_007
      * @tc.name  : format the date with aa locale
@@ -576,14 +574,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest007", 0, function () {
+    it("dateTimeFormatTest007", 0, () => {
       let date = new Date(2021, 11, 17, 3, 24, 0);
       let datefmt = new Intl.DateTimeFormat("aa");
       let value = datefmt.format(date);
       console.log("DATE_TIME_FORMAT_TEST_007 " + value);
       expect(value).assertInstanceOf("String");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_008
      * @tc.name  : format the hour with ban and zh locale
@@ -592,14 +589,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest008", 0, function () {
+    it("dateTimeFormatTest008", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { dateStyle: "full" };
-      let datefmt = new Intl.DateTimeFormat(["ban", "zh"], option);
+      let datefmt = new Intl.DateTimeFormat(["ban", "zh"], {
+        dateStyle: "full"
+      });
       console.log("DATE_TIME_FORMAT_TEST_008 " + datefmt.format(date));
       expect(datefmt.format(date)).assertEqual("2020年12月20日星期日");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_009
      * @tc.name  : format the hour with zh-Hans-CN locale
@@ -608,14 +605,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest009", 0, function () {
+    it("dateTimeFormatTest009", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { dateStyle: "full", timeStyle: "full" };
-      let datefmt = new Intl.DateTimeFormat("zh-Hans-CN", option);
+      let datefmt = new Intl.DateTimeFormat("zh-Hans-CN", {
+        dateStyle: "full", timeStyle: "full"
+      });
       console.log("DATE_TIME_FORMAT_TEST_009 " + datefmt.format(date));
       expect(datefmt.format(date)).assertContain("2020年12月20日星期日");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_010
      * @tc.name  : format the hour with zh-CN locale
@@ -624,15 +621,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest010", 0, function () {
+    it("dateTimeFormatTest010", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { dateStyle: "long", timeStyle: "long" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN", option);
+      let datefmt = new Intl.DateTimeFormat("zh-CN",  {
+        dateStyle: "long", timeStyle: "long"
+      });
       console.log("DATE_TIME_FORMAT_TEST_010 " + datefmt.resolvedOptions().dateStyle);
       expect(datefmt.resolvedOptions().dateStyle).assertEqual("long");
       expect(datefmt.format(date)).assertContain("2020年12月20日");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_011
      * @tc.name  : format the date dateStyle with medium style
@@ -641,15 +638,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest011", 0, function () {
+    it("dateTimeFormatTest011", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { dateStyle: "medium", timeStyle: "medium" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN", option);
+      let datefmt = new Intl.DateTimeFormat("zh-CN", {
+        dateStyle: "medium", timeStyle: "medium"
+      });
       console.log("DATE_TIME_FORMAT_TEST_011 " + datefmt.resolvedOptions().dateStyle);
       expect(datefmt.resolvedOptions().dateStyle).assertEqual("medium");
       expect(datefmt.format(date)).assertContain("2020年12月20日");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_012
      * @tc.name  : format the date dateStyle with short style
@@ -658,15 +655,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest012", 0, function () {
+    it("dateTimeFormatTest012", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { dateStyle: "short", timeStyle: "short" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN", option);
+      let datefmt = new Intl.DateTimeFormat("zh-CN", {
+        dateStyle: "short", timeStyle: "short"
+      });
       console.log("DATE_TIME_FORMAT_TEST_012 " + datefmt.resolvedOptions().dateStyle);
       expect(datefmt.resolvedOptions().dateStyle).assertEqual("short");
       expect(datefmt.format(date)).assertContain("2020/12/20");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_015
      * @tc.name  : format the year、month、day、weekday
@@ -675,10 +672,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("dateTimeFormatTest015", 0, function () {
+    it("dateTimeFormatTest015", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { year: "numeric", month: "long", day: "numeric", weekday: "long" };
-      let datefmt = new Intl.DateTimeFormat("ja", option);
+      let datefmt = new Intl.DateTimeFormat("ja", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long"
+      });
       const result = datefmt.format(date);
       //ios乱码表现形式:
       //2020\M-C\M^B\M-O\M^@\M-B\M-%12\M-C\M^J\M-C\M-:\M-C\24020\M-C\M^J\M-C\M-3\M-b\M^@\M-"\M-C\M^J\M-C\M-2\M-C\M-<\M-C\M^J\M-C\M-:\M-C\M-<\M-C\M^J\M-C\M-3\M-b\M^@\M-";
@@ -687,7 +688,6 @@ export default function intlTest() {
       const exceptResult = androidOhResult || iosResult;
       expect(exceptResult).assertTrue();
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_017
      * @tc.name  : format the hour&minute&second
@@ -696,14 +696,21 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("dateTimeFormatTest017", 0, function () {
+    it("dateTimeFormatTest017", 0, () => {
       let date = new Date(2020, 11, 20, 14, 23, 16);
-      let option = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit", second: "numeric", weekday: "long", era: "short" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
+      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "numeric",
+        weekday: "long",
+        era: "short"
+      });
       console.log("DATE_TIME_FORMAT_TEST_017 " + datefmt.format(date));
       expect(datefmt.format(date)).assertContain("公元2020年12月20日星期日");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_018
      * @tc.name  : format the timeZone
@@ -712,14 +719,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("dateTimeFormatTest018", 0, function () {
+    it("dateTimeFormatTest018", 0, () => {
       let date = new Date(2020, 3, 14, 15, 5, 3);
-      let option = { timeZone: "America/Los_Angeles", timeZoneName: "long" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
+      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", {
+        timeZone: "America/Los_Angeles", timeZoneName: "long"
+      });
       console.log("DATE_TIME_FORMAT_TEST_018 " + datefmt.format(date));
       expect(datefmt.format(date).indexOf("北美太平洋夏令时间") !== -1).assertTrue();
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_019
      * @tc.name  : format the America/Los_Angeles timeZone
@@ -728,13 +735,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest019", 0, function () {
-      let option = { timeZone: "America/Los_Angeles", timeZoneName: "long" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
+    it("dateTimeFormatTest019", 0, () => {
+      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", {
+        timeZone: "America/Los_Angeles", timeZoneName: "long"
+      });
       console.log("DATE_TIME_FORMAT_TEST_019 " + datefmt.resolvedOptions().timeZone);
       expect(datefmt.resolvedOptions().timeZone).assertEqual("America/Los_Angeles");
     });
-
     /* *
      * @tc.number: DATE_TIME_FORMAT_TEST_020
      * @tc.name  : format the America/Los_Angeles timeZoneName
@@ -743,13 +750,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("dateTimeFormatTest020", 0, function () {
-      let option = { timeZone: "America/Los_Angeles", timeZoneName: "long" };
-      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", option);
+    it("dateTimeFormatTest020", 0, () => {
+      let datefmt = new Intl.DateTimeFormat("zh-CN-u-hc-h12", {
+        timeZone: "America/Los_Angeles", timeZoneName: "long"
+      });
       console.log("DATE_TIME_FORMAT_TEST_020 " + datefmt.resolvedOptions().timeZoneName);
       expect(datefmt.resolvedOptions().timeZoneName).assertEqual("long");
     });
-
     // /* *
     //  * @tc.number: DATE_TIME_FORMAT_TEST_021
     //  * @tc.name  : format the hour in zh-CN-u-hc-h12 with matcher
@@ -774,7 +781,6 @@ export default function intlTest() {
     //   expect(datefmt.resolvedOptions().formatMatcher).assertEqual("basic");
     //   expect(datefmt.resolvedOptions().localeMatcher).assertEqual("lookup");
     // });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_001
      * @tc.name  : format the number in zh
@@ -783,12 +789,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest001", 0, function () {
+    it("numberFormatTest001", 0, () => {
       let numfmt = new Intl.NumberFormat("zh");
       console.log("NUMBER_FORMAT_TEST_001 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_002
      * @tc.name  : format the number with default locale
@@ -797,11 +802,10 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest002", 0, function () {
+    it("numberFormatTest002", 0, () => {
       let numfmt = new Intl.NumberFormat();
       expect(numfmt !== null).assertTrue();
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_003
      * @tc.name  : format the number in zh-u-nu-latn
@@ -810,12 +814,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest003", 0, function () {
+    it("numberFormatTest003", 0, () => {
       let numfmt = new Intl.NumberFormat("zh-u-nu-latn");
       console.log("NUMBER_FORMAT_TEST_003 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_005
      * @tc.name  : format the number in en
@@ -824,12 +827,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest005", 0, function () {
+    it("numberFormatTest005", 0, () => {
       let numfmt = new Intl.NumberFormat("en");
       console.log("NUMBER_FORMAT_TEST_005 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_007
      * @tc.name  : format the number in en-GB
@@ -838,12 +840,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest007", 0, function () {
+    it("numberFormatTest007", 0, () => {
       let numfmt = new Intl.NumberFormat("en-GB");
       console.log("NUMBER_FORMAT_TEST_007 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_008
      * @tc.name  : format the number in en-US
@@ -852,12 +853,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest008", 0, function () {
+    it("numberFormatTest008", 0, () => {
       let numfmt = new Intl.NumberFormat("en-US");
       console.log("NUMBER_FORMAT_TEST_008 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_009
      * @tc.name  : format the number in zh and en list
@@ -866,12 +866,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest009", 0, function () {
+    it("numberFormatTest009", 0, () => {
       let numfmt = new Intl.NumberFormat(["zh", "en"]);
       console.log("NUMBER_FORMAT_TEST_0900 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_010
      * @tc.name  : format the number in en and zh list
@@ -880,12 +879,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest010", 0, function () {
+    it("numberFormatTest010", 0, () => {
       let numfmt = new Intl.NumberFormat(["en", "zh"]);
       console.log("NUMBER_FORMAT_TEST_010 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_011
      * @tc.name  : format the number in en and aa list
@@ -894,12 +892,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest011", 0, function () {
+    it("numberFormatTest011", 0, () => {
       let numfmt = new Intl.NumberFormat(["en", "aa"]);
       console.log("NUMBER_FORMAT_TEST_011 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_012
      * @tc.name  : format the number in aa and zh list
@@ -908,12 +905,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest012", 0, function () {
+    it("numberFormatTest012", 0, () => {
       let numfmt = new Intl.NumberFormat(["aa", "zh"]);
       console.log("NUMBER_FORMAT_TEST_1200 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_013
      * @tc.name  : format the number in aa and bb list
@@ -922,12 +918,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest013", 0, function () {
+    it("numberFormatTest013", 0, () => {
       let numfmt = new Intl.NumberFormat(["aa", "bb", "es"]);
       console.log("NUMBER_FORMAT_TEST_1400 " + numfmt.format(123456.789));
       expect(["123.456,789", "123,456.789"].indexOf(numfmt.format(123456.789)) != -1).assertTrue();
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_014
      * @tc.name  : format the number in aa bb and es list
@@ -936,12 +931,11 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest014", 0, function () {
+    it("numberFormatTest014", 0, () => {
       let numfmt = new Intl.NumberFormat(["aa", "it", "bb"]);
       console.log("NUMBER_FORMAT_TEST_014 " + numfmt.format(123456.789));
       expect(["123.456,789", "123,456.789"].indexOf(numfmt.format(123456.789)) != -1).assertTrue();
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_015
      * @tc.name  : format the number in aa it and bb list
@@ -950,14 +944,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest015", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-GB", { style: "decimal", notation: "scientific" });
+    it("numberFormatTest015", 0, () => {
+      let numfmt = new Intl.NumberFormat("en-GB", {
+        style: "decimal", notation: "scientific"
+      });
       console.log("NUMBER_FORMAT_TEST_015 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("1.234568E5");
       expect(numfmt.resolvedOptions().style).assertEqual("decimal");
       expect(numfmt.resolvedOptions().notation).assertEqual("scientific");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_017
      * @tc.name  : format the number with currency USD
@@ -966,13 +961,18 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest017", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", currencyDisplay: "code", currencySign: "accounting", signDisplay: "always" });
+    it("numberFormatTest017", 0, () => {
+      let numfmt = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "code",
+        currencySign: "accounting",
+        signDisplay: "always"
+      });
       console.log("NUMBER_FORMAT_TEST_017 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertContain("+USD");
       expect(numfmt.format(123456.789)).assertContain("123,456.79");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_018
      * @tc.name  : format the number with currency CNY
@@ -981,12 +981,17 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest018", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-CN", { style: "currency", currency: "CNY", currencyDisplay: "symbol", currencySign: "accounting", signDisplay: "always" });
+    it("numberFormatTest018", 0, () => {
+      let numfmt = new Intl.NumberFormat("zh-CN", {
+        style: "currency",
+        currency: "CNY",
+        currencyDisplay: "symbol",
+        currencySign: "accounting",
+        signDisplay: "always"
+      });
       console.log("NUMBER_FORMAT_TEST_018 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("+¥123,456.79");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_019
      * @tc.name  : format the number with currency JPY
@@ -995,8 +1000,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest019", 0, function () {
-      let numfmt = new Intl.NumberFormat("ja-JP", { style: "currency", currency: "JPY", currencyDisplay: "narrowSymbol", currencySign: "accounting", signDisplay: "always" });
+    it("numberFormatTest019", 0, () => {
+      let numfmt = new Intl.NumberFormat("ja-JP", {
+        style: "currency",
+        currency: "JPY",
+        currencyDisplay: "narrowSymbol",
+        currencySign: "accounting",
+        signDisplay: "always"
+      });
       //ios乱码表现形式
       //+\M-B\M-,\M-b\M^@\M-"123,457;
       const result = numfmt.format(123456.789);
@@ -1005,7 +1016,6 @@ export default function intlTest() {
       const expectResult = iosResult || androidOhResult;
       expect(expectResult).assertTrue();
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_021
      * @tc.name  : format the number with  meter unit
@@ -1014,15 +1024,20 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest021", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-CN", { style: "unit", unit: "meter", unitDisplay: "long", maximumFractionDigits: 2, minimumIntegerDigits: 7 });
+    it("numberFormatTest021", 0, () => {
+      let numfmt = new Intl.NumberFormat("zh-CN", {
+        style: "unit",
+        unit: "meter",
+        unitDisplay: "long",
+        maximumFractionDigits: 2,
+        minimumIntegerDigits: 7
+      });
       console.log("NUMBER_FORMAT_TEST_021 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("0,123,456.79米");
       expect(numfmt.resolvedOptions().style).assertEqual("unit");
       expect(numfmt.resolvedOptions().unit).assertEqual("meter");
       expect(numfmt.resolvedOptions().unitDisplay).assertEqual("long");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_022
      * @tc.name  : format the number with unitUsage
@@ -1031,13 +1046,17 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest022", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-CN", { style: "unit", unit: "meter", unitDisplay: "long", unitUsage: "length-road" });
+    it("numberFormatTest022", 0, () => {
+      let numfmt = new Intl.NumberFormat("zh-CN", {
+        style: "unit",
+        unit: "meter",
+        unitDisplay: "long",
+        unitUsage: "length-road"
+      });
       console.log("NUMBER_FORMAT_TEST_022 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789米");
       expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_023
      * @tc.name  : format the number with narrow value in unitUsage param
@@ -1046,13 +1065,17 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest023", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-CN", { style: "unit", unit: "meter", unitDisplay: "narrow", unitUsage: "length-road" });
+    it("numberFormatTest023", 0, () => {
+      let numfmt = new Intl.NumberFormat("zh-CN", {
+        style: "unit",
+        unit: "meter",
+        unitDisplay: "narrow",
+        unitUsage: "length-road"
+      });
       console.log("NUMBER_FORMAT_TEST_023 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789米");
       expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_024
      * @tc.name  : format the number with short value in unitUsage param
@@ -1060,13 +1083,17 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest024", 0, function () {
-      let numfmt = new Intl.NumberFormat("zh-CN", { style: "unit", unit: "meter", unitDisplay: "short", unitUsage: "length-road" });
+    it("numberFormatTest024", 0, () => {
+      let numfmt = new Intl.NumberFormat("zh-CN", {
+        style: "unit",
+        unit: "meter",
+        unitDisplay: "short",
+        unitUsage: "length-road"
+      });
       console.log("NUMBER_FORMAT_TEST_024 " + numfmt.format(123456.789));
       expect(numfmt.format(123456.789)).assertEqual("123,456.789米");
       expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     });
-
     // /* *
     //  * @tc.number: NUMBER_FORMAT_TEST_025
     //  * @tc.name  : format the number with narrow value in unitUsage param
@@ -1081,7 +1108,6 @@ export default function intlTest() {
     //   expect(numfmt.format(123456.789)).assertEqual("76.712mi");
     //   expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     // });
-
     // /* *
     //  * @tc.number: NUMBER_FORMAT_TEST_026
     //  * @tc.name  : format the number with short value in unitUsage param
@@ -1096,7 +1122,6 @@ export default function intlTest() {
     //   expect(numfmt.format(123456.789)).assertEqual("76.712 mi");
     //   expect(numfmt.resolvedOptions().unitUsage).assertEqual("length-road");
     // });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_027
      * @tc.name  : format the number with percetn style
@@ -1105,12 +1130,13 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest027", 0, function () {
-      let numfmt = new Intl.NumberFormat("en-CN", { style: "percent", maximumFractionDigits: 2, minimumIntegerDigits: 7 });
+    it("numberFormatTest027", 0, () => {
+      let numfmt = new Intl.NumberFormat("en-CN", {
+        style: "percent", maximumFractionDigits: 2, minimumIntegerDigits: 7
+      });
       console.log("NUMBER_FORMAT_TEST_027 " + numfmt.format(123456.789));
       expect(["12,345,678.9%", "0,123,456.79%"].indexOf(numfmt.format(123456.789)) != -1).assertTrue();
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_028
      * @tc.name  : format the number with numberingSystem
@@ -1119,14 +1145,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest028", 0, function () {
-      let numfmt = new Intl.NumberFormat("ar-EG", { numberingSystem: "arab" });
+    it("numberFormatTest028", 0, () => {
+      let numfmt = new Intl.NumberFormat("ar-EG", {
+        numberingSystem: "arab"
+      });
       console.log("NUMBER_FORMAT_TEST_028 1 " + numfmt.format(123456.789));
       expect(["١٢٣٬٤٥٦٫٧٨٩", "123,456.789"].indexOf(numfmt.format(123456.789)) != -1).assertTrue();
       console.log("NUMBER_FORMAT_TEST_028 2 " + numfmt.resolvedOptions().numberingSystem);
       expect(numfmt.resolvedOptions().numberingSystem).assertEqual("arab");
     });
-
     /* *
      * @tc.number: NUMBER_FORMAT_TEST_029
      * @tc.name  : format the number with style
@@ -1135,8 +1162,16 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("numberFormatTest029", 0, function () {
-      let numfmt = new Intl.NumberFormat("ar", { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 2, minimumIntegerDigits: 7, minimumSignificantDigits: 5, maximumSignificantDigits: 10, useGrouping: true });
+    it("numberFormatTest029", 0, () => {
+      let numfmt = new Intl.NumberFormat("ar", {
+        style: "percent",
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2,
+        minimumIntegerDigits: 7,
+        minimumSignificantDigits: 5,
+        maximumSignificantDigits: 10,
+        useGrouping: true
+      });
       console.log("NUMBER_FORMAT_TEST_029 " + numfmt.resolvedOptions().style);
       expect(numfmt.resolvedOptions().style).assertEqual("percent");
       expect(numfmt.resolvedOptions().minimumFractionDigits).assertEqual(1);
@@ -1146,7 +1181,6 @@ export default function intlTest() {
       expect(numfmt.resolvedOptions().maximumSignificantDigits).assertEqual(10);
       expect(numfmt.resolvedOptions().useGrouping).assertTrue();
     });
-
     /* *
      * @tc.number: COLLATOR_TEST_001
      * @tc.name  : compare two different strings
@@ -1155,13 +1189,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("collatorTest001", 0, function () {
+    it("collatorTest001", 0, () => {
       let coll = new Intl.Collator();
       let value = coll.compare("a", "b");
       console.log("COLLATOR_TEST_001 " + value);
       expect([-1, -2].indexOf(value) != -1).assertTrue();
     });
-
     /* *
      * @tc.number: COLLATOR_TEST_002
      * @tc.name  : compare the same strings
@@ -1170,13 +1203,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("collatorTest002", 0, function () {
+    it("collatorTest002", 0, () => {
       let coll = new Intl.Collator();
       let value = coll.compare("a", "a");
       console.log("COLLATOR_TEST_002 " + value);
       expect([0, -2].indexOf(value) != -1).assertTrue();
     });
-
     /* *
      * @tc.number: COLLATOR_TEST_003
      * @tc.name  : compare two different strings and return positive value
@@ -1185,13 +1217,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("collatorTest003", 0, function () {
+    it("collatorTest003", 0, () => {
       let coll = new Intl.Collator();
       let value = coll.compare("b", "a");
       console.log("COLLATOR_TEST_003 " + value);
       expect([1, -2].indexOf(value) != -1).assertTrue();
     });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_004
     //  * @tc.name  : compare two different strings with zh locale
@@ -1206,7 +1237,6 @@ export default function intlTest() {
     //   console.log("COLLATOR_TEST_004 " + value);
     //   expect(value).assertEqual(-1);
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_005
     //  * @tc.name  : compare two different strings with zh locale and eor collation
@@ -1222,7 +1252,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(["eor", "default"].indexOf(coll.resolvedOptions().collation) != -1).assertTrue();
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_006
     //  * @tc.name  : compare two different strings with zh locale and base sensitivity
@@ -1238,7 +1267,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().sensitivity).assertEqual("base");
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_007
     //  * @tc.name  : compare two different strings with zh locale and upper caseFirst
@@ -1254,7 +1282,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().caseFirst).assertEqual("upper");
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_008
     //  * @tc.name  : compare two different strings with zh locale and true numeric
@@ -1270,7 +1297,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().numeric).assertTrue();
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_009
     //  * @tc.name  : compare two different strings with zh locale and true ignorePunctuation
@@ -1286,7 +1312,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().ignorePunctuation).assertTrue();
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_010
     //  * @tc.name  : compare two different strings with zh locale and sort usage
@@ -1302,7 +1327,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().usage).assertEqual("sort");
     // });
-
     // /* *
     //  * @tc.number: COLLATOR_TEST_011
     //  * @tc.name  : compare the string with localeMatcher options
@@ -1318,7 +1342,6 @@ export default function intlTest() {
     //   expect(value).assertEqual(-1);
     //   expect(coll.resolvedOptions().localeMatcher).assertEqual("lookup");
     // });
-
     /* *
      * @tc.number: PLURALRULES_TEST_001
      * @tc.name  : get PluralRules
@@ -1327,13 +1350,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest001", 0, function () {
+    it("pluralrulesTest001", 0, () => {
       let pl = new Intl.PluralRules();
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_001 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_002
      * @tc.name  : get PluralRules with zh locale
@@ -1342,13 +1364,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest002", 0, function () {
+    it("pluralrulesTest002", 0, () => {
       let pl = new Intl.PluralRules("zh");
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_002 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_003
      * @tc.name  : get PluralRules with zh locale and ordinal type
@@ -1357,13 +1378,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest003", 0, function () {
-      let pl = new Intl.PluralRules("zh", { type: "ordinal" });
+    it("pluralrulesTest003", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        type: "ordinal"
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_003 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_004
      * @tc.name  : get PluralRules with zh locale and loolup localeMatcher
@@ -1372,13 +1394,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest004", 0, function () {
-      let pl = new Intl.PluralRules("zh", { localeMatcher: "lookup" });
+    it("pluralrulesTest004", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        localeMatcher: "lookup"
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_004 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_005
      * @tc.name  : get PluralRules with zh locale and minimumIntegerDigits options
@@ -1387,13 +1410,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest005", 0, function () {
-      let pl = new Intl.PluralRules("zh", { minimumIntegerDigits: 10 });
+    it("pluralrulesTest005", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        minimumIntegerDigits: 10
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_005 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_006
      * @tc.name  : get PluralRules with zh locale and minimumFractionDigits options
@@ -1402,13 +1426,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest006", 0, function () {
-      let pl = new Intl.PluralRules("zh", { minimumFractionDigits: 11 });
+    it("pluralrulesTest006", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        minimumFractionDigits: 11
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_006 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_007
      * @tc.name  : get PluralRules with zh locale and maximumFractionDigits options
@@ -1417,13 +1442,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest007", 0, function () {
-      let pl = new Intl.PluralRules("zh", { maximumFractionDigits: 11 });
+    it("pluralrulesTest007", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        maximumFractionDigits: 11
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_007 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_008+
      * @tc.name  : get PluralRules with zh locale and minimumSignificantDigits options
@@ -1432,13 +1458,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest008", 0, function () {
-      let pl = new Intl.PluralRules("zh", { minimumSignificantDigits: 10 });
+    it("pluralrulesTest008", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        minimumSignificantDigits: 10
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_008 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: PLURALRULES_TEST_009
      * @tc.name  : get PluralRules with zh locale and maximumSignificantDigits options
@@ -1447,13 +1474,14 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("pluralrulesTest009", 0, function () {
-      let pl = new Intl.PluralRules("zh", { maximumSignificantDigits: 11 });
+    it("pluralrulesTest009", 0, () => {
+      let pl = new Intl.PluralRules("zh", {
+        maximumSignificantDigits: 11
+      });
       let value = pl.select(0);
       console.log("PLURALRULES_TEST_009 " + value);
       expect(value).assertEqual("other");
     });
-
     /* *
      * @tc.number: RELATIVE_TIME_FORMAT_TEST_001
      * @tc.name  : format the relativetime with 100 second
@@ -1462,13 +1490,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("relativeTimeFormatTest001", 0, function () {
+    it("relativeTimeFormatTest001", 0, () => {
       let relativetimefmt = new Intl.RelativeTimeFormat();
       let value = relativetimefmt.format(100, "second");
       console.log("RELATIVE_TIME_FORMAT_TEST_001 " + value);
       expect(value).assertContain("100");
     });
-
     /* *
      * @tc.number: RELATIVE_TIME_FORMAT_TEST_006
      * @tc.name  : format the relativetime, get the style options
@@ -1477,13 +1504,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("relativeTimeFormatTest006", 0, function () {
+    it("relativeTimeFormatTest006", 0, () => {
       let relativetimefmt = new Intl.RelativeTimeFormat("en");
       let value = relativetimefmt.resolvedOptions();
       console.log("RELATIVE_TIME_FORMAT_TEST_006 " + value);
       expect(value.style).assertEqual("long");
     });
-
     /* *
      * @tc.number: RELATIVE_TIME_FORMAT_TEST_007
      * @tc.name  : format the relativetime, get the numeric options
@@ -1492,13 +1518,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("relativeTimeFormatTest007", 0, function () {
+    it("relativeTimeFormatTest007", 0, () => {
       let relativetimefmt = new Intl.RelativeTimeFormat("en");
       let value = relativetimefmt.resolvedOptions();
       console.log("RELATIVE_TIME_FORMAT_TEST_007 " + value);
       expect(value.numeric).assertEqual("always");
     });
-
     /* *
      * @tc.number: RELATIVE_TIME_FORMAT_TEST_008
      * @tc.name  : format the relativetime, get the numberingSystem options
@@ -1507,13 +1532,12 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("relativeTimeFormatTest008", 0, function () {
+    it("relativeTimeFormatTest008", 0, () => {
       let relativetimefmt = new Intl.RelativeTimeFormat("en");
       let value = relativetimefmt.resolvedOptions();
       console.log("RELATIVE_TIME_FORMAT_TEST_008 " + value.numberingSystem);
       expect(value.numberingSystem).assertEqual("latn");
     });
-
     /* *
      * @tc.number: RELATIVE_TIME_FORMAT_TEST_009
      * @tc.name  : format the relativetime with localeMatcher options
@@ -1522,14 +1546,15 @@ export default function intlTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("relativeTimeFormatTest009", 0, function () {
-      let relativetimefmt = new Intl.RelativeTimeFormat("en", { localeMatcher: "best fit", numeric: "auto", style: "narrow" });
+    it("relativeTimeFormatTest009", 0, () => {
+      let relativetimefmt = new Intl.RelativeTimeFormat("en", {
+        localeMatcher: "best fit", numeric: "auto", style: "narrow"
+      });
       let value = relativetimefmt.resolvedOptions();
       console.log("RELATIVE_TIME_FORMAT_TEST_009 " + value);
       expect(value.numeric).assertEqual("auto");
       expect(value.style).assertEqual("narrow");
     });
-
     console.log("*************end IntlTest*************");
   });
 }
