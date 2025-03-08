@@ -108,7 +108,6 @@ export default function I18nTest() {
         expect(value).assertEqual('');
       } catch (e) {
         console.log('testGetDisplayCountry004 ' + e.code);
-        console.log('testGetDisplayCountry004 ' + e.message);
         expect(e.code).assertEqual('890001');
       }
     });
@@ -140,7 +139,6 @@ export default function I18nTest() {
         expect(value).assertEqual('');
       } catch (e) {
         console.log('testGetDisplayCountry006 ' + e.code);
-        console.log('testGetDisplayCountry006 ' + e.message);
         expect(e.code).assertEqual('890001');
       }
     });
