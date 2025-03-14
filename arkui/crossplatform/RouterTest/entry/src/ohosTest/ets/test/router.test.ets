@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import { Driver, On, ON } from '@ohos.UiTest'
-import { describe, afterEach, beforeEach, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import { describe, afterEach, beforeEach, it, expect, beforeAll, afterAll, Level } from '@ohos/hypium';
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
 
@@ -80,7 +80,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0001", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0001", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:TestPage'));
@@ -103,7 +103,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0002", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0002", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:/'));
@@ -126,7 +126,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0003", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0003", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:NotExistPage'));
@@ -147,7 +147,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0004", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0004", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:""'));
@@ -172,7 +172,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0005", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0005", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:null'));
@@ -193,7 +193,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0006", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0006", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:undefined'));
@@ -214,7 +214,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0007", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0007", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:message'));
@@ -239,7 +239,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0008", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0008", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:null'));
@@ -264,7 +264,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0009", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0009", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:undefined'));
@@ -289,7 +289,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0010", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0010", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:TestPage'));
@@ -312,7 +312,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0011", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0011", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:/'));
@@ -335,7 +335,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0012", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0012", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:NotExistPage'));
@@ -356,7 +356,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0013", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0013", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:""'));
@@ -381,7 +381,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0014", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0014", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:null'));
@@ -402,7 +402,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0015", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0015", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:undefined'));
@@ -423,7 +423,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0016", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0016", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:message'));
@@ -448,7 +448,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0017", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0017", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:null'));
@@ -473,7 +473,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlPromise0018", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0018", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:undefined'));
@@ -498,7 +498,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0019", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0019", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await gotoPage(ON.id('ReplaceUrl_TestPage page'));
@@ -523,7 +523,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Promise
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlPromise0020", 0, async (done: Function) => {
+    it("testRouterReplaceUrlPromise0020", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Promise page'));
         await gotoPage(ON.id('ReplaceUrl_TestPage page'));
@@ -548,7 +548,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0001", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0001", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:TestPage'));
@@ -571,7 +571,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0002", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0002", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:/'));
@@ -594,7 +594,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0003", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0003", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:NotExistPage'));
@@ -615,7 +615,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0004", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0004", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:""'));
@@ -640,7 +640,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0005", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0005", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:null'));
@@ -661,7 +661,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0006", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0006", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Url:undefined'));
@@ -682,7 +682,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0007", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0007", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:message'));
@@ -707,7 +707,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0008", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0008", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:null'));
@@ -732,7 +732,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0009", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0009", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_OneParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_OneParameter_Params:undefined'));
@@ -757,7 +757,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0010", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0010", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:TestPage'));
@@ -780,7 +780,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0011", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0011", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:/'));
@@ -803,7 +803,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0012", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0012", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:NotExistPage'));
@@ -824,7 +824,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0013", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0013", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:""'));
@@ -849,7 +849,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0014", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0014", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:null'));
@@ -870,7 +870,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0015", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0015", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Url:undefined'));
@@ -891,7 +891,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0016", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0016", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:message'));
@@ -916,7 +916,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0017", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0017", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:null'));
@@ -941,7 +941,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 2
      */
-    it("testRouterReplaceUrlCallback0018", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0018", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await clickButton(ON.id('ReplaceUrl_TwoParameter_Params:undefined'));
@@ -966,7 +966,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0019", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0019", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await gotoPage(ON.id('ReplaceUrl_TestPage page'));
@@ -991,7 +991,7 @@ export default function RouterTest() {
      * @tc.desc   : Test ReplaceUrl Callback
      * @tc.level  : Level 0
      */
-    it("testRouterReplaceUrlCallback0020", 0, async (done: Function) => {
+    it("testRouterReplaceUrlCallback0020", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('ReplaceUrl_TwoParameter_Callback page'));
         await gotoPage(ON.id('ReplaceUrl_TestPage page'));
@@ -1016,7 +1016,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 0
      */
-    it("testRouterBack0001", 0, async (done: Function) => {
+    it("testRouterBack0001", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1040,7 +1040,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 0
      */
-    it("testRouterBack0002", 0, async (done: Function) => {
+    it("testRouterBack0002", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1066,7 +1066,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0003", 0, async (done: Function) => {
+    it("testRouterBack0003", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1092,7 +1092,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0004", 0, async (done: Function) => {
+    it("testRouterBack0004", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1116,7 +1116,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0005", 0, async (done: Function) => {
+    it("testRouterBack0005", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1140,7 +1140,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0006", 0, async (done: Function) => {
+    it("testRouterBack0006", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1164,7 +1164,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 0
      */
-    it("testRouterBack0007", 0, async (done: Function) => {
+    it("testRouterBack0007", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1190,7 +1190,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0008", 0, async (done: Function) => {
+    it("testRouterBack0008", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1216,7 +1216,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0009", 0, async (done: Function) => {
+    it("testRouterBack0009", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1242,7 +1242,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0010", 0, async (done: Function) => {
+    it("testRouterBack0010", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1266,7 +1266,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0011", 0, async (done: Function) => {
+    it("testRouterBack0011", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_OneParameter Page'));
@@ -1290,7 +1290,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 0
      */
-    it("testRouterBack0012", 0, async (done: Function) => {
+    it("testRouterBack0012", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1314,7 +1314,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0013", 0, async (done: Function) => {
+    it("testRouterBack0013", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1340,7 +1340,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0014", 0, async (done: Function) => {
+    it("testRouterBack0014", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1366,7 +1366,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0015", 0, async (done: Function) => {
+    it("testRouterBack0015", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1392,7 +1392,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0016", 0, async (done: Function) => {
+    it("testRouterBack0016", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1418,7 +1418,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 0
      */
-    it("testRouterBack0017", 0, async (done: Function) => {
+    it("testRouterBack0017", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1444,7 +1444,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0018", 0, async (done: Function) => {
+    it("testRouterBack0018", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1470,7 +1470,7 @@ export default function RouterTest() {
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0019", 0, async (done: Function) => {
+    it("testRouterBack0019", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
