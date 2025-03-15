@@ -20,7 +20,7 @@ struct Index {
                 .fontWeight(600)
                 .textAlign(TextAlign.Center)
                 .borderRadius(10)
-                .key(''+item)
+                .id(''+item)
                 .backgroundColor(0xFFFFFF)
                 .margin({top:5})
                 .onClick(() => {
