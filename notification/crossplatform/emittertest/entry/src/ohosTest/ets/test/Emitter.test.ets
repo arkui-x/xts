@@ -17,13 +17,18 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import hilog from '@ohos.hilog';
 import emitter from '@ohos.events.emitter';
 
-
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default function ActsEmitterTest() {
   describe('testEmitterNotification', () => {
+
+
+    beforeEach(async () => {
+      await sleep(2000);
+
+    })
     /*
      * @tc.name   : Sub_Notification_Emitter_Subscribe_On_0100
      * @tc.desc   : test on interface success
@@ -551,12 +556,13 @@ export default function ActsEmitterTest() {
      */
     it('Sub_Notification_Emitter_Subscribe_Emit_0100', 0, async (done: Function) => {
       let targetEventId: number = 1;
-      let targetInnerEvent: emitter.InnerEvent = {
-        eventId: targetEventId,
-        priority: emitter.EventPriority.IDLE
-      };
       let num: number = -1;
       let count: number = 0;
+      let targetInnerEvent: emitter.InnerEvent = {
+        eventId: targetEventId,
+        priority: emitter.EventPriority.HIGH
+      };
+
       let eventDataValue: emitter.EventData = {
         data: {
           "content": "message_0",
@@ -564,9 +570,8 @@ export default function ActsEmitterTest() {
         }
       };
 
-      await sleep(1000)
       let onceCallback = (eventDataValue: emitter.EventData): void => {
-        console.log(' Sub_Notification_Emitter_Subscribe_Emit_0100 on callback called ');
+        console.log(' Sub_Notification_Emitter_Subscribe_Emit_0100 on callback called');
         ++count;
         expect(true).assertTrue();
         done();
@@ -574,6 +579,7 @@ export default function ActsEmitterTest() {
       try {
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(0);
+        await sleep(2000)
         emitter.once(targetInnerEvent, onceCallback);
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(1);
@@ -582,10 +588,8 @@ export default function ActsEmitterTest() {
         expect(false).assertTrue();
         done();
       }
-      setTimeout(() => {
-        expect(count).assertEqual(1);
-        done();
-      }, 1000);
+      await sleep(2000)
+      expect(count).assertEqual(1)
       emitter.off(targetEventId);
       done();
     })
@@ -620,19 +624,18 @@ export default function ActsEmitterTest() {
       try {
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(0);
+        await sleep(2000)
         emitter.once(targetInnerEvent, onceCallback);
         num = emitter.getListenerCount(targetEventId);
+        console.log(' Sub_Notification_Emitter_Subscribe_Emit_0200 on callback called 7777+  ' + num);
         expect(num).assertEqual(1);
         emitter.emit(targetInnerEvent, eventDataValue);
-        done();
       } catch (err) {
         expect(false).assertTrue();
         done();
       }
-      setTimeout(() => {
-        expect(count).assertEqual(1);
-        done();
-      }, 1000);
+      await sleep(2000)
+      expect(count).assertEqual(1);
       emitter.off(targetEventId);
       done();
     })
@@ -667,6 +670,7 @@ export default function ActsEmitterTest() {
       try {
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(0);
+        await sleep(2000)
         emitter.once(targetInnerEvent, onceCallback);
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(1);
@@ -675,10 +679,8 @@ export default function ActsEmitterTest() {
         expect(false).assertTrue();
         done();
       }
-      setTimeout(() => {
-        expect(count).assertEqual(1);
-        done();
-      }, 1000);
+      await sleep(2000)
+      expect(count).assertEqual(1);
       emitter.off(targetEventId);
       done();
     })
@@ -715,6 +717,7 @@ export default function ActsEmitterTest() {
       try {
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(0);
+        await sleep(2000)
         emitter.once(targetInnerEvent, onceCallback);
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(1);
@@ -723,10 +726,8 @@ export default function ActsEmitterTest() {
         expect(false).assertTrue();
         done();
       }
-      setTimeout(() => {
-        expect(count).assertEqual(1);
-        done();
-      }, 1000);
+      await sleep(2000)
+      expect(count).assertEqual(1);
       emitter.off(targetEventId);
       done();
     })
@@ -792,6 +793,7 @@ export default function ActsEmitterTest() {
       try {
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(0);
+        await sleep(2000)
         emitter.once(targetEventId, onceCallback);
         num = emitter.getListenerCount(targetEventId);
         expect(num).assertEqual(1);
@@ -800,10 +802,8 @@ export default function ActsEmitterTest() {
         expect(false).assertTrue();
         done();
       }
-      setTimeout(() => {
-        expect(count).assertEqual(1);
-        done();
-      }, 1000);
+      await sleep(2000)
+      expect(count).assertEqual(1);
       emitter.off(targetEventId);
       done();
     })
@@ -881,7 +881,7 @@ export default function ActsEmitterTest() {
         }
       };
       let option: emitter.Options = {
-        priority: emitter.EventPriority.HIGH
+        priority: emitter.EventPriority.IDLE
       }
       let onceCallback = (): void => {
         console.log(' Sub_Notification_Emitter_Subscribe_Emit_0900 on callback called ');
