@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
-import { FILE_CONTENT, prepareFile, nextFileName, isIntNum, describe, it, expect } from "../Common";
+import { FILE_CONTENT, prepareFile, nextFileName, isIntNum, describe, it, expect, afterEach } from "../Common";
 import fileIO from "@ohos.file.fs";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function fileIOTruncate() {
-  describe("fileIO_fs_truncate", function () {
+  describe("fileIO_fs_truncate", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_TRUNCATE_ASYNC_0000
      * @tc.name   : fileIO_test_truncate_async_000
@@ -27,7 +35,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_000", 2, async function (done) {
+    it("fileIO_test_truncate_async_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let truncateLen = 5;
@@ -56,7 +64,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_001", 2, async function (done) {
+    it("fileIO_test_truncate_async_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -85,7 +93,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_truncate_async_002", 3, async function (done) {
+    it("fileIO_test_truncate_async_002", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_002");
       let truncateLen = 2;
 
@@ -108,7 +116,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_003", 2, async function (done) {
+    it("fileIO_test_truncate_async_003", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -136,7 +144,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_004", 2, async function (done) {
+    it("fileIO_test_truncate_async_004", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_004");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let truncateLen = 5;
@@ -170,7 +178,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_005", 2, async function (done) {
+    it("fileIO_test_truncate_async_005", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_005");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -204,7 +212,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_truncate_async_006", 3, async function (done) {
+    it("fileIO_test_truncate_async_006", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_006");
       let truncateLen = 2;
 
@@ -231,7 +239,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_007", 2, async function (done) {
+    it("fileIO_test_truncate_async_007", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_007");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -264,7 +272,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_008", 2, async function (done) {
+    it("fileIO_test_truncate_async_008", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_008");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -292,7 +300,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_async_009", 2, async function (done) {
+    it("fileIO_test_truncate_async_009", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_truncate_async_009");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -325,7 +333,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_sync_000", 2, async function () {
+    it("fileIO_test_truncate_sync_000", 2, async () => {
       let fpath = await nextFileName("fileIO_test_truncate_sync_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let truncateLen = 5;
@@ -353,7 +361,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_sync_001", 2, async function () {
+    it("fileIO_test_truncate_sync_001", 2, async () => {
       let fpath = await nextFileName("fileIO_test_truncate_sync_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -381,7 +389,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_truncate_sync_002", 3, async function () {
+    it("fileIO_test_truncate_sync_002", 3, async () => {
       let fpath = await nextFileName("fileIO_test_truncate_sync_002");
 
       try {
@@ -402,7 +410,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_sync_003", 2, async function () {
+    it("fileIO_test_truncate_sync_003", 2, async () => {
       let fpath = await nextFileName("fileIO_test_truncate_sync_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -429,7 +437,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_truncate_sync_004", 3, async function () {
+    it("fileIO_test_truncate_sync_004", 3, async () => {
       let truncateLen = 2;
 
       try {
@@ -450,7 +458,7 @@ export default function fileIOTruncate() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_truncate_sync_005", 2, async function () {
+    it("fileIO_test_truncate_sync_005", 2, async () => {
       let fpath = await nextFileName("fileIO_test_truncate_sync_005");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);

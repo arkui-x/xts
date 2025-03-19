@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
-import { FILE_CONTENT, nextFileName, prepareFile, describe, it, expect } from "../Common";
+import { FILE_CONTENT, nextFileName, prepareFile, describe, it, expect, afterEach } from "../Common";
 import fileIO from "@ohos.file.fs";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function fileIOClose() {
-  describe("fileIO_fs_close", function () {
+  describe("fileIO_fs_close", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_CLOSE_ASYNC_0000
      * @tc.name   : fileIO_test_close_async_000
@@ -27,7 +35,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_async_000", 2, async function (done) {
+    it("fileIO_test_close_async_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -51,7 +59,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_async_001", 2, async function (done) {
+    it("fileIO_test_close_async_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -75,7 +83,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_close_async_002", 3, async function (done) {
+    it("fileIO_test_close_async_002", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -101,7 +109,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_close_async_003", 3, async function (done) {
+    it("fileIO_test_close_async_003", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -125,7 +133,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_async_004", 2, async function (done) {
+    it("fileIO_test_close_async_004", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_004");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -154,7 +162,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_async_005", 2, async function (done) {
+    it("fileIO_test_close_async_005", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_close_async_005");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -183,7 +191,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_sync_000", 2, async function () {
+    it("fileIO_test_close_sync_000", 2, async () => {
       let fpath = await nextFileName("fileIO_test_close_sync_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -206,7 +214,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_close_sync_001", 2, async function () {
+    it("fileIO_test_close_sync_001", 2, async () => {
       let fpath = await nextFileName("fileIO_test_close_sync_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -229,7 +237,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_close_sync_002", 3, async function () {
+    it("fileIO_test_close_sync_002", 3, async () => {
       let fpath = await nextFileName("fileIO_test_close_sync_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -255,7 +263,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_close_sync_003", 3, async function () {
+    it("fileIO_test_close_sync_003", 3, async () => {
       let fpath = await nextFileName("fileIO_test_close_sync_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -280,7 +288,7 @@ export default function fileIOClose() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_close_sync_004", 3, function () {
+    it("fileIO_test_close_sync_004", 3, () => {
       try {
         fileIO.closeSync(-1);
         expect(false).assertTrue();
