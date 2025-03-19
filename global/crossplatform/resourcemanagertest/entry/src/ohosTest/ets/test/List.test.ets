@@ -1,4 +1,4 @@
-import resourceManagerTest from './resourceManager.test.ets'
+import resourceManagerTest from './resourceManager.test'
 
 export default function testsuite() {
   resourceManagerTest()

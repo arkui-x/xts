@@ -42,31 +42,12 @@ struct DragExample {
         Text('apple').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.appleVisible)
-          .onDragStart(() => {
-            this.bool = true
-            this.text = 'apple'
-            this.appleVisible = Visibility.Hidden
-            return this.pixelMapBuilder
-          })
         Text('orange').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.orangeVisible)
-          .onDragStart(() => {
-            this.bool = true
-            this.text = 'orange'
-            this.orangeVisible = Visibility.Hidden
-            return this.pixelMapBuilder
-          })
         Text('banana').width('25%').height(35).fontSize(16)
           .textAlign(TextAlign.Center).backgroundColor(0xAFEEEE)
           .visibility(this.bananaVisible)
-          .onDragStart((event: DragEvent, extraParams: string) => {
-            console.log('Text onDragStarts, ' + extraParams)
-            this.bool = true
-            this.text = 'banana'
-            this.bananaVisible = Visibility.Hidden
-            return this.pixelMapBuilder
-          })
       }.border({ width: 1 }).width('90%').padding({ top: 10, bottom: 10 }).margin(10)
 
       // Text('This is a List element').fontSize(12)
@@ -82,38 +63,10 @@ struct DragExample {
                 router.pushUrl({ url: `pages/${item}`})
               })
           }
-          .onDragStart((event: DragEvent, extraParams: string) => {
-            console.log('ListItem onDragStarts, ' + extraParams)
-            this.bool1 = true
-            this.text = this.numbers[JSON.parse(extraParams).selectedIndex]
-            this.select = JSON.parse(extraParams).selectedIndex
-            return this.pixelMapBuilder
-          })
         })
       }
-      .editMode(true)
       .height('50%').width('90%').border({ width: 1 })
       .divider({ strokeWidth: 2, color: 0xFFFFFF, startMargin: 20, endMargin: 20 })
-      .onDragEnter((event: DragEvent, extraParams: string) => {
-        console.log('List onDragEnter, ' + extraParams)
-      })
-      .onDragMove((event: DragEvent, extraParams: string) => {
-        console.log('List onDragMove, ' + extraParams)
-      })
-      .onDragLeave((event: DragEvent, extraParams: string) => {
-        console.log('List onDragLeave, ' + extraParams)
-      })
-      .onDrop((event: DragEvent, extraParams: string) => {
-        if (this.bool) {
-          this.numbers.splice(JSON.parse(extraParams).insertIndex, 0, this.text)
-          this.bool = false
-        } else if (this.bool1) {
-          this.numbers.splice(JSON.parse(extraParams).selectedIndex, 1)
-          this.numbers.splice(JSON.parse(extraParams).insertIndex, 0, this.text)
-          this.bool = false
-          this.bool1 = false
-        }
-      })
     }.width('100%').height('100%').padding({ top: 20 }).margin({ top: 20 })
   }
 }

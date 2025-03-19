@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 import { Component, Driver, ON, PointerMatrix } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
@@ -29,6 +29,12 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 
 export default function uiTestThreeTest() {
   describe('UiTestThree', () => {
+    afterEach(async ()=>{
+      let topAbility = await delegator.getCurrentTopAbility();
+      await topAbility.context.terminateSelf();
+      let driver = Driver.create()
+      await driver.delayMs(waitUiReadyMs);
+    })
 
     /*
      * @tc.number: 001
@@ -70,9 +76,6 @@ export default function uiTestThreeTest() {
       let textB: string = await textInputBB.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(textB).assertEqual('123abcABC')
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done();
     })
 
@@ -116,9 +119,6 @@ export default function uiTestThreeTest() {
       let textB: string = await textInputBB.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(textB == '你好!@#$%&').assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -148,10 +148,7 @@ export default function uiTestThreeTest() {
       expect(textA == '123').assertTrue()
       await textInputA.click()
       await driver.delayMs(waitUiReadyMs)
-      expect((await driver.triggerCombineKeys(-999, -999)) == null).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
+      expect((await driver.triggerCombineKeys(0, 0)) == null).assertTrue()
       done()
     })
 
@@ -173,9 +170,6 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(buttonRect.left < buttonRect.right).assertTrue()
       expect(buttonRect.top < buttonRect.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -202,9 +196,6 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(textRect.left < textRect.right).assertTrue()
       expect(textRect.top < textRect.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -231,9 +222,6 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(imageRect.left < imageRect.right).assertTrue()
       expect(imageRect.top < imageRect.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -261,9 +249,6 @@ export default function uiTestThreeTest() {
       expect(imageRect.left < imageRect.right).assertTrue()
       await driver.delayMs(waitUiReadyMs)
       expect(imageRect.top < imageRect.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -283,9 +268,6 @@ export default function uiTestThreeTest() {
       let pointerMatrix: PointerMatrix = PointerMatrix.create(2,3);
       await driver.delayMs(waitUiReadyMs)
       expect(pointerMatrix != null).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -309,9 +291,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testPointerMatrixCreateError_009', '%{public}s', 'pointerMatrix create parameter error');
       }
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -353,9 +332,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top < imageRectB.top).assertTrue()
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -400,9 +376,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right).assertTrue()
       await driver.delayMs(waitUiReadyMs)
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -433,9 +406,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testSetPointExceptionParameter_012', '%{public}s', 'pointerMatrix setPoint parameter error');
       }
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -469,9 +439,6 @@ export default function uiTestThreeTest() {
       let text: string = await textComponent.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(text).assertEqual('7')
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -496,26 +463,23 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
 
       let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 200, y: 1000})
-      pointers.setPoint(0, 1, {x: -200, y: 1500})
-      pointers.setPoint(1, 0, {x: 600, y: 200})
-      pointers.setPoint(1, 1, {x: 900, y: -200})
+      pointers.setPoint(0, 0, {x: 100, y: 1100})
+      pointers.setPoint(0, 1, {x: 300, y: 800})
+      pointers.setPoint(1, 0, {x: 600, y: 300})
+      pointers.setPoint(1, 1, {x: 400, y: 600})
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
-      await driver.delayMs(waitUiReadyMs)
 
+      await driver.delayMs(waitUiReadyMs)
       let scaleImageB: Component = await driver.findComponent(ON.id('scaleImage'))
       await driver.delayMs(waitUiReadyMs)
       let imageRectB = await scaleImageB.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      expect(imageRectA.left > imageRectB.left).assertTrue()
-      expect(imageRectA.top > imageRectB.top).assertTrue()
-      expect(imageRectA.right < imageRectB.right).assertTrue()
-      expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
+      expect(imageRectA.left < imageRectB.left).assertTrue()
+      expect(imageRectA.top < imageRectB.top).assertTrue()
+      expect(imageRectA.right > imageRectB.right).assertTrue()
+      expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
     })
 
@@ -551,9 +515,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top > imageRectB.top).assertTrue()
       expect(imageRectA.right < imageRectB.right).assertTrue()
       expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -580,9 +541,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testPinchOutExceptionParameter_016', '%{public}s', 'pinchOut interface parameter error');
       }
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -606,7 +564,7 @@ export default function uiTestThreeTest() {
       let imageRectA = await scaleImage.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      await scaleImage.pinchOut(0.6)
+      await scaleImage.pinchOut(1.3)
       await driver.delayMs(waitUiReadyMs)
 
       await driver.delayMs(waitUiReadyMs)
@@ -615,16 +573,10 @@ export default function uiTestThreeTest() {
       let imageRectB = await scaleImageB.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      expect(imageRectA.left < imageRectB.left).assertTrue()
-      await driver.delayMs(waitUiReadyMs)
-      expect(imageRectA.top < imageRectB.top).assertTrue()
-      await driver.delayMs(waitUiReadyMs)
-      expect(imageRectA.right > imageRectB.right).assertTrue()
-      await driver.delayMs(waitUiReadyMs)
-      expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
+      expect(imageRectA.left > imageRectB.left).assertTrue()
+      expect(imageRectA.top > imageRectB.top).assertTrue()
+      expect(imageRectA.right < imageRectB.right).assertTrue()
+      expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
       done()
     })
 
@@ -670,9 +622,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top > imageRectB.top && imageRectB.top > imageRectC.top).assertTrue()
       expect(imageRectA.right < imageRectB.right && imageRectB.right < imageRectC.right).assertTrue()
       expect(imageRectA.bottom < imageRectB.bottom && imageRectB.bottom < imageRectC.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -705,9 +654,6 @@ export default function uiTestThreeTest() {
       expect(buttonRectA.top == buttonRectB.top).assertTrue()
       expect(buttonRectA.right == buttonRectB.right).assertTrue()
       expect(buttonRectA.bottom == buttonRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -743,9 +689,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top < imageRectB.top).assertTrue()
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -772,9 +715,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testPinchInExceptionParameter_021', '%{public}s', 'pinchIn interface parameter error');
       }
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -798,7 +738,7 @@ export default function uiTestThreeTest() {
       let imageRectA = await scaleImage.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      await scaleImage.pinchIn(1.3)
+      await scaleImage.pinchIn(0.6)
       await driver.delayMs(waitUiReadyMs)
 
       await driver.delayMs(waitUiReadyMs)
@@ -807,13 +747,10 @@ export default function uiTestThreeTest() {
       let imageRectB = await scaleImageB.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      expect(imageRectA.left > imageRectB.left).assertTrue()
-      expect(imageRectA.top > imageRectB.top).assertTrue()
-      expect(imageRectA.right < imageRectB.right).assertTrue()
-      expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
+      expect(imageRectA.left < imageRectB.left).assertTrue()
+      expect(imageRectA.top < imageRectB.top).assertTrue()
+      expect(imageRectA.right > imageRectB.right).assertTrue()
+      expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
     })
 
@@ -857,9 +794,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top < imageRectB.top && imageRectB.top < imageRectC.top).assertTrue()
       expect(imageRectA.right > imageRectB.right && imageRectB.right > imageRectC.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom && imageRectB.bottom > imageRectC.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -892,9 +826,6 @@ export default function uiTestThreeTest() {
       expect(buttonRectA.top == buttonRectB.top).assertTrue()
       expect(buttonRectA.right == buttonRectB.right).assertTrue()
       expect(buttonRectA.bottom == buttonRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -916,9 +847,6 @@ export default function uiTestThreeTest() {
       let buttonNumber: number = buttons.length
       await driver.delayMs(waitUiReadyMs)
       expect(buttonNumber > 0).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -939,9 +867,6 @@ export default function uiTestThreeTest() {
       let scroll = await driver.findComponents(ON.type('Scroll'))
       await driver.delayMs(waitUiReadyMs)
       expect(scroll == null).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -965,9 +890,6 @@ export default function uiTestThreeTest() {
       let numText: Component = await scrollComponent.scrollSearch(ON.text('7'))
       await driver.delayMs(waitUiReadyMs)
       expect(await numText.getText()).assertEqual('7')
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -991,9 +913,6 @@ export default function uiTestThreeTest() {
       let numText: Component = await scrollComponent.scrollSearch(ON.text('100'))
       await driver.delayMs(waitUiReadyMs)
       expect(numText == null).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -1035,9 +954,6 @@ export default function uiTestThreeTest() {
       expect(imageRectA.top < imageRectB.top).assertTrue()
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -1068,9 +984,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testInjectMultiPointerActionNoOperation_030', '%{public}s', 'pointers finger steps not set');
       }
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -1112,10 +1025,6 @@ export default function uiTestThreeTest() {
       } catch (exception) {
         hilog.info(0x0000, 'testInjectMultiPointerActionExceptionParameter_031', '%{public}s', 'injectMultiPointerAction parameter error');
       }
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -1149,10 +1058,6 @@ export default function uiTestThreeTest() {
       let text = await rotateTextAfter.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(text != '0').assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -1174,18 +1079,18 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(textInputA != null).assertTrue()
 
+      await driver.delayMs(waitUiReadyMs)
       await textInputA.click()
+      await driver.delayMs(waitUiReadyMs)
       await driver.triggerKey(2000)
       await driver.delayMs(waitUiReadyMs)
 
       let textInputAfter: Component = await driver.findComponent(ON.id('inputA'))
+      await driver.delayMs(waitUiReadyMs)
       let inputText = await textInputAfter.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputText).assertEqual('0')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
+      await driver.delayMs(waitUiReadyMs)
       done();
     })
 

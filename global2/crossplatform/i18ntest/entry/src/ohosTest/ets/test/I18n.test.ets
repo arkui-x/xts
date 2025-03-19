@@ -1,10 +1,16 @@
 import I18n from '@ohos.i18n';
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, it, expect, afterEach } from '@ohos/hypium';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 export default function I18nTest() {
   describe('I18nTest', () => {
     beforeAll(() => {
       console.log('************* start I18NTest *************');
+    })
+    afterEach(async ()=>{
+      await sleep(1000)
     })
     afterAll(() => {
       console.log('************* end I18NTest *************');

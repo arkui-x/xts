@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 import { Component, Driver, ON, PointerMatrix, UiDirection } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
@@ -29,6 +29,12 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 
 export default function uiTestTwoTest() {
   describe('UiTestTwo', () => {
+    afterEach(async ()=>{
+      let topAbility = await delegator.getCurrentTopAbility();
+      await topAbility.context.terminateSelf();
+      let driver = Driver.create()
+      await driver.delayMs(waitUiReadyMs);
+    })
 
     /*
      * @tc.number: 001
@@ -52,10 +58,6 @@ export default function uiTestTwoTest() {
       let textEightAfter = await driver.findComponent(ON.text('8'))
       await driver.delayMs(waitUiReadyMs)
       expect(textEightAfter != null).assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -83,10 +85,6 @@ export default function uiTestTwoTest() {
       let textTwoAfter = await driver.findComponent(ON.text('2'))
       await driver.delayMs(waitUiReadyMs)
       expect(textTwoAfter != null).assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -112,10 +110,6 @@ export default function uiTestTwoTest() {
       let textEightAfter = await driver.findComponent(ON.text('8'))
       await driver.delayMs(waitUiReadyMs)
       expect(textEightAfter != null).assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -143,10 +137,6 @@ export default function uiTestTwoTest() {
       let textTwoAfter = await driver.findComponent(ON.text('2'))
       await driver.delayMs(waitUiReadyMs)
       expect(textTwoAfter != null).assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -167,15 +157,11 @@ export default function uiTestTwoTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(textOne != null).assertTrue()
 
-      await driver.fling(UiDirection.DOWN, -3000)
+      await driver.fling(UiDirection.DOWN, 0)
       await driver.delayMs(waitUiReadyMs)
       let textFourAfter = await driver.findComponent(ON.text('4'))
       await driver.delayMs(waitUiReadyMs)
       expect(textFourAfter != null).assertTrue()
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -203,10 +189,6 @@ export default function uiTestTwoTest() {
       let inputAText = await textInputA.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputAText).assertEqual('123')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -234,10 +216,6 @@ export default function uiTestTwoTest() {
       let inputAText = await textInputA.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputAText).assertEqual('你好')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -265,10 +243,6 @@ export default function uiTestTwoTest() {
       let inputAText = await textInputA.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputAText).assertEqual('**&&')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -296,10 +270,6 @@ export default function uiTestTwoTest() {
       let inputAText = await textInputA.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputAText).assertEqual('ABC')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -327,10 +297,6 @@ export default function uiTestTwoTest() {
       let inputCText = await textInputC.getText()
       await driver.delayMs(waitUiReadyMs)
       expect(inputCText).assertEqual('1212')
-
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
@@ -351,11 +317,8 @@ export default function uiTestTwoTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(textInputA != null).assertTrue()
 
-      await driver.triggerKey(-999)
+      await driver.triggerKey(0)
       await driver.delayMs(waitUiReadyMs)
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      await driver.delayMs(waitUiReadyMs);
       done()
     })
 
