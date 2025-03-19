@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium'
+import { describe, it, expect, afterAll } from '@ohos/hypium'
 import picker from '@ohos.file.picker';
 import testNapi from 'libentry.so'
 import deviceInfo from '@ohos.deviceInfo';
@@ -71,6 +71,9 @@ async function saveWithOption(testNum: string, done: Function, option: picker.Au
 
 export default function audioPickerPromise() {
   describe("audioPickerPromise", () => {
+    afterAll(async ()=>{
+      await sleep(3000)
+    })
 
     /**
      * @tc.name   : SUB_ArkUIX_audiopicker_save_promise_0010
