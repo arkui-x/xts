@@ -14,36 +14,37 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import aConstant from '@ohos.app.ability.AbilityConstant'
+import { Want } from '@kit.AbilityKit';
 
-function sleep(time) {
-  return new Promise((resolve) => setTimeout(resolve, time))
+function sleep(time: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, time));
 }
 
-const moduleName = 'entry';
+let moduleName = 'entry';
 export default function abilityTest() {
-  describe('ActsAbilityLifeCycleTest', function () {
+  describe('ActsAbilityLifeCycleTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(function () {
+    beforeAll(() => {
       // Presets an action, which is performed only once before all test cases of the test suite start.
       // This API supports only one parameter: preset action function.
     })
-    beforeEach(function () {
+    beforeEach(() => {
       // Presets an action, which is performed before each unit test case starts.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
     })
-    afterEach(function () {
+    afterEach(() => {
       // Presets a clear action, which is performed after each unit test case ends.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
     })
-    afterAll(function () {
+    afterAll(() => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
 
     let TAG = '';
-    const otherBundle = 'com.example.commontestabilityapp'
+    let otherBundle = 'com.example.commontestabilityapp'
 
     /**
      *@tc.number    : UI_ABILITY_CONTEXT_TEST_0001
@@ -53,7 +54,7 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Context_Test_0001',0, async (done) => {
+    it('UI_Ability_Context_Test_0001',0, async (done:Function) => {
       console.log("------------UI_ABILITY_CONTEXT_TEST_0001 START-------------");
       TAG = "UI_ABILITY_CONTEXT_TEST_0001";
       expect(globalThis.abilityContext != null).assertTrue();
@@ -68,7 +69,7 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Context_Test_0002',0, async (done) => {
+    it('UI_Ability_Context_Test_0002',0, async (done:Function) => {
       console.log("------------UI_Ability_Context_Test_0002 START-------------");
       TAG = "UI_Ability_Context_Test_0002";
       expect(globalThis.abilityContext != null).assertTrue();
@@ -84,7 +85,7 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UIAbilityContextTest_0003',0, async (done) => {
+    it('UIAbilityContextTest_0003',0, async (done:Function) => {
       console.log("------------UI_ABILITY_CONTEXT_TEST_0003 START-------------");
       TAG = "UI_ABILITY_CONTEXT_TEST_0003";
       expect(globalThis.abilityContext != null).assertTrue();
@@ -100,16 +101,16 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Life_Cycle_Test_0001',0, async (done) => {
+    it('UI_Ability_Life_Cycle_Test_0001',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0001 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0001";
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -120,7 +121,7 @@ export default function abilityTest() {
       // Main2Ability在1.5秒后，会终结自己，等待2.5s, 确保Main2Ability终结完自己
       await sleep(4000);
 
-      const result2 = globalThis.list2;
+      let result2:Array<string> = globalThis.list2;
       console.info('result2: ' + JSON.stringify(result2));
 
       expect(result2[0]).assertEqual('Main2Ability onCreate');
@@ -140,17 +141,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Life_Cycle_Test_0002',0, async (done) => {
+    it('UI_Ability_Life_Cycle_Test_0002',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0002 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0002";
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -160,7 +161,7 @@ export default function abilityTest() {
 
       await sleep(2500);
 
-      const result1 = globalThis.list1;
+      let result1:Array<string> = globalThis.list1;
       console.info('result1: ' + JSON.stringify(result1));
 
       expect(result1[0]).assertEqual('Main1Ability onCreate');
@@ -183,17 +184,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Life_Cycle_Test_0003',0, async (done) => {
+    it('UI_Ability_Life_Cycle_Test_0003',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0003 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0003";
 
-      var want = {
+      let want1:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want1, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -204,13 +205,13 @@ export default function abilityTest() {
       // Main2Ability在1.5秒后，会终结自己，等待2.5s, 确保Main2Ability终结完自己
       await sleep(2500);
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start Main1Ability failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -221,8 +222,8 @@ export default function abilityTest() {
       globalThis.ability1context.terminateSelf();
       await sleep(1000);
 
-      const result1 = globalThis.list1;
-      const result2 = globalThis.list2;
+      let result1:Array<string> = globalThis.list1;
+      let result2:Array<string> = globalThis.list2;
       console.info('result1: ' + JSON.stringify(result1));
       console.info('result2: ' + JSON.stringify(result2));
 
@@ -251,17 +252,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UIAbilityLifeCycleTest0004',0, async (done) => {
+    it('UIAbilityLifeCycleTest0004',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0004 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0004";
 
-      var want = {
+      let want1:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main3Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want1, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start Main3Ability failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -272,13 +273,13 @@ export default function abilityTest() {
       // 1.5秒后打开Main2Ability
       await sleep(1500);
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main2Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start Main2Ability failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -288,7 +289,7 @@ export default function abilityTest() {
 
       await sleep(1000);
 
-      const result1 = globalThis.list3;
+      let result1:Array<string> = globalThis.list3;
       console.info(TAG + 'result1: ' + JSON.stringify(result1));
 
       // 启动Main2Ability后，Main3Ability将会切到后台
@@ -299,7 +300,7 @@ export default function abilityTest() {
 
       // Main2Ability将会在1.5秒后，终结自己
       await sleep(2000);
-      const result2 = globalThis.list2;
+      let result2:Array<string> = globalThis.list2;
       console.info(TAG + 'result2: ' + JSON.stringify(result2));
 
       expect(result2[0]).assertEqual('Main2Ability onCreate');
@@ -332,17 +333,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Life_Cycle_Test_0005',0, async (done) => {
+    it('UI_Ability_Life_Cycle_Test_0005',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0005 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0005";
 
-      var want = {
+      let want1:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main1Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want1, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -352,21 +353,21 @@ export default function abilityTest() {
 
       await sleep(1000);
 
-      const result1 = globalThis.list1;
+      let result1:Array<string> = globalThis.list1;
       console.info(TAG + 'result1: ' + JSON.stringify(result1));
 
       expect(result1[0]).assertEqual('Main1Ability onCreate');
       expect(result1[1]).assertEqual('Main1Ability onWindowStageCreate');
       expect(result1[2]).assertEqual('Main1Ability onForeground');
 
-      var want = {
+      let want:Want = {
         "bundleName": otherBundle,
         "abilityName": "EntryAbility",
         "moduleName": moduleName
       }
       let otherAppResult = 0
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -388,17 +389,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_Ability_Life_Cycle_Test_0006',0, async (done) => {
+    it('UI_Ability_Life_Cycle_Test_0006',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0006 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0006";
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main3Ability",
         "moduleName": moduleName
       }
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -408,14 +409,14 @@ export default function abilityTest() {
 
       await sleep(1000);
 
-      const result1 = globalThis.list3;
+      let result1:Array<string> = globalThis.list3;
       console.info(TAG + 'result1: ' + JSON.stringify(result1));
 
       expect(result1[0]).assertEqual('Main3Ability onCreate');
       expect(result1[1]).assertEqual('Main3Ability onWindowStageCreate');
       expect(result1[2]).assertEqual('Main3Ability onForeground');
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -424,7 +425,7 @@ export default function abilityTest() {
       });
 
       await sleep(1000);
-      const result2 = globalThis.list3;
+      let result2:Array<string> = globalThis.list3;
       console.info(TAG + 'result2: ' + JSON.stringify(result2));
       expect(result2[0]).assertEqual('Main3Ability onCreate');
       expect(result2[1]).assertEqual('Main3Ability onWindowStageCreate');
@@ -443,17 +444,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it('UI_ABILITY_LIFE_CYCLE_TEST_0007',0, async (done) => {
+    it('UI_ABILITY_LIFE_CYCLE_TEST_0007',0, async (done:Function) => {
       console.log("------------UI_ABILITY_LIFE_CYCLE_TEST_0007 START-------------");
       TAG = "UI_ABILITY_LIFE_CYCLE_TEST_0007";
 
-      var want = {
+      let want:Want = {
         "bundleName": "com.example.uiabilitylifecycle",
         "abilityName": "Main1Ability",
         "moduleName": 'entry'
       }
 
-      await globalThis.abilityContext.startAbility(want, (error, data) => {
+      await globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -463,7 +464,7 @@ export default function abilityTest() {
 
       await sleep(2000);
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {
@@ -472,7 +473,7 @@ export default function abilityTest() {
       });
 
       await sleep(2000);
-      const result = globalThis.onNewWantStr;
+      let result:string = globalThis.onNewWantStr;
       console.info(TAG + 'result: ' + JSON.stringify(result));
       expect(result).assertEqual('Main1Ability onNewWant');
 
@@ -489,17 +490,17 @@ export default function abilityTest() {
      *@tc.type      : Function
      *@tc.level     : Level 1
      */
-    it("UI_Ability_Constant_Test_0100", 0, async (done) => {
+    it("UI_Ability_Constant_Test_0100", 0, async (done:Function) => {
       console.log("------------UI_Ability_Constant_Test_0100 START-------------");
       TAG = "UI_Ability_Constant_Test_0100";
 
-      var want = {
+      let want:Want = {
         bundleName: "com.example.uiabilitylifecycle",
         abilityName: "Main1Ability",
         moduleName: moduleName,
       };
 
-      globalThis.abilityContext.startAbility(want, (error, data) => {
+      globalThis.abilityContext.startAbility(want, (error:ESObject, data:ESObject) => {
         if (error.code) {
           console.error(TAG + ' start failed. Cause: ' + JSON.stringify(error));
         } else {

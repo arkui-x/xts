@@ -14,15 +14,18 @@
  */
 
 import Ability from '@ohos.app.ability.UIAbility'
+import { window } from '@kit.ArkUI';
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+
 const abilityname = 'FeatureassistaAbility';
 
 export default class FeatureassistaAbility extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] FeatureassistaAbility onCreate")
         globalThis.abilityWant1 = want;
         console.log("[Demo] FeatureassistaAbility context: " + JSON.stringify(this.context));
-        var listKey1 = [];
-        let AbilityLifecycleCallback = {
+        let listKey1:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback1 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -92,9 +95,9 @@ export default class FeatureassistaAbility extends Ability {
         }
         globalThis.applicationContext1 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext1.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext1.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid = this.context.getApplicationContext().on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback1 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback1 listKey: " + JSON.stringify(listKey1));
             globalThis.featureList1 = listKey1;
             globalThis.featureCallbackid1 = lifecycleid;
@@ -105,7 +108,7 @@ export default class FeatureassistaAbility extends Ability {
         console.log("[Demo] FeatureassistaAbility onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] FeatureassistaAbility onWindowStageCreate")
         globalThis.featureAbilityContext = this.context;

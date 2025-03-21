@@ -13,16 +13,19 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-let abilityName = null;
-function recordLife(ownList, abilityName, lifeName) {
+let abilityName:string = "";
+function recordLife(ownList:Array<string>, abilityName:string, lifeName:string) {
     ownList.push(abilityName + ' ' + lifeName);
 }
 
 export default class Main2Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main2Ability onCreate")
-        abilityName = want.abilityName
+        abilityName = want.abilityName as string
         globalThis.list2 = [];
         recordLife(globalThis.list2, abilityName, 'onCreate');
     }
@@ -32,7 +35,7 @@ export default class Main2Ability extends Ability {
         recordLife(globalThis.list2, abilityName, 'onDestroy');
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main2Ability onWindowStageCreate")
         globalThis.ability2context = this.context;
@@ -56,12 +59,12 @@ export default class Main2Ability extends Ability {
     onForeground() {
         console.log("[Demo] Main2Ability onForeground")
         recordLife(globalThis.list2, abilityName, 'onForeground');
-        setTimeout(function () {
+        setTimeout( () => {
             console.log("[Demo] Main2Ability onForeground after 1500ms")
             globalThis.ability2context.terminateSelf()
-                .then((data) => {
+                .then((data:ESObject) => {
                     console.info('[Demo] Main2Ability terminateself succeeded: ' + data);
-                }).catch((error) => {
+                }).catch((error:BusinessError) => {
                 console.error('[Demo] Main2Ability terminateself failed. Cause: ' + error);
             })
         }, 1500);
