@@ -17,22 +17,26 @@ import common from '@ohos.app.ability.common';
 import configurationConstant from '@ohos.app.ability.ConfigurationConstant';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-export default function Configuration() {
-  describe("Configuration", function () {
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    beforeAll(async function () {
+export default function Configuration() {
+  describe("Configuration", () => {
+
+    beforeAll(async () => {
       console.info("beforeAll case");
     });
 
-    beforeEach(async function () {
+    beforeEach(async () => {
       console.info("beforeEach case");
     });
 
-    afterEach(async function () {
-      console.info('afterEach case');
+    afterEach(async () => {
+      await sleep(1000);
     });
 
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll case");
     });
 
@@ -44,9 +48,9 @@ export default function Configuration() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testColorMode001', 0, async function (done) {
+    it('testColorMode001', 0, async (done: Function) => {
       try {
-        let colorMode = globalThis.colorMode;
+        let colorMode:number = globalThis.colorMode;
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testColorMode001 colorMode:` + colorMode);
         if (colorMode == configurationConstant.ColorMode.COLOR_MODE_NOT_SET) {
@@ -77,9 +81,9 @@ export default function Configuration() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testDirection001', 0, async function (done) {
+    it('testDirection001', 0, async (done: Function) => {
       try {
-        let direction = globalThis.direction;
+        let direction:number = globalThis.direction;
         let context: common.UIAbilityContext = globalThis.abilityContext;
         console.log(`testDirection001 direction:` + direction);
         if (direction == configurationConstant.Direction.DIRECTION_NOT_SET) {
