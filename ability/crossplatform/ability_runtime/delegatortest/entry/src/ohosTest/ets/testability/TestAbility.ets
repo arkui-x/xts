@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,13 +18,15 @@ import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 import window from '@ohos.window';
+import { AbilityConstant } from '@kit.AbilityKit';
+import Want from '@ohos.app.ability.Want';
 
 export default class TestAbility extends UIAbility {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log('onCreate');
-        var abilityDelegator: any
+        let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator
         abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        var abilityDelegatorArguments: any
+        let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs
         abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
         Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
     }

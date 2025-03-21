@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,20 +22,30 @@ import {
   it,
 } from "@ohos/hypium";
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
+import Want from "@ohos.app.ability.Want";
+import { BusinessError } from "@kit.BasicServicesKit";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 const START_ABILITY_TIMEOUT_TWO_THOUSAND = 2000;
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function GetCurrentTopAbilityTest() {
-  describe("GetCurrentTopAbilityTest", function () {
-    beforeAll(function () {
-      let want = {
+  describe("GetCurrentTopAbilityTest", () => {
+    beforeAll(() => {
+      let want: Want = {
         abilityName: "MainAbility",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
       abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       abilityDelegator.startAbility(want);
+    });
+
+    afterEach(async () => {
+      await sleep(500);
     });
 
     /**
@@ -46,10 +56,10 @@ export default function GetCurrentTopAbilityTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_CURRENT_TOP_ABILITY_CALL_BACK_0001", 0, async function (done) {
-      let abilityDelegator;
+    it("ACTS_GET_CURRENT_TOP_ABILITY_CALL_BACK_0001", 0, async (done: Function) => {
+      let abilityDelegator:AbilityDelegatorRegistry.AbilityDelegator;
       abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      let want = {
+      let want: Want = {
         abilityName: "Main4Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
@@ -57,7 +67,7 @@ export default function GetCurrentTopAbilityTest() {
       setTimeout(() => {
         abilityDelegator.startAbility(want, () => {
           setTimeout(() => {
-            abilityDelegator.getCurrentTopAbility((err: any, ability2: any) => {
+            abilityDelegator.getCurrentTopAbility((err, ability2) => {
               if (ability2 != null) {
                 abilityDelegator.printSync(
                   "ACTS_GetCurrentTopAbility_CALLBACK_0001 getCurrentTopAbility2: " +
@@ -88,10 +98,10 @@ export default function GetCurrentTopAbilityTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_CURRENT_TOP_ABILITY_PROMISE_0002", 0, async function (done) {
-      let abilityDelegator;
+    it("ACTS_GET_CURRENT_TOP_ABILITY_PROMISE_0002", 0, async (done: Function) => {
+      let abilityDelegator:AbilityDelegatorRegistry.AbilityDelegator;
       abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      let want = {
+      let want: Want = {
         abilityName: "Main3Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
@@ -103,7 +113,7 @@ export default function GetCurrentTopAbilityTest() {
       setTimeout(() => {
         abilityDelegator
           .getCurrentTopAbility()
-          .then((ability: any) => {
+          .then((ability) => {
             if (ability != null) {
               abilityDelegator.printSync(
                 "ACTS_GET_CURRENT_TOP_ABILITY_PROMISE_0002 getCurrentTopAbility1: " +
@@ -121,7 +131,7 @@ export default function GetCurrentTopAbilityTest() {
               done();
             }
           })
-          .catch((error) => {
+          .catch((error:BusinessError) => {
             abilityDelegator.printSync(
               "ACTS_GET_CURRENT_TOP_ABILITY_PROMISE_0002 catch error: " + error
             );
