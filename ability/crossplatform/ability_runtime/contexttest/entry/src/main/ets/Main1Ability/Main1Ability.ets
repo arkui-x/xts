@@ -4,15 +4,15 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 
-let abilityName = null;
-function recordLife(ownList, abilityName, lifeName) {
+let abilityName:string = "";
+function recordLife(ownList:Array<string>, abilityName:string, lifeName:string) {
   ownList.push(abilityName + ' ' + lifeName);
 }
 
 export default class Main1Ability extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-    abilityName = want.abilityName;
+    abilityName = want.abilityName as string;
     globalThis.list1 = [];
     globalThis.parameters = null;
     recordLife(globalThis.list1, abilityName, 'onCreate');

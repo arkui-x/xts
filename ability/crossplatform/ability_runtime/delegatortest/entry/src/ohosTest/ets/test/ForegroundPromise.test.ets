@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,17 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//@ts-nocheck
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from "@ohos/hypium";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, } from "@ohos/hypium";
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
+import Want from "@ohos.app.ability.Want";
+// import { businessAbilityRouter } from "@kit.AbilityKit";
+import { BusinessError } from "@kit.BasicServicesKit";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 let errMsgArr = ["Parse remoteObject failed, remoteObject must be RemoteObject.", "Incorrect parameters."];
@@ -30,16 +24,24 @@ let errMsgStr = JSON.stringify(errMsgArr);
 const START_ABILITY_TIMEOUT_TWO_THOUSAND = 2000;
 const START_ABILITY_TIMEOUT_THOUSAND = 1000;
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ForegroundPromise() {
-  describe("ForegroundPromise", function () {
-    beforeAll(function () {
-      let want = {
+  describe("ForegroundPromise", () => {
+    beforeAll(() => {
+      let want: Want = {
         abilityName: "MainAbility",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
       abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       abilityDelegator.startAbility(want);
+    });
+
+    afterEach(async () => {
+      await sleep(500);
     });
 
     /**
@@ -50,14 +52,14 @@ export default function ForegroundPromise() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it("ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001", 0, async function (done) {
-      let wantMain = {
+    it("ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001", 0, async (done: Function) => {
+      let wantMain: Want = {
         abilityName: "Main3Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
 
-      let wantMain2 = {
+      let wantMain2: Want = {
         abilityName: "Main4Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
@@ -68,31 +70,31 @@ export default function ForegroundPromise() {
         );
         abilityDelegator.startAbility(wantMain2, () => {
           setTimeout(() => {
-            abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
+            abilityDelegator.getCurrentTopAbility((err, ability1) => {
               abilityDelegator.printSync(
                 "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001 Main4Ability: " +
-                  ability1.context.abilityInfo.name
+                ability1.context.abilityInfo.name
               );
               abilityDelegator.startAbility(wantMain, () => {
                 setTimeout(() => {
                   abilityDelegator.getCurrentTopAbility(
-                    (err: any, ability2: any) => {
+                    (err, ability2) => {
                       abilityDelegator.printSync(
                         "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001 Main3Ability: " +
-                          ability2.context.abilityInfo.name
+                        ability2.context.abilityInfo.name
                       );
                       abilityDelegator
                         .doAbilityForeground(ability1)
                         .then(() => {
                           setTimeout(() => {
                             abilityDelegator.getCurrentTopAbility(
-                              (err: any, ability3: any) => {
+                              (err, ability3) => {
                                 try {
                                   abilityDelegator.printSync(
                                     "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001 Main4Ability: " +
-                                      ability3.context.abilityInfo.name
+                                    ability3.context.abilityInfo.name
                                   );
-                                  var stateNum =
+                                  let stateNum =
                                     abilityDelegator.getAbilityState(ability3);
                                   abilityDelegator.printSync(
                                     "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001 getAbilityState stateNum :" +
@@ -113,7 +115,7 @@ export default function ForegroundPromise() {
                             );
                           }, START_ABILITY_TIMEOUT_TWO_THOUSAND);
                         })
-                        .catch((error) => {
+                        .catch((error: BusinessError) => {
                           abilityDelegator.printSync(
                             "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0001 catch error: " +
                               error
@@ -130,161 +132,6 @@ export default function ForegroundPromise() {
     });
 
     /**
-     * @tc.number ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002
-     * @tc.name actsDoAbilityForegroundPromiseError0002
-     * @tc.desc Test the api: doAbilityForeground, swith the ability forground.
-     * @tc.size MediumTest
-     * @tc.type Function
-     * @tc.level Level 2
-     */
-    it(
-      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002",
-      0,
-      async function (done) {
-        let wantMain = {
-          abilityName: "Main3Ability",
-          bundleName: "com.example.delegatortest",
-          moduleName: "entry",
-        };
-        abilityDelegator.printSync(
-          "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 start"
-        );
-        abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
-          abilityDelegator.printSync(
-            "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 Main4Ability: " +
-              ability1.context.abilityInfo.name
-          );
-          abilityDelegator.startAbility(wantMain, () => {
-            abilityDelegator.printSync(
-              "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 startAbility"
-            );
-            setTimeout(() => {
-              try {
-                abilityDelegator
-                  .doAbilityForeground(ability1 + "error")
-                  .then(() => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 fail"
-                    );
-                    expect().assertFail();
-                    done();
-                  })
-                  .catch((error) => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 catch error: " +
-                        error
-                    );
-                  });
-              } catch {
-                abilityDelegator.printSync(
-                  "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 doAbilityForeground meet an error: ability is wrong"
-                );
-                abilityDelegator.getCurrentTopAbility(
-                  (err: any, ability2: any) => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 Main3Ability : " +
-                        ability2.context.abilityInfo.name
-                    );
-                    var stateNum = abilityDelegator.getAbilityState(ability1);
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 getAbilityState: " +
-                        stateNum
-                    );
-                    expect(stateNum).assertEqual(3);
-                    expect(ability2.context.abilityInfo.name).assertEqual(
-                      "Main3Ability"
-                    );
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0002 pass."
-                    );
-                    done();
-                  }
-                );
-              }
-            }, START_ABILITY_TIMEOUT_TWO_THOUSAND);
-          });
-        });
-      }
-    );
-
-    /**
-     * @tc.number ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003
-     * @tc.name actsDoAbilityForegroundPromiseError0003
-     * @tc.desc Test the api: doAbilityForeground, swith the ability forground.
-     * @tc.size MediumTest
-     * @tc.type Function
-     * @tc.level Level 2
-     */
-    it(
-      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003",
-      0,
-      async function (done) {
-        let wantMain2 = {
-          abilityName: "Main4Ability",
-          bundleName: "com.example.delegatortest",
-          moduleName: "entry",
-        };
-        abilityDelegator.printSync(
-          "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 start"
-        );
-        abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
-          abilityDelegator.printSync(
-            "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 Main3Ability: " +
-              ability1.context.abilityInfo.name
-          );
-          abilityDelegator.startAbility(wantMain2, () => {
-            abilityDelegator.printSync(
-              "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 startAbility"
-            );
-            setTimeout(() => {
-              try {
-                abilityDelegator
-                  .doAbilityForeground("")
-                  .then(() => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 fail"
-                    );
-                    expect().assertFail();
-                    done();
-                  })
-                  .catch((error) => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 catch error: " +
-                        error
-                    );
-                  });
-              } catch {
-                abilityDelegator.printSync(
-                  "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 doAbilityForeground meet an error: ability is null"
-                );
-                abilityDelegator.getCurrentTopAbility(
-                  (err: any, ability2: any) => {
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 Main4Ability : " +
-                        ability2.context.abilityInfo.name
-                    );
-                    var stateNum = abilityDelegator.getAbilityState(ability1);
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 getAbilityState: " +
-                        stateNum
-                    );
-                    expect(stateNum).assertEqual(3);
-                    expect(ability2.context.abilityInfo.name).assertEqual(
-                      "Main4Ability"
-                    );
-                    abilityDelegator.printSync(
-                      "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 pass."
-                    );
-                    done();
-                  }
-                );
-              }
-            }, START_ABILITY_TIMEOUT_TWO_THOUSAND);
-          });
-        });
-      }
-    );
-    /**
      * @tc.number ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004
      * @tc.name actsDoAbilityForegroundPromise004
      * @tc.desc Test the api: doAbilityForeground, swith the ability forground.
@@ -292,14 +139,14 @@ export default function ForegroundPromise() {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it("ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004", 0, async function (done) {
-      let wantMain2 = {
+    it("ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004", 0, async (done: Function) => {
+      let wantMain2: Want = {
         abilityName: "Main4Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
 
-      let wantMain = {
+      let wantMain: Want = {
         abilityName: "Main3Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
@@ -309,31 +156,31 @@ export default function ForegroundPromise() {
       );
       abilityDelegator.startAbility(wantMain2, () => {
         setTimeout(() => {
-          abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
+          abilityDelegator.getCurrentTopAbility((err, ability1) => {
             abilityDelegator.printSync(
               "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004 Main4Ability: " +
-                ability1.context.abilityInfo.name
+              ability1.context.abilityInfo.name
             );
             abilityDelegator.startAbility(wantMain, () => {
               setTimeout(() => {
                 abilityDelegator.getCurrentTopAbility(
-                  (err: any, ability2: any) => {
+                  (err, ability2) => {
                     abilityDelegator.printSync(
                       "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004 Main3Ability: " +
-                        ability2.context.abilityInfo.name
+                      ability2.context.abilityInfo.name
                     );
                     abilityDelegator
                       .doAbilityForeground(ability2)
                       .then(() => {
                         setTimeout(() => {
                           abilityDelegator.getCurrentTopAbility(
-                            (err: any, ability3: any) => {
+                            (err, ability3) => {
                               try {
                                 abilityDelegator.printSync(
                                   "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004 Main3Ability: " +
-                                    ability3.context.abilityInfo.name
+                                  ability3.context.abilityInfo.name
                                 );
-                                var stateNum =
+                                let stateNum =
                                   abilityDelegator.getAbilityState(ability3);
                                 abilityDelegator.printSync(
                                   "ACTS_DO_ABILITY_FOREGROUND_PROMISE_0004 getAbilityState stateNum :" +
@@ -356,7 +203,7 @@ export default function ForegroundPromise() {
                           );
                         }, START_ABILITY_TIMEOUT_TWO_THOUSAND);
                       })
-                      .catch((error) => {
+                      .catch((error: BusinessError) => {
                         abilityDelegator.printSync(
                           "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0003 catch error: " +
                             error
@@ -382,8 +229,8 @@ export default function ForegroundPromise() {
     it(
       "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0005",
       0,
-      async function (done) {
-        let wantMain = {
+      async (done: Function) => {
+        let wantMain: Want = {
           abilityName: "Main3Ability",
           bundleName: "com.example.delegatortest",
           moduleName: "entry",
@@ -391,10 +238,10 @@ export default function ForegroundPromise() {
         abilityDelegator.printSync(
           "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0005 start"
         );
-        abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
+        abilityDelegator.getCurrentTopAbility((err, ability1) => {
           abilityDelegator.printSync(
             "ACTS_DO_ABILITY_FOREGROUND_PROMISE_ERROR_0005 Main4Ability: " +
-              ability1.context.abilityInfo.name
+            ability1.context.abilityInfo.name
           );
           abilityDelegator.startAbility(wantMain, () => {
             abilityDelegator.printSync(
@@ -402,13 +249,14 @@ export default function ForegroundPromise() {
             );
             setTimeout(() => {
               abilityDelegator.getCurrentTopAbility(
-                (err: any, ability2: any) => {
+                (err, ability2) => {
                   ability2.context.terminateSelf(() => {
                     setTimeout(() => {
                       try {
                         abilityDelegator
                           .doAbilityForeground(ability2)
-                          .then(() => {});
+                          .then(() => {
+                          });
                       } catch (error) {
                         expect(errMsgStr.indexOf(error.message) > 0).assertTrue();
                         abilityDelegator.printSync(

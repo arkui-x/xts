@@ -19,23 +19,27 @@ let errMsgArr = ["Parse param moduleName failed, moduleName must be string.",
   "Invalid input parameter."];
 let errMsgStr = JSON.stringify(errMsgArr);
 
-export default function AbilityStageContext() {
-  describe("AbilityStageContext", function () {
-    let bundleName: any;
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    beforeAll(async function () {
+export default function AbilityStageContext() {
+  describe("AbilityStageContext",() => {
+    let bundleName: string;
+
+    beforeAll(async() => {
       console.info("beforeAll case");
     });
 
-    beforeEach(async function () {
+    beforeEach(async() => {
       console.info("beforeEach case");
     });
 
-    afterEach(async function () {
-      console.info('afterEach case');
+    afterEach(async () => {
+      await sleep(1000);
     });
 
-    afterAll(async function () {
+    afterAll(async() => {
       console.info("afterAll case");
     });
 
@@ -47,7 +51,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testAbilityStageContextCurrentHapModuleInfo001', 0, async function (done) {
+    it('testAbilityStageContextCurrentHapModuleInfo001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         expect(context != null).assertTrue();
@@ -132,7 +136,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testAbilityStageContextConfig001', 0, async function (done) {
+    it('testAbilityStageContextConfig001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         expect(context != null).assertTrue();
@@ -161,7 +165,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testStageMode001', 0, async function (done) {
+    it('testStageMode001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         expect(context.stageMode).assertTrue();
@@ -182,7 +186,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testResourceManager001', 0, async function (done) {
+    it('testResourceManager001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         expect(context.resourceManager != null).assertTrue();
@@ -203,7 +207,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testApplicationInfo001', 0, async function (done) {
+    it('testApplicationInfo001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         expect(context != null).assertTrue();
@@ -244,7 +248,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testCacheDir001', 0, async function (done) {
+    it('testCacheDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testCacheDir001 cacheDir:` + context.cacheDir);
@@ -266,7 +270,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testTempDir001', 0, async function (done) {
+    it('testTempDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testTempDir001 tempDir:` + context.tempDir);
@@ -288,7 +292,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testFilesDir001', 0, async function (done) {
+    it('testFilesDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testFilesDir001 filesDir:` + context.filesDir);
@@ -310,7 +314,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testDatabaseDir001', 0, async function (done) {
+    it('testDatabaseDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testDatabaseDir001 databaseDir:` + context.databaseDir);
@@ -332,7 +336,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testPreferencesDir001', 0, async function (done) {
+    it('testPreferencesDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testPreferencesDir001 preferencesDir:` + context.preferencesDir);
@@ -354,7 +358,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 1
      */
-    it('testBundleCodeDir001', 0, async function (done) {
+    it('testBundleCodeDir001', 0, (done: Function) => {
       try {
         let context: common.AbilityStageContext = globalThis.stageContext;
         console.log(`testBundleCodeDir001 bundleCodeDir:` + context.bundleCodeDir);
@@ -376,7 +380,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext001", 0, async function (done) {
+    it("testCreateModuleContext001", 0, (done: Function) => {
       try {
         console.info("testCreateModuleContext001 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;
@@ -402,7 +406,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext002", 0, async function (done) {
+    it("testCreateModuleContext002", 0, (done: Function) => {
       try {
         console.log("testCreateModuleContext002 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;
@@ -428,7 +432,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext003", 0, async function (done) {
+    it("testCreateModuleContext003", 0, (done: Function) => {
       try {
         console.info("testCreateModuleContext003 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;
@@ -436,7 +440,7 @@ export default function AbilityStageContext() {
         expect(!moduleContext).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext003 ====>e====>" + e);
         expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
@@ -451,7 +455,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext004", 0, async function (done) {
+    it("testCreateModuleContext004", 0, (done: Function) => {
       try {
         console.info("testCreateModuleContext004 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;
@@ -459,7 +463,7 @@ export default function AbilityStageContext() {
         expect(!moduleContext).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext004 ====>e====>" + e);
         expect(e.indexOf(err.message) >= 0).assertTrue();
         done();
@@ -474,7 +478,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testCreateModuleContext005", 0, async function (done) {
+    it("testCreateModuleContext005", 0, (done: Function) => {
       try {
         console.info("testCreateModuleContext005 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;
@@ -482,7 +486,7 @@ export default function AbilityStageContext() {
         expect(moduleContext != null).assertTrue();
         done();
       } catch (err) {
-        let e = err.toString();
+        let e: string = err.toString();
         console.debug("testCreateModuleContext005 ====>e====>" + e);
         expect(errMsgStr.indexOf(err.message) > 0).assertTrue();
         done();
@@ -497,7 +501,7 @@ export default function AbilityStageContext() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("testGetApplicationContext001", 0, async function (done) {
+    it("testGetApplicationContext001", 0, (done: Function) => {
       try {
         console.info("testGetApplicationContext001 begin");
         let context: common.AbilityStageContext = globalThis.stageContext;

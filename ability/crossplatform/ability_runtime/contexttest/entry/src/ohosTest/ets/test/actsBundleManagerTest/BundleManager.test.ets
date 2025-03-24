@@ -16,22 +16,27 @@
 import bundleManager from '@ohos.bundle.bundleManager';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-export default function BundleManager() {
-  describe("BundleManager", function () {
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    beforeAll(async function () {
+export default function BundleManager() {
+  describe("BundleManager", () => {
+
+    beforeAll(async () => {
       console.info("beforeAll case");
     });
 
-    beforeEach(async function () {
+    beforeEach(async () => {
       console.info("beforeEach case");
     });
 
-    afterEach(async function () {
+    afterEach(async () => {
       console.info('afterEach case');
+      await sleep(1000);
     });
 
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll case");
     });
 
@@ -43,7 +48,7 @@ export default function BundleManager() {
      * @tc.type      : Function
      * @tc.level     : Level 0
      */
-    it('testLaunchType001', 0, async function (done) {
+    it('testLaunchType001', 0, async (done: Function) => {
       try {
         console.log('testLaunchType001 begin');
         expect(bundleManager.LaunchType.SINGLETON).assertEqual(0);
@@ -68,7 +73,7 @@ export default function BundleManager() {
      * @tc.type      : Function
      * @tc.level     : Level 0
      */
-    it('testLaunchType002', 0, async function (done) {
+    it('testLaunchType002', 0, async (done: Function) => {
       try {
         console.log('testLaunchType002 begin');
         expect(bundleManager.LaunchType.MULTITON).assertEqual(1);
