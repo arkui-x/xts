@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import Image from './Image.test.ets'
-import PixelMap from './PixelMap.test.ets'
-import ImageSource from './ImageSource.test.ets'
-import ImagePacker from './ImagePacker.test.ets'
+import Image from './Image.test'
+import PixelMap from './PixelMap.test'
+import ImageSource from './ImageSource.test'
+import ImagePacker from './ImagePacker.test'
 
 export default function testsuite() {
     Image();
