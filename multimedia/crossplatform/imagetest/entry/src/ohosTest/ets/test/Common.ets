@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,7 +21,7 @@ import buffer from '@ohos.buffer';
  * @param array
  * @returns
  */
-function convertArrayBuffer(array): ArrayBuffer {
+function convertArrayBuffer(array:Uint8Array): ArrayBuffer {
     console.info('convertArrayBuffer 1');
     const buf = buffer.from(array);
     return buf.buffer;
@@ -33,7 +33,7 @@ function convertArrayBuffer(array): ArrayBuffer {
  * @param imageArray
  * @returns boolean
  */
-export async function prepareImageFile(fpath, imageArray) {
+export async function prepareImageFile(fpath:string, imageArray:Uint8Array) {
     try {
         const content = convertArrayBuffer(imageArray);
         let file = fileIO.openSync(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
@@ -55,7 +55,7 @@ export async function prepareImageFile(fpath, imageArray) {
  * @param imageArray
  * @returns boolean
  */
-export async function prepareImageFileFd(fpath, imageArray) {
+export async function prepareImageFileFd(fpath:string, imageArray:Uint8Array) {
     try {
         const content = convertArrayBuffer(imageArray);
         let file = fileIO.openSync(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
