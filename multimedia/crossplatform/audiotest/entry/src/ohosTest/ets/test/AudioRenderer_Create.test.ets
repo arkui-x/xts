@@ -10,14 +10,17 @@ const enum_100000 = 100000;
 const errCode_6800301 = 6800301;
 const channelLayout_err = 0x1000000033333;
 const waitReadyMs_100 = 100;
+const waitReadyMs_300 = 300;
 const waitReadyMs_400 = 400;
-const waitReadyMs_800 = 800;
 let isPass = false;
 let isErr = false;
 let audioRenderer: audio.AudioRenderer;
 let channelLayoutArray1: Array<audio.AudioChannelLayout>;
 let channelLayoutArray2: Array<audio.AudioChannelLayout>;
 let channelLayoutArray3: Array<audio.AudioChannelLayout>;
+let audioChannelArray: Array<audio.AudioChannel>;
+let audioSamplingRateArray: Array<audio.AudioSamplingRate>;
+let streamUsageArray: Array<audio.StreamUsage>
 let osFullNameInfo: string = deviceInfo.osFullName;
 console.info('the deviceInfo osFullName is :' + osFullNameInfo);
 let platform = osFullNameInfo.split(' ')[0];
@@ -56,6 +59,22 @@ async function resetAudioRendererOptions() {
   await sleep(waitReadyMs_100);
 }
 
+async function createAudioRendererCallback() {
+  await (async (): Promise<audio.AudioRenderer> => {
+    return new Promise((resolve, reject) => {
+      audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+        err == undefined ? resolve(data) : reject(err)
+      });
+    });
+  })().then(data => {
+    audioRenderer = data;
+  }).catch((err: BusinessError) => {
+    isPass = false;
+    console.error('AudioCapturer Created: ERROR:' + JSON.stringify(err));
+  });
+  await sleep(waitReadyMs_100);
+}
+
 export default function audioRenderer_CreateTest() {
   describe('audioRenderer_CreateTest', () => {
     beforeEach(async () => {
@@ -72,100 +91,24 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0100', 0, async (done: Function) => {
       isPass = true;
       try{
-        await sleep(waitReadyMs_400);
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_8000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        audioSamplingRateArray = [audio.AudioSamplingRate.SAMPLE_RATE_8000, audio.AudioSamplingRate.SAMPLE_RATE_11025,
+          audio.AudioSamplingRate.SAMPLE_RATE_12000, audio.AudioSamplingRate.SAMPLE_RATE_16000,
+          audio.AudioSamplingRate.SAMPLE_RATE_22050, audio.AudioSamplingRate.SAMPLE_RATE_24000,
+          audio.AudioSamplingRate.SAMPLE_RATE_32000, audio.AudioSamplingRate.SAMPLE_RATE_44100,
+          audio.AudioSamplingRate.SAMPLE_RATE_48000, audio.AudioSamplingRate.SAMPLE_RATE_64000,
+          audio.AudioSamplingRate.SAMPLE_RATE_96000]
 
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_11025;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_12000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_16000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_22050;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_24000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_32000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_44100;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_48000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_64000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_96000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        for (let i = 0; i < audioSamplingRateArray.length; i++) {
+          audioRendererOptions.streamInfo.samplingRate = audioSamplingRateArray[i];
+          await createAudioRendererCallback();
+          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          await audioRenderer.release();
+        }
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0100 error' + error);
       }
-      await sleep(waitReadyMs_400);
       expect(isPass).assertTrue();
       done();
     })
@@ -178,105 +121,17 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0200', 0, async (done: Function) => {
       isPass = true;
       try{
-        await sleep(waitReadyMs_400);
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_8000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_11025;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_12000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_16000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_22050;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_24000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_32000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_44100;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_48000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_64000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.samplingRate = audio.AudioSamplingRate.SAMPLE_RATE_96000;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        for (let i = 0; i < audioSamplingRateArray.length; i++) {
+          audioRendererOptions.streamInfo.samplingRate = audioSamplingRateArray[i];
+          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isPass = false;
+          });
+          await sleep(waitReadyMs_100);
+          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          await audioRenderer.release();
+        }
       }
       catch (error) {
         expect(error).assertFail();
@@ -294,13 +149,17 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0300', 0, async (done: Function) => {
       try{
         audioRendererOptions.streamInfo.samplingRate = enum_100000;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0300 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0300 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -308,7 +167,7 @@ export default function audioRenderer_CreateTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0300 error' + error);
       }
-      await sleep(waitReadyMs_400);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -333,7 +192,7 @@ export default function audioRenderer_CreateTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0400 error' + error);
       }
-      await sleep(waitReadyMs_400);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -347,145 +206,93 @@ export default function audioRenderer_CreateTest() {
       isPass = true;
       try{
         await resetAudioRendererOptions();
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_1;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        audioChannelArray = [audio.AudioChannel.CHANNEL_1, audio.AudioChannel.CHANNEL_2, audio.AudioChannel.CHANNEL_3,
+          audio.AudioChannel.CHANNEL_4, audio.AudioChannel.CHANNEL_5, audio.AudioChannel.CHANNEL_6,
+          audio.AudioChannel.CHANNEL_7, audio.AudioChannel.CHANNEL_8]
 
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_2;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_3;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_4;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_5;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_6;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_7;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_8;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        for (let i = 0; i < audioChannelArray.length; i++) {
+          audioRendererOptions.streamInfo.channels = audioChannelArray[i];
+          await createAudioRendererCallback();
+          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          await audioRenderer.release();
+        }
 
         if (platform != 'Android') {
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_10;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_12;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_14;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_16;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_9;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
         } else {
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_10;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_12;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_14;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
 
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_16;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
         }
       }
@@ -507,77 +314,17 @@ export default function audioRenderer_CreateTest() {
       isPass = true;
       try{
         await resetAudioRendererOptions();
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_1;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_2;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_3;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_4;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_5;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_6;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_7;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
-
-        audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_8;
-        await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-          audioRenderer = data;
-        }).catch((err: BusinessError) => {
-          isPass = false;
-        });
-        expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-        await audioRenderer.release();
+        for (let i = 0; i < audioChannelArray.length; i++) {
+          audioRendererOptions.streamInfo.channels = audioChannelArray[i];
+          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isPass = false;
+          });
+          await sleep(waitReadyMs_100);
+          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          await audioRenderer.release();
+        }
 
         if (platform != 'Android') {
           audioRendererOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_10;
@@ -671,14 +418,17 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0700', 0, async (done: Function) => {
       try{
         audioRendererOptions.streamInfo.channels = enum_20;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            console.error('AudioRenderer Created: Error: ' + err);
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0700 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0700 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -726,92 +476,94 @@ export default function audioRenderer_CreateTest() {
       try{
         await resetAudioRendererOptions();
         audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_U8;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_800);
+        await createAudioRendererCallback();
         expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioRenderer.release();
 
         audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_800);
+        await createAudioRendererCallback();
         expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioRenderer.release();
 
         if (platform == 'iOS') {
           audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S24LE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_800);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S32LE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_800);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
         } else {
           audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S24LE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              isErr = true;
-            } else {
-              isErr = false;
-              audioRenderer = data;
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            isErr = false;
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isErr = true;
           });
-          await sleep(waitReadyMs_400);
+          await sleep(waitReadyMs_100);
           expect(audioRenderer.state == audio.AudioState.STATE_PREPARED || isErr).assertTrue();
 
           audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S32LE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              isErr = true;
-            } else {
-              isErr = false;
-              audioRenderer = data;
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            isErr = false;
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isErr = true;
           });
-          await sleep(waitReadyMs_400);
+          await sleep(waitReadyMs_100);
           expect(audioRenderer.state == audio.AudioState.STATE_PREPARED || isErr).assertTrue();
         }
 
         audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_INVALID;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0900 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0900 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
-        await sleep(waitReadyMs_400);
 
         audioRendererOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_F32LE;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0900 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0900 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
-        await sleep(waitReadyMs_400);
       }
       catch (error) {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0900 error' + error);
       }
-      await sleep(waitReadyMs_400);
+      await sleep(waitReadyMs_100);
       expect(isPass).assertTrue();
       done();
     })
@@ -921,13 +673,17 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1100', 0, async (done: Function) => {
       try{
         audioRendererOptions.streamInfo.sampleFormat = enum_5;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1100 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1100 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -975,21 +731,22 @@ export default function audioRenderer_CreateTest() {
       try{
         await resetAudioRendererOptions();
         audioRendererOptions.streamInfo.encodingType = audio.AudioEncodingType.ENCODING_TYPE_RAW;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          err ? isPass = false : audioRenderer = data;
-        });
-        await sleep(waitReadyMs_400);
+        await createAudioRendererCallback();
         expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioRenderer.release();
 
         audioRendererOptions.streamInfo.encodingType = audio.AudioEncodingType.ENCODING_TYPE_INVALID;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1300 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1300 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
       }
@@ -1045,13 +802,17 @@ export default function audioRenderer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1500', 0, async (done: Function) => {
       try{
         audioRendererOptions.streamInfo.encodingType = enum_2;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1500 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1103,7 +864,7 @@ export default function audioRenderer_CreateTest() {
           audio.AudioChannelLayout.CH_LAYOUT_2POINT1, audio.AudioChannelLayout.CH_LAYOUT_2POINT0POINT2,
           audio.AudioChannelLayout.CH_LAYOUT_3POINT0, audio.AudioChannelLayout.CH_LAYOUT_SURROUND,
           audio.AudioChannelLayout.CH_LAYOUT_3POINT1, audio.AudioChannelLayout.CH_LAYOUT_4POINT0,
-          audio.AudioChannelLayout.CH_LAYOUT_QUAD,audio.AudioChannelLayout.CH_LAYOUT_4POINT1];
+          audio.AudioChannelLayout.CH_LAYOUT_QUAD];
       } else {
         channelLayoutArray1 = [audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN,
           audio.AudioChannelLayout.CH_LAYOUT_MONO, audio.AudioChannelLayout.CH_LAYOUT_STEREO,
@@ -1113,26 +874,34 @@ export default function audioRenderer_CreateTest() {
       try {
         if (platform.startsWith('OpenHarmony')) {
           audioRendererOptions.streamInfo.channelLayout = audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              isPass = false;
-            } else {
-              audioRenderer = data;
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isPass = false;
           });
-          await sleep(waitReadyMs_400);
+          await sleep(waitReadyMs_100);
           expect(audioRenderer.state == audio.AudioState.STATE_PREPARED).assertTrue();
           await audioRenderer.release();
 
           audioRendererOptions.streamInfo.channelLayout = audio.AudioChannelLayout.CH_LAYOUT_STEREO;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              isPass = false;
-            } else {
-              audioRenderer = data;
-            }
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            audioRenderer = data;
+          }).catch((err: BusinessError) => {
+            isPass = false;
           });
-          await sleep(waitReadyMs_400);
+          await sleep(waitReadyMs_100);
           expect(audioRenderer.state == audio.AudioState.STATE_PREPARED).assertTrue();
           await audioRenderer.release();
         }
@@ -1140,26 +909,36 @@ export default function audioRenderer_CreateTest() {
           if (platform.startsWith('OpenHarmony')) {
             if (channelLayoutArray1[i] != audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN &&
               channelLayoutArray1[i] != audio.AudioChannelLayout.CH_LAYOUT_STEREO) {
-                audioRendererOptions.streamInfo.channelLayout = channelLayoutArray1[i];
-                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-                  if (err) {
-                    if (err.code != errCode_6800301) {
-                      isPass = false;
-                    }
-                  }
+              audioRendererOptions.streamInfo.channelLayout = channelLayoutArray1[i];
+              await (async (): Promise<audio.AudioRenderer> => {
+                return new Promise((resolve, reject) => {
+                  audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                    err == undefined ? resolve(data) : reject(err)
+                  });
                 });
-                await sleep(waitReadyMs_400);
+              })().then(data => {
+                audioRenderer = data;
+              }).catch((err: BusinessError) => {
+                if (err.code != errCode_6800301) {
+                  isPass = false;
+                }
+              });
+              await sleep(waitReadyMs_100);
             }
           } else {
             audioRendererOptions.streamInfo.channelLayout = channelLayoutArray1[i];
-            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioRenderer = data;
-              }
+            await (async (): Promise<audio.AudioRenderer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1186,7 +965,7 @@ export default function audioRenderer_CreateTest() {
           audio.AudioChannelLayout.CH_LAYOUT_5POINT1, audio.AudioChannelLayout.CH_LAYOUT_6POINT0,
           audio.AudioChannelLayout.CH_LAYOUT_HEXAGONAL, audio.AudioChannelLayout.CH_LAYOUT_6POINT1,
           audio.AudioChannelLayout.CH_LAYOUT_7POINT0, audio.AudioChannelLayout.CH_LAYOUT_7POINT0_FRONT,
-          audio.AudioChannelLayout.CH_LAYOUT_7POINT1];
+          audio.AudioChannelLayout.CH_LAYOUT_7POINT1, audio.AudioChannelLayout.CH_LAYOUT_4POINT1];
       } else {
         channelLayoutArray2 = [audio.AudioChannelLayout.CH_LAYOUT_5POINT1,
           audio.AudioChannelLayout.CH_LAYOUT_6POINT1, audio.AudioChannelLayout.CH_LAYOUT_7POINT1,
@@ -1198,24 +977,34 @@ export default function audioRenderer_CreateTest() {
         for (let i = 0; i < channelLayoutArray2.length; i++) {
           if (platform.startsWith('OpenHarmony')) {
             audioRendererOptions.streamInfo.channelLayout = channelLayoutArray2[i];
-            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-              if (err) {
-                if (err.code != errCode_6800301) {
-                  isPass = false;
-                }
+            await (async (): Promise<audio.AudioRenderer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              if (err.code != errCode_6800301) {
+                isPass = false;
               }
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_100);
           } else {
             audioRendererOptions.streamInfo.channelLayout = channelLayoutArray2[i];
-            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioRenderer = data;
-              }
+            await (async (): Promise<audio.AudioRenderer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1253,24 +1042,34 @@ export default function audioRenderer_CreateTest() {
         for (let i = 0; i < channelLayoutArray3.length; i++) {
           if (platform.startsWith('OpenHarmony')) {
             audioRendererOptions.streamInfo.channelLayout = channelLayoutArray3[i];
-            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-              if (err) {
-                if (err.code != errCode_6800301) {
-                  isPass = false;
-                }
+            await (async (): Promise<audio.AudioRenderer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              if (err.code != errCode_6800301) {
+                isPass = false;
               }
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_100);
           } else {
             audioRendererOptions.streamInfo.channelLayout = channelLayoutArray3[i];
-            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioRenderer = data;
-              }
+            await (async (): Promise<audio.AudioRenderer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1344,7 +1143,7 @@ export default function audioRenderer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false;
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1386,7 +1185,7 @@ export default function audioRenderer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false;
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1427,7 +1226,7 @@ export default function audioRenderer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false;
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioRenderer.release();
           }
@@ -1448,15 +1247,18 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2300', 0, async (done: Function) => {
       try{
-        await sleep(waitReadyMs_400);
         audioRendererOptions.streamInfo.channelLayout = channelLayout_err;
-        audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2300 fail');
+        await (async (): Promise<audio.AudioRenderer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2300 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -1505,101 +1307,19 @@ export default function audioRenderer_CreateTest() {
         isPass = true;
         try{
           await resetAudioRendererOptions();
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_UNKNOWN;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
+          streamUsageArray = [audio.StreamUsage.STREAM_USAGE_UNKNOWN, audio.StreamUsage.STREAM_USAGE_MUSIC,
+            audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION, audio.StreamUsage.STREAM_USAGE_VOICE_ASSISTANT,
+            audio.StreamUsage.STREAM_USAGE_ALARM, audio.StreamUsage.STREAM_USAGE_RINGTONE,
+            audio.StreamUsage.STREAM_USAGE_NOTIFICATION, audio.StreamUsage.STREAM_USAGE_ACCESSIBILITY,
+            audio.StreamUsage.STREAM_USAGE_MOVIE, audio.StreamUsage.STREAM_USAGE_GAME,
+            audio.StreamUsage.STREAM_USAGE_AUDIOBOOK, audio.StreamUsage.STREAM_USAGE_NAVIGATION]
 
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_MUSIC;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_VOICE_ASSISTANT;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_ALARM;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_RINGTONE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_NOTIFICATION;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_ACCESSIBILITY;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_MOVIE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_GAME;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_AUDIOBOOK;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_NAVIGATION;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
+          for (let i = 0; i < streamUsageArray.length; i++) {
+            audioRendererOptions.rendererInfo.usage = streamUsageArray[i];
+            await createAudioRendererCallback();
+            expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            await audioRenderer.release();
+          }
         }
         catch (error) {
           expect(error).assertFail();
@@ -1618,114 +1338,17 @@ export default function audioRenderer_CreateTest() {
       it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2600', 0, async (done: Function) => {
         isPass = true;
         try{
-          await sleep(waitReadyMs_400);
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_UNKNOWN;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_MUSIC;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_VOICE_COMMUNICATION;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_VOICE_ASSISTANT;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_ALARM;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_RINGTONE;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_NOTIFICATION;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_ACCESSIBILITY;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_MOVIE;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_GAME;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_AUDIOBOOK;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
-
-          audioRendererOptions.rendererInfo.usage = audio.StreamUsage.STREAM_USAGE_NAVIGATION;
-          await audio.createAudioRenderer(audioRendererOptions).then((data) => {
-            audioRenderer = data;
-          }).catch((err: BusinessError) => {
-            isPass = false;
-          });
-          expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
-          await audioRenderer.release();
+          for (let i = 0; i < streamUsageArray.length; i++) {
+            audioRendererOptions.rendererInfo.usage = streamUsageArray[i];
+            await audio.createAudioRenderer(audioRendererOptions).then((data) => {
+              audioRenderer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
+            });
+            await sleep(waitReadyMs_100);
+            expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
+            await audioRenderer.release();
+          }
         }
         catch (error) {
           expect(error).assertFail();
@@ -1742,15 +1365,18 @@ export default function audioRenderer_CreateTest() {
        */
       it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2700', 0, async (done: Function) => {
         try{
-          await sleep(waitReadyMs_400);
           audioRendererOptions.rendererInfo.usage = enum_20;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            if (err) {
-              if (err.code == errCode_6800301) {
-                isPass = true;
-              }
-            } else {
-              console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2700 fail');
+          await (async (): Promise<audio.AudioRenderer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioRenderer(audioRendererOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2700 fail');
+          }).catch((err: BusinessError) => {
+            if (err.code == errCode_6800301) {
+              isPass = true;
             }
           });
         }
@@ -1810,18 +1436,12 @@ export default function audioRenderer_CreateTest() {
             },
             privacyType: audio.AudioPrivacyType.PRIVACY_TYPE_PUBLIC
           }
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
 
           audioRendererOptions.privacyType = audio.AudioPrivacyType.PRIVACY_TYPE_PRIVATE;
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
         }
@@ -1901,10 +1521,7 @@ export default function audioRenderer_CreateTest() {
             },
             privacyType: enum_2
           }
-          audio.createAudioRenderer(audioRendererOptions, (err, data) => {
-            err ? isPass = false : audioRenderer = data;
-          });
-          await sleep(waitReadyMs_400);
+          await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
           await audioRenderer.release();
         }

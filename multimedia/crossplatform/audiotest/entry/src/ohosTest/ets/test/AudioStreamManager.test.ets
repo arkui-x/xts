@@ -104,7 +104,7 @@ async function onWriteData(audioRenderer: audio.AudioRenderer, fileDescriptor: r
   }
   try{
     audioRenderer.on('writeData', writeDataCallback)
-    await sleep(waitReadyMs_300);
+    await sleep(waitReadyMs_1000);
   } catch (error) {
     expect().assertFail();
     console.error('Renderer:onWriteData fail:' + error);
@@ -130,7 +130,7 @@ async function onReadData(audioCapturer: audio.AudioCapturer) {
   }
   try{
     audioCapturer.on('readData', readDataCallback);
-    await sleep(waitReadyMs_300);
+    await sleep(waitReadyMs_1000);
   } catch (error) {
     expect().assertFail();
     console.error('Capturer:onReadData fail:' + error);
@@ -154,7 +154,6 @@ async function stopPromise(audioRenderer: audio.AudioRenderer) {
     return;
   }
   await audioRenderer.stop().then(() => {
-
   }).catch((err: BusinessError) => {
     console.error('audioRenderer.stop Invoked: Error: ' + err);
   });
@@ -215,20 +214,26 @@ export default function audioStreamManagerTest() {
         await onReadData(audioCapturer);
         await startCapturer(audioCapturer);
         await sleep(waitReadyMs_1000);
-        audioStreamManager.getCurrentAudioCapturerInfoArray(async (err, AudioCapturerChangeInfoArray) => {
-          if (err) {
-            console.error('SUB_ArkUIX_Audio_getCurrentAudioCapturerInfoArray_Func_0100 fail');
-          } else {
-            if (AudioCapturerChangeInfoArray.length > 0) {
-              if (AudioCapturerChangeInfoArray[0].capturerInfo.source == audioCapturerOptions.capturerInfo.source &&
-                AudioCapturerChangeInfoArray[0].capturerInfo.capturerFlags ==
-                audioCapturerOptions.capturerInfo.capturerFlags) {
-                isPass = true;
-              }
+
+        await (async (): Promise<audio.AudioCapturerChangeInfoArray> => {
+          return new Promise((resolve, reject) => {
+            audioStreamManager.getCurrentAudioCapturerInfoArray((err, AudioCapturerChangeInfoArray) => {
+              err == undefined ? resolve(AudioCapturerChangeInfoArray) : reject(err)
+            });
+          });
+        })().then(AudioCapturerChangeInfoArray => {
+          if (AudioCapturerChangeInfoArray.length > 0) {
+            if (AudioCapturerChangeInfoArray[0].capturerInfo.source == audioCapturerOptions.capturerInfo.source &&
+              AudioCapturerChangeInfoArray[0].capturerInfo.capturerFlags ==
+              audioCapturerOptions.capturerInfo.capturerFlags) {
+              isPass = true;
             }
           }
+        }).catch((err: BusinessError) => {
+          console.error('SUB_ArkUIX_Audio_getCurrentAudioCapturerInfoArray_Func_0100 fail' + JSON.stringify(err));
         });
-        await sleep(waitReadyMs_1000);
+
+        await sleep(waitReadyMs_300);
         await audioCapturer.release();
       }
       catch (error) {
@@ -422,18 +427,22 @@ export default function audioStreamManagerTest() {
           await onWriteData(audioRenderer, fileDescriptor);
           await startRenderer(audioRenderer);
           await sleep(waitReadyMs_600);
-          audioStreamManager.getCurrentAudioRendererInfoArray((err, AudioRendererChangeInfoArray) => {
-            if (err) {
-              console.error('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0100 fail');
-            } else {
-              if (AudioRendererChangeInfoArray.length > 0) {
-                if (AudioRendererChangeInfoArray[0].rendererInfo.usage == audioRendererOptions.rendererInfo.usage &&
-                  AudioRendererChangeInfoArray[0].rendererInfo.rendererFlags ==
-                  audioRendererOptions.rendererInfo.rendererFlags) {
-                  isPass = true;
-                }
+          await (async (): Promise<audio.AudioRendererChangeInfoArray> => {
+            return new Promise((resolve, reject) => {
+              audioStreamManager.getCurrentAudioRendererInfoArray((err, AudioRendererChangeInfoArray) => {
+                err == undefined ? resolve(AudioRendererChangeInfoArray) : reject(err)
+              });
+            });
+          })().then(AudioRendererChangeInfoArray => {
+            if (AudioRendererChangeInfoArray.length > 0) {
+              if (AudioRendererChangeInfoArray[0].rendererInfo.usage == audioRendererOptions.rendererInfo.usage &&
+                AudioRendererChangeInfoArray[0].rendererInfo.rendererFlags ==
+                audioRendererOptions.rendererInfo.rendererFlags) {
+                isPass = true;
               }
             }
+          }).catch((err: BusinessError) => {
+            console.error('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0100 fail:' + JSON.stringify(err));
           });
           await sleep(waitReadyMs_600);
         }
