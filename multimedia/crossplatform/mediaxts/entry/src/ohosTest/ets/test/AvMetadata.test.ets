@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +20,8 @@ import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import image from "@ohos.multimedia.image";
 
-let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator =
+  AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
 async function sleep(ms: number): Promise<void> {
@@ -110,7 +111,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test2.mp4');
       await sleep(WAIT_TIME)
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_0300 callback success, album: ${metadata.album}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_0300 callback success, album: ${metadata.album}`);
         if (metadata.album = undefined) {
           expect(metadata.album).assertUndefined();
         } else if (metadata.album = "") {
@@ -147,7 +149,8 @@ export default function AvMetadataTest() {
       console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_0400 success, fdSrc:` + avMetadataExtractor.fdSrc);
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_0400 Video albumArtist: ${metadata.albumArtist}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_0400 Video albumArtist: ${metadata.albumArtist}`);
         if (metadata.albumArtist = undefined) {
           expect(metadata.albumArtist).assertUndefined();
         } else if (metadata.albumArtist = "") {
@@ -287,7 +290,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test2.mp4');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_0800 Video videoHeight: ${metadata.videoHeight}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_0800 Video videoHeight: ${metadata.videoHeight}`);
         expect(metadata.videoHeight).assertEqual("720");
         avMetadataExtractor.release();
         done();
@@ -445,7 +449,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test2.mp4');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_01300 Video trackCount: ${metadata.trackCount}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_01300 Video trackCount: ${metadata.trackCount}`);
         expect(metadata.trackCount).assertEqual("2");
         avMetadataExtractor.release();
         done();
@@ -476,7 +481,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test2.mp4');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_01400 Video videoOrientation: ${metadata.videoOrientation}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_01400 Video videoOrientation: ${metadata.videoOrientation}`);
         if (metadata.videoOrientation = "0") {
           expect(metadata.videoOrientation).assertEqual("0");
         } else if (metadata.videoOrientation = "") {
@@ -651,7 +657,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('test2.mp4');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_01900 Video sampleRate: ${metadata.sampleRate}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_01900 Video sampleRate: ${metadata.sampleRate}`);
         if (metadata.sampleRate = undefined) {
           expect(metadata.sampleRate).assertUndefined();
         } else if (metadata.sampleRate = "48000") {
@@ -686,7 +693,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_02000 Video sampleRate: ${metadata.sampleRate}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_02000 Video sampleRate: ${metadata.sampleRate}`);
         if (metadata.sampleRate = undefined) {
           expect(metadata.sampleRate).assertUndefined();
         } else if (metadata.sampleRate = "48000") {
@@ -752,7 +760,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_02200 audio albumArtist: ${metadata.albumArtist}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_02200 audio albumArtist: ${metadata.albumArtist}`);
         if (metadata.albumArtist = undefined) {
           expect(metadata.albumArtist).assertUndefined();
         } else if (metadata.albumArtist = "media_test") {
@@ -922,7 +931,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_02700 audio videoHeight: ${metadata.videoHeight}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_02700 audio videoHeight: ${metadata.videoHeight}`);
         if (metadata.videoHeight = undefined) {
           expect(metadata.videoHeight).assertUndefined();
         } else if (metadata.videoHeight = "") {
@@ -957,7 +967,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_02800 audio videoWidth: ${metadata.videoWidth}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_02800 audio videoWidth: ${metadata.videoWidth}`);
         if (metadata.videoWidth = undefined) {
           expect(metadata.videoWidth).assertUndefined();
         } else if (metadata.videoWidth = "") {
@@ -1058,7 +1069,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_03100 audio trackCount: ${metadata.trackCount}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_03100 audio trackCount: ${metadata.trackCount}`);
         expect(metadata.trackCount).assertEqual("1")
         avMetadataExtractor.release();
         done();
@@ -1089,7 +1101,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3')
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG,`SUB_ArkUIX_Media_TestAVMetadata_Func_03200 videoOrientation: ${metadata.videoOrientation}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_03200 videoOrientation: ${metadata.videoOrientation}`);
         if (metadata.videoOrientation = undefined) {
           expect(metadata.videoOrientation).assertUndefined();
         } else if (metadata.videoOrientation = "") {
@@ -1155,7 +1168,8 @@ export default function AvMetadataTest() {
       avMetadataExtractor.fdSrc = await context.resourceManager.getRawFd('mjpeg_mp3.mp3');
       await sleep(WAIT_TIME);
       await avMetadataExtractor.fetchMetadata().then((metadata: media.AVMetadata) => {
-        console.info(TAG,`SUB_ArkUIX_Media_TestAVMetadata_Func_03400 audio dateTimeFormat: ${metadata.dateTimeFormat}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_03400 audio dateTimeFormat: ${metadata.dateTimeFormat}`);
         if (metadata.dateTimeFormat = undefined) {
           expect(metadata.dateTimeFormat).assertUndefined();
         } else if (metadata.dateTimeFormat = "2015-11-23 00:00:00") {
@@ -1284,7 +1298,8 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err, metadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_03800 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_03800 failed, err = ${JSON.stringify(err)}`);
           expect().assertFail();
           return
         }
@@ -1307,7 +1322,8 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err: BusinessError, metadata: media.AVMetadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_03900 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_03900 failed, err = ${JSON.stringify(err)}`);
           expect().assertFail();
           return;
         }
@@ -1330,11 +1346,13 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err: BusinessError, metadata: media.AVMetadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04000 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_04000 failed, err = ${JSON.stringify(err)}`);
           expect().assertFail();
           return;
         }
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04000 success albumArtist :${metadata.albumArtist}}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_04000 success albumArtist :${metadata.albumArtist}}`);
         if (metadata.albumArtist = undefined) {
           expect(metadata.albumArtist).assertUndefined();
         } else if (metadata.albumArtist = "media_test") {
@@ -1357,7 +1375,8 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err, metadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04100 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_04100 failed, err = ${JSON.stringify(err)}`);
           return;
         }
         console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04100 success mimeType :${metadata.mimeType}}`);
@@ -1383,10 +1402,12 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err, metadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04200 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_04200 failed, err = ${JSON.stringify(err)}`);
           return;
         }
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04200 success sampleRate :${metadata.sampleRate}}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_04200 success sampleRate :${metadata.sampleRate}}`);
         if (metadata.sampleRate = undefined) {
           expect(metadata.sampleRate).assertUndefined();
         } else if (metadata.sampleRate = "48000") {
@@ -1409,10 +1430,12 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err, metadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04300 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_04300 failed, err = ${JSON.stringify(err)}`);
           return;
         }
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04300 success  hasAudio :${metadata.hasAudio}}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_04300 success  hasAudio :${metadata.hasAudio}}`);
         expect(metadata.hasAudio).assertEqual("yes");
         avMetadataExtractor.release();
       })
@@ -1431,10 +1454,12 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND);
       avMetadataExtractor.fetchMetadata((err, metadata) => {
         if (err) {
-          console.error(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04400 failed, err = ${JSON.stringify(err)}`);
+          console.error(TAG,
+            `SUB_ArkUIX_Media_TestAVMetadata_Func_04400 failed, err = ${JSON.stringify(err)}`);
           return;
         }
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04400 success trackCount :${metadata.trackCount}}`);
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_04400 success trackCount :${metadata.trackCount}}`);
         expect(metadata.trackCount).assertEqual("1");
         avMetadataExtractor.release();
       })
@@ -1453,10 +1478,11 @@ export default function AvMetadataTest() {
       await sleep(WAIT_THOUSAND)
       await avMetadataExtractor.fetchAlbumCover().then((pixelMap: image.PixelMap) => {
         pixel_map = pixelMap;
-        console.info(TAG, `SUB_ArkUIX_Media_TestAVMetadata_Func_04500 callback success video PixelMap :${pixel_map}}`)
+        console.info(TAG,
+          `SUB_ArkUIX_Media_TestAVMetadata_Func_04500 callback success video PixelMap :${pixel_map}}`)
       }).catch((error: BusinessError) => {
         console.error(`SUB_ArkUIX_Media_TestAVMetadata_Func_04500 catchCallback, error message:${error.message}`)
-        expect(error.code == undefined).assertTrue();
+        expect(error.code == 5400106).assertTrue();
         avMetadataExtractor.release();
       });
       done();

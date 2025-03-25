@@ -59,20 +59,24 @@ async function resetAudioCapturerOptions() {
 
 async function createAudioCapturerCallback(audioCapturer: audio.AudioCapturer,
                                            audioCapturerOptions: audio.AudioCapturerOptions) {
-  audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-    if (err) {
+  await (async (): Promise<audio.AudioCapturer> => {
+    return new Promise((resolve, reject) => {
+      audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+        err == undefined ? resolve(data) : reject(err)
+      });
+    });
+  })().then(data => {
+    if (data != null) {
+      audioCapturer = data;
+    } else {
       isPass = false;
       isCreated = false;
-      console.error('AudioCapturer Created: ERROR:' + err);
-    } else {
-      if (data != null) {
-        audioCapturer = data;
-      } else {
-        isPass = false;
-        isCreated = false;
-        console.error('AudioCapturer Created: Fail');
-      }
+      console.error('AudioCapturer Created: Fail');
     }
+  }).catch((err: BusinessError) => {
+    isPass = false;
+    isCreated = false;
+    console.error('AudioCapturer Created: ERROR:' + JSON.stringify(err));
   });
   await sleep(waitReadyMs_400);
   if (isCreated == false) {
@@ -265,13 +269,17 @@ export default function audioCapturer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0300', 0, async (done: Function) => {
       try{
         audioCapturerOptions.streamInfo.samplingRate = enum_100000;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0300 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0300 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -349,81 +357,109 @@ export default function audioCapturer_CreateTest() {
         await audioCapturer.release();
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_7;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_8;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         if (platform != 'Android') {
           audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_9;
-          audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-            if (err) {
-              if (err.code != errCode_6800301) {
-                isPass = false;
-              }
-            } else {
-              console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+          await (async (): Promise<audio.AudioCapturer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+          }).catch((err: BusinessError) => {
+            if (err.code != errCode_6800301) {
+              isPass = false;
             }
           });
         }
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_10;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_12;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_14;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         audioCapturerOptions.streamInfo.channels = audio.AudioChannel.CHANNEL_16;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
       }
@@ -571,13 +607,17 @@ export default function audioCapturer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0700', 0, async (done: Function) => {
       try{
         audioCapturerOptions.streamInfo.channels = enum_20;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0700 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0700 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -646,43 +686,61 @@ export default function audioCapturer_CreateTest() {
           await audioCapturer.release();
         } else {
           audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S24LE;
-          audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioCapturer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
 
           audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_S32LE;
-          audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-            if (err) {
-              expect(true).assertTrue();
-            } else {
-              expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
-            }
+          await (async (): Promise<audio.AudioCapturer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
+          }).catch((err: BusinessError) => {
+            expect(true).assertTrue();
           });
         }
 
         audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_INVALID;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
+          expect().assertFail()
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
 
         audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_F32LE;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code != errCode_6800301) {
-              isPass = false;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
+          expect().assertFail()
+        }).catch((err: BusinessError) => {
+          if (err.code != errCode_6800301) {
+            isPass = false;
           }
         });
       }
@@ -775,13 +833,17 @@ export default function audioCapturer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1100', 0, async (done: Function) => {
       try{
         audioCapturerOptions.streamInfo.sampleFormat = enum_5;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1100 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1100 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -833,13 +895,17 @@ export default function audioCapturer_CreateTest() {
         await audioCapturer.release();
 
         audioCapturerOptions.streamInfo.encodingType = audio.AudioEncodingType.ENCODING_TYPE_INVALID;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1300 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1300 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -891,13 +957,17 @@ export default function audioCapturer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1500', 0, async (done: Function) => {
       try{
         audioCapturerOptions.streamInfo.encodingType = enum_2;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (err.code == errCode_6800301) {
-              isPass = true;
-            }
-          } else {
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1500 fail');
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1500 fail');
+        }).catch((err: BusinessError) => {
+          if (err.code == errCode_6800301) {
+            isPass = true;
           }
         });
       }
@@ -948,7 +1018,7 @@ export default function audioCapturer_CreateTest() {
           audio.AudioChannelLayout.CH_LAYOUT_2POINT1, audio.AudioChannelLayout.CH_LAYOUT_2POINT0POINT2,
           audio.AudioChannelLayout.CH_LAYOUT_3POINT0, audio.AudioChannelLayout.CH_LAYOUT_SURROUND,
           audio.AudioChannelLayout.CH_LAYOUT_3POINT1, audio.AudioChannelLayout.CH_LAYOUT_4POINT0,
-          audio.AudioChannelLayout.CH_LAYOUT_QUAD,audio.AudioChannelLayout.CH_LAYOUT_4POINT1];
+          audio.AudioChannelLayout.CH_LAYOUT_QUAD];
       } else {
         channelLayoutArray1 = [audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN,
           audio.AudioChannelLayout.CH_LAYOUT_MONO, audio.AudioChannelLayout.CH_LAYOUT_STEREO,
@@ -958,26 +1028,34 @@ export default function audioCapturer_CreateTest() {
       await resetAudioCapturerOptions();
       if (platform.startsWith('OpenHarmony')) {
         audioCapturerOptions.streamInfo.channelLayout = audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            isPass = false;
-          } else {
-            audioCapturer = data;
-          }
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          audioCapturer = data;
+        }).catch((err: BusinessError) => {
+          isPass = false;
         });
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioCapturer.release();
 
         audioCapturerOptions.streamInfo.channelLayout = audio.AudioChannelLayout.CH_LAYOUT_STEREO;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            isPass = false;
-          } else {
-            audioCapturer = data;
-          }
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          audioCapturer = data;
+        }).catch((err: BusinessError) => {
+          isPass = false;
         });
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_300);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioCapturer.release();
       }
@@ -987,25 +1065,34 @@ export default function audioCapturer_CreateTest() {
             if (channelLayoutArray1[i] != audio.AudioChannelLayout.CH_LAYOUT_UNKNOWN &&
               channelLayoutArray1[i] != audio.AudioChannelLayout.CH_LAYOUT_STEREO) {
               audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray1[i];
-              audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-                if (err) {
-                  if (err.code != errCode_6800301) {
-                    isPass = false;
-                  }
+              await (async (): Promise<audio.AudioCapturer> => {
+                return new Promise((resolve, reject) => {
+                  audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                    err == undefined ? resolve(data) : reject(err)
+                  });
+                });
+              })().then(data => {
+                console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1700 fail');
+              }).catch((err: BusinessError) => {
+                if (err.code != errCode_6800301) {
+                  isPass = false;
                 }
               });
-              await sleep(waitReadyMs_400);
             }
           } else {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray1[i];
-            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioCapturer = data;
-              }
+            await (async (): Promise<audio.AudioCapturer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioCapturer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1031,7 +1118,7 @@ export default function audioCapturer_CreateTest() {
           audio.AudioChannelLayout.CH_LAYOUT_5POINT1, audio.AudioChannelLayout.CH_LAYOUT_6POINT0,
           audio.AudioChannelLayout.CH_LAYOUT_HEXAGONAL, audio.AudioChannelLayout.CH_LAYOUT_6POINT1,
           audio.AudioChannelLayout.CH_LAYOUT_7POINT0, audio.AudioChannelLayout.CH_LAYOUT_7POINT0_FRONT,
-          audio.AudioChannelLayout.CH_LAYOUT_7POINT1];
+          audio.AudioChannelLayout.CH_LAYOUT_7POINT1, audio.AudioChannelLayout.CH_LAYOUT_4POINT1];
       } else {
         channelLayoutArray2 = [audio.AudioChannelLayout.CH_LAYOUT_5POINT1,
           audio.AudioChannelLayout.CH_LAYOUT_6POINT1, audio.AudioChannelLayout.CH_LAYOUT_7POINT1,
@@ -1043,24 +1130,33 @@ export default function audioCapturer_CreateTest() {
         for (let i = 0; i < channelLayoutArray2.length; i++) {
           if (platform.startsWith('OpenHarmony')) {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray2[i];
-            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              if (err) {
-                if (err.code != errCode_6800301) {
-                  isPass = false;
-                }
+            await (async (): Promise<audio.AudioCapturer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1800 fail');
+            }).catch((err: BusinessError) => {
+              if (err.code != errCode_6800301) {
+                isPass = false;
               }
             });
-            await sleep(waitReadyMs_400);
           } else {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray2[i];
-            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioCapturer = data;
-              }
+            await (async (): Promise<audio.AudioCapturer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioCapturer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1098,24 +1194,33 @@ export default function audioCapturer_CreateTest() {
         for (let i = 0; i < channelLayoutArray3.length; i++) {
           if (platform.startsWith('OpenHarmony')) {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray3[i];
-            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              if (err) {
-                if (err.code != errCode_6800301) {
-                  isPass = false;
-                }
+            await (async (): Promise<audio.AudioCapturer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1900 fail');
+            }).catch((err: BusinessError) => {
+              if (err.code != errCode_6800301) {
+                isPass = false;
               }
             });
-            await sleep(waitReadyMs_400);
           } else {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray3[i];
-            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              if (err) {
-                isPass = false
-              } else {
-                audioCapturer = data;
-              }
+            await (async (): Promise<audio.AudioCapturer> => {
+              return new Promise((resolve, reject) => {
+                audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                  err == undefined ? resolve(data) : reject(err)
+                });
+              });
+            })().then(data => {
+              audioCapturer = data;
+            }).catch((err: BusinessError) => {
+              isPass = false;
             });
-            await sleep(waitReadyMs_400);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1144,7 +1249,7 @@ export default function audioCapturer_CreateTest() {
         }).catch((err: BusinessError) => {
           isPass = false;
         });
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_100);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioCapturer.release();
 
@@ -1154,7 +1259,7 @@ export default function audioCapturer_CreateTest() {
         }).catch((err: BusinessError) => {
           isPass = false;
         });
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_100);
         expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         await audioCapturer.release();
       }
@@ -1169,7 +1274,7 @@ export default function audioCapturer_CreateTest() {
               }).catch((err: BusinessError) => {
                 expect(err.code == errCode_6800301).assertTrue();
               });
-              await sleep(waitReadyMs_100);
+              await sleep(waitReadyMs_300);
             }
           } else {
             audioCapturerOptions.streamInfo.channelLayout = channelLayoutArray1[i];
@@ -1178,7 +1283,7 @@ export default function audioCapturer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1216,7 +1321,7 @@ export default function audioCapturer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false;
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1254,7 +1359,7 @@ export default function audioCapturer_CreateTest() {
             }).catch((err: BusinessError) => {
               isPass = false;
             });
-            await sleep(waitReadyMs_100);
+            await sleep(waitReadyMs_300);
             expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
             await audioCapturer.release();
           }
@@ -1276,19 +1381,22 @@ export default function audioCapturer_CreateTest() {
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2300', 0, async (done: Function) => {
       try{
         audioCapturerOptions.streamInfo.channelLayout = channelLayout_err;
-        audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-          if (err) {
-            if (platform.startsWith('OpenHarmony')) {
-              if (err.code == errCode_6800301) {
-                isPass = true;
-              }
+        await (async (): Promise<audio.AudioCapturer> => {
+          return new Promise((resolve, reject) => {
+            audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+              err == undefined ? resolve(data) : reject(err)
+            });
+          });
+        })().then(data => {
+          audioCapturer = data;
+        }).catch((err: BusinessError) => {
+          if (platform.startsWith('OpenHarmony')) {
+            if (err.code == errCode_6800301) {
+              isPass = true;
             }
-            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2300 fail');
-          } else {
-            audioCapturer = data;
           }
         });
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_100);
         if (platform == 'Android' || platform == 'iOS') {
           expect(audioCapturer.state).assertEqual(audio.AudioState.STATE_PREPARED);
         }
@@ -1357,7 +1465,6 @@ export default function audioCapturer_CreateTest() {
           expect(error).assertFail();
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2500 error' + error);
         }
-        await sleep(waitReadyMs_400);
         done();
       })
       /**
@@ -1388,7 +1495,6 @@ export default function audioCapturer_CreateTest() {
           expect(error).assertFail();
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2600 error' + error);
         }
-        await sleep(waitReadyMs_400);
         done();
       })
       /**
@@ -1401,13 +1507,17 @@ export default function audioCapturer_CreateTest() {
         try{
           await resetAudioCapturerOptions();
           audioCapturerOptions.capturerInfo.source = enum_5;
-          audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-            if (err) {
-              if (err.code == errCode_6800101) {
-                isPass = true;
-              }
-            } else {
-              console.info('AudioCapturer Created: Success');
+          await (async (): Promise<audio.AudioCapturer> => {
+            return new Promise((resolve, reject) => {
+              audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
+                err == undefined ? resolve(data) : reject(err)
+              });
+            });
+          })().then(data => {
+            console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2700 fail');
+          }).catch((err: BusinessError) => {
+            if (err.code == errCode_6800101) {
+              isPass = true;
             }
           });
         }
@@ -1415,7 +1525,7 @@ export default function audioCapturer_CreateTest() {
           expect(error).assertFail();
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2700 error' + error);
         }
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_100);
         expect(isPass).assertTrue();
         done();
       })
@@ -1440,7 +1550,7 @@ export default function audioCapturer_CreateTest() {
           expect(error).assertFail();
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2800 error' + error);
         }
-        await sleep(waitReadyMs_400);
+        await sleep(waitReadyMs_100);
         expect(isPass).assertTrue();
         done();
       })

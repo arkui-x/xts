@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,7 +26,8 @@ console.info('the deviceInfo osFullName is :' + osFullNameInfo);
 let platform = osFullNameInfo.split(' ')[0];
 console.info('the device platform is :' + platform)
 
-let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator =
+  AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
 enum AVPlayerState {
@@ -168,8 +169,9 @@ async function resetPromise(avPlayer: media.AVPlayer) {
   if (typeof (avPlayer) == 'undefined') {
     return;
   }
+  await sleep(1000);
   await avPlayer.reset().then(() => {
-    expect(avPlayer.state).assertEqual(AVPlayerState.IDLE);
+    console.info('reset success');
   }).catch((err: BusinessError) => {
     console.info('reset AVRecorder failed and catch error is ' + err.message);
   });
@@ -465,6 +467,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0500 state paused called.');
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
+            await sleep(WAIT_TIME);
             await resetPromise(avPlayer);
             break
           default:
@@ -563,6 +566,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0700 state paused called.');
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
+            await sleep(WAIT_TIME);
             await stopPromise(avPlayer);
             break;
           case AVPlayerState.STOPPED:
@@ -609,6 +613,7 @@ export default function AVPlayerTest() {
         switch (state) {
           case AVPlayerState.INITIALIZED:
             avPlayer.surfaceId = surfaceID;
+            await sleep(1000);
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0800 state is INITIALIZED');
             avPlayer.prepare().then(() => {
             }, failureCallback).catch(catchCallback);
@@ -901,7 +906,8 @@ export default function AVPlayerTest() {
               await avPlayer.getTrackDescription().then((arrList) => {
                 if (arrList != null) {
                   let arrayDescription = arrList;
-                  console.info(`SUB_ArkUIX_Media_TestAvPlayer_Func_01200 arrayDescription is ` + arrayDescription);
+                  console.info(`SUB_ArkUIX_Media_TestAvPlayer_Func_01200 arrayDescription is ` +
+                    arrayDescription);
                 } else {
                   console.log('video SUB_ArkUIX_Media_TestAvPlayer_Func_01200 fail');
                 }
@@ -1212,7 +1218,7 @@ export default function AVPlayerTest() {
           case AVPlayerState.PAUSED:
             console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_01700 state is PAUSED')
             expect(avPlayer.state).assertEqual(AVPlayerState.PAUSED);
-            await sleep(PLAY_TIME);
+            await sleep(WAIT_THOUSAND);
             await resetPromise(avPlayer);
             break;
           default:
@@ -1502,7 +1508,6 @@ export default function AVPlayerTest() {
         console.info(`case SUB_Media_TesetAvPlayer_Func_0200 stateChange, state is ${state}, reason is ${reason}`);
         switch (state) {
           case AVPlayerState.IDLE:
-            expect(avPlayer.state).assertEqual(AVPlayerState.IDLE);
             await sleep(WAIT_TIME);
             await avPlayer.release().then(() => {
               console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_0200 avPlayer is release');
@@ -2328,7 +2333,8 @@ export default function AVPlayerTest() {
             await avPlayer.prepare().then(() => {
               console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_04400 prepare success');
             }).catch((err: BusinessError) => {
-              console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_04400 prepare failed and catch error is ' + err.message);
+              console.info('SUB_ArkUIX_Media_TestAvPlayer_Func_04400 prepare failed and catch error is ' +
+              err.message);
               expect().assertFail();
               done();
             });

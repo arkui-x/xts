@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +20,8 @@ import fs from '@ohos.file.fs';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { Driver, ON, } from '@ohos.UiTest';
 
-let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator =
+  AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
 enum AvRecorderState {
@@ -359,10 +360,12 @@ export default function avRecorderTest() {
       avRecorder = await idle(avRecorder);
       await avRecorder.prepare(avConfig).then(() => {
         expect(avRecorder.state).assertEqual(AvRecorderState.PREPARED);
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0300 prepare success and catch  is ' + avRecorder.state);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0300 prepare success and catch  is ' +
+        avRecorder.state);
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0300 prepare success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0300 prepare failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0300 prepare failed and catch error is ' +
+        err.message);
       });
       await releaseDone(avRecorder, done);
     })
@@ -386,7 +389,8 @@ export default function avRecorderTest() {
       await avRecorder.resume().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0400 resume  success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0400 resume failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_0400 resume failed and catch error is ' +
+        err.message);
         result = false;
       });
       expect(result).assertEqual(false);
@@ -606,7 +610,8 @@ export default function avRecorderTest() {
       await avRecorder.pause().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_01200 pause AVRecorder success');
       }).catch((err: BusinessError) => {
-        console.info('pause SUB_ArkUIX_Media_TestAVRecorders_Func_01200 failed and catch error is ' + err.message);
+        console.info('pause SUB_ArkUIX_Media_TestAVRecorders_Func_01200 failed and catch error is ' +
+        err.message);
         result = false;
       });
       expect(result).assertEqual(false);
@@ -634,7 +639,8 @@ export default function avRecorderTest() {
       await avRecorder.pause().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_01300 pause AVRecorder success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_01300 pause failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_01300 pause failed and catch error is ' +
+        err.message);
         result = false;
       });
       expect(result).assertEqual(false);
@@ -1188,7 +1194,8 @@ export default function avRecorderTest() {
         done();
       });
       await prepareCallback(avRecorder, avConfig);
-      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03200 preparePromise state is :' + avRecorder.state);
+      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03200 preparePromise state is :' +
+      avRecorder.state);
     })
 
     /**
@@ -1236,7 +1243,8 @@ export default function avRecorderTest() {
         done();
       });
       await prepareCallback(avRecorder, avConfig);
-      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03300 preparePromise state is :' + avRecorder.state);
+      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03300 preparePromise state is :' +
+      avRecorder.state);
     })
 
     /**
@@ -1290,7 +1298,8 @@ export default function avRecorderTest() {
         done();
       });
       await prepareCallback(avRecorder, avConfig);
-      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03400 preparePromise state is :' + avRecorder.state);
+      console.info('case SUB_ArkUIX_Media_TestAVRecorders_Func_03400 preparePromise state is :' +
+      avRecorder.state);
     })
 
     /**
@@ -1311,7 +1320,8 @@ export default function avRecorderTest() {
       await avRecorder.release().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' +
+        err.message);
         result1 = false
       });
       expect(result1).assertEqual(true);
@@ -1319,7 +1329,8 @@ export default function avRecorderTest() {
       await avRecorder.release().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' +
+        err.message);
         result2 = false
       });
       expect(result2).assertEqual(true);
@@ -1327,7 +1338,8 @@ export default function avRecorderTest() {
       await avRecorder.release().then(() => {
         console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release success');
       }).catch((err: BusinessError) => {
-        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' + err.message);
+        console.info('SUB_ArkUIX_Media_TestAVRecorders_Func_03500 release failed and catch error is ' +
+        err.message);
         result3 = false
       });
       expect(result3).assertEqual(true);
