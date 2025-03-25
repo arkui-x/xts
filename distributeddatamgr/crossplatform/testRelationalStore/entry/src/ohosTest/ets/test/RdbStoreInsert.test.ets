@@ -14,12 +14,12 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@ohos.base';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RDB_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT NOT NULL, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
 const STORE_CONFIG: relationalStore.StoreConfig = {
@@ -27,8 +27,8 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
   securityLevel: relationalStore.SecurityLevel.S1,
 };
 
-let rdbStore = undefined;
-let resultSet = undefined;
+let rdbStore: relationalStore.RdbStore | null = null;
+let resultSet: relationalStore.ResultSet | null = null;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,8 +38,6 @@ export default function InsertTest() {
   describe("InsertTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
@@ -47,12 +45,12 @@ export default function InsertTest() {
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       console.log("InsertTestrdbStore" + rdbStore);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
     });
 
     afterEach(async () => {
       console.info(TAG + "afterEach");
-      await rdbStore.executeSql("DELETE FROM test");
+      await (rdbStore as relationalStore.RdbStore).executeSql("DELETE FROM test");
       rdbStore = null;
       await relationalStore.deleteRdbStore(context, "InsertTest.db").then(() => {
         sleep(2);
@@ -75,8 +73,8 @@ export default function InsertTest() {
      */
     it("testRdbStoreVersion001", 0, async (done: Function) => {
       console.log(TAG + "************* testRdbStoreVersion001 start *************");
-      rdbStore.version = 3;
-      expect(3).assertEqual(rdbStore.version);
+      (rdbStore as relationalStore.RdbStore).version = 3;
+      expect(3).assertEqual((rdbStore as relationalStore.RdbStore).version);
       done();
       console.log(TAG + "************* testRdbStoreVersion001 end   *************");
     });
@@ -92,8 +90,8 @@ export default function InsertTest() {
     it("testRdbStoreVersionError001", 0, async (done: Function) => {
       console.log(TAG + "************* testRdbStoreVersionError001 start *************");
       try {
-        rdbStore.version = -1;
-        console.log("testRdbStoreVersionError001 rdbStore.version ======== " + rdbStore.version);
+        (rdbStore as relationalStore.RdbStore).version = -1;
+        console.log("testRdbStoreVersionError001 (rdbStore as relationalStore.RdbStore).version ======== " + (rdbStore as relationalStore.RdbStore).version);
         expect().assertFail();
       } catch (err) {
         console.info("testRdbStoreVersionError001 err:" + JSON.stringify(err));
@@ -120,7 +118,7 @@ export default function InsertTest() {
           salary: 100.5,
           blobType: new Uint8Array([1, 2, 3]),
         };
-        rdbStore.insert("test", valueBucket, async (err, rowId) => {
+        (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, async (err, rowId) => {
           if (err) {
             console.error(`Insert is failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertTrue();
@@ -130,7 +128,7 @@ export default function InsertTest() {
             console.info(`Insert is successful, rowId = ${rowId}`);
             let predicates = new relationalStore.RdbPredicates("test");
             predicates.equalTo("name", "zhangsan");
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -178,7 +176,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      rdbStore.insert("test1", valueBucket, async (err, rowId) => {
+      (rdbStore as relationalStore.RdbStore).insert("test1", valueBucket, async (err, rowId) => {
         if (err) {
           console.error(`testRdbStoreInsertError0011:Insert is failed, code is ${err.code},message is ${err.message}`);
           expect(err.code == 14800021).assertTrue();
@@ -206,7 +204,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      rdbStore.insert("test", valueBucket, async (err, rowId) => {
+      (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, async (err, rowId) => {
         if (err) {
           console.error(`testRdbStoreInsertError0012:Insert is failed, code is ${err.code},message is ${err.message}`);
           expect(err.code == 14800021).assertTrue();
@@ -235,10 +233,10 @@ export default function InsertTest() {
           salary: 100.5,
           blobType: new Uint8Array([1, 2, 3]),
         };
-        await rdbStore.insert("test", valueBucket);
+        await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -280,7 +278,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      let promise = rdbStore.insert("test1", valueBucket);
+      let promise = (rdbStore as relationalStore.RdbStore).insert("test1", valueBucket);
       promise.then((num) => {
         expect(num).assertEqual(0);
         done();
@@ -309,7 +307,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      let promise = rdbStore.insert("test1", valueBucket);
+      let promise = (rdbStore as relationalStore.RdbStore).insert("test1", valueBucket);
       promise.then((num) => {
         expect(num).assertEqual(0);
         done();
@@ -338,7 +336,7 @@ export default function InsertTest() {
           salary: 100.5,
           blobType: new Uint8Array([1, 2, 3]),
         };
-        rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
+        (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
           if (err) {
             console.error(`Insert is failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertFail();
@@ -348,7 +346,7 @@ export default function InsertTest() {
             console.info(`Insert is successful, rowId = ${rowId}`);
             let predicates = new relationalStore.RdbPredicates("test");
             predicates.equalTo("name", "zhangsan");
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -397,7 +395,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      rdbStore.insert("test1", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
+      (rdbStore as relationalStore.RdbStore).insert("test1", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
         if (err) {
           console.error(`testRdbStoreInsertError0031:Insert is failed, code is ${err.code},message is ${err.message}`);
           expect(err.code == 14800021).assertTrue();
@@ -426,7 +424,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
+      (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rowId) => {
         if (err) {
           console.error(`testRdbStoreInsertError0032:Insert is failed, code is ${err.code},message is ${err.message}`);
           expect(err.code == 14800021).assertTrue();
@@ -456,10 +454,10 @@ export default function InsertTest() {
           salary: 100.5,
           blobType: new Uint8Array([1, 2, 3]),
         };
-        await rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+        await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -501,7 +499,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      let promise = rdbStore.insert("test1", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+      let promise = (rdbStore as relationalStore.RdbStore).insert("test1", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
       promise.then((num) => {
         expect(num).assertEqual(0);
         done();
@@ -531,7 +529,7 @@ export default function InsertTest() {
         salary: 100.5,
         blobType: new Uint8Array([1, 2, 3]),
       };
-      let promise = rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+      let promise = (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
       promise.then((num) => {
         expect(num).assertEqual(0);
         done();
@@ -573,7 +571,7 @@ export default function InsertTest() {
           blobType: new Uint8Array([1, 2, 3]),
         };
         const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-        rdbStore.batchInsert("test", valueBuckets, async (err, insertNum) => {
+        (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets, async (err, insertNum) => {
           if (err) {
             console.error(`batchInsert is failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertTrue();
@@ -583,7 +581,7 @@ export default function InsertTest() {
             console.info(`batchInsert is successful, the number of values that were inserted = ${insertNum}`);
             let predicates = new relationalStore.RdbPredicates("test");
             predicates.equalTo("name", "zhangsan");
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -644,7 +642,7 @@ export default function InsertTest() {
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
 
-      rdbStore.batchInsert("test1", valueBuckets, async (err, insertNum) => {
+      (rdbStore as relationalStore.RdbStore).batchInsert("test1", valueBuckets, async (err, insertNum) => {
         if (err) {
           console.error(`testRdbStoreBatchInsertError0011 batchInsert is failed, code is ${err.code},message is ${err.message}`);
           expect(false).assertFail();
@@ -653,7 +651,7 @@ export default function InsertTest() {
         console.info(`testRdbStoreBatchInsertError0011 batchInsert `);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
@@ -691,7 +689,7 @@ export default function InsertTest() {
         blobType: new Uint8Array([1, 2, 3]),
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-      rdbStore.batchInsert("test", valueBuckets, async (err, insertNum) => {
+      (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets, async (err, insertNum) => {
         if (err) {
           console.error(`testRdbStoreBatchInsertError0012 batchInsert is failed, code is ${err.code},message is ${err.message}`);
           expect(false).assertFail();
@@ -700,7 +698,7 @@ export default function InsertTest() {
         console.error(`testRdbStoreBatchInsertError0012 batchInsert `);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
@@ -738,7 +736,7 @@ export default function InsertTest() {
         blobType: new Uint8Array([1, 2, 3]),
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-      rdbStore.batchInsert("test", valueBuckets, async (err, insertNum) => {
+      (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets, async (err, insertNum) => {
         if (err) {
           console.error(`testRdbStoreBatchInsertError0013 batchInsert is failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertFail();
@@ -747,7 +745,7 @@ export default function InsertTest() {
         console.error(`testRdbStoreBatchInsertError0013 batchInsert `);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
@@ -786,7 +784,7 @@ export default function InsertTest() {
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
       try {
-        rdbStore.batchInsert(null, valueBuckets, async (err, insertNum) => {
+        (rdbStore as relationalStore.RdbStore).batchInsert(null, valueBuckets, async (err, insertNum) => {
           expect(!err).assertFail();
         });
         expect(rdbStore !== null).assertTrue();
@@ -828,7 +826,7 @@ export default function InsertTest() {
         blobType: new Uint8Array([1, 2, 3]),
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-      rdbStore.batchInsert("test", valueBuckets, async (err, insertNum) => {
+      (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets, async (err, insertNum) => {
         if (err) {
           console.error(`testRdbStoreBatchInsertError0015 batchInsert is failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertFail();
@@ -837,7 +835,7 @@ export default function InsertTest() {
         console.error(`testRdbStoreBatchInsertError0015 batchInsert `);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
@@ -876,10 +874,10 @@ export default function InsertTest() {
           blobType: new Uint8Array([1, 2, 3]),
         };
         const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-        await rdbStore.batchInsert("test", valueBuckets);
+        await (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "lisi");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -929,11 +927,11 @@ export default function InsertTest() {
         blobType: new Uint8Array([1, 2, 3]),
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-      let promise = rdbStore.batchInsert("test1", valueBuckets);
+      let promise = (rdbStore as relationalStore.RdbStore).batchInsert("test1", valueBuckets);
       promise.then(async () => {
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "lisi");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
@@ -976,11 +974,11 @@ export default function InsertTest() {
         blobType: new Uint8Array([1, 2, 3]),
       };
       const valueBuckets = [valueBucket1, valueBucket2, valueBucket3];
-      let promise = rdbStore.batchInsert("test", valueBuckets);
+      let promise = (rdbStore as relationalStore.RdbStore).batchInsert("test", valueBuckets);
       promise.then(async () => {
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "lisi");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(0).assertEqual(resultSet.rowCount);
         resultSet.close();
