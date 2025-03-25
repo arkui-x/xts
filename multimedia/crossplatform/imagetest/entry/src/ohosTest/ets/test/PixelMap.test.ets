@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,21 +16,39 @@
 import image from "@ohos.multimedia.image";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import { testPng, testJpg } from './testImg'
-import { scale2x1, translate3x1, rotate90, flipH, testBmp, testGif, crop3x3, scale1x4, setAlpha8, translate1x3 } from './testImg2'
+import {
+    scale2x1,
+    translate3x1,
+    rotate90,
+    flipH,
+    testBmp,
+    testGif,
+    crop3x3,
+    scale1x4,
+    setAlpha8,
+    translate1x3
+} from './testImg2'
 import { tcBuf020, tcBuf020_1, tcBuf021, tcBuf021_1, tcBuf022 } from './testImg'
+import { BusinessError } from "@kit.BasicServicesKit";
+import common from '@ohos.app.ability.common';
+
+async function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function PixelMap() {
-    describe("PixelMap", function () {
-        let globalpixelmap;
-        beforeAll(async function () {
+    describe("PixelMap", () => {
+        let globalpixelmap: image.PixelMap;
+        beforeAll(async () => {
             console.info("beforeAll case");
         });
 
-        beforeEach(function () {
+        beforeEach(async () => {
             console.info("beforeEach case");
+            await sleep(500);
         });
 
-        afterEach(async function () {
+        afterEach(async () => {
             console.info('afterEach case');
             if (globalpixelmap != undefined) {
                 console.info('globalpixelmap release start');
@@ -40,63 +58,76 @@ export default function PixelMap() {
                     console.info('globalpixelmap release fail');
                 }
             }
+
+            await sleep(1000);
         });
 
-        afterAll(async function () {
+        afterAll(async () => {
             console.info("afterAll case");
         });
 
-        function loger(caseName) {
-            return {
-                myName: caseName,
-                log: function (msg) {
-                    console.info(this.myName + ' ' + msg);
-                }
+        class loger {
+            private myName: string;
+
+            constructor(caseName: string) {
+                this.myName = caseName;
+            }
+
+            log(msg: string): void {
+                console.info(this.myName + ' ' + msg);
             }
         }
 
-        async function genPixelMap() {
-            var color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+        let genPixelMap = async () => {
+            let color = new ArrayBuffer(96);
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
 
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             return image.createPixelMap(color, opts);
         }
 
-        async function getDensityTest(done, testNum, imageData, decodingOptions?) {
+        let getDensityTest = async (done: Function, testNum: string, imageData: ArrayBufferLike,
+            decodingOptions?: image.DecodingOptions) => {
+            let logger: loger = new loger(testNum);
             try {
-                var sourceOptions = { sourceDensity: 120 };
+                let sourceOptions: image.SourceOptions = {
+                    sourceDensity: 120
+                };
                 let imageSource = image.createImageSource(imageData, sourceOptions);
                 if (imageSource != undefined) {
                     let pixelMap = await imageSource.createPixelMap(decodingOptions);
                     if (pixelMap != undefined) {
-                        var density = pixelMap.getDensity();
+                        let density = pixelMap.getDensity();
                         expect(decodingOptions ? (density == 240) : (density == 120)).assertTrue();
                         done();
                     } else {
-                        console.info(`${testNum} failed`);
+                        logger.log(`${testNum} failed`);
                         expect(false).assertTrue();
                         done();
                     }
                 } else {
-                    console.info(`${testNum} failed`);
+                    logger.log(`${testNum} failed`);
                     expect(false).assertTrue();
                     done();
                 }
             } catch (error) {
-                console.info(`${testNum} failed` + error);
+                logger.log(`${testNum} failed` + error);
                 expect(false).assertTrue();
                 done();
             }
         }
 
-        async function opacityErr(done, testNum, param, type) {
-            let logger = loger(testNum)
+        let opacityErr = async (done: Function, testNum: string, param: number, type: string) => {
+            let logger: loger = new loger(testNum);
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap();
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
                     if (type == 'callback') {
@@ -122,7 +153,7 @@ export default function PixelMap() {
                         }
                     }
                 } else {
-                    logger.log('creat pixelMap failed ');
+                    logger.log('create pixelMap failed ');
                     expect(false).assertTrue();
                     done();
                 }
@@ -133,136 +164,320 @@ export default function PixelMap() {
             }
         }
 
-        async function checkAlphaPixelmap(done, logger, alphaPixelMap) {
+        let checkAlphaPixelmap = async (done: Function, testNum: string, alphaPixelMap: image.PixelMap) => {
+            let logger: loger = new loger(testNum);
             logger.log("AlphaPixelMap " + alphaPixelMap);
             if (alphaPixelMap != undefined) {
-                var imageInfo = await alphaPixelMap.getImageInfo();
+                let imageInfo: image.ImageInfo = await alphaPixelMap.getImageInfo();
                 logger.log("AlphaPixelMap pixelformat " + imageInfo.pixelFormat);
                 expect(imageInfo.pixelFormat == 6).assertTrue();
                 done();
             } else {
-                logger.log('creat alphaPixelMap failed');
+                logger.log('create alphaPixelMap failed');
                 expect(false).assertTrue();
                 done();
             }
         }
 
-        async function createAlphaPixelmapTest(done, testNum, type, imageData) {
-            let logger = loger(testNum)
-            try {
-                let imageSource = image.createImageSource(imageData);
-                logger.log("ImageSource " + (imageSource != undefined));
-                if (imageSource != undefined) {
-                    let pixelMap = await imageSource.createPixelMap();
-                    logger.log("PixelMap " + pixelMap);
-                    if (pixelMap != undefined) {
-                        if (type == 'callback') {
-                            pixelMap.createAlphaPixelmap(async (err, alphaPixelMap) => {
-                                await checkAlphaPixelmap(done, logger, alphaPixelMap)
-                            })
+        let createAlphaPixelmapTest =
+            async (done: Function, testNum: string, type: string, imageData: ArrayBufferLike) => {
+                let logger: loger = new loger(testNum);
+                try {
+                    let imageSource = image.createImageSource(imageData);
+                    logger.log("ImageSource " + (imageSource != undefined));
+                    if (imageSource != undefined) {
+                        let pixelMap = await imageSource.createPixelMap();
+                        logger.log("PixelMap " + pixelMap);
+                        if (pixelMap != undefined) {
+                            if (type == 'callback') {
+                                pixelMap.createAlphaPixelmap(async (err, alphaPixelMap) => {
+                                    await checkAlphaPixelmap(done, testNum, alphaPixelMap)
+                                })
+                            } else {
+                                let alphaPixelMap = await pixelMap.createAlphaPixelmap();
+                                await checkAlphaPixelmap(done, testNum, alphaPixelMap)
+                            }
                         } else {
-                            var alphaPixelMap = await pixelMap.createAlphaPixelmap();
-                            await checkAlphaPixelmap(done, logger, alphaPixelMap)
+                            logger.log('create pixelMap failed');
+                            expect(false).assertTrue();
+                            done();
                         }
                     } else {
-                        logger.log('creat pixelMap failed');
+                        logger.log('create ImageSource failed');
                         expect(false).assertTrue();
                         done();
                     }
-                } else {
-                    logger.log('creat ImageSource failed');
+                } catch (error) {
+                    logger.log('failed ' + error);
                     expect(false).assertTrue();
                     done();
                 }
-            } catch (error) {
-                logger.log('failed ' + error);
+            }
+
+        let scaleErr = async (done: Function, testNum: string, scaleX: number, scaleY: number) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+            if (pixelMap != undefined) {
+                logger.log(testNum + 'create pixelMap success');
+                expect(true).assertTrue();
+                done();
+            } else {
+                logger.log(testNum + 'create pixelMap fail');
                 expect(false).assertTrue();
+                done();
+            }
+
+            try {
+                logger.log('X is : ' + scaleX);
+                logger.log('Y is : ' + scaleY);
+                let orgInfo = await pixelMap.getImageInfo();
+                await pixelMap.scale(scaleX, scaleY);
+                let newInfo = await pixelMap.getImageInfo();
+                expect(newInfo.size.height).assertEqual(orgInfo.size.height);
+                expect(newInfo.size.width).assertEqual(orgInfo.size.width);
+                done();
+            } catch (error) {
+                logger.log(testNum + 'expected case failure success');
+                expect(true).assertTrue();
                 done();
             }
         }
 
-        async function checkPixelMapInterface(done, logger, pixelMap, orgInfo, sizeCheck, data) {
-            var newInfo = await pixelMap.getImageInfo()
-            sizeCheck(done, logger, orgInfo, newInfo)
-            var pixelSize = pixelMap.getPixelBytesNumber();
-            logger.log(`new pixel size ${pixelSize}`);
-            var readBuffer = new ArrayBuffer(pixelSize);
-            await pixelMap.readPixelsToBuffer(readBuffer);
-            var bufferArr2 = new Uint8Array(readBuffer);
-            for (var i = 0; i < bufferArr2.length; i++) {
-                if (bufferArr2[i] != data[i]) {
-                    logger.log(`pixel[${i}] current[${bufferArr2[i]}] target[${data[i]}]`);
-                    expect(false).assertTrue();
-                    done();
-                    break;
-                }
+        let scaleCbErr = async (done: Function, testNum: string, scaleX: number, scaleY: number) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+            if (pixelMap != undefined) {
+                logger.log(testNum + 'create pixelMap success');
+                expect(true).assertTrue();
+                done();
+            } else {
+                logger.log(testNum + 'create pixelMap fail');
+                expect(false).assertTrue();
+                done();
             }
-            expect(true).assertTrue();
-            done();
-        }
 
-        async function pixelMapModifySizeTest(done, testNum, type, pixelMapInterface, sizeCheck, data, ...params) {
-            let logger = loger(testNum)
             try {
-                var pixelMap = await genPixelMap()
-                logger.log("pixelMap " + (pixelMap != undefined));
-                if (pixelMap != undefined) {
-                    var orgInfo = await pixelMap.getImageInfo()
-
-                    if (type == 'callback') {
-                        pixelMap[pixelMapInterface](...params, async () => {
-                            await checkPixelMapInterface(done, logger, pixelMap, orgInfo, sizeCheck, data)
-                        })
+                pixelMap.scale(scaleX, scaleY, (err: BusinessError) => {
+                    if (err) {
+                        logger.log(testNum + 'expected case failure success');
+                        expect(true).assertTrue();
+                        done();
                     } else {
-                        await pixelMap[pixelMapInterface](...params);
-                        await checkPixelMapInterface(done, logger, pixelMap, orgInfo, sizeCheck, data)
+                        logger.log(testNum + 'expected case failure fail');
+                        expect(false).assertTrue();
+                        done();
                     }
-                } else {
-                    logger.log('create pixelMap fail ');
-                    expect(false).assertTrue();
-                    done();
-                }
+                })
             } catch (error) {
-                logger.log('failed ' + error);
+                logger.log(testNum + 'failed ' + error);
                 expect(false).assertTrue();
                 done();
             }
         }
 
-        async function pixelMapModifySizeTestErr(done, testNum, type, pixelMapInterface, ...params) {
-            let logger = loger(testNum)
+        let translateErr = async (done: Function, testNum: string, translateX: number, translateY: number) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+
             try {
-                var pixelMap = await genPixelMap();
+                let orgInfo = await pixelMap.getImageInfo();
+                await pixelMap.translate(translateX, translateY);
+                let newInfo = await pixelMap.getImageInfo();
+                expect(newInfo.size.height).assertEqual(orgInfo.size.height);
+                expect(newInfo.size.width).assertEqual(orgInfo.size.width);
+                logger.log(testNum + 'expected translate failure fail');
+                expect(false).assertTrue();
+                done();
+            } catch (error) {
+                logger.log(testNum + 'expected translate failure success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let translateCbErr = async (done: Function, testNum: string, translateX: number, translateY: number) => {
+            let logger: loger = new loger(testNum);
+            try {
+                let pixelMap = await genPixelMap();
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
-                    if (type == 'callback') {
-                        pixelMap[pixelMapInterface](...params, async (error) => {
-                            if (error) {
-                                expect(true).assertTrue();
-                                done();
-                            } else {
-                                expect(false).assertTrue();
-                                done();
-                            }
-                        })
-                    } else {
-                        try {
-                            await pixelMap[pixelMapInterface](...params);
-                            expect(false).assertTrue();
-                            done();
-                        } catch (error) {
+                    logger.log('create pixelMap success');
+                    pixelMap.translate(translateX, translateY, (err: BusinessError) => {
+                        if (err) {
+                            logger.log(testNum + 'expected case failure success');
                             expect(true).assertTrue();
                             done();
+                        } else {
+                            logger.log(testNum + 'expected case failure fail');
+                            expect(false).assertTrue();
+                            done();
                         }
-                    }
+                    })
+                    done();
                 } else {
-                    logger.log('create pixelMap fail ');
+                    logger.log('create pixelMap fail');
+                    expect(false).assertTrue();
+                }
+                done();
+            } catch (error) {
+                logger.log(testNum + ' success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let rotateErr = async (done: Function, testNum: string, angle: number) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+            if (pixelMap != undefined) {
+                logger.log(testNum + 'create pixelMap success');
+                expect(true).assertTrue();
+                done();
+            } else {
+                logger.log(testNum + 'create pixelMap fail');
+                expect(false).assertTrue();
+                done();
+            }
+
+            try {
+                await pixelMap.rotate(angle);
+                logger.log(testNum + 'expected rotate failure fail');
+                expect(false).assertTrue();
+                done();
+            } catch (error) {
+                logger.log(testNum + 'expected rotate failure success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let rotateCbErr = async (done: Function, testNum: string, rotate: number) => {
+            let logger: loger = new loger(testNum);
+            try {
+                let pixelMap = await genPixelMap();
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    logger.log('create pixelMap success');
+                    expect(true).assertTrue();
+                    pixelMap.rotate(rotate, (err: BusinessError) => {
+                        if (err) {
+                            logger.log(testNum + 'expected case failure success');
+                            expect(true).assertTrue();
+                            done();
+                        } else {
+                            logger.log(testNum + 'expected case failure fail');
+                            expect(false).assertTrue();
+                            done();
+                        }
+                    })
+                } else {
+                    logger.log('create pixelMap fail');
                     expect(false).assertTrue();
                     done();
                 }
             } catch (error) {
-                logger.log('failed ' + error);
+                logger.log(testNum + ' success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let flipErr = async (done: Function, testNum: string, horizontal: boolean, vertical: boolean) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+
+            try {
+                await pixelMap.flip(horizontal, vertical);
+                logger.log(testNum + 'expect flip failure fail');
                 expect(false).assertTrue();
+                done();
+            } catch (error) {
+                logger.log(testNum + 'expect flip failure success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let flipCbErr = async (done: Function, testNum: string, horizontal: boolean, vertical: boolean) => {
+            let logger: loger = new loger(testNum);
+            try {
+                let pixelMap = await genPixelMap();
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    logger.log('create pixelMap success');
+                    expect(true).assertTrue();
+                    pixelMap.flip(horizontal, vertical, (err: BusinessError) => {
+                        if (err) {
+                            logger.log(testNum + 'expected case failure success');
+                            expect(true).assertTrue();
+                            done();
+                        } else {
+                            logger.log(testNum + 'expected case failure fail');
+                            expect(false).assertTrue();
+                            done();
+                        }
+                    })
+                } else {
+                    logger.log('create pixelMap fail');
+                    expect(false).assertTrue();
+                    done();
+                }
+            } catch (error) {
+                logger.log(testNum + ' success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let cropErr = async (done: Function, testNum: string, region: image.Region) => {
+            let logger: loger = new loger(testNum);
+            let pixelMap = await genPixelMap();
+            logger.log("pixelMap " + (pixelMap != undefined));
+
+            try {
+                await pixelMap.crop(region);
+                logger.log(testNum + 'expected crop failure fail');
+                expect(false).assertTrue();
+                done();
+            } catch (error) {
+                logger.log(testNum + 'expected crop failure success');
+                expect(true).assertTrue();
+                done();
+            }
+        }
+
+        let cropCbErr = async (done: Function, testNum: string, region: image.Region) => {
+            let logger: loger = new loger(testNum);
+            try {
+                let pixelMap = await genPixelMap();
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    logger.log('create pixelMap success');
+                    expect(true).assertTrue();
+                    pixelMap.crop(region, (err: BusinessError) => {
+                        if (err) {
+                            logger.log(testNum + 'expected case failure success');
+                            expect(true).assertTrue();
+                            done();
+                        } else {
+                            logger.log(testNum + 'expected case failure fail');
+                            expect(false).assertTrue();
+                            done();
+                        }
+                    })
+                } else {
+                    logger.log('create pixelMap fail');
+                    expect(false).assertTrue();
+                    done();
+                }
+            } catch (error) {
+                logger.log(testNum + ' success');
+                expect(true).assertTrue();
                 done();
             }
         }
@@ -277,17 +492,23 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 1
          */
-        it('testIsEditable001', 0, async function (done) {
+        it('testIsEditable001', 0, async (done: Function) => {
+            let logger: loger = new loger('testIsEditable001');
             const Color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(Color, opts, (error, pixelmap) => {
                 if (pixelmap == undefined) {
-                    console.info('testIsEditable001 create pixelmap failed');
+                    logger.log('testIsEditable001 create pixelmap failed');
                     expect(false).assertTrue();
                     done();
                 } else {
                     expect(pixelmap.isEditable == true).assertTrue();
-                    console.info('testIsEditable001 success ');
+                    logger.log('testIsEditable001 success ');
                     done();
                 }
             })
@@ -303,17 +524,23 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 1
          */
-        it('testIsEditable002', 0, async function (done) {
+        it('testIsEditable002', 0, async (done: Function) => {
+            let logger: loger = new loger('testIsEditable002');
             const Color = new ArrayBuffer(96);
-            let opts = { editable: false, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: false, pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(Color, opts, (error, pixelmap) => {
                 if (pixelmap == undefined) {
-                    console.info('testIsEditable002 create pixelmap failed');
+                    logger.log('testIsEditable002 create pixelmap failed');
                     expect(false).assertTrue();
                     done();
                 } else {
                     expect(pixelmap.isEditable == false).assertTrue();
-                    console.info('testIsEditable002 success ');
+                    logger.log('testIsEditable002 success ');
                     done();
                 }
             })
@@ -329,52 +556,57 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsToBufferPromise001', 0, async function (done) {
-            console.info('testReadPixelsToBufferPromise001 in');
+        it('testReadPixelsToBufferPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsToBufferPromise001');
+            logger.log('testReadPixelsToBufferPromise001 in');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
 
-            let opts = { editable: true, pixelFormat: 4, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 4, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts)
                 .then(pixelmap => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testReadPixelsToBufferPromise001 createPixelMap failed');
+                        logger.log('testReadPixelsToBufferPromise001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
                     const readBuffer = new ArrayBuffer(96);
                     pixelmap.readPixelsToBuffer(readBuffer).then(() => {
-                        var bufferArr2 = new Uint8Array(readBuffer);
-                        var res = true;
-                        for (var i = 0; i < bufferArr2.length; i++) {
+                        let bufferArr2 = new Uint8Array(readBuffer);
+                        let res = true;
+                        for (let i = 0; i < bufferArr2.length; i++) {
                             if (bufferArr2[i] != tcBuf020[i]) {
                                 res = false;
-                                console.info('TC_20_buffer' + bufferArr2[i]);
-                                console.info('testReadPixelsToBufferPromise001 failed');
+                                logger.log('TC_20_buffer' + bufferArr2[i]);
+                                logger.log('testReadPixelsToBufferPromise001 failed');
                                 expect(false).assertTrue();
                                 done();
                                 break;
                             }
                         }
                         if (res) {
-                            console.info('testReadPixelsToBufferPromise001 success');
+                            logger.log('testReadPixelsToBufferPromise001 success');
                             expect(true).assertTrue()
                             done();
                         }
-                    }).catch(error => {
+                    }).catch((error: BusinessError) => {
                         console.log('testReadPixelsToBufferPromise001 read error: ' + error);
                         expect().assertFail();
                         done();
                     })
-                }).catch(error => {
-                    console.log('testReadPixelsToBufferPromise001 error: ' + error);
-                    expect().assertFail();
-                    done();
-                })
+                }).catch((error: BusinessError) => {
+                console.log('testReadPixelsToBufferPromise001 error: ' + error);
+                expect().assertFail();
+                done();
+            })
         })
 
         /**
@@ -387,37 +619,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsToBufferCb001', 0, async function (done) {
-            console.info('testReadPixelsToBufferCb001 in');
+        it('testReadPixelsToBufferCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsToBufferCb001');
+            logger.log('testReadPixelsToBufferCb001 in');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
 
-            let opts = { editable: true, pixelFormat: 4, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 4, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
-                    console.info('testReadPixelsToBufferCb001 createPixelMap failed');
+                    logger.log('testReadPixelsToBufferCb001 createPixelMap failed');
                     expect(false).assertTrue();
                     done();
                 } else {
                     const readBuffer = new ArrayBuffer(96);
                     pixelmap.readPixelsToBuffer(readBuffer, () => {
-                        var bufferArr = new Uint8Array(readBuffer);
-                        var res = true;
-                        for (var i = 0; i < bufferArr.length; i++) {
+                        let bufferArr = new Uint8Array(readBuffer);
+                        let res = true;
+                        for (let i = 0; i < bufferArr.length; i++) {
                             if (bufferArr[i] != tcBuf020_1[i]) {
                                 res = false;
-                                console.info('testReadPixelsToBufferCb001 failed');
+                                logger.log('testReadPixelsToBufferCb001 failed');
                                 expect(false).assertTrue();
                                 done();
                                 break;
                             }
                         }
                         if (res) {
-                            console.info('testReadPixelsToBufferCb001 success');
+                            logger.log('testReadPixelsToBufferCb001 success');
                             expect(true).assertTrue()
                             done();
                         }
@@ -436,37 +673,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsToBufferCb002', 0, async function (done) {
-            console.info('testReadPixelsToBufferCb002 in');
+        it('testReadPixelsToBufferCb002', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsToBufferCb002');
+            logger.log('testReadPixelsToBufferCb002 in');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
 
-            let opts = { editable: true, pixelFormat: 2, size: { height: 6, width: 8 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 2, size: {
+                    height: 6, width: 8
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
-                    console.info('testReadPixelsToBufferCb002 createPixelMap failed');
+                    logger.log('testReadPixelsToBufferCb002 createPixelMap failed');
                     expect(false).assertTrue();
                     done();
                 } else {
                     const readBuffer = new ArrayBuffer(0);
                     pixelmap.readPixelsToBuffer(readBuffer, () => {
-                        var bufferArr = new Uint8Array(readBuffer);
-                        var res = true;
-                        for (var i = 0; i < bufferArr.length; i++) {
+                        let bufferArr = new Uint8Array(readBuffer);
+                        let res = true;
+                        for (let i = 0; i < bufferArr.length; i++) {
                             if (bufferArr[i] == 0) {
                                 res = false;
-                                console.info('testReadPixelsToBufferCb002 failed');
+                                logger.log('testReadPixelsToBufferCb002 failed');
                                 expect(false).assertTrue();
                                 done();
                                 break;
                             }
                         }
                         if (res) {
-                            console.info('testReadPixelsToBufferCb002 success');
+                            logger.log('testReadPixelsToBufferCb002 success');
                             expect(true).assertTrue()
                             done();
                         }
@@ -485,47 +727,56 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsPromise001', 0, async function (done) {
+        it('testReadPixelsPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsPromise001');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts)
                 .then(pixelmap => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testReadPixelsPromise001 createPixelMap failed');
+                        logger.log('testReadPixelsPromise001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(8),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: 0, y: 0
+                        }
                     }
                     pixelmap.readPixels(area).then(() => {
-                        var bufferArr2 = new Uint8Array(area.pixels);
-                        var res = true;
-                        for (var i = 0; i < bufferArr2.length; i++) {
+                        let bufferArr2 = new Uint8Array(area.pixels);
+                        let res = true;
+                        for (let i = 0; i < bufferArr2.length; i++) {
                             if (bufferArr2[i] != tcBuf021[i]) {
                                 res = false;
-                                console.info('testReadPixelsPromise001 failed');
+                                logger.log('testReadPixelsPromise001 failed');
                                 expect(false).assertTrue();
                                 done();
                                 break;
                             }
                         }
                         if (res) {
-                            console.info('testReadPixelsPromise001 success');
+                            logger.log('testReadPixelsPromise001 success');
                             expect(true).assertTrue()
                             done();
                         }
                     })
                 })
-                .catch(error => {
+                .catch((error: BusinessError) => {
                     console.log('testReadPixelsPromise001 error: ' + error);
                     expect().assertFail();
                     done();
@@ -542,33 +793,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsPromise002', 0, async function (done) {
+        it('testReadPixelsPromise002', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsPromise002');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue();
-                    console.info('testReadPixelsPromise002 create pixelmap failed');
+                    logger.log('testReadPixelsPromise002 create pixelmap failed');
                     done();
                 } else {
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(0),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: 0, y: 0
+                        }
                     }
                     pixelmap.readPixels(area).then(() => {
-                        console.info('testReadPixelsPromise002 failed');
+                        logger.log('testReadPixelsPromise002 failed');
                         expect(false).assertTrue();
                         done();
                     }).catch(() => {
                         expect(true).assertTrue();
-                        console.info('testReadPixelsPromise002 success');
+                        logger.log('testReadPixelsPromise002 success');
                         done();
                     })
                 }
@@ -586,33 +846,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsPromise003', 0, async function (done) {
+        it('testReadPixelsPromise003', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsPromise003');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue();
-                    console.info('testReadPixelsPromise003 createPixelMap success');
+                    logger.log('testReadPixelsPromise003 createPixelMap success');
                     done();
                 }
-                const area = {
+                const area: image.PositionArea = {
                     pixels: new ArrayBuffer(20),
                     offset: 21,
                     stride: 8,
-                    region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                    region: {
+                        size: {
+                            height: 1, width: 2
+                        }, x: 0, y: 0
+                    }
                 }
                 pixelmap.readPixels(area).then(() => {
-                    console.info('testReadPixelsPromise003 failed');
+                    logger.log('testReadPixelsPromise003 failed');
                     expect(false).assertTrue();
                     done();
                 }).catch(() => {
                     expect(true).assertTrue();
-                    console.info('testReadPixelsPromise003 success');
+                    logger.log('testReadPixelsPromise003 success');
                     done();
                 })
             })
@@ -629,33 +898,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsPromise004', 0, async function (done) {
+        it('testReadPixelsPromise004', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsPromise004');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue();
-                    console.info('testReadPixelsPromise004 createPixelMap success');
+                    logger.log('testReadPixelsPromise004 createPixelMap success');
                     done();
                 }
-                const area = {
+                const area: image.PositionArea = {
                     pixels: new ArrayBuffer(20),
                     offset: 0,
                     stride: 8,
-                    region: { size: { height: -1, width: -1 }, x: 0, y: 0 }
+                    region: {
+                        size: {
+                            height: -1, width: -1
+                        }, x: 0, y: 0
+                    }
                 }
                 pixelmap.readPixels(area).then(() => {
-                    console.info('testReadPixelsPromise004 failed');
+                    logger.log('testReadPixelsPromise004 failed');
                     expect(false).assertTrue();
                     done();
                 }).catch(() => {
                     expect(true).assertTrue();
-                    console.info('testReadPixelsPromise004 success');
+                    logger.log('testReadPixelsPromise004 success');
                     done();
                 })
             })
@@ -671,41 +949,50 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsCb001', 0, async function (done) {
+        it('testReadPixelsCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsCb001');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
-                    console.info('testReadPixelsCb001 createPixelMap failed');
+                    logger.log('testReadPixelsCb001 createPixelMap failed');
                     expect(false).assertTrue();
                     done();
                 } else {
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(8),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: 0, y: 0
+                        }
                     }
                     pixelmap.readPixels(area, () => {
-                        var bufferArr = new Uint8Array(area.pixels);
-                        var res = true;
-                        for (var i = 0; i < bufferArr.length; i++) {
-                            console.info('testReadPixelsCb001 buffer ' + bufferArr[i]);
+                        let bufferArr = new Uint8Array(area.pixels);
+                        let res = true;
+                        for (let i = 0; i < bufferArr.length; i++) {
+                            logger.log('testReadPixelsCb001 buffer ' + bufferArr[i]);
                             if (bufferArr[i] != tcBuf021_1[i]) {
                                 res = false;
-                                console.info('testReadPixelsCb001 failed');
+                                logger.log('testReadPixelsCb001 failed');
                                 expect(false).assertTrue();
                                 done();
                                 break;
                             }
                         }
                         if (res) {
-                            console.info('testReadPixelsCb001 success');
+                            logger.log('testReadPixelsCb001 success');
                             expect(true).assertTrue()
                             done();
                         }
@@ -725,33 +1012,42 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReadPixelsCb002', 0, async function (done) {
+        it('testReadPixelsCb002', 0, async (done: Function) => {
+            let logger: loger = new loger('testReadPixelsCb002');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue();
-                    console.info('testReadPixelsCb002 create pixelmap fail');
+                    logger.log('testReadPixelsCb002 create pixelmap fail');
                     done();
                 } else {
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(20),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: -1, y: -1 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: -1, y: -1
+                        }
                     }
                     pixelmap.readPixels(area).then(() => {
-                        console.info('testReadPixelsCb002 failed');
+                        logger.log('testReadPixelsCb002 failed');
                         expect(false).assertTrue();
                         done();
                     }).catch(() => {
                         expect(true).assertTrue();
-                        console.info('testReadPixelsCb002 success');
+                        logger.log('testReadPixelsCb002 success');
                         done();
                     })
                 }
@@ -767,58 +1063,71 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testWritePixelsPromise001', 0, async function (done) {
+        it('testWritePixelsPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testWritePixelsPromise001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts)
                 .then(pixelmap => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testWritePixelsPromise001 createPixelMap failed');
+                        logger.log('testWritePixelsPromise001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
 
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(8),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: 0, y: 0
+                        }
                     }
-                    var bufferArr = new Uint8Array(area.pixels);
-                    for (var i = 0; i < bufferArr.length; i++) {
+                    let bufferArr = new Uint8Array(area.pixels);
+                    for (let i = 0; i < bufferArr.length; i++) {
                         bufferArr[i] = i + 1;
                     }
-                    console.info('============ bufferArr ' + JSON.stringify(bufferArr));
+                    logger.log('============ bufferArr ' + JSON.stringify(bufferArr));
                     pixelmap.writePixels(area).then(() => {
-                        const readArea = {
+                        const readArea: image.PositionArea = {
                             pixels: new ArrayBuffer(8),
                             offset: 0,
                             stride: 8,
-                            region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                            region: {
+                                size: {
+                                    height: 1, width: 2
+                                }, x: 0, y: 0
+                            }
                         }
-                        console.info('============ bufferArr ' + JSON.stringify(readArea));
+                        logger.log('============ bufferArr ' + JSON.stringify(readArea));
                         pixelmap.readPixels(readArea).then(() => {
-                            var readArr = new Uint8Array(readArea.pixels);
-                            var res = true;
-                            for (var i = 0; i < readArr.length; i++) {
+                            let readArr = new Uint8Array(readArea.pixels);
+                            let res = true;
+                            for (let i = 0; i < readArr.length; i++) {
                                 if (readArr[i] != tcBuf022[i]) {
                                     res = false;
-                                    console.info('testWritePixelsPromise001 failed');
+                                    logger.log('testWritePixelsPromise001 failed');
                                     expect(false).assertTrue();
                                     done();
                                     break;
                                 }
                             }
                             if (res) {
-                                console.info('testWritePixelsPromise001 success');
+                                logger.log('testWritePixelsPromise001 success');
                                 expect(true).assertTrue()
                                 done();
                             }
                         })
                     })
                 })
-                .catch(error => {
+                .catch((error: BusinessError) => {
                     console.log('testWritePixelsPromise001 error: ' + error);
                     expect().assertFail();
                     done();
@@ -834,48 +1143,61 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testWritePixelsCb001', 0, async function (done) {
+        it('testWritePixelsCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testWritePixelsCb001');
             try {
                 const color = new ArrayBuffer(96);
-                let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+                let opts: image.InitializationOptions = {
+                    editable: true, pixelFormat: 3, size: {
+                        height: 4, width: 6
+                    }
+                }
                 image.createPixelMap(color, opts, (err, pixelmap) => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testWritePixelsCb001 createPixelMap failed');
+                        logger.log('testWritePixelsCb001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
-                    const area = {
+                    const area: image.PositionArea = {
                         pixels: new ArrayBuffer(8),
                         offset: 0,
                         stride: 8,
-                        region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                        region: {
+                            size: {
+                                height: 1, width: 2
+                            }, x: 0, y: 0
+                        }
                     }
-                    var bufferArr = new Uint8Array(area.pixels);
-                    for (var i = 0; i < bufferArr.length; i++) {
+                    let bufferArr = new Uint8Array(area.pixels);
+                    for (let i = 0; i < bufferArr.length; i++) {
                         bufferArr[i] = i + 1;
                     }
                     pixelmap.writePixels(area, () => {
-                        const readArea = {
+                        const readArea: image.PositionArea = {
                             pixels: new ArrayBuffer(8),
                             offset: 0,
                             stride: 8,
-                            region: { size: { height: 1, width: 2 }, x: 0, y: 0 }
+                            region: {
+                                size: {
+                                    height: 1, width: 2
+                                }, x: 0, y: 0
+                            }
                         }
                         pixelmap.readPixels(readArea, () => {
-                            var readArr = new Uint8Array(readArea.pixels);
-                            var res = true;
-                            for (var i = 0; i < readArr.length; i++) {
+                            let readArr = new Uint8Array(readArea.pixels);
+                            let res = true;
+                            for (let i = 0; i < readArr.length; i++) {
                                 if (readArr[i] != tcBuf022[i]) {
                                     res = false;
-                                    console.info('testWritePixelsCb001 failed');
+                                    logger.log('testWritePixelsCb001 failed');
                                     expect(false).assertTrue();
                                     done();
                                     break;
                                 }
                             }
                             if (res) {
-                                console.info('testWritePixelsCb001 success');
+                                logger.log('testWritePixelsCb001 success');
                                 expect(true).assertTrue()
                                 done();
                             }
@@ -883,7 +1205,7 @@ export default function PixelMap() {
                     })
                 })
             } catch (error) {
-                console.info('testWritePixelsCb001 error: ' + error);
+                logger.log('testWritePixelsCb001 error: ' + error);
                 expect(false).assertTrue();
                 done();
             }
@@ -898,46 +1220,51 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testWriteBufferToPixelsPromise001', 0, async function (done) {
+        it('testWriteBufferToPixelsPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testWriteBufferToPixelsPromise001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts)
                 .then(pixelmap => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testWriteBufferToPixelsPromise001 createPixelMap failed');
+                        logger.log('testWriteBufferToPixelsPromise001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
 
                     const writeColor = new ArrayBuffer(96);
-                    var bufferArr = new Uint8Array(writeColor);
-                    for (var i = 0; i < bufferArr.length; i++) {
+                    let bufferArr = new Uint8Array(writeColor);
+                    for (let i = 0; i < bufferArr.length; i++) {
                         bufferArr[i] = i + 1;
                     }
                     pixelmap.writeBufferToPixels(writeColor).then(() => {
                         const readBuffer = new ArrayBuffer(96);
                         pixelmap.readPixelsToBuffer(readBuffer).then(() => {
-                            var bufferArr = new Uint8Array(readBuffer);
-                            var res = true;
-                            for (var i = 0; i < bufferArr.length; i++) {
+                            let bufferArr = new Uint8Array(readBuffer);
+                            let res = true;
+                            for (let i = 0; i < bufferArr.length; i++) {
                                 if (bufferArr[i] == 0) {
                                     res = false;
-                                    console.info('testWriteBufferToPixelsPromise001 failed');
+                                    logger.log('testWriteBufferToPixelsPromise001 failed');
                                     expect(false).assertTrue()
                                     done();
                                     break;
                                 }
                             }
                             if (res) {
-                                console.info('testWriteBufferToPixelsPromise001 success');
+                                logger.log('testWriteBufferToPixelsPromise001 success');
                                 expect(true).assertTrue();
                                 done();
                             }
                         })
                     })
                 })
-                .catch(error => {
+                .catch((error: BusinessError) => {
                     console.log('testWriteBufferToPixelsPromise001 error: ' + error);
                     expect().assertFail();
                     done();
@@ -953,31 +1280,36 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testWriteBufferToPixelsCb001', 0, async function (done) {
+        it('testWriteBufferToPixelsCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testWriteBufferToPixelsCb001');
             const color = new ArrayBuffer(96);
-            var bufferArr = new Uint8Array(color);
-            for (var i = 0; i < bufferArr.length; i++) {
+            let bufferArr = new Uint8Array(color);
+            for (let i = 0; i < bufferArr.length; i++) {
                 bufferArr[i] = i + 1;
             }
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts).then(pixelmap => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue()
-                    console.info('testWriteBufferToPixelsCb001 failed');
+                    logger.log('testWriteBufferToPixelsCb001 failed');
                     done();
                 }
                 const writeColor = new ArrayBuffer(96);
                 pixelmap.writeBufferToPixels(writeColor, () => {
                     const readBuffer = new ArrayBuffer(96);
                     pixelmap.readPixelsToBuffer(readBuffer, () => {
-                        var bufferArr = new Uint8Array(readBuffer);
-                        var res = true;
-                        for (var i = 0; i < bufferArr.length; i++) {
+                        let bufferArr = new Uint8Array(readBuffer);
+                        let res = true;
+                        for (let i = 0; i < bufferArr.length; i++) {
                             if (res) {
                                 if (bufferArr[i] == 0) {
                                     res = false;
-                                    console.info('testWriteBufferToPixelsCb001 Success');
+                                    logger.log('testWriteBufferToPixelsCb001 Success');
                                     expect(true).assertTrue()
                                     done();
                                     break;
@@ -985,7 +1317,7 @@ export default function PixelMap() {
                             }
                         }
                         if (res) {
-                            console.info('testWriteBufferToPixelsCb001 no change after writeBuffer');
+                            logger.log('testWriteBufferToPixelsCb001 no change after writeBuffer');
                             expect(false).assertTrue();
                             done();
                         }
@@ -1004,42 +1336,47 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetImageInfoPromise001', 0, async function (done) {
+        it('testGetImageInfoPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testGetImageInfoPromise001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 2, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 2, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts)
                 .then(pixelmap => {
                     globalpixelmap = pixelmap;
                     if (pixelmap == undefined) {
-                        console.info('testGetImageInfoPromise001 createPixelMap failed');
+                        logger.log('testGetImageInfoPromise001 createPixelMap failed');
                         expect(false).assertTrue()
                         done();
                     }
                     pixelmap.getImageInfo().then(imageInfo => {
                         if (imageInfo == undefined) {
-                            console.info('testGetImageInfoPromise001 imageInfo is empty');
+                            logger.log('testGetImageInfoPromise001 imageInfo is empty');
                             expect(false).assertTrue()
                             done();
                         }
                         if (imageInfo.size == null || imageInfo.density == null) {
-                            console.info('testGetImageInfoPromise001 imageInfo size&density is empty');
+                            logger.log('testGetImageInfoPromise001 imageInfo size&density is empty');
                             expect(false).assertTrue()
                             done();
                         }
                         if (imageInfo.size.height == 4 && imageInfo.size.width == 6) {
-                            console.info('testGetImageInfoPromise001 success ');
+                            logger.log('testGetImageInfoPromise001 success ');
                             expect(true).assertTrue()
                             done();
                         }
                         done();
-                    }).catch(error => {
+                    }).catch((error: BusinessError) => {
                         console.log('testGetImageInfoPromise001 getimageinfo error: ' + error);
                         expect().assertFail();
                         done();
                     })
                     done();
                 })
-                .catch(error => {
+                .catch((error: BusinessError) => {
                     console.log('testGetImageInfoPromise001 error: ' + error);
                     expect().assertFail();
                     done();
@@ -1056,24 +1393,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetImageInfoCb001', 0, async function (done) {
+        it('testGetImageInfoCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testGetImageInfoCb001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 if (pixelmap == undefined) {
                     globalpixelmap = pixelmap;
                     expect(false).assertTrue()
-                    console.info('testGetImageInfoCb001 create pixelmap fail');
+                    logger.log('testGetImageInfoCb001 create pixelmap fail');
                     done();
                 }
                 pixelmap.getImageInfo((err, imageInfo) => {
                     if (imageInfo == undefined) {
-                        console.info('testGetImageInfoCb001 imageInfo is empty');
+                        logger.log('testGetImageInfoCb001 imageInfo is empty');
                         expect(false).assertTrue()
                         done();
                     }
                     if (imageInfo.size.height == 4 && imageInfo.size.width == 6) {
-                        console.info('testGetImageInfoCb001 imageInfo success');
+                        logger.log('testGetImageInfoCb001 imageInfo success');
                         expect(true).assertTrue()
                         done();
                     }
@@ -1093,24 +1435,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetBytesNumberPerRow001', 0, async function (done) {
+        it('testGetBytesNumberPerRow001', 0, async (done: Function) => {
+            let logger: loger = new loger('testGetBytesNumberPerRow001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             const expectNum = 4 * opts.size.width;
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue()
-                    console.info('testGetBytesNumberPerRow001 create pixelmap fail');
+                    logger.log('testGetBytesNumberPerRow001 create pixelmap fail');
                     done();
                 } else {
                     const num = pixelmap.getBytesNumberPerRow();
-                    console.info('testGetBytesNumberPerRow001 num is ' + num);
+                    logger.log('testGetBytesNumberPerRow001 num is ' + num);
                     expect(num == expectNum).assertTrue();
                     if (num == expectNum) {
-                        console.info('TC_25-1 success');
+                        logger.log('TC_25-1 success');
                     } else {
-                        console.info('TC_25-1 fail');
+                        logger.log('TC_25-1 fail');
                     }
                     done();
                 }
@@ -1128,24 +1475,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetPixelBytesNumber001', 0, async function (done) {
+        it('testGetPixelBytesNumber001', 0, async (done: Function) => {
+            let logger: loger = new loger('testGetPixelBytesNumber001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             const expectNum = 4 * opts.size.width * opts.size.height;
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
                     expect(false).assertTrue()
-                    console.info('testGetPixelBytesNumber001 create pixelmap fail');
+                    logger.log('testGetPixelBytesNumber001 create pixelmap fail');
                     done();
                 } else {
                     const num = pixelmap.getPixelBytesNumber();
-                    console.info('testGetPixelBytesNumber001 num is ' + num);
+                    logger.log('testGetPixelBytesNumber001 num is ' + num);
                     expect(num == expectNum).assertTrue();
                     if (num == expectNum) {
-                        console.info('testGetPixelBytesNumber001 success');
+                        logger.log('testGetPixelBytesNumber001 success');
                     } else {
-                        console.info('testGetPixelBytesNumber001 fail');
+                        logger.log('testGetPixelBytesNumber001 fail');
                     }
                     done();
                 }
@@ -1162,9 +1514,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity001', 0, async function (done) {
-            var imageData = testPng.buffer;
-            await getDensityTest(done, 'testGetDensity001', imageData);
+        it('testGetDensity001', 0, async (done: Function) => {
+            let imageData = testPng.buffer;
+            await getDensityTest(done, 'testGetDensity001', imageData, null!);
         })
 
         /**
@@ -1177,9 +1529,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity002', 0, async function (done) {
-            var imageData = testJpg.buffer;
-            await getDensityTest(done, 'testGetDensity002', imageData);
+        it('testGetDensity002', 0, async (done: Function) => {
+            let imageData = testJpg.buffer;
+            await getDensityTest(done, 'testGetDensity002', imageData, null!);
         })
 
         /**
@@ -1192,9 +1544,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity003', 0, async function (done) {
-            var imageData = testBmp.buffer;
-            await getDensityTest(done, 'testGetDensity003', imageData);
+        it('testGetDensity003', 0, async (done: Function) => {
+            let imageData: ESObject = testBmp.buffer;
+            await getDensityTest(done, 'testGetDensity003', imageData, null!);
         })
 
         /**
@@ -1207,9 +1559,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity004', 0, async function (done) {
-            var imageData = testGif.buffer;
-            await getDensityTest(done, 'testGetDensity004', imageData);
+        it('testGetDensity004', 0, async (done: Function) => {
+            let imageData: ESObject = testGif.buffer;
+            await getDensityTest(done, 'testGetDensity004', imageData, null!);
         })
 
         /**
@@ -1222,9 +1574,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity005', 0, async function (done) {
-            var imageData = testPng.buffer;
-            let decodingOptions = { fitDensity: 240 };
+        it('testGetDensity005', 0, async (done: Function) => {
+            let imageData: ESObject = testPng.buffer;
+            let decodingOptions: image.DecodingOptions = {
+                fitDensity: 240
+            };
             await getDensityTest(done, 'testGetDensity005', imageData, decodingOptions);
         })
 
@@ -1238,9 +1592,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity006', 0, async function (done) {
-            var imageData = testJpg.buffer;
-            let decodingOptions = { fitDensity: 240 };
+        it('testGetDensity006', 0, async (done: Function) => {
+            let imageData: ESObject = testJpg.buffer;
+            let decodingOptions: image.DecodingOptions = {
+                fitDensity: 240
+            };
             await getDensityTest(done, 'testGetDensity006', imageData, decodingOptions);
         })
 
@@ -1254,9 +1610,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity007', 0, async function (done) {
-            var imageData = testBmp.buffer;
-            let decodingOptions = { fitDensity: 240 };
+        it('testGetDensity007', 0, async (done: Function) => {
+            let imageData: ESObject = testBmp.buffer;
+            let decodingOptions: image.DecodingOptions = {
+                fitDensity: 240
+            };
             await getDensityTest(done, 'testGetDensity007', imageData, decodingOptions);
         })
 
@@ -1270,9 +1628,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testGetDensity008', 0, async function (done) {
-            var imageData = testGif.buffer;
-            let decodingOptions = { fitDensity: 240 };
+        it('testGetDensity008', 0, async (done: Function) => {
+            let imageData: ESObject = testGif.buffer;
+            let decodingOptions: image.DecodingOptions = {
+                fitDensity: 240
+            };
             await getDensityTest(done, 'testGetDensity008', imageData, decodingOptions);
         })
 
@@ -1287,19 +1647,20 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityPromise001', 0, async function (done) {
-            let logger = loger('testOpacityPromise001')
+        it('testOpacityPromise001', 0, async (done: Function) => {
+            let testName = 'testOpacityPromise001';
+            let logger: loger = new loger(testName);
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap()
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
                     await pixelMap.opacity(0.8)
-                    var pixelSize = pixelMap.getPixelBytesNumber();
+                    let pixelSize = pixelMap.getPixelBytesNumber();
                     logger.log(`new pixel size ${pixelSize}`);
-                    var readBuffer = new ArrayBuffer(pixelSize);
+                    let readBuffer = new ArrayBuffer(pixelSize);
                     await pixelMap.readPixelsToBuffer(readBuffer);
-                    var bufferArr2 = new Uint8Array(readBuffer);
-                    for (var i = 0; i < bufferArr2.length; i++) {
+                    let bufferArr2 = new Uint8Array(readBuffer);
+                    for (let i = 0; i < bufferArr2.length; i++) {
                         if (bufferArr2[i] != setAlpha8[i]) {
                             logger.log(`pixel[${i}] current[${bufferArr2[i]}] target[${setAlpha8[i]}]`);
                             expect(false).assertTrue();
@@ -1309,7 +1670,7 @@ export default function PixelMap() {
                     expect(true).assertTrue();
                     done();
                 } else {
-                    logger.log('creat pixelMap failed ');
+                    logger.log('create pixelMap failed ');
                     expect(false).assertTrue();
                     done();
                 }
@@ -1329,8 +1690,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityPromise002', 0, async function (done) {
-            opacityErr(done, 'testOpacityPromise002', { a: 1 }, 'Promise')
+        it('testOpacityPromise002', 0, async (done: Function) => {
+            let param: ESObject = {
+                a: 1
+            };
+            opacityErr(done, 'testOpacityPromise002', param, 'Promise')
         })
 
         /**
@@ -1342,8 +1706,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityPromise003', 0, async function (done) {
-            opacityErr(done, 'testOpacityPromise003', 'a', 'Promise')
+        it('testOpacityPromise003', 0, async (done: Function) => {
+            let param: ESObject = 'a';
+            opacityErr(done, 'testOpacityPromise003', param, 'Promise')
         })
 
         /**
@@ -1355,8 +1720,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityPromise004', 0, async function (done) {
-            opacityErr(done, 'testOpacityPromise004', null, 'Promise')
+        it('testOpacityPromise004', 0, async (done: Function) => {
+            opacityErr(done, 'testOpacityPromise004', null!, 'Promise')
         })
 
         /**
@@ -1368,7 +1733,7 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityPromise005', 0, async function (done) {
+        it('testOpacityPromise005', 0, async (done: Function) => {
             opacityErr(done, 'testOpacityPromise005', 2, 'Promise')
         })
 
@@ -1383,19 +1748,19 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityCb001', 0, async function (done) {
-            let logger = loger('testOpacityCb001')
+        it('testOpacityCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testOpacityCb001');
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap()
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
                     pixelMap.opacity(0.8, async (err) => {
-                        var pixelSize = pixelMap.getPixelBytesNumber();
+                        let pixelSize = pixelMap.getPixelBytesNumber();
                         logger.log(`new pixel size ${pixelSize}`);
-                        var readBuffer = new ArrayBuffer(pixelSize);
+                        let readBuffer = new ArrayBuffer(pixelSize);
                         await pixelMap.readPixelsToBuffer(readBuffer);
-                        var bufferArr2 = new Uint8Array(readBuffer);
-                        for (var i = 0; i < bufferArr2.length; i++) {
+                        let bufferArr2 = new Uint8Array(readBuffer);
+                        for (let i = 0; i < bufferArr2.length; i++) {
                             if (bufferArr2[i] != setAlpha8[i]) {
                                 logger.log(`pixel[${i}] current[${bufferArr2[i]}] target[${setAlpha8[i]}]`);
                                 expect(false).assertTrue();
@@ -1406,7 +1771,7 @@ export default function PixelMap() {
                         done();
                     })
                 } else {
-                    logger.log('creat pixelMap failed ');
+                    logger.log('create pixelMap failed ');
                     expect(false).assertTrue();
                     done();
                 }
@@ -1426,8 +1791,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityCb002', 0, async function (done) {
-            opacityErr(done, 'testOpacityCb002', { a: 1 }, 'callback')
+        it('testOpacityCb002', 0, async (done: Function) => {
+            let param: ESObject = {
+                a: 1
+            };
+            opacityErr(done, 'testOpacityCb002', param, 'callback')
         })
 
         /**
@@ -1439,8 +1807,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityCb003', 0, async function (done) {
-            opacityErr(done, 'testOpacityCb003', 'a', 'callback')
+        it('testOpacityCb003', 0, async (done: Function) => {
+            let param: ESObject = 'a';
+            opacityErr(done, 'testOpacityCb003', param, 'callback')
         })
 
         /**
@@ -1452,8 +1821,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityCb004', 0, async function (done) {
-            opacityErr(done, 'testOpacityCb004', null, 'callback')
+        it('testOpacityCb004', 0, async (done: Function) => {
+            opacityErr(done, 'testOpacityCb004', null!, 'callback')
         })
 
         /**
@@ -1465,7 +1834,7 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testOpacityCb005', 0, async function (done) {
+        it('testOpacityCb005', 0, async (done: Function) => {
             opacityErr(done, 'testOpacityCb005', 2, 'callback')
         })
 
@@ -1480,8 +1849,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateAlphaPixelmapPromise001', 0, async function (done) {
-            var imageData = testPng.buffer;
+        it('testCreateAlphaPixelmapPromise001', 0, async (done: Function) => {
+            let imageData = testPng.buffer;
             await createAlphaPixelmapTest(done, 'testCreateAlphaPixelmapPromise001', 'promise', imageData);
         })
 
@@ -1496,8 +1865,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateAlphaPixelmapPromise002', 0, async function (done) {
-            var imageData = testJpg.buffer;
+        it('testCreateAlphaPixelmapPromise002', 0, async (done: Function) => {
+            let imageData = testJpg.buffer;
             await createAlphaPixelmapTest(done, 'testCreateAlphaPixelmapPromise002', 'promise', imageData);
         })
 
@@ -1512,8 +1881,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateAlphaPixelmapPromise003', 0, async function (done) {
-            var imageData = testBmp.buffer;
+        it('testCreateAlphaPixelmapPromise003', 0, async (done: Function) => {
+            let imageData = testBmp.buffer;
             await createAlphaPixelmapTest(done, 'testCreateAlphaPixelmapPromise003', 'promise', imageData);
         })
 
@@ -1528,8 +1897,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateAlphaPixelmapPromise004', 0, async function (done) {
-            var imageData = testGif.buffer;
+        it('testCreateAlphaPixelmapPromise004', 0, async (done: Function) => {
+            let imageData = testGif.buffer;
             await createAlphaPixelmapTest(done, 'testCreateAlphaPixelmapPromise004', 'promise', imageData);
         })
 
@@ -1544,8 +1913,8 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateAlphaPixelmapCb001', 0, async function (done) {
-            var imageData = testPng.buffer;
+        it('testCreateAlphaPixelmapCb001', 0, async (done: Function) => {
+            let imageData = testPng.buffer;
             await createAlphaPixelmapTest(done, 'testCreateAlphaPixelmapCb001', 'callback', imageData);
         })
 
@@ -1560,29 +1929,25 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise001', 0, async function (done) {
-
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width == orgInfo.size.width * 2) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(true).assertTrue();
-                    done();
-                } else {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(false).assertTrue();
-                    done();
-                }
-            }
-
-            let logger = loger('testScalePromise001')
+        it('testScalePromise001', 0, async (done: Function) => {
+            let testNum = 'testScalePromise001';
+            let logger: loger = new loger(testNum);
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap()
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
-                    var orgInfo = await pixelMap.getImageInfo();
+                    let orgInfo = await pixelMap.getImageInfo();
                     await pixelMap.scale(2.0, 1.0);
-                    var newInfo = await pixelMap.getImageInfo()
-                    sizeCheck(done, logger, orgInfo, newInfo)
+                    let newInfo = await pixelMap.getImageInfo()
+                    if (newInfo.size.width == orgInfo.size.width * 2) {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(true).assertTrue();
+                        done();
+                    } else {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                        done();
+                    }
                 } else {
                     logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
@@ -1606,29 +1971,24 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise002', 0, async function (done) {
-
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.height == orgInfo.size.height * 4) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(true).assertTrue();
-                    done();
-                } else {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(false).assertTrue();
-                    done();
-                }
-            }
-
-            let logger = loger('testScalePromise002')
+        it('testScalePromise002', 0, async (done: Function) => {
+            let logger = new loger('testScalePromise002')
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap()
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
-                    var orgInfo = await pixelMap.getImageInfo();
+                    let orgInfo = await pixelMap.getImageInfo();
                     await pixelMap.scale(1.0, 4.0);
-                    var newInfo = await pixelMap.getImageInfo()
-                    sizeCheck(done, logger, orgInfo, newInfo)
+                    let newInfo = await pixelMap.getImageInfo()
+                    if (newInfo.size.height == orgInfo.size.height * 4) {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(true).assertTrue();
+                        done();
+                    } else {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                        done();
+                    }
                 } else {
                     logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
@@ -1650,8 +2010,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScalePromise003', 'promise', 'scale', { a: 10 }, 1.0)
+        it('testScalePromise003', 0, async (done: Function) => {
+            let testNum = 'testScalePromise003';
+            let X: ESObject = {
+                a: 10
+            };
+            let Y: number = 1.0;
+            scaleErr(done, testNum, X, Y);
         })
 
         /**
@@ -1663,8 +2028,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScalePromise004', 'promise', 'scale', 'a', 1.0)
+        it('testScalePromise004', 0, async (done: Function) => {
+            let testNum = 'testScalePromise004';
+            let X: ESObject = 'a';
+            let Y: number = 1.0;
+            scaleErr(done, testNum, X, Y);
         })
 
         /**
@@ -1676,9 +2044,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScalePromise005', 'promise', 'scale', 1.0, null)
-
+        it('testScalePromise005', 0, async (done: Function) => {
+            let testNum = 'testScalePromise005';
+            let X: number = 1.0;
+            scaleErr(done, testNum, X, null!);
         })
 
         /**
@@ -1690,9 +2059,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScalePromise006', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScalePromise006', 'promise', 'scale', 1.0, true)
-
+        it('testScalePromise006', 0, async (done: Function) => {
+            let testNum = 'testScalePromise006';
+            let X: number = 1.0;
+            let Y: ESObject = true;
+            scaleErr(done, testNum, X, Y);
         })
 
         /**
@@ -1706,28 +2077,24 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScaleCb001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.height == orgInfo.size.height * 4) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(true).assertTrue();
-                    done();
-                } else {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
-                    expect(false).assertTrue();
-                    done();
-                }
-            }
-
-            let logger = loger('testScaleCb001')
+        it('testScaleCb001', 0, async (done: Function) => {
+            let logger = new loger('testScaleCb001')
             try {
-                var pixelMap = await genPixelMap()
+                let pixelMap = await genPixelMap()
                 logger.log("pixelMap " + (pixelMap != undefined));
                 if (pixelMap != undefined) {
-                    var orgInfo = await pixelMap.getImageInfo();
+                    let orgInfo = await pixelMap.getImageInfo();
                     pixelMap.scale(1.0, 4.0, async () => {
-                        var newInfo = await pixelMap.getImageInfo()
-                        sizeCheck(done, logger, orgInfo, newInfo)
+                        let newInfo = await pixelMap.getImageInfo()
+                        if (newInfo.size.height == orgInfo.size.height * 4) {
+                            logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                            expect(true).assertTrue();
+                            done();
+                        } else {
+                            logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                            expect(false).assertTrue();
+                            done();
+                        }
                     })
                 } else {
                     logger.log('create pixelMap fail ');
@@ -1750,8 +2117,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScaleCb002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScaleCb002', 'callback', 'scale', { a: 10 }, 1.0)
+        it('testScaleCb002', 0, async (done: Function) => {
+            let testNum = 'testScaleCb002';
+            let X: ESObject = {
+                a: 10
+            };
+            let Y: number = 1.0;
+            scaleCbErr(done, testNum, X, Y);
         })
 
         /**
@@ -1763,8 +2135,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScaleCb003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScaleCb003', 'callback', 'scale', 'a', 1.0)
+        it('testScaleCb003', 0, async (done: Function) => {
+            let testNum = 'testScaleCb003';
+            let X: ESObject = 'a';
+            let Y: number = 1.0;
+            scaleCbErr(done, testNum, X, Y);
         })
 
         /**
@@ -1776,8 +2151,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScaleCb004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScaleCb004', 'callback', 'scale', 1.0, null)
+        it('testScaleCb004', 0, async (done: Function) => {
+            let testNum = 'testScaleCb004';
+            let X: number = 1.0;
+            scaleCbErr(done, testNum, X, null!);
         })
 
         /**
@@ -1789,8 +2166,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testScaleCb005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testScaleCb005', 'callback', 'scale', 1.0, true)
+        it('testScaleCb005', 0, async (done: Function) => {
+            let testNum = 'testScaleCb005';
+            let X: number = 1.0;
+            let Y: ESObject = true;
+            scaleCbErr(done, testNum, X, Y);
         })
 
         /**
@@ -1804,15 +2184,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width != orgInfo.size.width + 3) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+        it('testTranslatePromise001', 0, async (done: Function) => {
+            let logger = new loger('testTranslatePromise001')
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    await pixelMap.translate(3.0, 1.0);
+                    let newInfo = await pixelMap.getImageInfo();
+                    if (newInfo.size.width != orgInfo.size.width + 3) {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                    }
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testTranslatePromise001', 'promise', 'translate', sizeCheck, translate3x1, 3.0, 1.0)
         })
 
         /**
@@ -1826,15 +2220,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise002', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.height != orgInfo.size.height + 3) {
-                    logger.log(`org height ${orgInfo.size.height}, new height ${newInfo.size.height} `);
+        it('testTranslatePromise002', 0, async (done: Function) => {
+            let logger = new loger('testTranslatePromise002')
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    await pixelMap.translate(1.0, 3.0);
+                    let newInfo = await pixelMap.getImageInfo()
+                    if (newInfo.size.height != orgInfo.size.height + 3) {
+                        logger.log(`org height ${orgInfo.size.height}, new height ${newInfo.size.height} `);
+                        expect(false).assertTrue();
+                    }
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testTranslatePromise002', 'promise', 'translate', sizeCheck, translate1x3, 1.0, 3.0)
         })
 
         /**
@@ -1846,8 +2254,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslatePromise003', 'promise', 'translate', { a: 10 }, 1.0)
+        it('testTranslatePromise003', 0, async (done: Function) => {
+            let testNum = 'testTranslatePromise003';
+            let translateX: ESObject = {
+                a: 10
+            };
+            let translateY: number = 1.0;
+            translateErr(done, testNum, translateX, translateY);
         })
 
         /**
@@ -1859,8 +2272,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslatePromise004', 'promise', 'translate', 'a', 1.0)
+        it('testTranslatePromise004', 0, async (done: Function) => {
+            let testNum = 'testTranslatePromise004';
+            let translateX: ESObject = 'a';
+            let translateY: number = 1.0;
+            translateErr(done, testNum, translateX, translateY)
         })
 
         /**
@@ -1872,8 +2288,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslatePromise005', 'promise', 'translate', 1.0, null)
+        it('testTranslatePromise005', 0, async (done: Function) => {
+            let testNum = 'testTranslatePromise005';
+            let translateX: number = 1.0;
+            translateErr(done, testNum, translateX, null!)
         })
 
         /**
@@ -1885,8 +2303,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslatePromise006', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslatePromise006', 'promise', 'translate', 1.0, false)
+        it('testTranslatePromise006', 0, async (done: Function) => {
+            let testNum = 'testTranslatePromise006';
+            let translateX: number = 1.0;
+            let translateY: ESObject = false;
+            translateErr(done, testNum, translateX, translateY)
         })
 
         /**
@@ -1900,15 +2321,36 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslateCb001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.height != orgInfo.size.height + 3) {
-                    logger.log(`org height ${orgInfo.size.height}, new height ${newInfo.size.height} `);
+        it('testTranslateCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testTranslateCb001');
+            try {
+                let pixelMap = await genPixelMap();
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    console.info('create pixelMap success ')
+                    expect(true).assertTrue();
+                    let translateX: number = 50.0;
+                    let translateY: number = 10.0;
+                    pixelMap.translate(translateX, translateY, (err: BusinessError) => {
+                        if (err) {
+                            logger.log('testTranslateCb001 fail ');
+                            expect(false).assertTrue();
+                        } else {
+                            logger.log('testTranslateCb001 Expect case success');
+                            expect(true).assertTrue();
+                        }
+                        done();
+                    })
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('testTranslateCb001 fail');
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testTranslateCb001', 'callback', 'translate', sizeCheck, translate1x3, 1.0, 3.0)
         })
 
         /**
@@ -1920,8 +2362,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslateCb002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslateCb002', 'callback', 'translate', { a: 10 }, 1.0)
+        it('testTranslateCb002', 0, async (done: Function) => {
+            let testNum = 'testTranslateCb002';
+            let translateX: ESObject = {
+                a: 10
+            };
+            let translateY: number = 1.0;
+            translateCbErr(done, testNum, translateX, translateY);
         })
 
         /**
@@ -1933,8 +2380,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslateCb003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslateCb003', 'callback', 'translate', 'a', 1.0)
+        it('testTranslateCb003', 0, async (done: Function) => {
+            let testNum = 'testTranslateCb003';
+            let translateX: ESObject = 'a';
+            let translateY: number = 1.0;
+            translateCbErr(done, testNum, translateX, translateY);
         })
 
         /**
@@ -1946,8 +2396,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslateCb004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslateCb004', 'callback', 'translate', 1.0, null)
+        it('testTranslateCb004', 0, async (done: Function) => {
+            let testNum = 'testTranslateCb004';
+            let translateX: number = 1.0;
+            translateCbErr(done, testNum, translateX, null!);
         })
 
         /**
@@ -1959,8 +2411,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testTranslateCb005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testTranslateCb005', 'callback', 'translate', 1.0, false)
+        it('testTranslateCb005', 0, async (done: Function) => {
+            let testNum = 'testTranslateCb005';
+            let translateX: number = 1.0;
+            let translateY: ESObject = false;
+            translateCbErr(done, testNum, translateX, translateY);
         })
 
         /**
@@ -1974,15 +2429,29 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotatePromise001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width != orgInfo.size.height) {
-                    logger.log(`org height ${orgInfo.size.height}, new width ${newInfo.size.width} `);
+        it('testRotatePromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testRotatePromise001');
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    await pixelMap.rotate(90.0);
+                    let newInfo = await pixelMap.getImageInfo();
+                    if (newInfo.size.width != orgInfo.size.height) {
+                        logger.log(`org height ${orgInfo.size.height}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                    }
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testRotatePromise001', 'promise', 'rotate', sizeCheck, rotate90, 90.0)
         })
 
         /**
@@ -1994,8 +2463,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotatePromise002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotatePromise002', 'promise', 'rotate', 'a')
+        it('testRotatePromise002', 0, async (done: Function) => {
+            let testNum = 'testRotatePromise002';
+            let angle: ESObject = 'a';
+            rotateErr(done, testNum, angle);
         })
 
         /**
@@ -2007,8 +2478,12 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotatePromise003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotatePromise003', 'promise', 'rotate', { a: 10 })
+        it('testRotatePromise003', 0, async (done: Function) => {
+            let testNum = 'testRotatePromise003';
+            let angle: ESObject = {
+                a: 10
+            };
+            rotateErr(done, testNum, angle);
         })
 
         /**
@@ -2020,8 +2495,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotatePromise004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotatePromise004', 'promise', 'rotate', null)
+        it('testRotatePromise004', 0, async (done: Function) => {
+            let testNum = 'testRotatePromise004';
+            rotateErr(done, testNum, null!);
         })
 
         /**
@@ -2033,8 +2509,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotatePromise005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotatePromise005', 'promise', 'rotate', false)
+        it('testRotatePromise005', 0, async (done: Function) => {
+            let testNum = 'testRotatePromise005';
+            let angle: ESObject = false;
+            rotateErr(done, testNum, angle);
         })
 
         /**
@@ -2048,15 +2526,33 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotateCb001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width != orgInfo.size.height) {
-                    logger.log(`org height ${orgInfo.size.height}, new width ${newInfo.size.width} `);
+        it('testRotateCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testRotateCb001');
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    pixelMap.rotate(90.0, async (err: BusinessError) => {
+                        let newInfo = await pixelMap.getImageInfo();
+                        if (newInfo.size.width != orgInfo.size.height) {
+                            logger.log(`org height ${orgInfo.size.height}, new width ${newInfo.size.width} `);
+                            expect(false).assertTrue();
+                            done();
+                        }
+                    })
+                    done();
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
                     done();
                 }
+                done();
+            } catch (error) {
+                logger.log('testRotateCb001 fail');
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testRotateCb001', 'callback', 'rotate', sizeCheck, rotate90, 90.0)
         })
 
         /**
@@ -2068,8 +2564,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotateCb002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotateCb002', 'callback', 'rotate', 'a')
+        it('testRotateCb002', 0, async (done: Function) => {
+            let testNum = 'testRotateCb002';
+            let rotate: ESObject = 'a';
+            rotateCbErr(done, testNum, rotate);
         })
 
         /**
@@ -2081,8 +2579,12 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotateCb003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotateCb003', 'callback', 'rotate', { a: 10 })
+        it('testRotateCb003', 0, async (done: Function) => {
+            let testNum = 'testRotateCb003';
+            let rotate: ESObject = {
+                a: 10
+            };
+            rotateCbErr(done, testNum, rotate);
         })
 
         /**
@@ -2094,8 +2596,9 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotateCb004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotateCb004', 'callback', 'rotate', null)
+        it('testRotateCb004', 0, async (done: Function) => {
+            let testNum = 'testRotateCb004';
+            rotateCbErr(done, testNum, null!);
         })
 
         /**
@@ -2107,8 +2610,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testRotateCb005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testRotateCb005', 'callback', 'rotate', false)
+        it('testRotateCb005', 0, async (done: Function) => {
+            let testNum = 'testRotateCb005';
+            let rotate: ESObject = false;
+            rotateCbErr(done, testNum, rotate);
         })
 
         /**
@@ -2122,15 +2627,33 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipPromise001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width != orgInfo.size.width) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+        it('testFlipPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testFlipPromise001');
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    let horizontal = false;
+                    let vertical = true;
+                    await pixelMap.flip(horizontal, vertical);
+                    logger.log('testFlipPromise001 1')
+                    let newInfo = await pixelMap.getImageInfo();
+                    logger.log('testFlipPromise001 2')
+                    if (newInfo.size.width != orgInfo.size.width) {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                    }
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testFlipPromise001', 'promise', 'flip', sizeCheck, flipH, false, true)
         })
 
         /**
@@ -2142,8 +2665,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipPromise002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipPromise002', 'promise', 'flip', 'false', true)
+        it('testFlipPromise002', 0, async (done: Function) => {
+            let testNum = 'testFlipPromise002';
+            let horizontal: ESObject = 'false';
+            let vertical = true;
+            flipErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2155,8 +2681,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipPromise003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipPromise003', 'promise', 'flip', 1, true)
+        it('testFlipPromise003', 0, async (done: Function) => {
+            let testNum = 'testFlipPromise003';
+            let horizontal: ESObject = 1;
+            let vertical = true;
+            flipErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2168,8 +2697,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipPromise004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipPromise004', 'promise', 'flip', true, { a: 10 })
+        it('testFlipPromise004', 0, async (done: Function) => {
+            let testNum = 'testFlipPromise004';
+            let horizontal = true;
+            let vertical: ESObject = {
+                a: 10
+            };
+            flipErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2181,8 +2715,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipPromise005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipPromise005', 'promise', 'flip', true, null)
+        it('testFlipPromise005', 0, async (done: Function) => {
+            let testNum = 'testFlipPromise005';
+            let horizontal = true;
+            flipErr(done, testNum, horizontal, null!);
         })
 
         /**
@@ -2196,15 +2732,32 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipCb001', 0, async function (done) {
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                if (newInfo.size.width != orgInfo.size.width) {
-                    logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+        it('testFlipCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testFlipCb001');
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    let orgInfo = await pixelMap.getImageInfo();
+                    let horizontal = false;
+                    let vertical = true;
+                    pixelMap.flip(horizontal, vertical, async (err: BusinessError) => {
+                        let newInfo = await pixelMap.getImageInfo();
+                        if (newInfo.size.width != orgInfo.size.width) {
+                            logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                            expect(false).assertTrue();
+                        }
+                    })
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('testFlipCb001 fail');
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testFlipCb001', 'callback', 'flip', sizeCheck, flipH, false, true)
         })
 
         /**
@@ -2216,8 +2769,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipCb002', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipCb002', 'callback', 'flip', 'false', true)
+        it('testFlipCb002', 0, async (done: Function) => {
+            let testNum = 'testFlipCb002';
+            let horizontal: ESObject = 'false';
+            let vertical = true;
+            flipCbErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2229,8 +2785,11 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipCb003', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipCb003', 'callback', 'flip', 1, true)
+        it('testFlipCb003', 0, async (done: Function) => {
+            let testNum = 'testFlipCb003';
+            let horizontal: ESObject = 1;
+            let vertical = true;
+            flipCbErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2242,8 +2801,13 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipCb004', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipCb004', 'callback', 'flip', true, { a: 10 })
+        it('testFlipCb004', 0, async (done: Function) => {
+            let testNum = 'testFlipCb004';
+            let horizontal = true;
+            let vertical: ESObject = {
+                a: 10
+            };
+            flipCbErr(done, testNum, horizontal, vertical);
         })
 
         /**
@@ -2255,8 +2819,10 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testFlipCb005', 0, async function (done) {
-            await pixelMapModifySizeTestErr(done, 'testFlipCb005', 'callback', 'flip', true, null)
+        it('testFlipCb005', 0, async (done: Function) => {
+            let testNum = 'testFlipCb005';
+            let horizontal = true;
+            flipCbErr(done, testNum, horizontal, null!);
         })
 
         /**
@@ -2271,17 +2837,33 @@ export default function PixelMap() {
          * @tc.type      : Functional
          * @tc.level     : Level 0
          */
-        it('testCropPromise001', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: 1, y: 1 };
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                orgInfo = region;
-                if (newInfo.size.width != orgInfo.size.width) {
-                    logger.log(`orgInfo width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+        it('testCropPromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testCropPromise001');
+            let orgInfo: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: 1, y: 1
+            };
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    await pixelMap.crop(orgInfo);
+                    let newInfo = await pixelMap.getImageInfo();
+                    if (newInfo.size.width != orgInfo.size.width) {
+                        logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                        expect(false).assertTrue();
+                    }
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testCropPromise001', 'promise', 'crop', sizeCheck, crop3x3, region)
         })
 
         /**
@@ -2296,9 +2878,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropPromise002', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: -1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropPromise002', 'promise', 'crop', region)
+        it('testCropPromise002', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: -1, y: 1
+            };
+            let testNum = 'testCropPromise002';
+            cropErr(done, testNum, region);
         })
 
         /**
@@ -2313,9 +2900,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropPromise003', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: 1, y: -1 };
-            await pixelMapModifySizeTestErr(done, 'v', 'promise', 'crop', region)
+        it('testCropPromise003', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: 1, y: -1
+            };
+            let testNum = 'testCropPromise003';
+            cropErr(done, testNum, region);
         })
 
         /**
@@ -2330,9 +2922,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropPromise004', 0, async function (done) {
-            var region = { size: { height: 3, width: -3 }, x: 1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropPromise004', 'promise', 'crop', region)
+        it('testCropPromise004', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: -3
+                }, x: 1, y: 1
+            };
+            let testNum = 'testCropPromise004';
+            cropErr(done, testNum, region);
         })
 
         /**
@@ -2347,9 +2944,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropPromise005', 0, async function (done) {
-            var region = { size: { height: -3, width: 3 }, x: 1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropPromise005', 'promise', 'crop', region)
+        it('testCropPromise005', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: -3, width: 3
+                }, x: 1, y: 1
+            };
+            let testNum = 'testCropPromise005';
+            cropErr(done, testNum, region);
         })
 
         /**
@@ -2364,17 +2966,34 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropCb001', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: 1, y: 1 };
-            function sizeCheck(done, logger, orgInfo, newInfo) {
-                orgInfo = region;
-                if (newInfo.size.width != orgInfo.size.width) {
-                    logger.log(`orgInfo width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+        it('testCropCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testCropCb001');
+            let orgInfo: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: 1, y: 1
+            };
+            try {
+                let pixelMap = await genPixelMap()
+                logger.log("pixelMap " + (pixelMap != undefined));
+                if (pixelMap != undefined) {
+                    pixelMap.crop(orgInfo, async (err: BusinessError) => {
+                        let newInfo = await pixelMap.getImageInfo();
+                        if (newInfo.size.width != orgInfo.size.width) {
+                            logger.log(`org width ${orgInfo.size.width}, new width ${newInfo.size.width} `);
+                            expect(false).assertTrue();
+                        }
+                    })
+                } else {
+                    logger.log('create pixelMap fail ');
                     expect(false).assertTrue();
-                    done();
                 }
+                done();
+            } catch (error) {
+                logger.log('failed ' + error);
+                expect(false).assertTrue();
+                done();
             }
-            await pixelMapModifySizeTest(done, 'testCropCb001', 'callback', 'crop', sizeCheck, crop3x3, region)
         })
 
         /**
@@ -2389,9 +3008,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropCb002', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: -1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropCb002', 'callback', 'crop', region)
+        it('testCropCb002', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: -1, y: 1
+            };
+            let testNum = 'testCropCb002';
+            cropCbErr(done, testNum, region);
         })
 
         /**
@@ -2406,9 +3030,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropCb003', 0, async function (done) {
-            var region = { size: { height: 3, width: 3 }, x: 1, y: -1 };
-            await pixelMapModifySizeTestErr(done, 'testCropCb003', 'callback', 'crop', region)
+        it('testCropCb003', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: 3
+                }, x: 1, y: -1
+            };
+            let testNum = 'testCropCb003';
+            cropCbErr(done, testNum, region);
         })
 
         /**
@@ -2423,9 +3052,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropCb004', 0, async function (done) {
-            var region = { size: { height: 3, width: -3 }, x: 1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropCb004', 'callback', 'crop', region)
+        it('testCropCb004', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: 3, width: -3
+                }, x: 1, y: 1
+            };
+            let testNum = 'testCropCb004';
+            cropCbErr(done, testNum, region);
         })
 
         /**
@@ -2440,9 +3074,14 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCropCb005', 0, async function (done) {
-            var region = { size: { height: -3, width: 3 }, x: 1, y: 1 };
-            await pixelMapModifySizeTestErr(done, 'testCropCb005', 'callback', 'crop', region)
+        it('testCropCb005', 0, async (done: Function) => {
+            let region: image.Region = {
+                size: {
+                    height: -3, width: 3
+                }, x: 1, y: 1
+            };
+            let testNum = 'testCropCb005';
+            cropCbErr(done, testNum, region);
         })
 
         /**
@@ -2455,26 +3094,31 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReleasePromise001', 0, async function (done) {
+        it('testReleasePromise001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReleasePromise001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts).then(pixelmap => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
-                    console.info('testReleasePromise001 createPixelMap failed');
+                    logger.log('testReleasePromise001 createPixelMap failed');
                     expect(false).assertTrue()
                     done();
                 }
                 pixelmap.release().then(() => {
-                    console.info('testReleasePromise001 success');
+                    logger.log('testReleasePromise001 success');
                     expect(true).assertTrue();
                     done();
-                }).catch(error => {
+                }).catch((error: BusinessError) => {
                     console.log('testReleasePromise001 error: ' + error);
                     expect().assertFail();
                     done();
                 })
-            }).catch(error => {
+            }).catch((error: BusinessError) => {
                 console.log('testReleasePromise001 createPixelMap failed error: ' + error);
                 expect().assertFail();
                 done();
@@ -2491,13 +3135,18 @@ export default function PixelMap() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testReleaseCb001', 0, async function (done) {
+        it('testReleaseCb001', 0, async (done: Function) => {
+            let logger: loger = new loger('testReleaseCb001');
             const color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 3, size: { height: 4, width: 6 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 3, size: {
+                    height: 4, width: 6
+                }
+            }
             image.createPixelMap(color, opts, (err, pixelmap) => {
                 globalpixelmap = pixelmap;
                 if (pixelmap == undefined) {
-                    console.info('testReleaseCb001 createPixelMap failed');
+                    logger.log('testReleaseCb001 createPixelMap failed');
                     expect(false).assertTrue()
                     done();
                 }
