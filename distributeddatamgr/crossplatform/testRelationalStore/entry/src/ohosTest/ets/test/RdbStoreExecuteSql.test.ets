@@ -129,22 +129,22 @@ export default function rdbstoreStoreExcuteSqlTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    // it("testRdbStoreExecuteSql002", 0, async (done: Function) => {
-    //   console.info(TAG + "************* testRdbStoreExecuteSql002 start *************");
-    //   (rdbStore as relationalStore.RdbStore).executeSql("DELETE FROM test WHERE age = ? OR age = ?", ["18", "28"], async (err) => {
-    //     if (err) {
-    //       console.error(`ExecuteSql failed, code is ${err.code},message is ${err.message}`);
-    //       expect(!err).assertFail();
-    //       done();
-    //     }
-    //     console.info(`Delete table done.`);
-    //     let resultSet = await (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM test");
-    //     expect(0).assertEqual(resultSet.rowCount);
-    //     resultSet.close();
-    //     done();
-    //   });
-    //   console.info(TAG + "************* testRdbStoreExecuteSql002 end *************");
-    // });
+    it("testRdbStoreExecuteSql002", 0, async (done: Function) => {
+      console.info(TAG + "************* testRdbStoreExecuteSql002 start *************");
+      (rdbStore as relationalStore.RdbStore).executeSql("DELETE FROM test WHERE age = ? OR age = ?", ["18", "28"], async (err) => {
+        if (err) {
+          console.error(`ExecuteSql failed, code is ${err.code},message is ${err.message}`);
+          expect(!err).assertFail();
+          done();
+        }
+        console.info(`Delete table done.`);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM test");
+        expect(0).assertEqual(resultSet.rowCount);
+        resultSet.close();
+        done();
+      });
+      console.info(TAG + "************* testRdbStoreExecuteSql002 end *************");
+    });
 
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_RelationStore_RdbStoreJsAPITest_0650
