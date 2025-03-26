@@ -1,8 +1,10 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import window from '@ohos.window';
+import { AbilityConstant } from '@kit.AbilityKit';
+import Want from '@ohos.app.ability.Want';
 
 export default class Main3Ability extends UIAbility {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log('testTag', '%{public}s', 'Ability onCreate');
         globalThis.want = want;
     }
