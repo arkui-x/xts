@@ -14,7 +14,10 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import dataPreferences from "@ohos.data.preferences";
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const NAME = "test_preferences";
 const NAME1 = "getPreferencesTest";
 const KEY_TEST_INT_ELEMENT = "key_test_int";
@@ -25,22 +28,26 @@ const KEY_TEST_STRING_ELEMENT = "key_test_string";
 const KEY_TEST_NUMBER_ARRAY_ELEMENT = "key_test_number_array";
 const KEY_TEST_STRING_ARRAY_ELEMENT = "key_test_string_array";
 const KEY_TEST_BOOL_ARRAY_ELEMENT = "key_test_bool_array";
-let mPreferences;
-let context;
+let mPreferences: dataPreferences.Preferences;
 
 const TAG = "[PREFERENCES_CALLBACK_JSUNIT_TEST]";
 
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function preferencesCallBackTest() {
-  describe("preferencesCallBackTest", function () {
-    beforeAll(async function () {
+  describe("preferencesCallBackTest", () => {
+    beforeAll(async () => {
       console.info("beforeAll");
-      context = globalThis.abilityContext;
       mPreferences = await dataPreferences.getPreferences(context, NAME);
     });
-
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll");
       await dataPreferences.deletePreferences(context, NAME);
+    });
+    afterEach(async () => {
+      await sleep(1000)
     });
 
     /**
@@ -51,7 +58,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetPreferences000", 0, async function (done) {
+    it("testPreferencesGetPreferences000", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME1, async (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -59,7 +66,7 @@ export default function preferencesCallBackTest() {
         } else {
           console.info(TAG + "Get preferences success" + preferences);
           await preferences.put(KEY_TEST_STRING_ELEMENT, "test");
-          preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+          preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
             expect("test").assertEqual(ret);
           });
           await dataPreferences.deletePreferences(context, NAME1);
@@ -67,7 +74,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetPreferencesJSAPITest_0700
      * @tc.name   : testPreferencesGetPreferences002
@@ -76,7 +82,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetPreferences002", 0, async function (done) {
+    it("testPreferencesGetPreferences002", 0, async (done: Function) => {
       try {
         dataPreferences.getPreferences(context, null, (err, preferences) => {
           expect(!err).assertFail();
@@ -88,7 +94,6 @@ export default function preferencesCallBackTest() {
         done();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetPreferencesJSAPITest_0800
      * @tc.name   : testPreferencesGetPreferences003
@@ -97,7 +102,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetPreferences003", 0, async function (done) {
+    it("testPreferencesGetPreferences003", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME1
       }, async (err, preferences) => {
@@ -107,7 +112,7 @@ export default function preferencesCallBackTest() {
         } else {
           console.info(TAG + "Get preferences success" + preferences);
           await preferences.put(KEY_TEST_STRING_ELEMENT, "test");
-          preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+          preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
             expect("test").assertEqual(ret);
           });
           await dataPreferences.deletePreferences(context, NAME1);
@@ -115,7 +120,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetPreferencesJSAPITest_0900
      * @tc.name   : testPreferencesGetPreferences004
@@ -124,7 +128,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetPreferences004", 0, async function (done) {
+    it("testPreferencesGetPreferences004", 0, async (done: Function) => {
       try {
         dataPreferences.getPreferences(context, {
           name: null
@@ -138,7 +142,6 @@ export default function preferencesCallBackTest() {
         done();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_0400
      * @tc.name   : testPreferencesDeletePreferences000
@@ -147,7 +150,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences000", 0, async function (done) {
+    it("testPreferencesDeletePreferences000", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME1, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -163,7 +166,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_0500
      * @tc.name   : testPreferencesDeletePreferences001
@@ -172,7 +174,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences001", 0, async function (done) {
+    it("testPreferencesDeletePreferences001", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME1, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -195,7 +197,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_1600
      * @tc.name   : testPreferencesDeletePreferences003
@@ -204,7 +205,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences003", 0, async function (done) {
+    it("testPreferencesDeletePreferences003", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME1, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -220,17 +221,16 @@ export default function preferencesCallBackTest() {
                 return;
               }
               console.info(TAG + "Put preferences success");
-              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
                 expect("test").assertEqual(ret);
                 dataPreferences.deletePreferences(context, "getPreferencesTest1", (err) => {
-                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre) {
+                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre) => {
                     expect("test").assertEqual(pre);
                     done();
                   });
                 });
               });
             });
-
             expect(preferences !== null).assertTrue();
             done();
           } catch (err) {
@@ -241,7 +241,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_1300
      * @tc.name   : testPreferencesDeletePreferences004
@@ -250,7 +249,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences004", 0, async function (done) {
+    it("testPreferencesDeletePreferences004", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME1
       }, (err, preferences) => {
@@ -270,7 +269,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_1400
      * @tc.name   : testPreferencesDeletePreferences005
@@ -279,7 +277,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences005", 0, async function (done) {
+    it("testPreferencesDeletePreferences005", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME1
       }, (err, preferences) => {
@@ -306,7 +304,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_1200
      * @tc.name   : testPreferencesDeletePreferences006
@@ -315,7 +312,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesDeletePreferences006", 0, async function (done) {
+    it("testPreferencesDeletePreferences006", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME1
       }, (err, preferences) => {
@@ -333,12 +330,12 @@ export default function preferencesCallBackTest() {
                 return;
               }
               console.info(TAG + "Put preferences success");
-              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
                 expect("test").assertEqual(ret);
                 dataPreferences.deletePreferences(context, {
                   name: "getPreferencesTest1"
                 }, (err) => {
-                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre) {
+                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre) => {
                     expect("test").assertEqual(pre);
                     done();
                   });
@@ -355,7 +352,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0900
      * @tc.name   : testRemovePreferencesFromCache000
@@ -364,7 +360,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache000", 0, async function (done) {
+    it("testRemovePreferencesFromCache000", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -380,7 +376,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0200
      * @tc.name   : testRemovePreferencesFromCache001
@@ -389,7 +384,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache001", 0, async function (done) {
+    it("testRemovePreferencesFromCache001", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -415,7 +410,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0100
      * @tc.name   : testRemovePreferencesFromCache003
@@ -424,7 +418,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache003", 0, async function (done) {
+    it("testRemovePreferencesFromCache003", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -440,10 +434,10 @@ export default function preferencesCallBackTest() {
                 return;
               }
               console.info(TAG + "Put preferences success");
-              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
                 expect("test").assertEqual(ret);
                 dataPreferences.removePreferencesFromCache(context, "getPreferencesTest1", (err) => {
-                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre) {
+                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre) => {
                     expect("test").assertEqual(pre);
                     done();
                   });
@@ -458,7 +452,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0400
      * @tc.name   : testRemovePreferencesFromCache004
@@ -467,7 +460,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache004", 0, async function (done) {
+    it("testRemovePreferencesFromCache004", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME
       }, (err, preferences) => {
@@ -488,7 +481,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0400
      * @tc.name   : testRemovePreferencesFromCache005
@@ -497,7 +489,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache005", 0, async function (done) {
+    it("testRemovePreferencesFromCache005", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, {
         name: NAME
       }, (err, preferences) => {
@@ -524,7 +516,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_RemoveJSAPITest_0500
      * @tc.name   : testRemovePreferencesFromCache006
@@ -533,7 +524,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testRemovePreferencesFromCache006", 0, async function (done) {
+    it("testRemovePreferencesFromCache006", 0, async (done: Function) => {
       dataPreferences.getPreferences(context, NAME, (err, preferences) => {
         if (err) {
           console.info(TAG + "Get preferences err: " + err);
@@ -548,12 +539,12 @@ export default function preferencesCallBackTest() {
                 return;
               }
               console.info(TAG + "Put preferences success");
-              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+              preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
                 expect("test").assertEqual(ret);
                 dataPreferences.removePreferencesFromCache(context, {
                   name: "getPreferencesTest1"
                 }, (err) => {
-                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre) {
+                  preferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre) => {
                     expect("test").assertEqual(pre);
                     done();
                   });
@@ -568,7 +559,6 @@ export default function preferencesCallBackTest() {
         }
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3200
      * @tc.name   : testPreferencesGetDefaultValue0000
@@ -577,14 +567,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetDefaultValue0001", 0, async function (done) {
+    it("testPreferencesGetDefaultValue0001", 0, async (done: Function) => {
       await mPreferences.clear();
-      await mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultValue", function (err, ret) {
+      await mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultValue", (err, ret) => {
         expect("defaultValue").assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3300
      * @tc.name   : testPreferencesGetFloat0000
@@ -593,15 +582,14 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetFloat0000", 0, async function (done) {
+    it("testPreferencesGetFloat0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 3.0);
-      await mPreferences.get(KEY_TEST_FLOAT_ELEMENT, 0.0, function (err, ret) {
+      await mPreferences.get(KEY_TEST_FLOAT_ELEMENT, 0.0, (err, ret) => {
         expect(3.0).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3400
      * @tc.name   : testPreferencesGetInt0000
@@ -610,15 +598,14 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetInt0000", 0, async function (done) {
+    it("testPreferencesGetInt0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_INT_ELEMENT, 3);
-      await mPreferences.get(KEY_TEST_INT_ELEMENT, 0.0, function (err, ret) {
+      await mPreferences.get(KEY_TEST_INT_ELEMENT, 0.0, (err, ret) => {
         expect(3).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3500
      * @tc.name   : testPreferencesGetLong0000
@@ -627,15 +614,14 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetLong0000", 0, async function (done) {
+    it("testPreferencesGetLong0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_LONG_ELEMENT, 3);
-      await mPreferences.get(KEY_TEST_LONG_ELEMENT, 0, function (err, ret) {
+      await mPreferences.get(KEY_TEST_LONG_ELEMENT, 0, (err, ret) => {
         expect(3).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3800
 
@@ -645,16 +631,15 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetString0000", 0, async function (done) {
+    it("testPreferencesGetString0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, "test");
       await mPreferences.flush();
-      await mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, ret) {
+      await mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, ret) => {
         expect("test").assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3100
 
@@ -664,15 +649,14 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetBoolean0000", 0, async function (done) {
+    it("testPreferencesGetBoolean0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, true);
-      await mPreferences.get(KEY_TEST_BOOLEAN_ELEMENT, true, function (err, ret) {
+      await mPreferences.get(KEY_TEST_BOOLEAN_ELEMENT, true, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3700
      * @tc.name   : testPreferencesGetStringArray0000
@@ -681,18 +665,18 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetStringArray0000", 0, async function (done) {
+    it("testPreferencesGetStringArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      var stringArr = ["11", "22", "33"];
+      let stringArr = ["11", "22", "33"];
       await mPreferences.put(KEY_TEST_STRING_ARRAY_ELEMENT, stringArr);
-      mPreferences.get(KEY_TEST_STRING_ARRAY_ELEMENT, ["123", "321"], function (err, pre) {
+      mPreferences.get(KEY_TEST_STRING_ARRAY_ELEMENT, ["123", "321"], (err, pre) => {
         for (let i = 0; i < stringArr.length; i++) {
-          expect(stringArr[i]).assertEqual(pre[i]);
+          console.info("stringArr:"+ stringArr[i] + "val:" + Object(pre)[i])
+          expect(stringArr[i]).assertEqual(Object(pre)[i]);
         }
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3600
 
@@ -702,18 +686,17 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetNumArray0000", 0, async function (done) {
+    it("testPreferencesGetNumArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      var doubleArr = [11, 22, 33];
+      let doubleArr = [11, 22, 33];
       await mPreferences.put(KEY_TEST_NUMBER_ARRAY_ELEMENT, doubleArr);
-      mPreferences.get(KEY_TEST_NUMBER_ARRAY_ELEMENT, [123, 321], function (err, pre) {
+      mPreferences.get(KEY_TEST_NUMBER_ARRAY_ELEMENT, [123, 321], (err, pre) => {
         for (let i = 0; i < doubleArr.length; i++) {
-          expect(doubleArr[i]).assertEqual(pre[i]);
+          expect(doubleArr[i]).assertEqual(Object(pre)[i]);
         }
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_3000
      * @tc.name   : testPreferencesGetBoolArray0000
@@ -722,18 +705,17 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetBoolArray0000", 0, async function (done) {
+    it("testPreferencesGetBoolArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
       let boolArr = [true, false, false, true];
       await mPreferences.put(KEY_TEST_BOOL_ARRAY_ELEMENT, boolArr);
-      mPreferences.get(KEY_TEST_BOOL_ARRAY_ELEMENT, [true, false], function (err, pre) {
+      mPreferences.get(KEY_TEST_BOOL_ARRAY_ELEMENT, [true, false], (err, pre) => {
         for (let i = 0; i < boolArr.length; i++) {
-          expect(boolArr[i]).assertEqual(pre[i]);
+          expect(boolArr[i]).assertEqual(Object(pre)[i]);
         }
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1700
      * @tc.name   : testPreferencesGetAll0000
@@ -742,7 +724,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesGetAll0000", 0, async function (done) {
+    it("testPreferencesGetAll0000", 0, async (done: Function) => {
       await mPreferences.clear();
       let doubleArr = [11, 22, 33];
       let stringArr = ["11", "22", "33"];
@@ -753,32 +735,26 @@ export default function preferencesCallBackTest() {
       await mPreferences.put(KEY_TEST_BOOLEAN_ELEMENT, false);
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, "123");
       await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 123.1);
-
       await mPreferences.flush();
-
-      await mPreferences.getAll(function (err, obj) {
+      await mPreferences.getAll((err, obj: ESObject) => {
         expect(false).assertEqual(obj.key_test_boolean);
         expect("123").assertEqual(obj.key_test_string);
         expect(123.1).assertEqual(obj.key_test_float);
-        let sArr = obj.key_test_string_array;
+        let sArr: Array<string> = obj.key_test_string_array;
         for (let i = 0; i < sArr.length; i++) {
           expect(sArr[i]).assertEqual(stringArr[i]);
         }
-
-        let bArr = obj.key_test_bool_array;
+        let bArr: Array<boolean> = obj.key_test_bool_array;
         for (let i = 0; i < bArr.length; i++) {
           expect(bArr[i]).assertEqual(boolArr[i]);
         }
-
-        let nArr = obj.key_test_number_array;
+        let nArr: Array<number> = obj.key_test_number_array;
         for (let i = 0; i < nArr.length; i++) {
           expect(nArr[i]).assertEqual(doubleArr[i]);
         }
-
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_2900
      * @tc.name   : testPreferencesPutFloat0000
@@ -787,9 +763,9 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutFloat0000", 0, async function (done) {
+    it("testPreferencesPutFloat0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 4.0, async function (err, ret) {
+      await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 4.0, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_FLOAT_ELEMENT, 0.0);
         expect(4.0).assertEqual(pre);
         await mPreferences.flush();
@@ -798,7 +774,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_3000
      * @tc.name   : testPreferencesPutInt0000
@@ -807,9 +782,9 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutInt0000", 0, async function (done) {
+    it("testPreferencesPutInt0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      await mPreferences.put(KEY_TEST_INT_ELEMENT, 4, async function (err, ret) {
+      await mPreferences.put(KEY_TEST_INT_ELEMENT, 4, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_INT_ELEMENT, 0);
         expect(4).assertEqual(pre);
         await mPreferences.flush();
@@ -818,7 +793,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_3100
      * @tc.name   : testPreferencesPutLong0000
@@ -827,10 +801,10 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutLong0000", 0, async function (done) {
+    it("testPreferencesPutLong0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_LONG_ELEMENT, 4);
-      await mPreferences.put(KEY_TEST_LONG_ELEMENT, 4, async function (err, ret) {
+      await mPreferences.put(KEY_TEST_LONG_ELEMENT, 4, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_LONG_ELEMENT, 0);
         expect(4).assertEqual(pre);
         await mPreferences.flush();
@@ -839,7 +813,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_3400
      * @tc.name   : testPreferencesPutString0000
@@ -848,9 +821,9 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutString0000", 0, async function (done) {
+    it("testPreferencesPutString0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      await mPreferences.put(KEY_TEST_STRING_ELEMENT, "", async function (err, ret) {
+      await mPreferences.put(KEY_TEST_STRING_ELEMENT, "", async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue");
         expect("").assertEqual(pre);
         await mPreferences.flush();
@@ -859,7 +832,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_2800
      * @tc.name   : testPreferencesPutBoolean0000
@@ -868,9 +840,9 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutBoolean0000", 0, async function (done) {
+    it("testPreferencesPutBoolean0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      await mPreferences.put(KEY_TEST_BOOLEAN_ELEMENT, true, async function (err, ret) {
+      await mPreferences.put(KEY_TEST_BOOLEAN_ELEMENT, true, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_BOOLEAN_ELEMENT, false);
         expect(true).assertEqual(pre);
         await mPreferences.flush();
@@ -879,7 +851,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_3300
      * @tc.name   : testPreferencesPutStringArray0000
@@ -888,19 +859,17 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutStringArray0000", 0, async function (done) {
+    it("testPreferencesPutStringArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      var stringArr = ["11", "22", "33"];
-      await mPreferences.put(KEY_TEST_STRING_ARRAY_ELEMENT, stringArr, async function (err, ret) {
+      let stringArr = ["11", "22", "33"];
+      await mPreferences.put(KEY_TEST_STRING_ARRAY_ELEMENT, stringArr, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_STRING_ARRAY_ELEMENT, ["123", "321"]);
         for (let i = 0; i < stringArr.length; i++) {
-          expect(stringArr[i]).assertEqual(pre[i]);
+          expect(stringArr[i]).assertEqual(Object(pre)[i]);
         }
-
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_3200
      * @tc.name   : testPreferencesPutNumArray0000
@@ -909,19 +878,17 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutNumArray0000", 0, async function (done) {
+    it("testPreferencesPutNumArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
-      var doubleArr = [11, 22, 33];
-      await mPreferences.put(KEY_TEST_NUMBER_ARRAY_ELEMENT, doubleArr, async function (err, ret) {
+      let doubleArr = [11, 22, 33];
+      await mPreferences.put(KEY_TEST_NUMBER_ARRAY_ELEMENT, doubleArr, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_NUMBER_ARRAY_ELEMENT, [123, 321]);
         for (let i = 0; i < doubleArr.length; i++) {
-          expect(doubleArr[i]).assertEqual(pre[i]);
+          expect(doubleArr[i]).assertEqual(Object(pre)[i]);
         }
-
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_2700
      * @tc.name   : testPreferencesPutBoolArray0000
@@ -930,19 +897,17 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesPutBoolArray0000", 0, async function (done) {
+    it("testPreferencesPutBoolArray0000", 0, async (done: Function) => {
       await mPreferences.clear();
       let boolArr = [true, false, false, true];
-      await mPreferences.put(KEY_TEST_BOOL_ARRAY_ELEMENT, boolArr, async function (err, ret) {
+      await mPreferences.put(KEY_TEST_BOOL_ARRAY_ELEMENT, boolArr, async (err, ret) => {
         let pre = await mPreferences.get(KEY_TEST_BOOL_ARRAY_ELEMENT, [true, false]);
         for (let i = 0; i < boolArr.length; i++) {
-          expect(boolArr[i]).assertEqual(pre[i]);
+          expect(boolArr[i]).assertEqual(Object(pre)[i]);
         }
-
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_1400
      * @tc.name   : testPreferencesHasKey0000
@@ -951,14 +916,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesHasKey0000", 0, async function (done) {
+    it("testPreferencesHasKey0000", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 1.1);
-      await mPreferences.has(KEY_TEST_FLOAT_ELEMENT, function (err, ret) {
+      await mPreferences.has(KEY_TEST_FLOAT_ELEMENT, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_1500
      * @tc.name   : testPreferencesHasKey0001
@@ -967,14 +931,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesHasKey0001", 0, async function (done) {
+    it("testPreferencesHasKey0001", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_INT_ELEMENT, 1);
-      await mPreferences.has(KEY_TEST_INT_ELEMENT, function (err, ret) {
+      await mPreferences.has(KEY_TEST_INT_ELEMENT, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_1600
      * @tc.name   : testPreferencesHasKey0002
@@ -983,14 +946,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesHasKey0002", 0, async function (done) {
+    it("testPreferencesHasKey0002", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_LONG_ELEMENT, 0);
-      await mPreferences.has(KEY_TEST_LONG_ELEMENT, function (err, ret) {
+      await mPreferences.has(KEY_TEST_LONG_ELEMENT, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_1700
      * @tc.name   : testPreferencesHasKey0003
@@ -999,14 +961,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesHasKey0003", 0, async function (done) {
+    it("testPreferencesHasKey0003", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, "test");
-      await mPreferences.has(KEY_TEST_STRING_ELEMENT, function (err, ret) {
+      await mPreferences.has(KEY_TEST_STRING_ELEMENT, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_1300
      * @tc.name   : testPreferencesHasKey0004
@@ -1015,14 +976,13 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesHasKey0004", 0, async function (done) {
+    it("testPreferencesHasKey0004", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_BOOLEAN_ELEMENT, false);
-      await mPreferences.has(KEY_TEST_BOOLEAN_ELEMENT, function (err, ret) {
+      await mPreferences.has(KEY_TEST_BOOLEAN_ELEMENT, (err, ret) => {
         expect(true).assertEqual(ret);
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_ClearJSAPITest_0500
      * @tc.name   : testPreferencesClear0000
@@ -1031,7 +991,7 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesClear0000", 0, async function (done) {
+    it("testPreferencesClear0000", 0, async (done: Function) => {
       await mPreferences.clear();
       let doubleArr = [11, 22, 33];
       let stringArr = ["11", "22", "33"];
@@ -1042,30 +1002,25 @@ export default function preferencesCallBackTest() {
       await mPreferences.put(KEY_TEST_BOOLEAN_ELEMENT, false);
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, "123");
       await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 123.1);
-
       await mPreferences.flush();
-
-      let obj = mPreferences.getAllSync();
+      let obj: ESObject = mPreferences.getAllSync();
       expect(false).assertEqual(obj.key_test_boolean);
       expect("123").assertEqual(obj.key_test_string);
       expect(123.1).assertEqual(obj.key_test_float);
-      let sArr = obj.key_test_string_array;
+      let sArr: Array<string> = obj.key_test_string_array;
       for (let i = 0; i < sArr.length; i++) {
         expect(sArr[i]).assertEqual(stringArr[i]);
       }
-
-      let bArr = obj.key_test_bool_array;
+      let bArr: Array<boolean> = obj.key_test_bool_array;
       for (let i = 0; i < bArr.length; i++) {
         expect(bArr[i]).assertEqual(boolArr[i]);
       }
-
-      let nArr = obj.key_test_number_array;
+      let nArr: Array<number> = obj.key_test_number_array;
       for (let i = 0; i < nArr.length; i++) {
         expect(nArr[i]).assertEqual(doubleArr[i]);
       }
-
-      await mPreferences.clear(async function (err) {
-        let ret = mPreferences.getAllSync();
+      await mPreferences.clear(async (err) => {
+        let ret: ESObject = mPreferences.getAllSync();
         console.log("testPreferencesClear0000 end." + JSON.stringify(ret.key_test_string));
         expect(undefined).assertEqual(ret.key_test_boolean);
         expect(undefined).assertEqual(ret.key_test_string);
@@ -1076,7 +1031,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_2300
      * @tc.name   : testPreferencesDelete0000
@@ -1085,14 +1039,15 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesDelete0000", 0, async function (done) {
+    it("testPreferencesDelete0000", 0, async (done: Function) => {
       await mPreferences.put(KEY_TEST_FLOAT_ELEMENT, 3.0);
       let ret = await mPreferences.get(KEY_TEST_FLOAT_ELEMENT, 0.0);
       expect(3.0).assertEqual(ret);
       await mPreferences.flush();
       mPreferences.delete(KEY_TEST_FLOAT_ELEMENT, async (err, ret) => {
         if (err) {
-          console.info("Failed to delete the key KEY_TEST_STRING_ELEMENT. code =" + err.code + ", message =" + err.message);
+          console.info("Failed to delete the key KEY_TEST_STRING_ELEMENT. code =" + err.code + ", message =" +
+          err.message);
           expect(!err).assertTrue();
         }
         console.info("Succeeded in deleting the key KEY_TEST_STRING_ELEMENT.");
@@ -1101,7 +1056,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_FlushJSAPITest_0400
      * @tc.name   : testPreferencesFlush0000
@@ -1110,11 +1064,11 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesFlush0000", 0, async function (done) {
+    it("testPreferencesFlush0000", 0, async (done: Function) => {
       await mPreferences.clear();
       await mPreferences.put(KEY_TEST_STRING_ELEMENT, "test");
       await mPreferences.flush();
-      mPreferences.flush(async function (err, val) {
+      mPreferences.flush(async (err, val) => {
         if (err) {
           console.info("Failed to flush. code =" + err.code + ", message =" + err.message);
           expect(!err).assertTrue();
@@ -1126,7 +1080,6 @@ export default function preferencesCallBackTest() {
         done();
       });
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_JSAPITest_0200
      * @tc.name   : testPreferencesCallback0000
@@ -1135,26 +1088,26 @@ export default function preferencesCallBackTest() {
      * @tc.type   : Method
      * @tc.level  : Level 2
      */
-    it("testPreferencesCallback0000", 0, function (done) {
+    it("testPreferencesCallback0000", 0, (done: Function) => {
       console.log(TAG + "testPreferencesCallback0000 begin.");
-      mPreferences.clear(function (err, val) {
+      mPreferences.clear((err, val) => {
         if (err) {
           expect(!err).assertTrue();
         }
-        mPreferences.put(KEY_TEST_STRING_ELEMENT, "123", function (err) {
+        mPreferences.put(KEY_TEST_STRING_ELEMENT, "123", (err) => {
           if (err) {
             expect(!err).assertTrue();
           }
-          mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre) {
+          mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre) => {
             if (err) {
               expect(!err).assertTrue();
             }
             expect("123").assertEqual(pre);
-            mPreferences.flush(function (err) {
+            mPreferences.flush((err) => {
               if (err) {
                 expect(!err).assertTrue();
               }
-              mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", function (err, pre2) {
+              mPreferences.get(KEY_TEST_STRING_ELEMENT, "defaultvalue", (err, pre2) => {
                 if (err) {
                   expect(!err).assertTrue();
                 }
