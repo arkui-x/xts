@@ -49,7 +49,21 @@ struct ReplaceUrl_promise {
           .height(20)
           .onClick(async () => {
             if (this.router.getParams() !== undefined) {
-              this.params = (this.router.getParams() as Record<string, string>)["data"];
+              this.params = "";
+              this.params += (this.router.getParams() as Record<string, string>)["data_string"] + ", ";
+              if ((this.router.getParams() as Record<string, number>)["data_number"] === 123456) {
+                this.params += "123456";
+              }
+              if ((this.router.getParams() as Record<string, boolean>)["data_boolean"] === true) {
+                this.params += "true";
+              }
+              if ((this.router.getParams() as Record<string, null>)["data_null"] === null) {
+                this.params += "null";
+              }
+              if ((this.router.getParams() as Record<string, undefined>)["data_undefined"] === undefined) {
+                this.params += "undefined";
+              }
+              this.params += (this.router.getParams() as Record<string, object>)["data_object"]["data"];
             } else {
               this.params = "";
             }
@@ -178,7 +192,12 @@ struct ReplaceUrl_promise {
               await this.router.replaceUrl({
                 url: 'pages/replaceUrl/TestPage',
                 params: {
-                  data: 'The message from ReplaceUrl_TwoParameter_Promise page'
+                  data_string: 'The message from ReplaceUrl_TwoParameter_Promise page',
+                  data_number: 123456,
+                  data_boolean: true,
+                  data_null: null,
+                  data_undefined: undefined,
+                  data_object: { data: "This is object data" },
                 }
               }, router.RouterMode.Standard);
             } catch (err) {
@@ -232,7 +251,12 @@ struct ReplaceUrl_promise {
               await this.router.replaceUrl({
                 url: 'pages/replaceUrl/TestPage',
                 params: {
-                  data: 'The message from ReplaceUrl_TwoParameter_Promise page'
+                  data_string: 'The message from ReplaceUrl_TwoParameter_Promise page',
+                  data_number: 123456,
+                  data_boolean: true,
+                  data_null: null,
+                  data_undefined: undefined,
+                  data_object: { data: "This is object data" },
                 }
               }, router.RouterMode.Standard);
             } catch (err) {
@@ -251,7 +275,12 @@ struct ReplaceUrl_promise {
               await this.router.replaceUrl({
                 url: 'pages/replaceUrl/TestPage',
                 params: {
-                  data: 'The message from ReplaceUrl_TwoParameter_Promise page'
+                  data_string: 'The message from ReplaceUrl_TwoParameter_Promise page',
+                  data_number: 123456,
+                  data_boolean: true,
+                  data_null: null,
+                  data_undefined: undefined,
+                  data_object: { data: "This is object data" },
                 }
               }, router.RouterMode.Single);
             } catch (err) {

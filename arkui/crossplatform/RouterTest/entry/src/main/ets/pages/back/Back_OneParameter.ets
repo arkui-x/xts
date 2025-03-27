@@ -48,7 +48,21 @@ struct Back {
           .height(20)
           .onClick(async () => {
             if (this.router.getParams() !== undefined) {
-              this.params = (this.router.getParams() as Record<string, string>)["data"];
+              this.params = "";
+              this.params += (this.router.getParams() as Record<string, string>)["data_string"] + ", ";
+              if ((this.router.getParams() as Record<string, number>)["data_number"] === 123456) {
+                this.params += "123456";
+              }
+              if ((this.router.getParams() as Record<string, boolean>)["data_boolean"] === true) {
+                this.params += "true";
+              }
+              if ((this.router.getParams() as Record<string, null>)["data_null"] === null) {
+                this.params += "null";
+              }
+              if ((this.router.getParams() as Record<string, undefined>)["data_undefined"] === undefined) {
+                this.params += "undefined";
+              }
+              this.params += (this.router.getParams() as Record<string, object>)["data_object"]["data"];
             } else {
               this.params = "";
             }
@@ -168,7 +182,12 @@ struct Back {
               this.router.back({
                 url: 'pages/Index',
                 params: {
-                  data: 'The message from Back_OneParameter page'
+                  data_string: 'The message from Back_OneParameter page',
+                  data_number: 123456,
+                  data_boolean: true,
+                  data_null: null,
+                  data_undefined: undefined,
+                  data_object: { data: "This is object data" },
                 }
               });
             } catch (err) {
@@ -237,6 +256,21 @@ struct Back {
           .onClick(async () => {
             try {
               this.router.back(undefined);
+            } catch (err) {
+              this.errcode = err.code;
+              console.error(`back failed, code is ${err.code}, message is ${err.message}`);
+            }
+          })
+          .margin({ bottom: 4 })
+
+        Button('Back_OneParameter')
+          .id('Back_OneParameter')
+          .height(18)
+          .width('90%')
+          .fontSize(14)
+          .onClick(async () => {
+            try {
+              this.router.back();
             } catch (err) {
               this.errcode = err.code;
               console.error(`back failed, code is ${err.code}, message is ${err.message}`);

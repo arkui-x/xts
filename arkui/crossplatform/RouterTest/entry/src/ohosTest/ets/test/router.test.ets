@@ -225,7 +225,12 @@ export default function RouterTest() {
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
         expect(stackLengthResult).assertEqual('StackLength: 2');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from ReplaceUrl_OneParameter_Promise page');
+        expect(paramsResult).assertContain('The message from ReplaceUrl_OneParameter_Promise page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -434,7 +439,12 @@ export default function RouterTest() {
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
         expect(stackLengthResult).assertEqual('StackLength: 2');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from ReplaceUrl_TwoParameter_Promise page');
+        expect(paramsResult).assertContain('The message from ReplaceUrl_TwoParameter_Promise page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -693,7 +703,12 @@ export default function RouterTest() {
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
         expect(stackLengthResult).assertEqual('StackLength: 2');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from ReplaceUrl_OneParameter_Callback page');
+        expect(paramsResult).assertContain('The message from ReplaceUrl_OneParameter_Callback page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -902,7 +917,12 @@ export default function RouterTest() {
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
         expect(stackLengthResult).assertEqual('StackLength: 2');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from ReplaceUrl_TwoParameter_Callback page');
+        expect(paramsResult).assertContain('The message from ReplaceUrl_TwoParameter_Callback page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -1176,7 +1196,12 @@ export default function RouterTest() {
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
         expect(stackLengthResult).assertEqual('StackLength: 1');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from Back_OneParameter page');
+        expect(paramsResult).assertContain('The message from Back_OneParameter page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -1293,14 +1318,14 @@ export default function RouterTest() {
     it("testRouterBack0012", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
-        await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Index:1'));
+        await gotoPage(ON.id('Back_OneParameter Page'));
+        await clickButton(ON.id('Back_OneParameter'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
-        expect(nameResult).assertEqual('PageName: Index');
+        expect(nameResult).assertEqual('PageName: BackPage');
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
-        expect(stackLengthResult).assertEqual('StackLength: 1');
+        expect(stackLengthResult).assertEqual('StackLength: 2');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -1312,21 +1337,19 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1300
      * @tc.name   : testRouterBack0013
      * @tc.desc   : Test Back
-     * @tc.level  : Level 2
+     * @tc.level  : Level 0
      */
-    it("testRouterBack0013", Level.LEVEL2, async (done: Function) => {
+    it("testRouterBack0013", Level.LEVEL0, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Index:-1'));
+        await clickButton(ON.id('Back_TwoParameter_Index:1'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
-        expect(nameResult).assertEqual('PageName: Back_TwoParameter');
+        expect(nameResult).assertEqual('PageName: Index');
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
-        expect(stackLengthResult).assertEqual('StackLength: 3');
-        let errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
-        expect(errResult).assertEqual('Errcode: ');
+        expect(stackLengthResult).assertEqual('StackLength: 1');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -1344,7 +1367,7 @@ export default function RouterTest() {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Index:10'));
+        await clickButton(ON.id('Back_TwoParameter_Index:-1'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
@@ -1370,7 +1393,7 @@ export default function RouterTest() {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Index:null'));
+        await clickButton(ON.id('Back_TwoParameter_Index:10'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
@@ -1396,7 +1419,7 @@ export default function RouterTest() {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Index:undefined'));
+        await clickButton(ON.id('Back_TwoParameter_Index:null'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
@@ -1416,21 +1439,21 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1700
      * @tc.name   : testRouterBack0017
      * @tc.desc   : Test Back
-     * @tc.level  : Level 0
+     * @tc.level  : Level 2
      */
-    it("testRouterBack0017", Level.LEVEL0, async (done: Function) => {
+    it("testRouterBack0017", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
-        await clickButton(ON.id('Back_TwoParameter_Params:message'));
+        await clickButton(ON.id('Back_TwoParameter_Index:undefined'));
         await getPageInfo();
 
         let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
-        expect(nameResult).assertEqual('PageName: Index');
+        expect(nameResult).assertEqual('PageName: Back_TwoParameter');
         let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
-        expect(stackLengthResult).assertEqual('StackLength: 1');
-        let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
-        expect(paramsResult).assertEqual('Params: The message from Back_TwoParameter page');
+        expect(stackLengthResult).assertEqual('StackLength: 3');
+        let errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
@@ -1442,9 +1465,40 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1800
      * @tc.name   : testRouterBack0018
      * @tc.desc   : Test Back
+     * @tc.level  : Level 0
+     */
+    it("testRouterBack0018", Level.LEVEL0, async (done: Function) => {
+      try {
+        await gotoPage(ON.id('BackPage page'));
+        await gotoPage(ON.id('Back_TwoParameter Page'));
+        await clickButton(ON.id('Back_TwoParameter_Params:message'));
+        await getPageInfo();
+
+        let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Index');
+        let stackLengthResult = await (await driver.findComponent(ON.id('StackLength'))).getText();
+        expect(stackLengthResult).assertEqual('StackLength: 1');
+        let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
+        expect(paramsResult).assertContain('The message from Back_TwoParameter page');
+        expect(paramsResult).assertContain('123456');
+        expect(paramsResult).assertContain('true');
+        expect(paramsResult).assertContain('null');
+        expect(paramsResult).assertContain('undefined');
+        expect(paramsResult).assertContain('This is object data');
+      } catch (error) {
+        console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number : ArkUIX_Router_Back_1900
+     * @tc.name   : testRouterBack0019
+     * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0018", Level.LEVEL2, async (done: Function) => {
+    it("testRouterBack0019", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1465,12 +1519,12 @@ export default function RouterTest() {
     });
 
     /**
-     * @tc.number : ArkUIX_Router_Back_1900
-     * @tc.name   : testRouterBack0019
+     * @tc.number : ArkUIX_Router_Back_2000
+     * @tc.name   : testRouterBack0020
      * @tc.desc   : Test Back
      * @tc.level  : Level 2
      */
-    it("testRouterBack0019", Level.LEVEL2, async (done: Function) => {
+    it("testRouterBack0020", Level.LEVEL2, async (done: Function) => {
       try {
         await gotoPage(ON.id('BackPage page'));
         await gotoPage(ON.id('Back_TwoParameter Page'));
@@ -1483,6 +1537,75 @@ export default function RouterTest() {
         expect(stackLengthResult).assertEqual('StackLength: 1');
         let paramsResult = await (await driver.findComponent(ON.id('Params'))).getText();
         expect(paramsResult).assertEqual('Params: ');
+      } catch (error) {
+        console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number : ArkUIX_Router_Combined_0100
+     * @tc.name   : testRouterCombined0001
+     * @tc.desc   : Test Back
+     * @tc.level  : Level 1
+     */
+    it("testRouterCombined0001", Level.LEVEL1, async (done: Function) => {
+      try {
+        await gotoPage(ON.id('CombineTest page'));
+
+        await clickButton(ON.id('ReplaceUrl_OneParameter_Callback:Page2'));
+        let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Page2');
+        let errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
+
+        await clickButton(ON.id('ReplaceUrl_OneParameter_Promise:Page3'));
+        nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Page3');
+        errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
+
+        await clickButton(ON.id('ReplaceUrl_TwoParameter_Callback:Page4'));
+        nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Page4');
+        errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
+
+        await clickButton(ON.id('ReplaceUrl_TwoParameter_Promise:Page1'));
+        nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Page1');
+        errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
+      } catch (error) {
+        console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number : ArkUIX_Router_Combined_0200
+     * @tc.name   : testRouterCombined0002
+     * @tc.desc   : Test Back
+     * @tc.level  : Level 1
+     */
+    it("testRouterCombined0002", Level.LEVEL1, async (done: Function) => {
+      try {
+        await gotoPage(ON.id('CombineTest page'));
+        await gotoPage(ON.id('Push:Page2'));
+
+        await clickButton(ON.id('Back_TwoParameter:Page1'));
+        let nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Page1');
+        let errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
+
+        await clickButton(ON.id('Back_OneParameter:Index'));
+        nameResult = await (await driver.findComponent(ON.id('PageName'))).getText();
+        expect(nameResult).assertEqual('PageName: Index');
+        errResult = await (await driver.findComponent(ON.id('Errcode'))).getText();
+        expect(errResult).assertEqual('Errcode: ');
       } catch (error) {
         console.error(`testCase error, code is ${error.code}, message is ${error.message}`);
         expect().assertFail();
