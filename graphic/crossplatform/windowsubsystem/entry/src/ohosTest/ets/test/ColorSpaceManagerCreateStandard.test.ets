@@ -13,10 +13,19 @@
  * limitations under the License.
  */
 import ColorSpaceManager from '@ohos.graphics.colorSpaceManager';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function ColorSpaceManagerCreateStandardTest() {
   describe('ColorSpaceManagerCreateStandardTest', () => {
+
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     /**
      * @tc.number: SUB_GraphicImage_ColorSpaceManager_Create_Func_0100
      * @tc.name  : testCreate001

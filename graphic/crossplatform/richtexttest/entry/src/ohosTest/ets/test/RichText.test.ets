@@ -2,6 +2,10 @@ import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from
 import { Driver, MatchPattern, ON, Component } from '@ohos.UiTest'
 import { startAbility, waitUiReadyMs } from '../utils/index'
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function RichTextTest() {
   describe('RichTextTest', () => {
     /**
@@ -24,14 +28,16 @@ export default function RichTextTest() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
       console.info("afterEach: Test case-level clearance conditions is executed.");
+      await sleep(1000)
     });
 
     /**
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
-    afterAll(() => {
+    afterAll(async () => {
+      await sleep(1000)
       console.log('SUB_BaseComponent_RichText_RichText Test end');
     });
 

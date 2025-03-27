@@ -23,7 +23,7 @@ import {
   afterAll,
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs } from '../utils/index';
+import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
 
 export default function OnConfirmTest() {
   describe('OnConfirmTest', () => {
@@ -53,7 +53,8 @@ export default function OnConfirmTest() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(1000)
     });
 
     /**

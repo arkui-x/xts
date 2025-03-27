@@ -13,10 +13,18 @@
  * limitations under the License.
  */
 import ColorSpaceManager from '@ohos.graphics.colorSpaceManager';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function ColorSpaceManagerCreateCustomTest() {
   describe('ColorSpaceManagerCreateCustomTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
     let primaries: ColorSpaceManager.ColorSpacePrimaries = {
       redX: 0.1,
       redY: 0.1,

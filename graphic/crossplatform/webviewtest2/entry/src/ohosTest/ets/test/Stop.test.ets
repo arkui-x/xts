@@ -25,8 +25,13 @@ import {
 import { Driver, ON, Component } from '@ohos.UiTest';
 import { startAbility, stopAbility, waitUiReadyMs } from '../utils/index';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function StopTest() {
   describe('StopTest', () => {
+
     /**
      * beforeAll: PrePageControlTest at the test suite level, which are executed before the test suite is executed.
      */
@@ -53,7 +58,8 @@ export default function StopTest() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(1000)
     });
 
     /**

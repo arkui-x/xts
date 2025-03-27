@@ -14,13 +14,16 @@
  */
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs } from '../utils/index';
-
+import { startAbility, waitUiReadyMs,sleep } from '../utils/index';
 
 export default function WindowTest() {
   describe('WindowTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+    
     /**
      * @tc.number: SUB_GraphicImage_Window_WindowEventType_Func_0100
      * @tc.name  : testWindowEventType

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import Window from './Window.test'
+import Window from './windowTest.test'
 import WindowStage from './WindowStage.test'
 
 export default function testsuite() {

@@ -17,18 +17,21 @@ import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '
 import window from '@ohos.window'
 import display from '@ohos.display'
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function DisplayTest() {
-  describe('DisplayTest', function () {
-
-    beforeAll(function () {
-    })
-    beforeEach(function () {
-    })
-    afterEach(function () {
-    })
-    afterAll(function () {
-    })
-
+  describe('DisplayTest', async () => {
+    beforeAll(() => {
+    });
+    beforeEach(() => {
+    });
+    afterEach(async () => {
+      await sleep(1000)
+    });
+    afterAll(() => {
+    });
     /**
      * @tc.number: TEST_GET_DEFAULT_DISPLAY_SYNC_001
      * @tc.name  : testGetDefaultDisplaySync001
@@ -37,10 +40,10 @@ export default function DisplayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testGetDefaultDisplaySync001', 0, async function (done) {
+    it('testGetDefaultDisplaySync001', 0, async (done:Function) => {
       console.info('displayTest getDefaultDisplaySyncTest1 begin');
       try {
-        var dsp = display.getDefaultDisplaySync();
+        let dsp = display.getDefaultDisplaySync();
         console.error('getDefaultDisplaySync message ' + JSON.stringify(dsp));
         console.log("testGetDefaultDisplaySync001 1");
         expect(dsp.id != null).assertTrue();
@@ -67,8 +70,8 @@ export default function DisplayTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it('testDisplay_Orientation001', 0, async function (done) {
-      var dsp = display.getDefaultDisplaySync();
+    it('testDisplay_Orientation001', 0, async (done:Function) => {
+      let dsp = display.getDefaultDisplaySync();
       console.log("testDisplay_Orientation001 1");
       expect(dsp.id != null).assertTrue();
       console.log("testDisplay_Orientation001 2");
@@ -89,21 +92,19 @@ export default function DisplayTest() {
      * @tc.type  : Enum
      * @tc.level : Level 0
      */
-    it('testOrientation001', 0, async function (done) {
-      var dsp = display.getDefaultDisplaySync();
+    it('testOrientation001', 0, async (done:Function) => {
+      let dsp = display.getDefaultDisplaySync();
       console.log("testOrientation001 1...orientation:" + dsp.orientation);
-        expect(dsp.orientation == 0).assertTrue();
+      expect(dsp.orientation == 0).assertTrue();
       console.log("testOrientation001 2");
-        expect(dsp.orientation != 1).assertTrue();
+      expect(dsp.orientation != 1).assertTrue();
       console.log("testOrientation001 3");
-        expect(dsp.orientation != 2).assertTrue();
+      expect(dsp.orientation != 2).assertTrue();
       console.log("testOrientation001 4");
-        expect(dsp.orientation != 3).assertTrue();
+      expect(dsp.orientation != 3).assertTrue();
       console.log("testOrientation001 5");
       done();
     });
-
-
   })
 }
 
