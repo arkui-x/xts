@@ -15,40 +15,41 @@
 import request from "@ohos.request";
 import fileIo from "@ohos.file.fs";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+import { BusinessError } from '@ohos.base';;
 
 const removeFile = (filePath: string): void => {
   if (fileIo.accessSync(filePath)) fileIo.unlinkSync(filePath);
 };
 
 export default function requestCrossplatformDownloadJSUnit() {
-  describe("requestCrossplatformDownloadTest", function () {
+  describe("requestCrossplatformDownloadTest", () => {
     console.info("====>################################request download Test start");
 
     /**
      * beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.
      */
-    beforeAll(function () {
+    beforeAll(() => {
       console.info("====>beforeAll: Prerequisites are executed.");
     });
 
     /**
      * beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.
      */
-    beforeEach(function () {
+    beforeEach(() => {
       console.info("====>beforeEach: Prerequisites is executed.");
     });
 
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(function () {
+    afterEach(() => {
       console.info("====>afterEach: Test case-level clearance conditions is executed.");
     });
 
     /**
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
-    afterAll(function () {
+    afterAll(() => {
       console.info("====>afterAll: Test suite-level cleanup condition is executed");
     });
 
@@ -60,12 +61,12 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001", 0, async (done: Function) => {
       console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001 is starting---------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKMINETYPE_0001.txt`);
 
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -127,11 +128,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNLOAD_API_GETTASKMINETYPE_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -178,11 +179,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001", 0, async (done: Function) => {
       console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001 is starting---------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -258,11 +259,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002", 0, async (done: Function) => {
       console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002 is starting---------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test_not_exists.apk",
         header: {
           headers: "http",
@@ -340,11 +341,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003", 0, async (done: Function) => {
       console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003 is starting---------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_TASKINFO_0003.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -420,11 +421,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001_bk.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0001_bk.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -491,11 +492,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002_bk.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0002_bk.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -555,11 +556,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0003.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/not-exist.apk",
         header: {
           headers: "http",
@@ -625,11 +626,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0004.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -703,11 +704,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -722,7 +723,7 @@ export default function requestCrossplatformDownloadJSUnit() {
       };
 
       let result = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0005 onFailedCallback");
       }
@@ -784,11 +785,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/not-exist.apk",
         header: {
           headers: "http",
@@ -803,7 +804,7 @@ export default function requestCrossplatformDownloadJSUnit() {
       };
 
       let result = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0006 onFailedCallback");
       }
@@ -864,11 +865,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -884,11 +885,11 @@ export default function requestCrossplatformDownloadJSUnit() {
 
       let result1 = true;
       let result2 = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result1 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 onFailedCallback");
       }
-      let onFailedCallback2 = function() {
+      let onFailedCallback2 = () => {
         result2 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0007 onFailedCallback2");
       }
@@ -953,11 +954,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/not-exist.apk",
         header: {
           headers: "http",
@@ -973,11 +974,11 @@ export default function requestCrossplatformDownloadJSUnit() {
 
       let result1 = true;
       let result2 = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result1 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 onFailedCallback");
       }
-      let onFailedCallback2 = function() {
+      let onFailedCallback2 = () => {
         result2 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0008 onFailedCallback2");
       }
@@ -1040,11 +1041,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0009.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1112,11 +1113,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0010.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1184,11 +1185,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1204,11 +1205,11 @@ export default function requestCrossplatformDownloadJSUnit() {
 
       let result1 = true;
       let result2 = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result1 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 onFailedCallback");
       }
-      let onFailedCallback2 = function() {
+      let onFailedCallback2 = () => {
         result2 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0011 onFailedCallback");
       }
@@ -1268,11 +1269,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/not-exist.apk",
         header: {
           headers: "http",
@@ -1288,11 +1289,11 @@ export default function requestCrossplatformDownloadJSUnit() {
 
       let result1 = true;
       let result2 = true;
-      let onFailedCallback = function() {
+      let onFailedCallback = () => {
         result1 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 onFailedCallback");
       }
-      let onFailedCallback2 = function() {
+      let onFailedCallback2 = () => {
         result2 = false;
         console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0012 onFailedCallback");
       }
@@ -1353,11 +1354,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1377,11 +1378,11 @@ export default function requestCrossplatformDownloadJSUnit() {
         try {
           let result1 = true;
           let result2 = true;
-          let onFailedCallback = function() {
+          let onFailedCallback = () => {
             result1 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 onFailedCallback");
           }
-          let onFailedCallback2 = function() {
+          let onFailedCallback2 = () => {
             result2 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0013 onFailedCallback2");
           }
@@ -1442,11 +1443,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1466,11 +1467,11 @@ export default function requestCrossplatformDownloadJSUnit() {
         try {
           let result1 = true;
           let result2 = true;
-          let onFailedCallback = function() {
+          let onFailedCallback = () => {
             result1 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 onFailedCallback");
           }
-          let onFailedCallback2 = function() {
+          let onFailedCallback2 = () => {
             result2 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0014 onFailedCallback");
           }
@@ -1531,11 +1532,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1555,11 +1556,11 @@ export default function requestCrossplatformDownloadJSUnit() {
         try {
           let result1 = true;
           let result2 = true;
-          let onFailedCallback = function() {
+          let onFailedCallback = () => {
             result1 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 onFailedCallback");
           }
-          let onFailedCallback2 = function() {
+          let onFailedCallback2 = () => {
             result2 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0015 onFailedCallback2");
           }
@@ -1616,11 +1617,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1640,11 +1641,11 @@ export default function requestCrossplatformDownloadJSUnit() {
         try {
           let result1 = true;
           let result2 = true;
-          let onFailedCallback = function() {
+          let onFailedCallback = () => {
             result1 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 onFailedCallback");
           }
-          let onFailedCallback2 = function() {
+          let onFailedCallback2 = () => {
             result2 = false;
             console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_EVENT_0016 onFailedCallback");
           }
@@ -1701,11 +1702,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001", 0, async (done: Function) => {
       console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1746,11 +1747,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002", 0, async (done: Function) => {
       console.info("-----------------------SUB_REQUEST_downloadFile_STAGE_API_CALLBACK_0002 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_CALLBACK_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1791,11 +1792,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001", 0, async (done: Function) => {
       console.info("-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1821,7 +1822,7 @@ export default function requestCrossplatformDownloadJSUnit() {
               console.info('====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 delete file err: ' + JSON.stringify(err));
             }
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_FILE_STAGE_API_PROMISE_0001 error: " + err);
           })
           .finally(() => {
@@ -1847,11 +1848,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_delete_0001 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1906,11 +1907,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_DOWNLOAD_API_DELETE_0002 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -1935,7 +1936,7 @@ export default function requestCrossplatformDownloadJSUnit() {
               console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 end-----------------------");
               done();
             })
-            .catch(async (err) => {
+            .catch(async (err: BusinessError) => {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_DELETE_0002 Failed to delete the download task.");
               expect().assertFail();
               done();
@@ -1963,11 +1964,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2027,11 +2028,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_SUSPEND_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2078,11 +2079,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2146,11 +2147,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002", 0, async (done: Function) => {
       console.info("====>-----------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 is starting-----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2173,7 +2174,7 @@ export default function requestCrossplatformDownloadJSUnit() {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Download task restore.");
               expect(data == true).assertTrue();
             })
-            .catch(async (err) => {
+            .catch(async (err: BusinessError) => {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_RESTORE_0002 Failed to restore the download task.");
             })
             .finally(async () => {
@@ -2204,11 +2205,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001", 0, async (done: Function) => {
       console.info("====>---------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001 is starting---------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0001.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2269,11 +2270,11 @@ export default function requestCrossplatformDownloadJSUnit() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002", 0, async function (done) {
+    it("SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002", 0, async (done: Function) => {
       console.info("====>-------------------SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 is starting----------------------");
       let downloadFilePath = `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`;
       console.debug("====>downloadFileConfig:" + `${globalThis.abilityContext.tempDir}/SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002.txt`);
-      let downloadFileConfig = {
+      let downloadFileConfig:request.DownloadConfig = {
         url: "https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk",
         header: {
           headers: "http",
@@ -2296,7 +2297,7 @@ export default function requestCrossplatformDownloadJSUnit() {
               console.info("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Download task getTaskInfo success.");
               expect(typeof data == "object").assertTrue();
             })
-            .catch(async (err) => {
+            .catch(async (err: BusinessError) => {
               console.error("====>SUB_REQUEST_CROSSPLATFORM_DOWNDLOAD_API_GETTASKINFO_0002 Failed to getTaskInfo the download task.");
             })
             .finally(async () => {
