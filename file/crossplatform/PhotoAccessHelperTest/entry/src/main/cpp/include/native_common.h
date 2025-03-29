@@ -80,23 +80,23 @@ static inline void StripFormatString(const std::string& prefix, std::string& str
     }
 }
 
+static inline void FormatLogMessage(std::string &newFmt, char *buf, size_t bufSize, va_list args)
+{
+    StripFormatString("{public}", newFmt);
+    StripFormatString("{private}", newFmt);
+    vsnprintf(buf, bufSize, newFmt.c_str(), args);
+}
+
 static inline int OH_LOG_Print(
     LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt, ...)
 {
     std::string newFmt(fmt);
-    StripFormatString("{public}", newFmt);
-    StripFormatString("{private}", newFmt);
     char buf[MAX_BUFFER_SIZE];
     va_list ap;
     va_start(ap, fmt);
-    if (vsnprintf(buf, sizeof(buf), newFmt.c_str(), ap) < 0) {
-        va_end(ap);
-        return 0;
-    }
-    const char *levelName = "ERROR";
-    os_log_t log = os_log_create("PlatformNAPI", levelName);
-    os_log(log, "[%{public}s] %{public}s", levelName, buf);
+    FormatLogMessage(newFmt, buf, sizeof(buf), ap);
     va_end(ap);
+    os_log(os_log_create("PlatformNAPI", "ERROR"), "[%{public}s] %{public}s", "ERROR", buf);
     return 0;
 }
 #endif
