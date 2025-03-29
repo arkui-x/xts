@@ -73,18 +73,19 @@ static inline int OH_LOG_Print(
 #endif
 
 #if defined(IOS_PLATFORM)
+static inline void StripFormatString(const std::string& prefix, std::string& str)
+{
+    for (auto pos = str.find(prefix, 0); pos != std::string::npos; pos = str.find(prefix, pos)) {
+        str.erase(pos, prefix.size());
+    }
+}
+
 static inline int OH_LOG_Print(
     LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt, ...)
 {
     std::string newFmt(fmt);
-    for (auto pos = newFmt.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
-        pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
-        newFmt.erase(pos, PRIVATE_FLAG_PUBLIC.size());
-    }
-    for (auto pos = newFmt.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
-        pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
-        newFmt.erase(pos, PRIVATE_FLAG_PRIVATE.size());
-    }
+    StripFormatString("{public}", newFmt);
+    StripFormatString("{private}", newFmt);
     char buf[MAX_BUFFER_SIZE];
     va_list ap;
     va_start(ap, fmt);
