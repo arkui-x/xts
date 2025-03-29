@@ -24,6 +24,7 @@
 #endif
 
 #ifdef IOS_PLATFORM
+#incluede <stdio.h>
 #import <os/log.h>
 #endif
 
@@ -49,6 +50,18 @@ constexpr uint32_t MAX_BUFFER_SIZE = 4000;
 constexpr uint32_t MAX_TIME_SIZE = 32;
 
 #if defined(ANDROID_PLATFORM)
+static inline void StripFormatString(std::string &str)
+{
+    for (auto pos = str.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
+        pos = str.find(PRIVATE_FLAG_PUBLIC, pos)) {
+        str.erase(pos, PRIVATE_FLAG_PUBLIC.size());
+    }
+    for (auto pos = str.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
+        pos = str.find(PRIVATE_FLAG_PRIVATE, pos)) {
+        str.erase(pos, PRIVATE_FLAG_PRIVATE.size());
+    }
+}
+
 static inline int OH_LOG_Print(
     LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt, ...)
 {
@@ -56,14 +69,7 @@ static inline int OH_LOG_Print(
     va_start(ap, fmt);
     std::string newFmt(fmt);
 
-    for (auto pos = newFmt.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
-        pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
-        newFmt.erase(pos, PRIVATE_FLAG_PUBLIC.size());
-    }
-    for (auto pos = newFmt.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
-        pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
-        newFmt.erase(pos, PRIVATE_FLAG_PRIVATE.size());
-    }
+    StripFormatString(newFmt);
 
     __android_log_vprint(ANDROID_LOG_ERROR, "PlatformNAPI", newFmt.c_str(), ap);
 
@@ -73,18 +79,16 @@ static inline int OH_LOG_Print(
 #endif
 
 #if defined(IOS_PLATFORM)
-static inline void StripFormatString(const std::string& prefix, std::string& str)
+static inline void StripFormatString(std::string &str)
 {
-    for (auto pos = str.find(prefix, 0); pos != std::string::npos; pos = str.find(prefix, pos)) {
-        str.erase(pos, prefix.size());
+    for (auto pos = str.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
+        pos = str.find(PRIVATE_FLAG_PUBLIC, pos)) {
+        str.erase(pos, PRIVATE_FLAG_PUBLIC.size());
     }
-}
-
-static inline void FormatLogMessage(std::string &newFmt, char *buf, size_t bufSize, va_list args)
-{
-    StripFormatString("{public}", newFmt);
-    StripFormatString("{private}", newFmt);
-    vsnprintf(buf, bufSize, newFmt.c_str(), args);
+    for (auto pos = str.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
+        pos = str.find(PRIVATE_FLAG_PRIVATE, pos)) {
+        str.erase(pos, PRIVATE_FLAG_PRIVATE.size());
+    }
 }
 
 static inline int OH_LOG_Print(
@@ -94,9 +98,11 @@ static inline int OH_LOG_Print(
     char buf[MAX_BUFFER_SIZE];
     va_list ap;
     va_start(ap, fmt);
-    FormatLogMessage(newFmt, buf, sizeof(buf), ap);
+    StripFormatString(newFmt);
+    if (vsnprintf_s(buf, sizeof(buf), sizeof(buf) - 1, newFmt.c_str(), ap) >= 0) {
+        os_log(os_log_create("PlatformNAPI", "ERROR"), "[%{public}s] %{public}s", "ERROR", buf);
+    }
     va_end(ap);
-    os_log(os_log_create("PlatformNAPI", "ERROR"), "[%{public}s] %{public}s", "ERROR", buf);
     return 0;
 }
 #endif
