@@ -49,18 +49,19 @@ constexpr uint32_t MAX_BUFFER_SIZE = 4000;
 constexpr uint32_t MAX_TIME_SIZE = 32;
 
 #if defined(ANDROID_PLATFORM)
-static inline int OH_LOG_Print(LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt,
-                               ...) {
+static inline int OH_LOG_Print(
+    LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt, ...)
+{
     va_list ap;
     va_start(ap, fmt);
     std::string newFmt(fmt);
 
     for (auto pos = newFmt.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
-         pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
+        pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
         newFmt.erase(pos, PRIVATE_FLAG_PUBLIC.size());
     }
     for (auto pos = newFmt.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
-         pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
+        pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
         newFmt.erase(pos, PRIVATE_FLAG_PRIVATE.size());
     }
 
@@ -72,20 +73,18 @@ static inline int OH_LOG_Print(LogType type, LogLevel level, unsigned int domain
 #endif
 
 #if defined(IOS_PLATFORM)
-static inline int OH_LOG_Print(LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt,
-                               ...) {
+static inline int OH_LOG_Print(
+    LogType type, LogLevel level, unsigned int domain, const char *tag, const char *fmt, ...)
+{
     std::string newFmt(fmt);
-
     for (auto pos = newFmt.find(PRIVATE_FLAG_PUBLIC, 0); pos != std::string::npos;
-         pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
+        pos = newFmt.find(PRIVATE_FLAG_PUBLIC, pos)) {
         newFmt.erase(pos, PRIVATE_FLAG_PUBLIC.size());
     }
-
     for (auto pos = newFmt.find(PRIVATE_FLAG_PRIVATE, 0); pos != std::string::npos;
-         pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
+        pos = newFmt.find(PRIVATE_FLAG_PRIVATE, pos)) {
         newFmt.erase(pos, PRIVATE_FLAG_PRIVATE.size());
     }
-
     char buf[MAX_BUFFER_SIZE];
     va_list ap;
     va_start(ap, fmt);
