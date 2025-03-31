@@ -13,41 +13,24 @@
  * limitations under the License.
  */
 
- #ifndef NATIVE_COMMON_H
- #define NATIVE_COMMON_H
- 
- #include <string>
- #include <stdarg.h>
- 
- #ifdef __cplusplus
- extern "C" {
- #endif
- 
- typedef enum {
-     LOG_APP = 0,
- } LogType;
- 
- typedef enum {
-     LOG_ERROR = 0,
- } LogLevel;
- 
- #ifdef __cplusplus
- }
- #endif
- 
- #define CHECK_AND_RETURN(ptr, info, ret)                                                                               \
-     do {                                                                                                               \
-         if (!(ptr)) {                                                                                                  \
-             return ret;                                                                                                \
-         }                                                                                                              \
-     } while (0)
- 
- #define CHECK_AND_RETURN_VOID(ptr, info)                                                                               \
-     do {                                                                                                               \
-         if (!(ptr)) {                                                                                                  \
-             return;                                                                                                    \
-         }                                                                                                              \
-     } while (0)
- 
- #endif /* _NATIVE_COMMON_H_ */
- 
+#ifndef NATIVE_COMMON_H
+#define NATIVE_COMMON_H
+
+#include <string>
+#include <stdarg.h>
+
+#define CHECK_AND_RETURN(ptr, info, ret)                                                                               \
+    do {                                                                                                               \
+        if (!(ptr)) {                                                                                                  \
+            return ret;                                                                                                \
+        }                                                                                                              \
+    } while (0)
+
+#define CHECK_AND_RETURN_VOID(ptr, info)                                                                               \
+    do {                                                                                                               \
+        if (!(ptr)) {                                                                                                  \
+            return;                                                                                                    \
+        }                                                                                                              \
+    } while (0)
+
+#endif /* _NATIVE_COMMON_H_ */
