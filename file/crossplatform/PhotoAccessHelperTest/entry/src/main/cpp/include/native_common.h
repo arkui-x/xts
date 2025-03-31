@@ -24,7 +24,6 @@
 #endif
 
 #ifdef IOS_PLATFORM
-#incluede <stdio.h>
 #import <os/log.h>
 #endif
 
@@ -96,13 +95,10 @@ static inline int OH_LOG_Print(
 {
     std::string newFmt(fmt);
     char buf[MAX_BUFFER_SIZE];
-    va_list ap;
-    va_start(ap, fmt);
     StripFormatString(newFmt);
-    if (vsnprintf_s(buf, sizeof(buf), sizeof(buf) - 1, newFmt.c_str(), ap) >= 0) {
+    if (snprintf(buf, sizeof(buf) - 1, "%s", newFmt.c_str()) >= 0) {
         os_log(os_log_create("PlatformNAPI", "ERROR"), "[%{public}s] %{public}s", "ERROR", buf);
     }
-    va_end(ap);
     return 0;
 }
 #endif
