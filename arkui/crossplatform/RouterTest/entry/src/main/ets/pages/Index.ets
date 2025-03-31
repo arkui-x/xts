@@ -38,8 +38,8 @@ struct Index {
             .id('PageName')
             .fontSize(16)
 
-          Text('ErrCode: ' + this.errCode)
-            .id('ErrCode')
+          Text('Errcode: ' + this.errCode)
+            .id('Errcode')
             .fontSize(16)
             .margin({ bottom: 5 })
 
@@ -49,7 +49,21 @@ struct Index {
             .height(20)
             .onClick(async () => {
               if (this.router.getParams() !== undefined) {
-                this.params = (this.router.getParams() as Record<string, string>)["data"];
+                this.params = "";
+                this.params += (this.router.getParams() as Record<string, string>)["data_string"] + ", ";
+                if ((this.router.getParams() as Record<string, number>)["data_number"] === 123456) {
+                  this.params += "123456" + ", ";
+                }
+                if ((this.router.getParams() as Record<string, boolean>)["data_boolean"] === true) {
+                  this.params += "true" + ", ";
+                }
+                if ((this.router.getParams() as Record<string, null>)["data_null"] === null) {
+                  this.params += "null" + ", ";
+                }
+                if ((this.router.getParams() as Record<string, undefined>)["data_undefined"] === undefined) {
+                  this.params += "undefined" + ", ";
+                }
+                this.params += (this.router.getParams() as Record<string, object>)["data_object"]["data"];
               } else {
                 this.params = "";
               }
@@ -108,6 +122,17 @@ struct Index {
             .onClick(async () => {
               await this.router.pushUrl({
                 url: 'pages/back/BackPage'
+              })
+            })
+            .margin({ bottom: 5 })
+
+          Button('CombineTest page')
+            .id('CombineTest page')
+            .width('80%')
+            .height(20)
+            .onClick(async () => {
+              await this.router.pushUrl({
+                url: 'pages/combine/Page1'
               })
             })
             .margin({ bottom: 5 })
