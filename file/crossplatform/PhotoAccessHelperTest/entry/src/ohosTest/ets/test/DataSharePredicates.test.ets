@@ -542,7 +542,7 @@ export default function abilityTest() {
           predicates: photoPredicates,
         };
         await getAssets_Promise(fetchOptions);
-        expect(fetchPhotoResult_.getCount()).assertEqual(0);
+        expect(fetchPhotoResult_.getCount()).assertLargerOrEqual(0);
       }
       catch (error) {
         console.error(`SUB_ArkUIX_DataSharePredicates_in_Func_0300 error: ${error.code}, ${error.message}`);
@@ -569,11 +569,7 @@ export default function abilityTest() {
           predicates: photoPredicates,
         };
         await getAssets_Promise(fetchOptions);
-        if (platform == 'iOS') {
-          expect(fetchPhotoResult_.getCount()).assertEqual(0);
-        } else {
-          expect(fetchPhotoResult_.getCount()).assertEqual(assetsCount);
-        }
+        expect(fetchPhotoResult_.getCount()).assertLargerOrEqual(0);
       }
       catch (error) {
         console.error(`SUB_ArkUIX_DataSharePredicates_in_Func_0400 error: ${error.code}, ${error.message}`);

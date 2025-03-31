@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -124,6 +124,19 @@ async function getAlbums_Promise(AlbumType: photoAccessHelper.AlbumType, AlbumSu
       console.error(`getAlbums fail with error: ${err.code}, ${err.message}`);
     });
   await sleep(waitReadyMs_100);
+}
+
+async function waitGetAllObjectsCallback(): Promise<photoAccessHelper.PhotoAsset[]> {
+  return new Promise((resolve, reject) => {
+    fetchPhotoResult_.getAllObjects(async (err, photoAssetList) => {
+      if (photoAssetList != null) {
+        resolve(photoAssetList);
+      } else {
+        console.error(`photoAsset failed with err:${err.code}, ${err.message}`);
+        reject(err);
+      }
+    });
+  });
 }
 
 export default function abilityTest() {
@@ -463,7 +476,7 @@ export default function abilityTest() {
             console.error(`getAssets fail with error: ${err.code}, ${err.message}`);
           }
         });
-        await sleep(waitReadyMs_600);
+        await sleep(waitReadyMs_3000);
         expect(isPass).assertTrue();
       }
       catch (error) {
@@ -1712,14 +1725,7 @@ export default function abilityTest() {
         for (let i = 0; i < fetchPhotoResult_.getCount() - 1; i++) {
           photoAssetList1_.push(await fetchPhotoResult_.getNextObject());
         }
-        fetchPhotoResult_.getAllObjects(async (err, photoAssetList) => {
-          if (photoAssetList != null) {
-            photoAssetList2_ = photoAssetList;
-          } else {
-            console.error(`photoAsset failed with err:${err.code}, ${err.message}`);
-          }
-        });
-        await sleep(waitReadyMs_600);
+        photoAssetList2_ = await waitGetAllObjectsCallback();
         for (let i = 0; i < photoAssetList1_.length; i++) {
           expect(photoAssetList1_[i].displayName).assertEqual(photoAssetList2_[i].displayName);
         }
