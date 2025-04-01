@@ -32,7 +32,8 @@ export default function commonEventMgrCreateSubscriberTest() {
     /**
      * beforeEach: PreCommonEventMgrCreateSubscriberTest at the test case level, which are executed before each test case is executed.
      */
-    beforeEach(() => {
+    beforeEach(async () => {
+      await sleep(200);
       console.info("====>beforeEach: PreCommonEventMgrCreateSubscriberTest is executed.");
     });
 

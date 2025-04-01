@@ -17,6 +17,10 @@ import CommonEventManager from '@ohos.commonEventManager';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { BusinessError } from '@ohos.base';
 import { publishEvent, publishEventWithoutOpt, sleep } from '../utils/index';
+import deviceInfo from '@ohos.deviceInfo';
+
+let osFullNameInfo: string = deviceInfo.osFullName;
+let platform = osFullNameInfo.split(' ')[0];
 
 export default function commonEventMgrUnsubscribeTest() {
   describe('commonEventMgrUnsubscribeTest', () => {
@@ -32,7 +36,8 @@ export default function commonEventMgrUnsubscribeTest() {
     /**
      * beforeEach: PreCommonEventMgrUnsubscribeTest at the test case level, which are executed before each test case is executed.
      */
-    beforeEach(() => {
+    beforeEach(async () => {
+      await sleep(1000);
       console.info("====>beforeEach: PreCommonEventMgrUnsubscribeTest is executed.");
     });
 
@@ -62,6 +67,11 @@ export default function commonEventMgrUnsubscribeTest() {
       which cannot be verified in the automated testing process of the test suite.
       （ios不支持publish方法，无法发布自定义事件，测试套自动化测试流程中无法验证）*/
     it('SUB_Notification_Common_Event_Manager_Unsubscribe_Func_0100', 0, async (done: Function) => {
+      if (platform == 'iOS') {
+        expect(true).assertTrue();
+        done();
+      }
+
       try {
         const subscriberInfo: CommonEventManager.CommonEventSubscribeInfo = {
           events: ['UNSUBSCRIBE_MY_EVENT_001']
