@@ -21,7 +21,7 @@ import Want from '@ohos.app.ability.Want';
 
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-const waitUiReadyMs = 1500;
+const waitUiReadyMs = 1900;
 
 
 async function startAbility(bundleName: string, abilityName: string) {
@@ -1394,6 +1394,7 @@ export default function UiTest() {
       expect(text2 == 'abc').assertTrue();
       await driver.delayMs(waitUiReadyMs);
       await input2.click();
+      await driver.delayMs(waitUiReadyMs);
       await input2.clearText();
       await driver.delayMs(waitUiReadyMs);
       let input_new = await driver.findComponent(ON.type('TextInput'));
@@ -1403,6 +1404,7 @@ export default function UiTest() {
       let text = await input_new.getText();
       await driver.delayMs(waitUiReadyMs);
       try {
+        await driver.delayMs(waitUiReadyMs);
         expect(text).assertEqual('');
         console.info('TEST_CLEARTEXT_0048 pass');
         done();
