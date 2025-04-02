@@ -13,15 +13,23 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 import request from '@ohos.request';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function requestDownTest() {
   describe('requestDownTest', () => {
+    afterEach(async () => {
+      await wait(1000);
+    })
+
     let baseContext: common.Context = AppStorage.get('context') as common.Context;
-    console.info('====>baseContext:'+JSON.stringify(baseContext))
+    console.info('====>baseContext:' + JSON.stringify(baseContext))
 
     /*
      * @tc.number: SUB_Request_RequestDown_Action_Func_0100
@@ -139,7 +147,7 @@ export default function requestDownTest() {
         saveas: './SUB_Request_RequestDown_create_remove_Func_0600',
         overwrite: true,
       };
-      console.info('====>SUB_Request_RequestDown_create_remove_Func_0600 docPath:'+JSON.stringify(config))
+      console.info('====>SUB_Request_RequestDown_create_remove_Func_0600 docPath:' + JSON.stringify(config))
       try {
         let task: request.agent.Task = await request.agent.create(baseContext, config);
         console.info(`====>requestTest006 create Task success:${JSON.stringify(task)}`);
@@ -164,7 +172,7 @@ export default function requestDownTest() {
      * @tc.level: Level 2
      */
     it('SUB_Request_RequestDown_create_remove_Func_0700', 0, async (done: Function) => {
-      
+
       let config: request.agent.Config = {
         action: request.agent.Action.DOWNLOAD,
         url: 'https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk',
@@ -195,13 +203,16 @@ export default function requestDownTest() {
               } catch (err) {
                 console.log(`====>requestTest007 remove catch:${JSON.stringify(err)}`);
                 done();
-              };
+              }
+              ;
             });
-          };
+          }
+          ;
         } catch (err) {
           console.log(`====>requestTest007 create catch:${JSON.stringify(err)}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -319,11 +330,13 @@ export default function requestDownTest() {
             // remove Task
             await request.agent.remove(task.tid);
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.log(`====>requestTest011 showTask catch:${err}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -367,11 +380,13 @@ export default function requestDownTest() {
             console.info(`====>requestTest013 showTask success:${taskInfo.tid}`);
             expect().assertFail();
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.info(`====>requestTest013 showTask success:${err}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -389,7 +404,7 @@ export default function requestDownTest() {
         url: 'https://gitee.com/chenzhixue/downloadTest/releases/download/v1.0/test.apk',
         saveas: './SUB_Request_RequestDown_touch_Func_1400',
         overwrite: true,
-        mode:request.agent.Mode.FOREGROUND,
+        mode: request.agent.Mode.FOREGROUND,
         token: "is test014"
       };
       let task: request.agent.Task = await request.agent.create(baseContext, config);
@@ -397,20 +412,20 @@ export default function requestDownTest() {
       console.info(`====>requestTest014 create typeof Task tid:${typeof task.tid}`);
       console.info(`====>requestTest014 create config.token:${config.token}`);
       console.info(`====>requestTest014 create typeof config.token:${typeof config.token}`);
-      try{
+      try {
         let token: string = '';
         let tokenConfig: string = token + config.token;
         let taskInfo: request.agent.TaskInfo = await request.agent.touch(task.tid, tokenConfig);
         expect(typeof taskInfo).assertEqual('object');
         done();
-      }catch(err){
+      } catch (err) {
         console.error(`====>requestTest014 touchTask fail:${JSON.stringify(err)}`);
         await request.agent.remove(task.tid);
         expect(err).assertFail();
         done();
       }
     });
-    
+
     /*
      * @tc.number: SUB_Request_RequestDown_touch_Func_1500
      * @tc.name: SUB_Request_RequestDown_touch_Func_1500
@@ -443,12 +458,14 @@ export default function requestDownTest() {
             // remove Task
             await request.agent.remove(task.tid);
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.log(`====>requestTest015 touchTask catch:${err}`);
           await request.agent.remove(task.tid);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -547,7 +564,7 @@ export default function requestDownTest() {
       };
       let task: request.agent.Task = await request.agent.create(baseContext, config);
       console.info(`====>requestTest018 create Task success:${task.tid}`);
-      request.agent.touch('task.tid', config.token, async (err: BusinessError, taskInfo: request.agent.TaskInfo) => {          
+      request.agent.touch('task.tid', config.token, async (err: BusinessError, taskInfo: request.agent.TaskInfo) => {
         try {
           if (err) {
             console.error(`====>requestTest018 touchTask fail:${JSON.stringify(err)}`);
@@ -559,14 +576,16 @@ export default function requestDownTest() {
             await request.agent.remove(task.tid);
             expect().assertFail();
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.error(`====>requestTest018 touchTask catch:${JSON.stringify(err)}`);
           await request.agent.remove(task.tid);
           done();
-        };
+        }
+        ;
       });
-      
+
     });
 
     /*
@@ -588,11 +607,13 @@ export default function requestDownTest() {
             console.log(`====>requestTest019 searchTask success: ${typeof data}`);
             expect(typeof data === 'object').assertTrue();
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.error(`====>requestTest019 searchTask catch:${JSON.stringify(err)}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -620,11 +641,13 @@ export default function requestDownTest() {
             console.log('====>requestTest020 searchTask success');
             expect(typeof data === 'object').assertTrue();
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.error(`====>requestTest020 searchTask catch:${JSON.stringify(err)}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -720,7 +743,8 @@ export default function requestDownTest() {
           console.log(`====>requestTest023 start catch:${err}`);
           await request.agent.remove(task.tid);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -771,7 +795,7 @@ export default function requestDownTest() {
         overwrite: true,
         mode: request.agent.Mode.FOREGROUND,
       };
-        // create Task
+      // create Task
       let task: request.agent.Task = await request.agent.create(baseContext, config);
       console.info(`====>requestTest025 create Task success:${task.tid}`);
       await task.start();
@@ -786,12 +810,13 @@ export default function requestDownTest() {
             console.info('====>requestTest025 stop success');
             expect(true).assertTrue();
             done();
-          };
-        }
-        catch (err) {
+          }
+          ;
+        } catch (err) {
           console.info(`====>requestTest025 catch: ${JSON.stringify(err)}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -844,7 +869,7 @@ export default function requestDownTest() {
         mode: request.agent.Mode.FOREGROUND,
       };
       // create Task
-      
+
       let task: request.agent.Task = await request.agent.create(baseContext, config);
       console.info(`====>requestTest027 create Task success:${task.tid}`);
       await request.agent.remove(task.tid);
@@ -864,7 +889,8 @@ export default function requestDownTest() {
         } catch (err) {
           console.info(`====>requestTest027 start catch:${err.code}`);
           done();
-        };
+        }
+        ;
       });
     });
 
@@ -918,10 +944,10 @@ export default function requestDownTest() {
         overwrite: true,
         mode: request.agent.Mode.FOREGROUND,
       };
-        // create Task
+      // create Task
       let task: request.agent.Task = await request.agent.create(baseContext, config);
       console.info(`====>requestTest029 create Task success:${task.tid}`);
-      task.stop(async (err: BusinessError) => {          
+      task.stop(async (err: BusinessError) => {
         try {
           if (err) {
             console.info(`====>requestTest029 stop fail:${err}`);
@@ -934,7 +960,8 @@ export default function requestDownTest() {
             await request.agent.remove(task.tid);
             expect().assertFail();
             done();
-          };
+          }
+          ;
         } catch (err) {
           console.info(`====>requestTest029 stop catch:${err} `);
           done();
@@ -970,7 +997,8 @@ export default function requestDownTest() {
           expect(flag).assertTrue();
           task.off('progress')
           done();
-        };
+        }
+        ;
       };
       // create Task
       let task: request.agent.Task = await request.agent.create(baseContext, config);
@@ -1039,27 +1067,27 @@ export default function requestDownTest() {
         redirect: false
       };
       let callbackFailed = (progress: request.agent.Progress): void => {
-        try{
+        try {
           flag = true;
           console.info(`====>requestTest032 failed:${progress.state}`);
           expect(flag).assertTrue();
           task.off('failed')
           done();
-        }catch(err){
+        } catch (err) {
           console.info('====>requestTest032 callbackFailed catch err:' + JSON.stringify(err));
           done();
-        }        
+        }
       };
       let task: request.agent.Task = await request.agent.create(baseContext, config);
       console.info(`====>requestTest032 create Task success:${task.tid}`);
-      try{   
+      try {
         task.on('failed', callbackFailed);
         await task.start();
         console.info('====>requestTest032 start success');
-      }catch(err){
+      } catch (err) {
         console.info('====>requestTest032 catch err:' + JSON.stringify(err));
         done();
-      }      
+      }
     });
 
     /*
@@ -1089,7 +1117,7 @@ export default function requestDownTest() {
         expect(flag).assertFalse();
         done();
       };
-      try{
+      try {
         let task: request.agent.Task = await request.agent.create(baseContext, config);
         console.info(`====>requestTest033 create Task success:${task.tid}`);
         task.on('progress', callbackProgress1);
@@ -1097,7 +1125,7 @@ export default function requestDownTest() {
         task.off('progress', callbackProgress1);
         await task.start();
         console.info('====>requestTest033 start success');
-      }catch(err){
+      } catch (err) {
         console.info('====>requestTest033 catch err:' + JSON.stringify(err));
         done();
       }
@@ -1127,12 +1155,12 @@ export default function requestDownTest() {
         console.info(`====>requestTest034 Progress1:${progress.state}`);
       };
       let callbackFailed2 = (progress: request.agent.Progress): void => {
-        try{
+        try {
           console.info(`====>requestTest032 failed:${progress.state}`);
           expect(flag).assertFalse();
           task.off('failed')
           done();
-        }catch(err){
+        } catch (err) {
           console.info('====>requestTest032 callbackFailed catch err:' + JSON.stringify(err));
           done();
         }
