@@ -1,5 +1,5 @@
 import resourceManager from '@ohos.resourceManager';
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, it, expect, afterEach } from '@ohos/hypium';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
@@ -7,13 +7,23 @@ import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function resourceManagerTest() {
   describe('resourceManagerTest', () => {
     beforeAll(() => {
       console.log('************* start resourceManagerTest *************');
     })
-    afterAll(() => {
+
+    afterEach(async () => {
+      await sleep(1000)
+    });
+
+    afterAll(async () => {
       console.log('************* end resourceManagerTest *************');
+      await sleep(1000)
     })
 
     /* *
