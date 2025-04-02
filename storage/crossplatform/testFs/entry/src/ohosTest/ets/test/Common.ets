@@ -15,12 +15,12 @@
 
 import fileIO from "@ohos.file.fs";
 import util from "@ohos.util";
+import { describe, it, expect, afterEach } from "@ohos/hypium";
+import { common } from '@kit.AbilityKit';
 
 export const FILE_CONTENT = "hello world";
 
-import { describe, it, expect } from "@ohos/hypium";
-
-export function prepareFile(fpath, content) {
+export function prepareFile(fpath:string, content:string) {
   try {
     let file = fileIO.openSync(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
     fileIO.truncateSync(file.fd);
@@ -34,52 +34,52 @@ export function prepareFile(fpath, content) {
   }
 }
 
-export async function nextFileName(testName) {
-  let context = globalThis.abilityContext;
+export async function nextFileName(testName:string) {
+  let context: common.UIAbilityContext = globalThis.abilityContext;
   let data = context.cacheDir;
   let BASE_PATH = data + "/";
   return BASE_PATH + testName + "_" + randomString(testName.length);
 }
 
-export async function nextFileNameInFilesDir(testName) {
-  let context = globalThis.abilityContext;
+export async function nextFileNameInFilesDir(testName:string) {
+  let context: common.UIAbilityContext = globalThis.abilityContext;
   let data = context.filesDir;
   let BASE_PATH = data + "/";
   return BASE_PATH + testName + "_" + randomString(testName.length);
 }
 
-export async function fileName(testName) {
-  let context = globalThis.abilityContext;
+export async function fileName(testName:string) {
+  let context: common.UIAbilityContext = globalThis.abilityContext;
   let data = context.filesDir;
   let BASE_PATH = data + "/";
   return BASE_PATH + testName + "_" + randomString(testName.length);
 }
 
-export function randomString(num) {
+export function randomString(num:number) {
   let len = num;
-  var $chars = "aaaabbbbcccc";
-  var maxPos = $chars.length;
-  var pwd = "";
-  for (var i = 0; i < len; i++) {
+  let $chars = "aaaabbbbcccc";
+  let maxPos = $chars.length;
+  let pwd = "";
+  for (let i = 0; i < len; i++) {
     pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
   }
   return pwd;
 }
 
-function isIntNum(val) {
+function isIntNum(val:number) {
   return typeof val === "number" && val % 1 === 0;
 }
 
-function isBigInt(val) {
+function isBigInt(val:bigint) {
   return typeof val === "bigint";
 }
 
-function isString(str) {
+function isString(str:string) {
   return typeof str == "string" && str.constructor == String;
 }
 
-function isBoolean(val) {
+function isBoolean(val:boolean) {
   return typeof val == "boolean";
 }
 
-export { fileIO, isIntNum, isBigInt, isString, isBoolean, describe, it, expect, util };
+export { fileIO, isIntNum, isBigInt, isString, isBoolean, describe, it, expect, util, afterEach };

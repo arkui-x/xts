@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,20 @@
  * limitations under the License.
  */
 
-import { nextFileName, describe, it, expect } from "../Common";
+import { nextFileName, describe, it, expect, afterEach } from "../Common";
 import fileIO from "@ohos.file.fs";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 export default function fileIOMkdtemp() {
-  describe("fileIO_fs_mkdtemp", function () {
+  describe("fileIO_fs_mkdtemp", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_MKDTEMP_ASYNC_0000
      * @tc.name   : fileIO_test_mkdtemp_async_000
@@ -27,7 +36,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdtemp_async_000", 2, async function (done) {
+    it("fileIO_test_mkdtemp_async_000", 2, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_000");
       try {
         dpath = dpath + "XXXXXX";
@@ -51,7 +60,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_async_001", 3, async function (done) {
+    it("fileIO_test_mkdtemp_async_001", 3, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_001");
 
       try {
@@ -73,7 +82,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdtemp_async_002", 2, async function (done) {
+    it("fileIO_test_mkdtemp_async_002", 2, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_002");
 
       try {
@@ -103,7 +112,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_async_003", 3, async function (done) {
+    it("fileIO_test_mkdtemp_async_003", 3, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_003");
 
       try {
@@ -129,7 +138,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_async_004", 3, async function (done) {
+    it("fileIO_test_mkdtemp_async_004", 3, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_004");
 
       try {
@@ -153,7 +162,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_async_005", 3, async function (done) {
+    it("fileIO_test_mkdtemp_async_005", 3, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_async_005");
 
       try {
@@ -180,7 +189,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdtemp_sync_000", 2, async function () {
+    it("fileIO_test_mkdtemp_sync_000", 2, async () => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_sync_000");
 
       try {
@@ -204,7 +213,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_sync_001", 3, async function () {
+    it("fileIO_test_mkdtemp_sync_001", 3, async () => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_sync_001");
 
       try {
@@ -225,7 +234,7 @@ export default function fileIOMkdtemp() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_mkdtemp_sync_002", 3, async function () {
+    it("fileIO_test_mkdtemp_sync_002", 3, async () => {
       let dpath = await nextFileName("fileIO_test_mkdtemp_sync_002");
 
       try {
