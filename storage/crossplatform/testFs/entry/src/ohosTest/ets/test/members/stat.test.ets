@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,29 @@
  * limitations under the License.
  */
 
-import { FILE_CONTENT, prepareFile, nextFileName, isIntNum, isBigInt, describe, it, expect } from "../Common";
+import {
+  FILE_CONTENT,
+  prepareFile,
+  nextFileName,
+  isIntNum,
+  isBigInt,
+  describe,
+  it,
+  expect,
+  afterEach
+} from "../Common";
 import fileIO from "@ohos.file.fs";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function fileIOStat() {
-  describe("fileIO_fs_stat", function () {
+  describe("fileIO_fs_stat", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_STAT_ASYNC_0000
      * @tc.name   : fileIO_test_stat_async_000
@@ -27,7 +45,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_async_000", 2, async function (done) {
+    it("fileIO_test_stat_async_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_async_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -56,7 +74,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_async_001", 3, async function (done) {
+    it("fileIO_test_stat_async_001", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_async_001");
 
       try {
@@ -78,7 +96,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_async_002", 3, async function (done) {
+    it("fileIO_test_stat_async_002", 3, async (done: Function) => {
       try {
         await fileIO.stat(-1);
         expect(false).assertTrue();
@@ -98,7 +116,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_async_003", 2, async function (done) {
+    it("fileIO_test_stat_async_003", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_async_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -137,7 +155,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_async_004", 3, async function (done) {
+    it("fileIO_test_stat_async_004", 3, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_async_004");
 
       try {
@@ -163,7 +181,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_async_005", 3, async function (done) {
+    it("fileIO_test_stat_async_005", 3, async (done: Function) => {
       try {
         fileIO.stat(-1, (err) => {
           expect(false).assertTrue();
@@ -184,7 +202,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_sync_000", 2, async function () {
+    it("fileIO_test_stat_sync_000", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_sync_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -212,7 +230,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_sync_001", 3, async function () {
+    it("fileIO_test_stat_sync_001", 3, async () => {
       let fpath = await nextFileName("fileIO_test_stat_sync_001");
 
       try {
@@ -233,7 +251,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_stat_sync_002", 3, async function () {
+    it("fileIO_test_stat_sync_002", 3, async () => {
       try {
         fileIO.statSync(-1);
         expect(false).assertTrue();
@@ -252,7 +270,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_sync_003", 2, async function (done) {
+    it("fileIO_test_stat_sync_003", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_sync_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -284,7 +302,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_sync_004", 2, async function (done) {
+    it("fileIO_test_stat_sync_004", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_sync_004");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -317,7 +335,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ino_000", 2, async function (done) {
+    it("fileIO_test_stat_ino_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_ino_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -346,7 +364,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ino_001", 2, async function (done) {
+    it("fileIO_test_stat_ino_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_ino_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -385,7 +403,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ino_002", 2, async function () {
+    it("fileIO_test_stat_ino_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_ino_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -413,7 +431,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mode_000", 2, async function (done) {
+    it("fileIO_test_stat_mode_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_mode_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -442,7 +460,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mode_001", 2, async function (done) {
+    it("fileIO_test_stat_mode_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_mode_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -481,7 +499,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mode_002", 2, async function () {
+    it("fileIO_test_stat_mode_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_mode_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -509,7 +527,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_uid_000", 2, async function (done) {
+    it("fileIO_test_stat_uid_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_uid_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -538,7 +556,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_uid_001", 2, async function (done) {
+    it("fileIO_test_stat_uid_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_uid_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -577,7 +595,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_uid_002", 2, async function () {
+    it("fileIO_test_stat_uid_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_uid_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -605,7 +623,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_gid_000", 2, async function (done) {
+    it("fileIO_test_stat_gid_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_gid_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -634,7 +652,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_gid_001", 2, async function (done) {
+    it("fileIO_test_stat_gid_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_gid_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -673,7 +691,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_gid_002", 2, async function () {
+    it("fileIO_test_stat_gid_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_gid_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -701,7 +719,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_size_000", 2, async function (done) {
+    it("fileIO_test_stat_size_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_size_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -730,7 +748,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_size_001", 2, async function (done) {
+    it("fileIO_test_stat_size_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_size_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -769,7 +787,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_size_002", 2, async function () {
+    it("fileIO_test_stat_size_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_size_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -797,7 +815,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_atime_000", 2, async function (done) {
+    it("fileIO_test_stat_atime_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_atime_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -826,7 +844,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_atime_001", 2, async function (done) {
+    it("fileIO_test_stat_atime_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_atime_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -865,7 +883,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_atime_002", 2, async function () {
+    it("fileIO_test_stat_atime_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_atime_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -893,7 +911,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mtime_000", 2, async function (done) {
+    it("fileIO_test_stat_mtime_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_mtime_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -922,7 +940,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mtime_001", 2, async function (done) {
+    it("fileIO_test_stat_mtime_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_mtime_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -961,7 +979,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_mtime_002", 2, async function () {
+    it("fileIO_test_stat_mtime_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_mtime_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -989,7 +1007,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ctime_000", 2, async function (done) {
+    it("fileIO_test_stat_ctime_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_ctime_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1018,7 +1036,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ctime_001", 2, async function (done) {
+    it("fileIO_test_stat_ctime_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_ctime_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1057,7 +1075,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_ctime_002", 2, async function () {
+    it("fileIO_test_stat_ctime_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_ctime_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1085,7 +1103,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_block_device_000", 2, async function (done) {
+    it("fileIO_test_stat_is_block_device_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_block_device_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1114,7 +1132,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_block_device_001", 2, async function (done) {
+    it("fileIO_test_stat_is_block_device_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_block_device_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1153,7 +1171,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_block_device_002", 2, async function () {
+    it("fileIO_test_stat_is_block_device_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_block_device_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1181,7 +1199,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_character_device_000", 2, async function (done) {
+    it("fileIO_test_stat_is_character_device_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_character_device_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1210,7 +1228,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_character_device_001", 2, async function (done) {
+    it("fileIO_test_stat_is_character_device_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_character_device_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1249,7 +1267,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_character_device_002", 2, async function () {
+    it("fileIO_test_stat_is_character_device_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_character_device_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1277,7 +1295,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_directory_000", 2, async function (done) {
+    it("fileIO_test_stat_is_directory_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_directory_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1306,7 +1324,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_directory_001", 2, async function (done) {
+    it("fileIO_test_stat_is_directory_001", 2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_stat_is_directory_001")) + "d";
 
       try {
@@ -1335,7 +1353,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_directory_002", 2, async function (done) {
+    it("fileIO_test_stat_is_directory_002", 2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_stat_is_directory_002")) + "d";
 
       try {
@@ -1374,7 +1392,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_directory_003", 2, async function () {
+    it("fileIO_test_stat_is_directory_003", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_directory_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1402,7 +1420,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_directory_004", 2, async function () {
+    it("fileIO_test_stat_is_directory_004", 2, async () => {
       let dpath = await nextFileName("fileIO_test_stat_is_directory_004");
 
       try {
@@ -1430,7 +1448,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_fifo_000", 2, async function (done) {
+    it("fileIO_test_stat_is_fifo_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_fifo_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1459,7 +1477,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_fifo_001", 2, async function (done) {
+    it("fileIO_test_stat_is_fifo_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_fifo_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1498,7 +1516,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_fifo_002", 2, async function () {
+    it("fileIO_test_stat_is_fifo_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_fifo_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1526,7 +1544,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_file_000", 2, async function (done) {
+    it("fileIO_test_stat_is_file_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_file_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1555,7 +1573,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_file_001", 2, async function (done) {
+    it("fileIO_test_stat_is_file_001", 2, async (done: Function) => {
       let dpath = await nextFileName("fileIO_test_stat_is_file_001");
 
       try {
@@ -1584,7 +1602,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_file_002", 2, async function (done) {
+    it("fileIO_test_stat_is_file_002", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_file_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1623,7 +1641,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_file_003", 2, async function () {
+    it("fileIO_test_stat_is_file_003", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_file_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1651,7 +1669,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_file_004", 2, async function () {
+    it("fileIO_test_stat_is_file_004", 2, async () => {
       let dpath = await nextFileName("fileIO_test_stat_is_file_004");
 
       try {
@@ -1679,7 +1697,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_socket_000", 2, async function (done) {
+    it("fileIO_test_stat_is_socket_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_socket_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1707,7 +1725,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_socket_001", 2, async function (done) {
+    it("fileIO_test_stat_is_socket_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_socket_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1746,7 +1764,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_socket_002", 2, async function () {
+    it("fileIO_test_stat_is_socket_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_socket_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1774,7 +1792,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_symbolic_link_000", 2, async function (done) {
+    it("fileIO_test_stat_is_symbolic_link_000", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_symbolic_link_000");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1803,7 +1821,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_symbolic_link_001", 2, async function (done) {
+    it("fileIO_test_stat_is_symbolic_link_001", 2, async (done: Function) => {
       let fpath = await nextFileName("fileIO_test_stat_is_symbolic_link_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -1842,7 +1860,7 @@ export default function fileIOStat() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_stat_is_symbolic_link_002", 2, async function () {
+    it("fileIO_test_stat_is_symbolic_link_002", 2, async () => {
       let fpath = await nextFileName("fileIO_test_stat_is_symbolic_link_002");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 

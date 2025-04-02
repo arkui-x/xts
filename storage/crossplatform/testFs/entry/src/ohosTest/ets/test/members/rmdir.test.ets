@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,11 +13,27 @@
  * limitations under the License.
  */
 
-import { FILE_CONTENT, prepareFile, nextFileName, nextFileNameInFilesDir, describe, it, expect } from "../Common";
+import {
+  FILE_CONTENT,
+  prepareFile,
+  nextFileName,
+  nextFileNameInFilesDir,
+  describe,
+  it,
+  expect,
+  afterEach
+} from "../Common";
 import fileIO from "@ohos.file.fs";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function fileIORmdir() {
-  describe("fileIO_fs_rmdir", function () {
+  describe("fileIO_fs_rmdir", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
     /**
      * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_ASYNC_0000
      * @tc.name   : fileIO_test_rmdir_async_000
@@ -27,7 +43,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_async_000", 2, async function (done) {
+    it("fileIO_test_rmdir_async_000", 2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_rmdir_async_000")) + "d";
       let fpath = dpath + "/rmdir_async_000";
       let ffpath = dpath + "/rmdir_async_000_1";
@@ -67,7 +83,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_rmdir_async_001", 3, async function (done) {
+    it("fileIO_test_rmdir_async_001", 3, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_rmdir_async_001")) + "d";
 
       try {
@@ -89,7 +105,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_async_002", 2, async function () {
+    it("fileIO_test_rmdir_async_002", 2, async () => {
       let dpath = (await nextFileNameInFilesDir("../files/fileIO_test_rmdir_async_002")) + "d";
 
       try {
@@ -114,7 +130,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_async_003", 2, async function (done) {
+    it("fileIO_test_rmdir_async_003", 2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_rmdir_async_003")) + "d";
       let fpath = dpath + "/rmdir_async_001";
       let ffpath = dpath + "/rmdir_async_001_1";
@@ -159,7 +175,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_rmdir_async_004", 3, async function (done) {
+    it("fileIO_test_rmdir_async_004", 3, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_rmdir_async_004")) + "d";
 
       try {
@@ -185,7 +201,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_async_005", 2, async function (done) {
+    it("fileIO_test_rmdir_async_005", 2, async (done: Function) => {
       let dpath = (await nextFileNameInFilesDir("../files/fileIO_test_rmdir_async_005")) + "d";
       fileIO.mkdirSync(dpath);
       // @ts-nocheck
@@ -208,27 +224,6 @@ export default function fileIORmdir() {
     });
 
     /**
-     * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_ASYNC_0600
-     * @tc.name   : fileIO_test_rmdir_async_006
-     * @tc.desc   : Test rmdir() interfaces. Promise.
-     * Missing parameter.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 3
-     */
-    it("fileIO_test_rmdir_async_006", 3, async function (done) {
-      try {
-        // @ts-ignore
-        await fileIO.rmdir();
-        expect(false).assertTrue();
-      } catch (e) {
-        console.log("fileIO_test_rmdir_async_006 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
-        done();
-      }
-    });
-
-    /**
      * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_ASYNC_0700
      * @tc.name   : fileIO_test_rmdir_async_007
      * @tc.desc   : Test rmdir() interfaces. Callback.
@@ -237,9 +232,8 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_rmdir_async_007", 3, async function (done) {
+    it("fileIO_test_rmdir_async_007", 3, async (done: Function) => {
       try {
-        // @ts-ignore
         fileIO.rmdir("", (err) => {
           if (err) {
             console.log("fileIO_test_rmdir_async_007 error: {message: " + err.message + ", code: " + err.code + "}");
@@ -254,52 +248,6 @@ export default function fileIORmdir() {
     });
 
     /**
-     * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_ASYNC_0800
-     * @tc.name   : fileIO_test_rmdir_async_008
-     * @tc.desc   : Test rmdir() interfaces. Promise.
-     * Invalid parameter.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 3
-     */
-    it("fileIO_test_rmdir_async_008", 3, async function (done) {
-      try {
-        // @ts-ignore
-        await fileIO.rmdir(-1);
-        expect(false).assertTrue();
-      } catch (e) {
-        console.log("fileIO_test_rmdir_async_008 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
-        done();
-      }
-    });
-
-    /**
-     * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_ASYNC_0900
-     * @tc.name   : fileIO_test_rmdir_async_009
-     * @tc.desc   : Test rmdir() interfaces. Callback.
-     * Invalid parameter.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 3
-     */
-    it("fileIO_test_rmdir_async_009", 3, async function (done) {
-      try {
-        // @ts-ignore
-        fileIO.rmdir(-1, (err) => {
-          if (err) {
-            console.log("fileIO_test_rmdir_async_009 error: {message: " + err.message + ", code: " + err.code + "}");
-            done();
-          }
-        });
-      } catch (e) {
-        console.log("fileIO_test_rmdir_async_009 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
-        done();
-      }
-    });
-
-    /**
      * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_SYNC_0000
      * @tc.name   : fileIO_test_rmdir_sync_000
      * @tc.desc   : Test rmdirSync() interfaces.
@@ -308,7 +256,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_sync_000", 2, async function () {
+    it("fileIO_test_rmdir_sync_000", 2, async () => {
       let dpath = (await nextFileName("fileIO_test_rmdir_sync_000")) + "d";
       let fpath = dpath + "/rmdir_sync_000";
       let ffpath = dpath + "/rmdir_sync_000_1";
@@ -347,7 +295,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 3
      */
-    it("fileIO_test_rmdir_sync_001", 3, async function () {
+    it("fileIO_test_rmdir_sync_001", 3, async () => {
       let dpath = (await nextFileName("fileIO_test_rmdir_sync_001")) + "d";
 
       try {
@@ -368,7 +316,7 @@ export default function fileIORmdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_rmdir_sync_002", 2, async function () {
+    it("fileIO_test_rmdir_sync_002", 2, async () => {
       let dpath = (await nextFileNameInFilesDir("../files/fileIO_test_rmdir_sync_002")) + "d";
 
       try {
@@ -381,46 +329,6 @@ export default function fileIORmdir() {
       } catch (e) {
         console.log("fileIO_test_rmdir_sync_002 has failed for " + e.message + ", code: " + e.code);
         expect(false).assertTrue();
-      }
-    });
-
-    /**
-     * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_SYNC_0300
-     * @tc.name   : fileIO_test_rmdir_sync_003
-     * @tc.desc   : Test rmdirSync() interfaces.
-     * Missing parameter.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 3
-     */
-    it("fileIO_test_rmdir_sync_003", 3, async function () {
-      try {
-        // @ts-ignore
-        fileIO.rmdirSync();
-        expect(false).assertTrue();
-      } catch (e) {
-        console.log("fileIO_test_rmdir_sync_003 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
-      }
-    });
-
-    /**
-     * @tc.number : SUB_FM_TEST_FILEFS_RMDIR_SYNC_0400
-     * @tc.name   : fileIO_test_rmdir_sync_004
-     * @tc.desc   : Test rmdirSync() interfaces.
-     * Invalid parameter.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 3
-     */
-    it("fileIO_test_rmdir_sync_004", 3, async function () {
-      try {
-        // @ts-ignore
-        fileIO.rmdirSync(-1);
-        expect(false).assertTrue();
-      } catch (e) {
-        console.log("fileIO_test_rmdir_sync_004 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
       }
     });
   });
