@@ -13,15 +13,22 @@
  * limitations under the License.
  */
 
-import { describe, it, expect} from '@ohos/hypium';
+import { describe, it, expect, afterAll} from '@ohos/hypium';
 import zlib from '@ohos.zlib';
 import { BusinessError } from '@ohos.base';
 import fs from '@ohos.file.fs';
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ZlibTest() {
   describe('zipTest', () => {
+    afterAll(async () => {
+      await wait(3000);
+    })
       let context: common.Context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       let dir: string = context.filesDir;
       let content: string = '测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本';
