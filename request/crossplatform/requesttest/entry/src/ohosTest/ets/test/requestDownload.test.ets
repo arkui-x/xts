@@ -21,6 +21,10 @@ const removeFile = (filePath: string): void => {
   if (fileIo.accessSync(filePath)) fileIo.unlinkSync(filePath);
 };
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function requestCrossplatformDownloadJSUnit() {
   describe("requestCrossplatformDownloadTest", () => {
     console.info("====>################################request download Test start");
@@ -28,7 +32,8 @@ export default function requestCrossplatformDownloadJSUnit() {
     /**
      * beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.
      */
-    beforeAll(() => {
+    beforeAll(async () => {
+      await sleep(2000);
       console.info("====>beforeAll: Prerequisites are executed.");
     });
 
@@ -42,7 +47,8 @@ export default function requestCrossplatformDownloadJSUnit() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(500);
       console.info("====>afterEach: Test case-level clearance conditions is executed.");
     });
 
