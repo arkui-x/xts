@@ -14,19 +14,25 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import hilog from "@ohos.hilog";
+
 function wait(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default function HilogJsTest() {
-  describe("HilogJsTest", async() => {
+  describe("HilogJsTest", async () => {
     beforeAll(() => {
       console.info("beforeAll called");
     });
-    afterAll(async() => {
-      console.info("afterAll called");
-      await wait(3000);
+    beforeEach(async () => {
+      console.info("beforeEach called");
+      await wait(500);
     });
+    afterAll(async () => {
+      console.info("afterAll called");
+      await wait(2000);
+    });
+    
     /**
      * @tc.number: TEST_HILOG_DEBUG_001
      * @tc.name  : testHilogDebug001

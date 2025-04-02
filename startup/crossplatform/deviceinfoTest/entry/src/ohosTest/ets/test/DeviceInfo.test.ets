@@ -781,10 +781,26 @@ export default function DeviceInfoTest() {
             console.info('testGetBuildRootHash01 ：end');
         })
 
+        /**
+         * @tc.number    DEVICE_INFO_TEST_028
+         * @tc.name     deviceInfoTest028
+         * @tc.desc      Get the internal software sub-modelalias represented by a string and the return value is not null.
+         * @tc.size      : MediumTest
+         * @tc.type      : Constant
+         * @tc.level     : Level 0
+         */
+        it('deviceInfoTest028', 0, () => {
+            console.info('testGetProductModelAlias01 start');
+            let ret = false;
+            let productModelAliasInfo = deviceinfo.productModelAlias;
+            console.info('the value of the deviceinfo productModelAlias is :' + productModelAliasInfo);
 
-
-
-
-
+            expect(productModelAliasInfo).assertInstanceOf('String');
+            if (productModelAliasInfo != "" && productModelAliasInfo != null && productModelAliasInfo != undefined) {
+                ret = true;
+            }
+            expect(ret).assertTrue();
+            console.info('testGetProductModelAlias01 : end');
+        })
     })
 }
