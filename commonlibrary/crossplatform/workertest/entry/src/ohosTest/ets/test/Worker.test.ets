@@ -13,30 +13,23 @@
  * limitations under the License.
  */
 
-import worker from "@ohos.worker";
-import {
-  describe,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  afterAll,
-  it,
-  expect,
-} from "@ohos/hypium";
+import worker from '@ohos.worker';
+import { afterAll, describe, expect, it, afterEach } from '@ohos/hypium';
+import { data } from './WorkFun';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function WorkerTest() {
-  describe("WorkerTest", function () {
-    afterAll(function () {
+  describe("WorkerTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
+    afterAll(() => {
       console.info("total case over");
     });
 
-    function promiseCase() {
-      let p = new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          resolve(0);
-        }, 100);
-      }).then(undefined, (error) => {});
-      return p;
-    }
 
     /**
      * @tc.number: TEST_WORKEREVENTLISTENER_001
@@ -46,30 +39,34 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_WorkerEventListener_WorkerEventListener_001",0,async function (done) {
-        let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker_036.js");
+    it("test_WorkerEventListener_WorkerEventListener_001", 0, async (done: Function) => {
+      let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker_036.js");
 
-        let times = 0;
-        let isTerminate = false;
+      let times = 0;
+      let isTerminate = false;
 
-        ss.onexit = function () {
-          isTerminate = true;
-        };
-        ss.addEventListener("zhangsan", () => {
-          times++;
-        });
+      ss.onexit = () => {
+        isTerminate = true;
+      };
+      ss.addEventListener("zhangsan", () => {
+        times++;
+      });
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
-        ss.terminate();
-        while (!isTerminate) {
-          await promiseCase();
-        }
-
-        expect(times).assertEqual(2);
-        done();
+      ss.terminate();
+      while (!isTerminate) {
+        await promiseCase();
       }
+
+      expect(times).assertEqual(2);
+      done();
+    }
     );
 
     /**
@@ -80,20 +77,22 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_WorkerEventTarget_DispatchEvent_001", 0, async function (done) {
+    it("test_WorkerEventTarget_DispatchEvent_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker_033.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.on("zhangsan", () => {
         zhangSanTimes++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(1);
 
       ss.removeEventListener("zhangsan");
@@ -114,37 +113,43 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_WorkerEventTarget_RemoveEventListener_001",0,async function (done) {
-        let ss = new worker.ThreadWorker(
-          "entry_test/ets/workers/newworker_033.js"
-        );
+    it("test_WorkerEventTarget_RemoveEventListener_001", 0, async (done: Function) => {
+      let ss = new worker.ThreadWorker(
+        "entry_test/ets/workers/newworker_033.js"
+      );
 
-        let zhangSanTimes = 0;
-        let isTerminate = false;
+      let zhangSanTimes = 0;
+      let isTerminate = false;
 
-        ss.onexit = function () {
-          isTerminate = true;
-        };
-        ss.addEventListener("zhangsan", () => {
-          zhangSanTimes++;
-        });
+      ss.onexit = () => {
+        isTerminate = true;
+      };
+      ss.addEventListener("zhangsan", () => {
+        zhangSanTimes++;
+      });
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        expect(zhangSanTimes).assertEqual(1);
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      expect(zhangSanTimes).assertEqual(1);
 
-        ss.removeEventListener("zhangsan");
+      ss.removeEventListener("zhangsan");
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
-        ss.terminate();
-        while (!isTerminate) {
-          await promiseCase();
-        }
-
-        expect(zhangSanTimes).assertEqual(1);
-        done();
+      ss.terminate();
+      while (!isTerminate) {
+        await promiseCase();
       }
+
+      expect(zhangSanTimes).assertEqual(1);
+      done();
+    }
     );
 
     /**
@@ -156,52 +161,66 @@ export default function WorkerTest() {
      * @tc.level : Level 2
      */
     it(
-      "test_WorkerEventTarget_RemoveAllListener_001",
-      0,
-      async function (done) {
-        let ss = new worker.ThreadWorker(
-          "entry_test/ets/workers/newworker_033.js"
-        );
+      "test_WorkerEventTarget_RemoveAllListener_001", 0, async (done: Function) => {
+      let ss = new worker.ThreadWorker(
+        "entry_test/ets/workers/newworker_033.js"
+      );
 
-        let zhangSanTimes = 0;
-        let isTerminate = false;
+      let zhangSanTimes = 0;
+      let isTerminate = false;
 
-        ss.onexit = function () {
-          isTerminate = true;
-        };
-        ss.addEventListener("zhangsan", () => {
-          zhangSanTimes++;
-        });
+      ss.onexit = () => {
+        isTerminate = true;
+      };
+      ss.addEventListener("zhangsan", () => {
+        zhangSanTimes++;
+      });
 
-        let liSiTimes = 0;
-        ss.addEventListener("lisi", () => {
-          liSiTimes++;
-        });
+      let liSiTimes = 0;
+      ss.addEventListener("lisi", () => {
+        liSiTimes++;
+      });
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        expect(zhangSanTimes).assertEqual(2);
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      expect(zhangSanTimes).assertEqual(2);
 
-        ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
-        ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
-        expect(liSiTimes).assertEqual(2);
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
+      expect(liSiTimes).assertEqual(2);
 
-        ss.removeAllListener();
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        expect(zhangSanTimes).assertEqual(2);
+      ss.removeAllListener();
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      expect(zhangSanTimes).assertEqual(2);
 
-        ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
-        ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
 
-        ss.terminate();
-        while (!isTerminate) {
-          await promiseCase();
-        }
-
-        expect(liSiTimes).assertEqual(2);
-        done();
+      ss.terminate();
+      while (!isTerminate) {
+        await promiseCase();
       }
+
+      expect(liSiTimes).assertEqual(2);
+      done();
+    }
     );
 
     /**
@@ -212,19 +231,21 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_GlobalScope_OnError_001", 0, async function (done) {
+    it("test_GlobalScope_OnError_001", 0, async (done: Function) => {
       const ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_035.js"
       );
       let res = undefined;
       let flag = false;
 
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data;
         flag = true;
       };
 
-      ss.postMessage({ type: "new" });
+      ss.postMessage({
+        type: "new"
+      });
       while (!flag) {
         await promiseCase();
       }
@@ -241,19 +262,21 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorkerGlobalScope_OnMessage_001", 0, async function (done) {
+    it("test_ThreadWorkerGlobalScope_OnMessage_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_010.js"
       );
       let flag = false;
       let res = undefined;
 
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         flag = true;
         res = e.data;
       };
 
-      ss.postMessage({ type: "new", value: 12 });
+      ss.postMessage({
+        type: "new", value: 12
+      });
       while (!flag) {
         await promiseCase();
       }
@@ -275,18 +298,20 @@ export default function WorkerTest() {
     it(
       "test_ThreadWorkerGlobalScope_OnMessageError_001",
       0,
-      async function (done) {
+      async (done: Function) => {
         let ss = new worker.ThreadWorker(
           "entry_test/ets/workers/newworker_028.js"
         );
         let res = undefined;
         let flag = false;
-        ss.onmessage = function (d) {
+        ss.onmessage = (d) => {
           res = d.data;
           flag = true;
         };
 
-        ss.postMessage({ type: "new" });
+        ss.postMessage({
+          type: "new"
+        });
         while (!flag) {
           await promiseCase();
         }
@@ -305,14 +330,14 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorkerGlobalScope_Close_001", 0, async function (done) {
+    it("test_ThreadWorkerGlobalScope_Close_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_030.js"
       );
       let res = 0;
       let flag = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         flag = true;
         res++;
       };
@@ -336,17 +361,19 @@ export default function WorkerTest() {
     it(
       "test_ThreadWorkerGlobalScope_PostMessage_001",
       0,
-      async function (done) {
+      async (done: Function) => {
         let ss = new worker.ThreadWorker(
           "entry_test/ets/workers/newworker_0151.js"
         );
         let res = undefined;
         let flag = false;
-        ss.onmessage = function (e) {
+        ss.onmessage = (e) => {
           flag = true;
           res = e.data;
         };
-        ss.postMessage({ type: "new", value: 11 });
+        ss.postMessage({
+          type: "new", value: 11
+        });
         while (!flag) {
           await promiseCase();
         }
@@ -367,7 +394,7 @@ export default function WorkerTest() {
     it(
       "test_ThreadWorkerGlobalScope_PostMessage_002",
       0,
-      async function (done) {
+      async (done: Function) => {
         let ss = new worker.ThreadWorker(
           "entry_test/ets/workers/newworker_032.js"
         );
@@ -375,14 +402,16 @@ export default function WorkerTest() {
         let flag = false;
         let res = undefined;
 
-        ss.onexit = function () {
+        ss.onexit = () => {
           isTerminate = true;
         };
-        ss.onmessage = function (e) {
+        ss.onmessage = (e) => {
           flag = true;
           res = e.data;
         };
-        ss.postMessage({ type: "new" });
+        ss.postMessage({
+          type: "new"
+        });
 
         while (!flag) {
           await promiseCase();
@@ -405,11 +434,11 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Constructor_001", 0, async function (done) {
+    it("test_ThreadWorker_Constructor_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
@@ -430,14 +459,14 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Constructor_002", 0, async function (done) {
+    it("test_ThreadWorker_Constructor_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js", {
         name: "1st worker",
         shared: false,
       });
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
@@ -458,7 +487,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Constructor_003", 0, async function (done) {
+    it("test_ThreadWorker_Constructor_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js", {
         type: "classic",
         name: "2st worker",
@@ -466,7 +495,7 @@ export default function WorkerTest() {
       });
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
@@ -487,7 +516,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Constructor_004", 0, async function (done) {
+    it("test_ThreadWorker_Constructor_004", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js", {
         type: "classic",
         name: "3st worker",
@@ -495,7 +524,7 @@ export default function WorkerTest() {
       });
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
@@ -516,12 +545,12 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Constructor_005", 0, async function (done) {
+    it("test_ThreadWorker_Constructor_005", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "@bundle:com.example.workertest/entry_test/ets/workers/newworker.js"
       );
       let isTerminate = false;
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       expect(ss != null).assertTrue();
@@ -540,10 +569,10 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_OnExit_001", 0, async function (done) {
+    it("test_ThreadWorker_OnExit_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("/entry_test/ets/workers/newworker.js");
       let isTerminate = false;
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.terminate();
@@ -562,14 +591,14 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_OnError_001", 0, async function (done) {
+    it("test_ThreadWorker_OnError_001", 0, async (done: Function) => {
       const ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_007.js"
       );
-      let res = undefined;
+      let res: ESObject = undefined;
       let flag = false;
       let isterminate = false;
-      ss.onerror = function (e) {
+      ss.onerror = (e) => {
         res = e.message;
         console.info("worker:: filename " + e.filename);
         console.info("worker:: lineno " + e.lineno);
@@ -577,7 +606,7 @@ export default function WorkerTest() {
         console.info("worker:: error " + e.error);
         flag = true;
       };
-      ss.onexit = function () {
+      ss.onexit = () => {
         isterminate = true;
       };
 
@@ -598,7 +627,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_OnMessage_001", 0, async function (done) {
+    it("test_ThreadWorker_OnMessage_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_002.js"
       );
@@ -606,11 +635,11 @@ export default function WorkerTest() {
       let flag = false;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data;
         flag = true;
       };
@@ -636,18 +665,18 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_OnMessageError_001", 0, async function (done) {
+    it("test_ThreadWorker_OnMessageError_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_008.js"
       );
       let res = 0;
       let flag = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         flag = true;
       };
 
-      ss.onmessageerror = function (e) {
+      ss.onmessageerror = (e) => {
         res++;
       };
 
@@ -667,20 +696,19 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_OnMessageError_002", 0, async function (done) {
+    it("test_ThreadWorker_OnMessageError_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_021.js"
       );
       let flag = false;
       let isTerminate = false;
-      ss.onmessageerror = function (d) {
+      ss.onmessageerror = (d) => {
         flag = true;
       };
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       try {
-        const data = Symbol();
         ss.postMessage(data);
       } catch (error) {
         console.info("worker:: recv error message: " + error.message);
@@ -704,7 +732,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_PostMessage_001", 0, async function (done) {
+    it("test_ThreadWorker_PostMessage_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_002.js"
       );
@@ -713,10 +741,10 @@ export default function WorkerTest() {
       let flag = false;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data;
         flag = true;
       };
@@ -743,7 +771,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_PostMessage_002", 0, async function (done) {
+    it("test_ThreadWorker_PostMessage_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_003.js"
       );
@@ -752,10 +780,10 @@ export default function WorkerTest() {
       let flag = false;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data;
         flag = true;
       };
@@ -782,7 +810,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_PostMessage_003", 0, async function (done) {
+    it("test_ThreadWorker_PostMessage_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_004.js"
       );
@@ -791,15 +819,17 @@ export default function WorkerTest() {
       let flag = false;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data.message;
         flag = true;
       };
 
-      ss.postMessage({ message: "hello world" });
+      ss.postMessage({
+        message: "hello world"
+      });
       while (!flag) {
         await promiseCase();
       }
@@ -821,20 +851,22 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_PostMessage_004", 0, async function (done) {
+    it("test_ThreadWorker_PostMessage_004", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_005.js",
-        { name: "zhangsan" }
+        {
+          name: "zhangsan"
+        }
       );
 
       let res = undefined;
       let flag = false;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res = e.data;
         console.info("worker:: type " + e.type);
         console.info("worker:: timeStamp " + e.timeStamp);
@@ -863,20 +895,20 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_PostMessage_005", 0, async function (done) {
+    it("test_ThreadWorker_PostMessage_005", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker(
         "entry_test/ets/workers/newworker_006.js"
       );
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
 
       const buffer = new ArrayBuffer(8);
       expect(buffer.byteLength).assertEqual(8);
       ss.postMessage(buffer, [buffer]);
-      let length = undefined;
+      let length: ESObject = undefined;
       let exception = undefined;
       try {
         length = buffer.byteLength;
@@ -908,19 +940,21 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Once_001", 0, async function (done) {
+    it("test_ThreadWorker_Once_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.once("zhangsan", () => {
         times++;
       });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -939,13 +973,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Once_002", 0, async function (done) {
+    it("test_ThreadWorker_Once_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.once("zhangsan", () => {
@@ -953,7 +987,9 @@ export default function WorkerTest() {
       });
 
       for (let i = 0; i < 10; i++) {
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
       }
 
       ss.terminate();
@@ -973,13 +1009,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Once_003", 0, async function (done) {
+    it("test_ThreadWorker_Once_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.once("zhangsan", () => {
@@ -990,8 +1026,12 @@ export default function WorkerTest() {
         times++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1010,7 +1050,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Once_004", 0, async function (done) {
+    it("test_ThreadWorker_Once_004", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let isTerminate = false;
@@ -1020,8 +1060,10 @@ export default function WorkerTest() {
         ss.once("zhangsan", () => {
           times++;
         });
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-        ss.onexit = function () {
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
+        ss.onexit = () => {
           isTerminate = true;
         };
         ss.terminate();
@@ -1050,12 +1092,12 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Terminate_001", 0, async function (done) {
+    it("test_ThreadWorker_Terminate_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
       let res = 0;
       let flag = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         flag = true;
         res++;
       };
@@ -1077,12 +1119,12 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Terminate_002", 0, async function (done) {
+    it("test_ThreadWorker_Terminate_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
       let res = 0;
       let flag = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         flag = true;
         res++;
       };
@@ -1106,16 +1148,16 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_Terminate_003", 0, async function (done) {
+    it("test_ThreadWorker_Terminate_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
       let res = 0;
       let flag = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         flag = true;
         res++;
       };
-      ss.onmessage = function (e) {
+      ss.onmessage = (e) => {
         res++;
       };
 
@@ -1145,21 +1187,25 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_AddEventListener_001", 0, async function (done) {
+    it("test_ThreadWorker_AddEventListener_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
         times++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1178,13 +1224,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_AddEventListener_002", 0, async function (done) {
+    it("test_ThreadWorker_AddEventListener_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
@@ -1194,8 +1240,12 @@ export default function WorkerTest() {
         times++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1214,13 +1264,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_AddEventListener_003", 0, async function (done) {
+    it("test_ThreadWorker_AddEventListener_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
@@ -1228,7 +1278,9 @@ export default function WorkerTest() {
       });
 
       for (let i = 0; i < 10; i++) {
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
       }
 
       ss.terminate();
@@ -1248,7 +1300,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_AddEventListener_004", 0, async function (done) {
+    it("test_ThreadWorker_AddEventListener_004", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
@@ -1259,9 +1311,11 @@ export default function WorkerTest() {
           times++;
         });
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
 
-        ss.onexit = function () {
+        ss.onexit = () => {
           isTerminate = true;
         };
         ss.terminate();
@@ -1290,7 +1344,7 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_AddEventListener_005", 0, async function (done) {
+    it("test_ThreadWorker_AddEventListener_005", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let times = 0;
@@ -1301,16 +1355,20 @@ export default function WorkerTest() {
           times++;
         });
 
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
 
-        ss.onexit = function () {
+        ss.onexit = () => {
           isTerminate = true;
         };
         ss.terminate();
         while (!isTerminate) {
           await promiseCase();
         }
-        ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+        ss.dispatchEvent({
+          type: "zhangsan", timeStamp: 0
+        });
         expect(times).assertEqual(1);
       } catch (error) {
         expect(error.name).assertEqual("BusinessError");
@@ -1329,20 +1387,22 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_DispatchEvent_001", 0, async function (done) {
+    it("test_ThreadWorker_DispatchEvent_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.on("zhangsan", () => {
         zhangSanTimes++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(1);
 
       ss.removeEventListener("zhangsan");
@@ -1363,26 +1423,32 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_RemoveEventListener_001", 0, async function (done) {
+    it("test_ThreadWorker_RemoveEventListener_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
         zhangSanTimes++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(1);
 
       ss.removeEventListener("zhangsan");
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1401,28 +1467,34 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_RemoveEventListener_002", 0, async function (done) {
+    it("test_ThreadWorker_RemoveEventListener_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
         zhangSanTimes++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(2);
 
       for (let i = 0; i < 3; i++) {
         ss.removeEventListener("zhangsan");
       }
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1441,13 +1513,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_RemoveEventListener_003", 0, async function (done) {
+    it("test_ThreadWorker_RemoveEventListener_003", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
@@ -1476,13 +1548,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_RemoveAllListener_001", 0, async function (done) {
+    it("test_ThreadWorker_RemoveAllListener_001", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
@@ -1494,21 +1566,37 @@ export default function WorkerTest() {
         liSiTimes++;
       });
 
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(2);
 
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
       expect(liSiTimes).assertEqual(2);
 
       ss.removeAllListener();
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
-      ss.dispatchEvent({ type: "zhangsan", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "zhangsan", timeStamp: 0
+      });
       expect(zhangSanTimes).assertEqual(2);
 
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
-      ss.dispatchEvent({ type: "lisi", timeStamp: 0 });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
+      ss.dispatchEvent({
+        type: "lisi", timeStamp: 0
+      });
 
       ss.terminate();
       while (!isTerminate) {
@@ -1527,13 +1615,13 @@ export default function WorkerTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("test_ThreadWorker_RemoveAllListener_002", 0, async function (done) {
+    it("test_ThreadWorker_RemoveAllListener_002", 0, async (done: Function) => {
       let ss = new worker.ThreadWorker("entry_test/ets/workers/newworker.js");
 
       let zhangSanTimes = 0;
       let isTerminate = false;
 
-      ss.onexit = function () {
+      ss.onexit = () => {
         isTerminate = true;
       };
       ss.addEventListener("zhangsan", () => {
@@ -1554,4 +1642,14 @@ export default function WorkerTest() {
       }
     });
   });
+}
+
+function promiseCase() {
+  let p = new Promise<number>((resolve, reject) => {
+    setTimeout(() => {
+      resolve(0);
+    }, 100);
+  }).then(undefined, (error: Error) => {
+  });
+  return p;
 }
