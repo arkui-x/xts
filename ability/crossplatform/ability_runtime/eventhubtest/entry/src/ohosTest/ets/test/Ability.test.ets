@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeEach, it, expect } from '@ohos/hypium'
+import { describe, beforeEach, it, expect, afterEach } from '@ohos/hypium'
 import common from '@ohos.app.ability.common';
 
 export function getContext(): common.UIAbilityContext {
@@ -34,8 +34,17 @@ export function getAbilityStageContext(): common.AbilityStageContext   {
     return context;
 }
 
+
+async function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function actsEventHubTest() {
-    describe('actsEventHubTest', function () {
+    describe('actsEventHubTest', () => {
+        afterEach(async () => {
+            await sleep(300);
+        });
+
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
@@ -52,7 +61,7 @@ export default function actsEventHubTest() {
             count3++;
         }
 
-        beforeEach(function() {
+        beforeEach(() => {
             count1 = 0;
             count2 = 0;
             count3 = 0;
