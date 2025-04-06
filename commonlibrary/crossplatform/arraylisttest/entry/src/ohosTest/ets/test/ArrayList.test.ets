@@ -14,8 +14,17 @@
  */
 import ArrayList from "@ohos.util.ArrayList";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ArraylistTest() {
-  describe("ArraylistTest", function () {
+  describe("ArraylistTest", () => {
+
+    afterEach(async () => {
+      await sleep(1000);
+    });
 
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
@@ -25,9 +34,9 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
+    it("testConstructor001", 0, () => {
       try {
-        let arrayList = new ArrayList();
+        let arrayList: ArrayList<number> = new ArrayList();
         expect(arrayList != undefined).assertEqual(true);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
@@ -44,8 +53,8 @@ export default function ArraylistTest() {
      * @tc.type  : Field
      * @tc.level : Level 0
      * */
-    it("testLength001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testLength001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -63,8 +72,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd001", 0, () => {
+      let arrayList: ArrayList<string> = new ArrayList();
       arrayList.add("四");
       let res = arrayList.has("四");
       expect(res).assertEqual(true);
@@ -78,8 +87,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(8);
       let res = arrayList.has(8);
       expect(res).assertEqual(true);
@@ -94,9 +103,11 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd003", 0, function () {
-      let arrayList = new ArrayList();
-      let a = {name: "lala", age: "13岁"};
+    it("testAdd003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
+      let a: ESObject = {
+        name: "lala", age: "13岁"
+      };
       arrayList.add(a);
       let res = arrayList.has(a);
       expect(res).assertEqual(true);
@@ -111,8 +122,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd004", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd004", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       let a = [1, 2, 3, 4];
       arrayList.add(a);
       let res = arrayList.has(a);
@@ -128,8 +139,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd005", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd005", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       let a = true;
       arrayList.add(a);
       let res = arrayList.has(a);
@@ -145,8 +156,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd006", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd006", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       for (let i = 0; i < 100; i++) {
         arrayList.add(i);
       }
@@ -165,8 +176,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd007", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd007", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       let a = "*";
       arrayList.add(a);
       let res = arrayList.has(a);
@@ -181,8 +192,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd008", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd008", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       let a = "3.14";
       arrayList.add(a);
       let res = arrayList.has(a);
@@ -198,8 +209,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd009", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd009", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       let a = "";
       arrayList.add(a);
       let res = arrayList.has(a);
@@ -215,8 +226,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd010", 0, function () {
-      let arrayList = new ArrayList();
+    it("testAdd010", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.add.bind({}, "a")()
         expect(true).assertEqual(false);
@@ -235,15 +246,15 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testInsert001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
       arrayList.add("a");
       arrayList.insert(8, 2);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: Array<ESObject> = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["四", "三", 8, 1, "a"];
@@ -261,8 +272,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testInsert002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -273,7 +284,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: -1`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: -1`);
       }
     });
 
@@ -286,8 +298,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testInsert003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -298,7 +310,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 10`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 10`);
       }
     });
 
@@ -311,8 +324,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testInsert004", 0, function () {
-      let arrayList = new ArrayList();
+    it("testInsert004", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -323,7 +336,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 11`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 11`);
       }
     });
 
@@ -335,8 +349,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testHas001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -355,8 +369,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testHas002', 0, function () {
-      let arrayList = new ArrayList();
+    it('testHas002', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.has.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -375,8 +389,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testHas003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -395,8 +409,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOf001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testGetIndexOf001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(1);
       arrayList.add("三");
       arrayList.add(1);
@@ -415,8 +429,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOf002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testGetIndexOf002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(1);
       arrayList.add("三");
       arrayList.add(1);
@@ -435,15 +449,15 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByIndex001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByIndex001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
       arrayList.add("a");
       arrayList.removeByIndex(2);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["四", "三", "a"];
@@ -461,20 +475,21 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByIndex002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByIndex002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("a");
       arrayList.add("b");
       arrayList.add("c");
       arrayList.add("a");
       arrayList.add("b");
       try {
-        let res = arrayList.removeByIndex(5);
+        let res: ESObject = arrayList.removeByIndex(5);
         expect(true).assertEqual(false);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 5`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 5`);
       }
     });
 
@@ -487,8 +502,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testRemoveByIndex003', 0, function () {
-      let arrayList = new ArrayList();
+    it('testRemoveByIndex003', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.removeByIndex.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -507,8 +522,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemove001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -526,8 +541,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemove002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -540,26 +555,26 @@ export default function ArraylistTest() {
      * @tc.number: TEST_REMOVE_003
      * @tc.name  : testRemove003
      * @tc.desc  : Delete the specified element.
-     * For example: arrayList.forEach((item, index) => {if (item == 1) {arrayList.remove(item);}}).
+     * For example: arrayList.forEach((item:ESObject, index) => {if (item == 1) {arrayList.remove(item);}}).
      * @tc.size  : MediumTest
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemove003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(0);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(1);
       arrayList.add(3);
       arrayList.add(1);
-      arrayList.forEach((item, index) => {
+      arrayList.forEach((item: ESObject, index) => {
         if (item == 1) {
           arrayList.remove(item);
         }
       });
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [0, 2, 3];
@@ -576,8 +591,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testRemove004', 0, function () {
-      let arrayList = new ArrayList();
+    it('testRemove004', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.remove.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -597,8 +612,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLastIndexOf001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testGetLastIndexOf001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -618,8 +633,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByRange001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByRange001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -629,8 +644,8 @@ export default function ArraylistTest() {
       arrayList.add("c");
       arrayList.add(1);
       arrayList.removeByRange(1, 3);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["四", "a", 1, "b", "c", 1];
@@ -647,8 +662,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByRange002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByRange002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -663,7 +678,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 0. Received value is: 3`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 0. Received value is: 3`);
       }
     });
 
@@ -676,8 +692,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByRange003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByRange003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -689,7 +705,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
       }
     });
 
@@ -702,8 +719,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByRange004", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByRange004", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -728,8 +745,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveByRange005", 0, function () {
-      let arrayList = new ArrayList();
+    it("testRemoveByRange005", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("四");
       arrayList.add("三");
       arrayList.add(1);
@@ -744,7 +761,8 @@ export default function ArraylistTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "toIndex" is out of range. It must be >= 0 && <= 8. Received value is: 9`);
+        expect(err.message)
+          .assertEqual(`The value of "toIndex" is out of range. It must be >= 0 && <= 8. Received value is: 9`);
       }
     });
 
@@ -752,23 +770,23 @@ export default function ArraylistTest() {
      * @tc.number: TEST_REPLACE_ALL_ELEMENTS_001
      * @tc.name  : testReplaceAllElements001
      * @tc.desc  : Perform some operation on the elements in the ArrayList instance and return the ArrayList instance
-     * after the operation. For example: arrayList.replaceAllElements((item, index) => {return (item = 2 * item);}).
+     * after the operation. For example: arrayList.replaceAllElements((item:ESObject, index) => {return (item = 2 * item);}).
      * @tc.size  : MediumTest
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testReplaceAllElements001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testReplaceAllElements001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      arrayList.replaceAllElements((item:number, index:number) => {
+      arrayList.replaceAllElements((item: number, index: number) => {
         return (item = 2 * item);
       });
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [8, 6, 2, 4, 28];
@@ -781,20 +799,20 @@ export default function ArraylistTest() {
      * @tc.number: TEST_FOR_EACH_001
      * @tc.name  : testForEach001
      * @tc.desc  : Traversing elements in an ArrayList instance.
-     * For example: arrayList.forEach((item, index) => {arr.push(item);}).
+     * For example: arrayList.forEach((item:ESObject, index) => {arr.push(item);}).
      * @tc.size  : MediumTest
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testForEach001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [4, 3, 1, 2, 14];
@@ -812,8 +830,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testForEach002', 0, function () {
-      let arrayList = new ArrayList();
+    it('testForEach002', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.forEach.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -833,16 +851,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSort001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      arrayList.sort((a:any, b:any) => a - b);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      arrayList.sort((a: ESObject, b: ESObject) => a - b);
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [1, 2, 3, 4, 14];
@@ -860,16 +878,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSort002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("刘");
       arrayList.add("张三");
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add("李四");
-      arrayList.sort((a:any, b:any) => a - b);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      arrayList.sort((a: ESObject, b: ESObject) => a - b);
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["刘", "张三", 1, 2, "李四"];
@@ -887,16 +905,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSort003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSort003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("c");
       arrayList.add("a");
       arrayList.add("b");
       arrayList.add("e");
       arrayList.add("d");
-      arrayList.sort((a:any, b:any) => a - b);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      arrayList.sort((a: ESObject, b: ESObject) => a - b);
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = ["c", "a", "b", "e", "d"];
@@ -914,16 +932,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSubArrayList001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSubArrayList001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      let subArr = arrayList.subArrayList(2, 4);
-      let arr = [];
-      subArr.forEach((item, index) => {
+      let subArr: ArrayList<ESObject> = arrayList.subArrayList(2, 4);
+      let arr: ESObject = [];
+      subArr.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [1, 2];
@@ -941,20 +959,21 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSubArrayList002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSubArrayList002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
       try {
-        let subArr = arrayList.subArrayList(4, 2);
+        let subArr: ArrayList<ESObject> = arrayList.subArrayList(4, 2);
         expect(true).assertEqual(false);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 1. Received value is: 4`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 1. Received value is: 4`);
       }
     });
 
@@ -967,16 +986,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSubArrayList003", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSubArrayList003", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      let subArr = arrayList.subArrayList(0, 5);
-      let arr = [];
-      arrayList.forEach((item, index) => {
+      let subArr: ArrayList<ESObject> = arrayList.subArrayList(0, 5);
+      let arr: ESObject = [];
+      arrayList.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [4, 3, 1, 2, 14];
@@ -994,20 +1013,21 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSubArrayList004", 0, function () {
-      let arrayList = new ArrayList();
+    it("testSubArrayList004", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
       try {
-        let subArr = arrayList.subArrayList(6, 9);
+        let subArr: ArrayList<ESObject> = arrayList.subArrayList(6, 9);
         expect(true).assertEqual(false);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
+        expect(err.message)
+          .assertEqual(`The value of "fromIndex" is out of range. It must be >= 0 && <= 4. Received value is: 6`);
       }
     });
 
@@ -1019,8 +1039,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testClear001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1039,8 +1059,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testClear002', 0, function () {
-      let arrayList = new ArrayList();
+    it('testClear002', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.clear.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -1059,16 +1079,16 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClone001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testClone001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      let res = arrayList.clone();
-      let arr = [];
-      res.forEach((item, index) => {
+      let res: ArrayList<ESObject> = arrayList.clone();
+      let arr: ESObject = [];
+      res.forEach((item: ESObject, index) => {
         arr.push(item);
       });
       let a = [4, 3, 1, 2, 14];
@@ -1085,8 +1105,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCapacity001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testGetCapacity001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1105,8 +1125,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCapacity002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testGetCapacity002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1131,14 +1151,14 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConvertToArray001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testConvertToArray001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add(14);
-      let arr = arrayList.convertToArray();
+      let arr: Array<ESObject> = arrayList.convertToArray();
       let a = [4, 3, 1, 2, 14];
       for (let i = 0; i < a.length; i++) {
         expect(arr[i]).assertEqual(a[i]);
@@ -1153,8 +1173,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testIsEmpty001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1173,8 +1193,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testIsEmpty002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1192,8 +1212,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testIsEmpty003', 0, function () {
-      let arrayList = new ArrayList();
+    it('testIsEmpty003', 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       try {
         arrayList.isEmpty.bind({}, "a")();
         expect(true).assertEqual(false);
@@ -1213,8 +1233,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIncreaseCapacityTo001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testIncreaseCapacityTo001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1234,8 +1254,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIncreaseCapacityTo002", 0, function () {
-      let arrayList = new ArrayList();
+    it("testIncreaseCapacityTo002", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1255,8 +1275,8 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTrimToCurrentLength001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testTrimToCurrentLength001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add(4);
       arrayList.add(3);
       arrayList.add(1);
@@ -1275,15 +1295,15 @@ export default function ArraylistTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let arrayList = new ArrayList();
+    it("testIterator001", 0, () => {
+      let arrayList: ArrayList<ESObject> = new ArrayList();
       arrayList.add("刘");
       arrayList.add("张三");
       arrayList.add(1);
       arrayList.add(2);
       arrayList.add("李四");
-      let arr = [];
-      let itr = arrayList[Symbol.iterator]();
+      let arr: ESObject = [];
+      let itr: ESObject = arrayList[Symbol.iterator]();
       let tmp = undefined;
       do {
         tmp = itr.next().value;
