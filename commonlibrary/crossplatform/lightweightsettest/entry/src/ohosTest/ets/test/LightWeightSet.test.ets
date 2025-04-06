@@ -14,8 +14,17 @@
  */
 import LightWeightSet from "@ohos.util.LightWeightSet";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function LightWeightSetTest() {
-  describe("LightWeightSetTest", function () {
+  describe("LightWeightSetTest", () => {
+
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
@@ -25,9 +34,9 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
+    it("testConstructor001", 0, () => {
       try {
-        let lightWeightSet = new LightWeightSet();
+        let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
         expect(lightWeightSet != undefined).assertEqual(true);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
@@ -44,8 +53,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it("testLength001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testLength001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -63,8 +72,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       let res = lightWeightSet.has(1);
       expect(res).assertEqual(true);
@@ -78,8 +87,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("a");
       let res = lightWeightSet.has("a");
       expect(res).assertEqual(true);
@@ -94,8 +103,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd003", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd003", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       let a = [1, 2, 3, 4];
       lightWeightSet.add(a);
       let res = lightWeightSet.has(a);
@@ -111,9 +120,11 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd004", 0, function () {
-      let lightWeightSet = new LightWeightSet();
-      let c = {name: "lili", age: "13"};
+    it("testAdd004", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
+      let c: ESObject = {
+        name: "lili", age: "13"
+      };
       lightWeightSet.add(c);
       let res = lightWeightSet.has(c);
       expect(res).assertEqual(true);
@@ -127,8 +138,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd005", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd005", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       let c = false;
       lightWeightSet.add(c);
       let res = lightWeightSet.has(c);
@@ -143,8 +154,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd006", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd006", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(null);
       let res = lightWeightSet.has(null);
       expect(res).assertEqual(true);
@@ -158,8 +169,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd007", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd007", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1.23);
       let res1 = lightWeightSet.has(1.23);
       expect(res1).assertEqual(true);
@@ -173,12 +184,12 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd008", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd008", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       for (let i = 0; i < 10000; i++) {
         lightWeightSet.add(i);
       }
-      let res = lightWeightSet.getValueAt(9999);
+      let res: ESObject = lightWeightSet.getValueAt(9999);
       let res1 = lightWeightSet.length;
       expect(res).assertEqual(9999);
       expect(res1).assertEqual(10000);
@@ -192,8 +203,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd009", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd009", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("");
       let res = lightWeightSet.has("");
       expect(res).assertEqual(true);
@@ -207,8 +218,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd010", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAdd010", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("$");
       let res = lightWeightSet.has("$");
       expect(res).assertEqual(true);
@@ -222,14 +233,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddAll001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testAddAll001", 0, () => {
+      let lightWeightSet: LightWeightSet<number> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let lightWeightSet1 = new LightWeightSet();
+      let lightWeightSet1: LightWeightSet<number> = new LightWeightSet();
       lightWeightSet1.add(6);
       lightWeightSet1.add(7);
       let res1 = lightWeightSet.addAll(lightWeightSet1);
@@ -253,14 +264,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasAll001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testHasAll001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("a");
       lightWeightSet.add("b");
       lightWeightSet.add("c");
       lightWeightSet.add("d");
       lightWeightSet.add("e");
-      let lightWeightSet1 = new LightWeightSet();
+      let lightWeightSet1: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet1.add("a");
       lightWeightSet1.add("d");
       let res = lightWeightSet.hasAll(lightWeightSet1);
@@ -275,13 +286,13 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasAll002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testHasAll002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("a");
       lightWeightSet.add("b");
       lightWeightSet.add("c");
       lightWeightSet.add("e");
-      let lightWeightSet1 = new LightWeightSet();
+      let lightWeightSet1: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet1.add("a");
       lightWeightSet1.add("d");
       let res = lightWeightSet.hasAll(lightWeightSet1);
@@ -296,14 +307,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasAll003", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testHasAll003", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let lightWeightSet1 = new LightWeightSet();
+      let lightWeightSet1: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet1.add("a1");
       lightWeightSet1.add("d1");
       let res = lightWeightSet.hasAll(lightWeightSet1);
@@ -318,14 +329,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHasAll004", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testHasAll004", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let lightWeightSet1 = new LightWeightSet();
+      let lightWeightSet1: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet1.add(1);
       lightWeightSet1.add("d");
       let res = lightWeightSet.hasAll(lightWeightSet1);
@@ -340,8 +351,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testHas001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add("a");
       lightWeightSet.add("b");
       lightWeightSet.add("c");
@@ -361,12 +372,12 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testEqual001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
-      let obj = [1,2,3];
+      let obj = [1, 2, 3];
       let res = lightWeightSet.equal(obj);
       expect(res).assertEqual(true);
     });
@@ -379,12 +390,12 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqual002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testEqual002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
-      let obj = [1,2];
+      let obj = [1, 2];
       let res = lightWeightSet.equal(obj);
       expect(res).assertEqual(false);
     });
@@ -398,8 +409,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIncreaseCapacityTo001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testIncreaseCapacityTo001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -411,7 +422,8 @@ export default function LightWeightSetTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "minimumCapacity" is out of range. It must be > 8. Received value is: 3`);
+        expect(err.message)
+          .assertEqual(`The value of "minimumCapacity" is out of range. It must be > 8. Received value is: 3`);
       }
     });
 
@@ -424,8 +436,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIncreaseCapacityTo002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testIncreaseCapacityTo002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -443,8 +455,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOf001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testGetIndexOf001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -462,17 +474,17 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testRemove001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.remove(1);
+      let res: ESObject = lightWeightSet.remove(1);
       expect(res).assertEqual(1);
-      let arr = [];
-      lightWeightSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      lightWeightSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       let arr1 = [2, 3, 4, 5];
@@ -489,9 +501,9 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
-      let res = lightWeightSet.remove(3);
+    it("testRemove002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
+      let res: ESObject = lightWeightSet.remove(3);
       expect(res).assertEqual(undefined);
     });
 
@@ -503,14 +515,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove003", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testRemove003", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.remove("A");
+      let res: ESObject = lightWeightSet.remove("A");
       expect(res).assertEqual(undefined);
     });
 
@@ -522,8 +534,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveAt001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testRemoveAt001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -531,8 +543,8 @@ export default function LightWeightSetTest() {
       lightWeightSet.add(5);
       let res = lightWeightSet.removeAt(1);
       expect(res).assertEqual(true);
-      let arr = [];
-      lightWeightSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      lightWeightSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       let arr1 = [1, 3, 4, 5];
@@ -549,8 +561,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveAt002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testRemoveAt002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       let res = lightWeightSet.removeAt(1);
       expect(res).assertEqual(false);
     });
@@ -563,8 +575,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testClear001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -583,8 +595,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testClear002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -605,15 +617,15 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testForEach001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let arr = [];
-      lightWeightSet.forEach((value, index) => {
+      let arr: ESObject = [];
+      lightWeightSet.forEach((value: ESObject, index: ESObject) => {
         arr.push(value);
       });
       let arr1 = [1, 2, 3, 4, 5];
@@ -630,15 +642,15 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testIterator001", 0, () => {
+      let lightWeightSet: LightWeightSet<number> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let arr = [];
-      let res = lightWeightSet[Symbol.iterator]();
+      let arr: ESObject = [];
+      let res: ESObject = lightWeightSet[Symbol.iterator]();
       let temp = undefined;
       do {
         temp = res.next().value;
@@ -659,8 +671,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testToString001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -676,14 +688,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToArray001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testToArray001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.toArray();
+      let res: ESObject = lightWeightSet.toArray();
       let arr1 = [1, 2, 3, 4, 5];
       for (let i = 0; i < arr1.length; i++) {
         expect(res[i]).assertEqual(arr1[i]);
@@ -698,14 +710,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetValueAt001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testGetValueAt001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.getValueAt(1);
+      let res: ESObject = lightWeightSet.getValueAt(1);
       expect(res).assertEqual(2);
     });
 
@@ -717,14 +729,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testValues001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testValues001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.values();
+      let res: ESObject = lightWeightSet.values();
       expect(res.next().value).assertEqual(1);
       expect(res.next().value).assertEqual(2);
       expect(res.next().value).assertEqual(3);
@@ -740,14 +752,14 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEntries001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testEntries001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
       lightWeightSet.add(4);
       lightWeightSet.add(5);
-      let res = lightWeightSet.entries();
+      let res: ESObject = lightWeightSet.entries();
       expect(JSON.stringify(res.next().value)).assertEqual("[1,1]");
       expect(JSON.stringify(res.next().value)).assertEqual("[2,2]");
       expect(JSON.stringify(res.next().value)).assertEqual("[3,3]");
@@ -763,8 +775,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testIsEmpty001", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
@@ -782,8 +794,8 @@ export default function LightWeightSetTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty002", 0, function () {
-      let lightWeightSet = new LightWeightSet();
+    it("testIsEmpty002", 0, () => {
+      let lightWeightSet: LightWeightSet<ESObject> = new LightWeightSet();
       lightWeightSet.add(1);
       lightWeightSet.add(2);
       lightWeightSet.add(3);
