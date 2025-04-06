@@ -22,7 +22,7 @@ async function sleep(ms: number): Promise<void> {
 export default function TreeMapTest() {
 describe("TreeMapTest", ()=> {
   afterEach(async () => {
-    await sleep(1000)
+    await sleep(200);
   });
 
   /**
