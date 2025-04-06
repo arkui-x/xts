@@ -4,7 +4,8 @@ import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator =
+  AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
 async function sleep(ms: number): Promise<void> {
@@ -13,12 +14,13 @@ async function sleep(ms: number): Promise<void> {
 
 export default function resourceManagerTest() {
   describe('resourceManagerTest', () => {
-    beforeAll(() => {
+    beforeAll(async () => {
+      await sleep(1000);
       console.log('************* start resourceManagerTest *************');
     })
 
     afterEach(async () => {
-      await sleep(1000)
+      await sleep(500);
     });
 
     afterAll(async () => {
@@ -43,7 +45,7 @@ export default function resourceManagerTest() {
         } else {
           console.log(`SUB_Global_Resource_Manager_0100_GetMediaContent_Func_0100 errCode ${err.code}`);
           console.log(`SUB_Global_Resource_Manager_0100_GetMediaContent_Func_0100 errMessage ${err.message}`);
-          expect().assertFail()
+          expect().assertFail();
         }
         done()
       })
@@ -2147,7 +2149,7 @@ export default function resourceManagerTest() {
       }).catch((err: BusinessError) => {
         console.log(`SUB_Global_Resource_Manager_0200_GetColor_Func_0100 errCode ${err.code}`);
         console.log(`SUB_Global_Resource_Manager_0200_GetColor_Func_0100 errMessage ${err.message}`);
-        expect().assertFail();;
+        expect().assertFail();
         done();
       });
     })
