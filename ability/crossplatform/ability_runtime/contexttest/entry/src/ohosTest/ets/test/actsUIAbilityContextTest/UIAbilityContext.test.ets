@@ -17,7 +17,7 @@ import common from '@ohos.app.ability.common';
 import Want from '@ohos.app.ability.Want';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-function sleep(time: number) {
+async function sleep(time: number) {
   return new Promise<void>((resolve) => setTimeout(resolve, time));
 }
 
@@ -46,6 +46,7 @@ export default function UIAbilityContext() {
       console.info('afterEach case');
       globalThis.list1 = [];
       globalThis.parameters = null;
+      await sleep(500);
     });
 
     afterAll(async () => {

@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28115F9937058971F6AA9986 /* libhilog.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE90067F9CDE0C18C42000C /* libhilog.xcframework */; };
-		5E95BFE7617A4C5F5EF9FE07 /* libhilog.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE90067F9CDE0C18C42000C /* libhilog.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7BA777806DD64313B4A50670 /* libuitest.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A9958B7B244DE79394660E /* libuitest.xcframework */; };
-		B0B774ED53514C23912D655D /* libuitest.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85A9958B7B244DE79394660E /* libuitest.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF4BEDE929F4F5280060CCEB /* EntryEntryAbilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF4BEDE729F4F5270060CCEB /* EntryEntryAbilityViewController.m */; };
 		DF9C1B5E28B9FC3A005DCF58 /* libarkui_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C1B5D28B9FC3A005DCF58 /* libarkui_ios.xcframework */; };
 		DF9C1B5F28B9FC3A005DCF58 /* libarkui_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C1B5D28B9FC3A005DCF58 /* libarkui_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -28,9 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5E95BFE7617A4C5F5EF9FE07 /* libhilog.xcframework in Embed Frameworks */,
 				DF9C1B5F28B9FC3A005DCF58 /* libarkui_ios.xcframework in Embed Frameworks */,
-				B0B774ED53514C23912D655D /* libuitest.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,8 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		85A9958B7B244DE79394660E /* libuitest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libuitest.xcframework; path = frameworks/libuitest.xcframework; sourceTree = "<group>"; };
-		9FE90067F9CDE0C18C42000C /* libhilog.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libhilog.xcframework; path = frameworks/libhilog.xcframework; sourceTree = "<group>"; };
 		DF4BEDE729F4F5270060CCEB /* EntryEntryAbilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryEntryAbilityViewController.m; sourceTree = "<group>"; };
 		DF4BEDE829F4F5280060CCEB /* EntryEntryAbilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryEntryAbilityViewController.h; sourceTree = "<group>"; };
 		DF9C1B5D28B9FC3A005DCF58 /* libarkui_ios.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libarkui_ios.xcframework; path = frameworks/libarkui_ios.xcframework; sourceTree = "<group>"; };
@@ -58,9 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28115F9937058971F6AA9986 /* libhilog.xcframework in Frameworks */,
 				DF9C1B5E28B9FC3A005DCF58 /* libarkui_ios.xcframework in Frameworks */,
-				7BA777806DD64313B4A50670 /* libuitest.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,8 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				DF9C1B5D28B9FC3A005DCF58 /* libarkui_ios.xcframework */,
-				9FE90067F9CDE0C18C42000C /* libhilog.xcframework */,
-				85A9958B7B244DE79394660E /* libuitest.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

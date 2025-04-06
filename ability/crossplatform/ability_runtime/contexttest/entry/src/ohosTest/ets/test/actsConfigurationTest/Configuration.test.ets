@@ -17,6 +17,10 @@ import common from '@ohos.app.ability.common';
 import configurationConstant from '@ohos.app.ability.ConfigurationConstant';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function Configuration() {
   describe("Configuration", () => {
 
@@ -29,7 +33,7 @@ export default function Configuration() {
     });
 
     afterEach(async () => {
-      console.info('afterEach case');
+      await sleep(300);
     });
 
     afterAll(async () => {

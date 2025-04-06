@@ -16,10 +16,15 @@
 import bundleManager from '@ohos.bundle.bundleManager';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function BundleManager() {
   describe("BundleManager", () => {
 
     beforeAll(async () => {
+      await sleep(300);
       console.info("beforeAll case");
     });
 
@@ -29,6 +34,7 @@ export default function BundleManager() {
 
     afterEach(async () => {
       console.info('afterEach case');
+      await sleep(300);
     });
 
     afterAll(async () => {
