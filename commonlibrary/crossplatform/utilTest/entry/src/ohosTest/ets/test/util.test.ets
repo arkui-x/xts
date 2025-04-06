@@ -12,30 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
-import util from "@ohos.util";
-import url from "@ohos.url";
-import xml from "@ohos.xml"
-import process from "@ohos.process";
+import { describe, expect, it, afterEach } from '@ohos/hypium';
+import util from '@ohos.util';
+import { symbols, symbols1, symbols2, symbols3, symbols4, symbols5 } from './UtilFun';
+
+let arr: ESObject = [];
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function UtilFunTest() {
-  describe("UtilTest", function () {
-    class Temperature {
-      private readonly _temp: Temperature;
+  describe("UtilTest", () => {
+    afterEach(async () => {
+      await sleep(200);
+    });
 
-      constructor(value) {
-        this._temp = value;
-      }
-      compareTo(value) {
-        return this._temp >= value.getTemp();
-      }
-      getTemp() {
-        return this._temp;
-      }
-      toString() {
-        return this._temp.toString();
-      }
-    }
     let tempLower = new Temperature(30);
     let tempUpper = new Temperature(40);
     let tempLess = new Temperature(20);
@@ -57,7 +48,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNumberObject001", 0, function () {
+    it("testIsNumberObject001", 0, () => {
       let proc = new util.types();
       let result = proc.isNumberObject(new Number(0));
       expect(result).assertEqual(true);
@@ -70,7 +61,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNumberObject002", 0, function () {
+    it("testIsNumberObject002", 0, () => {
       let proc = new util.types();
       let result = proc.isNumberObject(new Number(10));
       expect(result).assertEqual(true);
@@ -84,7 +75,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNumberObject003", 0, function () {
+    it("testIsNumberObject003", 0, () => {
       let proc = new util.types();
       let result = proc.isNumberObject(new Number(200));
       expect(result).assertEqual(true);
@@ -98,7 +89,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNumberObject004", 0, function () {
+    it("testIsNumberObject004", 0, () => {
       let proc = new util.types();
       let result = proc.isNumberObject(0);
       expect(result).assertEqual(false);
@@ -112,7 +103,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNumberObject005", 0, function () {
+    it("testIsNumberObject005", 0, () => {
       let proc = new util.types();
       let result = proc.isNumberObject(100);
       expect(result).assertEqual(false);
@@ -126,7 +117,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsPromise001", 0, function () {
+    it("testIsPromise001", 0, () => {
       let proc = new util.types();
       let result = proc.isPromise(Promise.resolve(42));
       expect(result).assertEqual(true);
@@ -140,7 +131,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsPromise002", 0, function () {
+    it("testIsPromise002", 0, () => {
       let proc = new util.types();
       let result = proc.isPromise(Promise.resolve(33));
       expect(result).assertEqual(true);
@@ -154,7 +145,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsPromise003", 0, function () {
+    it("testIsPromise003", 0, () => {
       let proc = new util.types();
       let result = proc.isPromise(Promise.resolve(44));
       expect(result).assertEqual(true);
@@ -168,7 +159,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsPromise004", 0, function () {
+    it("testIsPromise004", 0, () => {
       let proc = new util.types();
       let err = Error("33");
       let result = proc.isPromise(Promise.reject(err));
@@ -183,7 +174,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsPromise005", 0, function () {
+    it("testIsPromise005", 0, () => {
       let proc = new util.types();
       let err = Error("23");
       let result = proc.isPromise(Promise.reject(err));
@@ -198,10 +189,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsProxy001", 0, function () {
+    it("testIsProxy001", 0, () => {
       let proc = new util.types();
-      const target = {};
-      const proxy = new Proxy(target, {});
+      const target: ESObject = {};
+      const proxy: ESObject = new Proxy(target, target);
       let result = proc.isProxy(proxy);
       expect(result).assertEqual(true);
     });
@@ -214,9 +205,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsProxy002", 0, function () {
+    it("testIsProxy002", 0, () => {
       let proc = new util.types();
-      const target = {};
+      const target: ESObject = {};
       let result = proc.isProxy(target);
       expect(result).assertEqual(false);
     });
@@ -229,55 +220,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsProxy003", 0, function () {
-      let proc = new util.types();
-      const handler = {
-        get: function (obj, prop) {
-          return prop in obj ? obj[prop] : 37;
-        },
-      };
-      const p = new Proxy({}, handler);
-      let result = proc.isProxy(p);
-      expect(result).assertEqual(true);
-    });
+    it("testIsProxy003", 0, () => {
+      class Target {
+      }
 
-    /**
-     * @tc.number: TEST_IS_PROXY_004
-     * @tc.name  : testIsProxy004
-     * @tc.desc  : Check whether the value entered is of proxy type.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testIsProxy004", 0, function () {
-      let proc = new util.types();
-      const handler = {
-        get: function (obj, prop) {
-          return prop in obj ? obj[prop] : 121;
-        },
-      };
-      const p = new Proxy({}, handler);
-      let result = proc.isProxy(p);
+      let type = new util.types();
+      const target: Target = {};
+      const proxy = new Proxy(target, target);
+      let result = type.isProxy(proxy);
       expect(result).assertEqual(true);
-    });
-
-    /**
-     * @tc.number: TEST_IS_PROXY_005
-     * @tc.name  : testIsProxy005
-     * @tc.desc  : Check whether the value entered is of proxy type.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testIsProxy005", 0, function () {
-      let proc = new util.types();
-      const handler = {
-        get: function (obj, prop) {
-          return prop in obj ? obj[prop] : 121;
-        },
-      };
-      let result = proc.isProxy(handler);
-      expect(result).assertEqual(false);
     });
 
     /**
@@ -288,7 +239,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsRegExp001", 0, function () {
+    it("testIsRegExp001", 0, () => {
       let proc = new util.types();
       let result = proc.isRegExp(new RegExp("abc"));
       expect(result).assertEqual(true);
@@ -302,7 +253,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsRegExp002", 0, function () {
+    it("testIsRegExp002", 0, () => {
       let proc = new util.types();
       let result = proc.isRegExp(/abc/);
       expect(result).assertEqual(true);
@@ -316,7 +267,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsRegExp003", 0, function () {
+    it("testIsRegExp003", 0, () => {
       let proc = new util.types();
       let result = proc.isRegExp(new RegExp("fgd"));
       expect(result).assertEqual(true);
@@ -330,7 +281,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsRegExp004", 0, function () {
+    it("testIsRegExp004", 0, () => {
       let proc = new util.types();
       let result = proc.isRegExp(new RegExp("123"));
       expect(result).assertEqual(true);
@@ -344,7 +295,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsRegExp005", 0, function () {
+    it("testIsRegExp005", 0, () => {
       let proc = new util.types();
       let result = proc.isRegExp(new RegExp(/ab+c/, "i"));
       expect(result).assertEqual(true);
@@ -358,9 +309,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSet001", 0, function () {
+    it("testIsSet001", 0, () => {
       let proc = new util.types();
-      let result = proc.isSet(new Set());
+      let set: Set<ESObject> = new Set()
+      let result = proc.isSet(set);
       expect(result).assertEqual(true);
     });
 
@@ -372,7 +324,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSet002", 0, function () {
+    it("testIsSet002", 0, () => {
       let proc = new util.types();
       let result = proc.isSet(new Map());
       expect(result).assertEqual(false);
@@ -386,7 +338,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSet003", 0, function () {
+    it("testIsSet003", 0, () => {
       let proc = new util.types();
       let result = proc.isSet(new String());
       expect(result).assertEqual(false);
@@ -400,7 +352,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSet004", 0, function () {
+    it("testIsSet004", 0, () => {
       let proc = new util.types();
       let result = proc.isSet(new Boolean());
       expect(result).assertEqual(false);
@@ -414,7 +366,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSet005", 0, function () {
+    it("testIsSet005", 0, () => {
       let proc = new util.types();
       let result = proc.isSet(new WeakSet());
       expect(result).assertEqual(false);
@@ -428,9 +380,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSetIterator001", 0, function () {
+    it("testIsSetIterator001", 0, () => {
       let proc = new util.types();
-      const set = new Set();
+      const set: Set<ESObject> = new Set();
       let result = proc.isSetIterator(set.keys());
       expect(result).assertEqual(true);
     });
@@ -443,9 +395,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSetIterator002", 0, function () {
+    it("testIsSetIterator002", 0, () => {
       let proc = new util.types();
-      const set = new Set();
+      const set: Set<ESObject> = new Set();
       let result = proc.isSetIterator(set.values());
       expect(result).assertEqual(true);
     });
@@ -458,9 +410,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSetIterator003", 0, function () {
+    it("testIsSetIterator003", 0, () => {
       let proc = new util.types();
-      const set = new Set();
+      const set: Set<ESObject> = new Set();
       let result = proc.isSetIterator(set.entries());
       expect(result).assertEqual(true);
     });
@@ -473,10 +425,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSetIterator004", 0, function () {
+    it("testIsSetIterator004", 0, () => {
       let proc = new util.types();
-      const set = new Set();
-      let result = proc.isSetIterator(set[Symbol.iterator]());
+      const set: Set<number> = new Set();
+      let result = proc.isSetIterator(set.keys());
       expect(result).assertEqual(true);
     });
 
@@ -488,9 +440,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSetIterator005", 0, function () {
+    it("testIsSetIterator005", 0, () => {
       let proc = new util.types();
-      const set = new Set();
+      const set: Set<number> = new Set();
       let result = proc.isSetIterator(set);
       expect(result).assertEqual(false);
     });
@@ -503,7 +455,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSharedArrayBuffer001", 0, function () {
+    it("testIsSharedArrayBuffer001", 0, () => {
       let proc = new util.types();
       let result = proc.isSharedArrayBuffer(new SharedArrayBuffer(0));
       expect(result).assertEqual(true);
@@ -517,7 +469,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSharedArrayBuffer002", 0, function () {
+    it("testIsSharedArrayBuffer002", 0, () => {
       let proc = new util.types();
       let result = proc.isSharedArrayBuffer(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -531,7 +483,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSharedArrayBuffer003", 0, function () {
+    it("testIsSharedArrayBuffer003", 0, () => {
       let proc = new util.types();
       let result = proc.isSharedArrayBuffer(new Int32Array([]));
       expect(result).assertEqual(false);
@@ -545,7 +497,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSharedArrayBuffer004", 0, function () {
+    it("testIsSharedArrayBuffer004", 0, () => {
       let proc = new util.types();
       let result = proc.isSharedArrayBuffer(new ArrayBuffer(1));
       expect(result).assertEqual(false);
@@ -559,7 +511,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSharedArrayBuffer005", 0, function () {
+    it("testIsSharedArrayBuffer005", 0, () => {
       let proc = new util.types();
       let result = proc.isSharedArrayBuffer(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -573,7 +525,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsStringObject001", 0, function () {
+    it("testIsStringObject001", 0, () => {
       let proc = new util.types();
       let result = proc.isStringObject(new String("foo"));
       expect(result).assertEqual(true);
@@ -587,7 +539,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsStringObject002", 0, function () {
+    it("testIsStringObject002", 0, () => {
       let proc = new util.types();
       let result = proc.isStringObject(new String("twoo"));
       expect(result).assertEqual(true);
@@ -601,7 +553,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsStringObject003", 0, function () {
+    it("testIsStringObject003", 0, () => {
       let proc = new util.types();
       let result = proc.isStringObject(new String("fdfsfd"));
       expect(result).assertEqual(true);
@@ -615,7 +567,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsStringObject004", 0, function () {
+    it("testIsStringObject004", 0, () => {
       let proc = new util.types();
       let result = proc.isStringObject("ffds111");
       expect(result).assertEqual(false);
@@ -629,7 +581,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsStringObject005", 0, function () {
+    it("testIsStringObject005", 0, () => {
       let proc = new util.types();
       let result = proc.isStringObject("foo");
       expect(result).assertEqual(false);
@@ -643,9 +595,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSymbolObject001", 0, function () {
+    it("testIsSymbolObject001", 0, () => {
       let proc = new util.types();
-      const symbols = Symbol("foo");
       let result = proc.isSymbolObject(Object(symbols));
       expect(result).assertEqual(true);
     });
@@ -658,10 +609,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSymbolObject002", 0, function () {
+    it("testIsSymbolObject002", 0, () => {
       let proc = new util.types();
-      const symbols = Symbol("s12");
-      let result = proc.isSymbolObject(Object(symbols));
+      let result = proc.isSymbolObject(Object(symbols1));
       expect(result).assertEqual(true);
     });
 
@@ -673,10 +623,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSymbolObject003", 0, function () {
+    it("testIsSymbolObject003", 0, () => {
       let proc = new util.types();
-      const symbols = Symbol("sads");
-      let result = proc.isSymbolObject(Object(symbols));
+      let result = proc.isSymbolObject(Object(symbols2));
       expect(result).assertEqual(true);
     });
 
@@ -688,10 +637,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSymbolObject004", 0, function () {
+    it("testIsSymbolObject004", 0, () => {
       let proc = new util.types();
-      const symbols = Symbol("asdd");
-      let result = proc.isSymbolObject(symbols);
+      let result = proc.isSymbolObject(symbols3);
       expect(result).assertEqual(false);
     });
 
@@ -703,11 +651,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsSymbolObject005", 0, function () {
-      let proc = new util.types();
-      const symbols = Symbol("foo");
-      let result = proc.isSymbolObject(symbols);
-      expect(result).assertEqual(false);
+    it("testIsSymbolObject005", 0, () => {
+      let type = new util.types();
+      let result = type.isSymbolObject(Object(symbols));
+      expect(result).assertEqual(true);
     });
 
     /**
@@ -718,7 +665,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsTypedArray001", 0, function () {
+    it("testIsTypedArray001", 0, () => {
       let proc = new util.types();
       let result = proc.isTypedArray(new Float64Array([]));
       expect(result).assertEqual(true);
@@ -732,7 +679,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsTypedArray002", 0, function () {
+    it("testIsTypedArray002", 0, () => {
       let proc = new util.types();
       let result = proc.isTypedArray(new Uint8Array([]));
       expect(result).assertEqual(true);
@@ -746,7 +693,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsTypedArray003", 0, function () {
+    it("testIsTypedArray003", 0, () => {
       let proc = new util.types();
       let result = proc.isTypedArray(new Uint16Array([]));
       expect(result).assertEqual(true);
@@ -760,7 +707,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsTypedArray004", 0, function () {
+    it("testIsTypedArray004", 0, () => {
       let proc = new util.types();
       let result = proc.isTypedArray(new Uint32Array([]));
       expect(result).assertEqual(true);
@@ -774,7 +721,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsTypedArray005", 0, function () {
+    it("testIsTypedArray005", 0, () => {
       let proc = new util.types();
       let result = proc.isTypedArray(new ArrayBuffer(0));
       expect(result).assertEqual(false);
@@ -788,7 +735,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8Array001", 0, function () {
+    it("testIsUint8Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8Array(new Uint8Array([]));
       expect(result).assertEqual(true);
@@ -802,7 +749,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8Array002", 0, function () {
+    it("testIsUint8Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8Array(new Uint16Array([]));
       expect(result).assertEqual(false);
@@ -816,7 +763,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8Array003", 0, function () {
+    it("testIsUint8Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8Array(new Uint32Array([]));
       expect(result).assertEqual(false);
@@ -830,7 +777,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8Array004", 0, function () {
+    it("testIsUint8Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -844,7 +791,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8Array005", 0, function () {
+    it("testIsUint8Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8Array(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -858,7 +805,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8ClampedArray001", 0, function () {
+    it("testIsUint8ClampedArray001", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8ClampedArray(new Uint8ClampedArray([]));
       expect(result).assertEqual(true);
@@ -872,7 +819,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8ClampedArray002", 0, function () {
+    it("testIsUint8ClampedArray002", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8ClampedArray(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -886,7 +833,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8ClampedArray003", 0, function () {
+    it("testIsUint8ClampedArray003", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8ClampedArray(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -900,7 +847,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8ClampedArray004", 0, function () {
+    it("testIsUint8ClampedArray004", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8ClampedArray(new Int32Array([]));
       expect(result).assertEqual(false);
@@ -914,7 +861,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint8ClampedArray005", 0, function () {
+    it("testIsUint8ClampedArray005", 0, () => {
       let proc = new util.types();
       let result = proc.isUint8ClampedArray(new Uint32Array([]));
       expect(result).assertEqual(false);
@@ -928,7 +875,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint16Array001", 0, function () {
+    it("testIsUint16Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isUint16Array(new Uint16Array([]));
       expect(result).assertEqual(true);
@@ -942,7 +889,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint16Array002", 0, function () {
+    it("testIsUint16Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isUint16Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -956,7 +903,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint16Array003", 0, function () {
+    it("testIsUint16Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isUint16Array(new Uint32Array([]));
       expect(result).assertEqual(false);
@@ -970,7 +917,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint16Array004", 0, function () {
+    it("testIsUint16Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isUint16Array(new Uint8ClampedArray([]));
       expect(result).assertEqual(false);
@@ -984,7 +931,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint16Array005", 0, function () {
+    it("testIsUint16Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isUint16Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -998,7 +945,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint32Array001", 0, function () {
+    it("testIsUint32Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isUint32Array(new Uint32Array([]));
       expect(result).assertEqual(true);
@@ -1012,7 +959,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint32Array002", 0, function () {
+    it("testIsUint32Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isUint32Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -1026,7 +973,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint32Array003", 0, function () {
+    it("testIsUint32Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isUint32Array(new Uint16Array([]));
       expect(result).assertEqual(false);
@@ -1040,7 +987,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint32Array004", 0, function () {
+    it("testIsUint32Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isUint32Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -1054,7 +1001,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsUint32Array005", 0, function () {
+    it("testIsUint32Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isUint32Array(new Uint8ClampedArray([]));
       expect(result).assertEqual(false);
@@ -1068,7 +1015,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakMap001", 0, function () {
+    it("testIsWeakMap001", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakMap(new WeakMap());
       expect(result).assertEqual(true);
@@ -1082,7 +1029,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakMap002", 0, function () {
+    it("testIsWeakMap002", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakMap(new Map());
       expect(result).assertEqual(false);
@@ -1096,9 +1043,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakMap003", 0, function () {
+    it("testIsWeakMap003", 0, () => {
       let proc = new util.types();
-      let result = proc.isWeakMap(new Set());
+      let set: Set<ESObject> = new Set();
+      let result = proc.isWeakMap(set);
       expect(result).assertEqual(false);
     });
 
@@ -1110,7 +1058,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakMap004", 0, function () {
+    it("testIsWeakMap004", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakMap(new String());
       expect(result).assertEqual(false);
@@ -1124,7 +1072,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakMap005", 0, function () {
+    it("testIsWeakMap005", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakMap(new WeakSet());
       expect(result).assertEqual(false);
@@ -1138,7 +1086,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakSet001", 0, function () {
+    it("testIsWeakSet001", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakSet(new WeakSet());
       expect(result).assertEqual(true);
@@ -1152,7 +1100,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakSet002", 0, function () {
+    it("testIsWeakSet002", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakSet(new WeakMap());
       expect(result).assertEqual(false);
@@ -1166,7 +1114,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakSet003", 0, function () {
+    it("testIsWeakSet003", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakSet(new String());
       expect(result).assertEqual(false);
@@ -1180,9 +1128,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakSet004", 0, function () {
+    it("testIsWeakSet004", 0, () => {
       let proc = new util.types();
-      let result = proc.isWeakSet(new Set());
+      let set: Set<ESObject> = new Set();
+      let result = proc.isWeakSet(set);
       expect(result).assertEqual(false);
     });
 
@@ -1194,7 +1143,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWeakSet005", 0, function () {
+    it("testIsWeakSet005", 0, () => {
       let proc = new util.types();
       let result = proc.isWeakSet(new Map());
       expect(result).assertEqual(false);
@@ -1208,7 +1157,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNativeError001", 0, function () {
+    it("testIsNativeError001", 0, () => {
       let proc = new util.types();
       let result = proc.isNativeError(new TypeError());
       expect(result).assertEqual(true);
@@ -1222,7 +1171,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNativeError002", 0, function () {
+    it("testIsNativeError002", 0, () => {
       let proc = new util.types();
       let result = proc.isNativeError(new Error());
       expect(result).assertEqual(true);
@@ -1236,7 +1185,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNativeError003", 0, function () {
+    it("testIsNativeError003", 0, () => {
       let proc = new util.types();
       let result = proc.isNativeError(new RangeError());
       expect(result).assertEqual(true);
@@ -1250,7 +1199,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNativeError004", 0, function () {
+    it("testIsNativeError004", 0, () => {
       let proc = new util.types();
       let result = proc.isNativeError(true);
       expect(result).assertEqual(false);
@@ -1264,7 +1213,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNativeError005", 0, function () {
+    it("testIsNativeError005", 0, () => {
       let proc = new util.types();
       let result = proc.isNativeError(false);
       expect(result).assertEqual(false);
@@ -1278,9 +1227,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsModuleNamespaceObject001", 0, function () {
+    it("testIsModuleNamespaceObject001", 0, () => {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(url);
+      let result = proc.isModuleNamespaceObject('url');
       expect(result).assertEqual(false);
     });
 
@@ -1292,9 +1241,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsModuleNamespaceObject002", 0, function () {
+    it("testIsModuleNamespaceObject002", 0, () => {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(util);
+      let result = proc.isModuleNamespaceObject('util');
       expect(result).assertEqual(false);
     });
 
@@ -1306,9 +1255,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsModuleNamespaceObject003", 0, function () {
+    it("testIsModuleNamespaceObject003", 0, () => {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(process);
+      let result = proc.isModuleNamespaceObject('process');
       expect(result).assertEqual(false);
     });
 
@@ -1320,9 +1269,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsModuleNamespaceObject004", 0, function () {
+    it("testIsModuleNamespaceObject004", 0, () => {
       let proc = new util.types();
-      let result = proc.isModuleNamespaceObject(xml);
+      let result = proc.isModuleNamespaceObject('xml');
       expect(result).assertEqual(false);
     });
 
@@ -1334,9 +1283,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMapIterator001", 0, function () {
+    it("testIsMapIterator001", 0, () => {
       let proc = new util.types();
-      const map = new Map();
+      const map: Map<ESObject, ESObject> = new Map();
       let result = proc.isMapIterator(map.keys());
       expect(result).assertEqual(true);
     });
@@ -1349,9 +1298,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMapIterator002", 0, function () {
+    it("testIsMapIterator002", 0, () => {
       let proc = new util.types();
-      const map = new Map();
+      const map: Map<ESObject, ESObject> = new Map();
       let result = proc.isMapIterator(map.values());
       expect(result).assertEqual(true);
     });
@@ -1364,9 +1313,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMapIterator003", 0, function () {
+    it("testIsMapIterator003", 0, () => {
       let proc = new util.types();
-      const map = new Map();
+      const map: Map<ESObject, ESObject> = new Map();
       let result = proc.isMapIterator(map.entries());
       expect(result).assertEqual(true);
     });
@@ -1379,9 +1328,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMapIterator004", 0, function () {
+    it("testIsMapIterator004", 0, () => {
       let proc = new util.types();
-      const map = new Map();
+      const map: Map<ESObject, ESObject> = new Map();
       let result = proc.isMapIterator(map[Symbol.iterator]());
       expect(result).assertEqual(true);
     });
@@ -1394,9 +1343,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMapIterator005", 0, function () {
+    it("testIsMapIterator005", 0, () => {
       let proc = new util.types();
-      const map = new Map();
+      const map: Map<ESObject, ESObject> = new Map();
       let result = proc.isMapIterator(map);
       expect(result).assertEqual(false);
     });
@@ -1409,7 +1358,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMap001", 0, function () {
+    it("testIsMap001", 0, () => {
       let proc = new util.types();
       let result = proc.isMap(new Map());
       expect(result).assertEqual(true);
@@ -1423,9 +1372,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMap002", 0, function () {
+    it("testIsMap002", 0, () => {
       let proc = new util.types();
-      let result = proc.isMap(new Set());
+      let set: Set<ESObject> = new Set();
+      let result = proc.isMap(set);
       expect(result).assertEqual(false);
     });
 
@@ -1437,7 +1387,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMap003", 0, function () {
+    it("testIsMap003", 0, () => {
       let proc = new util.types();
       let result = proc.isMap(new String());
       expect(result).assertEqual(false);
@@ -1451,7 +1401,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMap004", 0, function () {
+    it("testIsMap004", 0, () => {
       let proc = new util.types();
       let result = proc.isMap(new Object());
       expect(result).assertEqual(false);
@@ -1465,7 +1415,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsMap005", 0, function () {
+    it("testIsMap005", 0, () => {
       let proc = new util.types();
       let result = proc.isMap(new Boolean());
       expect(result).assertEqual(false);
@@ -1479,7 +1429,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt32Array001", 0, function () {
+    it("testIsInt32Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isInt32Array(new Int32Array([]));
       expect(result).assertEqual(true);
@@ -1493,7 +1443,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt32Array002", 0, function () {
+    it("testIsInt32Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isInt32Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -1507,7 +1457,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt32Array003", 0, function () {
+    it("testIsInt32Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isInt32Array(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -1521,7 +1471,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt32Array004", 0, function () {
+    it("testIsInt32Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isInt32Array(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -1535,7 +1485,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt32Array005", 0, function () {
+    it("testIsInt32Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isInt32Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -1549,7 +1499,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt16Array001", 0, function () {
+    it("testIsInt16Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isInt16Array(new Int16Array([]));
       expect(result).assertEqual(true);
@@ -1563,7 +1513,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt16Array002", 0, function () {
+    it("testIsInt16Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isInt16Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -1577,7 +1527,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt16Array003", 0, function () {
+    it("testIsInt16Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isInt16Array(new Int32Array([]));
       expect(result).assertEqual(false);
@@ -1591,7 +1541,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt16Array004", 0, function () {
+    it("testIsInt16Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isInt16Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -1605,7 +1555,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt16Array005", 0, function () {
+    it("testIsInt16Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isInt16Array(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -1619,7 +1569,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt8Array001", 0, function () {
+    it("testIsInt8Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isInt8Array(new Int8Array([]));
       expect(result).assertEqual(true);
@@ -1633,7 +1583,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt8Array002", 0, function () {
+    it("testIsInt8Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isInt8Array(new ArrayBuffer(0));
       expect(result).assertEqual(false);
@@ -1647,7 +1597,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt8Array003", 0, function () {
+    it("testIsInt8Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isInt8Array(new Int32Array([]));
       expect(result).assertEqual(false);
@@ -1661,7 +1611,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt8Array004", 0, function () {
+    it("testIsInt8Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isInt8Array(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -1675,7 +1625,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsInt8Array005", 0, function () {
+    it("testIsInt8Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isInt8Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -1689,7 +1639,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorObject001", 0, function () {
+    it("testIsGeneratorObject001", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorObject(false);
       expect(result).assertEqual(false);
@@ -1703,7 +1653,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorObject002", 0, function () {
+    it("testIsGeneratorObject002", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorObject(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -1717,7 +1667,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorObject003", 0, function () {
+    it("testIsGeneratorObject003", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorObject(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -1731,7 +1681,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorObject004", 0, function () {
+    it("testIsGeneratorObject004", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorObject(true);
       expect(result).assertEqual(false);
@@ -1745,7 +1695,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorFunction001", 0, function () {
+    it("testIsGeneratorFunction001", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorFunction(new Int8Array());
       expect(result).assertEqual(false);
@@ -1759,9 +1709,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorFunction002", 0, function () {
+    it("testIsGeneratorFunction002", 0, () => {
       let proc = new util.types();
-      let result = proc.isGeneratorFunction(function foo() {});
+      let result = proc.isGeneratorFunction(foo1);
       expect(result).assertEqual(false);
     });
 
@@ -1773,7 +1723,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorFunction003", 0, function () {
+    it("testIsGeneratorFunction003", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorFunction(true);
       expect(result).assertEqual(false);
@@ -1787,7 +1737,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsGeneratorFunction004", 0, function () {
+    it("testIsGeneratorFunction004", 0, () => {
       let proc = new util.types();
       let result = proc.isGeneratorFunction(false);
       expect(result).assertEqual(false);
@@ -1801,7 +1751,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat64Array001", 0, function () {
+    it("testIsFloat64Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat64Array(new Float64Array());
       expect(result).assertEqual(true);
@@ -1815,7 +1765,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat64Array002", 0, function () {
+    it("testIsFloat64Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat64Array(new Int8Array());
       expect(result).assertEqual(false);
@@ -1829,7 +1779,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat64Array003", 0, function () {
+    it("testIsFloat64Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat64Array(new Float32Array());
       expect(result).assertEqual(false);
@@ -1843,7 +1793,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat64Array004", 0, function () {
+    it("testIsFloat64Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat64Array(new Uint8Array());
       expect(result).assertEqual(false);
@@ -1857,7 +1807,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat64Array005", 0, function () {
+    it("testIsFloat64Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat64Array(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -1871,7 +1821,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat32Array001", 0, function () {
+    it("testIsFloat32Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat32Array(new Float32Array());
       expect(result).assertEqual(true);
@@ -1885,7 +1835,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat32Array002", 0, function () {
+    it("testIsFloat32Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat32Array(new Int8Array());
       expect(result).assertEqual(false);
@@ -1899,7 +1849,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat32Array003", 0, function () {
+    it("testIsFloat32Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat32Array(new Int16Array());
       expect(result).assertEqual(false);
@@ -1913,7 +1863,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat32Array004", 0, function () {
+    it("testIsFloat32Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat32Array(new Float64Array());
       expect(result).assertEqual(false);
@@ -1927,7 +1877,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFloat32Array005", 0, function () {
+    it("testIsFloat32Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isFloat32Array(new Uint8Array());
       expect(result).assertEqual(false);
@@ -1941,7 +1891,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsExternal001", 0, function () {
+    it("testIsExternal001", 0, () => {
       let proc = new util.types();
       let result = proc.isExternal(new Float32Array([]));
       expect(result).assertEqual(false);
@@ -1955,7 +1905,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsExternal002", 0, function () {
+    it("testIsExternal002", 0, () => {
       let proc = new util.types();
       let result = proc.isExternal(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -1969,7 +1919,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsExternal003", 0, function () {
+    it("testIsExternal003", 0, () => {
       let proc = new util.types();
       let result = proc.isExternal(true);
       expect(result).assertEqual(false);
@@ -1983,7 +1933,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsExternal004", 0, function () {
+    it("testIsExternal004", 0, () => {
       let proc = new util.types();
       let result = proc.isExternal(false);
       expect(result).assertEqual(false);
@@ -1997,7 +1947,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsExternal005", 0, function () {
+    it("testIsExternal005", 0, () => {
       let proc = new util.types();
       let result = proc.isExternal(new Int16Array());
       expect(result).assertEqual(false);
@@ -2011,7 +1961,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDate001", 0, function () {
+    it("testIsDate001", 0, () => {
       let proc = new util.types();
       let result = proc.isDate(new Date());
       expect(result).assertEqual(true);
@@ -2025,7 +1975,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDate002", 0, function () {
+    it("testIsDate002", 0, () => {
       let proc = new util.types();
       let result = proc.isDate(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -2039,7 +1989,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDate003", 0, function () {
+    it("testIsDate003", 0, () => {
       let proc = new util.types();
       let result = proc.isDate(true);
       expect(result).assertEqual(false);
@@ -2053,7 +2003,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDate004", 0, function () {
+    it("testIsDate004", 0, () => {
       let proc = new util.types();
       let result = proc.isDate(new Int16Array([]));
       expect(result).assertEqual(false);
@@ -2067,7 +2017,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDate005", 0, function () {
+    it("testIsDate005", 0, () => {
       let proc = new util.types();
       let result = proc.isDate(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -2081,7 +2031,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDataView001", 0, function () {
+    it("testIsDataView001", 0, () => {
       let proc = new util.types();
       const ab = new ArrayBuffer(20);
       let result = proc.isDataView(new DataView(ab));
@@ -2096,7 +2046,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDataView002", 0, function () {
+    it("testIsDataView002", 0, () => {
       let proc = new util.types();
       let result = proc.isDataView(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -2110,7 +2060,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDataView003", 0, function () {
+    it("testIsDataView003", 0, () => {
       let proc = new util.types();
       let result = proc.isDataView(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -2124,7 +2074,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDataView004", 0, function () {
+    it("testIsDataView004", 0, () => {
       let proc = new util.types();
       let result = proc.isDataView(true);
       expect(result).assertEqual(false);
@@ -2138,7 +2088,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsDataView005", 0, function () {
+    it("testIsDataView005", 0, () => {
       let proc = new util.types();
       let result = proc.isDataView(false);
       expect(result).assertEqual(false);
@@ -2152,7 +2102,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBoxedPrimitive001", 0, function () {
+    it("testIsBoxedPrimitive001", 0, () => {
       let proc = new util.types();
       let result = proc.isBoxedPrimitive(false);
       expect(result).assertEqual(false);
@@ -2166,7 +2116,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBoxedPrimitive002", 0, function () {
+    it("testIsBoxedPrimitive002", 0, () => {
       let proc = new util.types();
       let result = proc.isBoxedPrimitive(new Boolean(false));
       expect(result).assertEqual(true);
@@ -2180,9 +2130,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBoxedPrimitive003", 0, function () {
+    it("testIsBoxedPrimitive003", 0, () => {
       let proc = new util.types();
-      let result = proc.isBoxedPrimitive(Symbol("foo"));
+      let result = proc.isBoxedPrimitive(symbols5);
       expect(result).assertEqual(false);
     });
 
@@ -2194,9 +2144,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBoxedPrimitive004", 0, function () {
+    it("testIsBoxedPrimitive004", 0, () => {
       let proc = new util.types();
-      let result = proc.isBoxedPrimitive(Object(Symbol("foo")));
+      let result = proc.isBoxedPrimitive(symbols4);
       expect(result).assertEqual(true);
     });
 
@@ -2208,7 +2158,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBoxedPrimitive005", 0, function () {
+    it("testIsBoxedPrimitive005", 0, () => {
       let proc = new util.types();
       let result = proc.isBoxedPrimitive(new Boolean(true));
       expect(result).assertEqual(true);
@@ -2222,7 +2172,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBooleanObject001", 0, function () {
+    it("testIsBooleanObject001", 0, () => {
       let proc = new util.types();
       let result = proc.isBooleanObject(new Boolean(false));
       expect(result).assertEqual(true);
@@ -2236,7 +2186,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBooleanObject002", 0, function () {
+    it("testIsBooleanObject002", 0, () => {
       let proc = new util.types();
       let result = proc.isBooleanObject(new Boolean(true));
       expect(result).assertEqual(true);
@@ -2250,7 +2200,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBooleanObject003", 0, function () {
+    it("testIsBooleanObject003", 0, () => {
       let proc = new util.types();
       let result = proc.isBooleanObject(true);
       expect(result).assertEqual(false);
@@ -2264,7 +2214,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBooleanObject004", 0, function () {
+    it("testIsBooleanObject004", 0, () => {
       let proc = new util.types();
       let result = proc.isBooleanObject(false);
       expect(result).assertEqual(false);
@@ -2278,7 +2228,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBooleanObject005", 0, function () {
+    it("testIsBooleanObject005", 0, () => {
       let proc = new util.types();
       let result = proc.isBooleanObject(Boolean(true));
       expect(result).assertEqual(false);
@@ -2292,7 +2242,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigUint64Array001", 0, function () {
+    it("testIsBigUint64Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isBigUint64Array(new BigUint64Array([]));
       expect(result).assertEqual(true);
@@ -2306,7 +2256,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigUint64Array002", 0, function () {
+    it("testIsBigUint64Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isBigUint64Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -2320,7 +2270,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigUint64Array003", 0, function () {
+    it("testIsBigUint64Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isBigUint64Array(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -2334,7 +2284,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigUint64Array004", 0, function () {
+    it("testIsBigUint64Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isBigUint64Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -2348,7 +2298,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigUint64Array005", 0, function () {
+    it("testIsBigUint64Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isBigUint64Array(new BigInt64Array([]));
       expect(result).assertEqual(false);
@@ -2362,7 +2312,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigInt64Array001", 0, function () {
+    it("testIsBigInt64Array001", 0, () => {
       let proc = new util.types();
       let result = proc.isBigInt64Array(new BigInt64Array([]));
       expect(result).assertEqual(true);
@@ -2376,7 +2326,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigInt64Array002", 0, function () {
+    it("testIsBigInt64Array002", 0, () => {
       let proc = new util.types();
       let result = proc.isBigInt64Array(new Int32Array([]));
       expect(result).assertEqual(false);
@@ -2390,7 +2340,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigInt64Array003", 0, function () {
+    it("testIsBigInt64Array003", 0, () => {
       let proc = new util.types();
       let result = proc.isBigInt64Array(new Uint8Array([]));
       expect(result).assertEqual(false);
@@ -2404,7 +2354,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigInt64Array004", 0, function () {
+    it("testIsBigInt64Array004", 0, () => {
       let proc = new util.types();
       let result = proc.isBigInt64Array(new Float64Array([]));
       expect(result).assertEqual(false);
@@ -2418,7 +2368,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsBigInt64Array005", 0, function () {
+    it("testIsBigInt64Array005", 0, () => {
       let proc = new util.types();
       let result = proc.isBigInt64Array(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -2432,7 +2382,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAsyncFunction001", 0, function () {
+    it("testIsAsyncFunction001", 0, () => {
       let proc = new util.types();
       let result = proc.isAsyncFunction(false);
       expect(result).assertEqual(false);
@@ -2446,9 +2396,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAsyncFunction002", 0, function () {
+    it("testIsAsyncFunction002", 0, () => {
       let proc = new util.types();
-      let result = proc.isAsyncFunction(function foo() {});
+      let result = proc.isAsyncFunction(foo1);
       expect(result).assertEqual(false);
     });
 
@@ -2460,7 +2410,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAsyncFunction003", 0, function () {
+    it("testIsAsyncFunction003", 0, () => {
       let proc = new util.types();
       let result = proc.isAsyncFunction(new Int8Array());
       expect(result).assertEqual(false);
@@ -2474,9 +2424,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAsyncFunction004", 0, function () {
+    it("testIsAsyncFunction004", 0, () => {
       let proc = new util.types();
-      let result = proc.isAsyncFunction(async function foo() {});
+      let result = proc.isAsyncFunction(foo2);
       expect(result).assertEqual(true);
     });
 
@@ -2488,7 +2438,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBuffer001", 0, function () {
+    it("testIsArrayBuffer001", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBuffer(new ArrayBuffer(0));
       expect(result).assertEqual(true);
@@ -2502,7 +2452,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBuffer002", 0, function () {
+    it("testIsArrayBuffer002", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBuffer(true);
       expect(result).assertEqual(false);
@@ -2516,7 +2466,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBuffer003", 0, function () {
+    it("testIsArrayBuffer003", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBuffer(false);
       expect(result).assertEqual(false);
@@ -2530,7 +2480,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBuffer004", 0, function () {
+    it("testIsArrayBuffer004", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBuffer(new Int8Array());
       expect(result).assertEqual(false);
@@ -2544,7 +2494,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBuffer005", 0, function () {
+    it("testIsArrayBuffer005", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBuffer(new Int16Array());
       expect(result).assertEqual(false);
@@ -2558,13 +2508,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArgumentsObject001", 0, function () {
-      let proc = new util.types();
-      function foo() {
-        let result = proc.isArgumentsObject(arguments);
-        expect(result).assertEqual(true);
-      }
-      let f = foo();
+    it("testIsArgumentsObject001", 0, () => {
+      let proc: ESObject = new util.types();
+      let result: ESObject = testIsArgumentsObject001Fun(proc);
+      expect(result).assertEqual(true);
     });
 
     /**
@@ -2575,7 +2522,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArgumentsObject002", 0, function () {
+    it("testIsArgumentsObject002", 0, () => {
       let proc = new util.types();
       let result = proc.isArgumentsObject(new Int8Array([]));
       expect(result).assertEqual(false);
@@ -2589,7 +2536,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArgumentsObject003", 0, function () {
+    it("testIsArgumentsObject003", 0, () => {
       let proc = new util.types();
       let result = proc.isArgumentsObject(true);
       expect(result).assertEqual(false);
@@ -2603,7 +2550,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArgumentsObject004", 0, function () {
+    it("testIsArgumentsObject004", 0, () => {
       let proc = new util.types();
       let result = proc.isArgumentsObject(false);
       expect(result).assertEqual(false);
@@ -2617,7 +2564,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArgumentsObject005", 0, function () {
+    it("testIsArgumentsObject005", 0, () => {
       let proc = new util.types();
       let result = proc.isArgumentsObject(new Boolean());
       expect(result).assertEqual(false);
@@ -2633,7 +2580,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBufferView001", 0, function () {
+    it("testIsArrayBufferView001", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBufferView(new Int8Array([]));
       expect(result).assertEqual(true);
@@ -2649,7 +2596,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBufferView002", 0, function () {
+    it("testIsArrayBufferView002", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBufferView(new Int32Array([]));
       expect(result).assertEqual(true);
@@ -2665,7 +2612,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBufferView003", 0, function () {
+    it("testIsArrayBufferView003", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBufferView(new DataView(new ArrayBuffer(16)));
       expect(result).assertEqual(true);
@@ -2681,7 +2628,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBufferView004", 0, function () {
+    it("testIsArrayBufferView004", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBufferView(false);
       expect(result).assertEqual(false);
@@ -2697,7 +2644,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsArrayBufferView005", 0, function () {
+    it("testIsArrayBufferView005", 0, () => {
       let proc = new util.types();
       let result = proc.isArrayBufferView(new Int16Array([]));
       expect(result).assertEqual(true);
@@ -2711,7 +2658,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAnyArrayBuffer001", 0, function () {
+    it("testIsAnyArrayBuffer001", 0, () => {
       let proc = new util.types();
       let result = proc.isAnyArrayBuffer(new ArrayBuffer(0));
       expect(result).assertEqual(true);
@@ -2725,7 +2672,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAnyArrayBuffer002", 0, function () {
+    it("testIsAnyArrayBuffer002", 0, () => {
       let proc = new util.types();
       let result = proc.isAnyArrayBuffer(true);
       expect(result).assertEqual(false);
@@ -2739,7 +2686,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAnyArrayBuffer003", 0, function () {
+    it("testIsAnyArrayBuffer003", 0, () => {
       let proc = new util.types();
       let result = proc.isAnyArrayBuffer(false);
       expect(result).assertEqual(false);
@@ -2753,7 +2700,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAnyArrayBuffer004", 0, function () {
+    it("testIsAnyArrayBuffer004", 0, () => {
       let proc = new util.types();
       let buf = new ArrayBuffer(10);
       let result = proc.isAnyArrayBuffer(buf);
@@ -2768,7 +2715,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsAnyArrayBuffer005", 0, function () {
+    it("testIsAnyArrayBuffer005", 0, () => {
       let proc = new util.types();
       let result = proc.isAnyArrayBuffer(new Boolean(false));
       expect(result).assertEqual(false);
@@ -2782,7 +2729,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilErrNoToString001", 0, async function () {
+    it("testUtilErrNoToString001", 0, async () => {
       let errnum = 10;
       let result = util.errnoToString(errnum);
       expect(result).assertEqual("Unknown system error 10");
@@ -2796,7 +2743,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilErrNoToString002", 0, async function () {
+    it("testUtilErrNoToString002", 0, async () => {
       let errnum = 0;
       let result = util.errnoToString(errnum);
       expect(result).assertEqual("Unknown system error 0");
@@ -2810,7 +2757,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilErrNoToString003", 0, async function () {
+    it("testUtilErrNoToString003", 0, async () => {
       let errnum = -1;
       let result = util.errnoToString(errnum);
       expect(result).assertEqual("operation not permitted");
@@ -2824,7 +2771,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilErrNoToString004", 0, async function () {
+    it("testUtilErrNoToString004", 0, async () => {
       let errnum = 9;
       let result = util.errnoToString(errnum);
       expect(result).assertEqual("Unknown system error 9");
@@ -2838,7 +2785,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilErrNoToString005", 0, async function () {
+    it("testUtilErrNoToString005", 0, async () => {
       let errnum = 555;
       let result = util.errnoToString(errnum);
       expect(result).assertEqual("Unknown system error 555");
@@ -2853,12 +2800,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilCallbackWrapper001", 0, async function () {
-      async function promiseFn() {
-        return Promise.resolve("value");
-      }
-      let cb = util.callbackWrapper(promiseFn);
-      cb(1, (err, ret) => {
+    it("testUtilCallbackWrapper001", 0, async () => {
+      let cb = util.callbackWrapper(testUtilCallbackWrapper001Fun);
+      cb(1, (err: ESObject, ret: ESObject) => {
         expect(err).assertEqual(null);
         expect(ret).assertEqual("value");
       });
@@ -2873,12 +2817,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilCallbackWrapper002", 0, async function () {
-      async function promiseFn() {
-        return 42;
-      }
-      let cb = util.callbackWrapper(promiseFn);
-      cb(1, (err, ret) => {
+    it("testUtilCallbackWrapper002", 0, async () => {
+      let cb = util.callbackWrapper(testUtilCallbackWrapper002fun);
+      cb(1, (err: ESObject, ret: ESObject) => {
         expect(err).assertEqual(null);
         expect(ret).assertEqual(42);
       });
@@ -2893,13 +2834,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilCallbackWrapper003", 0, async function () {
-      async function promiseFn() {
-        let err = Error("value");
-        return Promise.reject(err);
-      }
-      let cb = util.callbackWrapper(promiseFn);
-      cb(1, (err, ret) => {
+    it("testUtilCallbackWrapper003", 0, async () => {
+      let cb = util.callbackWrapper(testUtilCallbackWrapper003Fun);
+      cb(1, (err: ESObject, ret: ESObject) => {
         expect(err.message === "value").assertTrue();
         expect(ret).assertEqual(undefined);
       });
@@ -2914,13 +2851,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilCallbackWrapper004", 0, async function () {
-      async function promiseFn(args) {
-        const [a, b] = args;
-        return a + b;
-      }
+    it("testUtilCallbackWrapper004", 0, async () => {
+
       let cb = util.callbackWrapper(promiseFn);
-      cb([1, 2], (err, ret) => {
+      cb([1, 2], (err: Object, ret: string) => {
         expect(err).assertEqual(null);
         expect(ret).assertEqual(3);
       });
@@ -2935,11 +2869,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilCallbackWrapper005", 0, async function () {
-      async function promiseFn() {
-        return null;
-      }
-      let cb = util.callbackWrapper(promiseFn);
+    it("testUtilCallbackWrapper005", 0, async () => {
+      let cb = util.callbackWrapper(promiseFn1);
       try {
         cb(1, [1, 2]);
         expect(0).assertEqual(1);
@@ -2957,16 +2888,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilPromisify001", 0, async function () {
-      function fn(val, callback) {
-        if (typeof val === "string") {
-          callback(null, val);
-        } else {
-          callback("type err");
-        }
-      }
-      let value = util.promisify(fn);
-      const result = await value("Hello");
+    it("testUtilPromisify001", 0, async () => {
+      let value = util.promisify(testUtilPromisify001fun);
+      const result: ESObject = await value("Hello");
       expect(result[0] == "Hello").assertTrue();
     });
 
@@ -2979,16 +2903,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilPromisify002", 0, async function () {
-      function fn(str, callback) {
-        if (typeof str === "string") {
-          callback(null, str);
-        } else {
-          callback(null, "type err");
-        }
-      }
-      let value = util.promisify(fn);
-      const result = await value(123);
+    it("testUtilPromisify002", 0, async () => {
+      let value = util.promisify(testUtilPromisify002Fun);
+      const result: ESObject = await value(123);
       expect(result[0] == "type err").assertTrue();
     });
 
@@ -3001,12 +2918,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilPromisify003", 0, async function () {
-      function fn(val, callback) {
-        callback(null, val);
-      }
-      let value = util.promisify(fn);
-      const result = await value(42);
+    it("testUtilPromisify003", 0, async () => {
+      let value = util.promisify(testUtilPromisify003Fun);
+      const result: ESObject = await value(42);
       expect(result[0] == 42).assertTrue();
     });
 
@@ -3019,16 +2933,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilPromisify004", 0, async function () {
-      function fn(val, callback) {
-        if (typeof val === "boolean") {
-          callback(null, val);
-        } else {
-          callback("type err");
-        }
-      }
-      let value = util.promisify(fn);
-      const result = await value(false);
+    it("testUtilPromisify004", 0, async () => {
+      let value = util.promisify(testUtilPromisify004Fun);
+      const result: ESObject = await value(false);
       expect(result[0] == false).assertTrue();
     });
 
@@ -3041,16 +2948,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilPromisify005", 0, async function () {
-      function fn(val, callback) {
-        if (typeof val === "number") {
-          callback(null, val);
-        } else {
-          callback("type err");
-        }
-      }
-      let value = util.promisify(fn);
-      const result = await value(100);
+    it("testUtilPromisify005", 0, async () => {
+      let value = util.promisify(testUtilPromisify005Fun);
+      const result: ESObject = await value(100);
       expect(result[0] == 100).assertTrue();
     });
 
@@ -3062,7 +2962,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilGenerateRandomUUID001", 0, async function () {
+    it("testUtilGenerateRandomUUID001", 0, async () => {
       let result = util.generateRandomUUID(true);
       expect(result.length).assertEqual(36);
     });
@@ -3075,7 +2975,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilGenerateRandomUUID002", 0, async function () {
+    it("testUtilGenerateRandomUUID002", 0, async () => {
       let result = util.generateRandomUUID(false);
       expect(result.length).assertEqual(36);
     });
@@ -3088,7 +2988,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilGenerateRandomBinaryUUID001", 0, async function () {
+    it("testUtilGenerateRandomBinaryUUID001", 0, async () => {
       let result = util.generateRandomBinaryUUID(true);
       expect(result.length).assertEqual(16);
     });
@@ -3101,7 +3001,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilgenerateRandomBinaryUUID002", 0, async function () {
+    it("testUtilgenerateRandomBinaryUUID002", 0, async () => {
       let result = util.generateRandomBinaryUUID(false);
       expect(result.length).assertEqual(16);
     });
@@ -3114,7 +3014,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilParseUUID001", 0, async function () {
+    it("testUtilParseUUID001", 0, async () => {
       let result = util.parseUUID("84bdf796-66cc-4655-9b89-d6218d100f9c");
       expect(result.length).assertEqual(16);
     });
@@ -3127,7 +3027,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilParseUUID002", 0, async function () {
+    it("testUtilParseUUID002", 0, async () => {
       try {
         let result = util.parseUUID("84df796-66cc-4655-9b89-d6218d100f9c");
         expect(0).assertEqual(1);
@@ -3144,7 +3044,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUtilParseUUID003", 0, async function () {
+    it("testUtilParseUUID003", 0, async () => {
       try {
         let result = util.parseUUID("84Wdf796-66cc-4655-9b89-d6218d100f9c");
         expect(0).assertEqual(1);
@@ -3161,8 +3061,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodingTextDecoder001", 0, function () {
-      let that = util.TextDecoder.create("utf-8", { ignoreBOM: true });
+    it("testEncodingTextDecoder001", 0, () => {
+      let that = util.TextDecoder.create("utf-8", {
+        ignoreBOM: true
+      });
       let retStr = that.encoding;
       expect(retStr).assertEqual("utf-8");
     });
@@ -3175,8 +3077,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testFatal001", 0, function () {
-      let that = util.TextDecoder.create("utf-16be", { fatal: true });
+    it("testFatal001", 0, () => {
+      let that = util.TextDecoder.create("utf-16be", {
+        fatal: true
+      });
       let fatalStr = that.fatal;
       expect(fatalStr).assertEqual(true);
     });
@@ -3189,8 +3093,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIgnoreBOM001", 0, function () {
-      let that = util.TextDecoder.create("utf-16be", { ignoreBOM: true });
+    it("testIgnoreBOM001", 0, () => {
+      let that = util.TextDecoder.create("utf-16be", {
+        ignoreBOM: true
+      });
       let ignoreBOMStr = that.ignoreBOM;
       expect(ignoreBOMStr).assertEqual(true);
     });
@@ -3203,7 +3109,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
+    it("testConstructor001", 0, () => {
       let that = new util.TextDecoder();
       expect(that != null).assertTrue();
     });
@@ -3216,8 +3122,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate001", 0, function () {
-      let that = util.TextDecoder.create("utf-8", { ignoreBOM: true });
+    it("testTextDecoderCreate001", 0, () => {
+      let that = util.TextDecoder.create("utf-8", {
+        ignoreBOM: true
+      });
       let retStr = that.encoding;
       expect(retStr).assertEqual("utf-8");
     });
@@ -3230,7 +3138,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate002", 0, function () {
+    it("testTextDecoderCreate002", 0, () => {
       let that = util.TextDecoder.create("utf-16le");
       let encodingStr = that.encoding;
       expect(encodingStr).assertEqual("utf-16le");
@@ -3244,8 +3152,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate003", 0, function () {
-      let that = util.TextDecoder.create("utf-16be", { ignoreBOM: true });
+    it("testTextDecoderCreate003", 0, () => {
+      let that = util.TextDecoder.create("utf-16be", {
+        ignoreBOM: true
+      });
       let encodingStr = that.encoding;
       expect(encodingStr).assertEqual("utf-16be");
     });
@@ -3258,8 +3168,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate004", 0, function () {
-      let that = util.TextDecoder.create("utf-16be", { ignoreBOM: false });
+    it("testTextDecoderCreate004", 0, () => {
+      let that = util.TextDecoder.create("utf-16be", {
+        ignoreBOM: false
+      });
       let encodingStr = that.encoding;
       expect(encodingStr).assertEqual("utf-16be");
     });
@@ -3272,7 +3184,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate005", 0, function () {
+    it("testTextDecoderCreate005", 0, () => {
       let that = util.TextDecoder.create();
       let encodingStr = that.encoding;
       expect(encodingStr).assertEqual("utf-8");
@@ -3286,8 +3198,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testTextDecoderCreate006", 0, function () {
-      let that = util.TextDecoder.create("utf-8", { ignoreBOM: false });
+    it("testTextDecoderCreate006", 0, () => {
+      let that = util.TextDecoder.create("utf-8", {
+        ignoreBOM: false
+      });
       let encodingStr = that.encoding;
       expect(encodingStr).assertEqual("utf-8");
     });
@@ -3300,8 +3214,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeWithStream001", 0, function () {
-      let that = util.TextDecoder.create("utf-16le", { ignoreBOM: false });
+    it("testDecodeWithStream001", 0, () => {
+      let that = util.TextDecoder.create("utf-16le", {
+        ignoreBOM: false
+      });
       let arr = new Uint8Array(8);
       arr[0] = 0xff;
       arr[1] = 0xfe;
@@ -3311,7 +3227,9 @@ export default function UtilFunTest() {
       arr[5] = 0x00;
       arr[6] = 0x63;
       arr[7] = 0x00;
-      let retStr = that.decodeWithStream(arr, { stream: false });
+      let retStr = that.decodeWithStream(arr, {
+        stream: false
+      });
       let BOM = "\uFEFF";
       let rel = "abc";
       let re = BOM + rel;
@@ -3326,8 +3244,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeWithStream002", 0, function () {
-      let that = util.TextDecoder.create("utf-8", { ignoreBOM: true });
+    it("testDecodeWithStream002", 0, () => {
+      let that = util.TextDecoder.create("utf-8", {
+        ignoreBOM: true
+      });
       let arr = new Uint8Array(6);
       arr[0] = 0xef;
       arr[1] = 0xbb;
@@ -3335,7 +3255,9 @@ export default function UtilFunTest() {
       arr[3] = 0x61;
       arr[4] = 0x62;
       arr[5] = 0x63;
-      let retStr = that.decodeWithStream(arr, { stream: true });
+      let retStr = that.decodeWithStream(arr, {
+        stream: true
+      });
       let BOM = "\uFEFF";
       let rel = "abc";
       let re = BOM + rel;
@@ -3350,7 +3272,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeWithStream003", 0, function () {
+    it("testDecodeWithStream003", 0, () => {
       let that = util.TextDecoder.create("utf-16be");
       let arr = new Uint8Array(6);
       arr[0] = 0x00;
@@ -3372,7 +3294,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeWithStream004", 0, function () {
+    it("testDecodeWithStream004", 0, () => {
       let that = util.TextDecoder.create("utf-16le");
       let arr = new Uint8Array(6);
       arr[0] = 0x61;
@@ -3394,7 +3316,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeWithStream005", 0, function () {
+    it("testDecodeWithStream005", 0, () => {
       let that = util.TextDecoder.create("utf-8");
       let arr = new Uint8Array(3);
       for (let i = 0; i < 3; i++) {
@@ -3413,7 +3335,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodingTextEncoder001", 0, function () {
+    it("testEncodingTextEncoder001", 0, () => {
       let that = new util.TextEncoder();
       let str = that.encoding;
       expect(str).assertEqual("utf-8");
@@ -3427,7 +3349,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto001", 0, function () {
+    it("testEncodeInto001", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3443,7 +3365,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto002", 0, function () {
+    it("testEncodeInto002", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3459,7 +3381,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto003", 0, function () {
+    it("testEncodeInto003", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3475,7 +3397,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto004", 0, function () {
+    it("testEncodeInto004", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3491,7 +3413,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto005", 0, function () {
+    it("testEncodeInto005", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3508,7 +3430,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto006", 0, function () {
+    it("testEncodeInto006", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3524,7 +3446,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto007", 0, function () {
+    it("testEncodeInto007", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3540,7 +3462,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto008", 0, function () {
+    it("testEncodeInto008", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let result = new Uint8Array(buffer);
@@ -3556,7 +3478,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto009", 0, function () {
+    it("testEncodeInto009", 0, () => {
       let that1 = new util.TextEncoder('gb18030');
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
@@ -3578,7 +3500,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeInto010", 0, function () {
+    it("testEncodeInto010", 0, () => {
       let that1 = new util.TextEncoder('GB18030');
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
@@ -3600,11 +3522,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array001", 0, function () {
+    it("testEncodeIntoUint8Array001", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let dest = new Uint8Array(buffer, 0, 13);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("\uD800A\uDF06A楼HiA", dest);
       expect(result["read"]).assertEqual(7);
       expect(result["written"]).assertEqual(13);
@@ -3618,11 +3540,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array002", 0, function () {
+    it("testEncodeIntoUint8Array002", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(6);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("abc\u2603d", dest);
       expect(result["read"]).assertEqual(4);
       expect(result["written"]).assertEqual(6);
@@ -3636,11 +3558,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array003", 0, function () {
+    it("testEncodeIntoUint8Array003", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(4);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("abcd", dest);
       expect(result["read"]).assertEqual(4);
       expect(result["written"]).assertEqual(4);
@@ -3654,11 +3576,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array004", 0, function () {
+    it("testEncodeIntoUint8Array004", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(4);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("12345", dest);
       expect(result["read"]).assertEqual(4);
       expect(result["written"]).assertEqual(4);
@@ -3672,11 +3594,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array005", 0, function () {
+    it("testEncodeIntoUint8Array005", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(4);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("123 4*!@#", dest);
       expect(result["read"]).assertEqual(4);
       expect(result["written"]).assertEqual(4);
@@ -3690,11 +3612,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array006", 0, function () {
+    it("testEncodeIntoUint8Array006", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(4);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("", dest);
       expect(result["read"]).assertEqual(0);
       expect(result["written"]).assertEqual(0);
@@ -3708,11 +3630,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array007", 0, function () {
+    it("testEncodeIntoUint8Array007", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let dest = new Uint8Array(buffer);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("12ab", dest);
       expect(result["read"]).assertEqual(4);
       expect(result["written"]).assertEqual(4);
@@ -3726,11 +3648,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeIntoUint8Array008", 0, function () {
+    it("testEncodeIntoUint8Array008", 0, () => {
       let that = new util.TextEncoder();
       let buffer = new ArrayBuffer(20);
       let dest = new Uint8Array(buffer, 0, 0);
-      let result = new Object();
+      let result: ESObject = new Object();
       result = that.encodeIntoUint8Array("\uD800A\uDF06A楼HiA", dest);
       expect(result["read"]).assertEqual(0);
       expect(result["written"]).assertEqual(0);
@@ -3744,7 +3666,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParseRationalNumber001", 0, function () {
+    it("testParseRationalNumber001", 0, () => {
       let res = util.RationalNumber.parseRationalNumber(2, 1);
       let result = res.valueOf();
       expect(result).assertEqual(2);
@@ -3758,7 +3680,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCreateRationalFromString001", 0, function () {
+    it("testCreateRationalFromString001", 0, () => {
       let res = util.RationalNumber.createRationalFromString("-1:2");
       let result = res.valueOf();
       expect(result).assertEqual(-0.5);
@@ -3772,7 +3694,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCreateRationalFromString002", 0, function () {
+    it("testCreateRationalFromString002", 0, () => {
       let res = util.RationalNumber.createRationalFromString("+3/4");
       let result = res.valueOf();
       expect(result).assertEqual(0.75);
@@ -3786,7 +3708,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCreateRationalFromString003", 0, function () {
+    it("testCreateRationalFromString003", 0, () => {
       let res = util.RationalNumber.createRationalFromString("+3:-4");
       let result = res.valueOf();
       expect(result).assertEqual(-0.75);
@@ -3800,7 +3722,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCreateRationalFromString004", 0, function () {
+    it("testCreateRationalFromString004", 0, () => {
       let res = util.RationalNumber.createRationalFromString("+2:4");
       let result = res.valueOf();
       expect(result).assertEqual(0.5);
@@ -3814,7 +3736,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCreateRationalFromString005", 0, function () {
+    it("testCreateRationalFromString005", 0, () => {
       let res = util.RationalNumber.createRationalFromString("+2:-4");
       let result = res.valueOf();
       expect(result).assertEqual(-0.5);
@@ -3828,7 +3750,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompare001", 0, function () {
+    it("testCompare001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let proc = util.RationalNumber.parseRationalNumber(3, 4);
       let res = pro.compare(proc);
@@ -3843,7 +3765,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompare002", 0, function () {
+    it("testCompare002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let proc = util.RationalNumber.parseRationalNumber(0, 0);
       let res = pro.compare(proc);
@@ -3858,7 +3780,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompare003", 0, function () {
+    it("testCompare003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let proc = util.RationalNumber.parseRationalNumber(8, 3);
       let res = pro.compare(proc);
@@ -3873,7 +3795,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompare004", 0, function () {
+    it("testCompare004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let proc = util.RationalNumber.parseRationalNumber(2, 1);
       let res = pro.compare(proc);
@@ -3888,7 +3810,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompare005", 0, function () {
+    it("testCompare005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 0);
       let proc = util.RationalNumber.parseRationalNumber(2, 1);
       let res = pro.compare(proc);
@@ -3903,7 +3825,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEquals001", 0, function () {
+    it("testEquals001", 0, () => {
       let pro = new util.RationalNumber();
       expect(pro != null).assertTrue();
       let proc = new util.RationalNumber();
@@ -3919,7 +3841,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEquals002", 0, function () {
+    it("testEquals002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(1, 2);
       let proc = util.RationalNumber.parseRationalNumber(4, 2);
       let res = pro.equals(proc);
@@ -3934,7 +3856,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEquals003", 0, function () {
+    it("testEquals003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 1);
       let proc = util.RationalNumber.parseRationalNumber(0, 2);
       let res = pro.equals(proc);
@@ -3949,7 +3871,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEquals004", 0, function () {
+    it("testEquals004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 0);
       let proc = util.RationalNumber.parseRationalNumber(0, 2);
       let res = pro.equals(proc);
@@ -3964,7 +3886,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEquals005", 0, function () {
+    it("testEquals005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 0);
       let proc = util.RationalNumber.parseRationalNumber(2, 0);
       let res = pro.equals(proc);
@@ -3979,7 +3901,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberValueOf001", 0, function () {
+    it("testRationalNumberValueOf001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let res = pro.valueOf();
       expect(res).assertEqual(2);
@@ -3993,7 +3915,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberValueOf002", 0, function () {
+    it("testRationalNumberValueOf002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 10);
       let res = pro.valueOf();
       expect(res).assertEqual(0.2);
@@ -4007,7 +3929,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberValueOf003", 0, function () {
+    it("testRationalNumberValueOf003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(1, 2);
       let res = pro.valueOf();
       expect(res).assertEqual(0.5);
@@ -4021,7 +3943,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberValueOf004", 0, function () {
+    it("testRationalNumberValueOf004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(4, 2);
       let res = pro.valueOf();
       expect(res).assertEqual(2);
@@ -4035,7 +3957,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberValueOf005", 0, function () {
+    it("testRationalNumberValueOf005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(4, 1);
       let res = pro.valueOf();
       expect(res).assertEqual(4);
@@ -4049,7 +3971,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCommonFactor001", 0, function () {
+    it("testGetCommonFactor001", 0, () => {
       let res = util.RationalNumber.getCommonFactor(4, 8);
       expect(res).assertEqual(4);
     });
@@ -4062,7 +3984,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCommonFactor002", 0, function () {
+    it("testGetCommonFactor002", 0, () => {
       let res = util.RationalNumber.getCommonFactor(10, 15);
       expect(res).assertEqual(5);
     });
@@ -4075,7 +3997,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCommonFactor003", 0, function () {
+    it("testGetCommonFactor003", 0, () => {
       let res = util.RationalNumber.getCommonFactor(8, 4);
       expect(res).assertEqual(4);
     });
@@ -4088,7 +4010,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCommonFactor004", 0, function () {
+    it("testGetCommonFactor004", 0, () => {
       let res = util.RationalNumber.getCommonFactor(8, 16);
       expect(res).assertEqual(8);
     });
@@ -4101,7 +4023,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetCommonFactor005", 0, function () {
+    it("testGetCommonFactor005", 0, () => {
       let res = util.RationalNumber.getCommonFactor(2, 16);
       expect(res).assertEqual(2);
     });
@@ -4114,7 +4036,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator001", 0, function () {
+    it("testGetDenominator001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 1);
       let res = pro.getDenominator();
       expect(res).assertEqual(1);
@@ -4128,7 +4050,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator002", 0, function () {
+    it("testGetDenominator002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 3);
       let res = pro.getDenominator();
       expect(res).assertEqual(3);
@@ -4142,7 +4064,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator003", 0, function () {
+    it("testGetDenominator003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 0);
       let res = pro.getDenominator();
       expect(res).assertEqual(0);
@@ -4156,7 +4078,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator004", 0, function () {
+    it("testGetDenominator004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 5);
       let res = pro.getDenominator();
       expect(res).assertEqual(1);
@@ -4170,7 +4092,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator005", 0, function () {
+    it("testGetDenominator005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(6, 3);
       let res = pro.getDenominator();
       expect(res).assertEqual(1);
@@ -4184,7 +4106,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDenominator006", 0, function () {
+    it("testGetDenominator006", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(6, -3);
       let res = pro.getDenominator();
       expect(res).assertEqual(1);
@@ -4198,7 +4120,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNumerator001", 0, function () {
+    it("testGetNumerator001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 1);
       let res = pro.getNumerator();
       expect(res).assertEqual(-2);
@@ -4212,7 +4134,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNumerator002", 0, function () {
+    it("testGetNumerator002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 3);
       let res = pro.getNumerator();
       expect(res).assertEqual(0);
@@ -4226,7 +4148,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNumerator003", 0, function () {
+    it("testGetNumerator003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 4);
       let res = pro.getNumerator();
       expect(res).assertEqual(1);
@@ -4240,7 +4162,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNumerator004", 0, function () {
+    it("testGetNumerator004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(3, 6);
       let res = pro.getNumerator();
       expect(res).assertEqual(1);
@@ -4254,7 +4176,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNumerator005", 0, function () {
+    it("testGetNumerator005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 5);
       let res = pro.getNumerator();
       expect(res).assertEqual(2);
@@ -4268,7 +4190,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFinite001", 0, function () {
+    it("testIsFinite001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 1);
       let res = pro.isFinite();
       expect(res).assertEqual(true);
@@ -4282,7 +4204,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFinite002", 0, function () {
+    it("testIsFinite002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 3);
       let res = pro.isFinite();
       expect(res).assertEqual(true);
@@ -4296,7 +4218,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFinite003", 0, function () {
+    it("testIsFinite003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 0);
       let res = pro.isFinite();
       expect(res).assertEqual(false);
@@ -4310,7 +4232,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFinite004", 0, function () {
+    it("testIsFinite004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(1, 3);
       let res = pro.isFinite();
       expect(res).assertEqual(true);
@@ -4324,7 +4246,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsFinite005", 0, function () {
+    it("testIsFinite005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 5);
       let res = pro.isFinite();
       expect(res).assertEqual(true);
@@ -4338,7 +4260,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNaN001", 0, function () {
+    it("testIsNaN001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 1);
       let res = pro.isNaN();
       expect(res).assertEqual(false);
@@ -4352,7 +4274,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNaN002", 0, function () {
+    it("testIsNaN002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 3);
       let res = pro.isNaN();
       expect(res).assertEqual(false);
@@ -4366,7 +4288,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNaN003", 0, function () {
+    it("testIsNaN003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 0);
       let res = pro.isNaN();
       expect(res).assertEqual(true);
@@ -4380,7 +4302,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNaN004", 0, function () {
+    it("testIsNaN004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 0);
       let res = pro.isNaN();
       expect(res).assertEqual(false);
@@ -4394,7 +4316,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsNaN005", 0, function () {
+    it("testIsNaN005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 1);
       let res = pro.isNaN();
       expect(res).assertEqual(false);
@@ -4408,7 +4330,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsZero001", 0, function () {
+    it("testIsZero001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 1);
       let res = pro.isZero();
       expect(res).assertEqual(false);
@@ -4422,7 +4344,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsZero002", 0, function () {
+    it("testIsZero002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 3);
       let res = pro.isZero();
       expect(res).assertEqual(true);
@@ -4436,7 +4358,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsZero003", 0, function () {
+    it("testIsZero003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 0);
       let res = pro.isZero();
       expect(res).assertEqual(false);
@@ -4450,7 +4372,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsZero004", 0, function () {
+    it("testIsZero004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(10, 2);
       let res = pro.isZero();
       expect(res).assertEqual(false);
@@ -4464,7 +4386,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsZero005", 0, function () {
+    it("testIsZero005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(1, 1);
       let res = pro.isZero();
       expect(res).assertEqual(false);
@@ -4478,7 +4400,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberToString001", 0, function () {
+    it("testRationalNumberToString001", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-2, 1);
       let res = pro.toString();
       expect(res).assertEqual("-2/1");
@@ -4492,7 +4414,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberToString002", 0, function () {
+    it("testRationalNumberToString002", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(0, 0);
       let res = pro.toString();
       expect(res).assertEqual("NaN");
@@ -4506,7 +4428,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberToString003", 0, function () {
+    it("testRationalNumberToString003", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(3, 0);
       let res = pro.toString();
       expect(res).assertEqual("Infinity");
@@ -4520,7 +4442,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberToString004", 0, function () {
+    it("testRationalNumberToString004", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(-3, 0);
       let res = pro.toString();
       expect(res).assertEqual("-Infinity");
@@ -4534,7 +4456,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRationalNumberToString005", 0, function () {
+    it("testRationalNumberToString005", 0, () => {
       let pro = util.RationalNumber.parseRationalNumber(2, 3);
       let res = pro.toString();
       expect(res).assertEqual("2/3");
@@ -4548,8 +4470,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheUpdateGetCapacity001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheUpdateGetCapacity001", 0, () => {
+      let that = new util.LRUCache<number | string, number>();
       expect(that != null).assertTrue();
       that.updateCapacity(10);
       let result = that.getCapacity();
@@ -4564,8 +4486,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheUpdateGetCapacity002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheUpdateGetCapacity002", 0, () => {
+      let that = new util.LRUCache<number | string, number>();
       expect(that != null).assertTrue();
       that.updateCapacity(2147483646);
       let result = that.getCapacity();
@@ -4580,8 +4502,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheUpdateGetCapacity003", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheUpdateGetCapacity003", 0, () => {
+      let that = new util.LRUCache<number | string, number>(100);
       expect(that != null).assertTrue();
       that.updateCapacity(20);
       let result = that.getCapacity();
@@ -4596,8 +4518,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheUpdateGetCapacity004", 0, function () {
-      let that = new util.LRUCache(50);
+    it("testLruCacheUpdateGetCapacity004", 0, () => {
+      let that = new util.LRUCache<number | string, number>(50);
       expect(that != null).assertTrue();
       that.updateCapacity(2);
       let result = that.getCapacity();
@@ -4612,8 +4534,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheUpdateGetCapacity005", 0, function () {
-      let that = new util.LRUCache(200);
+    it("testLruCacheUpdateGetCapacity005", 0, () => {
+      let that = new util.LRUCache<number | string, number>(200);
       expect(that != null).assertTrue();
       that.updateCapacity(100);
       let result = that.getCapacity();
@@ -4628,8 +4550,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheToString001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheToString001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("1111", "bcjdshc");
       that.put(1, 2);
       let result = that.toString();
@@ -4644,8 +4566,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheToString002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheToString002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("1111", "bcjdshc");
       that.put(1, 2);
       that.get(1);
@@ -4662,8 +4584,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheToString003", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheToString003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -4681,8 +4603,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheToString004", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheToString004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -4701,8 +4623,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheToString005", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheToString005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -4723,8 +4645,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheLength001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheLength001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       let result = that.length;
       expect(result).assertEqual(1);
@@ -4738,8 +4660,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCapacity001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCapacity001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result = that.getCapacity();
       expect(result).assertEqual(64);
     });
@@ -4752,8 +4674,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCapacity002", 0, function () {
-      let that = new util.LRUCache(2);
+    it("testLruCacheGetCapacity002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(2);
       let result = that.getCapacity();
       expect(result).assertEqual(2);
     });
@@ -4766,8 +4688,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCapacity003", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheGetCapacity003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       let result = that.getCapacity();
       expect(result).assertEqual(100);
     });
@@ -4780,8 +4702,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCapacity004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCapacity004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.updateCapacity(50);
       let result = that.getCapacity();
       expect(result).assertEqual(50);
@@ -4795,8 +4717,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCapacity005", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheGetCapacity005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.updateCapacity(10);
       let result = that.getCapacity();
       expect(result).assertEqual(10);
@@ -4810,8 +4732,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheClear001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheClear001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result1 = that.length;
       that.clear();
@@ -4828,8 +4750,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheClear002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheClear002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put(5, 33);
@@ -4849,8 +4771,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheClear003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheClear003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("abc", 2);
       that.put(2, "abc");
       that.put("ancd", "abcd");
@@ -4870,8 +4792,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheClear004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheClear004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put(5, 33);
@@ -4891,8 +4813,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheClear005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheClear005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put(5, 33);
@@ -4913,8 +4835,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCreateCount001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCreateCount001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -4933,8 +4855,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCreateCount002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCreateCount002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -4953,8 +4875,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCreateCount003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCreateCount003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.get("abc");
@@ -4971,8 +4893,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCreateCount004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCreateCount004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(5, 2);
       that.put(10, 10);
       that.put("abcd", "abcd");
@@ -4991,8 +4913,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetCreateCount005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetCreateCount005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("xsjk", "bcjds");
       that.put("ajc", 10);
       that.put("abcd", 15);
@@ -5011,8 +4933,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5031,8 +4953,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(5, 2);
       that.put(1, 10);
       that.put("abcd", "bcjsc");
@@ -5051,8 +4973,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(10, 10);
       that.put(3, 20);
       that.put(12, 16);
@@ -5071,8 +4993,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("acb", "asdc");
       that.put("vfb", 1);
       that.put("abcd", "abcd");
@@ -5091,8 +5013,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5113,8 +5035,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMissCount006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMissCount006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5133,8 +5055,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetRemovalCount001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetRemovalCount001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5152,8 +5074,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetRemovalCount002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetRemovalCount002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(10, 2);
       that.put(3, 2);
       that.put(15, 15);
@@ -5170,8 +5092,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetRemovalCount003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetRemovalCount003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("abc", 2);
       that.put("abcd", "abcd");
       that.put(3, 2);
@@ -5187,8 +5109,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetRemovalCount004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetRemovalCount004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5207,8 +5129,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetRemovalCount005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetRemovalCount005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5228,8 +5150,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5248,8 +5170,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(10, 2);
       that.put(2, 1);
       that.put("abcd", 15);
@@ -5269,8 +5191,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(0, 1);
       that.put(30, 10);
       that.put("abcd", 15);
@@ -5289,8 +5211,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5312,8 +5234,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5338,8 +5260,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetMatchCount006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetMatchCount006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5356,8 +5278,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetPutCount001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetPutCount001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result = that.getPutCount();
       expect(result).assertEqual(1);
@@ -5371,8 +5293,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetPutCount002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetPutCount002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(5, 3);
       that.put(2, 10);
       let result = that.getPutCount();
@@ -5387,8 +5309,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetPutCount003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetPutCount003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", 2);
       that.put("abcd", 1);
       that.put("ab", "a");
@@ -5404,8 +5326,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetPutCount004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetPutCount004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", "string");
       that.put("ac", "abc");
       that.put("abcd", 15);
@@ -5421,8 +5343,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGetPutCount005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGetPutCount005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.updateCapacity(2);
@@ -5439,8 +5361,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheIsEmpty001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheIsEmpty001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result = that.isEmpty();
       expect(result).assertEqual(false);
@@ -5454,8 +5376,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheIsEmpty002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheIsEmpty002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       let result = that.isEmpty();
@@ -5470,8 +5392,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheIsEmpty003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheIsEmpty003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put(5, 33);
@@ -5487,8 +5409,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheIsEmpty004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheIsEmpty004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("abc", 2);
       that.put("string", 10);
       that.put("ab", "abc");
@@ -5504,8 +5426,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheIsEmpty005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheIsEmpty005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(2, 10);
       that.put(5, 33);
@@ -5522,8 +5444,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet001", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheGet001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       let result = that.get(1);
       expect(result).assertEqual(2);
@@ -5537,8 +5459,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet002", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheGet002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       let result = that.get(5);
       expect(result).assertEqual(undefined);
@@ -5552,8 +5474,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet003", 0, function () {
-      let that = new util.LRUCache(100);
+    it("testLruCacheGet003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>(100);
       that.put(1, 2);
       that.put(2, 10);
       that.put("abcd", 15);
@@ -5573,8 +5495,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGet004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("1111", "bcjdshc");
       that.put(20, "cdjcaxb");
       that.put("abcd", 15);
@@ -5596,8 +5518,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGet005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("1111", "bcjdshc");
       that.put(20, "cdjcaxb");
       that.updateCapacity(2);
@@ -5620,8 +5542,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheGet006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheGet006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let un = undefined;
       that.put(20, "cdjcaxb");
       try {
@@ -5642,8 +5564,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let temp = that.put("1111", "bcjdshc");
       expect(temp).assertEqual('bcjdshc');
     });
@@ -5656,8 +5578,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let temp1 = that.put("1111", "bcjdshc");
       let temp2 = that.put("1111", 13);
       expect(temp2).assertEqual(13);
@@ -5671,8 +5593,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let temp = that.put("1111", "bcjdshc");
       let temp1 = that.put(1, 12);
       let temp2 = that.put(2, 5);
@@ -5692,8 +5614,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let temp = that.put("1111", "bcjdshc");
       let temp1 = that.put(1, 12);
       let temp2 = that.put(2, 5);
@@ -5715,8 +5637,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let temp = that.put("1111", "bcjdshc");
       let temp1 = that.put(1, 12);
       let temp2 = that.put(2, 5);
@@ -5739,8 +5661,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCachePut006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCachePut006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let un = undefined;
       try {
         that.put(un, "bcjdshc");
@@ -5760,8 +5682,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheValues001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheValues001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", "abc");
       let result = that.values();
       expect(result[0]).assertEqual("abc");
@@ -5775,8 +5697,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheValues002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheValues002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5796,8 +5718,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheValues003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheValues003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5818,8 +5740,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheValues004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheValues004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5841,8 +5763,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheValues005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheValues005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5866,8 +5788,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheKeys001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheKeys001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", "abc");
       let result = that.keys();
       expect(result[0]).assertEqual("string");
@@ -5881,8 +5803,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheKeys002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheKeys002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5902,8 +5824,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheKeys003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheKeys003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5924,8 +5846,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheKeys004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheKeys004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5947,8 +5869,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheKeys005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheKeys005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -5972,8 +5894,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result = that.remove(1);
       expect(result).assertEqual(2);
@@ -5987,8 +5909,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put("abcd", 20);
       let result1 = that.remove(1);
@@ -6005,8 +5927,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result1 = that.remove(1);
       let result2 = that.remove(5);
@@ -6022,8 +5944,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(0, "abc");
       that.put("abcd", 20);
       let result1 = that.remove(1);
@@ -6040,8 +5962,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -6061,8 +5983,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheRemove006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheRemove006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let un = undefined;
       try {
@@ -6083,19 +6005,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval001", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor() {
-          super();
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let lru = new ChildLRUCache();
+    it("testLruCacheAfterRemoval001", 0, () => {
+      arr = [];
+      let lru = new ChildLRUCache<number | string | null, number | string | null>();
       lru.afterRemoval(false, 10, 30, null);
       expect(arr[0]).assertEqual(10);
     });
@@ -6108,21 +6020,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval002", 0, function () {
+    it("testLruCacheAfterRemoval002", 0, () => {
       let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor() {
-          super();
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let lru = new ChildLRUCache();
+      let lru = new ChildLRUCache<number | string | null, number | string | null>();
       lru.afterRemoval(false, "string", 10, null);
-      expect(arr[0]).assertEqual("string");
+      expect(arr[0]).assertEqual(undefined);
     });
 
     /**
@@ -6133,19 +6035,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval003", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor() {
-          super();
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let lru = new ChildLRUCache();
+    it("testLruCacheAfterRemoval003", 0, () => {
+      arr = [];
+      let lru = new ChildLRUCache<number | string | null, number | string | null>();
       lru.afterRemoval(false, 10, 30, 12);
       expect(arr[2]).assertEqual(12);
     });
@@ -6158,19 +6050,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval004", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor() {
-          super();
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let lru = new ChildLRUCache();
+    it("testLruCacheAfterRemoval004", 0, () => {
+      arr = [];
+      let lru = new ChildLRUCache<number | string | null, number | string | null>();
       lru.afterRemoval(false, "abc", 30, "string");
       expect(arr[1]).assertEqual(30);
     });
@@ -6183,21 +6065,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval005", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor() {
-          super();
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === true) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let lru = new ChildLRUCache();
+    it("testLruCacheAfterRemoval005", 0, () => {
+      arr = [];
+      let lru = new ChildLRUCache<number | string | null, number | string | null>();
       lru.afterRemoval(true, "abc", "ab", "string");
-      expect(arr[2]).assertEqual("string");
+      expect(arr[2]).assertEqual(undefined);
     });
 
     /**
@@ -6208,19 +6080,9 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval006", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor(capacity) {
-          super(capacity);
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === true) {
-            arr = [key, value];
-          }
-        }
-      }
-      let that = new ChildLRUCache(2);
+    it("testLruCacheAfterRemoval006", 0, () => {
+      arr = [];
+      let that = new ChildLRUCache1<number | string | null, number | string | null>(2);
       that.put(1, 2);
       that.put(3, 10);
       that.put("abc", 20);
@@ -6235,58 +6097,13 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheAfterRemoval007", 0, function () {
-      let arr = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor(capacity) {
-          super(capacity);
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arr = [key, value, newValue];
-          }
-        }
-      }
-      let that = new ChildLRUCache(3);
+    it("testLruCacheAfterRemoval007", 0, () => {
+      arr = [];
+      let that = new ChildLRUCache<number | string | null, number | string | null>(3);
       that.put(1, 2);
       that.put(3, 10);
       that.put(1, 8);
       expect(arr[2]).assertEqual(8);
-    });
-
-    /**
-     * @tc.number: TEST_LRU_CACHE_AFTER_REMOVAL_008
-     * @tc.name  : testLruCacheAfterRemoval008
-     * @tc.desc  : Executes subsequent operations after a value is deleted.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testLruCacheAfterRemoval008", 0, function () {
-      let arrk = [];
-      let arrv = [];
-      class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
-        constructor(capacity) {
-          super(capacity);
-        }
-        afterRemoval(isEvict, key, value, newValue) {
-          if (isEvict === false) {
-            arrk = Array.from(key);
-            arrv = Array.from(value);
-          }
-        }
-      }
-      let that = new ChildLRUCache(3);
-      that.put(1, 2);
-      that.put(3, 10);
-      that.put(2, 8);
-      that.clear();
-      expect(arrk[0]).assertEqual(1);
-      expect(arrk[1]).assertEqual(3);
-      expect(arrk[2]).assertEqual(2);
-      expect(arrv[0]).assertEqual(2);
-      expect(arrv[1]).assertEqual(10);
-      expect(arrv[2]).assertEqual(8);
     });
 
     /**
@@ -6297,8 +6114,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       let result = that.contains(1);
       expect(result).assertEqual(true);
@@ -6312,8 +6129,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(0, 5);
       let result = that.contains(0);
       expect(result).assertEqual(true);
@@ -6327,8 +6144,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("abc", "abc");
       let result = that.contains(1);
       expect(result).assertEqual(false);
@@ -6342,8 +6159,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put("abcd", 20);
       let result1 = that.contains(1);
@@ -6360,8 +6177,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put("string", "string");
       let result1 = that.contains(1);
@@ -6380,8 +6197,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheContains006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheContains006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("abc", "abc");
       let un = undefined;
       try {
@@ -6402,8 +6219,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result = that.createDefault(1);
       expect(result).assertEqual(undefined);
     });
@@ -6416,8 +6233,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result = that.createDefault(0);
       expect(result).assertEqual(undefined);
     });
@@ -6430,8 +6247,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result = that.createDefault("string");
       expect(result).assertEqual(undefined);
     });
@@ -6444,8 +6261,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result = that.createDefault(10);
       expect(result).assertEqual(undefined);
     });
@@ -6458,8 +6275,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let result1 = that.createDefault("abc");
       let result2 = that.createDefault("ab");
       expect(result1).assertEqual(undefined);
@@ -6474,8 +6291,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheCreateDefault006", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheCreateDefault006", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       let un = undefined;
       try {
         that.createDefault(un);
@@ -6495,11 +6312,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheEntries001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheEntries001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", "abc");
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that.entries()) {
         arr[i] = entry[0];
         i++;
@@ -6517,14 +6334,14 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheEntries002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheEntries002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
       that.put("abc", 20);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that.entries()) {
         arr[i] = entry[0];
         i++;
@@ -6542,15 +6359,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheEntries003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheEntries003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
       that.put("abc", 20);
       that.get(3);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that.entries()) {
         arr[i] = entry[0];
         i++;
@@ -6568,8 +6385,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheEntries004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheEntries004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -6577,7 +6394,7 @@ export default function UtilFunTest() {
       that.get(3);
       that.contains(1);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that.entries()) {
         arr[i] = entry[0];
         i++;
@@ -6596,8 +6413,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheEntries005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheEntries005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -6608,7 +6425,7 @@ export default function UtilFunTest() {
       that.get(1);
       that.contains("abc");
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that.entries()) {
         arr[i] = entry[0];
         i++;
@@ -6628,12 +6445,12 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheSymbolIterator001", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheSymbolIterator001", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put("string", "abc");
       that.put("abc", 20);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that[Symbol.iterator]()) {
         arr[i] = entry[0];
         i++;
@@ -6651,14 +6468,14 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheSymbolIterator002", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheSymbolIterator002", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
       that.put("abc", 20);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that[Symbol.iterator]()) {
         arr[i] = entry[0];
         i++;
@@ -6676,15 +6493,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheSymbolIterator003", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheSymbolIterator003", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
       that.put("abc", 20);
       that.get(3);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that[Symbol.iterator]()) {
         arr[i] = entry[0];
         i++;
@@ -6702,8 +6519,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheSymbolIterator004", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheSymbolIterator004", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -6711,7 +6528,7 @@ export default function UtilFunTest() {
       that.get(3);
       that.contains(1);
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that[Symbol.iterator]()) {
         arr[i] = entry[0];
         i++;
@@ -6730,8 +6547,8 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testLruCacheSymbolIterator005", 0, function () {
-      let that = new util.LRUCache();
+    it("testLruCacheSymbolIterator005", 0, () => {
+      let that = new util.LRUCache<number | string, number | string>();
       that.put(1, 2);
       that.put(3, 10);
       that.put(5, 15);
@@ -6742,7 +6559,7 @@ export default function UtilFunTest() {
       that.get(1);
       that.contains("abc");
       let i = 0;
-      let arr = {};
+      let arr: ESObject = {};
       for (let entry of that[Symbol.iterator]()) {
         arr[i] = entry[0];
         i++;
@@ -6762,7 +6579,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCompareTo001", 0, function () {
+    it("testCompareTo001", 0, () => {
       let result1 = tempLower.compareTo(tempUpper);
       let result2 = tempUpper.compareTo(tempLower);
       let result3 = tempMiDF.compareTo(tempLess);
@@ -6783,7 +6600,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructorThrowError001", 0, function () {
+    it("testConstructorThrowError001", 0, () => {
       try {
         let range = new util.ScopeHelper(1, 2);
         expect(0).assertEqual(1);
@@ -6800,7 +6617,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString001", 0, function () {
+    it("testToString001", 0, () => {
       let result = rangeHp.toString();
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -6813,7 +6630,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString002", 0, function () {
+    it("testToString002", 0, () => {
       let result = rangeHpFir.toString();
       expect(result.toString()).assertEqual("[35, 39]");
     });
@@ -6826,7 +6643,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString003", 0, function () {
+    it("testToString003", 0, () => {
       let result = rangeHpSec.toString();
       expect(result.toString()).assertEqual("[20, 45]");
     });
@@ -6839,7 +6656,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString004", 0, function () {
+    it("testToString004", 0, () => {
       let result = rangeHpThi.toString();
       expect(result.toString()).assertEqual("[20, 35]");
     });
@@ -6852,7 +6669,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString005", 0, function () {
+    it("testToString005", 0, () => {
       let result = rangeHpFif.toString();
       expect(result.toString()).assertEqual("[35, 45]");
     });
@@ -6865,7 +6682,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect001", 0, function () {
+    it("testIntersect001", 0, () => {
       let result = rangeHp.intersect(rangeHpFir);
       expect(result.toString()).assertEqual("[35, 39]");
     });
@@ -6878,7 +6695,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect002", 0, function () {
+    it("testIntersect002", 0, () => {
       let result = rangeHp.intersect(rangeHpSec);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -6891,7 +6708,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect003", 0, function () {
+    it("testIntersect003", 0, () => {
       let result = rangeHp.intersect(rangeHpThi);
       expect(result.toString()).assertEqual("[30, 35]");
     });
@@ -6904,7 +6721,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect004", 0, function () {
+    it("testIntersect004", 0, () => {
       let result = rangeHp.intersect(rangeHpFif);
       expect(result.toString()).assertEqual("[35, 40]");
     });
@@ -6917,7 +6734,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect005", 0, function () {
+    it("testIntersect005", 0, () => {
       let result = rangeHp.intersect(rangeHp);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -6931,7 +6748,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect006", 0, function () {
+    it("testIntersect006", 0, () => {
       let result = rangeHp.intersect(tempMiDF, tempMidS);
       expect(result.toString()).assertEqual("[35, 39]");
     });
@@ -6945,7 +6762,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect007", 0, function () {
+    it("testIntersect007", 0, () => {
       let result = rangeHp.intersect(tempLess, tempMore);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -6959,7 +6776,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect008", 0, function () {
+    it("testIntersect008", 0, () => {
       let result = rangeHp.intersect(tempLess, tempMiDF);
       expect(result.toString()).assertEqual("[30, 35]");
     });
@@ -6973,7 +6790,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect009", 0, function () {
+    it("testIntersect009", 0, () => {
       let result = rangeHp.intersect(tempMiDF, tempMore);
       expect(result.toString()).assertEqual("[35, 40]");
     });
@@ -6987,7 +6804,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersect010", 0, function () {
+    it("testIntersect010", 0, () => {
       let result = rangeHp.intersect(tempLower, tempUpper);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7001,7 +6818,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIntersectThrowError001", 0, function () {
+    it("testIntersectThrowError001", 0, () => {
       try {
         let result = rangeHp.intersect(tempMiDF, 123);
         expect(result.toString()).assertEqual("[35, 39]");
@@ -7018,7 +6835,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetUpper001", 0, function () {
+    it("testGetUpper001", 0, () => {
       let result = rangeHp.getUpper();
       expect(result.toString()).assertEqual("40");
     });
@@ -7031,7 +6848,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetUpper002", 0, function () {
+    it("testGetUpper002", 0, () => {
       let result = rangeHpFir.getUpper();
       expect(result.toString()).assertEqual("39");
     });
@@ -7044,7 +6861,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetUpper003", 0, function () {
+    it("testGetUpper003", 0, () => {
       let result = rangeHpSec.getUpper();
       expect(result.toString()).assertEqual("45");
     });
@@ -7057,7 +6874,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetUpper004", 0, function () {
+    it("testGetUpper004", 0, () => {
       let result = rangeHpThi.getUpper();
       expect(result.toString()).assertEqual("35");
     });
@@ -7070,7 +6887,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetUpper005", 0, function () {
+    it("testGetUpper005", 0, () => {
       let result = rangeHpFif.getUpper();
       expect(result.toString()).assertEqual("45");
     });
@@ -7083,7 +6900,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand001", 0, function () {
+    it("testExpand001", 0, () => {
       let result = rangeHp.expand(rangeHpFir);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7096,7 +6913,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand002", 0, function () {
+    it("testExpand002", 0, () => {
       let result = rangeHp.expand(rangeHpSec);
       expect(result.toString()).assertEqual("[20, 45]");
     });
@@ -7109,7 +6926,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand003", 0, function () {
+    it("testExpand003", 0, () => {
       let result = rangeHp.expand(rangeHpThi);
       expect(result.toString()).assertEqual("[20, 40]");
     });
@@ -7122,7 +6939,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand004", 0, function () {
+    it("testExpand004", 0, () => {
       let result = rangeHp.expand(rangeHpFif);
       expect(result.toString()).assertEqual("[30, 45]");
     });
@@ -7135,7 +6952,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand005", 0, function () {
+    it("testExpand005", 0, () => {
       let result = rangeHp.expand(rangeHp);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7148,7 +6965,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand006", 0, function () {
+    it("testExpand006", 0, () => {
       let result = rangeHp.expand(tempMiDF);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7161,7 +6978,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand007", 0, function () {
+    it("testExpand007", 0, () => {
       let result = rangeHp.expand(tempLess);
       expect(result.toString()).assertEqual("[20, 40]");
     });
@@ -7174,7 +6991,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand008", 0, function () {
+    it("testExpand008", 0, () => {
       let result = rangeHp.expand(tempMore);
       expect(result.toString()).assertEqual("[30, 45]");
     });
@@ -7187,7 +7004,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand009", 0, function () {
+    it("testExpand009", 0, () => {
       let result = rangeHp.expand(tempLower);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7200,7 +7017,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testExpand010", 0, function () {
+    it("testExpand010", 0, () => {
       let result = rangeHp.expand(tempUpper);
       expect(result.toString()).assertEqual("[30, 40]");
     });
@@ -7213,7 +7030,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains001", 0, function () {
+    it("testContains001", 0, () => {
       let result = rangeHp.contains(tempLess);
       expect(result).assertEqual(false);
     });
@@ -7226,7 +7043,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains002", 0, function () {
+    it("testContains002", 0, () => {
       let result = rangeHp.contains(tempMiDF);
       expect(result).assertEqual(true);
     });
@@ -7239,7 +7056,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains003", 0, function () {
+    it("testContains003", 0, () => {
       let result = rangeHp.contains(tempMore);
       expect(result).assertEqual(false);
     });
@@ -7252,7 +7069,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains004", 0, function () {
+    it("testContains004", 0, () => {
       let result = rangeHp.contains(tempLower);
       expect(result).assertEqual(true);
     });
@@ -7265,7 +7082,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains005", 0, function () {
+    it("testContains005", 0, () => {
       let result = rangeHp.contains(tempUpper);
       expect(result).assertEqual(true);
     });
@@ -7278,7 +7095,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains006", 0, function () {
+    it("testContains006", 0, () => {
       let result = rangeHp.contains(rangeHpFir);
       expect(result).assertEqual(true);
     });
@@ -7291,7 +7108,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains007", 0, function () {
+    it("testContains007", 0, () => {
       let result = rangeHp.contains(rangeHpSec);
       expect(result).assertEqual(false);
     });
@@ -7304,7 +7121,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains008", 0, function () {
+    it("testContains008", 0, () => {
       let result = rangeHp.contains(rangeHpThi);
       expect(result).assertEqual(false);
     });
@@ -7317,7 +7134,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains009", 0, function () {
+    it("testContains009", 0, () => {
       let result = rangeHp.contains(rangeHpFif);
       expect(result).assertEqual(false);
     });
@@ -7330,7 +7147,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testContains010", 0, function () {
+    it("testContains010", 0, () => {
       let result = rangeHp.contains(rangeHp);
       expect(result).assertEqual(true);
     });
@@ -7343,7 +7160,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClamp001", 0, function () {
+    it("testClamp001", 0, () => {
       let result = rangeHp.clamp(tempLess);
       expect(result.toString()).assertEqual("30");
     });
@@ -7356,7 +7173,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClamp002", 0, function () {
+    it("testClamp002", 0, () => {
       let result = rangeHp.clamp(tempMiDF);
       expect(result.toString()).assertEqual("35");
     });
@@ -7369,7 +7186,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClamp003", 0, function () {
+    it("testClamp003", 0, () => {
       let result = rangeHp.clamp(tempMore);
       expect(result.toString()).assertEqual("40");
     });
@@ -7382,7 +7199,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClamp004", 0, function () {
+    it("testClamp004", 0, () => {
       let result = rangeHp.clamp(tempLower);
       expect(result.toString()).assertEqual("30");
     });
@@ -7395,7 +7212,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClamp005", 0, function () {
+    it("testClamp005", 0, () => {
       let result = rangeHp.clamp(tempUpper);
       expect(result.toString()).assertEqual("40");
     });
@@ -7408,7 +7225,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClampThrowError001", 0, function () {
+    it("testClampThrowError001", 0, () => {
       try {
         let result = rangeHp.clamp(123);
         expect(result.toString()).assertEqual("30");
@@ -7426,7 +7243,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeSyncBase64001", 0, function () {
+    it("testEncodeSyncBase64001", 0, () => {
       let that = new util.Base64Helper();
       expect(that != null).assertTrue();
       let array = new Uint8Array([115, 49, 51]);
@@ -7446,11 +7263,12 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeSyncBase64002", 0, function () {
+    it("testEncodeSyncBase64002", 0, () => {
       let that = new util.Base64Helper();
       expect(that != null).assertTrue();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
-      let rarray = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      let rarray =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
       let result = that.encodeSync(array);
       for (let i = 0; i < 20; i++) {
         expect(result[i]).assertEqual(rarray[i]);
@@ -7466,11 +7284,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeSyncBase64003", 0, function () {
+    it("testEncodeSyncBase64003", 0, () => {
       let that = new util.Base64Helper();
       expect(that != null).assertTrue();
-      let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
-      let rarray = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71, 108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      let array =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
+      let rarray =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71,
+          108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
       let result = that.encodeSync(array);
       for (let i = 0; i < 36; i++) {
         expect(result[i]).assertEqual(rarray[i]);
@@ -7486,7 +7308,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeSyncBase64004", 0, function () {
+    it("testEncodeSyncBase64004", 0, () => {
       let that = new util.Base64Helper();
       expect(that != null).assertTrue();
       let array = new Uint8Array([168, 174, 155, 255]);
@@ -7506,7 +7328,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeSyncBase64005", 0, function () {
+    it("testEncodeSyncBase64005", 0, () => {
       let that = new util.Base64Helper();
       expect(that != null).assertTrue();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52]);
@@ -7525,7 +7347,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringSyncBase64001", 0, function () {
+    it("testEncodeToStringSyncBase64001", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([115, 49, 51]);
       let result = that.encodeToStringSync(array);
@@ -7540,7 +7362,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringSyncBase64002", 0, function () {
+    it("testEncodeToStringSyncBase64002", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
       let result = that.encodeToStringSync(array);
@@ -7555,9 +7377,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringSyncBase64003", 0, function () {
+    it("testEncodeToStringSyncBase64003", 0, () => {
       let that = new util.Base64Helper();
-      let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
+      let array =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
       let result = that.encodeToStringSync(array);
       expect(result).assertEqual("QmFzZTY0IEVuY29kaW5nIGluIE5vZGUuanM=");
     });
@@ -7570,7 +7394,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringSyncBase64004", 0, function () {
+    it("testEncodeToStringSyncBase64004", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([168, 174, 155, 255]);
       let result = that.encodeToStringSync(array);
@@ -7585,7 +7409,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringSyncBase64005", 0, function () {
+    it("testEncodeToStringSyncBase64005", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52]);
       let result = that.encodeToStringSync(array);
@@ -7601,7 +7425,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64001", 0, function () {
+    it("testDecodeSyncBase64001", 0, () => {
       let that = new util.Base64Helper();
       let buff = "czEz";
       let rarray = new Uint8Array([115, 49, 51]);
@@ -7620,7 +7444,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64002", 0, function () {
+    it("testDecodeSyncBase64002", 0, () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0IE5vZGUuanM=";
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
@@ -7639,10 +7463,12 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64003", 0, function () {
+    it("testDecodeSyncBase64003", 0, () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0IEVuY29kaW5nIGluIE5vZGUuanM=";
-      let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
+      let rarray =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
       let result = that.decodeSync(buff);
       for (let i = 0; i < 26; i++) {
         expect(result[i]).assertEqual(rarray[i]);
@@ -7658,7 +7484,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64004", 0, function () {
+    it("testDecodeSyncBase64004", 0, () => {
       let that = new util.Base64Helper();
       let buff = "qK6b/w==";
       let rarray = new Uint8Array([168, 174, 155, 255]);
@@ -7677,7 +7503,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64005", 0, function () {
+    it("testDecodeSyncBase64005", 0, () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0";
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52]);
@@ -7696,7 +7522,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64006", 0, function () {
+    it("testDecodeSyncBase64006", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
@@ -7715,10 +7541,14 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64007", 0, function () {
+    it("testDecodeSyncBase64007", 0, () => {
       let that = new util.Base64Helper();
-      let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71, 108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
-      let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
+      let array =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71,
+          108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      let rarray =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
       let result = that.decodeSync(array);
       for (let i = 0; i < 26; i++) {
         expect(result[i]).assertEqual(rarray[i]);
@@ -7734,7 +7564,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64008", 0, function () {
+    it("testDecodeSyncBase64008", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([113, 75, 54, 98, 47, 119, 61, 61]);
       let rarray = new Uint8Array([168, 174, 155, 255]);
@@ -7753,7 +7583,7 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeSyncBase64009", 0, function () {
+    it("testDecodeSyncBase64009", 0, () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48]);
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52]);
@@ -7772,11 +7602,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeBase64001", 0, async function () {
+    it("testEncodeBase64001", 0, async () => {
       let that = await new util.Base64Helper();
       let array = new Uint8Array([115, 49, 51]);
       let rarray = new Uint8Array([99, 122, 69, 122]);
-      that.encode(array).then((val) => {
+      await that.encode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -7792,11 +7622,12 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeBase64002", 0, async function () {
+    it("testEncodeBase64002", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
-      let rarray = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
-      that.encode(array).then((val) => {
+      let rarray =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      await that.encode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -7812,11 +7643,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeBase64003", 0, async function () {
+    it("testEncodeBase64003", 0, async () => {
       let that = new util.Base64Helper();
-      let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
-      let rarray = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71, 108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
-      that.encode(array).then((val) => {
+      let array =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
+      let rarray =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71,
+          108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      await that.encode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -7832,11 +7667,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeBase64004", 0, async function () {
+    it("testEncodeBase64004", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([168, 174, 155, 255]);
       let rarray = new Uint8Array([113, 75, 54, 98, 47, 119, 61, 61]);
-      that.encode(array).then((val) => {
+      await that.encode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -7852,11 +7687,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeBase64005", 0, async function () {
+    it("testEncodeBase64005", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52]);
       let rarray = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48]);
-      that.encode(array).then((val) => {
+      await that.encode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -7871,10 +7706,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringBase64001", 0, async function () {
+    it("testEncodeToStringBase64001", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([115, 49, 51]);
-      that.encodeToString(array).then((val) => {
+      await that.encodeToString(array).then((val) => {
         expect(val).assertEqual("czEz");
       });
     });
@@ -7887,10 +7722,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringBase64002", 0, async function () {
+    it("testEncodeToStringBase64002", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
-      that.encodeToString(array).then((val) => {
+     await that.encodeToString(array).then((val) => {
         expect(val).assertEqual("QmFzZTY0IE5vZGUuanM=");
       });
     });
@@ -7903,11 +7738,13 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringBase64003", 0, async function () {
+    it("testEncodeToStringBase64003", 0, async () => {
       let that = new util.Base64Helper();
-      let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71, 108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
-      that.encodeToString(array).then((val) => {
-        expect(val).assertEqual("QmFzZTY0IEVuY29kaW5nIGluIE5vZGUuanM=");
+      let array =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71,
+          108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      await that.encodeToString(array).then((val) => {
+        expect(val).assertEqual("UW1GelpUWTBJRVZ1WTI5a2FXNW5JR2x1SUU1dlpHVXVhbk09");
       });
     });
 
@@ -7919,10 +7756,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringBase64004", 0, async function () {
+    it("testEncodeToStringBase64004", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([168, 174, 155, 255]);
-      that.encodeToString(array).then((val) => {
+      await that.encodeToString(array).then((val) => {
         expect(val).assertEqual("qK6b/w==");
       });
     });
@@ -7935,10 +7772,10 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEncodeToStringBase64005", 0, async function () {
+    it("testEncodeToStringBase64005", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([66, 97, 115, 101, 54, 52]);
-      that.encodeToString(array).then((val) => {
+      await that.encodeToString(array).then((val) => {
         expect(val).assertEqual("QmFzZTY0");
       });
     });
@@ -7952,11 +7789,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64001", 0, async function () {
+    it("testDecodeBase64001", 0, async () => {
       let that = new util.Base64Helper();
       let buff = "czEz";
       let array = new Uint8Array([115, 49, 51]);
-      that.decode(buff).then((val) => {
+      await that.decode(buff).then((val) => {
         for (let i = 0; i < array.length; i++) {
           expect(val[i]).assertEqual(array[i]);
         }
@@ -7972,11 +7809,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64002", 0, async function () {
+    it("testDecodeBase64002", 0, async () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0IE5vZGUuanM=";
       let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
-      that.decode(buff).then((val) => {
+      await that.decode(buff).then((val) => {
         for (let i = 0; i < array.length; i++) {
           expect(val[i]).assertEqual(array[i]);
         }
@@ -7992,11 +7829,13 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64003", 0, async function () {
+    it("testDecodeBase64003", 0, async () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0IEVuY29kaW5nIGluIE5vZGUuanM=";
-      let array = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
-      that.decode(buff).then((val) => {
+      let array =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
+      await that.decode(buff).then((val) => {
         for (let i = 0; i < array.length; i++) {
           expect(val[i]).assertEqual(array[i]);
         }
@@ -8012,11 +7851,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64004", 0, async function () {
+    it("testDecodeBase64004", 0, async () => {
       let that = new util.Base64Helper();
       let buff = "qK6b/w==";
       let array = new Uint8Array([168, 174, 155, 255]);
-      that.decode(buff).then((val) => {
+      await that.decode(buff).then((val) => {
         for (let i = 0; i < array.length; i++) {
           expect(val[i]).assertEqual(array[i]);
         }
@@ -8032,11 +7871,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64005", 0, async function () {
+    it("testDecodeBase64005", 0, async () => {
       let that = new util.Base64Helper();
       let buff = "QmFzZTY0";
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52]);
-      that.decode(buff).then((val) => {
+      await that.decode(buff).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8052,11 +7891,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64006", 0, async function () {
+    it("testDecodeBase64006", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([99, 122, 69, 122]);
       let rarray = new Uint8Array([115, 49, 51]);
-      that.decode(array).then((val) => {
+      await that.decode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8072,11 +7911,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64007", 0, async function () {
+    it("testDecodeBase64007", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 78, 111, 100, 101, 46, 106, 115]);
-      that.decode(array).then((val) => {
+      await that.decode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8092,11 +7931,15 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64008", 0, async function () {
+    it("testDecodeBase64008", 0, async () => {
       let that = new util.Base64Helper();
-      let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71, 108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
-      let rarray = new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111, 100, 101, 46, 106, 115]);
-      that.decode(array).then((val) => {
+      let array =
+        new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48, 73, 69, 86, 117, 89, 50, 57, 107, 97, 87, 53, 110, 73, 71,
+          108, 117, 73, 69, 53, 118, 90, 71, 85, 117, 97, 110, 77, 61]);
+      let rarray =
+        new Uint8Array([66, 97, 115, 101, 54, 52, 32, 69, 110, 99, 111, 100, 105, 110, 103, 32, 105, 110, 32, 78, 111,
+          100, 101, 46, 106, 115]);
+      await that.decode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8112,11 +7955,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64009", 0, async function () {
+    it("testDecodeBase64009", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([113, 75, 54, 98, 47, 119, 61, 61]);
       let rarray = new Uint8Array([168, 174, 155, 255]);
-      that.decode(array).then((val) => {
+      await that.decode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8132,11 +7975,11 @@ export default function UtilFunTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testDecodeBase64010", 0, async function () {
+    it("testDecodeBase64010", 0, async () => {
       let that = new util.Base64Helper();
       let array = new Uint8Array([81, 109, 70, 122, 90, 84, 89, 48]);
       let rarray = new Uint8Array([66, 97, 115, 101, 54, 52]);
-      that.decode(array).then((val) => {
+      await that.decode(array).then((val) => {
         for (let i = 0; i < rarray.length; i++) {
           expect(val[i]).assertEqual(rarray[i]);
         }
@@ -8144,3 +7987,118 @@ export default function UtilFunTest() {
     });
   });
 }
+
+async function promiseFn1() {
+  return null;
+}
+
+class Temperature {
+  private readonly _temp: Temperature;
+
+  constructor(value: ESObject) {
+    this._temp = value;
+  }
+
+  compareTo(value: ESObject) {
+    return this._temp >= value.getTemp();
+  }
+
+  getTemp() {
+    return this._temp;
+  }
+
+  toString(): ESObject {
+    return this._temp.toString();
+  }
+}
+
+
+async function promiseFn(args: ESObject): Promise<ESObject> {
+  return args[0] + args[1];
+}
+
+function foo1() {
+}
+
+async function foo2() {
+}
+
+function testUtilPromisify001fun(val: ESObject, callback: ESObject) {
+  if (typeof val === "string") {
+    callback(null, val);
+  } else {
+    callback("type err");
+  }
+}
+
+async function testUtilCallbackWrapper002fun() {
+  return 42;
+}
+
+async function testUtilCallbackWrapper003Fun() {
+  let err = Error("value");
+  return Promise.reject(err);
+}
+
+async function testUtilCallbackWrapper001Fun() {
+  return Promise.resolve("value");
+}
+
+function testUtilPromisify002Fun(str: ESObject, callback: ESObject) {
+  if (typeof str === "string") {
+    callback(null, str);
+  } else {
+    callback(null, "type err");
+  }
+}
+
+function testUtilPromisify003Fun(val: ESObject, callback: ESObject) {
+  callback(null, val);
+}
+
+function testUtilPromisify004Fun(val: ESObject, callback: ESObject) {
+  if (typeof val === "boolean") {
+    callback(null, val);
+  } else {
+    callback("type err");
+  }
+}
+
+function testUtilPromisify005Fun(val: ESObject, callback: ESObject) {
+  if (typeof val === "number") {
+    callback(null, val);
+  } else {
+    callback("type err");
+  }
+}
+
+function testIsArgumentsObject001Fun(proc: ESObject): ESObject {
+  return proc.isArgumentsObject(arguments);
+
+}
+
+class ChildLRUCache<K, V> extends util.LRUCache<K, V> {
+  constructor(capacity?: number) {
+    super(capacity);
+  }
+
+  afterRemoval(isEvict: boolean, key: K, value: V, newValue: V): void {
+    if (isEvict === false) {
+      arr = [key, value, newValue];
+    }
+  }
+}
+
+
+class ChildLRUCache1<K, V> extends util.LRUCache<K, V> {
+  constructor(capacity?: number) {
+    super(capacity);
+  }
+
+  afterRemoval(isEvict: boolean, key: K, value: V, newValue: V): void {
+    if (isEvict === true) {
+      arr = [key, value];
+    }
+  }
+}
+
