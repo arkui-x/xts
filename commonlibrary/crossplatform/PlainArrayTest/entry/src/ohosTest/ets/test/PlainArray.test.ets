@@ -12,10 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import PlainArray from "@ohos.util.PlainArray";
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+import PlainArray from '@ohos.util.PlainArray';
+import { describe, expect, it, afterEach } from '@ohos/hypium';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function PlainArrayTest() {
-  describe("PlainArrayTest", function () {
+  describe("PlainArrayTest", () => {
+    afterEach(async () => {
+      await sleep(200);
+    });
+
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
      * @tc.name  : testConstructor001
@@ -24,8 +33,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testConstructor001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       expect(plainArray != null).assertTrue();
     });
 
@@ -37,8 +46,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 0
      */
-    it("testLength001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testLength001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       let res = plainArray.length;
       expect(res).assertEqual(0);
       plainArray.add(1, "A");
@@ -58,10 +67,10 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       expect(res).assertEqual("A");
     });
 
@@ -73,11 +82,11 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       let a = [1, 2, 3, 4];
       plainArray.add(2, a);
-      let res = plainArray.get(2);
+      let res :ESObject= plainArray.get(2);
       expect(res).assertEqual(a);
     });
 
@@ -89,11 +98,13 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd003", 0, function () {
-      let plainArray = new PlainArray();
-      let c = { name: "lili", age: "13" };
+    it("testAdd003", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
+      let c :ESObject= {
+        name: "lili", age: "13"
+      };
       plainArray.add(1, c);
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       expect(res).assertEqual(c);
     });
 
@@ -105,11 +116,11 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd004", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd004", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       let c = false;
       plainArray.add(1, c);
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       expect(res).assertEqual(false);
     });
 
@@ -121,10 +132,10 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd005", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd005", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, 3);
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       expect(res).assertEqual(3);
     });
 
@@ -136,10 +147,10 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd006", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd006", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, 3.1);
-      let res = plainArray.get(1);
+      let res:ESObject = plainArray.get(1);
       expect(res).assertEqual(3.1);
     });
 
@@ -151,10 +162,10 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd007", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd007", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, null);
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       expect(res).assertEqual(null);
     });
 
@@ -166,12 +177,12 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd008", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd008", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       for (let i = 0; i < 100; i++) {
         plainArray.add(i, i + 1);
       }
-      let res = plainArray.get(1);
+      let res :ESObject= plainArray.get(1);
       let res1 = plainArray.length;
       expect(res).assertEqual(2);
       expect(res1).assertEqual(100);
@@ -185,12 +196,12 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd009", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd009", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       for (let i = 0; i < 1000; i++) {
         plainArray.add(i, i + 1);
       }
-      let res = plainArray.get(99);
+      let res :ESObject= plainArray.get(99);
       let res1 = plainArray.length;
       expect(res).assertEqual(100);
       expect(res1).assertEqual(1000);
@@ -204,14 +215,14 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd010", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd010", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(3, "a");
       plainArray.add(1, "b");
       plainArray.add(2, "c");
       plainArray.add(5, "d");
       plainArray.add(4, "e");
-      let res = plainArray.get(2);
+      let res:ESObject = plainArray.get(2);
       expect(res).assertEqual("c");
     });
 
@@ -223,8 +234,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd011", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd011", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "ABCd");
       plainArray.add(2, "~!@#$^&*()_+-*/=.?<>:;|{}[]");
       plainArray.add(3, null);
@@ -235,7 +246,7 @@ export default function PlainArrayTest() {
       plainArray.add(8, 1234);
       plainArray.add(9, 1.234);
       plainArray.add(10, -1234);
-      let res = plainArray.get(2);
+      let res :ESObject= plainArray.get(2);
       expect(res).assertEqual("~!@#$^&*()_+-*/=.?<>:;|{}[]");
     });
 
@@ -247,16 +258,18 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAdd012", 0, function () {
-      let plainArray = new PlainArray();
+    it("testAdd012", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, 1);
       plainArray.add(2, "b");
       plainArray.add(3, true);
       plainArray.add(4, [1, 2, 3, 4]);
-      plainArray.add(5, { name: "lili", age: "13" });
+      plainArray.add(5, {
+        name: "lili", age: "13"
+      });
       plainArray.add(6, undefined);
       plainArray.add(7, null);
-      let res = plainArray.get(2);
+      let res :ESObject= plainArray.get(2);
       expect(res).assertEqual("b");
     });
 
@@ -268,8 +281,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClear001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testClear001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -293,9 +306,9 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testClone001", 0, function () {
-      let plainArray = new PlainArray();
-      let clonePlainarray = plainArray.clone();
+    it("testClone001", 0, () => {
+      let plainArray: PlainArray<string> = new PlainArray();
+      let clonePlainarray: PlainArray<string> = plainArray.clone();
       let cloneLength = clonePlainarray.length;
       expect(cloneLength).assertEqual(0);
       plainArray.add(1, "A");
@@ -303,9 +316,9 @@ export default function PlainArrayTest() {
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.clone();
-      let arr = [];
-      res.forEach((value, index) => {
+      let res : PlainArray<ESObject>= plainArray.clone();
+      let arr :ESObject= [];
+      res.forEach((value:ESObject, index:ESObject) => {
         arr.push(value);
       });
       let arr1 = ["A", "B", "C", "D", "E"];
@@ -322,8 +335,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testHas001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testHas001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -343,14 +356,14 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGet001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.get(4);
+      let res :ESObject= plainArray.get(4);
       expect(res).assertEqual("D");
       res = plainArray.get(10);
       expect(res).assertEqual(undefined);
@@ -364,14 +377,14 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGet002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGet002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.get(8);
+      let res :ESObject= plainArray.get(8);
       expect(res).assertEqual(undefined);
     });
 
@@ -384,8 +397,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOfKey001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetIndexOfKey001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -406,8 +419,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOfKey002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetIndexOfKey002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -426,8 +439,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOfValue001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetIndexOfValue001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -448,8 +461,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetIndexOfValue002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetIndexOfValue002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -467,8 +480,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmpty001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testIsEmpty001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       let result = plainArray.length;
       expect(result).assertEqual(0);
       plainArray.add(1, "A");
@@ -488,8 +501,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetKeyAt001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetKeyAt001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -507,8 +520,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetKeyAt002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetKeyAt002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -526,16 +539,16 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testRemove001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.remove(2);
+      let res :ESObject= plainArray.remove(2);
       expect(res).assertEqual("B");
-      let value = plainArray.get(2);
+      let value:ESObject = plainArray.get(2);
       expect(value).assertEqual(undefined);
       res = plainArray.remove(12);
       expect(res).assertEqual(undefined);
@@ -549,9 +562,9 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemove002", 0, function () {
-      let plainArray = new PlainArray();
-      let res = plainArray.remove(2);
+    it("testRemove002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
+      let res:ESObject = plainArray.remove(2);
       expect(res).assertEqual(undefined);
     });
 
@@ -563,16 +576,16 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveAt001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testRemoveAt001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.removeAt(2);
+      let res :ESObject= plainArray.removeAt(2);
       expect(res).assertEqual("C");
-      let value = plainArray.get(3);
+      let value :ESObject= plainArray.get(3);
       expect(value).assertEqual(undefined);
     });
 
@@ -584,14 +597,14 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveAt002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testRemoveAt002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.removeAt(12);
+      let res:ESObject = plainArray.removeAt(12);
       expect(res).assertEqual(undefined);
     });
 
@@ -603,8 +616,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testRemoveRangeFrom001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testRemoveRangeFrom001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -623,8 +636,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetValueAt001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testSetValueAt001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -642,7 +655,8 @@ export default function PlainArrayTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: -1`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: -1`);
       }
     });
 
@@ -654,8 +668,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetValueAt002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testSetValueAt002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -667,7 +681,8 @@ export default function PlainArrayTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 8`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 8`);
       }
     });
 
@@ -679,8 +694,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testToString001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       let res1 = plainArray.toString();
       expect(res1).assertEqual("");
       plainArray.add(1, "A");
@@ -698,14 +713,14 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetValueAt001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetValueAt001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let res = plainArray.getValueAt(2);
+      let res:ESObject = plainArray.getValueAt(2);
       expect(res).assertEqual("C");
     });
 
@@ -717,8 +732,8 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetValueAt002", 0, function () {
-      let plainArray = new PlainArray();
+    it("testGetValueAt002", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
@@ -730,7 +745,8 @@ export default function PlainArrayTest() {
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
         expect(err.code).assertEqual(10200001);
-        expect(err.message).assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 50`);
+        expect(err.message)
+          .assertEqual(`The value of "index" is out of range. It must be >= 0 && <= 4. Received value is: 50`);
       }
     });
 
@@ -742,15 +758,15 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testForEach001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testForEach001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let arr = [];
-      plainArray.forEach((value, index) => {
+      let arr :ESObject= [];
+      plainArray.forEach((value:ESObject, index) => {
         arr.push(value);
       });
       let arr1 = ["A", "B", "C", "D", "E"];
@@ -767,18 +783,18 @@ export default function PlainArrayTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIterator001", 0, function () {
-      let plainArray = new PlainArray();
+    it("testIterator001", 0, () => {
+      let plainArray: PlainArray<ESObject> = new PlainArray();
       plainArray.add(1, "A");
       plainArray.add(2, "B");
       plainArray.add(3, "C");
       plainArray.add(4, "D");
       plainArray.add(5, "E");
-      let iters = plainArray[Symbol.iterator]();
+      let iters:ESObject = plainArray[Symbol.iterator]();
       let flag = true;
       for (let i = 0, len = plainArray.length; i < len; i++) {
-        let entry = iters.next().value;
-        let res = plainArray.get(entry[0]);
+        let entry :ESObject= iters.next().value;
+        let res :ESObject= plainArray.get(entry[0]);
         if (res != entry[1]) {
           flag = false;
           break;
