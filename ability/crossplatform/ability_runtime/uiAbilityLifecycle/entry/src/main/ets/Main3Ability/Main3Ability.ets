@@ -13,16 +13,18 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
-let abilityName = null;
-function recordLife(ownList, abilityName, lifeName) {
+let abilityName:string = "";
+function recordLife(ownList:Array<string>, abilityName:string, lifeName:string) {
     ownList.push(abilityName + ' ' + lifeName);
 }
 
 export default class Main3Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main3Ability onCreate")
-        abilityName = want.abilityName
+        abilityName = want.abilityName as string
         globalThis.list3 = [];
         recordLife(globalThis.list3, abilityName, 'onCreate');
     }
@@ -32,7 +34,7 @@ export default class Main3Ability extends Ability {
         recordLife(globalThis.list3, abilityName, 'onDestroy');
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main3Ability onWindowStageCreate")
         globalThis.ability3context = this.context;
