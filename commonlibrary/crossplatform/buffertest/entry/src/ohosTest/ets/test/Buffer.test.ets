@@ -12,12 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
-import buffer from "@ohos.buffer";
+import { describe, expect, it, afterEach} from '@ohos/hypium';
+import buffer from '@ohos.buffer';
 
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1"
+  | "binary" | "hex";
+let list: ESObject = {
+  type: "new type", endings: "transparent"
+};
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function BufferTest() {
-  describe("BufferTest", function () {
+  describe("BufferTest", () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
     /**
      * @tc.number    : TEST_ALLOC_001
      * @tc.name      : testAlloc001
@@ -27,7 +39,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(10);
      */
-    it("testAlloc001", 0, function () {
+    it("testAlloc001", 0, () => {
       let buf = buffer.alloc(10);
       expect(buf.length).assertEqual(10);
     });
@@ -41,8 +53,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(10).fill(string);
      */
-    it("testAlloc002", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAlloc002", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.alloc(10).fill("ab$#", undefined, undefined, encode);
         expect(buf.length).assertEqual(10);
@@ -58,7 +71,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(10).fill(buffer);
      */
-    it("testAlloc003", 0, function () {
+    it("testAlloc003", 0, () => {
       let buf1 = buffer.alloc(10);
       let buf = buffer.alloc(10).fill(buf1);
       expect(buf.length).assertEqual(10);
@@ -73,7 +86,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(0);
      */
-    it("testAlloc004", 0, function () {
+    it("testAlloc004", 0, () => {
       let buf = buffer.alloc(0);
       expect(buf.length).assertEqual(0);
     });
@@ -87,8 +100,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(0).fill(string, encode);
      */
-    it("testAlloc005", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAlloc005", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.alloc(0).fill("ab$#", undefined, undefined, encode);
         expect(buf.length).assertEqual(0);
@@ -104,7 +118,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(0).fill(buffer);
      */
-    it("testAlloc006", 0, function () {
+    it("testAlloc006", 0, () => {
       let buf1 = buffer.alloc(10);
       let buf = buffer.alloc(0).fill(buf1);
       expect(buf.length).assertEqual(0);
@@ -119,12 +133,13 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(-5);
      */
-    it("testAlloc007", 0, function () {
+    it("testAlloc007", 0, () => {
       try {
         let buf = buffer.alloc(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message)
+          .assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -137,8 +152,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(10, string, encode);
      */
-    it("testAlloc008", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAlloc008", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.alloc(10, "ab$#", encode);
         expect(buf.length).assertEqual(10);
@@ -154,8 +170,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(0).fill(string, encode);
      */
-    it("testAlloc009", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAlloc009", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.alloc(0, "ab$#", encode);
         expect(buf.length).assertEqual(0);
@@ -171,7 +188,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(5.5);
      */
-    it("testAlloc010", 0, function () {
+    it("testAlloc010", 0, () => {
       let buf = buffer.alloc(5.5);
       expect(buf.length).assertEqual(5);
     });
@@ -185,7 +202,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitialized(10);
      */
-    it("testAllocUninitialized001", 0, function () {
+    it("testAllocUninitialized001", 0, () => {
       let buf = buffer.allocUninitialized(10);
       expect(buf.length).assertEqual(10);
     });
@@ -199,7 +216,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitialized(0);
      */
-    it("testAllocUninitialized002", 0, function () {
+    it("testAllocUninitialized002", 0, () => {
       let buf = buffer.allocUninitialized(0);
       expect(buf.length).assertEqual(0);
     });
@@ -213,12 +230,13 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitialized(-5);
      */
-    it("testAllocUninitialized003", 0, function () {
+    it("testAllocUninitialized003", 0, () => {
       try {
         let buf = buffer.allocUninitialized(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message)
+          .assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -231,7 +249,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(10);
      */
-    it("testAllocUninitializedFromPool001", 0, function () {
+    it("testAllocUninitializedFromPool001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(10);
       expect(buf.length).assertEqual(10);
     });
@@ -245,8 +263,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(10);
      */
-    it("testAllocUninitializedFromPool002", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAllocUninitializedFromPool002", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.allocUninitializedFromPool(10).fill("abcd", undefined, undefined, encode);
         expect(buf.length).assertEqual(10);
@@ -262,7 +281,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(10).fill(buffer);
      */
-    it("testAllocUninitializedFromPool003", 0, function () {
+    it("testAllocUninitializedFromPool003", 0, () => {
       let buf1 = buffer.allocUninitializedFromPool(10);
       let buf = buffer.allocUninitializedFromPool(10).fill(buf1);
       expect(buf.length).assertEqual(10);
@@ -277,7 +296,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(0);
      */
-    it("testAllocUninitializedFromPool004", 0, function () {
+    it("testAllocUninitializedFromPool004", 0, () => {
       let buf = buffer.allocUninitializedFromPool(0);
       expect(buf.length).assertEqual(0);
     });
@@ -291,8 +310,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(0).fill(string, encode);
      */
-    it("testAllocUninitializedFromPool005", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testAllocUninitializedFromPool005", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       for (const encode of encodeArr) {
         let buf = buffer.allocUninitializedFromPool(0).fill("abcd", undefined, undefined, encode);
         expect(buf.length).assertEqual(0);
@@ -308,7 +328,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(10).fill(buffer);
      */
-    it("testAllocUninitializedFromPool006", 0, function () {
+    it("testAllocUninitializedFromPool006", 0, () => {
       let buf1 = buffer.allocUninitializedFromPool(10);
       let buf = buffer.allocUninitializedFromPool(0).fill(buf1);
       expect(buf.length).assertEqual(0);
@@ -323,12 +343,13 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(-5);
      */
-    it("testAllocUninitializedFromPool007", 0, function () {
+    it("testAllocUninitializedFromPool007", 0, () => {
       try {
         let buf = buffer.allocUninitializedFromPool(-5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
+        expect(err.message)
+          .assertEqual('Parameter error. The type of "size" must be number and the value cannot be negative. Received value is: -5');
       }
     });
 
@@ -341,7 +362,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.allocUninitializedFromPool(5.5);
      */
-    it("testAllocUninitializedFromPool008", 0, function () {
+    it("testAllocUninitializedFromPool008", 0, () => {
       let buf = buffer.allocUninitializedFromPool(5.5);
       expect(buf.length).assertEqual(5);
     });
@@ -357,7 +378,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.byteLength("abcd");
      */
-    it("testByteLength001", 0, function () {
+    it("testByteLength001", 0, () => {
       let byteLen = buffer.byteLength("abcd");
       expect(byteLen).assertEqual(4);
     });
@@ -373,7 +394,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.byteLength("测试");
      */
-    it("testByteLength002", 0, function () {
+    it("testByteLength002", 0, () => {
       let byteLen = buffer.byteLength("测试");
       expect(byteLen).assertEqual(6);
     });
@@ -389,7 +410,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.byteLength("$&@*%");
      */
-    it("testByteLength003", 0, function () {
+    it("testByteLength003", 0, () => {
       let byteLen = buffer.byteLength("$&@*%");
       expect(byteLen).assertEqual(5);
     });
@@ -405,8 +426,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.byteLength(string, encode);
      */
-    it("testByteLength004", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testByteLength004", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       let result = [4, 4, 8, 8, 4, 4, 4, 8, 3, 3, 2];
       for (let i = 0, len = encodeArr.length; i < len; i++) {
         let byteLen = buffer.byteLength("abcd", encodeArr[i]);
@@ -425,7 +447,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.byteLength(arrayBuffer);
      */
-    it("testByteLength005", 0, function () {
+    it("testByteLength005", 0, () => {
       let uintarr = new Uint8Array(2);
       uintarr[0] = 21;
       uintarr[1] = 31;
@@ -445,7 +467,7 @@ export default function BufferTest() {
      *                 let buf2 = buffer.from("1235");
      *                 let buf = buffer.concat([buf1, buf2]);
      */
-    it("testConcat001", 0, function () {
+    it("testConcat001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       let buf = buffer.concat([buf1, buf2]);
@@ -465,7 +487,7 @@ export default function BufferTest() {
      *                 let buf2 = buffer.from("$&*");
      *                 let buf = buffer.concat([buf1, buf2]);
      */
-    it("testConcat002", 0, function () {
+    it("testConcat002", 0, () => {
       let buf1 = buffer.from("测试");
       let buf2 = buffer.from("$&*");
       let buf = buffer.concat([buf1, buf2]);
@@ -485,7 +507,7 @@ export default function BufferTest() {
      *                 let buf2 = buffer.from("*35");
      *                 let buf = buffer.concat([buf1, buf2]);
      */
-    it("testConcat003", 0, function () {
+    it("testConcat003", 0, () => {
       let buf1 = buffer.from("123$");
       let buf2 = buffer.from("*35");
       let buf3 = buffer.concat([buf1, buf2]);
@@ -506,14 +528,15 @@ export default function BufferTest() {
      *                 let buf2 = buffer.from("*35");
      *                 let buf = buffer.concat([buf1, buf2]);
      */
-    it("testConcat004", 0, function () {
+    it("testConcat004", 0, () => {
       let buf1 = buffer.from("123$");
       let buf2 = buffer.from("*35");
       try {
         let buf = buffer.concat([buf1, buf2], -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "totalLength" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "totalLength" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
       }
     });
 
@@ -526,7 +549,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(uint8Array);
      */
-    it("testFrom001", 0, function () {
+    it("testFrom001", 0, () => {
       let uarr = new Uint8Array(3);
       uarr[0] = 0x12;
       uarr[1] = 0x34;
@@ -546,7 +569,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(array);
      */
-    it("testFrom002", 0, function () {
+    it("testFrom002", 0, () => {
       const buf = buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
       let str = buf.toString("hex");
       expect(str).assertEqual("627566666572");
@@ -561,7 +584,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(arrayBuffer);
      */
-    it("testFrom003", 0, function () {
+    it("testFrom003", 0, () => {
       const arr = new Uint8Array(2);
       arr[0] = 97;
       arr[1] = 98;
@@ -582,16 +605,16 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(arrayBuffer, byteOffset);
      */
-    it("testFrom004", 0, function () {
-    const arr = new Uint8Array(2);
-    arr[0] = 97;
-    arr[1] = 98;
-    const buf = buffer.from(arr.buffer, 1);
-    buf[0] = 99;
-    let str = buf.toString("hex");
-    expect(str).assertEqual("63");
-    expect(arr[1]).assertEqual(99);
-    expect(buf[0]).assertEqual(99);
+    it("testFrom004", 0, () => {
+      const arr = new Uint8Array(2);
+      arr[0] = 97;
+      arr[1] = 98;
+      const buf = buffer.from(arr.buffer, 1);
+      buf[0] = 99;
+      let str = buf.toString("hex");
+      expect(str).assertEqual("63");
+      expect(arr[1]).assertEqual(99);
+      expect(buf[0]).assertEqual(99);
     });
 
     /**
@@ -603,7 +626,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer2.from(buffer1);
      */
-    it("testFrom005", 0, function () {
+    it("testFrom005", 0, () => {
       const buf1 = buffer.from("buffer");
       const buf2 = buffer.from(buf1);
       buf1[0] = 0x61;
@@ -622,7 +645,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(string);
      */
-    it("testFrom006", 0, function () {
+    it("testFrom006", 0, () => {
       const buf1 = buffer.from("this is a test");
       let str = buf1.toString();
       expect(str).assertEqual("this is a test");
@@ -637,7 +660,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(string, encoding);
      */
-    it("testFrom007", 0, function () {
+    it("testFrom007", 0, () => {
       const buf1 = buffer.from("F1刘FG", "hex");
       let str = buf1.toString("hex");
       expect(str).assertEqual("f1");
@@ -693,7 +716,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(object);
      */
-    it("testFrom008", 0, function () {
+    it("testFrom008", 0, () => {
       const buf = buffer.from(new String("this is a test"));
       let str = buf.toString();
       expect(str).assertEqual("this is a test");
@@ -709,7 +732,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.from(object);
      */
-    it("testFrom009", 0, function () {
+    it("testFrom009", 0, () => {
       const buf = buffer.from(new String("this is a test"), "utf8", 14);
       let str = buf.toString();
       expect(str).assertEqual("this is a test");
@@ -724,7 +747,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isBuffer(buf);
      */
-    it("testIsBuffer001", 0, function () {
+    it("testIsBuffer001", 0, () => {
       let buf = buffer.alloc(1);
       let flag = buffer.isBuffer(buf);
       expect(flag).assertEqual(true);
@@ -739,7 +762,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isBuffer(buf);
      */
-    it("testIsBuffer002", 0, function () {
+    it("testIsBuffer002", 0, () => {
       let obj = new Object(1);
       let flag = buffer.isBuffer(obj);
       expect(flag).assertEqual(false);
@@ -754,7 +777,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isEncoding("utf8");
      */
-    it("testIsEncoding001", 0, function () {
+    it("testIsEncoding001", 0, () => {
       let flag = buffer.isEncoding("utf8");
       expect(flag).assertEqual(true);
     });
@@ -768,8 +791,10 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isEncoding(encode);
      */
-    it("testIsEncoding002", 0, function () {
-      let encodeArr = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "utf-16le", "base64", "base64url", "hex"];
+    it("testIsEncoding002", 0, () => {
+      let encodeArr =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "utf-16le", "base64", "base64url",
+          "hex"];
       for (const encode of encodeArr) {
         let flag = buffer.isEncoding(encode);
         expect(flag).assertEqual(true);
@@ -785,7 +810,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isEncoding('gbk');
      */
-    it("testIsEncoding003", 0, function () {
+    it("testIsEncoding003", 0, () => {
       let flag = buffer.isEncoding("gbk");
       expect(flag).assertEqual(false);
     });
@@ -801,7 +826,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.isEncoding('gbk');
      */
-    it("testCompare001", 0, function () {
+    it("testCompare001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       let res = buffer.compare(buf1, buf2);
@@ -817,7 +842,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.transcode(buf1, "ascii", "ucs2");
      */
-    it("testTranscode001", 0, function () {
+    it("testTranscode001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf = buffer.transcode(buf1, "ascii", "ucs2");
       let str = buf.toString("ucs2");
@@ -833,7 +858,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.transcode(buf1, "ascii", "ucs2");
      */
-    it("testTranscode002", 0, function () {
+    it("testTranscode002", 0, () => {
       let buf1 = buffer.from("测试");
       let buf = buffer.transcode(buf1, "utf8", "ucs2");
       let str = buf.toString("ucs2");
@@ -849,7 +874,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(3).fill("abc");
      */
-    it("testFill001", 0, function () {
+    it("testFill001", 0, () => {
       let buf = buffer.alloc(3).fill("abc");
       let str = buf.toString();
       expect(str).assertEqual("abc");
@@ -864,7 +889,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(10).fill('F1刘FG', 0, 10, 'hex');
      */
-    it("testFill002", 0, function () {
+    it("testFill002", 0, () => {
       const buf1 = buffer.alloc(10).fill("F1刘FG", 0, 10, "hex");
       let str = buf1.toString("hex");
       expect(str).assertEqual("f1f1f1f1f1f1f1f1f1f1");
@@ -903,7 +928,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(3).fill("$*$");
      */
-    it("testFill003", 0, function () {
+    it("testFill003", 0, () => {
       let buf = buffer.alloc(3).fill("$*$");
       let str = buf.toString();
       expect(str).assertEqual("$*$");
@@ -918,12 +943,13 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(3).fill("$*$");
      */
-    it("testFill004", 0, function () {
+    it("testFill004", 0, () => {
       try {
         let buf = buffer.alloc(3).fill("$*$", -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
       }
     });
 
@@ -936,12 +962,13 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buffer.alloc(3).fill("$*$", 0, 5);
      */
-    it("testFill005", 0, function () {
+    it("testFill005", 0, () => {
       try {
         let buf = buffer.alloc(3).fill("$*$", 0, 5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "end" is out of range. It must be >= 0 and <= 3. Received value is: 5');
+        expect(err.message)
+          .assertEqual('The value of "end" is out of range. It must be >= 0 and <= 3. Received value is: 5');
       }
     });
 
@@ -956,7 +983,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.compare(buf2);
      */
-    it("testCompare002", 0, function () {
+    it("testCompare002", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       let res = buf1.compare(buf2);
@@ -974,14 +1001,15 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.compare(buf2, -1);
      */
-    it("testCompare003", 0, function () {
+    it("testCompare003", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       try {
         let res = buf1.compare(buf2, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "targetStart" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "targetStart" is out of range. It must be >= 0 and <= 4294967296. Received value is: -1');
       }
     });
 
@@ -997,7 +1025,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.copy(buf2);
      */
-    it("testCopy001", 0, function () {
+    it("testCopy001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       let num = buf1.copy(buf2);
@@ -1018,7 +1046,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.copy(buf2, targetStart, sourceStart, sourceEnd);
      */
-    it("testCopy002", 0, function () {
+    it("testCopy002", 0, () => {
       let buf1 = buffer.from("abcdefg");
       let buf2 = buffer.from("1235789");
       let num = buf1.copy(buf2, 2, 1, 3);
@@ -1039,7 +1067,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.copy(buf2);
      */
-    it("testCopy003", 0, function () {
+    it("testCopy003", 0, () => {
       let buf1 = buffer.from("123656");
       let buf2 = buffer.from("1235");
       let num = buf1.copy(buf2);
@@ -1060,14 +1088,15 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.copy(buf2);
      */
-    it("testCopy004", 0, function () {
+    it("testCopy004", 0, () => {
       let buf1 = buffer.from("123656");
       let buf2 = buffer.from("1235");
       try {
         let num = buf1.copy(buf2, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "targetStart" is out of range. It must be >= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "targetStart" is out of range. It must be >= 0. Received value is: -1');
       }
     });
 
@@ -1083,7 +1112,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.copy(buf2);
      */
-    it("testCopy005", 0, function () {
+    it("testCopy005", 0, () => {
       let buf1 = buffer.from("ab$#");
       let buf2 = buffer.from("123556");
       let num = buf1.copy(buf2);
@@ -1100,7 +1129,7 @@ export default function BufferTest() {
      * @tc.type      : Field
      * @tc.level     : level 0
      */
-    it("testBufferLength001", 0, function () {
+    it("testBufferLength001", 0, () => {
       let buf = buffer.from("1236");
       let len = buf.length;
       expect(len).assertEqual(4);
@@ -1114,7 +1143,7 @@ export default function BufferTest() {
      * @tc.type      : Field
      * @tc.level     : level 0
      */
-    it("testBufferByteOffset001", 0, function () {
+    it("testBufferByteOffset001", 0, () => {
       let buf = buffer.from("1236");
       let offset = buf.byteOffset;
       expect(offset >= 0).assertTrue();
@@ -1128,7 +1157,7 @@ export default function BufferTest() {
      * @tc.type      : Field
      * @tc.level     : level 0
      */
-    it("testBufferBuffer001", 0, function () {
+    it("testBufferBuffer001", 0, () => {
       let buf = buffer.from("1236");
       console.info(typeof buf.buffer);
       expect(buf.buffer != null).assertTrue();
@@ -1143,7 +1172,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.equals(buf2);
      */
-    it("testEquals001", 0, function () {
+    it("testEquals001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf2 = buffer.from("1235");
       let res = buf1.equals(buf2);
@@ -1159,7 +1188,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.equals(buf2);
      */
-    it("testEquals002", 0, function () {
+    it("testEquals002", 0, () => {
       let buf1 = buffer.from("1236测试");
       let buf2 = buffer.from("1236测试");
       let res = buf1.equals(buf2);
@@ -1175,7 +1204,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.equals(buf2);
      */
-    it("testEquals003", 0, function () {
+    it("testEquals003", 0, () => {
       let buf1 = buffer.from("O@O");
       let buf2 = buffer.from("O^O");
       let res = buf1.equals(buf2);
@@ -1191,7 +1220,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("3");
      */
-    it("testIncludes001", 0, function () {
+    it("testIncludes001", 0, () => {
       let buf1 = buffer.from("13236");
       let flag = buf1.includes("3");
       expect(flag).assertEqual(true);
@@ -1206,7 +1235,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("3", 2);
      */
-    it("testIncludes002", 0, function () {
+    it("testIncludes002", 0, () => {
       let buf1 = buffer.from("13236");
       let flag = buf1.includes("3", 2);
       expect(flag).assertEqual(true);
@@ -1221,7 +1250,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("32");
      */
-    it("testIncludes003", 0, function () {
+    it("testIncludes003", 0, () => {
       let buf1 = buffer.from("13236");
       let flag = buf1.includes("32");
       expect(flag).assertEqual(true);
@@ -1236,7 +1265,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("32");
      */
-    it("testIncludes004", 0, function () {
+    it("testIncludes004", 0, () => {
       let buf1 = buffer.from("13236");
       let flag = buf1.includes("32", 2);
       expect(flag).assertEqual(false);
@@ -1251,7 +1280,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("32");
      */
-    it("testIncludes005", 0, function () {
+    it("testIncludes005", 0, () => {
       let buf1 = buffer.from("测试特殊字符$#@!");
       let flag = buf1.includes("#@");
       expect(flag).assertEqual(true);
@@ -1268,7 +1297,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.includes("32");
      */
-    it("testIncludes006", 0, function () {
+    it("testIncludes006", 0, () => {
       let buf1 = buffer.from("13236");
       let flag = buf1.includes("abc");
       expect(flag).assertEqual(false);
@@ -1283,7 +1312,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.indexOf("3");
      */
-    it("testIndexOf001", 0, function () {
+    it("testIndexOf001", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.indexOf("3");
       expect(index).assertEqual(1);
@@ -1298,7 +1327,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.indexOf("3");
      */
-    it("testIndexOf002", 0, function () {
+    it("testIndexOf002", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.indexOf("3", 2);
       expect(index).assertEqual(3);
@@ -1313,7 +1342,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let index = buf1.indexOf(value);
      */
-    it("testIndexOf003", 0, function () {
+    it("testIndexOf003", 0, () => {
       let buf1 = buffer.from("13236235");
       let index = buf1.indexOf("23");
       expect(index).assertEqual(2);
@@ -1328,7 +1357,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let index = buf1.indexOf(value);
      */
-    it("testIndexOf004", 0, function () {
+    it("testIndexOf004", 0, () => {
       let buf1 = buffer.from("测试特殊字符$#@!");
       let index = buf1.indexOf("@");
       expect(index).assertEqual(20);
@@ -1343,7 +1372,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let index = buf1.indexOf(value, byteOffset);
      */
-    it("testIndexOf005", 0, function () {
+    it("testIndexOf005", 0, () => {
       let buf1 = buffer.from("13236235");
       let index = buf1.indexOf("23", 3);
       expect(index).assertEqual(5);
@@ -1358,7 +1387,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.indexOf("a");
      */
-    it("testIndexOf006", 0, function () {
+    it("testIndexOf006", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.indexOf("a");
       expect(index).assertEqual(-1);
@@ -1373,7 +1402,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.keys();
      */
-    it("testKeys001", 0, function () {
+    it("testKeys001", 0, () => {
       let buf1 = buffer.from("1234");
       let keys = buf1.keys();
       let index = 0;
@@ -1392,7 +1421,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.keys();
      */
-    it("testKeys002", 0, function () {
+    it("testKeys002", 0, () => {
       let uarr = new Uint8Array(4);
       uarr[0] = 0x31;
       uarr[1] = 0x32;
@@ -1416,7 +1445,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.values();
      */
-    it("testValues001", 0, function () {
+    it("testValues001", 0, () => {
       let buf1 = buffer.from("1234");
       let keys = buf1.values();
       let va = 49;
@@ -1435,7 +1464,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.values();
      */
-    it("testValues002", 0, function () {
+    it("testValues002", 0, () => {
       let uarr = new Uint8Array(4);
       uarr[0] = 0x31;
       uarr[1] = 0x32;
@@ -1460,16 +1489,18 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.entries();
      */
-    it("testEntries001", 0, function () {
+    it("testEntries001", 0, () => {
       let buf1 = buffer.from("1234");
       let entries = buf1.entries();
       let va = 49,
         index = 0;
-      for (const [key, value] of entries) {
-        expect(key).assertEqual(index);
-        expect(value).assertEqual(va);
+      let temp: IteratorResult<Object[]> = entries.next();
+      while (!temp.done) {
+        expect(temp.value[0]).assertEqual(index);
+        expect(temp.value[1]).assertEqual(va);
         va++;
         index++;
+        temp = entries.next();
       }
     });
 
@@ -1483,7 +1514,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.entries();
      */
-    it("testEntries002", 0, function () {
+    it("testEntries002", 0, () => {
       let uarr = new Uint8Array(4);
       uarr[0] = 0x31;
       uarr[1] = 0x32;
@@ -1493,12 +1524,15 @@ export default function BufferTest() {
       let entries = buf1.entries();
       let va = 49,
         index = 0;
-      for (const [key, value] of entries) {
-        expect(key).assertEqual(index);
-        expect(value).assertEqual(va);
+      let temp: IteratorResult<Object[]> = entries.next();
+      while (!temp.done) {
+        expect(temp.value[0]).assertEqual(index);
+        expect(temp.value[1]).assertEqual(va);
         va++;
         index++;
+        temp = entries.next();
       }
+
     });
 
     /**
@@ -1510,7 +1544,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.lastIndexOf("3");
      */
-    it("testLastIndexOf001", 0, function () {
+    it("testLastIndexOf001", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.lastIndexOf("3");
       expect(index).assertEqual(3);
@@ -1525,7 +1559,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.lastIndexOf("3", 2);
      */
-    it("testLastIndexOf002", 0, function () {
+    it("testLastIndexOf002", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.lastIndexOf("3", 2);
       expect(index).assertEqual(1);
@@ -1540,7 +1574,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236235"); buf1.lastIndexOf("23");
      */
-    it("testLastIndexOf003", 0, function () {
+    it("testLastIndexOf003", 0, () => {
       let buf1 = buffer.from("13236235");
       let index = buf1.lastIndexOf("23");
       expect(index).assertEqual(5);
@@ -1555,7 +1589,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236235"); buf1.lastIndexOf("23", 3);
      */
-    it("testLastIndexOf004", 0, function () {
+    it("testLastIndexOf004", 0, () => {
       let buf1 = buffer.from("13236235");
       let index = buf1.lastIndexOf("23", 3);
       expect(index).assertEqual(2);
@@ -1570,7 +1604,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf1 = buffer.from("13236"); buf1.lastIndexOf("a");
      */
-    it("testLastIndexOf005", 0, function () {
+    it("testLastIndexOf005", 0, () => {
       let buf1 = buffer.from("13236");
       let index = buf1.lastIndexOf("a");
       expect(index).assertEqual(-1);
@@ -1585,8 +1619,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let buf = buffer.from("13236"); buf.lastIndexOf("a", 0, "utf8");
      */
-    it("testLastIndexOf006", 0, function () {
-      let encodeArr: BufferEncoding[] = ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
+    it("testLastIndexOf006", 0, () => {
+      let encodeArr: BufferEncoding[] =
+        ["utf8", "utf-8", "ucs2", "ucs-2", "ascii", "latin1", "binary", "utf16le", "base64", "base64url", "hex"];
       let buf = buffer.from("13236");
       for (const encode of encodeArr) {
         let index = buf.lastIndexOf("ab", 0, encode);
@@ -1602,8 +1637,9 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigInt64BE001", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x79, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigInt64BE001", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x79, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       const result = buf.readBigInt64BE(0).toString(16);
       expect(result).assertEqual("6364656667686979");
     });
@@ -1616,13 +1652,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigInt64BE002", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigInt64BE002", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       try {
         let ref = buf.readBigInt64BE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1634,8 +1672,9 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigInt64LE001", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigInt64LE001", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       let ref = buf.readBigInt64LE(0).toString(16);
       expect(ref).assertEqual("7069686766656463");
     });
@@ -1648,13 +1687,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigInt64LE002", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigInt64LE002", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       try {
         let ref = buf.readBigInt64LE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1666,8 +1707,9 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigUInt64BE001", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigUInt64BE001", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       let ref = buf.readBigUInt64BE(0).toString(16);
       expect(ref).assertEqual("6364656667686970");
     });
@@ -1680,13 +1722,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigUInt64BE002", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigUInt64BE002", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       try {
         let ref = buf.readBigUInt64BE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1698,8 +1742,9 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigUInt64LE001", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigUInt64LE001", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       let ref = buf.readBigUInt64LE(0).toString(16);
       expect(ref).assertEqual("7069686766656463");
     });
@@ -1712,13 +1757,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadBigUInt64LE002", 0, function () {
-      let buf = buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
+    it("testReadBigUInt64LE002", 0, () => {
+      let buf =
+        buffer.from([0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]);
       try {
         let ref = buf.readBigUInt64LE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1730,7 +1777,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadDoubleBE001", 0, function () {
+    it("testReadDoubleBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       buf.writeDoubleBE(123.456, 0);
       let ref = buf.readDoubleBE();
@@ -1745,14 +1792,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadDoubleBE002", 0, function () {
+    it("testReadDoubleBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       buf.writeDoubleBE(123.456, 0);
       try {
         let ref = buf.readDoubleBE(1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1764,7 +1812,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadDoubleLE001", 0, function () {
+    it("testReadDoubleLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       buf.writeDoubleLE(123.456, 0);
       let ref = buf.readDoubleLE();
@@ -1779,14 +1827,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadDoubleLE002", 0, function () {
+    it("testReadDoubleLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       buf.writeDoubleLE(123.456, 0);
       try {
         let ref = buf.readDoubleLE(1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1798,7 +1847,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadFloatBE001", 0, function () {
+    it("testReadFloatBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeFloatBE(0xcabcbcbc, 0);
       let ref = buf.readFloatBE(0).toString(16);
@@ -1813,14 +1862,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadFloatBE002", 0, function () {
+    it("testReadFloatBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeFloatBE(0xcabcbcbc, 0);
       try {
         let ref = buf.readFloatBE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1832,7 +1882,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadFloatLE001", 0, function () {
+    it("testReadFloatLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeFloatLE(0xcabcbcbc, 0);
       let ref = buf.readFloatLE(0).toString(16);
@@ -1847,14 +1897,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadFloatLE002", 0, function () {
+    it("testReadFloatLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeFloatLE(0xcabcbcbc, 0);
       try {
         let ref = buf.readFloatLE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1866,7 +1917,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt8001", 0, function () {
+    it("testReadInt8001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       buf.writeInt8(0x12);
       let ref = buf.readInt8(0).toString(16);
@@ -1881,14 +1932,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt8002", 0, function () {
+    it("testReadInt8002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       buf.writeInt8(0x12);
       try {
         let ref = buf.readInt8(2).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
       }
     });
 
@@ -1900,7 +1952,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt16BE001", 0, function () {
+    it("testReadInt16BE001", 0, () => {
       let buf = buffer.alloc(2);
       buf.writeInt16BE(0x1234, 0);
       let ref = buf.readInt16BE(0).toString(16);
@@ -1915,14 +1967,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt16BE002", 0, function () {
+    it("testReadInt16BE002", 0, () => {
       let buf = buffer.alloc(2);
       buf.writeInt16BE(0x1234, 0);
       try {
         let ref = buf.readInt16BE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1934,7 +1987,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt16LE001", 0, function () {
+    it("testReadInt16LE001", 0, () => {
       let buf = buffer.alloc(2);
       buf.writeInt16BE(0x1234, 0);
       let ref = buf.readInt16LE(0).toString(16);
@@ -1949,14 +2002,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt16LE002", 0, function () {
+    it("testReadInt16LE002", 0, () => {
       let buf = buffer.alloc(2);
       buf.writeInt16BE(0x1234, 0);
       try {
         let ref = buf.readInt16LE(1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -1968,7 +2022,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt32BE001", 0, function () {
+    it("testReadInt32BE001", 0, () => {
       let buf = buffer.alloc(4);
       buf.writeInt32BE(0x12345678, 0);
       let ref = buf.readInt32BE(0).toString(16);
@@ -1983,14 +2037,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt32BE002", 0, function () {
+    it("testReadInt32BE002", 0, () => {
       let buf = buffer.alloc(4);
       buf.writeInt32BE(0x12345678, 0);
       try {
         let ref = buf.readInt32BE(1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2002,7 +2057,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt32LE001", 0, function () {
+    it("testReadInt32LE001", 0, () => {
       let buf = buffer.alloc(4);
       buf.writeInt32BE(0x12345678, 0);
       let ref = buf.readInt32LE(0).toString(16);
@@ -2017,14 +2072,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadInt32LE002", 0, function () {
+    it("testReadInt32LE002", 0, () => {
       let buf = buffer.alloc(4);
       buf.writeInt32BE(0x12345678, 0);
       try {
         let ref = buf.readInt32LE(1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2037,7 +2093,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadIntBE001", 0, function () {
+    it("testReadIntBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       buf.writeIntBE(0x123456789011, 0, 6);
       let ref = buf.readIntBE(0, 5).toString(16);
@@ -2053,14 +2109,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadIntBE002", 0, function () {
+    it("testReadIntBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       buf.writeIntBE(0x123456789011, 0, 6);
       try {
         let ref = buf.readIntBE(2, 5).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
       }
     });
 
@@ -2073,7 +2130,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadIntLE001", 0, function () {
+    it("testReadIntLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       buf.writeIntLE(0x123456789011, 0, 6);
       let ref = buf.readIntLE(0, 5).toString(16);
@@ -2089,14 +2146,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadIntLE002", 0, function () {
+    it("testReadIntLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       buf.writeIntLE(0x123456789011, 0, 6);
       try {
         let ref = buf.readIntLE(2, 5).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
       }
     });
 
@@ -2108,7 +2166,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt8001", 0, function () {
+    it("testReadUInt8001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt8(0x42);
       let ref = buf.readUInt8(0).toString(16);
@@ -2123,14 +2181,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt8002", 0, function () {
+    it("testReadUInt8002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt8(0x42);
       try {
         let ref = buf.readUInt8(4).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 3. Received value is: 4');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 3. Received value is: 4');
       }
     });
 
@@ -2142,7 +2201,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt16BE001", 0, function () {
+    it("testReadUInt16BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt16BE(0x1234, 0);
       let ref = buf.readUInt16BE(0).toString(16);
@@ -2157,14 +2216,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt16BE002", 0, function () {
+    it("testReadUInt16BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt16BE(0x1234, 0);
       try {
         let ref = buf.readUInt16BE(3).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: 3');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: 3');
       }
     });
 
@@ -2176,7 +2236,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt16LE001", 0, function () {
+    it("testReadUInt16LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt16LE(0x1234, 0);
       let ref = buf.readUInt16LE(0).toString(16);
@@ -2191,14 +2251,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt16LE002", 0, function () {
+    it("testReadUInt16LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt16LE(0x1234, 0);
       try {
         let ref = buf.readUInt16LE(3).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: 3');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: 3');
       }
     });
 
@@ -2210,7 +2271,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt32BE001", 0, function () {
+    it("testReadUInt32BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt32BE(0x12345678, 0);
       let ref = buf.readUInt32BE(0).toString(16);
@@ -2225,14 +2286,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt32BE002", 0, function () {
+    it("testReadUInt32BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt32BE(0x12345678, 0);
       try {
         let ref = buf.readUInt32BE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2244,7 +2306,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt32LE001", 0, function () {
+    it("testReadUInt32LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt32LE(0x12345678, 0);
       let ref = buf.readUInt32LE(0).toString(16);
@@ -2259,14 +2321,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUInt32LE002", 0, function () {
+    it("testReadUInt32LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUInt32LE(0x12345678, 0);
       try {
         let ref = buf.readUInt32LE(1).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2278,7 +2341,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUIntBE001", 0, function () {
+    it("testReadUIntBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUIntBE(0x13141516, 0, 4);
       let ref = buf.readUIntBE(0, 3).toString(16);
@@ -2293,14 +2356,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUIntBE002", 0, function () {
+    it("testReadUIntBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUIntBE(0x13141516, 0, 4);
       try {
         let ref = buf.readUIntBE(2, 3).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
       }
     });
 
@@ -2313,7 +2377,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUIntLE001", 0, function () {
+    it("testReadUIntLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUIntLE(0x13141516, 0, 4);
       let ref = buf.readUIntLE(0, 3).toString(16);
@@ -2329,14 +2393,15 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testReadUIntLE002", 0, function () {
+    it("testReadUIntLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       buf.writeUIntLE(0x13141516, 0, 4);
       try {
         let ref = buf.readUIntLE(2, 3).toString(16);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: 2');
       }
     });
 
@@ -2350,7 +2415,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.subarray(0, 3);
      */
-    it("testSubarray001", 0, function () {
+    it("testSubarray001", 0, () => {
       let buf1 = buffer.from("1236");
       let buf = buf1.subarray(0, 3);
       let str = buf.toString();
@@ -2367,7 +2432,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.subarray(3, 4);
      */
-    it("testSubarray002", 0, function () {
+    it("testSubarray002", 0, () => {
       let buf1 = buffer.from("1236");
       let buf = buf1.subarray(3, 4);
       let str = buf.toString();
@@ -2384,7 +2449,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.subarray(-3, 0);
      */
-    it("testSubarray003", 0, function () {
+    it("testSubarray003", 0, () => {
       let buf1 = buffer.from("1236");
       let buf = buf1.subarray(-3, 0);
       expect(buf.length).assertEqual(0);
@@ -2400,7 +2465,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.subarray(6, 9);
      */
-    it("testSubarray004", 0, function () {
+    it("testSubarray004", 0, () => {
       let buf1 = buffer.from("1236");
       let buf = buf1.subarray(6, 9);
       expect(buf.length).assertEqual(0);
@@ -2415,7 +2480,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap16();
      */
-    it("testSwap16001", 0, function () {
+    it("testSwap16001", 0, () => {
       let buf1 = buffer.from("1323");
       buf1.swap16();
       let str = buf1.toString("hex");
@@ -2431,7 +2496,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap16();
      */
-    it("testSwap16002", 0, function () {
+    it("testSwap16002", 0, () => {
       let buf1 = buffer.from("132");
       try {
         buf1.swap16();
@@ -2450,7 +2515,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap32();
      */
-    it("testSwap32001", 0, function () {
+    it("testSwap32001", 0, () => {
       let buf1 = buffer.from("1234");
       buf1.swap32();
       let str = buf1.toString();
@@ -2466,7 +2531,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap32();
      */
-    it("testSwap32002", 0, function () {
+    it("testSwap32002", 0, () => {
       let buf1 = buffer.from("132");
       try {
         buf1.swap32();
@@ -2485,7 +2550,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap64();
      */
-    it("testSwap64001", 0, function () {
+    it("testSwap64001", 0, () => {
       let buf1 = buffer.from("12345678");
       buf1.swap64();
       let str = buf1.toString();
@@ -2501,7 +2566,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.swap64();
      */
-    it("testSwap64002", 0, function () {
+    it("testSwap64002", 0, () => {
       let buf1 = buffer.from("1234567");
       try {
         buf1.swap64();
@@ -2520,9 +2585,9 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toJSON();
      */
-    it("testToJSON001", 0, function () {
+    it("testToJSON001", 0, () => {
       let buf1 = buffer.from([0x1, 0x2, 0x3, 0x4, 0x5]);
-      let obj = buf1.toJSON();
+      let obj: ESObject = buf1.toJSON();
       expect(obj["data"].length == 5).assertTrue();
     });
 
@@ -2535,7 +2600,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString();
      */
-    it("testToString001", 0, function () {
+    it("testToString001", 0, () => {
       let buf1 = buffer.from("1236");
       let str = buf1.toString();
       expect(str).assertEqual("1236");
@@ -2550,7 +2615,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString();
      */
-    it("testToString002", 0, function () {
+    it("testToString002", 0, () => {
       let buf1 = buffer.from("张三");
       let str = buf1.toString();
       expect(str).assertEqual("张三");
@@ -2565,7 +2630,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("binary");
      */
-    it("testToString003", 0, function () {
+    it("testToString003", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("binary");
       expect(str).assertEqual("abc");
@@ -2580,7 +2645,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("binary");
      */
-    it("testToString004", 0, function () {
+    it("testToString004", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("ascii");
       expect(str).assertEqual("abc");
@@ -2595,7 +2660,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("base64");
      */
-    it("testToString005", 0, function () {
+    it("testToString005", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("base64");
       expect(str).assertEqual("YWJj");
@@ -2610,7 +2675,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("hex");
      */
-    it("testToString006", 0, function () {
+    it("testToString006", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("hex");
       expect(str).assertEqual("616263");
@@ -2625,7 +2690,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("latin1");
      */
-    it("testToString007", 0, function () {
+    it("testToString007", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("latin1");
       expect(str).assertEqual("abc");
@@ -2640,7 +2705,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("ucs2");
      */
-    it("testToString008", 0, function () {
+    it("testToString008", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("ucs2");
       expect(str).assertEqual("扡");
@@ -2655,7 +2720,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString("utf16le");
      */
-    it("testToString009", 0, function () {
+    it("testToString009", 0, () => {
       let buf1 = buffer.from("abc");
       let str = buf1.toString("utf16le");
       expect(str).assertEqual("扡");
@@ -2670,7 +2735,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf1.toString();
      */
-    it("testToString010", 0, function () {
+    it("testToString010", 0, () => {
       let buf1 = buffer.from("!@#$%^&*");
       let str = buf1.toString();
       expect(str).assertEqual("!@#$%^&*");
@@ -2685,13 +2750,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf.write("abcde", "latin1");
      */
-    it("testWrite001", 0, function () {
+    it("testWrite001", 0, () => {
       let buf = buffer.alloc(8);
       try {
         let offset = buf.write("abcde", -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 7. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 7. Received value is: -1');
       }
     });
 
@@ -2704,13 +2770,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf.write("abcde", "latin1");
      */
-    it("testWrite002", 0, function () {
+    it("testWrite002", 0, () => {
       let buf = buffer.alloc(8);
       try {
         let offset = buf.write("abcde", 1, 9);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "length" is out of range. It must be >= 0 and <= 8. Received value is: 9');
+        expect(err.message)
+          .assertEqual('The value of "length" is out of range. It must be >= 0 and <= 8. Received value is: 9');
       }
     });
 
@@ -2723,7 +2790,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : buf.write("abcd", 0 ,4);
      */
-    it("testWrite003", 0, function () {
+    it("testWrite003", 0, () => {
       let buf = buffer.alloc(4);
       buf.write("abcd", 0, 4);
       const result = buf.toString();
@@ -2738,7 +2805,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigInt64BE001", 0, function () {
+    it("testWriteBigInt64BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeBigInt64BE(BigInt(0x0102030405060708), 0);
       expect(ref).assertEqual(8);
@@ -2752,13 +2819,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigInt64BE002", 0, function () {
+    it("testWriteBigInt64BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeBigInt64BE(BigInt(0x0102030405060708), 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2770,7 +2838,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigInt64LE001", 0, function () {
+    it("testWriteBigInt64LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeBigInt64LE(BigInt(0x0102030405060708), 0);
       expect(ref).assertEqual(8);
@@ -2784,13 +2852,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigInt64LE002", 0, function () {
+    it("testWriteBigInt64LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeBigInt64LE(BigInt(0x0102030405060708), 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2802,7 +2871,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigUInt64BE001", 0, function () {
+    it("testWriteBigUInt64BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeBigUInt64BE(BigInt(0x0102030405060708), 0);
       expect(ref).assertEqual(8);
@@ -2816,13 +2885,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigUInt64BE002", 0, function () {
+    it("testWriteBigUInt64BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeBigUInt64BE(BigInt(0x0102030405060708), 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2834,7 +2904,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigUInt64LE001", 0, function () {
+    it("testWriteBigUInt64LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeBigUInt64LE(BigInt(0x0102030405060708), 0);
       expect(ref).assertEqual(8);
@@ -2848,13 +2918,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteBigUInt64LE002", 0, function () {
+    it("testWriteBigUInt64LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeBigUInt64LE(BigInt(0x0102030405060708), 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2866,7 +2937,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteDoubleBE001", 0, function () {
+    it("testWriteDoubleBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeDoubleBE(123.456, 0);
       expect(ref).assertEqual(8);
@@ -2880,13 +2951,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteDoubleBE002", 0, function () {
+    it("testWriteDoubleBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeDoubleBE(123.456, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2898,7 +2970,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteDoubleLE001", 0, function () {
+    it("testWriteDoubleLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       let ref = buf.writeDoubleLE(123.456, 0);
       expect(ref).assertEqual(8);
@@ -2912,13 +2984,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteDoubleLE002", 0, function () {
+    it("testWriteDoubleLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(8);
       try {
         let ref = buf.writeDoubleLE(123.456, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -2930,7 +3003,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteFloatBE001", 0, function () {
+    it("testWriteFloatBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeFloatBE(0xcabcbcbc, 0);
       expect(ref).assertEqual(4);
@@ -2944,13 +3017,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteFloatBE002", 0, function () {
+    it("testWriteFloatBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeFloatBE(0xcabcbcbc, 5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 5');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 5');
       }
     });
 
@@ -2962,7 +3036,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteFloatLE001", 0, function () {
+    it("testWriteFloatLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(16);
       let ref = buf.writeFloatLE(0xcabcbcbc, 12);
       expect(ref).assertEqual(16);
@@ -2976,13 +3050,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteFloatLE002", 0, function () {
+    it("testWriteFloatLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeFloatLE(0xcabcbcbc, 5);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 5');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 5');
       }
     });
 
@@ -2995,7 +3070,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt8001", 0, function () {
+    it("testWriteInt8001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       let ref = buf.writeInt8(2, 0);
       expect(ref).assertEqual(1);
@@ -3010,13 +3085,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt8002", 0, function () {
+    it("testWriteInt8002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       try {
         let ref = buf.writeInt8(2, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 1. Received value is: -1');
       }
     });
 
@@ -3028,13 +3104,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt8003", 0, function () {
+    it("testWriteInt8003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       try {
         let ref = buf.writeInt8(0x13245, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= -128 and <= 127. Received value is: 78405');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= -128 and <= 127. Received value is: 78405');
       }
     });
 
@@ -3046,7 +3123,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt8004", 0, function () {
+    it("testWriteInt8004", 0, () => {
       let buf = buffer.allocUninitializedFromPool(2);
       let ref = buf.writeInt8(0x2, 1);
       expect(ref).assertEqual(2);
@@ -3062,7 +3139,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 0);
      */
-    it("testWriteInt16BE001", 0, function () {
+    it("testWriteInt16BE001", 0, () => {
       let buf = buffer.alloc(2);
       let ref = buf.writeInt16BE(0x7bca, 0);
       expect(ref).assertEqual(2);
@@ -3077,13 +3154,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16BE002", 0, function () {
+    it("testWriteInt16BE002", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16BE(0x7bca, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3096,13 +3174,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16BE003", 0, function () {
+    it("testWriteInt16BE003", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16BE(0x123456, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= -32768 and <= 32767. Received value is: 1193046');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= -32768 and <= 32767. Received value is: 1193046');
       }
     });
 
@@ -3115,13 +3194,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16BE004", 0, function () {
+    it("testWriteInt16BE004", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16BE(0x7bca, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3135,7 +3215,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt16LE(0x1234, 0);
      */
-    it("testWriteInt16LE001", 0, function () {
+    it("testWriteInt16LE001", 0, () => {
       let buf = buffer.alloc(2);
       let ref = buf.writeInt16LE(0x1234, 0);
       expect(ref).assertEqual(2);
@@ -3150,13 +3230,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16LE002", 0, function () {
+    it("testWriteInt16LE002", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16LE(0x7bca, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3169,13 +3250,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16LE003", 0, function () {
+    it("testWriteInt16LE003", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16LE(0x123456, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= -32768 and <= 32767. Received value is: 1193046');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= -32768 and <= 32767. Received value is: 1193046');
       }
     });
 
@@ -3188,13 +3270,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt16LE004", 0, function () {
+    it("testWriteInt16LE004", 0, () => {
       let buf = buffer.alloc(2);
       try {
         let ref = buf.writeInt16LE(0x1234, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3208,7 +3291,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example: let ref = buf.writeInt32BE(0x12345678, 0);
      */
-    it("testWriteInt32BE001", 0, function () {
+    it("testWriteInt32BE001", 0, () => {
       let buf = buffer.alloc(4);
       let ref = buf.writeInt32BE(0x12345678, 0);
       expect(ref).assertEqual(4);
@@ -3223,13 +3306,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt32BE002", 0, function () {
+    it("testWriteInt32BE002", 0, () => {
       let buf = buffer.alloc(4);
       try {
         let ref = buf.writeInt32BE(0x12345678, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3242,13 +3326,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteInt32BE003", 0, function () {
+    it("testWriteInt32BE003", 0, () => {
       let buf = buffer.alloc(4);
       try {
         let ref = buf.writeInt32BE(0x123456789, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= -2147483648 and <= 2147483647. Received value is: 4886718345');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= -2147483648 and <= 2147483647. Received value is: 4886718345');
       }
     });
 
@@ -3262,7 +3347,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 0);
      */
-    it("testWriteInt32LE001", 0, function () {
+    it("testWriteInt32LE001", 0, () => {
       let buf = buffer.alloc(4);
       let ref = buf.writeInt32LE(0x12345678, 0);
       expect(ref).assertEqual(4);
@@ -3278,13 +3363,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, -1);
      */
-    it("testWriteInt32LE002", 0, function () {
+    it("testWriteInt32LE002", 0, () => {
       let buf = buffer.alloc(4);
       try {
         let ref = buf.writeInt32LE(0x12345678, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3298,13 +3384,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 0);
      */
-    it("testWriteInt32LE003", 0, function () {
+    it("testWriteInt32LE003", 0, () => {
       let buf = buffer.alloc(4);
       try {
         let ref = buf.writeInt32LE(0x123456789, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= -2147483648 and <= 2147483647. Received value is: 4886718345');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= -2147483648 and <= 2147483647. Received value is: 4886718345');
       }
     });
 
@@ -3318,13 +3405,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 1);
      */
-    it("testWriteInt32LE004", 0, function () {
+    it("testWriteInt32LE004", 0, () => {
       let buf = buffer.alloc(4);
       try {
         let ref = buf.writeInt32LE(0x12345678, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3337,7 +3425,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 1);
      */
-    it("testWriteIntBE001", 0, function () {
+    it("testWriteIntBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       let ref = buf.writeIntBE(0x1234567890ab, 0, 6);
       expect(ref).assertEqual(6);
@@ -3352,13 +3440,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 1);
      */
-    it("testWriteIntBE002", 0, function () {
+    it("testWriteIntBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       try {
         let ref = buf.writeIntBE(0x1234567890ab, 1, 6);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3371,7 +3460,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeInt32LE(0x12345678, 1);
      */
-    it("testWriteIntLE001", 0, function () {
+    it("testWriteIntLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       let ref = buf.writeIntLE(0x1234567890ab, 0, 6);
       expect(ref).assertEqual(6);
@@ -3386,13 +3475,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeIntLE(0x1234567890ab, 1, 6);
      */
-    it("testWriteIntLE002", 0, function () {
+    it("testWriteIntLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(6);
       try {
         let ref = buf.writeIntLE(0x1234567890ab, 1, 6);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3405,7 +3495,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt8(0x42, 3);
      */
-    it("testWriteUInt8001", 0, function () {
+    it("testWriteUInt8001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt8(0x42, 3);
       expect(ref).assertEqual(4);
@@ -3420,13 +3510,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt8(0x42, -1);
      */
-    it("testWriteUInt8002", 0, function () {
+    it("testWriteUInt8002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt8(0x42, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 3. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 3. Received value is: -1');
       }
     });
 
@@ -3439,7 +3530,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt8(0x42, 1);
      */
-    it("testWriteUInt8003", 0, function () {
+    it("testWriteUInt8003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt8(0x42, 1);
       expect(ref).assertEqual(2);
@@ -3455,7 +3546,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt8(0x42, 1);
      */
-    it("testWriteUInt16BE001", 0, function () {
+    it("testWriteUInt16BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt16BE(0xdead, 0);
       expect(ref).assertEqual(2);
@@ -3471,13 +3562,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt16BE(0xdeadfc, 0);
      */
-    it("testWriteUInt16BE002", 0, function () {
+    it("testWriteUInt16BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt16BE(0xdeadfc, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= 0 and <= 65535. Received value is: 14593532');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= 0 and <= 65535. Received value is: 14593532');
       }
     });
 
@@ -3491,13 +3583,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt16BE(0xdeadfc, 0);
      */
-    it("testWriteUInt16BE003", 0, function () {
+    it("testWriteUInt16BE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt16BE(0xdead, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: -1');
       }
     });
 
@@ -3511,7 +3604,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt16LE(0xdead, 1);
      */
-    it("testWriteUInt16BE004", 0, function () {
+    it("testWriteUInt16BE004", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt16BE(0xdead, 1);
       expect(ref).assertEqual(3);
@@ -3527,7 +3620,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt16LE(0xdead, 0);
      */
-    it("testWriteUInt16LE001", 0, function () {
+    it("testWriteUInt16LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt16LE(0xdead, 0);
       expect(ref).assertEqual(2);
@@ -3542,13 +3635,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUInt16LE002", 0, function () {
+    it("testWriteUInt16LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt16LE(0xdeadfc, 0);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= 0 and <= 65535. Received value is: 14593532');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= 0 and <= 65535. Received value is: 14593532');
       }
     });
 
@@ -3561,13 +3655,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUInt16LE003", 0, function () {
+    it("testWriteUInt16LE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt16LE(0xdead, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 2. Received value is: -1');
       }
     });
 
@@ -3581,7 +3676,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt16LE(0xdead, 0);
      */
-    it("testWriteUInt16LE004", 0, function () {
+    it("testWriteUInt16LE004", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt16LE(0xdead, 1);
       expect(ref).assertEqual(3);
@@ -3597,7 +3692,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32BE(0xfeedface, 0);
      */
-    it("testWriteUInt32BE001", 0, function () {
+    it("testWriteUInt32BE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt32BE(0xfeedface, 0);
       expect(ref).assertEqual(4);
@@ -3613,13 +3708,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32BE(0xfeedface, -1);
      */
-    it("testWriteUInt32BE002", 0, function () {
+    it("testWriteUInt32BE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt32BE(0xfeedface, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3633,13 +3729,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32BE(0xfeedface, 1);
      */
-    it("testWriteUInt32BE003", 0, function () {
+    it("testWriteUInt32BE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt32BE(0xfeedface, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3653,7 +3750,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32LE(0xfeedface, 0);
      */
-    it("testWriteUInt32LE001", 0, function () {
+    it("testWriteUInt32LE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUInt32LE(0xfeedface, 0);
       expect(ref).assertEqual(4);
@@ -3669,13 +3766,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32LE(0xfeedface, -1);
      */
-    it("testWriteUInt32LE002", 0, function () {
+    it("testWriteUInt32LE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt32LE(0xfeedface, -1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: -1');
       }
     });
 
@@ -3689,13 +3787,14 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt32LE(0xfeedface, 1);
      */
-    it("testWriteUInt32LE003", 0, function () {
+    it("testWriteUInt32LE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUInt32LE(0xfeedface, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3708,7 +3807,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUInt8(0x42, 3);
      */
-    it("testWriteUIntBE001", 0, function () {
+    it("testWriteUIntBE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUIntBE(0x13141516, 0, 4);
       expect(ref).assertEqual(4);
@@ -3722,13 +3821,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUIntBE002", 0, function () {
+    it("testWriteUIntBE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUIntBE(0x13141516, 0, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= 0 and <= 255. Received value is: 320083222');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= 0 and <= 255. Received value is: 320083222');
       }
     });
 
@@ -3740,13 +3840,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUIntBE003", 0, function () {
+    it("testWriteUIntBE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUIntBE(0x13141516, 1, 4);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3759,7 +3860,7 @@ export default function BufferTest() {
      * @tc.level     : level 2
      * For example   : let ref = buf.writeUIntLE(0x13141516, 0, 4);
      */
-    it("testWriteUIntLE001", 0, function () {
+    it("testWriteUIntLE001", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       let ref = buf.writeUIntLE(0x13141516, 0, 4);
       expect(ref).assertEqual(4);
@@ -3773,13 +3874,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUIntLE002", 0, function () {
+    it("testWriteUIntLE002", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUIntLE(0x13141516, 0, 1);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "value" is out of range. It must be >= 0 and <= 255. Received value is: 320083222');
+        expect(err.message)
+          .assertEqual('The value of "value" is out of range. It must be >= 0 and <= 255. Received value is: 320083222');
       }
     });
 
@@ -3791,13 +3893,14 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUIntLE003", 0, function () {
+    it("testWriteUIntLE003", 0, () => {
       let buf = buffer.allocUninitializedFromPool(4);
       try {
         let ref = buf.writeUIntLE(0x13141516, 1, 4);
       } catch (err) {
         expect(err.name).assertEqual("BusinessError");
-        expect(err.message).assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
+        expect(err.message)
+          .assertEqual('The value of "offset" is out of range. It must be >= 0 and <= 0. Received value is: 1');
       }
     });
 
@@ -3809,7 +3912,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 2
      */
-    it("testWriteUIntLE004", 0, function () {
+    it("testWriteUIntLE004", 0, () => {
       let buf = buffer.allocUninitializedFromPool(5);
       let ref = buf.writeUIntLE(0x13141516, 1, 4);
       expect(ref).assertEqual(5);
@@ -3822,12 +3925,12 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"],list);
      */
-    it("testBlobConstructor001", 0, async function () {
-      let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+    it("testBlobConstructor001", 0, async () => {
+      let blob2 = new buffer.Blob(["a", "b", "c"], list);
       let promise = blob2.text();
-      promise.then((value) => {
+      await promise.then((value) => {
         expect(value).assertEqual("abc");
       });
     });
@@ -3839,16 +3942,16 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob([arrBuf], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob([arrBuf],list);
      */
-    it("testBlobConstructor002", 0, async function () {
+    it("testBlobConstructor002", 0, async () => {
       let arrBuf = new ArrayBuffer(3);
       let uint8arr = new Uint8Array(arrBuf);
       uint8arr[0] = 97;
       uint8arr[1] = 98;
       uint8arr[2] = 99;
-      let blob2 = new buffer.Blob([arrBuf], { type: "new type", endings: "transparent" });
-      blob2.text().then((value) => {
+      let blob2 = new buffer.Blob([arrBuf], list);
+      await blob2.text().then((value) => {
         expect(value).assertEqual("abc");
       });
     });
@@ -3860,16 +3963,16 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob([uint8arr], { type: "new type", endings: "transparent" })
+     * For example   : let blob2 = new buffer.Blob([uint8arr],list)
      */
-    it("testBlobConstructor003", 0, async function () {
+    it("testBlobConstructor003", 0, async () => {
       let uint8arr = new Uint8Array(3);
       uint8arr[0] = 97;
       uint8arr[1] = 98;
       uint8arr[2] = 99;
-      let blob2 = new buffer.Blob([uint8arr], { type: "new type", endings: "transparent" });
-      blob2.text().then((value) => {
-        expect(value).assertEqual("abc");
+      let blob2 = new buffer.Blob([uint8arr], list);
+      await blob2.text().then((value) => {
+        expect(value).assertEqual("979899");
       });
     });
 
@@ -3880,17 +3983,17 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob([view], { type: "new type", endings: "transparent" })
+     * For example   : let blob2 = new buffer.Blob([view],list)
      */
-    it("testBlobConstructor004", 0, async function () {
+    it("testBlobConstructor004", 0, async () => {
       let arrBuf = new ArrayBuffer(3);
       let uint8arr = new Uint8Array(arrBuf);
       uint8arr[0] = 97;
       uint8arr[1] = 98;
       uint8arr[2] = 99;
       let view = new DataView(arrBuf);
-      let blob2 = new buffer.Blob([view], { type: "new type", endings: "transparent" });
-      blob2.text().then((value) => {
+      let blob2 = new buffer.Blob([view], list);
+      await blob2.text().then((value) => {
         expect(value).assertEqual("abc");
       });
     });
@@ -3902,13 +4005,13 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"],list);
      *                 let blob = new buffer.Blob([blob2]);
      */
-    it("testBlobConstructor005", 0, async function () {
-      let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+    it("testBlobConstructor005", 0, async () => {
+      let blob2 = new buffer.Blob(["a", "b", "c"], list);
       let blob = new buffer.Blob([blob2]);
-      blob.text().then((value) => {
+      await blob.text().then((value) => {
         expect(value).assertEqual("abc");
       });
     });
@@ -3921,7 +4024,7 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 0
      */
-    it("testBlobSize001", 0, function () {
+    it("testBlobSize001", 0, () => {
       let blob = new buffer.Blob(["a", "b", "c"]);
       let size = blob.size;
       expect(size).assertEqual(3);
@@ -3935,8 +4038,11 @@ export default function BufferTest() {
      * @tc.type      : Method
      * @tc.level     : level 0
      */
-    it("testBlobType001", 0, function () {
-      let blob = new buffer.Blob(["a", "b", "c"], { type: "mime", endings: "transparent" });
+    it("testBlobType001", 0, () => {
+      let list: ESObject = {
+        type: "mime", endings: "transparent"
+      };
+      let blob = new buffer.Blob(["a", "b", "c"], list);
       let type = blob.type;
       expect(type).assertEqual("mime");
     });
@@ -3948,11 +4054,11 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"],list);
      */
-    it("testBlobArrayBuffer001", 0, async function () {
-      let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
-      blob2.arrayBuffer().then((value) => {
+    it("testBlobArrayBuffer001", 0, async () => {
+      let blob2 = new buffer.Blob(["a", "b", "c"], list);
+      await blob2.arrayBuffer().then((value) => {
         let arr = new Uint8Array(value);
         for (let i = 0, len = arr.length; i < len; i++) {
           expect(arr[i]).assertEqual(97 + i);
@@ -3968,17 +4074,17 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"],list);
      *                 let blob = blob2.slice(0, 1);
      */
-    it("testBlobSlice001", 0, async function () {
-      let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+    it("testBlobSlice001", 0, async () => {
+      let blob2 = new buffer.Blob(["a", "b", "c"], list);
       let blob = blob2.slice(0, 1);
-      blob.arrayBuffer().then((value) => {
+      await blob.arrayBuffer().then((value) => {
         let arr = new Uint8Array(value);
         expect(arr[0]).assertEqual(97);
-        expect(arr[1]).assertEqual(98);
-        expect(arr[2]).assertEqual(99);
+        expect(arr[1]).assertEqual(undefined);
+        expect(arr[2]).assertEqual(undefined);
       });
     });
 
@@ -3989,11 +4095,11 @@ export default function BufferTest() {
      * @tc.size      : MediumTest
      * @tc.type      : Method
      * @tc.level     : level 2
-     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
+     * For example   : let blob2 = new buffer.Blob(["a", "b", "c"],list);
      */
-    it("testBlobText001", 0, async function () {
-      let blob2 = new buffer.Blob(["a", "b", "c"], { type: "new type", endings: "transparent" });
-      blob2.text().then((value) => {
+    it("testBlobText001", 0, async () => {
+      let blob2 = new buffer.Blob(["a", "b", "c"], list);
+      await blob2.text().then((value) => {
         expect(value).assertEqual("abc");
       });
     });

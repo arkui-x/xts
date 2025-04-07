@@ -15,8 +15,17 @@
 
 import uri from "@ohos.uri";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export function UriTest() {
-  describe("UriTest", function () {
+  describe("UriTest", ()=> {
+    afterEach(async () => {
+      await sleep(200);
+    });
+
     /**
      * @tc.number: TEST_URI_CONSTRUCTION_001
      * @tc.name  : testUriConstruction001
@@ -25,7 +34,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction001", 0, function () {
+    it("testUriConstruction001", 0, ()=> {
       try {
         let that = new uri.URI("#http://username:password@host:8080/directory/file?foo=1&bar=2");
       } catch (err) {
@@ -43,7 +52,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction002", 0, function () {
+    it("testUriConstruction002", 0, ()=> {
       try {
         let that = new uri.URI("ht/tp://username:pas sword@host:8080/directory/file?foo=1&bar=2");
       } catch (err) {
@@ -61,7 +70,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction003", 0, function () {
+    it("testUriConstruction003", 0, ()=> {
       try {
         let that = new uri.URI("http://username:password@[::]:8080/directory/file?Query#gaogao faofao");
       } catch (err) {
@@ -79,7 +88,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction004", 0, function () {
+    it("testUriConstruction004", 0, ()=> {
       try {
         let that = new uri.URI("http://username:password@host:8080/directory/file?foo^=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -98,7 +107,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction005", 0, function () {
+    it("testUriConstruction005", 0, ()=> {
       try {
         let that = new uri.URI("1http://username:password@host:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -118,7 +127,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction006", 0, function () {
+    it("testUriConstruction006", 0, ()=> {
       try {
         let that = new uri.URI("ht@tp://username:password@host:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -137,7 +146,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction007", 0, function () {
+    it("testUriConstruction007", 0, ()=> {
       try {
         let that = new uri.URI("http://username:password@[::]:80r80/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -156,7 +165,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction008", 0, function () {
+    it("testUriConstruction008", 0, ()=> {
       try {
         let that = new uri.URI("http://username:password@[::12:55:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -175,7 +184,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction009", 0, function () {
+    it("testUriConstruction009", 0, ()=> {
       try {
         let that = new uri.URI("http://username:pa^ssword@[::12:55]:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -194,7 +203,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction010", 0, function () {
+    it("testUriConstruction010", 0, ()=> {
       try {
         let that = new uri.URI("http://username:password@[::1你2:55]:8080/directory/file?foo=1&bar=2#gaogaofaofao");
       } catch (err) {
@@ -213,7 +222,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testUriConstruction011", 0, function () {
+    it("testUriConstruction011", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@www.baidu.com:99/path/path?query#fagment");
       expect(gaogao.scheme).assertEqual("http");
       expect(gaogao.authority).assertEqual("gg:gaogao@www.baidu.com:99");
@@ -234,7 +243,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqualsTo001", 0, function () {
+    it("testEqualsTo001", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment");
       let gaogao1 = gaogao;
       let res = gaogao.equalsTo(gaogao1);
@@ -249,7 +258,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqualsTo002", 0, function () {
+    it("testEqualsTo002", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment");
       let gaogao1 = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment");
       let res = gaogao.equalsTo(gaogao1);
@@ -264,7 +273,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqualsTo003", 0, function () {
+    it("testEqualsTo003", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment");
       let gaogao1 = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment123");
       let res = gaogao.equalsTo(gaogao1);
@@ -279,7 +288,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqualsTo004", 0, function () {
+    it("testEqualsTo004", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@wwwaaa:99/path1?query#fagment");
       let gaogao1 = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment123");
       let res = gaogao.equalsTo(gaogao1);
@@ -294,7 +303,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEqualsTo005", 0, function () {
+    it("testEqualsTo005", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path1?query#fagment");
       let gaogao1 = new uri.URI("http://[1:0:0:1:2:1:2:1]/path1?query#fagment123");
       let res = gaogao.equalsTo(gaogao1);
@@ -309,7 +318,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testNormalize001", 0, function () {
+    it("testNormalize001", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/path/66./../././mm/.././path1?query#fagment");
       let res = gaogao.normalize();
       expect(res.path).assertEqual("/path/path1");
@@ -324,7 +333,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testNormalize002", 0, function () {
+    it("testNormalize002", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/../../path?query#fagment");
       let res = gaogao.normalize();
       expect(res.path).assertEqual("/../../path");
@@ -339,7 +348,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testNormalize003", 0, function () {
+    it("testNormalize003", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/../../path/.././../aa/bb/cc?query#fagment");
       let res = gaogao.normalize();
       expect(res.path).assertEqual("/../../../aa/bb/cc");
@@ -354,7 +363,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testNormalize004", 0, function () {
+    it("testNormalize004", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/../path/.././../aa/bb/cc?query");
       let res = gaogao.normalize();
       expect(res.path).assertEqual("/../../aa/bb/cc");
@@ -369,7 +378,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testNormalize005", 0, function () {
+    it("testNormalize005", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/./path/./aa/bb/cc?query#fagment");
       let res = gaogao.normalize();
       expect(res.path).assertEqual("/path/aa/bb/cc");
@@ -384,7 +393,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString001", 0, function () {
+    it("testToString001", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/../../path/.././../aa/bb/cc?query#fagment");
       let res = gaogao.toString();
       expect(res).assertEqual("http://gg:gaogao@[1:0:0:1:2:1:2:1]:99/../../path/.././../aa/bb/cc?query#fagment");
@@ -398,7 +407,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString002", 0, function () {
+    it("testToString002", 0, ()=> {
       let gaogao = new uri.URI("htt1p://gg:gaogao@[::192.9.5.5]:99/path/66path1?query#fagment");
       let res = gaogao.toString();
       expect(res).assertEqual("htt1p://gg:gaogao@[::192.9.5.5]:99/path/66path1?query#fagment");
@@ -412,7 +421,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString003", 0, function () {
+    it("testToString003", 0, ()=> {
       let gaogao = new uri.URI("ftp://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.toString();
       expect(res).assertEqual("ftp://username:password@www.baidu.com:88/path?query#fagment");
@@ -426,7 +435,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString004", 0, function () {
+    it("testToString004", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gao你好gao@199.98.55.44:99/path/p你好ath?qu你好ery#fag你好ment");
       let res = gaogao.toString();
       expect(res).assertEqual("http://gg:gao%E4%BD%A0%E5%A5%BDgao@199.98.55.44:99/path/" +
@@ -441,7 +450,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testToString005", 0, function () {
+    it("testToString005", 0, ()=> {
       let gaogao = new uri.URI("http://gg:gaogao@199.98.55.44:99/path/path?query#fagment");
       let res = gaogao.toString();
       expect(res).assertEqual("http://gg:gaogao@199.98.55.44:99/path/path?query#fagment");
@@ -455,7 +464,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCheckIsAbsolute001", 0, function () {
+    it("testCheckIsAbsolute001", 0, ()=> {
       let gaogao = new uri.URI("f/tp://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.checkIsAbsolute();
       expect(res).assertEqual(false);
@@ -469,7 +478,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCheckIsAbsolute002", 0, function () {
+    it("testCheckIsAbsolute002", 0, ()=> {
       let gaogao = new uri.URI("ftp://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.checkIsAbsolute();
       expect(res).assertEqual(true);
@@ -483,7 +492,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCheckIsAbsolute003", 0, function () {
+    it("testCheckIsAbsolute003", 0, ()=> {
       let gaogao = new uri.URI("htt/p://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.checkIsAbsolute();
       expect(res).assertEqual(false);
@@ -497,7 +506,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCheckIsAbsolute004", 0, function () {
+    it("testCheckIsAbsolute004", 0, ()=> {
       let gaogao = new uri.URI("https://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.checkIsAbsolute();
       expect(res).assertEqual(true);
@@ -511,7 +520,7 @@ export function UriTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testCheckIsAbsolute005", 0, function () {
+    it("testCheckIsAbsolute005", 0, ()=> {
       let gaogao = new uri.URI("http1://username:password@www.baidu.com:88/path?query#fagment");
       let res = gaogao.checkIsAbsolute();
       expect(res).assertEqual(true);

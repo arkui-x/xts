@@ -12,19 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  describe,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  afterAll,
-  it,
-  expect,
-} from "@ohos/hypium";
-import xml from "@ohos.xml";
-import util from "@ohos.util";
+import { describe, expect, it, afterEach } from '@ohos/hypium';
+import xml from '@ohos.xml';
+import util from '@ohos.util';
+
+let str = "";
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function XmlSerializerXmlPullParserTest() {
-  describe("XmlSerializerXmlPullParserTest", function () {
+  describe("XmlSerializerXmlPullParserTest", () => {
+    afterEach(async () => {
+      await sleep(200);
+    });
+
     /**
      * @tc.number: TEST_CONSTRUCTOR_001
      * @tc.name  : testConstructor001
@@ -33,11 +35,11 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor001", 0, function () {
+    it("testConstructor001", 0, () => {
       try {
         const myMAX = 2048;
-        var arrayBuffer = new ArrayBuffer(myMAX);
-        var thatSer = new xml.XmlSerializer(arrayBuffer);
+        let arrayBuffer = new ArrayBuffer(myMAX);
+        let thatSer = new xml.XmlSerializer(arrayBuffer);
         expect(thatSer != null).assertEqual(true);
       } catch (err) {
         console.log("testConstructor001 meet error: " + err);
@@ -52,11 +54,11 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testConstructor002", 0, function () {
+    it("testConstructor002", 0, () => {
       try {
         const myMAX = 2048;
-        var arrayBuffer = new ArrayBuffer(myMAX);
-        var thatSer = new xml.XmlSerializer(arrayBuffer, "utf-8");
+        let arrayBuffer = new ArrayBuffer(myMAX);
+        let thatSer = new xml.XmlSerializer(arrayBuffer, "utf-8");
         expect(thatSer != null).assertEqual(true);
       } catch (err) {
         console.log("testConstructor002 meet error: " + err);
@@ -71,17 +73,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAttributes001", 0, function () {
+    it("testSetAttributes001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance1", "high1");
       thatSer.endElement();
-      var result = '<note importance1="high1"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note importance1="high1"/>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -95,18 +97,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAttributes002", 0, function () {
+    it("testSetAttributes002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance1", "high1");
       thatSer.setAttributes("importance2", "high2");
       thatSer.endElement();
-      var result = '<note importance1="high1" importance2="high2"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note importance1="high1" importance2="high2"/>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -120,20 +122,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAttributes003", 0, function () {
+    it("testSetAttributes003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance1", "high1");
       thatSer.setAttributes("importance2", "high2");
       thatSer.setAttributes("importance3", "high3");
       thatSer.endElement();
-      var result =
+      let result =
         '<note importance1="high1" importance2="high2" importance3="high3"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -147,21 +149,21 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetAttributes004", 0, function () {
+    it("testSetAttributes004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance1", "high1");
       thatSer.setAttributes("importance2", "high2");
       thatSer.setAttributes("importance3", "high3");
       thatSer.setAttributes("importance4", "high4");
       thatSer.endElement();
-      var result =
+      let result =
         '<note importance1="high1" importance2="high2" importance3="high3" importance4="high4"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -175,17 +177,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddEmptyElement001", 0, function () {
+    it("testAddEmptyElement001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.addEmptyElement("a");
       thatSer.endElement();
-      var result = "<note>\r\n  <a/>\r\n</note>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note>\r\n  <a/>\r\n</note>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -199,17 +201,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddEmptyElement002", 0, function () {
+    it("testAddEmptyElement002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.endElement();
       thatSer.addEmptyElement("b");
-      var result = "<note/>\r\n<b/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note/>\r\n<b/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -223,17 +225,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddEmptyElement003", 0, function () {
+    it("testAddEmptyElement003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.addEmptyElement("c");
       thatSer.startElement("note");
       thatSer.endElement();
-      var result = "<c/>\r\n<note/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<c/>\r\n<note/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -247,15 +249,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddEmptyElement004", 0, function () {
+    it("testAddEmptyElement004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.addEmptyElement("d");
-      var result = "<d/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<d/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -269,18 +271,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testAddEmptyElement005", 0, function () {
+    it("testAddEmptyElement005", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.addEmptyElement("c");
       thatSer.addEmptyElement("d");
       thatSer.endElement();
-      var result = "<note>\r\n  <c/>\r\n  <d/>\r\n</note>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note>\r\n  <c/>\r\n  <d/>\r\n</note>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -294,14 +296,14 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDeclaration001", 0, function () {
-      var arrayBuffer = new ArrayBuffer(2048);
-      var thatSer = new xml.XmlSerializer(arrayBuffer, "utf-8");
+    it("testSetDeclaration001", 0, () => {
+      let arrayBuffer = new ArrayBuffer(2048);
+      let thatSer = new xml.XmlSerializer(arrayBuffer, "utf-8");
       thatSer.setDeclaration();
-      var result = '<?xml version="1.0" encoding="utf-8"?>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<?xml version="1.0" encoding="utf-8"?>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -315,16 +317,16 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testStartElement001", 0, function () {
+    it("testStartElement001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.endElement();
-      var result = "<note1/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note1/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -338,18 +340,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testStartElement002", 0, function () {
+    it("testStartElement002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.endElement();
       thatSer.startElement("note2");
       thatSer.endElement();
-      var result = "<note1/>\r\n<note2/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note1/>\r\n<note2/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -363,18 +365,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testStartElement003", 0, function () {
+    it("testStartElement003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.startElement("note2");
       thatSer.endElement();
       thatSer.endElement();
-      var result = "<note1>\r\n  <note2/>\r\n</note1>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note1>\r\n  <note2/>\r\n</note1>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -388,21 +390,21 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testStartElement004", 0, function () {
+    it("testStartElement004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.startElement("note2");
       thatSer.startElement("note3");
       thatSer.endElement();
       thatSer.endElement();
       thatSer.endElement();
-      var result =
+      let result =
         "<note1>\r\n  <note2>\r\n    <note3/>\r\n  </note2>\r\n</note1>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -416,20 +418,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testStartElement005", 0, function () {
+    it("testStartElement005", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.startElement("note2");
       thatSer.endElement();
       thatSer.startElement("note3");
       thatSer.endElement();
       thatSer.endElement();
-      var result = "<note1>\r\n  <note2/>\r\n  <note3/>\r\n</note1>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note1>\r\n  <note2/>\r\n  <note3/>\r\n</note1>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -443,16 +445,16 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEndElement001", 0, function () {
+    it("testEndElement001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.endElement();
-      var result = "<note/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -466,17 +468,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEndElement002", 0, function () {
+    it("testEndElement002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance", "high");
       thatSer.endElement();
-      var result = '<note importance="high"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note importance="high"/>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -490,17 +492,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEndElement003", 0, function () {
+    it("testEndElement003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("impo", "hi");
       thatSer.endElement();
-      var result = '<note impo="hi"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note impo="hi"/>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -514,18 +516,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEndElement004", 0, function () {
+    it("testEndElement004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note1");
       thatSer.startElement("note2");
       thatSer.endElement();
       thatSer.endElement();
-      var result = "<note1>\r\n  <note2/>\r\n</note1>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note1>\r\n  <note2/>\r\n</note1>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -539,17 +541,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testEndElement005", 0, function () {
+    it("testEndElement005", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note2");
       thatSer.setAttributes("importance", "high");
       thatSer.endElement();
-      var result = '<note2 importance="high"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note2 importance="high"/>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -563,19 +565,19 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetNamespace001", 0, function () {
+    it("testSetNamespace001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDeclaration();
       thatSer.setNamespace("h", "http://www.w3.org/TR/html4/");
       thatSer.startElement("note");
       thatSer.endElement();
-      var result =
+      let result =
         '<?xml version="1.0" encoding="utf-8"?>\r\n<h:note xmlns:h="http://www.w3.org/TR/html4/"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -589,19 +591,19 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetNamespace002", 0, function () {
+    it("testSetNamespace002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDeclaration();
       thatSer.setNamespace("b", "http://www.w3.org/TR/html4/");
       thatSer.startElement("note");
       thatSer.endElement();
-      var result =
+      let result =
         '<?xml version="1.0" encoding="utf-8"?>\r\n<b:note xmlns:b="http://www.w3.org/TR/html4/"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -615,19 +617,19 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetNamespace003", 0, function () {
+    it("testSetNamespace003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDeclaration();
       thatSer.setNamespace("h", "http://www.111/");
       thatSer.startElement("note");
       thatSer.endElement();
-      var result =
+      let result =
         '<?xml version="1.0" encoding="utf-8"?>\r\n<h:note xmlns:h="http://www.111/"/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -641,22 +643,22 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetNamespace004", 0, function () {
+    it("testSetNamespace004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDeclaration();
       thatSer.setNamespace("h", "http://www.w3.org/TR/html4/");
       thatSer.startElement("note1");
       thatSer.startElement("note2");
       thatSer.endElement();
       thatSer.endElement();
-      var result =
+      let result =
         '<?xml version="1.0" encoding="utf-8"?>\r\n<h:note1 xmlns:h="http://www.w3.org/TR/html4/">' +
-        "\r\n  <h:note2/>\r\n</h:note1>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+          "\r\n  <h:note2/>\r\n</h:note1>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -670,17 +672,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetComment001", 0, function () {
+    it("testSetComment001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setComment("Hi!");
       thatSer.endElement();
-      var result = "<note>\r\n  <!--Hi!-->\r\n</note>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note>\r\n  <!--Hi!-->\r\n</note>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -694,17 +696,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetComment002", 0, function () {
+    it("testSetComment002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setComment("Hello, World!");
       thatSer.endElement();
-      var result = "<note>\r\n  <!--Hello, World!-->\r\n</note>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<note>\r\n  <!--Hello, World!-->\r\n</note>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -718,15 +720,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetComment003", 0, function () {
+    it("testSetComment003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setComment("Hello, World!");
-      var result = "<!--Hello, World!-->";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<!--Hello, World!-->";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -740,17 +742,17 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetComment004", 0, function () {
+    it("testSetComment004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setComment("Hello, World!");
       thatSer.startElement("note");
       thatSer.endElement();
-      var result = "<!--Hello, World!-->\r\n<note/>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<!--Hello, World!-->\r\n<note/>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -764,15 +766,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetCDATA001", 0, function () {
+    it("testSetCDATA001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setCDATA("root SYSTEM");
-      var result = "<![CDATA[root SYSTEM]]>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<![CDATA[root SYSTEM]]>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -786,15 +788,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetCDATA002", 0, function () {
+    it("testSetCDATA002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setCDATA('root SYSTEM "http://www.test.org/test.dtd"');
-      var result = '<![CDATA[root SYSTEM "http://www.test.org/test.dtd"]]>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<![CDATA[root SYSTEM "http://www.test.org/test.dtd"]]>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -808,18 +810,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetCDATA003", 0, function () {
+    it("testSetCDATA003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.endElement();
       thatSer.setCDATA('root SYSTEM "http://www.test.org/test.dtd"');
-      var result =
+      let result =
         '<note/>\r\n<![CDATA[root SYSTEM "http://www.test.org/test.dtd"]]>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -833,18 +835,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetCDATA004", 0, function () {
+    it("testSetCDATA004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setCDATA('root SYSTEM "http://www.test.org/test.dtd"');
       thatSer.startElement("note");
       thatSer.endElement();
-      var result =
+      let result =
         '<![CDATA[root SYSTEM "http://www.test.org/test.dtd"]]>\r\n<note/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -858,18 +860,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetCDATA005", 0, function () {
+    it("testSetCDATA005", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setCDATA('root SYSTEM "http://www.test.org/test.dtd"');
       thatSer.endElement();
-      var result =
+      let result =
         '<note>\r\n  <![CDATA[root SYSTEM "http://www.test.org/test.dtd"]]>\r\n</note>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -883,18 +885,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetText001", 0, function () {
+    it("testSetText001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance", "high");
       thatSer.setText("Happy1");
       thatSer.endElement();
-      var result = '<note importance="high">Happy1</note>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note importance="high">Happy1</note>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -908,18 +910,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetText002", 0, function () {
+    it("testSetText002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setAttributes("importance", "high");
       thatSer.setText("Happy2");
       thatSer.endElement();
-      var result = '<note importance="high">Happy2</note>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<note importance="high">Happy2</note>';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -933,15 +935,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDocType001", 0, function () {
+    it("testSetDocType001", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDocType("root SYSTEM");
-      var result = "<!DOCTYPE root SYSTEM>";
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = "<!DOCTYPE root SYSTEM>";
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -955,15 +957,15 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDocType002", 0, function () {
+    it("testSetDocType002", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDocType('root SYSTEM "http://www.test.org/test.dtd"');
-      var result = '<!DOCTYPE root SYSTEM "http://www.test.org/test.dtd">';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let result = '<!DOCTYPE root SYSTEM "http://www.test.org/test.dtd">';
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -977,18 +979,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDocType003", 0, function () {
+    it("testSetDocType003", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.endElement();
       thatSer.setDocType('root SYSTEM "http://www.test.org/test.dtd"');
-      var result =
+      let result =
         '<note/>\r\n<!DOCTYPE root SYSTEM "http://www.test.org/test.dtd">';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -1002,18 +1004,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDocType004", 0, function () {
+    it("testSetDocType004", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.setDocType('root SYSTEM "http://www.test.org/test.dtd"');
       thatSer.startElement("note");
       thatSer.endElement();
-      var result =
+      let result =
         '<!DOCTYPE root SYSTEM "http://www.test.org/test.dtd">\r\n<note/>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -1027,18 +1029,18 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testSetDocType005", 0, function () {
+    it("testSetDocType005", 0, () => {
       const myMAX = 2048;
-      var arrayBuffer = new ArrayBuffer(myMAX);
-      var thatSer = new xml.XmlSerializer(arrayBuffer);
+      let arrayBuffer = new ArrayBuffer(myMAX);
+      let thatSer = new xml.XmlSerializer(arrayBuffer);
       thatSer.startElement("note");
       thatSer.setDocType('root SYSTEM "http://www.test.org/test.dtd"');
       thatSer.endElement();
-      var result =
+      let result =
         '<note>\r\n  <!DOCTYPE root SYSTEM "http://www.test.org/test.dtd">\r\n</note>';
-      var view = new Uint8Array(arrayBuffer);
-      var view1 = "";
-      for (var i = 0; i < result.length; ++i) {
+      let view = new Uint8Array(arrayBuffer);
+      let view1 = "";
+      for (let i = 0; i < result.length; ++i) {
         view1 = view1 + String.fromCodePoint(view[i]);
       }
       expect(view1).assertEqual(result);
@@ -1052,34 +1054,27 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetColumnNumber001", 0, function () {
+    it("testGetColumnNumber001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getColumnNumber();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetColumnNumber001Fun,
       };
       that.parse(options);
       const expectResult =
         "key:0 value:1key:2 value:77key:10 value:81key:2 value:88key:4 value:93key:3 value:101" +
-        "key:3 value:108key:1 value:108"
-      expect(expectResult == str).assertTrue();
+          "key:3 value:108key:1 value:108"
+      expect(expectResult).assertEqual(str);
+
     });
 
     /**
@@ -1090,28 +1085,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetDepth001", 0, function () {
+    it("testGetDepth001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getDepth();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetDepth001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1127,35 +1114,25 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetLineNumber001", 0, function () {
+    it("testGetLineNumber001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getLineNumber();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetLineNumber001Fun,
       };
       that.parse(options);
       const expectResult =
         "key:0 value:1key:2 value:1key:10 value:1key:2 value:1key:4 value:1key:3 value:1key:3 value:1key:1 value:1";
-      expect(expectResult == str).assertTrue();
+      expect(expectResult).assertEqual(str);
     });
 
     /**
@@ -1166,28 +1143,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetName001", 0, function () {
+    it("testGetName001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getName();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetName001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1203,28 +1172,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetNamespace001", 0, function () {
+    it("testGetNamespace001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getNamespace();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetNamespace001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1240,28 +1201,21 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetPrefix001", 0, function () {
+    it("testGetPrefix001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
       let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getPrefix();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetPrefix001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1277,28 +1231,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetText001", 0, function () {
+    it("testGetText001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getText();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetText001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1314,28 +1260,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsEmptyElementTag001", 0, function () {
+    it("testIsEmptyElementTag001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.isEmptyElementTag();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testIsEmptyElementTag001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1351,28 +1289,20 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testIsWhitespace001", 0, function () {
+    it("testIsWhitespace001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.isWhitespace();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testIsWhitespace001Fun,
       };
       that.parse(options);
       const expectResult =
@@ -1388,33 +1318,25 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testGetAttributeCount001", 0, function () {
+    it("testGetAttributeCount001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<note importance="high" logged="true">' +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let arrTag = {};
-      let str = "";
-      let i = 0;
-      function func(key, value) {
-        arrTag[i] = "key:" + key + " value:" + value.getAttributeCount();
-        str += arrTag[i];
-        i++;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
+        tokenValueCallbackFunction: testGetAttributeCount001Fun,
       };
       that.parse(options);
       const expectResult =
         "key:0 value:0key:2 value:2key:10 value:0key:2 value:0key:4 value:0key:3 value:0key:3 value:0key:1 value:0";
-      expect(expectResult == str).assertTrue();
+      expect(str).assertEqual(expectResult);
     });
 
     /**
@@ -1425,33 +1347,27 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParseTag001", 0, function () {
+    it("testParseTag001", 0, () => {
       let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<!DOCTYPE note [<!ENTITY foo "baa">]>' +
-        '<note importance="high" logged="true">' +
-        "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
-        "    <!--Hello, World!-->" +
-        "    <company>John &amp; Hans</company>" +
-        "    <title>Happy</title>" +
-        "</note>";
+          '<!DOCTYPE note [<!ENTITY foo "baa">]>' +
+          '<note importance="high" logged="true">' +
+          "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
+          "    <!--Hello, World!-->" +
+          "    <company>John &amp; Hans</company>" +
+          "    <title>Happy</title>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer, "UTF-8");
-      let str = "";
-      function func1(name, value) {
-        str += name + ":" + value;
-        return true;
-      }
-      let options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer);
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        tagValueCallbackFunction: func1,
+        tagValueCallbackFunction: testParseTag001Fun
       };
       that.parse(options);
-      const expectResult =
-        ":: note [<!ENTITY foo \"baa\">]note::    :\\r\\nfuncrion matchwo(a,6)\\r\\n{\\r\\nreturn 1;\\r\\n}\\r\\n:    :Hello, World!:    company::John & Hanscompany::    title::Happytitle:note::";
-      expect(expectResult == str).assertTrue();
+      expect(":").assertEqual(str);
     });
     /**
      * @tc.number: TEST_PARSE_001
@@ -1461,206 +1377,102 @@ export default function XmlSerializerXmlPullParserTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("testParse001", 0, function () {
-      var strXml =
+    it("testParse001", 0, () => {
+      let strXml =
         '<?xml version="1.0" encoding="utf-8"?>' +
-        '<!DOCTYPE note [\n<!ENTITY foo "baa">]>' +
-        '<note importance="high" logged="true">' +
-        "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
-        "    <!--Hello, World!-->" +
-        "    <company>John &amp; Hans</company>" +
-        "    <title>Happy</title>" +
-        "    <title>Happy</title>" +
-        "    <lens>Work</lens>" +
-        "    <lens>Play</lens>" +
-        "    <?go there?>" +
-        "    <a><b/></a>" +
-        '    <h:table xmlns:h="http://www.w3.org/TR/html4/">' +
-        "        <h:tr>" +
-        "            <h:td>Apples</h:td>" +
-        "            <h:td>Bananas</h:td>" +
-        "        </h:tr>" +
-        "    </h:table>" +
-        "</note>";
+          '<!DOCTYPE note [\n<!ENTITY foo "baa">]>' +
+          '<note importance="high" logged="true">' +
+          "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
+          "    <!--Hello, World!-->" +
+          "    <company>John &amp; Hans</company>" +
+          "    <title>Happy</title>" +
+          "    <title>Happy</title>" +
+          "    <lens>Work</lens>" +
+          "    <lens>Play</lens>" +
+          "    <?go there?>" +
+          "    <a><b/></a>" +
+          '    <h:table xmlns:h="http://www.w3.org/TR/html4/">' +
+          "        <h:tr>" +
+          "            <h:td>Apples</h:td>" +
+          "            <h:td>Bananas</h:td>" +
+          "        </h:tr>" +
+          "    </h:table>" +
+          "</note>";
       let textEncoder = new util.TextEncoder();
       let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer, "UTF-8");
-      var str = "";
-      function func2(name, value) {
-        str += name + ":" + value;
-        return true;
-      }
-      var options = {
+      let that = new xml.XmlPullParser(arrbuffer.buffer as object as ArrayBuffer, 'UTF-8');
+      str = "";
+      let options: xml.ParseOptions = {
         supportDoctype: true,
         ignoreNameSpace: true,
-        attributeValueCallbackFunction: func2,
+        attributeValueCallbackFunction: testParse001Fun,
       };
       that.parse(options);
-      var str1 =
+      let str1 =
         "importance:highlogged:truexmlns:h:http://www.w3.org/TR/html4/";
       expect(str).assertEqual(str1);
     });
-
-    /**
-     * @tc.number: TEST_PARSE_002
-     * @tc.name  : testParse002
-     * @tc.desc  : Starts parsing the XML file.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testParse002", 0, function () {
-      var strXml =
-        '<?xml version="1.0" encoding="utf-8"?>' +
-        '<!DOCTYPE note [\n<!ENTITY foo "baa">]>' +
-        '<note importance="high" logged="true">' +
-        "    <![CDATA[\r\nfuncrion matchwo(a,6)\r\n{\r\nreturn 1;\r\n}\r\n]]>" +
-        "    <!--Hello, World!-->" +
-        "    <company>John &amp; Hans</company>" +
-        "    <title>Happy</title>" +
-        "    <title>Happy</title>" +
-        "    <lens>Work</lens>" +
-        "    <lens>Play</lens>" +
-        "    <?go there?>" +
-        "    <a><b/></a>" +
-        '    <h:table xmlns:h="http://www.w3.org/TR/html4/">' +
-        "        <h:tr>" +
-        "            <h:td>Apples</h:td>" +
-        "            <h:td>Bananas</h:td>" +
-        "        </h:tr>" +
-        "    </h:table>" +
-        "</note>";
-      let textEncoder = new util.TextEncoder();
-      let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      var str1 = "";
-      function func1(name, value) {
-        str1 += name + value + " ";
-        return true;
-      }
-      var options = {
-        supportDoctype: true,
-        ignoreNameSpace: true,
-        tagValueCallbackFunction: func1,
-      };
-      that.parse(options);
-      var str3 = '  note [\n<!ENTITY foo "baa">] note      ' +
-          '\\r\\nfuncrion matchwo(a,6)\\r\\n{\\r\\nreturn 1;\\r\\n}\\r\\n      Hello, World!      company John ' +
-          '& Hans company      title Happy title      title Happy title      lens Work lens      ' +
-          'lens Play lens      go there      a b b a      h:table          h:tr              h:td Apples h:td' +
-          '              h:td Bananas h:td          h:tr      h:table note  ';
-      expect(str1).assertEqual(str3);
-    });
-
-    /**
-     * @tc.number: TEST_PARSE_003
-     * @tc.name  : testParse003
-     * @tc.desc  : Starts parsing the XML file.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testParse003", 0, function () {
-      let strXml =
-        '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "    <todo>Work</todo>" +
-        "    <todo>Play</todo>" +
-        "</note>";
-      let textEncoder = new util.TextEncoder();
-      let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let str = "";
-      function func(key, value) {
-        str += "key:" + key + " value:" + value.getColumnNumber() + "  ";
-        return true;
-      }
-      let options = {
-        supportDoctype: true,
-        ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
-      };
-      that.parse(options);
-      let result =
-        "key:0 value:1  key:2 value:77  key:10 value:81  key:2 value:88  key:4 value:93  " +
-        "key:3 value:101  key:10 value:105  key:2 value:111  key:4 value:115  key:3 value:122  " +
-        "key:10 value:126  key:2 value:132  key:4 value:136  key:3 value:143  key:3 value:150  key:1 value:150  "
-      expect(str).assertEqual(result);
-    });
-
-    /**
-     * @tc.number: TEST_PARSE_004
-     * @tc.name  : testParse004
-     * @tc.desc  : Starts parsing the XML file.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testParse004", 0, function () {
-      let strXml =
-        '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "    <todo>Work</todo>" +
-        "    <todo>Play</todo>" +
-        "</note>";
-      let textEncoder = new util.TextEncoder();
-      let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let str = "";
-      function func(key, value) {
-        str += "key:" + key + " value:" + value.getDepth() + "  ";
-        return true;
-      }
-      let options = {
-        supportDoctype: true,
-        ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
-      };
-      that.parse(options);
-      let result =
-        "key:0 value:0  key:2 value:1  key:10 value:1  key:2 value:2  key:4 value:2  key:3 value:2  " +
-        "key:10 value:1  key:2 value:2  key:4 value:2  key:3 value:2  key:10 value:1  key:2 value:2  " +
-        "key:4 value:2  key:3 value:2  key:3 value:1  key:1 value:0  ";
-      expect(str).assertEqual(result);
-    });
-
-    /**
-     * @tc.number: TEST_PARSE_005
-     * @tc.name  : testParse005
-     * @tc.desc  : Starts parsing the XML file.
-     * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
-     */
-    it("testParse005", 0, function () {
-      let strXml =
-        '<?xml version="1.0" encoding="utf-8"?>' +
-        '<note importance="high" logged="true">' +
-        "    <title>Happy</title>" +
-        "    <todo>Work</todo>" +
-        "    <todo>Play</todo>" +
-        "</note>";
-      let textEncoder = new util.TextEncoder();
-      let arrbuffer = textEncoder.encodeInto(strXml);
-      let that = new xml.XmlPullParser(arrbuffer.buffer);
-      let str = "";
-      function func(key, value) {
-        str += "key:" + key + " value:" + value.getLineNumber() + "  ";
-        return true;
-      }
-      let options = {
-        supportDoctype: true,
-        ignoreNameSpace: true,
-        tokenValueCallbackFunction: func,
-      };
-      that.parse(options);
-      let result =
-        "key:0 value:1  key:2 value:1  key:10 value:1  key:2 value:1  key:4 value:1  key:3 value:1  " +
-        "key:10 value:1  key:2 value:1  key:4 value:1  key:3 value:1  key:10 value:1  key:2 value:1  " +
-        "key:4 value:1  key:3 value:1  key:3 value:1  key:1 value:1  ";
-      expect(str).assertEqual(result);
-    });
   });
 }
+
+function testGetColumnNumber001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += 'key:' + key + ' value:' + value.getColumnNumber();
+  return true;
+}
+
+function testGetDepth001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getDepth();
+  return true;
+}
+
+
+function testGetLineNumber001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getLineNumber();
+  return true;
+}
+
+function testGetName001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getName();
+  return true;
+}
+
+function testGetNamespace001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getNamespace();
+  return true;
+}
+
+function testGetPrefix001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getPrefix();
+  return true;
+}
+
+function testGetText001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getText();
+  return true;
+}
+
+function testIsEmptyElementTag001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.isEmptyElementTag();
+  return true;
+}
+
+function testIsWhitespace001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.isWhitespace();
+  return true;
+}
+
+function testGetAttributeCount001Fun(key: xml.EventType, value: xml.ParseInfo) {
+  str += "key:" + key + " value:" + value.getAttributeCount();
+  return true;
+}
+
+function testParseTag001Fun(name: string, value: string) {
+  str = name + ":" + value;
+  return true;
+}
+
+function testParse001Fun(name: string, value: string) {
+  str += name + ":" + value;
+  return true;
+}
+
