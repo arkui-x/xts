@@ -13,15 +13,18 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class Main4Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main4Ability onCreate")
         globalThis.abilityWant4 = want;
 
         console.log("[Demo] Main4Ability context: " + JSON.stringify(this.context));
-        var listKey4 = [];
-        let AbilityLifecycleCallback = {
+        let listKey4:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback4 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -103,10 +106,10 @@ export default class Main4Ability extends Ability {
         }
         globalThis.applicationContext4 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext4.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext4.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext4.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback4 number: " + JSON.stringify(lifecycleid));
         globalThis.callbackid4 = lifecycleid;
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback4 listKey : " + JSON.stringify(listKey4));
             globalThis.list4 = listKey4;
         }, 1500);
@@ -116,7 +119,7 @@ export default class Main4Ability extends Ability {
         console.log("[Demo] Main4Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main4Ability onWindowStageCreate")
         globalThis.ability4 = this.context;
@@ -139,11 +142,11 @@ export default class Main4Ability extends Ability {
     onForeground() {
         // Ability has brought to foreground
         console.log("[Demo] Main4Ability onForeground")
-        setTimeout(function () {
+        setTimeout(() => {
             globalThis.ability4.terminateSelf()
-                .then((data) => {
+                .then((data:ESObject) => {
                     console.info('[Demo] Main4Ability terminateself succeeded: ' + data);
-                }).catch((error) => {
+                }).catch((error:BusinessError) => {
                 console.error('[Demo] Main4Ability terminateself failed. Cause: ' + error);
             })
         }, 5000);

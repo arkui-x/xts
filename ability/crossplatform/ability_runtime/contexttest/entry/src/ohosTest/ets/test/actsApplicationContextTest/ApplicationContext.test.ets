@@ -17,6 +17,10 @@ import common from '@ohos.app.ability.common';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { BusinessError } from '@kit.BasicServicesKit';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ApplicationContext() {
   describe("ApplicationContext", () => {
     let bundleName: string;
@@ -29,11 +33,12 @@ export default function ApplicationContext() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info("beforeEach case");
     });
 
     afterEach(async () => {
-      console.info('afterEach case');
+      await sleep(100);
     });
 
     afterAll(async () => {

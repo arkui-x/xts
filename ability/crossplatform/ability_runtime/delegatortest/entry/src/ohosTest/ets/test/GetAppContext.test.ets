@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,8 +23,16 @@ import {
 } from "@ohos/hypium";
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function GetAppContextTest() {
-  describe("GetAppContextTest", function () {
+  describe("GetAppContextTest", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number: ACTS_GET_APP_CONTENT_0001
      * @tc.name  : actsGetAppContextCallback0001
@@ -33,7 +41,7 @@ export default function GetAppContextTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_APP_CONTENT_0001", 0, async function (done) {
+    it("ACTS_GET_APP_CONTENT_0001", 0, async (done: Function) => {
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       let context = abilityDelegator.getAppContext();
       if (context != null) {

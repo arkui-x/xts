@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
-import { describe, expect, it } from "@ohos/hypium";
+import { describe, expect, it, afterEach } from "@ohos/hypium";
+import { BusinessError } from "@kit.BasicServicesKit";
+import Want from "@ohos.app.ability.Want";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 let errMsgArr = ["Parse param monitor failed, monitor must be Monitor.",
@@ -21,6 +23,10 @@ let errMsgArr = ["Parse param monitor failed, monitor must be Monitor.",
   "Parse monitor want failed, removeAbilityMonitor must be Monitor.",
   "Incorrect parameters."]
 let errMsgStr = JSON.stringify(errMsgArr)
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function AbilityMonitorTest() {
   const factoryWant = (
@@ -32,10 +38,14 @@ export default function AbilityMonitorTest() {
       bundleName: bundleName,
       abilityName: abilityName,
       moduleName: moduleName,
-    };
+    } as Want;
   };
 
-  describe("AbilityMonitorTest", function () {
+  describe("AbilityMonitorTest", () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     /**
      * @tc.number ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100
      * @tc.name actsAddAbilityMonitorCallback0100
@@ -44,11 +54,11 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100", 0, async (done: Function) => {
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       let monitor = null;
       try {
-        abilityDelegator.addAbilityMonitor(monitor, (err: any, data: any) => {
+        abilityDelegator.addAbilityMonitor(monitor, (err, data) => {
           abilityDelegator.printSync(
             "ACTS_ADD_ABILITY_MONITOR_CALLBACK_0100" + err.code
           );
@@ -80,14 +90,14 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0200", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0200", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         console.log("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0200 ");
         expect(true).assertTrue();
         abilityDelegator.printSync(
@@ -97,11 +107,11 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
-      abilityDelegator.addAbilityMonitor(monitor, (err: any) => {
+      abilityDelegator.addAbilityMonitor(monitor, (err) => {
         console.log("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0200");
       });
       await abilityDelegator.startAbility(want);
@@ -115,14 +125,14 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0300", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0300", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_ADD_ABILITY_MONITOR_CALLBACK_0300 pass "
@@ -131,12 +141,12 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       await abilityDelegator.addAbilityMonitor(monitor);
-      abilityDelegator.addAbilityMonitor(monitor, (err: any) => {
+      abilityDelegator.addAbilityMonitor(monitor, (err) => {
         console.log("ACTS_ADD_ABILITY_MONITOR_CALLBACK_0300");
       });
       await abilityDelegator.startAbility(want);
@@ -150,7 +160,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0100", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0100", 0, async (done: Function) => {
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       let monitor = null;
       try {
@@ -185,21 +195,21 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0200", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0200", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync('ACTS_ADD_ABILITY_MONITOR_PROMISE_0200 pass');
         data.context.terminateSelf();
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -217,14 +227,14 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0300", 0, async function (done) {
+    it("ACTS_ADD_ABILITY_MONITOR_PROMISE_0300", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         data.context.terminateSelf();
         abilityDelegator.printSync(
@@ -233,7 +243,7 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -250,10 +260,10 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0100", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0100", 0, async (done: Function) => {
       let monitor = null;
       try {
-        abilityDelegator.removeAbilityMonitor(monitor, (err: any) => {
+        abilityDelegator.removeAbilityMonitor(monitor, (err) => {
           expect().assertFail();
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0100 error"
@@ -285,7 +295,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0200", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0200", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -293,16 +303,17 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.addAbilityMonitor(monitor);
-      abilityDelegator.removeAbilityMonitor(monitor, (err: any) => { });
+      abilityDelegator.removeAbilityMonitor(monitor, (err) => {
+      });
       setTimeout(() => {
         abilityDelegator.startAbility(want);
       }, 2000);
@@ -323,21 +334,21 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0300", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0300", 0, async (done: Function) => {
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0300 onAbilityCreateCallback"
         );
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
-      abilityDelegator.removeAbilityMonitor(monitor, (err: any) => {
+      abilityDelegator.removeAbilityMonitor(monitor, (err) => {
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0300 removeAbilityMonitor"
         );
@@ -360,7 +371,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0400", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0400", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -368,16 +379,17 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(monitor);
-      abilityDelegator.removeAbilityMonitor(monitor, (err: any) => { });
+      abilityDelegator.removeAbilityMonitor(monitor, (err) => {
+      });
       await abilityDelegator.startAbility(want);
       setTimeout(() => {
         expect(result).assertEqual(0);
@@ -396,7 +408,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0500", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_CALLBACK_0500", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -404,17 +416,18 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.addAbilityMonitor(monitor);
       abilityDelegator.addAbilityMonitor(monitor);
-      abilityDelegator.removeAbilityMonitor(monitor, (err: any) => { });
+      abilityDelegator.removeAbilityMonitor(monitor, (err) => {
+      });
       await abilityDelegator.startAbility(want);
       setTimeout(() => {
         expect(result).assertEqual(0);
@@ -433,7 +446,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0100", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0100", 0, async (done: Function) => {
       let monitor = null;
       try {
         let result = await abilityDelegator.removeAbilityMonitor(monitor);
@@ -470,7 +483,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0200", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0200", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -478,14 +491,14 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback(err) {
+      let onAbilityCreateCallback = (err: ESObject) => {
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0200 onAbilityCreateCallback "
         );
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -497,7 +510,7 @@ export default function AbilityMonitorTest() {
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0200 callback"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0200 error:" + error
           );
@@ -520,7 +533,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0300", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0300", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -528,14 +541,14 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         result = 1;
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0300 onAbilityCreateCallback"
         );
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -551,7 +564,7 @@ export default function AbilityMonitorTest() {
           );
           done();
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0300 error:" + error
           );
@@ -576,7 +589,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0400", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0400", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -584,11 +597,11 @@ export default function AbilityMonitorTest() {
       );
       let result = 0;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         result = 1;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -600,7 +613,7 @@ export default function AbilityMonitorTest() {
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0400"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0400 error:" + error
           );
@@ -625,7 +638,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0500", 0, async function (done) {
+    it("ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0500", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
@@ -633,14 +646,14 @@ export default function AbilityMonitorTest() {
       );
       let result = 1;
 
-      function onAbilityCreateCallback() {
+      let onAbilityCreateCallback = () => {
         abilityDelegator.printSync(
           "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0500 onAbilityCreateCallback"
         );
         result = 0;
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -653,7 +666,7 @@ export default function AbilityMonitorTest() {
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0500 callback"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_REMOVE_ABILITY_MONITOR_PROMISE_0500 error:" + error
           );
@@ -678,10 +691,10 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0100", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0100", 0, async (done: Function) => {
       let monitor = null;
       try {
-        abilityDelegator.waitAbilityMonitor(monitor, (err: any) => {
+        abilityDelegator.waitAbilityMonitor(monitor, (err) => {
           expect().assertFail();
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0100 callback "
@@ -712,8 +725,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0300", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0300", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(data.context.abilityInfo.name).assertEqual("Main2Ability");
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0300 pass"
@@ -722,16 +735,17 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let want = {
+      let want: Want = {
         bundleName: "com.example.delegatortest",
         abilityName: "Main2Ability",
         moduleName: "entry",
       };
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
-      abilityDelegator.waitAbilityMonitor(monitor, (err: any, data: any) => { });
+      abilityDelegator.waitAbilityMonitor(monitor, (err, data) => {
+      });
       await abilityDelegator.startAbility(want);
     });
 
@@ -743,10 +757,10 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0400", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0400", 0, async (done: Function) => {
       let monitor = null;
       try {
-        abilityDelegator.waitAbilityMonitor(monitor, 6000, (err: any) => {
+        abilityDelegator.waitAbilityMonitor(monitor, 6000, (err) => {
           expect().assertFail();
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0400 error"
@@ -778,14 +792,14 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0500", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0500", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0500 error"
         );
@@ -793,14 +807,14 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(
         monitor,
         6000,
-        (err: any, data: any) => {
+        (err, data) => {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0500 : " + err.code
           );
@@ -825,8 +839,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0600", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0600", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0600 pass"
@@ -840,14 +854,15 @@ export default function AbilityMonitorTest() {
         "Main2Ability",
         "entry"
       );
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(
         monitor,
         6000,
-        (err: any, data: any) => { }
+        (err, data) => {
+        }
       );
       await abilityDelegator.startAbility(want);
     });
@@ -860,8 +875,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0700", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0700", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0700 pass"
@@ -875,14 +890,15 @@ export default function AbilityMonitorTest() {
         "Main2Ability",
         "entry"
       );
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(
         monitor,
         0,
-        (err: any, data: any) => { }
+        (err, data) => {
+        }
       );
       await abilityDelegator.startAbility(want);
     });
@@ -895,8 +911,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0800", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0800", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0800 pass"
@@ -910,14 +926,15 @@ export default function AbilityMonitorTest() {
         "Main2Ability",
         "entry"
       );
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(
         monitor,
         4000,
-        (err: any, data: any) => { }
+        (err, data) => {
+        }
       );
       await abilityDelegator.startAbility(want);
     });
@@ -930,8 +947,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0900", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0900", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_0900 pass"
@@ -945,14 +962,15 @@ export default function AbilityMonitorTest() {
         "Main2Ability",
         "entry"
       );
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(
         monitor,
         -1,
-        (err: any, data: any) => { }
+        (err, data) => {
+        }
       );
       await abilityDelegator.startAbility(want);
     });
@@ -965,8 +983,8 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_1000", 0, async function (done) {
-      function onAbilityCreateCallback(data) {
+    it("ACTS_WAIT_ABILITY_MONITOR_CALLBACK_1000", 0, async (done: Function) => {
+      let onAbilityCreateCallback = (data: ESObject) => {
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_1000 onAbilityCreateCallback"
         );
@@ -976,14 +994,14 @@ export default function AbilityMonitorTest() {
         "Main2Ability",
         "entry"
       );
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
       abilityDelegator.waitAbilityMonitor(monitor);
       abilityDelegator.startAbility(want);
       setTimeout(() => {
-        abilityDelegator.getCurrentTopAbility((err: any, data: any) => {
+        abilityDelegator.getCurrentTopAbility((err, data) => {
           try {
             abilityDelegator.printSync(
               "ACTS_WAIT_ABILITY_MONITOR_CALLBACK_1000 getCurrentTopAbility ability: " +
@@ -1013,7 +1031,7 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 3
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0100", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0100", 0, async (done: Function) => {
       let monitor = null;
       try {
         let result = await abilityDelegator.waitAbilityMonitor(monitor);
@@ -1047,14 +1065,14 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync(
           "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200 onAbilityCreateCallback"
@@ -1063,7 +1081,7 @@ export default function AbilityMonitorTest() {
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -1075,14 +1093,14 @@ export default function AbilityMonitorTest() {
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200 pass"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0200 error:" + error
           );
           expect().assertFail();
           done();
         });
-        await abilityDelegator.startAbility(want);
+      await abilityDelegator.startAbility(want);
     });
 
     /**
@@ -1093,21 +1111,21 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0300", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0300", 0, async (done: Function) => {
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         data.context.terminateSelf();
         abilityDelegator.printSync("ACTS_WAITABILITYMONTOR_PROMISE_0300 pass");
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -1119,7 +1137,7 @@ export default function AbilityMonitorTest() {
             "actsWaitAbilityMonitorPromise0300 waitAbilityMonitor"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "actsWaitAbilityMonitorPromise0300 error:" + error
           );
@@ -1137,21 +1155,22 @@ export default function AbilityMonitorTest() {
      * @tc.type      : Method
      * @tc.level     : Level 2
      */
-    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0400", 0, async function (done) {
+    it("ACTS_WAIT_ABILITY_MONITOR_PROMISE_0400", 0, async (done: Function) => {
+      await sleep(1000);
       const want = factoryWant(
         "com.example.delegatortest",
         "Main2Ability",
         "entry"
       );
 
-      function onAbilityCreateCallback(data) {
+      let onAbilityCreateCallback = (data: ESObject) => {
         expect(true).assertTrue();
         abilityDelegator.printSync("ACTS_WAITABILITYMONTOR_PROMISE_0400 pass");
         data.context.terminateSelf();
         done();
       }
 
-      let monitor = {
+      let monitor: AbilityDelegatorRegistry.AbilityMonitor = {
         abilityName: "Main2Ability",
         onAbilityCreate: onAbilityCreateCallback,
       };
@@ -1163,7 +1182,7 @@ export default function AbilityMonitorTest() {
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0400 waitAbilityMonitor"
           );
         })
-        .catch((error) => {
+        .catch((error: BusinessError) => {
           abilityDelegator.printSync(
             "ACTS_WAIT_ABILITY_MONITOR_PROMISE_0400 error:" + error
           );

@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main7Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main7Ability onCreate")
         globalThis.abilityWant7 = want;
     }
@@ -24,7 +26,7 @@ export default class Main7Ability extends Ability {
         console.log("[Demo] Main7Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main7Ability onWindowStageCreate")
         globalThis.ability7 = this.context;
@@ -48,8 +50,8 @@ export default class Main7Ability extends Ability {
         // Ability has brought to foreground
         console.log("[Demo] Main7Ability onForeground")
 
-        var listKey7 = [];
-        let AbilityLifecycleCallback = {
+        let listKey7:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback7 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -131,9 +133,9 @@ export default class Main7Ability extends Ability {
         }
         globalThis.applicationContext7 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext7.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext7.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext7.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] AbilityLifecycleCallback7 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] AbilityLifecycleCallback7 listKey: " + JSON.stringify(listKey7));
             globalThis.list7 = listKey7;
             globalThis.callbackid7 = lifecycleid;

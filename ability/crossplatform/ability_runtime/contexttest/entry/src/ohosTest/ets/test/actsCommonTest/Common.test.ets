@@ -16,6 +16,10 @@
 import common from '@ohos.app.ability.common';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function Common() {
   describe("Common", () => {
 
@@ -28,7 +32,7 @@ export default function Common() {
     });
 
     afterEach(async () => {
-      console.info('afterEach case');
+      await sleep(200);
     });
 
     afterAll(async () => {

@@ -19,6 +19,10 @@ let errMsgArr = ["Parse param moduleName failed, moduleName must be string.",
   "Invalid input parameter."];
 let errMsgStr = JSON.stringify(errMsgArr);
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function AbilityStageContext() {
   describe("AbilityStageContext",() => {
     let bundleName: string;
@@ -31,8 +35,8 @@ export default function AbilityStageContext() {
       console.info("beforeEach case");
     });
 
-    afterEach(async() => {
-      console.info('afterEach case');
+    afterEach(async () => {
+      await sleep(300);
     });
 
     afterAll(async() => {

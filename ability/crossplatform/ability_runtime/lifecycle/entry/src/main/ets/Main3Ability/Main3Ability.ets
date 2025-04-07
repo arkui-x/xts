@@ -13,15 +13,17 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main3Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main3Ability onCreate")
         globalThis.abilityWant3 = want;
 
         console.log("[Demo] Main3Ability context: " + JSON.stringify(this.context));
-        var listKey3 = [];
-        let AbilityLifecycleCallback = {
+        let listKey3:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback3 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -103,9 +105,9 @@ export default class Main3Ability extends Ability {
         }
         globalThis.applicationContext3 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext3.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext3.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext3.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback3 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback3 listKey : " + JSON.stringify(listKey3));
             globalThis.list3 = listKey3;
             globalThis.callbackid3 = lifecycleid;
@@ -116,7 +118,7 @@ export default class Main3Ability extends Ability {
         console.log("[Demo] Main3Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main3Ability onWindowStageCreate")
         globalThis.ability3 = this.context

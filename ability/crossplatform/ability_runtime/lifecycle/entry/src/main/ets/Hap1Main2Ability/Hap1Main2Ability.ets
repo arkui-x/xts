@@ -13,15 +13,18 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { window } from '@kit.ArkUI';
 
 export default class Hap1Main2Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Hap1Main2Ability onCreate")
         globalThis.ability2Hap1Want = want;
         setTimeout(() => {
             this.context.terminateSelf().then((data) => {
                 console.log("Hap1Main2Ability EventTest terminateSelf data: " + JSON.stringify(data));
-            }).catch((error) => {
+            }).catch((error:BusinessError) => {
                 console.log("Hap1Main2Ability EventTest terminateSelf error: " + JSON.stringify(error));
             })
         }, 2000)
@@ -31,7 +34,7 @@ export default class Hap1Main2Ability extends Ability {
         console.log("[Demo] Hap1Main2Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Hap1Main2Ability onWindowStageCreate")
 

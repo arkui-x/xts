@@ -16,8 +16,8 @@
 import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-var abilityDelegator = undefined
-var abilityDelegatorArguments = undefined
+let abilityDelegator = undefined
+let abilityDelegatorArguments = undefined
 
 async function onAbilityCreateCallback() {
     console.log('onAbilityCreateCallback');
@@ -39,8 +39,8 @@ export default class OpenHarmonyTestRunner implements TestRunner {
         console.log('onRun');
         abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
         abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        var bundleName = abilityDelegatorArguments.bundleName
-        var parameters = abilityDelegatorArguments.parameters
+        let bundleName = abilityDelegatorArguments.bundleName
+        let parameters = abilityDelegatorArguments.parameters
         let moduleName = parameters["moduleName"]
         let lMonitor = {
             abilityName: "TestAbility",

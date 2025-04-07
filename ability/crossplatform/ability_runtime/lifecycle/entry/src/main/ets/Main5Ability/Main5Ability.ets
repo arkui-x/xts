@@ -13,9 +13,12 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class Main5Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main5Ability onCreate")
         globalThis.abilityWant5 = want;
     }
@@ -24,7 +27,7 @@ export default class Main5Ability extends Ability {
         console.log("[Demo] Main5Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main5Ability onWindowStageCreate")
         globalThis.ability5 = this.context;
@@ -47,11 +50,11 @@ export default class Main5Ability extends Ability {
     onForeground() {
         // Ability has brought to foreground
         console.log("[Demo] Main5Ability onForeground")
-        setTimeout(function () {
+        setTimeout(() => {
             globalThis.ability5.terminateSelf()
-                .then((data) => {
+                .then((data:ESObject) => {
                     console.info('[Demo] Main5Ability terminateself succeeded: ' + data);
-                }).catch((error) => {
+                }).catch((error:BusinessError) => {
                 console.error('[Demo] Main5Ability terminateself failed. Cause: ' + error);
             })
         }, 500);

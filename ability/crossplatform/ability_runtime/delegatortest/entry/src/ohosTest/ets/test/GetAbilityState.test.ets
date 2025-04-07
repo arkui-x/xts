@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,19 +22,28 @@ import {
   it,
 } from "@ohos/hypium";
 import AbilityDelegatorRegistry from "@ohos.app.ability.abilityDelegatorRegistry";
+import Want from "@ohos.app.ability.Want";
 
 let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 const START_ABILITY_TIMEOUT_TWO_THOUSAND = 1000;
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function GetAbilityStateTest() {
-  describe("GetAbilityStateTest", function () {
-    beforeAll(function () {
-      let want = {
+  describe("GetAbilityStateTest", () => {
+    beforeAll(() => {
+      let want:Want = {
         abilityName: "MainAbility",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
       abilityDelegator.startAbility(want);
+    });
+
+    afterEach(async () => {
+      await sleep(500);
     });
 
     /**
@@ -45,8 +54,8 @@ export default function GetAbilityStateTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_ABILITY_STATE_0001", 0, async function (done) {
-      let want = {
+    it("ACTS_GET_ABILITY_STATE_0001", 0, async (done: Function) => {
+      let want:Want = {
         abilityName: "Main4Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
@@ -54,9 +63,9 @@ export default function GetAbilityStateTest() {
       setTimeout(() => {
         abilityDelegator.startAbility(want, () => {
           setTimeout(() => {
-            abilityDelegator.getCurrentTopAbility((err: any, ability2: any) => {
+            abilityDelegator.getCurrentTopAbility((err, ability2) => {
               try {
-                var stateNum = abilityDelegator.getAbilityState(ability2);
+                let stateNum = abilityDelegator.getAbilityState(ability2);
                 abilityDelegator.printSync(
                   "ACTS_GET_ABILITY_STATE_0001 getAbilityState: " + stateNum
                 );
@@ -86,14 +95,14 @@ export default function GetAbilityStateTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_ABILITY_STATE_0002", 0, async function (done) {
-      let want = {
+    it("ACTS_GET_ABILITY_STATE_0002", 0, async (done: Function) => {
+      let want:Want = {
         abilityName: "Main3Ability",
         bundleName: "com.example.delegatortest",
         moduleName: "entry",
       };
       setTimeout(() => {
-        abilityDelegator.getCurrentTopAbility((err: any, ability1: any) => {
+        abilityDelegator.getCurrentTopAbility((err, ability1) => {
           abilityDelegator.printSync(
             "ACTS_GET_ABILITY_STATE_0002 getCurrentTopAbility start：" +
               ability1.context.abilityInfo.name
@@ -104,7 +113,7 @@ export default function GetAbilityStateTest() {
             );
             setTimeout(() => {
               try {
-                var stateNum = abilityDelegator.getAbilityState(ability1);
+                let stateNum = abilityDelegator.getAbilityState(ability1);
                 abilityDelegator.printSync(
                   "ACTS_GET_ABILITY_STATE_0002 getAbilityState: " + stateNum
                 );
@@ -134,9 +143,9 @@ export default function GetAbilityStateTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it("ACTS_GET_ABILITY_STATE_0003", 0, async function (done) {
+    it("ACTS_GET_ABILITY_STATE_0003", 0, async (done: Function) => {
       let ability1 = null;
-      var stateNum = abilityDelegator.getAbilityState(ability1);
+      let stateNum = abilityDelegator.getAbilityState(ability1);
       abilityDelegator.printSync(
         "ACTS_GET_ABILITY_STATE_0003 getAbilityState of ability1: " + stateNum
       );

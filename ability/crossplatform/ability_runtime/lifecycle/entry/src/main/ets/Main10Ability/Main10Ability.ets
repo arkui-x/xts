@@ -13,13 +13,15 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main10Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main10Ability onCreate")
         globalThis.abilityWant10 = want;
-        var listKey10 = [];
-        let AbilityLifecycleCallback = {
+        let listKey10:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 let abilityname = ability.context.abilityInfo.name;
                 console.log("[Demo] AbilityLifecycleCallback10 onAbilityCreate abilityname:"
@@ -87,9 +89,9 @@ export default class Main10Ability extends Ability {
         }
         globalThis.applicationContext10 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext10.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext10.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext10.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback10 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback10 listKey: " + JSON.stringify(listKey10));
             globalThis.list10 = listKey10;
             globalThis.callbackid10 = lifecycleid;
@@ -100,7 +102,7 @@ export default class Main10Ability extends Ability {
         console.log("[Demo] Main10Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main10Ability onWindowStageCreate")
         globalThis.ability10 = this.context;

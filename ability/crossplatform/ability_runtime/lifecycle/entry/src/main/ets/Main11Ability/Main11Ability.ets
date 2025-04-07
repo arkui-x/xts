@@ -13,14 +13,16 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main11Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main11Ability onCreate")
         globalThis.abilityWant11 = want;
         globalThis.ability11 = this.context;
-        var listKey11 = [];
-        let AbilityLifecycleCallback = {
+        let listKey11:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 let abilityname = ability.context.abilityInfo.name;
                 console.log("[Demo] AbilityLifecycleCallback11 onAbilityCreate abilityname:"
@@ -79,11 +81,11 @@ export default class Main11Ability extends Ability {
                 listKey11.push(abilityname + " onAbilityContinue");
             }
         }
-        globalThis.applicationContext11 = globalThis.ability11.getApplicationContext();
+        globalThis.applicationContext11 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext11.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext11.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext11.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback11 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback11 listKey: " + JSON.stringify(listKey11));
             globalThis.list11 = listKey11;
             globalThis.callbackid11 = lifecycleid;
@@ -94,7 +96,7 @@ export default class Main11Ability extends Ability {
         console.log("[Demo] Main11Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main11Ability onWindowStageCreate")
 

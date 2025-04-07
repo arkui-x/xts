@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main6Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main6Ability onCreate")
         globalThis.abilityWant6 = want;
     }
@@ -24,7 +26,7 @@ export default class Main6Ability extends Ability {
         console.log("[Demo] Main6Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main6Ability onWindowStageCreate")
         globalThis.ability6 = this.context;
@@ -48,8 +50,8 @@ export default class Main6Ability extends Ability {
         // Ability has brought to foreground
         console.log("[Demo] Main6Ability onForeground")
 
-        var listKey6 = [];
-        let AbilityLifecycleCallback = {
+        let listKey6:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback6 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -129,11 +131,11 @@ export default class Main6Ability extends Ability {
                 console.log("[Demo] 7listKey6:" + JSON.stringify(listKey6));
             }
         }
-        globalThis.applicationContext6 = globalThis.ability6.getApplicationContext();
+        globalThis.applicationContext6 = this.context.getApplicationContext();
         // let lifecycleid = globalThis.applicationContext6.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        let lifecycleid = globalThis.applicationContext6.on('abilityLifecycle', AbilityLifecycleCallback);
+        let lifecycleid:number = globalThis.applicationContext6.on('abilityLifecycle', abilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback6 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback6 listKey: " + JSON.stringify(listKey6));
             globalThis.list6 = listKey6;
             globalThis.callbackid6 = lifecycleid;
