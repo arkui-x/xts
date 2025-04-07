@@ -18,7 +18,7 @@ export default class MyAbilityStage extends AbilityStage {
     onCreate() {
         console.log("[Demo] MyAbilityStage onCreate")
         console.log("[Demo] MyAbilityStage stagecontext: " + JSON.stringify(this.context));
-        var listKey = [];
+        let listKey = [];
         let AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback onAbilityCreate ability:"
@@ -104,7 +104,7 @@ export default class MyAbilityStage extends AbilityStage {
         // let lifecycleid = globalThis.applicationContext.registerAbilityLifecycleCallback(AbilityLifecycleCallback);
         let lifecycleid = globalThis.applicationContext.on('abilityLifecycle', AbilityLifecycleCallback);
         console.log("[Demo] registerAbilityLifecycleCallback number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] AbilityLifecycleCallback listKey : " + JSON.stringify(listKey));
             globalThis.list = listKey;
             globalThis.callbackid = lifecycleid;

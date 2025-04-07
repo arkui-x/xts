@@ -13,14 +13,16 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main13Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main13Ability onCreate")
         globalThis.abilityWant1 = want;
         console.log("[Demo] Main13Ability context: " + JSON.stringify(this.context));
-        var listKey1 = [];
-        let AbilityLifecycleCallback = {
+        let listKey1:Array<string> = [];
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback1 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -98,8 +100,8 @@ export default class Main13Ability extends Ability {
             }
         }
 
-        var listKey2 = [];
-        let AbilityLifecycleCallback2 = {
+        let listKey2:Array<string> = [];
+        let abilityLifecycleCallback2:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 console.log("[Demo] AbilityLifecycleCallback1 onAbilityCreate ability:"
                 + JSON.stringify(ability));
@@ -179,10 +181,10 @@ export default class Main13Ability extends Ability {
 
         globalThis.ability13 = this.context;
         globalThis.applicationContext13 = this.context.getApplicationContext();
-        let lifecycleid = globalThis.applicationContext13.on('abilityLifecycle', AbilityLifecycleCallback);
-        let lifecycleid2 = globalThis.applicationContext13.on('abilityLifecycle', AbilityLifecycleCallback2);
+        let lifecycleid:number = globalThis.applicationContext13.on('abilityLifecycle', abilityLifecycleCallback);
+        let lifecycleid2:number = globalThis.applicationContext13.on('abilityLifecycle', abilityLifecycleCallback2);
         console.log("[Demo] registerAbilityLifecycleCallback1 number: " + JSON.stringify(lifecycleid));
-        setTimeout(function () {
+        setTimeout(() => {
             console.log("[Demo] registerAbilityLifecycleCallback1 listKey: " + JSON.stringify(listKey1));
             console.log("[Demo] registerAbilityLifecycleCallback1 listKey: " + JSON.stringify(listKey2));
             globalThis.list13 = listKey1;
@@ -197,7 +199,7 @@ export default class Main13Ability extends Ability {
         console.log("[Demo] Main13Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main13Ability onWindowStageCreate")
         globalThis.ability1context = this.context;

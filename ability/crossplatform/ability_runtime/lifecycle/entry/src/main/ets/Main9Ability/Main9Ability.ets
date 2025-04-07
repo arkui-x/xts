@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 import Ability from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, AbilityLifecycleCallback, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 
 export default class Main9Ability extends Ability {
-    onCreate(want, launchParam) {
+    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         console.log("[Demo] Main9Ability onCreate")
         globalThis.abilityWant9 = want;
     }
@@ -24,7 +26,7 @@ export default class Main9Ability extends Ability {
         console.log("[Demo] Main9Ability onDestroy")
     }
 
-    onWindowStageCreate(windowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
         // Main window is created, set main page for this ability
         console.log("[Demo] Main9Ability onWindowStageCreate")
 
@@ -48,9 +50,9 @@ export default class Main9Ability extends Ability {
         // Ability has brought to foreground
         console.log("[Demo] Main9Ability onForeground")
 
-        var listKey9 = [];
-        var abilityName = "";
-        let AbilityLifecycleCallback = {
+        let listKey9:Array<string> = [];
+        let abilityName = "";
+        let abilityLifecycleCallback:AbilityLifecycleCallback = {
             onAbilityCreate(ability) {
                 abilityName = ability.context.abilityInfo.name;
                 console.log(abilityName + " onAbilityCreate")
@@ -96,9 +98,9 @@ export default class Main9Ability extends Ability {
             }
         }
         globalThis.applicationContext9 = this.context.getApplicationContext();
-        // var callBackId = globalThis.applicationContext9
+        // let callBackId = globalThis.applicationContext9
         //     .registerAbilityLifecycleCallback(AbilityLifecycleCallback);
-        var callBackId = globalThis.applicationContext9.on('abilityLifecycle', AbilityLifecycleCallback);
+        let callBackId:number = globalThis.applicationContext9 .on('abilityLifecycle', abilityLifecycleCallback);
 
         console.log("callBackId is aaa :" + callBackId);
         setTimeout(() => {
