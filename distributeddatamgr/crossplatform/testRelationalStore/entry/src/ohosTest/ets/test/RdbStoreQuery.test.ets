@@ -68,6 +68,10 @@ async function createTest3() {
   }
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function rdbStoreQueryTest() {
   describe("rdbStoreQueryTest", () => {
     beforeAll(async () => {
@@ -76,6 +80,7 @@ export default function rdbStoreQueryTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);

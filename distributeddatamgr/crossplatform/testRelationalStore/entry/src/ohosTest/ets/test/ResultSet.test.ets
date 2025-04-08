@@ -64,6 +64,10 @@ async function createTest() {
   console.info(TAG + "createTest data end");
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function rdbResultSetTest() {
   describe("rdbResultSetTest", () => {
     beforeAll(async () => {
@@ -72,6 +76,7 @@ export default function rdbResultSetTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);

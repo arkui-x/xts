@@ -38,6 +38,9 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
 };
 let rdbStore: relationalStore.RdbStore | null = null;
 let DOUBLE_MAX = 9223372036854775807;
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 async function buildAllDataType1() {
   console.info(TAG + "buildAllDataType1 start");
@@ -107,6 +110,7 @@ export default function rdbPredicatesTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_ALL_DATA_TYPE_SQL, null);

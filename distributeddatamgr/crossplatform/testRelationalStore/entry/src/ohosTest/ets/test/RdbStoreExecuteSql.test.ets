@@ -69,6 +69,10 @@ async function createTest3() {
   }
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function rdbstoreStoreExcuteSqlTest() {
   describe("rdbstoreStoreExcuteSqlTest", () => {
     beforeAll(async () => {
@@ -77,6 +81,7 @@ export default function rdbstoreStoreExcuteSqlTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       await (rdbStore as relationalStore.RdbStore).executeSql("DELETE FROM test");

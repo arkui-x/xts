@@ -64,6 +64,10 @@ async function CreatRdbStore(context: Context, STORE_CONFIG: relationalStore.Sto
   return RdbStore;
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function RdbStoreBackupRestoreCallbackTest() {
   describe("RdbStoreBackupRestoreCallbackTest", () => {
     beforeAll(async () => {
@@ -72,6 +76,7 @@ export default function RdbStoreBackupRestoreCallbackTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       RdbStore = await CreatRdbStore(context, STORE_CONFIG);
     });

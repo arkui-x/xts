@@ -121,6 +121,10 @@ async function generateBookTable() {
   console.info(TAG + "generateBookTable end");
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function rdbStoreQuerySqlTest() {
   describe("rdbStoreQuerySqlTest", () => {
     beforeAll(async () => {
@@ -129,6 +133,7 @@ export default function rdbStoreQuerySqlTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await generateUserTable();

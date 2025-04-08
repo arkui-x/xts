@@ -61,7 +61,9 @@ async function CreateCorruptDb() {
   console.info(TAG, `quit create corrupt store`);
 }
 
-
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function RelationalStoreSyncApiTest() {
   describe('RelationalStoreSyncApiTest', () => {
@@ -75,6 +77,7 @@ export default function RelationalStoreSyncApiTest() {
     })
 
     beforeEach(async (done:Function) => {
+      await sleep(300);
       console.info(TAG + 'beforeEach');
       rdbStore = await data_Rdb.getRdbStore(context, STORE_CONFIG);
       rdbStore.executeSync(CREATE_TABLE_TEST, null);

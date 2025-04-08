@@ -42,6 +42,7 @@ export default function InsertTest() {
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       console.log("InsertTestrdbStore" + rdbStore);

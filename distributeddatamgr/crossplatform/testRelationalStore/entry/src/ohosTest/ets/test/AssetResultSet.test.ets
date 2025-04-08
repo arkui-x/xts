@@ -83,6 +83,10 @@ async function createTest() {
   console.log(TAG + "createTest data end");
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function relationalStoreAssetResultSetTest() {
   describe('relationalStoreAssetResultSetTest', () => {
     beforeAll(async () => {
@@ -92,6 +96,7 @@ export default function relationalStoreAssetResultSetTest() {
     })
 
     beforeEach(async () => {
+      await sleep(300);
       await (rdbStore as data_relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       console.info(TAG + 'beforeEach');
     })

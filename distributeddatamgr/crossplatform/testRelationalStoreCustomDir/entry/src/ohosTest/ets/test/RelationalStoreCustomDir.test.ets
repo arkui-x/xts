@@ -23,6 +23,11 @@ const TAG = "[RelationalStore_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
   "name TEXT NOT NULL, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
 
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function relationalStoreCustomDirTest() {
   describe('relationalStoreCustomDirTest', () => {
     beforeAll(async () => {
@@ -33,6 +38,7 @@ export default function relationalStoreCustomDirTest() {
     })
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + 'beforeEach');
     })
 

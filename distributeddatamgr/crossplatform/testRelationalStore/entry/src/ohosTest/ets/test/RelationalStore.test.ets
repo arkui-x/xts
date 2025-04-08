@@ -43,6 +43,7 @@ export default function relationalStoreTest() {
     });
 
     beforeEach(async () => {
+      await sleep(200);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
