@@ -15,11 +15,10 @@
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
 import { Component, Driver, ON } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs } from '../utils/index';
+import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
 
 export default function OnAlertTest() {
   describe('OnAlertTest', () => {
-
     /**
      * beforeAll: PreOnAlertTest at the test suite level, which are executed before the test suite is executed.
      */
@@ -46,7 +45,8 @@ export default function OnAlertTest() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(1000);
     });
 
     /**

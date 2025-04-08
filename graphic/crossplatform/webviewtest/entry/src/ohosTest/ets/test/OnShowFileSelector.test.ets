@@ -47,7 +47,8 @@ export default function OnShowFileSelectorTest() {
     /**
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(500);
     });
 
     /**
