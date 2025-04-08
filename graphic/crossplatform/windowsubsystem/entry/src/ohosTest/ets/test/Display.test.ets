@@ -13,11 +13,18 @@
  * limitations under the License.
  */
 import Display from '@ohos.display';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, afterEach } from '@ohos/hypium';
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function DisplayTest() {
   describe('DisplayTest', () => {
+    afterEach(async () => {
+      await sleep(500);
+    });
+
     let displayClass: Display.Display;
     try {
       displayClass = Display.getDefaultDisplaySync();
