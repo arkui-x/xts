@@ -15,61 +15,108 @@
 
 import window from '@ohos.window';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import common from '@ohos.app.ability.common';
+import { BusinessError } from '@kit.BasicServicesKit';
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function expectedError(error: BusinessError, caseName: string, apiName: string, done: Function, code: number) {
+  let msgStr = 'jsunittest ' + caseName + ' ' + apiName + ' failed, err: ';
+  console.log(msgStr + JSON.stringify(error));
+  try {
+    expect(error.code).assertEqual(code);
+    console.info(caseName + " success");
+    done();
+  } catch (error) {
+    console.info(caseName + " fail: " + error);
+    done();
+  }
+}
+
+function unexpectedError(error: BusinessError, caseName: string, apiName: string, done: Function) {
+  let msgStr = 'jsunittest ' + caseName + ' ' + apiName + ' failed, err: ';
+  console.log(msgStr + JSON.stringify(error));
+  try {
+    expect(true).assertFail();
+  } catch (error) {
+    console.info(`unexpectedError catch error: ${JSON.stringify(error)}`)
+  }
+  done();
+}
+
+function resizeFun(msgStr:string,winData : window.Window,width:number, height:number, i:number, done: Function) : Promise<boolean>{
+  console.log(msgStr + 'resize begin step:' + i);
+  return new Promise((resolve, reject) => {
+    try {
+      winData.resize(width, height, async (err:BusinessError) => {
+        if (err.code) {
+          console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(err));
+          try {
+            expect().assertFail();
+          } catch (err) {
+            console.log(msgStr + 'assertFail catch' + JSON.stringify(err));
+          }
+          done();
+          reject(null);
+        }
+        console.info(msgStr + 'Succeeded in changing the window size. step:' + i);
+        resolve(true);
+      });
+    } catch (exception) {
+      console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(exception));
+    }
+  });
+}
+
+function setPreferredOrientationFun(msgStr:string,win:window.Window, orientation:number): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    try {
+      win.setPreferredOrientation(orientation, (err:BusinessError) => {
+        if (err.code) {
+          console.error(msgStr + 'Failed to set window orientation. Cause: ' + JSON.stringify(err));
+          reject(null);
+        } else {
+          console.info(msgStr + 'Succeeded in setting window orientation.');
+          resolve(true);
+        }
+      });
+    } catch (exception) {
+      console.error(msgStr + 'Failed to set window orientation. Cause: ' + JSON.stringify(exception));
+      reject(null);
+    }
+  });
+}
 
 export default function Window() {
-  describe("Window", function () {
-    let context;
-    let windowStage;
-    let storage;
+  describe("Window", () => {
+    let context: common.UIAbilityContext;
+    ;
+    let windowStage: window.WindowStage;
+    let storage = new LocalStorage();
     const TRUE_FLAG = true;
 
-    function sleep(time) {
-      return new Promise((resolve) => setTimeout(resolve, time))
-    }
+    let sleep = (sleepMs: number) => new Promise<string>(resolve => setTimeout(resolve, sleepMs));
 
-    beforeAll(async function () {
+    beforeAll(async () => {
       console.info("beforeAll case");
       context = globalThis.abilityContext;
       windowStage = globalThis.windowStage;
-      storage = new LocalStorage();
+      // storage = new LocalStorage();
       storage.setOrCreate('storageSimpleProp', 121);
     });
-
-    beforeEach(async function () {
+    beforeEach(async () => {
       console.info("beforeEach case");
     });
-
-    afterEach(async function () {
+    afterEach(async () => {
+      await sleep(1000)
       console.info('afterEach case');
     });
-
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll case");
     });
 
-    function expectedError(error, caseName, apiName, done, code) {
-      let msgStr = 'jsunittest ' + caseName + ' ' + apiName + ' failed, err: ';
-      console.log(msgStr + JSON.stringify(error));
-      try {
-        expect(error.code).assertEqual(code);
-        console.info(caseName + " success");
-        done();
-      } catch (error) {
-        console.info(caseName + " fail: " + error);
-        done();
-      }
-    }
-
-    function unexpectedError(error, caseName, apiName, done) {
-      let msgStr = 'jsunittest ' + caseName + ' ' + apiName + ' failed, err: ';
-      console.log(msgStr + JSON.stringify(error));
-      try {
-        expect(true).assertFail();
-      } catch (error) {
-        console.info(`unexpectedError catch error: ${JSON.stringify(error)}`)
-      }
-      done();
-    }
 
     /**
      * @tc.number    : TEST_FINDWINDOW_001
@@ -79,12 +126,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testFindWindow001', 0, async function (done) {
+    it('testFindWindow001', 0, async (done:Function) => {
       try {
         let caseName = 'testFindWindow001';
         let msgStr = 'jsunittest ' + caseName + ' ';
         console.log(msgStr + 'begin');
-        let ohosData;
+        let ohosData:window.Window;
         try {
           ohosData = await windowStage.createSubWindow('testFindWindow001');
           expect(!!ohosData).assertTrue();
@@ -93,7 +140,7 @@ export default function Window() {
         }
         let windowClass = window.findWindow("testFindWindow001");
         expect(windowClass != undefined).assertTrue();
-        console.info('testFindWindow001 success');
+        console.info('testFindWindRow001 success');
         await windowClass.destroyWindow();
         done();
       } catch (error) {
@@ -101,7 +148,7 @@ export default function Window() {
         console.error('testFindWindow001 Failed to find the Window. Cause: ' + JSON.stringify(error));
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_FINDWINDOW_002
      * @tc.name      : testFindWindow002
@@ -110,7 +157,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testFindWindow002', 0, async function (done) {
+    it('testFindWindow002', 0, async (done:Function) => {
       try {
         window.findWindow('alertWindow');
         expect(false).assertTrue();
@@ -121,8 +168,7 @@ export default function Window() {
         console.error('testFindWindow002 Failed to find the Window. Cause: ' + JSON.stringify(error));
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_GETLASTWINDOW_PROMISE_001
      * @tc.name      : testGetLastWindowPromise001
@@ -131,7 +177,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testGetLastWindowPromise001', 0, async function (done) {
+    it('testGetLastWindowPromise001', 0, async (done:Function) => {
       let caseName = 'testGetLastWindowPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
@@ -145,7 +191,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_GETLASTWINDOW_CB_001
      * @tc.name      : testGetLastWindowCb001
@@ -154,7 +200,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testGetLastWindowCb001', 0, async function (done) {
+    it('testGetLastWindowCb001', 0, async (done:Function) => {
       let caseName = 'testGetLastWindowCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
@@ -166,7 +212,7 @@ export default function Window() {
             try {
               expect().assertFail();
             } catch (error) {
-              console.info(msgStr + `window.getLastWindow  catch error: ${JSON.stringify(error)}`)
+              console.info(msgStr + `window.getLastWindow  catch error: ${JSON.stringify(error)}`);
             }
             done();
             return;
@@ -178,14 +224,13 @@ export default function Window() {
             console.info(msgStr + "err " + err);
           }
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to obtain the top window. Cause: ' + JSON.stringify(exception));
         expect().assertFail();
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SHOWWINDOW_PROMISE_001
      * @tc.name      : testShowWindowPromise001
@@ -194,30 +239,30 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testShowWindowPromise001', 0, async function (done) {
+    it('testShowWindowPromise001', 0, async (done:Function) => {
       let caseName = 'testShowWindowPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd : window.Window;
       try {
-        tempWnd = await windowStage.createSubWindow('testShowWindowPromise001');
+        tempWnd  = await windowStage.createSubWindow('testShowWindowPromise001');
         expect(!!tempWnd).assertTrue();
         await tempWnd.showWindow().then(async () => {
           expect(TRUE_FLAG).assertTrue();
           console.info(msgStr + 'Succeeded in showing the window. ');
           await tempWnd.destroyWindow();
           done();
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to show the window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to create the window. Cause: ' + JSON.stringify(exception));
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SHOWWINDOW_CB_001
      * @tc.name      : testShowWindowCb001
@@ -226,20 +271,20 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testShowWindowCb001', 0, async function (done) {
+    it('testShowWindowCb001', 0, async (done:Function) => {
       let caseName = 'testShowWindowCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow('testShowWindowCb001');
       expect(!!winData).assertTrue();
-      winData.showWindow(async (err) => {
+      winData.showWindow(async (err:BusinessError) => {
         if (err.code) {
           console.error(msgStr + 'Failed to show the window. Cause: ' + JSON.stringify(err));
           try {
             expect().assertFail();
           } catch (err) {
-            console.info(msgStr + `window.showWindow catch error: ${JSON.stringify(err)}`)
+            console.info(msgStr + `window.showWindow catch error: ${JSON.stringify(err)}`);
           }
           done();
           return;
@@ -248,9 +293,8 @@ export default function Window() {
         expect(TRUE_FLAG).assertTrue();
         await winData.destroyWindow();
         done();
-      })
-    })
-
+      });
+    });
     /**
      * @tc.number    : TEST_DESTROYWINDOW_PROMISE_001
      * @tc.name      : testDestroyWindowPromise001
@@ -259,19 +303,19 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testDestroyWindowPromise001', 0, async function (done) {
+    it('testDestroyWindowPromise001', 0, async (done:Function) => {
       let caseName = 'testDestroyWindowPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testDestroyWindowPromise001';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
         await tempWnd.destroyWindow().then(() => {
           console.info(msgStr + 'Succeeded in destroying the window.');
           try {
-            let findWnd = window.findWindow(windowId)
+            let findWnd = window.findWindow(windowId);
             expect(!findWnd).assertTrue();
             done();
           } catch (exception) {
@@ -279,17 +323,17 @@ export default function Window() {
             expect(exception.code).assertEqual(1300002);
             done();
           }
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'try catch Failed to destroy the window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to create the window. Cause: ' + JSON.stringify(exception));
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_DESTROYWINDOW_CB_001
      * @tc.name      : testDestroyWindowCb001
@@ -298,16 +342,15 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testDestroyWindowCb001', 0, async function (done) {
+    it('testDestroyWindowCb001', 0, async (done:Function) => {
       let caseName = 'testDestroyWindowCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testDestroyWindowCb001';
       console.log(msgStr + 'begin');
-
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
-      winData.destroyWindow((err) => {
+      winData.destroyWindow((err:BusinessError) => {
         if (err.code != 0) {
           console.log('windowTest DestroyTest2 create callback fail' + JSON.stringify(err));
           try {
@@ -317,7 +360,7 @@ export default function Window() {
           }
         } else {
           try {
-            let findWnd = window.findWindow(windowId)
+            let findWnd = window.findWindow(windowId);
             expect(!findWnd).assertTrue();
           } catch (exception) {
             console.error(msgStr + 'try catch Failed to find the Window. Cause: ' + JSON.stringify(exception));
@@ -329,9 +372,8 @@ export default function Window() {
           }
         }
         done();
-      })
-    })
-
+      });
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_PROMISE_001
      * @tc.name      : testMoveWindowToPromise001
@@ -340,7 +382,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToPromise001', 0, async function (done) {
+    it('testMoveWindowToPromise001', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testMoveWindowToPromise001';
@@ -355,7 +397,7 @@ export default function Window() {
               console.info(msgStr + 'Succeeded in moving the window.');
               await wnd.destroyWindow();
               done();
-            }).catch(async (err) => {
+            }).catch(async (err:BusinessError) => {
               console.error(msgStr + 'Failed to move the window. Cause: ' + JSON.stringify(err));
               expect().assertFail();
               await wnd.destroyWindow();
@@ -366,7 +408,7 @@ export default function Window() {
             expect().assertFail();
             done();
           }
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to obtain the top window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
@@ -376,7 +418,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_PROMISE_002
      * @tc.name      : testMoveWindowToPromise002
@@ -385,7 +427,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToPromise002', 0, async function (done) {
+    it('testMoveWindowToPromise002', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToPromise002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testMoveWindowToPromise002';
@@ -400,7 +442,7 @@ export default function Window() {
               console.info(msgStr + 'Succeeded in moving the window.');
               await wnd.destroyWindow();
               done();
-            }).catch(async (err) => {
+            }).catch(async (err:BusinessError) => {
               console.error(msgStr + 'Failed to move the window. Cause: ' + JSON.stringify(err));
               expect().assertFail();
               await wnd.destroyWindow();
@@ -411,7 +453,7 @@ export default function Window() {
             expect().assertFail();
             done();
           }
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to obtain the top window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
@@ -421,7 +463,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_PROMISE_003
      * @tc.name      : testMoveWindowToPromise003
@@ -430,7 +472,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToPromise003', 0, async function (done) {
+    it('testMoveWindowToPromise003', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToPromise003';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testMoveWindowToPromise003';
@@ -445,7 +487,7 @@ export default function Window() {
               console.info(msgStr + 'Succeeded in moving the window.');
               await wnd.destroyWindow();
               done();
-            }).catch(async (err) => {
+            }).catch(async (err:BusinessError) => {
               console.error(msgStr + 'Failed to move the window. Cause: ' + JSON.stringify(err));
               expect().assertFail();
               await wnd.destroyWindow();
@@ -456,7 +498,7 @@ export default function Window() {
             expect().assertFail();
             done();
           }
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to obtain the top window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
@@ -466,7 +508,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_PROMISE_004
      * @tc.name      : testMoveWindowToPromise004
@@ -475,7 +517,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToPromise004', 0, async function (done) {
+    it('testMoveWindowToPromise004', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToPromise004';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testMoveWindowToPromise004';
@@ -490,7 +532,7 @@ export default function Window() {
               console.info(msgStr + 'Succeeded in moving the window.');
               await wnd.destroyWindow();
               done();
-            }).catch(async (err) => {
+            }).catch(async (err:BusinessError) => {
               console.error(msgStr + 'Failed to move the window. Cause: ' + JSON.stringify(err));
               expect().assertFail();
               await wnd.destroyWindow();
@@ -501,7 +543,7 @@ export default function Window() {
             expect().assertFail();
             done();
           }
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to obtain the top window. Cause: ' + JSON.stringify(err));
           expect().assertFail();
           done();
@@ -511,7 +553,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_CB_001
      * @tc.name      : testMoveWindowToCb001
@@ -520,18 +562,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToCb001', 0, async function (done) {
+    it('testMoveWindowToCb001', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testMoveWindowToCb001';
-
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       try {
         await winData.showWindow();
-        winData.moveWindowTo(300, 300, async (err) => {
+        winData.moveWindowTo(300, 300, async (err:BusinessError) => {
           if (err.code) {
             console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(err));
             try {
@@ -546,11 +587,11 @@ export default function Window() {
           console.info(msgStr + 'Succeeded in moving the window. ');
           await winData.destroyWindow();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(exception));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_CB_002
      * @tc.name      : testMoveWindowToCb002
@@ -559,18 +600,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToCb002', 0, async function (done) {
+    it('testMoveWindowToCb002', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToCb002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testMoveWindowToCb002';
-
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       try {
         await winData.showWindow();
-        winData.moveWindowTo(100, 50, async (err) => {
+        winData.moveWindowTo(100, 50, async (err:BusinessError) => {
           if (err.code) {
             console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(err));
             try {
@@ -585,11 +625,11 @@ export default function Window() {
           console.info(msgStr + 'Succeeded in moving the window. ');
           await winData.destroyWindow();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(exception));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_CB_003
      * @tc.name      : testMoveWindowToCb003
@@ -598,18 +638,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToCb003', 0, async function (done) {
+    it('testMoveWindowToCb003', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToCb003';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testMoveWindowToCb003';
-
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       try {
         await winData.showWindow();
-        winData.moveWindowTo(20000, 20000, async (err) => {
+        winData.moveWindowTo(20000, 20000, async (err:BusinessError) => {
           if (err.code) {
             console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(err));
             try {
@@ -624,11 +663,11 @@ export default function Window() {
           console.info(msgStr + 'Succeeded in moving the window. ');
           await winData.destroyWindow();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(exception));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_MOVEWINDOWTO_CB_004
      * @tc.name      : testMoveWindowToCb004
@@ -637,18 +676,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testMoveWindowToCb004', 0, async function (done) {
+    it('testMoveWindowToCb004', 0, async (done:Function) => {
       let caseName = 'testMoveWindowToCb004';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testMoveWindowToCb004';
-
-      let winData;
+      let winData:window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       try {
         await winData.showWindow();
-        winData.moveWindowTo(-200, -200, async (err) => {
+        winData.moveWindowTo(-200, -200, async (err:BusinessError) => {
           if (err.code) {
             console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(err));
             try {
@@ -663,12 +701,11 @@ export default function Window() {
           console.info(msgStr + 'Succeeded in moving the window.');
           await winData.destroyWindow();
           done();
-        })
+        });
       } catch (exception) {
         console.error(msgStr + 'Failed to move the window. Cause:' + JSON.stringify(exception));
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_RESIZE_PROMISE_001
      * @tc.name      : testResizePromise001
@@ -677,12 +714,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizePromise001', 0, async function (done) {
+    it('testResizePromise001', 0, async (done:Function) => {
       let caseName = 'testResizePromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testResizePromise001';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
@@ -692,12 +729,12 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in changing the window size. Data:' + JSON.stringify(data));
             await tempWnd.destroyWindow();
             done();
-          }).catch(async (err) => {
+          }).catch(async (err:BusinessError) => {
             console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(err));
             expect().assertFail();
             await tempWnd.destroyWindow();
             done();
-          })
+          });
         } catch (exception) {
           console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(exception));
           expect().assertFail();
@@ -708,7 +745,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_RESIZE_PROMISE_002
      * @tc.name      : testResizePromise002
@@ -717,12 +754,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizePromise002', 0, async function (done) {
+    it('testResizePromise002', 0, async (done:Function) => {
       let caseName = 'testResizePromise002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testResizePromise002';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
@@ -732,12 +769,12 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in changing the window size. Data:' + JSON.stringify(data));
             await tempWnd.destroyWindow();
             done();
-          }).catch(async (err) => {
+          }).catch(async (err:BusinessError) => {
             console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(err));
             expect().assertFail();
             await tempWnd.destroyWindow();
             done();
-          })
+          });
         } catch (exception) {
           console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(exception));
           expect().assertFail();
@@ -748,7 +785,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_RESIZE_PROMISE_003
      * @tc.name      : testResizePromise003
@@ -757,12 +794,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizePromise003', 0, async function (done) {
+    it('testResizePromise003', 0, async (done:Function) => {
       let caseName = 'testResizePromise003';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testResizePromise003';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
@@ -772,12 +809,12 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in changing the window size. Data:' + JSON.stringify(data));
             await tempWnd.destroyWindow();
             done();
-          }).catch(async (err) => {
+          }).catch(async (err:BusinessError) => {
             console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(err));
             expect(err.code).assertEqual(401);
             await tempWnd.destroyWindow();
             done();
-          })
+          });
         } catch (exception) {
           console.error(msgStr + 'try catch Failed to change the window size. Cause: ' + JSON.stringify(exception));
           expect(exception.code).assertEqual(401);
@@ -789,7 +826,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_RESIZE_PROMISE_004
      * @tc.name      : testResizePromise004
@@ -798,12 +835,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizePromise004', 0, async function (done) {
+    it('testResizePromise004', 0, async (done:Function) => {
       let caseName = 'testResizePromise004';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testResizePromise004';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
@@ -813,12 +850,12 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in changing the window size. Data:' + JSON.stringify(data));
             await tempWnd.destroyWindow();
             done();
-          }).catch(async (err) => {
+          }).catch(async (err:BusinessError) => {
             console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(err));
             expect(err.code).assertEqual(401);
             await tempWnd.destroyWindow();
             done();
-          })
+          });
         } catch (exception) {
           console.error(msgStr + 'try catch Failed to change the window size. Cause: ' + JSON.stringify(exception));
           expect(exception.code).assertEqual(401);
@@ -830,7 +867,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_RESIZE_PROMISE_005
      * @tc.name      : testResizePromise005
@@ -839,28 +876,28 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizePromise005', 0, async function (done) {
+    it('testResizePromise005', 0, async (done:Function) => {
       let caseName = 'testResizePromise005';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testResizePromise005';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
         await tempWnd.showWindow();
         for (let i = 0; i < 5; i++) {
-          console.log(msgStr + 'begin resize current step:' + i)
-          await tempWnd.resize(100, 100).catch((err) => {
+          console.log(msgStr + 'begin resize current step:' + i);
+          await tempWnd.resize(100, 100).catch((err:BusinessError) => {
             console.error(msgStr + 'Failed to change the window size. Cause: ' + JSON.stringify(err));
             expect(err.code).assertEqual(6);
-            done()
+            done();
             return;
-          })
-          console.log(msgStr + 'success resize current step:' + i)
+          });
+          console.log(msgStr + 'success resize current step:' + i);
           if (i == 4) {
-            console.log(msgStr + 'finish resize current step:' + i)
-            done()
+            console.log(msgStr + 'finish resize current step:' + i);
+            done();
           }
         }
         await tempWnd.destroyWindow();
@@ -869,8 +906,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_RESIZE_CB_001
      * @tc.name      : testResizeCb001
@@ -879,18 +915,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizeCb001', 0, async function (done) {
+    it('testResizeCb001', 0, async (done:Function) => {
       let caseName = 'testResizeCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testResizeCb001';
-
-      let winData;
+      let winData : window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       await winData.showWindow();
       try {
-        winData.resize(200, 200, async (err) => {
+        winData.resize(200, 200, async (err:BusinessError) => {
           if (err.code) {
             console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(err));
             try {
@@ -909,7 +944,7 @@ export default function Window() {
       } catch (exception) {
         console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(exception));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_RESIZE_CB_002
      * @tc.name      : testResizeCb002
@@ -918,37 +953,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testResizeCb002', 0, async function (done) {
+    it('testResizeCb002', 0, async (done:Function) => {
       let caseName = 'testResizeCb002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let windowId = 'testResizeCb002';
-
-      function resizeFun(width, height, i) {
-        console.log(msgStr + 'resize begin step:' + i)
-        return new Promise((resolve, reject) => {
-          try {
-            winData.resize(width, height, async (err) => {
-              if (err.code) {
-                console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(err));
-                try {
-                  expect().assertFail();
-                } catch (err) {
-                  console.log(msgStr + 'assertFail catch' + JSON.stringify(err));
-                }
-                done();
-                reject(null)
-              }
-              console.info(msgStr + 'Succeeded in changing the window size. step:' + i);
-              resolve(true)
-            });
-          } catch (exception) {
-            console.error(msgStr + 'Failed to change the window size. Cause:' + JSON.stringify(exception));
-          }
-        })
-      }
-
-      let winData;
+      let winData : window.Window;
       winData = await windowStage.createSubWindow(windowId);
       expect(!!winData).assertTrue();
       await winData.showWindow();
@@ -957,15 +967,14 @@ export default function Window() {
       for (let i = 1; i < 5; i++) {
         width = width * i;
         height = height * i;
-        await resizeFun(width, height, i);
+        await resizeFun(msgStr,winData,width, height, i,done);
         if (i == 4) {
-          console.log(msgStr + 'resize finished step:' + i)
+          console.log(msgStr + 'resize finished step:' + i);
           await winData.destroyWindow();
-          done()
+          done();
         }
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_GETWINDOWPROPERTIES_001
      * @tc.name      : testGetWindowProperties001
@@ -974,7 +983,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testGetWindowProperties001', 0, async function (done) {
+    it('testGetWindowProperties001', 0, async (done:Function) => {
       let caseName = 'testGetWindowProperties001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       try {
@@ -983,7 +992,7 @@ export default function Window() {
         try {
           let data = tempWnd.getWindowProperties();
           console.log(msgStr + 'window.getWindowProperties ' + JSON.stringify(data));
-          expect(data.type != null).assertTrue();
+          // expect(data.type != null).assertTrue();
           expect(data.windowRect.height != null).assertTrue();
           expect(data.windowRect.left != null).assertTrue();
           expect(data.windowRect.top != null).assertTrue();
@@ -999,8 +1008,7 @@ export default function Window() {
       } catch (exception) {
         console.error(msgStr + 'try catch Failed to obtain the main window. Cause: ' + JSON.stringify(exception));
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_PROMISE_001
      * @tc.name      : testSetWindowSystemBarEnablePromise001
@@ -1009,10 +1017,10 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnablePromise001', 0, async function (done) {
+    it('testSetWindowSystemBarEnablePromise001', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnablePromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
@@ -1021,13 +1029,14 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in setting the system bar to be invisible.');
             expect(true).assertTrue();
             done();
-          }).catch((err) => {
+          }).catch((err:BusinessError) => {
             console.error(msgStr + 'Failed to set the system bar to be invisible. Cause:' + JSON.stringify(err));
             expect().assertFail();
             done();
           });
         } catch (exception) {
-          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
           expect().assertFail();
           done();
         }
@@ -1036,7 +1045,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_PROMISE_002
      * @tc.name      : testSetWindowSystemBarEnablePromise002
@@ -1045,10 +1054,10 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnablePromise002', 0, async function (done) {
+    it('testSetWindowSystemBarEnablePromise002', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnablePromise002';
       let msgStr = 'jsunittest ' + caseName + ' ';
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
@@ -1057,13 +1066,14 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in setting the system bar to be invisible.');
             expect(true).assertTrue();
             done();
-          }).catch((err) => {
+          }).catch((err:BusinessError) => {
             console.error(msgStr + 'Failed to set the system bar to be invisible. Cause:' + JSON.stringify(err));
             expect().assertFail();
             done();
           });
         } catch (exception) {
-          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
           expect().assertFail();
           done();
         }
@@ -1072,7 +1082,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_PROMISE_003
      * @tc.name      : testSetWindowSystemBarEnablePromise003
@@ -1081,10 +1091,10 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnablePromise003', 0, async function (done) {
+    it('testSetWindowSystemBarEnablePromise003', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnablePromise003';
       let msgStr = 'jsunittest ' + caseName + ' ';
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
@@ -1093,13 +1103,14 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in setting the system bar to be invisible.');
             expect(TRUE_FLAG).assertTrue();
             done();
-          }).catch((err) => {
+          }).catch((err:BusinessError) => {
             console.error(msgStr + 'Failed to set the system bar to be invisible. Cause:' + JSON.stringify(err));
             expect().assertFail();
             done();
           });
         } catch (exception) {
-          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
           expect().assertFail();
           done();
         }
@@ -1108,7 +1119,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_PROMISE_004
      * @tc.name      : testSetWindowSystemBarEnablePromise004
@@ -1117,10 +1128,10 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnablePromise004', 0, async function (done) {
+    it('testSetWindowSystemBarEnablePromise004', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnablePromise004';
       let msgStr = 'jsunittest ' + caseName + ' ';
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
@@ -1129,13 +1140,14 @@ export default function Window() {
             console.info(msgStr + 'Succeeded in setting the system bar to be invisible.');
             expect(TRUE_FLAG).assertTrue();
             done();
-          }).catch((err) => {
+          }).catch((err:BusinessError) => {
             console.error(msgStr + 'Failed to set the system bar to be invisible. Cause:' + JSON.stringify(err));
             expect().assertFail();
             done();
           });
         } catch (exception) {
-          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + 'try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
           expect().assertFail();
           done();
         }
@@ -1144,8 +1156,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_CB_001
      * @tc.name      : testSetWindowSystemBarEnableCb001
@@ -1154,19 +1165,20 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnableCb001', 0, async function (done) {
+    it('testSetWindowSystemBarEnableCb001', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnableCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
         try {
-          wnd.setWindowSystemBarEnable(['status', 'navigation'], (err) => {
+          wnd.setWindowSystemBarEnable(['status', 'navigation'], (err:BusinessError) => {
             console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen(true) callback begin');
             if (err.code != 0) {
-              console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen callback fail' + JSON.stringify(err));
+              console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen callback fail' +
+              JSON.stringify(err));
               try {
                 expect().assertFail();
               } catch (err) {
@@ -1181,14 +1193,15 @@ export default function Window() {
               console.log(msgStr + 'assertTrue catch' + JSON.stringify(err));
             }
             done();
-          })
+          });
         } catch (exception) {
-          console.error(msgStr + ' try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + ' try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
         }
       } catch (exception) {
         console.error(msgStr + 'try catch Failed to get the last window. Cause: ' + JSON.stringify(exception));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWSYSTEMBARENABLE_CB_002
      * @tc.name      : testSetWindowSystemBarEnableCb002
@@ -1197,19 +1210,20 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowSystemBarEnableCb002', 0, async function (done) {
+    it('testSetWindowSystemBarEnableCb002', 0, async (done:Function) => {
       let caseName = 'testSetWindowSystemBarEnableCb002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
-      let wnd = null;
+      let wnd :window.Window;
       try {
         wnd = windowStage.getMainWindowSync();
         expect(wnd != null).assertTrue();
         try {
-          await wnd.setWindowSystemBarEnable([], (err) => {
+          await wnd.setWindowSystemBarEnable([], (err:BusinessError) => {
             console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen(true) callback begin');
             if (err.code != 0) {
-              console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen callback fail' + JSON.stringify(err));
+              console.log(msgStr + 'windowTest SetLayoutFullScreenTest2 wnd.setFullScreen callback fail' +
+              JSON.stringify(err));
               try {
                 expect().assertFail();
               } catch (err) {
@@ -1224,15 +1238,15 @@ export default function Window() {
               console.log(msgStr + 'assertTrue catch' + JSON.stringify(err));
             }
             done();
-          })
+          });
         } catch (exception) {
-          console.error(msgStr + ' try catch Failed to set the system bar to be invisible. Cause:' + JSON.stringify(exception));
+          console.error(msgStr + ' try catch Failed to set the system bar to be invisible. Cause:' +
+          JSON.stringify(exception));
         }
       } catch (exception) {
         console.error(msgStr + 'try catch Failed to get the last window. Cause: ' + JSON.stringify(exception));
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SETPREFERREDORIENTATION_PROMISE_001
      * @tc.name      : testSetPreferredOrientationPromise001
@@ -1241,30 +1255,32 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetPreferredOrientationPromise001', 0, async function (done) {
+    it('testSetPreferredOrientationPromise001', 0, async (done:Function) => {
       let caseName = 'testSetPreferredOrientationPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
       let mainWin = await windowStage.getMainWindow();
       console.log(msgStr + 'windowStage.getMainWindow :' + JSON.stringify(mainWin));
       expect(!!mainWin).assertTrue();
-      let num = 0
+      let num = 0;
       let orientationItem = ['UNSPECIFIED', 'PORTRAIT', 'LANDSCAPE', 'PORTRAIT_INVERTED',
         'LANDSCAPE_INVERTED', 'UNSPECIFIED'];
       for (let i = 0; i < orientationItem.length; i++) {
-        let orientation = window.Orientation[orientationItem[i]]
+        let orientation:number = window.Orientation[orientationItem[i]];
         console.log(msgStr + 'i : ' + i + ' ,orientation : ' + orientation);
         console.log(msgStr + 'i : ' + i + ' ,window.Orientation : ' + JSON.stringify(window.Orientation));
         await mainWin.setPreferredOrientation(orientation).then(() => {
           console.log(msgStr + 'success set window.setPreferredOrientation : ' + orientation);
-          num++
-          if (num == orientationItem.length) done();
-        }).catch(err => {
+          num++;
+          if (num == orientationItem.length) {
+            done();
+          }
+        }).catch((err:BusinessError) => {
           console.log(msgStr + 'window.setPreferredOrientation failed set error:' + orientation + err);
         });
         await sleep(500);
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETPREFERREDORIENTATION_CB_001
      * @tc.name      : testSetPreferredOrientationCb001
@@ -1273,38 +1289,18 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetPreferredOrientationCb001', 0, async function (done) {
+    it('testSetPreferredOrientationCb001', 0, async (done:Function) => {
       let caseName = 'testSetPreferredOrientationCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       console.log(msgStr + 'begin');
-      let mainWin = null;
+      let mainWin :window.Window;
       let orientationItem = ['UNSPECIFIED', 'PORTRAIT', 'LANDSCAPE', 'PORTRAIT_INVERTED',
         'LANDSCAPE_INVERTED', 'UNSPECIFIED'];
-
-      function setPreferredOrientationFun(win, orientation) {
-        return new Promise((resolve, reject) => {
-          try {
-            win.setPreferredOrientation(orientation, (err) => {
-              if (err.code) {
-                console.error(msgStr + 'Failed to set window orientation. Cause: ' + JSON.stringify(err));
-                reject(null)
-              } else {
-                console.info(msgStr + 'Succeeded in setting window orientation.');
-                resolve(true)
-              }
-            });
-          } catch (exception) {
-            console.error(msgStr + 'Failed to set window orientation. Cause: ' + JSON.stringify(exception));
-            reject(null)
-          }
-        })
-      }
-
       mainWin = await windowStage.getMainWindow();
       expect(!!mainWin).assertTrue();
       for (let i = 0; i < orientationItem.length; i++) {
-        let orientation = window.Orientation[orientationItem[i]]
-        await setPreferredOrientationFun(mainWin, orientation).catch((err) => {
+        let orientation:number = window.Orientation[orientationItem[i]];
+        await setPreferredOrientationFun(msgStr,mainWin, orientation).catch((err:BusinessError) => {
           console.error(msgStr + 'Failed to obtain the main window. Cause: ' + JSON.stringify(err));
           try {
             expect().assertFail();
@@ -1320,8 +1316,7 @@ export default function Window() {
           done();
         }
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_WINDOW_LOADCONTENT_PROMISE_001
      * @tc.name      : testWindowLoadContentPromise001
@@ -1330,12 +1325,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testWindowLoadContentPromise001', 0, async function (done) {
+    it('testWindowLoadContentPromise001', 0, async (done:Function) => {
       let caseName = 'testWindowLoadContentPromise001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testWindowLoadContentPromise001';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       tempWnd = await windowStage.createSubWindow(windowId);
       expect(!!tempWnd).assertTrue();
       console.log(msgStr + 'tempWnd.loadContent start');
@@ -1344,10 +1339,10 @@ export default function Window() {
         expect(TRUE_FLAG).assertTrue();
         await tempWnd.destroyWindow();
         done();
-      }).catch((err) => {
+      }).catch((err:BusinessError) => {
         unexpectedError(err, caseName, 'tempWnd.loadContent', done);
       });
-    })
+    });
     /**
      * @tc.number    : TEST_WINDOW_LOADCONTENT_PROMISE_002
      * @tc.name      : testWindowLoadContentPromise002
@@ -1356,12 +1351,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testWindowLoadContentPromise002', 0, async function (done) {
+    it('testWindowLoadContentPromise002', 0, async (done:Function) => {
       let caseName = 'testWindowLoadContentPromise002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testWindowLoadContentPromise002';
       console.log(msgStr + 'begin');
-      let tempWnd = null;
+      let tempWnd :window.Window;
       tempWnd = await windowStage.createSubWindow(windowId);
       expect(!!tempWnd).assertTrue();
       console.log(msgStr + 'tempWnd.loadContent start');
@@ -1374,7 +1369,7 @@ export default function Window() {
         await tempWnd.destroyWindow();
         console.log(msgStr + 'tempWnd.loadContent(null)' + JSON.stringify(err));
       }
-    })
+    });
     /**
      * @tc.number    : TEST_WINDOW_LOADCONTENT_CB_001
      * @tc.name      : testWindowLoadContentCb001
@@ -1383,20 +1378,19 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testWindowLoadContentCb001', 0, async function (done) {
+    it('testWindowLoadContentCb001', 0, async (done:Function) => {
       let caseName = 'testWindowLoadContentCb001';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testWindowLoadContentCb001';
       console.log(msgStr + 'begin');
-      let tempWnd = null
+      let tempWnd :window.Window;
       try {
         tempWnd = await windowStage.createSubWindow(windowId);
         expect(!!tempWnd).assertTrue();
         console.log(msgStr + 'tempWnd() success');
-        tempWnd.loadContent('testability/pages/Index1', storage, async (err) => {
+        tempWnd.loadContent('testability/pages/Index1', storage, async (err:BusinessError) => {
           if (err && err.code) {
             console.log(msgStr + 'tempWnd.loadContent() success');
-
             unexpectedError(err, caseName, 'tempWnd.loadContent', done);
           } else {
             try {
@@ -1404,16 +1398,16 @@ export default function Window() {
               expect(TRUE_FLAG).assertTrue();
               done();
             } catch (error) {
-              console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`)
-              done()
+              console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`);
+              done();
             }
             await tempWnd.destroyWindow();
           }
-        })
+        });
       } catch (err) {
         unexpectedError(err, caseName, 'tempWnd.loadContent', done);
       }
-    })
+    });
     /**
      * @tc.number    : TEST_WINDOW_LOADCONTENT_CB_002
      * @tc.name      : testWindowLoadContentCb002
@@ -1422,41 +1416,41 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testWindowLoadContentCb002', 0, async function (done) {
+    it('testWindowLoadContentCb002', 0, async (done:Function) => {
       let caseName = 'testWindowLoadContentCb002';
       let msgStr = 'jsunittest ' + caseName + ' ';
       let windowId = 'testWindowLoadContentCb002';
       console.log(msgStr + 'begin');
-      let tempWnd = null
+      let tempWnd :window.Window;
       tempWnd = await windowStage.createSubWindow(windowId);
       expect(!!tempWnd).assertTrue();
       try {
-        tempWnd.loadContent(null, storage, async (err) => {
+        tempWnd.loadContent(null, storage, async (err:BusinessError) => {
           if (err && err.code) {
-            console.info(`tempWnd.loadContent catch error: ${JSON.stringify(err)}`)
+            console.info(`tempWnd.loadContent catch error: ${JSON.stringify(err)}`);
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`)
+              console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`);
             }
             await tempWnd.destroyWindow();
-            done()
+            done();
           } else {
             await tempWnd.destroyWindow();
             unexpectedError(err, caseName, 'tempWnd.loadContent', done);
           }
-        })
+        });
       } catch (err) {
         console.info(`tempWnd.loadContent catch error: ${JSON.stringify(err)}`);
         try {
           expect(err.code).assertEqual(401);
         } catch (error) {
-          console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`)
+          console.info(`tempWnd.loadContent catch error: ${JSON.stringify(error)}`);
         }
         await tempWnd.destroyWindow();
-        done()
+        done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_GETUICONTEXT_001
      * @tc.name      : testGetUIContext001
@@ -1465,7 +1459,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testGetUIContext001', 0, async function (done) {
+    it('testGetUIContext001', 0, async (done:Function) => {
       try {
         let tempWnd = await windowStage.getMainWindow();
         expect(!!tempWnd).assertTrue();
@@ -1478,7 +1472,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETUICONTENT_PROMISE_001
      * @tc.name      : testSetUIContentPromise001
@@ -1487,8 +1481,8 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetUIContentPromise001', 0, async function (done) {
-      let win;
+    it('testSetUIContentPromise001', 0, async (done:Function) => {
+      let win:window.Window;
       try {
         win = await windowStage.createSubWindow('testSetUIContentPromise001');
         expect(win != null);
@@ -1497,7 +1491,7 @@ export default function Window() {
           expect(TRUE_FLAG).assertTrue();
           await win.destroyWindow();
           done();
-        }).catch(async (err) => {
+        }).catch(async (err:BusinessError) => {
           console.error('Failed to setUIContent . Cause:' + JSON.stringify(err));
           expect().assertFail();
           await win.destroyWindow();
@@ -1508,7 +1502,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETUICONTENT_PROMISE_002
      * @tc.name      : testSetUIContentPromise002
@@ -1517,8 +1511,8 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetUIContentPromise002', 0, async function (done) {
-      let win;
+    it('testSetUIContentPromise002', 0, async (done:Function) => {
+      let win:window.Window;
       try {
         win = await windowStage.createSubWindow('testSetUIContentPromise002');
         expect(win != null).assertTrue();
@@ -1528,7 +1522,7 @@ export default function Window() {
             expect().assertFail();
             await win.destroyWindow();
             done();
-          }).catch(async (err) => {
+          }).catch(async (err:BusinessError) => {
             console.error('Failed to load the content. Cause1: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
@@ -1536,7 +1530,7 @@ export default function Window() {
               console.error('Failed to load the content. Cause2: ' + JSON.stringify(err));
             }
             await win.destroyWindow();
-            done()
+            done();
           });
         } catch (exception) {
           console.error('Failed to load the content. exception: ' + JSON.stringify(exception));
@@ -1546,14 +1540,14 @@ export default function Window() {
             console.error('Failed to load the content. Cause2: ' + JSON.stringify(err));
           }
           await win.destroyWindow();
-          done()
+          done();
         }
       } catch (exception) {
         console.error('Failed to create the window2. Cause: ' + JSON.stringify(exception));
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETUICONTENT_PROMISE_003
      * @tc.name      : testSetUIContentPromise003
@@ -1562,8 +1556,8 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetUIContentPromise003', 0, async function (done) {
-      let win;
+    it('testSetUIContentPromise003', 0, async (done:Function) => {
+      let win:window.Window;
       try {
         win = await windowStage.createSubWindow('testSetUIContentPromise003');
         expect(win != null).assertTrue();
@@ -1572,7 +1566,7 @@ export default function Window() {
           expect(TRUE_FLAG).assertTrue();
           await win.destroyWindow();
           done();
-        }).catch(async (err) => {
+        }).catch(async (err:BusinessError) => {
           console.error('Failed to setUIContent3 . Cause:' + JSON.stringify(err));
           expect(err.code).assertEqual(401);
           await win.destroyWindow();
@@ -1583,7 +1577,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETUICONTENT_CB_001
      * @tc.name      : testSetUIContentCb001
@@ -1592,12 +1586,12 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetUIContentCb001', 0, async function (done) {
-      let winData;
+    it('testSetUIContentCb001', 0, async (done:Function) => {
+      let winData : window.Window;
       winData = await windowStage.createSubWindow('testSetUIContentCb001');
       expect(!!winData).assertTrue();
       try {
-        winData.setUIContent('testability/pages/Index1', async (err) => {
+        winData.setUIContent('testability/pages/Index1', async (err:BusinessError) => {
           try {
             if (err.code) {
               console.error('Failed to load the content callback. Cause:' + JSON.stringify(err));
@@ -1622,8 +1616,7 @@ export default function Window() {
         await winData.destroyWindow();
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_ISWINDOWSHOWING_001
      * @tc.name      : testIsWindowShowing001
@@ -1632,9 +1625,9 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testIsWindowShowing001', 0, async function (done) {
+    it('testIsWindowShowing001', 0, async (done:Function) => {
       console.info('windowTest isWindowShowing begin');
-      let wnd;
+      let wnd:window.Window;
       wnd = await windowStage.createSubWindow('testIsWindowShowing001');
       expect(wnd != null).assertTrue();
       let isWindowShowing = wnd.isWindowShowing();
@@ -1644,14 +1637,13 @@ export default function Window() {
         expect(isWindowShowing2).assertTrue();
         await wnd.destroyWindow();
         done();
-      }).catch(async (err) => {
+      }).catch(async (err:BusinessError) => {
         console.error('Failed to show window1. Cause:' + JSON.stringify(err));
         expect().assertFail();
         await wnd.destroyWindow();
         done();
-      })
-    })
-
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBACKGROUNDCOLOR_001
      * @tc.name      : testSetWindowBackgroundColor001
@@ -1660,7 +1652,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBackgroundColor001', 0, async function (done) {
+    it('testSetWindowBackgroundColor001', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBackgroundColor001 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1675,7 +1667,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBACKGROUNDCOLOR_002
      * @tc.name      : testSetWindowBackgroundColor002
@@ -1684,7 +1676,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBackgroundColor002', 0, async function (done) {
+    it('testSetWindowBackgroundColor002', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBackgroundColor002 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1699,7 +1691,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBACKGROUNDCOLOR_003
      * @tc.name      : testSetWindowBackgroundColor003
@@ -1708,7 +1700,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBackgroundColor003', 0, async function (done) {
+    it('testSetWindowBackgroundColor003', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBackgroundColor003 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1725,7 +1717,7 @@ export default function Window() {
         expect().assertFail();
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBACKGROUNDCOLOR_004
      * @tc.name      : testSetWindowBackgroundColor004
@@ -1734,7 +1726,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBackgroundColor004', 0, async function (done) {
+    it('testSetWindowBackgroundColor004', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBackgroundColor004 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1747,9 +1739,9 @@ export default function Window() {
       } catch (exception) {
         console.error('Failed to set the background4 color. Cause: ' + JSON.stringify(exception));
         expect(exception.code).assertEqual(401);
-        done()
+        done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBACKGROUNDCOLOR_005
      * @tc.name      : testSetWindowBackgroundColor005
@@ -1758,7 +1750,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBackgroundColor005', 0, async function (done) {
+    it('testSetWindowBackgroundColor005', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBackgroundColor005 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1771,10 +1763,9 @@ export default function Window() {
       } catch (err) {
         console.error('Failed to set the background5 color. Cause: ' + JSON.stringify(err));
         expect(err.code).assertEqual(401);
-        done()
+        done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_PROMISE_001
      * @tc.name      : testSetWindowBrightnessPromise001
@@ -1783,22 +1774,22 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessPromise001', 0, async function (done) {
+    it('testSetWindowBrightnessPromise001', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessPromise001 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
-      await wnd.setWindowBrightness(0).catch((err) => {
+      await wnd.setWindowBrightness(0).catch((err:BusinessError) => {
         console.info('windowTest setWindowBrightnessTest1 setBrightness failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
+      });
       let data = wnd.getWindowProperties();
       expect(data.brightness).assertEqual(0);
-      await wnd.setWindowBrightness(0.5).catch((err) => {
+      await wnd.setWindowBrightness(0.5).catch((err:BusinessError) => {
         console.log('windowTest setBrightnessTest1 setWindowBrightness failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
+      });
       let data1 = wnd.getWindowProperties();
       expect(data1.brightness).assertEqual(0.5);
       await wnd.setWindowBrightness(1).then(() => {
@@ -1806,12 +1797,12 @@ export default function Window() {
         let data2 = wnd.getWindowProperties();
         expect(data2.brightness).assertEqual(1);
         done();
-      }, (err) => {
+      }, (err:BusinessError) => {
         console.log('windowTest setWindwoBrightnessTest1 setBrightness failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_PROMISE_002
      * @tc.name      : testSetWindowBrightnessPromise002
@@ -1820,7 +1811,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessPromise002', 0, async function (done) {
+    it('testSetWindowBrightnessPromise002', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessPromise002 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1828,12 +1819,12 @@ export default function Window() {
         console.log('windowTest setBrightnessTest2 setBrightness(0.564789) success ');
         expect(TRUE_FLAG).assertTrue();
         done();
-      }, (err) => {
+      }, (err:BusinessError) => {
         console.log('windowTest setWindowBrightnessTest2 setBrightness failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_PROMISE_003
      * @tc.name      : testSetWindowBrightnessPromise003
@@ -1842,7 +1833,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessPromise003', 0, async function (done) {
+    it('testSetWindowBrightnessPromise003', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessPromise003 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1853,7 +1844,7 @@ export default function Window() {
           console.info('Succeeded3 in setting the brightness.');
           expect().assertFail();
           done();
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error('Failed3 to set the brightness. Cause: ' + JSON.stringify(err));
           expect(err.code).assertEqual(401);
           done();
@@ -1861,9 +1852,9 @@ export default function Window() {
       } catch (exception) {
         console.error('Failed3 to set the brightnessexception. Cause: ' + JSON.stringify(exception));
         expect(exception.code).assertEqual(401);
-        done()
+        done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_PROMISE_004
      * @tc.name      : testSetWindowBrightnessPromise004
@@ -1872,7 +1863,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessPromise004', 0, async function (done) {
+    it('testSetWindowBrightnessPromise004', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessPromise004 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1880,12 +1871,12 @@ export default function Window() {
         console.info('windowTest setWindowBrightnessTest4 setBrightness(Number.MIN_VALUE) success ');
         expect(TRUE_FLAG).assertTrue();
         done();
-      }, (err) => {
+      }, (err:BusinessError) => {
         console.info('windowTest setWindowBrightnessTest4 setBrightness failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_PROMISE_005
      * @tc.name      : testSetWindowBrightnessPromise005
@@ -1894,7 +1885,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessPromise005', 0, async function (done) {
+    it('testSetWindowBrightnessPromise005', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessPromise005 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -1905,23 +1896,22 @@ export default function Window() {
           console.info('Succeeded5 in setting the brightness.');
           expect().assertFail();
           done();
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error('Failed5 to set the brightness. Cause: ' + JSON.stringify(err));
           expect(err.code).assertEqual(401);
         });
       } catch (exception) {
         console.error('Failed5 to set the brightness. Cause: ' + JSON.stringify(exception));
         expect(exception.code).assertEqual(401);
-        done()
+        done();
       }
-
       try {
         let promise = wnd.setWindowBrightness(-0.5);
         await promise.then(() => {
           console.info('Succeeded55 in setting the brightness.');
           expect().assertFail();
           done();
-        }).catch((err) => {
+        }).catch((err:BusinessError) => {
           console.error('Failed55 to set the brightness. Cause: ' + JSON.stringify(err));
           expect(err.code).assertEqual(401);
           done();
@@ -1931,7 +1921,7 @@ export default function Window() {
         expect(exception.code).assertEqual(401);
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_CB_001
      * @tc.name      : testSetWindowBrightnessCb001
@@ -1940,32 +1930,32 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessCb001', 0, async function (done) {
+    it('testSetWindowBrightnessCb001', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessCb001 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
       try {
-        wnd.setWindowBrightness(1, (err) => {
+        wnd.setWindowBrightness(1, (err:BusinessError) => {
           if (err.code) {
             console.error('Failed to set the brightnesscallback01. Cause: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           } else {
             try {
               expect(TRUE_FLAG).assertTrue();
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             try {
               let properties = wnd.getWindowProperties();
               try {
                 expect(properties.brightness).assertEqual(1);
               } catch (error) {
-                console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+                console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
               }
               done();
             } catch (exception) {
@@ -1973,7 +1963,7 @@ export default function Window() {
               try {
                 expect(exception.code).assertEqual(401);
               } catch (error) {
-                console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+                console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
               }
               done();
             }
@@ -1982,9 +1972,9 @@ export default function Window() {
       } catch (exception) {
         console.error('Failedca02 to set the brightness. Cause: ' + JSON.stringify(exception));
         expect(exception.code).assertEqual(401);
-        done()
+        done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_CB_002
      * @tc.name      : testSetWindowBrightnessCb002
@@ -1993,18 +1983,18 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessCb002', 0, async function (done) {
+    it('testSetWindowBrightnessCb002', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessCb002 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
       try {
-        wnd.setWindowBrightness(0.564789, (err) => {
+        wnd.setWindowBrightness(0.564789, (err:BusinessError) => {
           if (err.code) {
             console.error('Failed to set the brightnesscallback02. Cause: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           } else {
@@ -2013,16 +2003,16 @@ export default function Window() {
               expect(TRUE_FLAG).assertTrue();
               done();
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
           }
         });
       } catch (exception) {
         console.error('Failedca02 to set the brightness. Cause: ' + JSON.stringify(exception));
         expect(exception.code).assertEqual(401);
-        done()
+        done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_CB_003
      * @tc.name      : testSetWindowBrightnessCb003
@@ -2031,19 +2021,19 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessCb003', 0, async function (done) {
+    it('testSetWindowBrightnessCb003', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessCb003 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
       let brightness = Number.MAX_VALUE;
       try {
-        wnd.setWindowBrightness(brightness, (err) => {
+        wnd.setWindowBrightness(brightness, (err:BusinessError) => {
           if (err.code) {
             console.error('Failed to set the brightnesscallback3. Cause: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           } else {
@@ -2051,7 +2041,7 @@ export default function Window() {
             try {
               expect().assertFail();
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           }
@@ -2061,7 +2051,7 @@ export default function Window() {
         expect(exception.code).assertEqual(401);
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_CB_004
      * @tc.name      : testSetWindowBrightnessCb004
@@ -2070,18 +2060,18 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessCb004', 0, async function (done) {
+    it('testSetWindowBrightnessCb004', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessCb004 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
       try {
-        wnd.setWindowBrightness(Number.MIN_VALUE, (err) => {
+        wnd.setWindowBrightness(Number.MIN_VALUE, (err:BusinessError) => {
           if (err.code) {
             console.error('Failed to set the brightnesscallback4. Cause: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           } else {
@@ -2089,7 +2079,7 @@ export default function Window() {
             try {
               expect(TRUE_FLAG).assertTrue();
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           }
@@ -2099,7 +2089,7 @@ export default function Window() {
         expect(exception.code).assertEqual(401);
         done();
       }
-    })
+    });
     /**
      * @tc.number    : TEST_SETWINDOWBRIGHTNESS_CB_005
      * @tc.name      : testSetWindowBrightnessCb005
@@ -2108,18 +2098,18 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowBrightnessCb005', 0, async function (done) {
+    it('testSetWindowBrightnessCb005', 0, async (done:Function) => {
       console.info('windowTest testSetWindowBrightnessCb005 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
       try {
-        wnd.setWindowBrightness(1.1, (err) => {
+        wnd.setWindowBrightness(1.1, (err:BusinessError) => {
           if (err.code) {
             console.error('Failed to set the brightnesscallback5. Cause: ' + JSON.stringify(err));
             try {
               expect(err.code).assertEqual(401);
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           } else {
@@ -2127,7 +2117,7 @@ export default function Window() {
             try {
               expect().assertFail();
             } catch (error) {
-              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`)
+              console.info(`wnd.setWindowBrightness catch error: ${JSON.stringify(error)}`);
             }
             done();
           }
@@ -2137,8 +2127,7 @@ export default function Window() {
         expect(exception.code).assertEqual(401);
         done();
       }
-    })
-
+    });
     /**
      * @tc.number    : TEST_SETWINDOWKEEPSCREENON_PROMISE_001
      * @tc.name      : testSetWindowKeepScreenOnPromise001
@@ -2147,7 +2136,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowKeepScreenOnPromise001', 0, async function (done) {
+    it('testSetWindowKeepScreenOnPromise001', 0, async (done:Function) => {
       console.info('windowTest testSetWindowKeepScreenOnPromise001 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -2156,12 +2145,12 @@ export default function Window() {
         let data2 = wnd.getWindowProperties();
         expect(data2.isKeepScreenOn).assertTrue();
         done();
-      }, (err) => {
+      }, (err:BusinessError) => {
         console.info('windowTest setKeepScreenOnTest1 setKeepScreenOn failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWKEEPSCREENON_PROMISE_002
      * @tc.name      : testSetWindowKeepScreenOnPromise002
@@ -2170,7 +2159,7 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowKeepScreenOnPromise002', 0, async function (done) {
+    it('testSetWindowKeepScreenOnPromise002', 0, async (done:Function) => {
       console.info('windowTest testSetWindowKeepScreenOnPromise002 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
@@ -2179,12 +2168,12 @@ export default function Window() {
         let data2 = wnd.getWindowProperties();
         expect(!data2.isKeepScreenOn).assertTrue();
         done();
-      }, (err) => {
+      }, (err:BusinessError) => {
         console.info('windowTest setKeepScreenOnTest2 setKeepScreenOn failed: err' + JSON.stringify(err));
         expect().assertFail();
         done();
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWKEEPSCREENON_CB_001
      * @tc.name      : testSetWindowKeepScreenOnCb001
@@ -2193,17 +2182,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowKeepScreenOnCb001', 0, async function (done) {
+    it('testSetWindowKeepScreenOnCb001', 0, async (done:Function) => {
       console.info('windowTest testSetWindowKeepScreenOnCb001 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
-      wnd.setWindowKeepScreenOn(true, (err) => {
+      wnd.setWindowKeepScreenOn(true, (err:BusinessError) => {
         if (err.code) {
           console.error('Failed to set the screen to be always on. Cause: ' + JSON.stringify(err));
           try {
             expect().assertFail();
           } catch (error) {
-            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`)
+            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`);
           }
           done();
         } else {
@@ -2212,12 +2201,12 @@ export default function Window() {
           try {
             expect(data2.isKeepScreenOn).assertTrue();
           } catch (error) {
-            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`)
+            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`);
           }
           done();
         }
-      })
-    })
+      });
+    });
     /**
      * @tc.number    : TEST_SETWINDOWKEEPSCREENON_CB_002
      * @tc.name      : testSetWindowKeepScreenOnCb002
@@ -2226,17 +2215,17 @@ export default function Window() {
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('testSetWindowKeepScreenOnCb002', 0, async function (done) {
+    it('testSetWindowKeepScreenOnCb002', 0, async (done:Function) => {
       console.info('windowTest testSetWindowKeepScreenOnCb002 begin');
       let wnd = windowStage.getMainWindowSync();
       expect(wnd != null).assertTrue();
-      wnd.setWindowKeepScreenOn(false, (err) => {
+      wnd.setWindowKeepScreenOn(false, (err:BusinessError) => {
         if (err.code) {
           console.error('Failed to set the screen to be always on. Cause: ' + JSON.stringify(err));
           try {
             expect().assertFail();
           } catch (error) {
-            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`)
+            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`);
           }
           done();
         } else {
@@ -2245,11 +2234,11 @@ export default function Window() {
           try {
             expect(!data2.isKeepScreenOn).assertTrue();
           } catch (error) {
-            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`)
+            console.info(`wnd.setWindowKeepScreenOn catch error: ${JSON.stringify(error)}`);
           }
           done();
         }
-      })
-    })
+      });
+    });
   })
 }

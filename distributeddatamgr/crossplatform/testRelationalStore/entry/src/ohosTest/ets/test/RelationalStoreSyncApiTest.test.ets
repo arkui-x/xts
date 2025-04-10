@@ -15,11 +15,12 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import data_Rdb from '@ohos.data.relationalStore';
 import fs from '@ohos.file.fs'
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-
-let context;
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RelationalStore_JSKITS_TEST]"
-let rdbStore:data_Rdb.RdbStore |undefined = undefined;
+let rdbStore:data_Rdb.RdbStore | null = null;
 const STORE_CONFIG: data_Rdb.StoreConfig = {
   name: "UpdataTest.db",
   securityLevel: data_Rdb.SecurityLevel.S1
@@ -60,13 +61,14 @@ async function CreateCorruptDb() {
   console.info(TAG, `quit create corrupt store`);
 }
 
-
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function RelationalStoreSyncApiTest() {
   describe('RelationalStoreSyncApiTest', () => {
     beforeAll(async () => {
       console.info(TAG + 'beforeAll');
-      context = globalThis.abilityContext;
       let path = context.databaseDir;
       dbPath = path + "/rdb/" + dbName;
       dbPathWal = path + "/rdb/" + dbName + "-wal";
@@ -75,6 +77,7 @@ export default function RelationalStoreSyncApiTest() {
     })
 
     beforeEach(async (done:Function) => {
+      await sleep(300);
       console.info(TAG + 'beforeEach');
       rdbStore = await data_Rdb.getRdbStore(context, STORE_CONFIG);
       rdbStore.executeSync(CREATE_TABLE_TEST, null);
@@ -82,7 +85,7 @@ export default function RelationalStoreSyncApiTest() {
     })
     afterEach(async (done:Function) => {
       console.info(TAG + 'afterEach');
-      rdbStore.executeSync("DELETE FROM test");
+      (rdbStore as data_Rdb.RdbStore).executeSync("DELETE FROM test");
       await data_Rdb.deleteRdbStore(context, "UpdataTest.db");
       done();
     })
@@ -1082,7 +1085,7 @@ export default function RelationalStoreSyncApiTest() {
       res.close();
       rdbStore1.commit();
       setTimeout(async ()=>{
-        rdbStore.executeSync("DELETE FROM test");
+        (rdbStore as data_Rdb.RdbStore).executeSync("DELETE FROM test");
       },1000)
       await data_Rdb.deleteRdbStore(context, "123452.db");
       console.info('SUB_DistributedData_RelationalStore_SDK_SyncAPITest_3000');
@@ -1160,12 +1163,13 @@ export default function RelationalStoreSyncApiTest() {
         }else {
           console.info('SUB_DistributedData_RelationalStore_SDK_SyncAPITest_3200 11'+result.goToNextRow());
           expect(result.goToNextRow() === false).assertTrue()
+          result.close();
         }
       } catch (err) {
         console.info(TAG, `SUB_DistributedData_RelationalStore_SDK_SyncAPITest_3200 err.code ${err.code}, err.message ${err.message}`)
         expect().assertFail();
       }
-      result.close();
+
       rdbStore.executeSync("DELETE FROM test");
       await data_Rdb.deleteRdbStore(context, "UpdataTest.db");
       console.info('SUB_DistributedData_RelationalStore_SDK_SyncAPITest_3200');
@@ -1940,7 +1944,7 @@ export default function RelationalStoreSyncApiTest() {
       }
       rdbStore1.commit();
       setTimeout(async()=>{
-        rdbStore.executeSync("DELETE FROM test");
+        (rdbStore as data_Rdb.RdbStore).executeSync("DELETE FROM test");
       },1000);
       await data_Rdb.deleteRdbStore(context, "123452.db");
       done();

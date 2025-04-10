@@ -15,11 +15,11 @@
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { ValueType } from '@ohos.data.ValuesBucket';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const USER_TABLE = "CREATE TABLE IF NOT EXISTS user " + "(userId INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT , lastName TEXT ," + "age INTEGER , balance REAL  NOT NULL)";
 
 const BOOK_TABLE = "CREATE TABLE IF NOT EXISTS Book (id INTEGER PRIMARY KEY AUTOINCREMENT," + "name TEXT, userId INTEGER , " + "FOREIGN KEY (userId) REFERENCES user (userId) ON UPDATE NO ACTION ON DELETE CASCADE)";
@@ -37,13 +37,13 @@ const CURRENT_STORE_VERSION = 1;
 
 const TAG = "RDB_TEST";
 
-let rdbStore = undefined;
+let rdbStore: relationalStore.RdbStore | null = null;
 
 async function generateUserTable() {
   console.info(TAG + "generateUserTable");
-  await rdbStore.executeSql(USER_TABLE);
+  await (rdbStore as relationalStore.RdbStore).executeSql(USER_TABLE);
 
-  const users = [
+  const users: ESObject = [
     {
       userId: 1,
       firstName: "Zhang",
@@ -82,7 +82,7 @@ async function generateUserTable() {
   ];
 
   let objects = new Array<ValueType>();
-  users.forEach((user) => {
+  users.forEach((user: ESObject) => {
     objects.push(user.userId);
     objects.push(user.firstName);
     objects.push(user.lastName);
@@ -90,15 +90,15 @@ async function generateUserTable() {
     objects.push(user.balance);
   });
 
-  await rdbStore.executeSql(USER_BULK_INSERT_STATEMENT, objects);
+  await (rdbStore as relationalStore.RdbStore).executeSql(USER_BULK_INSERT_STATEMENT, objects);
   console.info(TAG + "generateUserTable end");
 }
 
 async function generateBookTable() {
   console.info(TAG + "generateBookTable");
-  await rdbStore.executeSql(BOOK_TABLE);
+  await (rdbStore as relationalStore.RdbStore).executeSql(BOOK_TABLE);
 
-  let books = [
+  let books: ESObject = [
     {
       id: 1, name: "sanguo", userId: 1
     },
@@ -111,26 +111,29 @@ async function generateBookTable() {
   ];
 
   let objects = new Array<ValueType>();
-  books.forEach((book) => {
+  books.forEach((book: ESObject) => {
     objects.push(book.id);
     objects.push(book.name);
     objects.push(book.userId);
   });
 
-  await rdbStore.executeSql(BOOK_BULK_INSERT_STATEMENT, objects);
+  await (rdbStore as relationalStore.RdbStore).executeSql(BOOK_BULK_INSERT_STATEMENT, objects);
   console.info(TAG + "generateBookTable end");
+}
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default function rdbStoreQuerySqlTest() {
   describe("rdbStoreQuerySqlTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
       await generateUserTable();
@@ -159,7 +162,7 @@ export default function rdbStoreQuerySqlTest() {
      */
     it("testRdbStoreQuerySql001", 0, async (done: Function) => {
       console.info(TAG + "testRdbStoreQuerySql001 begin.");
-      rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'sanguo'", async (err, resultSet) => {
+      (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'sanguo'", async (err, resultSet) => {
         if (err) {
           console.error(`Query failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
@@ -192,7 +195,7 @@ export default function rdbStoreQuerySqlTest() {
      */
     it("testRdbStoreQuerySql002", 0, async (done: Function) => {
       console.info(TAG + "testRdbStoreQuerySql002 begin.");
-      rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = ?", ["sanguo"], async (err, resultSet) => {
+      (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = ?", ["sanguo"], async (err, resultSet) => {
         if (err) {
           console.error(`Query failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
@@ -225,7 +228,7 @@ export default function rdbStoreQuerySqlTest() {
      */
     it("testRdbStoreQuerySql003", 0, async (done: Function) => {
       console.info(TAG + "testRdbStoreQuerySql003 begin.");
-      let resultSet = await rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'sanguo'");
+      let resultSet = await (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'sanguo'");
       expect(1).assertEqual(resultSet.rowCount);
       expect(true).assertEqual(resultSet.goToFirstRow());
       expect(1).assertEqual(resultSet.getLong(0));
@@ -250,7 +253,7 @@ export default function rdbStoreQuerySqlTest() {
      */
     it("testRdbStoreQuerySql004", 0, async (done: Function) => {
       console.info(TAG + "testRdbStoreQuerySql004 begin.");
-      let resultSet = await rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = ?", ["sanguo"]);
+      let resultSet = await (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = ?", ["sanguo"]);
       expect(1).assertEqual(resultSet.rowCount);
       expect(true).assertEqual(resultSet.goToFirstRow());
       expect(1).assertEqual(resultSet.getLong(0));
@@ -277,7 +280,7 @@ export default function rdbStoreQuerySqlTest() {
     it("testRdbStoreQuerySql005", 0, async (done: Function) => {
       console.info(TAG + " testRdbStoreQuerySql005 begin.");
       try {
-        rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'hongloumeng'", async (err, resultSet) => {
+        (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'hongloumeng'", async (err, resultSet) => {
           if (err) {
             console.error(`testRdbStoreQuerySql005 :Query failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertFail();
@@ -308,7 +311,7 @@ export default function rdbStoreQuerySqlTest() {
     it("testRdbStoreQuerySql006", 0, async (done: Function) => {
       console.info(TAG + " testRdbStoreQuerySql006 begin.");
       try {
-        rdbStore.querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'maoxuan'", async (err, resultSet) => {
+        (rdbStore as relationalStore.RdbStore).querySql("SELECT * FROM user INNER JOIN Book ON user.userId = Book.id WHERE Book.name = 'maoxuan'", async (err, resultSet) => {
           if (err) {
             console.error(TAG + `testRdbStoreQuerySql006 Query failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertFail();

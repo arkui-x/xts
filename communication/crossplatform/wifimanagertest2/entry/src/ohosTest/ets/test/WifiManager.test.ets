@@ -1,12 +1,28 @@
 import wifiManager from '@ohos.wifiManager';
-import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, afterAll, beforeEach, it, expect } from '@ohos/hypium';
+import deviceInfo from '@ohos.deviceInfo';
+
+let osFullNameInfo: string = deviceInfo.osFullName;
+let platform = osFullNameInfo.split(' ')[0];
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function abilityTest() {
   describe('WifiManegerTest', () => {
-    beforeAll(() => {
+    beforeAll(async () => {
+      await sleep(300);
       console.log('************* start wifiManegerTest *************');
     })
-    afterAll(() => {
+
+    beforeEach(async () => {
+      await sleep(300);
+      console.log('************* start wifiManegerTest *************');
+    })
+
+    afterAll(async () => {
+      await sleep(500);
       console.log('************* end wifiManegerTest *************');
     })
 
@@ -64,10 +80,17 @@ export default function abilityTest() {
     * @tc.type:    method
     * @tc.level:   level 2
     */
-    it('SUB_Communication_Wifi_Manager_isWifiActive_Func_0100', 0, async () => {
-      let value: boolean = wifiManager.isWifiActive();
-      console.log(`SUB_Communication_Wifi_Manager_isWifiActive_Func_0100 ${value}`);
-      expect(value).assertTrue();
+    it('SUB_Communication_Wifi_Manager_isWifiActive_Func_0100', 0, async (done:Function) => {
+      // IOS 平台不支持
+      if (platform == 'iOS') {
+        expect(true).assertTrue();
+        done();
+      }else {
+        let value: boolean = wifiManager.isWifiActive();
+        console.log(`SUB_Communication_Wifi_Manager_isWifiActive_Func_0100 ${value}`);
+        expect(value).assertTrue();
+        done();
+      }
     })
   })
 }

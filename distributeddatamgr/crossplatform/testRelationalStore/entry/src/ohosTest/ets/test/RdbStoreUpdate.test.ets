@@ -14,12 +14,12 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@ohos.base';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RDB_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT UNIQUE, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
 const STORE_CONFIG: relationalStore.StoreConfig = {
@@ -27,7 +27,7 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
   securityLevel: relationalStore.SecurityLevel.S1,
 };
 
-let rdbStore = undefined;
+let rdbStore: relationalStore.RdbStore | null = null;
 
 async function createTest() {
   console.info(TAG + "createTest start");
@@ -39,24 +39,26 @@ async function createTest() {
       salary: 100.5,
       blobType: u8,
     };
-    await rdbStore.insert("test", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket);
   }
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function rdbStoreUpdateTest() {
   describe("rdbStoreUpdateTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       await createTest();
     });
 
@@ -90,7 +92,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertTrue();
@@ -98,7 +100,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -143,8 +145,8 @@ export default function rdbStoreUpdateTest() {
         const emptyBucket : ValuesBucket = {};
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(emptyBucket, predicates);
-        expect(true).asserFail();
+        await (rdbStore as relationalStore.RdbStore).update(emptyBucket, predicates);
+        expect(true).assertFail();
       } catch (err) {
         console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
         expect(err.code === '401').assertTrue();
@@ -173,7 +175,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         await predicates.equalTo("aaa", "null");
-        rdbStore.update(valueBucket, predicates, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             done();
@@ -212,7 +214,7 @@ export default function rdbStoreUpdateTest() {
         };
         let predicates = new relationalStore.RdbPredicates("wrongTable");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             expect(err.code === 14800021).assertTrue();
@@ -254,7 +256,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             expect(err.code === 14800021).assertTrue();
@@ -293,8 +295,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -334,8 +336,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(emptyBucket, predicates);
-        expect(true).asserFail();
+        await (rdbStore as relationalStore.RdbStore).update(emptyBucket, predicates);
+        expect(true).assertFail();
       } catch (err) {
         console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
         expect(err.code === '401').assertTrue();
@@ -364,7 +366,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         await predicates.equalTo("aaa", "null");
-        let promise = rdbStore.update(valueBucket, predicates);
+        let promise = (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates);
         promise
           .then(async (rows) => {
             console.info(`Updated row count: ${rows}`);
@@ -405,7 +407,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("wrongTable");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates);
         expect(true).assertFail();
       } catch (err) {
         console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -436,7 +438,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates);
         expect(true).assertFail();
       } catch (err) {
         console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -466,14 +468,14 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             return;
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -524,8 +526,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -570,7 +572,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE, async (err, rows) => {
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
             expect(!err).assertTrue();
@@ -578,7 +580,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -629,8 +631,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -675,7 +677,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (err, rows) => {
           console.info(TAG + "************* testRdbStoreUpdate015 11111111 *************" + err);
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -684,7 +686,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -736,8 +738,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -782,7 +784,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT, async (err, rows) => {
           console.info(TAG + "************* testRdbStoreUpdate017 11111111 *************" + err);
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -791,7 +793,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -843,8 +845,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -889,7 +891,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE, async (err, rows) => {
           console.info(TAG + "************* testRdbStoreUpdate019 11111111 *************" + err);
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -898,7 +900,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -950,8 +952,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -996,7 +998,7 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE, async (err, rows) => {
+        (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE, async (err, rows) => {
           console.info(TAG + "************* testRdbStoreUpdate021 11111111 *************" + err);
           if (err) {
             console.error(`Updated failed, code is ${err.code},message is ${err.message}`);
@@ -1005,7 +1007,7 @@ export default function rdbStoreUpdateTest() {
           }
           try {
             console.info(`Updated row count: ${rows}`);
-            let resultSet = await rdbStore.query(predicates);
+            let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
             console.info(TAG + "resultSet query done");
             expect(true).assertEqual(resultSet.goToFirstRow());
             const id = resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1057,8 +1059,8 @@ export default function rdbStoreUpdateTest() {
 
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("id", "1");
-        await rdbStore.update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
-        let resultSet = await rdbStore.query(predicates);
+        await (rdbStore as relationalStore.RdbStore).update(valueBucket, predicates, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info(TAG + "resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
         const id = resultSet.getLong(resultSet.getColumnIndex("id"));

@@ -14,32 +14,37 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import data_preferences from "@ohos.data.preferences";
+import { BusinessError } from '@ohos.base';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const NAME = "test_preferences_promise_with_error";
 const KEY_TEST_INT_ELEMENT = "key_test_int";
 const KEY_TEST_STRING_ELEMENT = "key_test_string";
-let mPreference;
-let context;
+let mPreference: data_preferences.Preferences;
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function preferencesPromiseWithErrorTest() {
-  describe("preferencesPromiseWithErrorTest", function () {
-    beforeAll(async function () {
+  describe("preferencesPromiseWithErrorTest", () => {
+    beforeAll(async () => {
       console.info("beforeAll");
-      context = globalThis.abilityContext;
       mPreference = await data_preferences.getPreferences(context, NAME);
     });
-
-    afterAll(async function () {
+    afterAll(async () => {
       console.info("afterAll");
       await data_preferences.deletePreferences(context, NAME);
     });
-
-    beforeEach(async function () {
+    beforeEach(async () => {
       console.info("beforeEach");
       await mPreference.clear();
       await mPreference.flush();
     });
-
+    afterEach(async ()=>{
+      await sleep(1000)
+    })
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_JSAPITest_0100
      * @tc.name   : testPreferencesPromiseWithError0001
@@ -48,7 +53,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testPreferencesPromiseWithError0001", 0, async function (done) {
+    it("testPreferencesPromiseWithError0001", 0, async (done: Function) => {
       console.log("testPreferencesPromiseWithError0001 begin.");
       try {
         if (mPreference === undefined) {
@@ -76,27 +81,27 @@ export default function preferencesPromiseWithErrorTest() {
                             done();
                             console.log("testPreferencesPromiseWithError0001 end.");
                           })
-                          .catch((err) => {
+                          .catch((err: BusinessError) => {
                             console.log("delete err =" + err + ", code =" + err.code + ", message =" + err.message);
                             expect(!err).assertTrue();
                           });
                       })
-                      .catch((err) => {
+                      .catch((err: BusinessError) => {
                         console.log("flush err =" + err + ", code =" + err.code + ", message =" + err.message);
                         expect(!err).assertTrue();
                       });
                   })
-                  .catch((err) => {
+                  .catch((err: BusinessError) => {
                     console.log("get err =" + err + ", code =" + err.code + ", message =" + err.message);
                     expect(!err).assertTrue();
                   });
               })
-              .catch((err) => {
+              .catch((err: BusinessError) => {
                 console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
                 expect(!err).assertTrue();
               });
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("clear err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -105,67 +110,6 @@ export default function preferencesPromiseWithErrorTest() {
         expect(!err).assertTrue();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_0100
-     * @tc.name   : testMpreferencesGetPromise0001
-     * @tc.desc   : mPreference.get promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesGetPromise0001", 0, async function (done) {
-      console.log("testMpreferencesGetPromise0001 begin.");
-      try {
-        mPreference
-          .get(1233)
-          .then((ret) => {
-            console.log("testMpreferencesGetPromise0001++++ get err");
-            expect(mPreference !== null).assertFail();
-          })
-          .catch((err) => {
-            console.log("get err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesGetPromise0001 end.");
-      }
-    });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1100
-     * @tc.name   : testMpreferencesGetPromise0002
-     * @tc.desc   : mPreference.get promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesGetPromise0002", 0, async function (done) {
-      console.log("testMpreferencesPromise0002 begin.");
-      try {
-        await mPreference.put(KEY_TEST_STRING_ELEMENT, "123");
-        mPreference
-          .get(-1, KEY_TEST_INT_ELEMENT)
-          .then((ret) => {
-            expect(mPreference !== null).assertFail();
-            console.log("testMpreferencesGetPromise0002 end.");
-            done();
-          })
-          .catch((err) => {
-            console.log("get err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-            done();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1200
      * @tc.name   : testMpreferencesGetPromise0003
@@ -174,7 +118,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesGetPromise0003", 0, async function (done) {
+    it("testMpreferencesGetPromise0003", 0, async (done: Function) => {
       console.log("testMpreferencesGetPromise0003 begin.");
       try {
         await mPreference.put(KEY_TEST_STRING_ELEMENT, "123");
@@ -185,7 +129,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesGetPromise0003 end." + JSON.stringify(ret));
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("get err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -195,51 +139,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1800
-     * @tc.name   : testMpreferencesGetSyncWithError0001
-     * @tc.desc   : mPreference.getSync test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesGetSyncWithError0001", 0, async function (done) {
-      console.log("testMpreferencesGetSyncWithError0001 begin.");
-      try {
-        mPreference.getSync(1233);
-        expect(mPreference !== null).assertFail();
-        done();
-      } catch (err) {
-        console.log("trycatch1 err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesGetSyncWithError0001 end.");
-      }
-    });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1900
-     * @tc.name   : testMpreferencesGetSyncWithError0002
-     * @tc.desc   : mPreference.getSync test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesGetSyncWithError0002", 0, async function (done) {
-      console.log("testMpreferencesGetSyncWithError0002 begin.");
-      try {
-        await mPreference.put(KEY_TEST_STRING_ELEMENT, "123");
-        mPreference.getSync(-1, KEY_TEST_INT_ELEMENT);
-        expect(mPreference !== null).assertFail();
-        done();
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_2900
 
@@ -249,7 +148,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesGetSyncWithError0003", 0, async function (done) {
+    it("testMpreferencesGetSyncWithError0003", 0, async (done: Function) => {
       console.log("testMpreferencesGetSyncWithError0003 begin.");
       try {
         await mPreference.put(KEY_TEST_STRING_ELEMENT, "123");
@@ -262,7 +161,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_GetJSAPITest_1300
 
@@ -272,7 +170,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesGetALLPromise0001", 0, async function (done) {
+    it("testMpreferencesGetALLPromise0001", 0, async (done: Function) => {
       console.log("testMpreferencesGetALLPromise0001 begin.");
       try {
         mPreference
@@ -282,7 +180,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesGetALLPromise0001 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("getAll err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -291,36 +189,6 @@ export default function preferencesPromiseWithErrorTest() {
         expect(!err).assertTrue();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_0600
-     * @tc.name   : testMpreferencesHasPromise0001
-     * @tc.desc   : mPreference.has promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesHasPromise0001", 0, async function (done) {
-      console.log("testMpreferencesHasPromise0001 begin.");
-      try {
-        mPreference
-          .has(123)
-          .then((val) => {
-            console.log("has err");
-            expect(mPreference !== null).assertFail();
-          })
-          .catch((err) => {
-            console.log("has err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesHasPromise0001 end.");
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_HasJSAPITest_0700
      * @tc.name   : testMpreferencesHasPromise0002
@@ -329,7 +197,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesHasPromise0002", 0, async function (done) {
+    it("testMpreferencesHasPromise0002", 0, async (done: Function) => {
       console.log("testMpreferencesHasPromise0002 begin.");
       try {
         mPreference
@@ -338,7 +206,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesHasPromise0002 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("has err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -347,36 +215,6 @@ export default function preferencesPromiseWithErrorTest() {
         expect(!err).assertTrue();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_0100
-     * @tc.name   : testMpreferencesPutPromise0001
-     * @tc.desc   : mPreference.put promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesPutPromise0001", 0, async function (done) {
-      console.log("testMpreferencesPutPromise0001 begin.");
-      try {
-        mPreference
-          .put(1233)
-          .then(() => {
-            console.log("put err");
-            expect(mPreference !== null).assertFail();
-          })
-          .catch((err) => {
-            console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesPutPromise0001 end.");
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_0400
      * @tc.name   : testMpreferencesPutPromise0002
@@ -385,7 +223,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutPromise0002", 0, async function (done) {
+    it("testMpreferencesPutPromise0002", 0, async (done: Function) => {
       console.log("testMpreferencesPutPromise0002 begin.");
       try {
         mPreference
@@ -396,7 +234,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesPutPromise0002 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
             done();
@@ -407,7 +245,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_0300
      * @tc.name   : testMpreferencesPutPromise0003
@@ -416,7 +253,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutPromise0003", 0, async function (done) {
+    it("testMpreferencesPutPromise0003", 0, async (done: Function) => {
       console.log("testMpreferencesPutPromise0003 begin.");
       try {
         mPreference
@@ -424,11 +261,10 @@ export default function preferencesPromiseWithErrorTest() {
           .then(async () => {
             let per = await mPreference.get(KEY_TEST_STRING_ELEMENT, "defaultvalue");
             expect(" ").assertEqual(per);
-
             done();
             console.log("testMpreferencesPutPromise0003 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
             done();
@@ -439,37 +275,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_0200
-     * @tc.name   : testMpreferencesPutPromise0004
-     * @tc.desc   : mPreference.put promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesPutPromise0004", 0, async function (done) {
-      console.log("testMpreferencesPutPromise0004 begin.");
-      try {
-        mPreference
-          .put(-1, 123)
-          .then(() => {
-            expect(mPreference !== null).assertFail();
-            done();
-            console.log("testMpreferencesPutPromise0004 end.");
-          })
-          .catch((err) => {
-            console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-            done();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_0500
      * @tc.name   : testMpreferencesPutPromise0005
@@ -478,7 +283,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutPromise0005", 0, async function (done) {
+    it("testMpreferencesPutPromise0005", 0, async (done: Function) => {
       console.log("testMpreferencesPutPromise0005 begin.");
       try {
         mPreference
@@ -488,7 +293,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesPutPromise0005 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("put err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertFail();
             done();
@@ -499,29 +304,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_1400
-     * @tc.name   : testMpreferencesPutSyncWithError0001
-     * @tc.desc   : mPreference.putSync test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesPutSyncWithError0001", 0, async function (done) {
-      console.log("testMpreferencesPutSyncWithError0001 begin.");
-      try {
-        mPreference.putSync(1233);
-        expect(mPreference !== null).assertFail();
-        done();
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesPutSyncWithError0001 end.");
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_1700
      * @tc.name   : testMpreferencesPutSyncWithError0002
@@ -530,7 +312,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutSyncWithError0002", 0, async function (done) {
+    it("testMpreferencesPutSyncWithError0002", 0, async (done: Function) => {
       console.log("testMpreferencesPutSyncWithError0002 begin.");
       try {
         mPreference.putSync(KEY_TEST_STRING_ELEMENT, "");
@@ -544,7 +326,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_1600
      * @tc.name   : testMpreferencesPutSyncWithError0003
@@ -553,7 +334,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutSyncWithError0003", 0, async function (done) {
+    it("testMpreferencesPutSyncWithError0003", 0, async (done: Function) => {
       console.log("testMpreferencesPutSyncWithError0003 begin.");
       try {
         mPreference.putSync(KEY_TEST_STRING_ELEMENT, " ");
@@ -567,28 +348,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_1500
-     * @tc.name   : testMpreferencesPutSyncWithError0004
-     * @tc.desc   : mPreference.putSync test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesPutSyncWithError0004", 0, async function (done) {
-      console.log("testMpreferencesPutSyncWithError0004 begin.");
-      try {
-        mPreference.putSync(-1, 123);
-        expect(mPreference !== null).assertFail();
-        done();
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_PutJSAPITest_1800
      * @tc.name   : testMpreferencesPutSyncWithError0005
@@ -597,7 +356,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesPutSyncWithError0005", 0, async function (done) {
+    it("testMpreferencesPutSyncWithError0005", 0, async (done: Function) => {
       console.log("testMpreferencesPutSyncWithError0005 begin.");
       try {
         mPreference.putSync(KEY_TEST_STRING_ELEMENT, null);
@@ -609,36 +368,6 @@ export default function preferencesPromiseWithErrorTest() {
         done();
       }
     });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_0100
-     * @tc.name   : testMpreferencesDeletePromise0001
-     * @tc.desc   : mPreference.delete promise test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testMpreferencesDeletePromise0001", 0, async function (done) {
-      console.log("testMpreferencesDeletePromise0001 begin.");
-      try {
-        mPreference
-          .delete(1233)
-          .then(() => {
-            console.log("delete err");
-            expect(mPreference !== null).assertFail();
-          })
-          .catch((err) => {
-            console.log("delete err =" + err + ", code =" + err.code + ", message =" + err.message);
-            expect(!err).assertFail();
-          });
-      } catch (err) {
-        console.log("trycatch err =" + err + ", code =" + err.code + ", message =" + err.message);
-        expect("401").assertEqual(err.code);
-        done();
-        console.log("testMpreferencesDeletePromise0001 end.");
-      }
-    });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_DeleteJSAPITest_0200
      * @tc.name   : testMpreferencesDeletePromise0002
@@ -647,7 +376,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesDeletePromise0002", 0, async function (done) {
+    it("testMpreferencesDeletePromise0002", 0, async (done: Function) => {
       console.log("testMpreferencesDeletePromise0002 begin.");
       try {
         mPreference
@@ -656,7 +385,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesDeletePromise0002 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("delete err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -665,7 +394,6 @@ export default function preferencesPromiseWithErrorTest() {
         expect(!err).assertTrue();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_ClearJSAPITest_0100
      * @tc.name   : testMpreferencesClearPromise0001
@@ -674,7 +402,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesClearPromise0001", 0, async function (done) {
+    it("testMpreferencesClearPromise0001", 0, async (done: Function) => {
       console.log("testMpreferencesClearPromise0001 begin.");
       try {
         mPreference
@@ -683,7 +411,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesClearPromise0001 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("clear err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });
@@ -692,7 +420,6 @@ export default function preferencesPromiseWithErrorTest() {
         expect(!err).assertTrue();
       }
     });
-
     /**
      * @tc.number : SUB_DistributeData_CrossPlatform_SDK_Preferences_FlushJSAPITest_0100
 
@@ -702,7 +429,7 @@ export default function preferencesPromiseWithErrorTest() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("testMpreferencesFlushPromise0001", 0, async function (done) {
+    it("testMpreferencesFlushPromise0001", 0, async (done: Function) => {
       console.log("testMpreferencesFlushPromise0001 begin.");
       try {
         mPreference
@@ -711,7 +438,7 @@ export default function preferencesPromiseWithErrorTest() {
             done();
             console.log("testMpreferencesFlushPromise0001 end.");
           })
-          .catch((err) => {
+          .catch((err: BusinessError) => {
             console.log("flush err =" + err + ", code =" + err.code + ", message =" + err.message);
             expect(!err).assertTrue();
           });

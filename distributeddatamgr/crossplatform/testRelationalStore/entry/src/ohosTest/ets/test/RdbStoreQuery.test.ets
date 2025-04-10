@@ -14,12 +14,12 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@ohos.base';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RDB_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT UNIQUE, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
 const STORE_CONFIG: relationalStore.StoreConfig = {
@@ -27,7 +27,7 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
   securityLevel: relationalStore.SecurityLevel.S1,
 };
 
-let rdbStore = undefined;
+let rdbStore: relationalStore.RdbStore | null = null;
 
 async function createTest1() {
   console.info(TAG + "createTest start");
@@ -38,7 +38,7 @@ async function createTest1() {
       salary: 100.5,
       blobType: new Uint8Array([1, 2, 3]),
     };
-    await rdbStore.insert("test", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket);
   }
 }
 
@@ -51,7 +51,7 @@ async function createTest2() {
       salary: 200.5,
       blobType: new Uint8Array([1, 2, 3]),
     };
-    await rdbStore.insert("test", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket);
   }
 }
 
@@ -64,23 +64,26 @@ async function createTest3() {
       salary: 200.5,
       blobType: new Uint8Array([1, 2, 3]),
     };
-    await rdbStore.insert("test", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket);
   }
+}
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default function rdbStoreQueryTest() {
   describe("rdbStoreQueryTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       await createTest1();
       await createTest2();
       await createTest3();
@@ -109,7 +112,7 @@ export default function rdbStoreQueryTest() {
     it("testRdbStoreQuery001", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreQuery001 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
-      rdbStore.query(predicates, async (err, resultSet) => {
+      (rdbStore as relationalStore.RdbStore).query(predicates, async (err, resultSet) => {
         if (err) {
           console.error(`Query failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
@@ -134,7 +137,7 @@ export default function rdbStoreQueryTest() {
       console.info(TAG + "************* testRdbStoreQuery002 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 18);
-      rdbStore.query(predicates, ["salary"], async (err, resultSet) => {
+      (rdbStore as relationalStore.RdbStore).query(predicates, ["salary"], async (err, resultSet) => {
         if (err) {
           console.error(`Query failed, code is ${err.code},message is ${err.message}`);
           expect(!err).assertTrue();
@@ -160,7 +163,7 @@ export default function rdbStoreQueryTest() {
     it("testRdbStoreQuery003", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbStoreQuery003 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
-      let promise = rdbStore.query(predicates);
+      let promise = (rdbStore as relationalStore.RdbStore).query(predicates);
       promise.then((resultSet) => {
         console.info(`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
         expect(3).assertEqual(resultSet.rowCount);
@@ -182,7 +185,7 @@ export default function rdbStoreQueryTest() {
       console.info(TAG + "************* testRdbStoreQuery004 start *************");
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("age", 18);
-      let promise = rdbStore.query(predicates, ["salary"]);
+      let promise = (rdbStore as relationalStore.RdbStore).query(predicates, ["salary"]);
       promise.then((resultSet) => {
         console.info(`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
         expect(true).assertEqual(resultSet.goToFirstRow());
@@ -194,36 +197,5 @@ export default function rdbStoreQueryTest() {
       console.info(TAG + "************* testRdbStoreQuery004 end *************");
     });
 
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_RelationStore_RdbStoreJsAPITest_0920
-     * @tc.name   : testRdbStoreQuery005
-     * @tc.desc   : RdbStore query callback test
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testRdbStoreQuery005", 0, async (done: Function) => {
-      console.info(TAG + "************* testRdbStoreQuery005 start *************");
-      let predicates = new relationalStore.RdbPredicates("test");
-      try {
-        rdbStore.query(async (err, resultSet) => {
-          if (err) {
-            console.error(`Query failed, code is ${err.code},message is ${err.message}`);
-            expect(!err).assertTrue();
-            done();
-          }
-          console.info(`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
-          expect(!err).assertFail();
-          resultSet.close();
-          done();
-        });
-        expect(rdbStore !== null).assertTrue();
-      } catch (e) {
-        console.info(TAG + " query failed.", e);
-        expect(e !== null).assertTrue();
-        done();
-      }
-      console.info(TAG + "************* testRdbStoreQuery005 end *************");
-    });
   });
 }

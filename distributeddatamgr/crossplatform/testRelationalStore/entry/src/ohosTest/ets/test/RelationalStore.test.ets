@@ -16,12 +16,12 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
 import curves from "@ohos.curves";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RDB_JSKITS_TEST]";
 const CREATE_TABLE_TEST = "CREATE TABLE IF NOT EXISTS test (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT NOT NULL, " + "age INTEGER, " + "salary REAL, " + "blobType BLOB)";
 const STORE_CONFIG: relationalStore.StoreConfig = {
@@ -33,26 +33,25 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-let rdbStore;
+let rdbStore: relationalStore.RdbStore | null = null;
 
 export default function relationalStoreTest() {
   describe("relationalStoreTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
     beforeEach(async () => {
+      await sleep(200);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
     });
 
     afterEach(async () => {
       console.info(TAG + "afterEach");
-      await rdbStore.executeSql("DELETE FROM test");
+      await (rdbStore as relationalStore.RdbStore).executeSql("DELETE FROM test");
       rdbStore = null
       await relationalStore.deleteRdbStore(context, "RSTest.db");
     });
@@ -88,7 +87,7 @@ export default function relationalStoreTest() {
           done();
         }
         try {
-          await rdbStore.executeSql(CREATE_TABLE_TEST);
+          await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST);
         } catch (err) {
           expect(!err).assertTrue();
           done();
@@ -126,7 +125,7 @@ export default function relationalStoreTest() {
           done();
         }
         try {
-          await rdbStore.executeSql(CREATE_TABLE_TEST);
+          await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST);
         } catch (err) {
           expect(!err).assertTrue();
           done();
@@ -164,7 +163,7 @@ export default function relationalStoreTest() {
           done();
         }
         try {
-          await rdbStore.executeSql(CREATE_TABLE_TEST);
+          await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST);
         } catch (err) {
           expect(!err).assertTrue();
           done();
@@ -202,7 +201,7 @@ export default function relationalStoreTest() {
           done();
         }
         try {
-          await rdbStore.executeSql(CREATE_TABLE_TEST);
+          await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST);
         } catch (err) {
           expect(!err).assertTrue();
           done();
@@ -235,7 +234,7 @@ export default function relationalStoreTest() {
         .then(async (rdbStore) => {
           getResult = true;
           try {
-            await rdbStore.executeSql(CREATE_TABLE_TEST);
+            await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST);
           } catch (err) {
             expect(!err).assertTrue();
           }
@@ -326,7 +325,7 @@ export default function relationalStoreTest() {
 
       try {
         relationalStore.getRdbStore(undefined, config);
-        expect(relationalStore !== null).assertFail();
+        expect().assertFail();
       } catch (err) {
         console.info(`testGetRdbStoreError003 :` + err);
         expect(err.code).assertEqual('401')
@@ -398,7 +397,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       relationalStore.deleteRdbStore(context, "secure.db", async (err) => {
         if (err) {
@@ -432,7 +431,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       let promise = relationalStore.deleteRdbStore(context, "secure.db");
       promise
@@ -466,7 +465,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       try {
         relationalStore.deleteRdbStore(context, config, async (err) => {
@@ -505,7 +504,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       try {
         let promise = relationalStore.deleteRdbStore(context, config);
@@ -543,7 +542,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(undefined, "secure.db", async (err) => {
           console.info(`testDeleteRdbStoreError001 faied.`);
@@ -574,7 +573,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(context, undefined, async (err) => {
           console.info(`testDeleteRdbStoreError002 faied`);
@@ -604,10 +603,10 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(undefined, "secure.db");
-        expect(relationalStore !== null).assertFail();
+        expect().assertFail();
       } catch (err) {
         console.info(`testDeleteRdbStoreError003 :` + err);
         expect(err.code).assertEqual('401')
@@ -632,10 +631,10 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(context, undefined);
-        expect(relationalStore !== null).assertFail();
+        expect().assertFail();
       } catch (err) {
         console.info(`testDeleteRdbStoreError004 :` + err);
         expect(err.code).assertEqual('401')
@@ -659,7 +658,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       relationalStore.deleteRdbStore(context, "error.db", async (err) => {
         if (err) {
@@ -693,7 +692,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       let deleteResult = false;
       let promise = relationalStore.deleteRdbStore(context, "error.db");
       promise
@@ -727,7 +726,7 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(undefined, config, async (err) => {
           console.info(`testDeleteRdbStoreError007 faied.`);
@@ -757,10 +756,10 @@ export default function relationalStoreTest() {
         securityLevel: relationalStore.SecurityLevel.S1,
       };
       rdbStore = await relationalStore.getRdbStore(context, config);
-      await rdbStore.executeSql(CREATE_TABLE_TEST, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_TEST, null);
       try {
         relationalStore.deleteRdbStore(undefined, config);
-        expect(relationalStore !== null).assertFail();
+        expect().assertFail();
       } catch (err) {
         console.info(`testDeleteRdbStoreError003 :` + err);
         expect(err.code).assertEqual('401')
@@ -788,7 +787,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket1, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
 
       const valueBucket2: ValuesBucket = {
         "id": 1,
@@ -798,7 +797,7 @@ export default function relationalStoreTest() {
         "blobType": u8,
       }
 
-      let insertPromise = rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
+      let insertPromise = (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
       insertPromise.then(async (ret) => {
         expect(0).assertEqual(ret);
         console.log(TAG + " testConflictResolution001 insert first done: " + ret);
@@ -830,7 +829,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
 
       let u82 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
@@ -840,7 +839,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
 
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
@@ -852,12 +851,12 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      let updatePromise = rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK);
+      let updatePromise = (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK);
       updatePromise.then(async (ret) => {
         await console.log(TAG + "testConflictResolution002 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -925,7 +924,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
 
       let u82 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
@@ -935,7 +934,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
 
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
@@ -947,13 +946,13 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      let updatePromise = rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT);
+      let updatePromise = (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT);
       updatePromise.then(async (ret) => {
         await expect(1).assertEqual(ret);
         await console.log(TAG + "testConflictResolution003 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1022,7 +1021,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
       let u82 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
         "id": 2,
@@ -1031,7 +1030,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
 
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
@@ -1043,13 +1042,13 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      let updatePromise = rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL);
+      let updatePromise = (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL);
       updatePromise.then(async (ret) => {
         await expect(1).assertEqual(ret);
         await console.log(TAG + "testConflictResolution004 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1119,7 +1118,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
       const valueBucket2: ValuesBucket = {
         "id": 1,
         "name": "zhangsan",
@@ -1127,11 +1126,11 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
 
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("name", "zhangsan");
-      let resultSet = await rdbStore.query(predicates);
+      let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
       try {
         console.log(TAG + " testConflictResolution005 resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
@@ -1168,7 +1167,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
 
       u8 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
@@ -1178,12 +1177,12 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
 
       let predicates = new relationalStore.RdbPredicates("test");
       predicates.equalTo("name", "zhangsan");
-      let resultSet = await rdbStore.query(predicates);
-      resultSet = await rdbStore.query(predicates);
+      let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
+      resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
       try {
         console.log(TAG + " testConflictResolution006 resultSet query done");
         expect(true).assertEqual(resultSet.goToFirstRow());
@@ -1229,22 +1228,22 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
 
       u8 = new Uint8Array([4, 5, 6]);
-      const valueBucket2: ValuesBucket = {
+      const valueBucket2: relationalStore.ValuesBucket = {
         "id": 1,
         "name": "zhangsan",
         "age": 18,
         "salary": 200.5,
         "blobType": u8,
-      }
-      rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE, async (e, ret) => {
+      };
+      (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE, async (e, ret) => {
         console.log(TAG + "testConflictResolution007 done: " + ret);
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
-        resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
+        resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         try {
           console.log(TAG + " testConflictResolution007 resultSet query done");
           expect(true).assertEqual(resultSet.goToFirstRow());
@@ -1292,7 +1291,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE);
 
 
       const valueBucket2: ValuesBucket = {
@@ -1301,11 +1300,11 @@ export default function relationalStoreTest() {
         "age": 18,
         "salary": 200.5,
         "blobType": u8,
-      }
-      rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE, async (e, ret) => {
+      };
+      (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_IGNORE, async (e, ret) => {
         let predicates = new relationalStore.RdbPredicates("test");
         predicates.equalTo("name", "zhangsan");
-        let resultSet = await rdbStore.query(predicates);
+        let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
         try {
           console.log(TAG + " testConflictResolution008 resultSet query done");
           expect(true).assertEqual(resultSet.goToFirstRow());
@@ -1345,7 +1344,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
 
 
       let u82 = new Uint8Array([4, 5, 6]);
@@ -1356,7 +1355,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
 
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
@@ -1368,12 +1367,12 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL, async (e, ret) => {
+      (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_FAIL, async (e, ret) => {
         expect(1).assertEqual(ret);
         console.log(TAG + "testConflictResolution009 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1438,7 +1437,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
       let u82 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
         "id": 2,
@@ -1447,7 +1446,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
         "id": 3,
@@ -1458,12 +1457,12 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT, async (e, ret) => {
+      (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ABORT, async (e, ret) => {
         await expect(1).assertEqual(ret);
         await console.log(TAG + "testConflictResolution010 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1527,7 +1526,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u81,
       }
-      await rdbStore.insert("test", valueBucket1);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1);
 
       let u82 = new Uint8Array([4, 5, 6]);
       const valueBucket2: ValuesBucket = {
@@ -1537,7 +1536,7 @@ export default function relationalStoreTest() {
         "salary": 200.5,
         "blobType": u82,
       }
-      await rdbStore.insert("test", valueBucket2);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2);
 
       let u83 = new Uint8Array([7, 8, 9]);
       const valueBucket3: ValuesBucket = {
@@ -1549,11 +1548,11 @@ export default function relationalStoreTest() {
       }
       let predicates = await new relationalStore.RdbPredicates("test");
       await predicates.equalTo("age", "19");
-      rdbStore.update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (e, ret) => {
+      (rdbStore as relationalStore.RdbStore).update(valueBucket3, predicates, relationalStore.ConflictResolution.ON_CONFLICT_ROLLBACK, async (e, ret) => {
         await console.log(TAG + "testConflictResolution011 done: " + ret);
         {
           let predicates = await new relationalStore.RdbPredicates("test");
-          let resultSet = await rdbStore.query(predicates);
+          let resultSet = await (rdbStore as relationalStore.RdbStore).query(predicates);
 
           expect(true).assertEqual(resultSet.goToFirstRow());
           const id = await resultSet.getLong(resultSet.getColumnIndex("id"));
@@ -1618,7 +1617,7 @@ export default function relationalStoreTest() {
         "salary": 100.5,
         "blobType": u8,
       }
-      await rdbStore.insert("test", valueBucket1, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
+      await (rdbStore as relationalStore.RdbStore).insert("test", valueBucket1, relationalStore.ConflictResolution.ON_CONFLICT_NONE);
 
       const valueBucket2: ValuesBucket = {
         "id": 1,
@@ -1626,9 +1625,9 @@ export default function relationalStoreTest() {
         "age": 18,
         "salary": 200.5,
         "blobType": u8,
-      }
+      };
 
-      rdbStore.insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_NONE, async (err, ret) => {
+      (rdbStore as relationalStore.RdbStore).insert("test", valueBucket2, relationalStore.ConflictResolution.ON_CONFLICT_NONE, async (err, ret) => {
         if (err) {
           console.log(TAG + " testConflictResolution012 insert with wrong valuebucket2 and ConflictResolution is default");
           expect(err.code == 14800032).assertTrue();

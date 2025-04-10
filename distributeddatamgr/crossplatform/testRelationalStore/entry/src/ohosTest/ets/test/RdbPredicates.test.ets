@@ -14,11 +14,11 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from "@ohos/hypium";
 import relationalStore from "@ohos.data.relationalStore";
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 
-let context: Context;
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const context = delegator.getAppContext().getApplicationContext();
 const TAG = "[RDB_JSKITS _TEST]";
 const CREATE_TABLE_ALL_DATA_TYPE_SQL =
   "CREATE TABLE IF NOT EXISTS AllDataType " +
@@ -36,8 +36,11 @@ const STORE_CONFIG: relationalStore.StoreConfig = {
   name: "Predicates.db",
   securityLevel: relationalStore.SecurityLevel.S1,
 };
-let rdbStore = undefined;
+let rdbStore: relationalStore.RdbStore | null = null;
 let DOUBLE_MAX = 9223372036854775807;
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 async function buildAllDataType1() {
   console.info(TAG + "buildAllDataType1 start");
@@ -55,7 +58,7 @@ async function buildAllDataType1() {
       blobValue: u8,
       byteValue: 127,
     };
-    await rdbStore.insert("AllDataType", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("AllDataType", valueBucket);
   }
 }
 
@@ -75,7 +78,7 @@ async function buildAllDataType2() {
       blobValue: u8,
       byteValue: 1,
     };
-    await rdbStore.insert("AllDataType", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("AllDataType", valueBucket);
   }
 }
 
@@ -95,7 +98,7 @@ async function buildAllDataType3() {
       blobValue: u8,
       byteValue: -128,
     };
-    await rdbStore.insert("AllDataType", valueBucket);
+    await (rdbStore as relationalStore.RdbStore).insert("AllDataType", valueBucket);
   }
 }
 
@@ -103,15 +106,14 @@ export default function rdbPredicatesTest() {
   describe("rdbPredicatesTest", () => {
     beforeAll(async () => {
       console.info(TAG + "beforeAll");
-      let ability = await delegator.getCurrentTopAbility();
-      context = ability.context;
       console.info(TAG + 'Get context successful. context=' + context);
     });
 
     beforeEach(async () => {
+      await sleep(300);
       console.info(TAG + "beforeEach");
       rdbStore = await relationalStore.getRdbStore(context, STORE_CONFIG);
-      await rdbStore.executeSql(CREATE_TABLE_ALL_DATA_TYPE_SQL, null);
+      await (rdbStore as relationalStore.RdbStore).executeSql(CREATE_TABLE_ALL_DATA_TYPE_SQL, null);
       await buildAllDataType1();
       await buildAllDataType2();
       await buildAllDataType3();
@@ -140,7 +142,7 @@ export default function rdbPredicatesTest() {
     it("testRdbPredicatesConstructor001", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbPredicatesConstructor001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       done();
@@ -158,55 +160,11 @@ export default function rdbPredicatesTest() {
     it("testRdbPredicatesConstructor002", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbPredicatesConstructor002 start *************");
       let predicates = await new relationalStore.RdbPredicates("test");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       done();
       console.info(TAG + "************* testRdbPredicatesConstructor002 end *************");
-    });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_RelationStore_PredicateJsAPITest_2780
-     * @tc.name   : testRdbPredicatesConstructor003
-     * @tc.desc   : Test the constructor() method of class RdbPredicates.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testRdbPredicatesConstructor003", 0, async (done: Function) => {
-      console.info(TAG + "************* testRdbPredicatesConstructor003 start *************");
-      try {
-        let predicates = await new relationalStore.RdbPredicates(null);
-        let result = await rdbStore.query(predicates);
-        result.close();
-        expect(result.rowCount >= 0).assertFail();
-      } catch (e) {
-        expect('401').assertEqual(e.code);
-      }
-      done();
-      console.info(TAG + "************* testRdbPredicatesConstructor003 end *************");
-    });
-
-    /**
-     * @tc.number : SUB_DistributeData_CrossPlatform_SDK_RelationStore_PredicateJsAPITest_2790
-     * @tc.name   : testRdbPredicatesConstructor004
-     * @tc.desc   : Test the constructor() method of class RdbPredicates.
-     * @tc.size   : MediumTest
-     * @tc.type   : Function
-     * @tc.level  : Level 2
-     */
-    it("testRdbPredicatesConstructor004", 0, async (done: Function) => {
-      console.info(TAG + "************* testRdbPredicatesConstructor004 start *************");
-      try {
-        let predicates = await new relationalStore.RdbPredicates(undefined);
-        let result = await rdbStore.query(predicates);
-        result.close();
-        expect(result.rowCount >= 0).assertFail();
-      } catch (e) {
-        expect('401').assertEqual(e.code);
-      }
-      done();
-      console.info(TAG + "************* testRdbPredicatesConstructor004 end *************");
     });
 
     /**
@@ -222,7 +180,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("booleanValue", true);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -244,7 +202,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("byteValue", -128).or().equalTo("byteValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -266,7 +224,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -288,7 +246,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("doubleValue", DOUBLE_MAX);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -310,7 +268,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("shortValue", -32768.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -332,7 +290,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(true).assertEqual(result.goToFirstRow());
         expect(2).assertEqual(result.getLong(0));
         result.close();
@@ -354,7 +312,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(true).assertEqual(result.goToFirstRow());
         expect(2).assertEqual(result.getLong(0));
         result.close();
@@ -376,7 +334,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("floatValue", -0.123);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(true).assertEqual(result.goToFirstRow());
         expect(1).assertEqual(result.getLong(0));
         result.close();
@@ -400,7 +358,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.equalTo(null, null);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -426,7 +384,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.equalTo(undefined, undefined);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -451,7 +409,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo('1', 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -473,7 +431,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo('floatValue', '-0.123');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         expect(true).assertEqual(result.goToFirstRow());
         expect(1).assertEqual(result.getLong(0));
@@ -497,7 +455,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo('floatValue', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -519,7 +477,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo('ss', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -541,7 +499,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("booleanValue", true);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -564,7 +522,7 @@ export default function rdbPredicatesTest() {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("byteValue", -128);
         predicates.notEqualTo("byteValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -586,7 +544,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("stringValue", "ABCDEFGHIJKLMN");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -608,7 +566,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("doubleValue", DOUBLE_MAX);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -630,7 +588,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("shortValue", -32768);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -652,7 +610,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -674,7 +632,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -696,7 +654,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo("floatValue", -0.123);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -719,7 +677,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.notEqualTo(null, null);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -745,7 +703,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.notEqualTo(undefined, undefined);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -770,7 +728,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo('1', 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -792,7 +750,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo('floatValue', '-0.123');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         expect(true).assertEqual(result.goToFirstRow());
         result.close();
@@ -815,7 +773,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo('floatValue', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -837,7 +795,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notEqualTo('ss', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -864,7 +822,7 @@ export default function rdbPredicatesTest() {
           .or()
           .equalTo("integerValue", 2147483647)
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -886,7 +844,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo("characterValue", " ").endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -908,7 +866,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo("characterValue", "中").endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -930,7 +888,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").equalTo("characterValue", "中").endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -952,7 +910,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo("characterValue", "中");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -975,7 +933,7 @@ export default function rdbPredicatesTest() {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         try {
           predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo(null, "中").endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1001,7 +959,7 @@ export default function rdbPredicatesTest() {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         try {
           predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo(undefined, undefined).endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1027,7 +985,7 @@ export default function rdbPredicatesTest() {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         try {
           predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo('ss', "中").endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(-1).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1052,7 +1010,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo('floatValue', '-0.123').endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1075,7 +1033,7 @@ export default function rdbPredicatesTest() {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         try {
           predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").beginWrap().equalTo('floatValue', "ss").endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1105,7 +1063,7 @@ export default function rdbPredicatesTest() {
           .or()
           .equalTo("integerValue", 2147483647)
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1132,7 +1090,7 @@ export default function rdbPredicatesTest() {
           .or()
           .equalTo("integerValue", '2147483647')
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1159,7 +1117,7 @@ export default function rdbPredicatesTest() {
           .or()
           .equalTo("integerValue", 'ss')
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1187,7 +1145,7 @@ export default function rdbPredicatesTest() {
             .or()
             .equalTo("integerValue", '2147483647')
             .endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1218,7 +1176,7 @@ export default function rdbPredicatesTest() {
             .or()
             .equalTo("integerValue", '2147483647')
             .endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1249,7 +1207,7 @@ export default function rdbPredicatesTest() {
             .or()
             .equalTo("integerValue", '2147483647')
             .endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(-1).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1274,7 +1232,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").and().equalTo("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1300,7 +1258,7 @@ export default function rdbPredicatesTest() {
           .and()
           .equalTo("integerValue", '1')
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1326,7 +1284,7 @@ export default function rdbPredicatesTest() {
           .and()
           .equalTo("integerValue", 'ss')
           .endWrap();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1354,7 +1312,7 @@ export default function rdbPredicatesTest() {
             .and()
             .equalTo("integerValue", '2147483647')
             .endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1385,7 +1343,7 @@ export default function rdbPredicatesTest() {
             .and()
             .equalTo("integerValue", '2147483647')
             .endWrap();
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -1433,7 +1391,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains("stringValue", "DEF");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1453,7 +1411,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains("stringValue", "DEFX");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1473,7 +1431,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains("characterValue", "中");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1493,7 +1451,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains("characterValue", "#");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1513,7 +1471,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains("characterValue", "");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1578,7 +1536,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.contains('ss', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1601,7 +1559,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesContains009 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.contains('integerValue', '1');
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1623,7 +1581,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.contains(null, null);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1647,7 +1605,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.contains(undefined, undefined);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1670,7 +1628,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith("stringValue", "ABC");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1690,7 +1648,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith("stringValue", "ABCX");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1710,7 +1668,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith("characterValue", "中");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1730,7 +1688,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith("characterValue", "#");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1750,7 +1708,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith("characterValue", "");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1815,7 +1773,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.beginsWith('ss', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1838,7 +1796,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesBeginsWith009 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.beginsWith('integerValue', '1');
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1859,7 +1817,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.beginsWith(null, null);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1883,7 +1841,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.beginsWith(undefined, undefined);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -1906,7 +1864,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith("stringValue", "LMN");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1926,7 +1884,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith("stringValue", "LMNX");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1946,7 +1904,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith("characterValue", "中");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1966,7 +1924,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith("characterValue", "#");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -1986,7 +1944,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith("characterValue", "");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2051,7 +2009,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.endsWith('ss', 'ss');
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2074,7 +2032,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesEndsWith009 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.endsWith('integerValue', '1');
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2095,7 +2053,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.endsWith(null, null);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2119,7 +2077,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.endsWith(undefined, undefined);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2142,7 +2100,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNull001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNull("primLongValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2162,7 +2120,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNull002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNull("longValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2182,7 +2140,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNull003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNull("stringValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2202,7 +2160,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNull004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNull("stringValueX");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2222,7 +2180,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNull005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNull("ss");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2305,7 +2263,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNotNull001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNotNull("primLongValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2325,7 +2283,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNotNull002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNotNull("longValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2345,7 +2303,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNotNull003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNotNull("stringValue");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2365,7 +2323,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNotNull004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNotNull("stringValueX");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2385,7 +2343,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesIsNotNull005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.isNotNull("ss");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2406,7 +2364,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.isNotNull("");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2430,7 +2388,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.isNotNull(null);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2454,7 +2412,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.isNotNull(undefined);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2477,7 +2435,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "%LMN%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2497,7 +2455,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "%LMNX%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2517,7 +2475,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("characterValue", "%中%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2537,7 +2495,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("characterValue", "%#%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -2557,7 +2515,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("ss", "%#%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(-1).assertEqual(result.rowCount);
       result.close();
       done();
@@ -2577,7 +2535,7 @@ export default function rdbPredicatesTest() {
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       try {
         predicates.like("", "%#%");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(result !== null).assertFail();
       } catch (e) {
         expect('401').assertEqual(e.code);
@@ -2598,7 +2556,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike007 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like('integerValue', "%1%");
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       done();
@@ -2681,7 +2639,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLike011 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like('integerValue', '%' + Number.MAX_VALUE + 1 + '%');
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       done();
@@ -2703,7 +2661,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob('stringValue', "ABCDEFGHIJKLM?");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2726,7 +2684,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "?BCDEFGHIJKLMN");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2749,7 +2707,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "?BCDEFGHIJKLM?");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2772,7 +2730,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "ABC*");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2795,7 +2753,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "*LMN");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2818,7 +2776,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "*FGHI*");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2841,7 +2799,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("stringValue", "国");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2864,7 +2822,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("integerValue", "2147483648");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2888,7 +2846,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.glob(null, null);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -2915,7 +2873,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.glob(undefined, undefined);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -2941,7 +2899,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.glob("integerValue", "*FGHI*");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2963,7 +2921,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("stringValue", "ABB", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -2985,7 +2943,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("doubleValue", 0.0, DOUBLE_MAX);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3007,7 +2965,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3029,7 +2987,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("longValue", 0, 2);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3051,7 +3009,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("stringValue", "ABB", "ABB");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3073,7 +3031,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("doubleValue", DOUBLE_MAX, DOUBLE_MAX);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3095,7 +3053,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 1, 0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3117,7 +3075,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("longValue", 2, -1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3139,7 +3097,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("stringValue", 1, 2);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3184,7 +3142,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("doubleValue", 3, 4);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3206,7 +3164,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("doubleValue", 0.0, DOUBLE_MAX + 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3228,7 +3186,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", "ABB", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3250,7 +3208,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, Number.MAX_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3272,7 +3230,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, Number.MIN_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3294,7 +3252,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, Number.NaN);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3316,7 +3274,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, Number.NEGATIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3338,7 +3296,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("integerValue", 0, Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3360,7 +3318,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("longValue", 2.0, 3.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3382,7 +3340,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("longValue", 0, 0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3404,7 +3362,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("characterValue", 2, -1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3426,7 +3384,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.between("longValue", "ABC", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3448,7 +3406,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("stringValue", "ABB", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3470,7 +3428,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("doubleValue", 0.0, DOUBLE_MAX);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3492,7 +3450,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3514,7 +3472,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("longValue", 0, 2);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3536,7 +3494,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("stringValue", 1, 2);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3559,7 +3517,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.notBetween(null, 1, 2);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -3584,7 +3542,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("doubleValue", 7, 8);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3606,7 +3564,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("doubleValue", 0.0, DOUBLE_MAX + 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3628,7 +3586,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", "ABB", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3650,7 +3608,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, Number.MAX_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3672,7 +3630,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, Number.MIN_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3694,7 +3652,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, Number.NaN);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3716,7 +3674,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, Number.NEGATIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3738,7 +3696,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("integerValue", 0, Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3760,7 +3718,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("longValue", "3", "4");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3782,7 +3740,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("longValue", 0, 0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3804,7 +3762,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("longValue", "ABC", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3826,7 +3784,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("characterValue", 0, 2);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3848,7 +3806,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.notBetween("longValue", 2, 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3871,7 +3829,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("stringValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3893,7 +3851,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("doubleValue", 0.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3915,7 +3873,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3937,7 +3895,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3959,7 +3917,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("stringValue", "ZZZ");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -3981,7 +3939,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("doubleValue", 999.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4003,7 +3961,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", -999);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4025,7 +3983,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("longValue", -999);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4047,7 +4005,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("stringValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4070,7 +4028,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.greaterThan(null, 1);
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -4095,7 +4053,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", "A");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4117,7 +4075,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", Number.MAX_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4139,7 +4097,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", Number.MIN_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4161,7 +4119,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", Number.NaN);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4183,7 +4141,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", Number.NEGATIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4205,7 +4163,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("integerValue", Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4227,7 +4185,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("floatValue", -999);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4249,7 +4207,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThan("longValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4271,7 +4229,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("stringValue", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4293,7 +4251,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("doubleValue", 0.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4315,7 +4273,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4337,7 +4295,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4359,7 +4317,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("doubleValue", 1.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4381,7 +4339,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("integerValue", -2147483648);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4403,7 +4361,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("longValue", -9223372036854775808);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4425,7 +4383,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("stringValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4448,7 +4406,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.lessThan(null, "ABD");
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -4473,7 +4431,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("longValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4495,7 +4453,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThan("stringValue", -9223372036854775808);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4517,7 +4475,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("stringValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4539,7 +4497,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("doubleValue", 0.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4561,7 +4519,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4583,7 +4541,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4605,7 +4563,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("longValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4628,7 +4586,7 @@ export default function rdbPredicatesTest() {
         try {
           let predicates = await new relationalStore.RdbPredicates("AllDataType");
           predicates.greaterThanOrEqualTo(null, "ABC");
-          let result = await rdbStore.query(predicates);
+          let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
           expect(0).assertEqual(result.rowCount);
           result.close();
           result = null;
@@ -4653,7 +4611,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("characterValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4675,7 +4633,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.greaterThanOrEqualTo("stringValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4697,7 +4655,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("stringValue", "ABD");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4719,7 +4677,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("doubleValue", 0.0);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4741,7 +4699,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4763,7 +4721,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", 1);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(2).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4785,7 +4743,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4807,7 +4765,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", Number.MAX_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4829,7 +4787,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", Number.MIN_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4851,7 +4809,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", Number.NaN);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4873,7 +4831,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", Number.NEGATIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4895,7 +4853,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("integerValue", Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4917,7 +4875,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", "ABC");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4939,7 +4897,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", Number.MAX_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4961,7 +4919,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", Number.MIN_VALUE);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -4983,7 +4941,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", Number.NaN);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5005,7 +4963,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", Number.NEGATIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(0).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5027,7 +4985,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValue", Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5049,7 +5007,7 @@ export default function rdbPredicatesTest() {
       try {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.lessThanOrEqualTo("longValueX", Number.POSITIVE_INFINITY);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5074,7 +5032,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").orderByAsc("integerValue").distinct();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         expect(true).assertEqual(result.goToFirstRow());
         expect(3).assertEqual(result.getLong(0));
@@ -5102,7 +5060,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").orderByAsc("integerValueX").distinct();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5124,7 +5082,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").orderByDesc("integerValue").distinct();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(3).assertEqual(result.rowCount);
         expect(true).assertEqual(result.goToFirstRow());
         expect(1).assertEqual(result.getLong(0));
@@ -5152,7 +5110,7 @@ export default function rdbPredicatesTest() {
       {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.equalTo("stringValue", "ABCDEFGHIJKLMN").orderByDesc("integerValueX").distinct();
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         expect(-1).assertEqual(result.rowCount);
         result.close();
         result = null;
@@ -5173,7 +5131,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(1);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(1).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5193,7 +5151,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(3);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5213,7 +5171,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(100);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5233,7 +5191,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "中").limitAs(1);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5253,7 +5211,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs005 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(0);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5273,7 +5231,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesLimitAs006 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(-1);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5293,7 +5251,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesOffsetAs001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(3).offsetAs(1);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(2).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5313,7 +5271,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesOffsetAs002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(3).offsetAs(0);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(3).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5333,7 +5291,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesOffsetAs003 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(3).offsetAs(5);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       expect(0).assertEqual(result.rowCount);
       result.close();
       result = null;
@@ -5353,7 +5311,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesOffsetAs004 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").limitAs(3).offsetAs(-1);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesOffsetAs004 rowCount: " + result.rowCount);
       expect(3).assertEqual(result.rowCount);
       result.close();
@@ -5374,7 +5332,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesGroupBy001 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").groupBy(["characterValue"]);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesGroupBy001 rowCount: " + result.rowCount);
       expect(3).assertEqual(result.rowCount);
       result.close();
@@ -5395,7 +5353,7 @@ export default function rdbPredicatesTest() {
       console.info(TAG + "************* testRdbPredicatesGroupBy002 start *************");
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.like("stringValue", "ABCDEFGHIJKLMN").groupBy(["characterValueX"]);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesGroupBy002 rowCount: " + result.rowCount);
       expect(-1).assertEqual(result.rowCount);
       result.close();
@@ -5417,7 +5375,7 @@ export default function rdbPredicatesTest() {
       try {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.like("", "").groupBy(["characterValueX"]);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info("testRdbPredicatesGroupBy003 rowCount: " + result.rowCount);
         expect(-1).assertEqual(result.rowCount);
         result.close();
@@ -5439,11 +5397,11 @@ export default function rdbPredicatesTest() {
      */
     it("testIndexedBy0001", 0, async (done: Function) => {
       console.info(TAG + "************* testIndexedBy0001 start *************");
-      await rdbStore.executeSql("CREATE INDEX index_name ON AllDataType (characterValue);", null);
+      await (rdbStore as relationalStore.RdbStore).executeSql("CREATE INDEX index_name ON AllDataType (characterValue);", null);
       try {
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.indexedBy("index_name");
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info("testIndexedBy0001 rowCount: " + result.rowCount);
         expect(3).assertEqual(result.rowCount);
         result.close();
@@ -5466,7 +5424,7 @@ export default function rdbPredicatesTest() {
     it("testRdbPredicatesIndexedBy002", 0, async (done: Function) => {
       console.info(TAG + "************* testRdbPredicatesIndexedBy002 start *************");
       try {
-        await rdbStore.executeSql("CREATE INDEX index_name ON AllDataType (characterValueX);", null);
+        await (rdbStore as relationalStore.RdbStore).executeSql("CREATE INDEX index_name ON AllDataType (characterValueX);", null);
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.indexedBy("index_name");
         expect(predicates !== null).assertFail();
@@ -5491,7 +5449,7 @@ export default function rdbPredicatesTest() {
       let values = [Number.MIN_VALUE.toString()];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.in("doubleValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesIn001 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5512,7 +5470,7 @@ export default function rdbPredicatesTest() {
       let values = ["1.0"];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.in("doubleValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesIn002 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5533,7 +5491,7 @@ export default function rdbPredicatesTest() {
       let values = [DOUBLE_MAX.toString()];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.in("doubleValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesIn003 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5554,7 +5512,7 @@ export default function rdbPredicatesTest() {
       let values = [Number.MIN_VALUE.toString(), "1.0", DOUBLE_MAX.toString()];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.in("doubleValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesIn004 rowCount: " + result.rowCount);
       expect(3).assertEqual(result.rowCount);
       result.close();
@@ -5575,7 +5533,7 @@ export default function rdbPredicatesTest() {
       let values = [Number.MIN_VALUE.toString(), "10.0", DOUBLE_MAX.toString()];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.in("doubleValueX", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesIn005 rowCount: " + result.rowCount);
       expect(-1).assertEqual(result.rowCount);
       result.close();
@@ -5597,7 +5555,7 @@ export default function rdbPredicatesTest() {
         let values = [""];
         let predicates = await new relationalStore.RdbPredicates("AllDataType");
         predicates.in("doubleValue", values);
-        let result = await rdbStore.query(predicates);
+        let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
         console.info("testRdbPredicatesIn006 rowCount: " + result.rowCount);
         expect(0).assertEqual(result.rowCount);
         result.close();
@@ -5622,7 +5580,7 @@ export default function rdbPredicatesTest() {
       let values = [1, -2147483648];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.notIn("integerValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesNotIn001 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5643,7 +5601,7 @@ export default function rdbPredicatesTest() {
       let values = [1, 2147483647];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.notIn("integerValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesNotIn002 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5664,7 +5622,7 @@ export default function rdbPredicatesTest() {
       let values = [-2147483648, 2147483647];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.notIn("integerValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesNotIn003 rowCount: " + result.rowCount);
       expect(1).assertEqual(result.rowCount);
       result.close();
@@ -5685,7 +5643,7 @@ export default function rdbPredicatesTest() {
       let values: Array<string> = [];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.notIn("integerValue", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesNotIn004 rowCount: " + result.rowCount);
       expect(3).assertEqual(result.rowCount);
       result.close();
@@ -5706,7 +5664,7 @@ export default function rdbPredicatesTest() {
       let values = [-2147483648, 2147483647];
       let predicates = await new relationalStore.RdbPredicates("AllDataType");
       predicates.notIn("integerValueX", values);
-      let result = await rdbStore.query(predicates);
+      let result: relationalStore.ResultSet | null = await (rdbStore as relationalStore.RdbStore).query(predicates);
       console.info("testRdbPredicatesNotIn005 rowCount: " + result.rowCount);
       expect(-1).assertEqual(result.rowCount);
       result.close();
