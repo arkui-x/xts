@@ -8,6 +8,10 @@
     "pages/replaceUrl/ReplaceUrl_TwoParameter_Callback",
     "pages/back/Back_OneParameter",
     "pages/back/BackPage",
-    "pages/back/Back_TwoParameter"
+    "pages/back/Back_TwoParameter",
+    "pages/combine/Page1",
+    "pages/combine/Page2",
+    "pages/combine/Page3",
+    "pages/combine/Page4"
   ]
 }
