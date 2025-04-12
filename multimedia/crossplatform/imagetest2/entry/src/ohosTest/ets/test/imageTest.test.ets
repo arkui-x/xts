@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, afterEach, expect } from '@ohos/hypium';
 import image from '@ohos.multimedia.image';
 import { BusinessError } from '@ohos.base';
 import resourceManager from '@ohos.resourceManager';
@@ -23,8 +23,16 @@ import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test");
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function ImageTest() {
-  describe('ImageTest', () => {
+  describe('ImageTest', async () => {
+
+    afterEach(async () => {
+      await sleep(1000);
+    })
 
     /**
      * @tc.number : SUB_Image_CreatePixelMapList_Func_0100

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,41 +14,49 @@
  */
 
 import image from "@ohos.multimedia.image";
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
-import { testPng, testJpg } from './testImg'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { testPng, testJpg } from './testImg';
 import { testGif, testBmp } from './testImg2';
-import { prepareImageFile, prepareImageFileFd } from './Common'
+import { prepareImageFile, prepareImageFileFd } from './Common';
 import fileIO from '@ohos.file.fs';
+import common from '@ohos.app.ability.common';
+import { BusinessError } from "@kit.BasicServicesKit";
+
+
+async function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function Image() {
-    describe("Image", function () {
-        let context;
-        let filePath;
-        let fileFd;
-        let globalpixelmap;
+    describe("Image", () => {
+        let context: common.UIAbilityContext;
+        let filePath: string;
+        let fileFd: number | null;
+        let globalpixelmap: image.PixelMap;
 
-        async function getFilePath(fileName, imageArray) {
+        let getFilePath = async (fileName: number | string, imageArray: Uint8Array) => {
             filePath = context.cacheDir + '/' + fileName;
             let result = await prepareImageFile(filePath, imageArray);
             expect(result).assertTrue();
         }
 
-        async function getFileFd(fileName, imageArray) {
+        let getFileFd = async (fileName: number | string, imageArray: Uint8Array) => {
             filePath = context.cacheDir + '/' + fileName;
             fileFd = await prepareImageFileFd(filePath, imageArray);
             expect(fileFd != null).assertTrue();
         }
 
-        beforeAll(async function () {
+        beforeAll(async () => {
             context = globalThis.abilityContext;
             console.info("beforeAll case");
         });
 
-        beforeEach(async function () {
+        beforeEach(async () => {
             console.info("beforeEach case");
+            await sleep(1000);
         });
 
-        afterEach(async function () {
+        afterEach(async () => {
             console.info('afterEach case');
             if (fileFd != null) {
                 fileIO.close(fileFd);
@@ -62,13 +70,14 @@ export default function Image() {
                     console.info('globalpixelmap release fail');
                 }
             }
+            await sleep(1000);
         });
 
-        afterAll(async function () {
+        afterAll(async () => {
             console.info("afterAll case");
         });
 
-        function createPixMapPromise(done, testNum, opts) {
+        let createPixMapPromise = async (done: Function, testNum: string, opts: image.InitializationOptions) => {
             const Color = new ArrayBuffer(96);
             image
                 .createPixelMap(Color, opts)
@@ -81,7 +90,7 @@ export default function Image() {
                     }
                     done();
                 })
-                .catch((error) => {
+                .catch((error: BusinessError) => {
                     console.log(`${testNum} error: ` + error);
                     try {
                         expect(false).assertTrue();
@@ -92,7 +101,7 @@ export default function Image() {
                 });
         }
 
-        function createPixMapCb(done, testNum, opts) {
+        let createPixMapCb = async (done: Function, testNum: string, opts: image.InitializationOptions) => {
             const Color = new ArrayBuffer(96);
             image.createPixelMap(Color, opts, (err, pixelmap) => {
                 if (err) {
@@ -115,63 +124,74 @@ export default function Image() {
             });
         }
 
-        async function createImageSourceUri(done, testNum, fileName, imageArray) {
-            try {
-                await getFilePath(fileName, imageArray);
-                const imageSourceApi = image.createImageSource(filePath);
-                expect(imageSourceApi != undefined).assertTrue();
-                console.info(`${testNum} success`);
-                done();
-            } catch (error) {
-                console.info(`${testNum} error` + error);
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function createImageSourceUriOptions(done, testNum, fileName, imageArray, opts) {
-            try {
-                await getFilePath(fileName, imageArray);
-                const imageSourceApi = image.createImageSource(filePath, opts);
-                expect(imageSourceApi != undefined).assertTrue();
-                console.info(`${testNum} success`);
-                done();
-            } catch (error) {
-                console.info(`${testNum} error` + error);
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function createImageSourceFdOptions(done, testNum, fileName, imageArray, opts) {
-            try {
-                await getFileFd(fileName, imageArray);
-                const imageSourceApi = image.createImageSource(fileFd, opts);
-                expect(imageSourceApi != undefined).assertTrue();
-                console.info(`${testNum} success`);
-                done();
-            } catch (error) {
-                console.info(`${testNum} error` + error);
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function createImageSourceBufOptions(done, testNum, imageArray, opts) {
-            const data = imageArray.buffer;
-            const imageSourceApi = image.createImageSource(data, opts);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.getImageInfo((err, imageInfo) => {
+        let createImageSourceUri =
+            async (done: Function, testNum: string, fileName: string, imageArray: Uint8Array) => {
+                try {
+                    console.log(`${testNum} start 1`);
+                    await getFileFd(fileName, imageArray);
+                    console.log(`${testNum} start 2`);
+                    const imageSourceApi = image.createImageSource(filePath);
+                    console.log(`${testNum} start 3`);
+                    expect(imageSourceApi != undefined).assertTrue();
                     console.info(`${testNum} success`);
-                    expect(imageInfo != undefined).assertTrue();
                     done();
-                })
+                } catch (error) {
+                    console.info(`${testNum} error` + error);
+                    expect(false).assertTrue();
+                    done();
+                }
             }
-        }
+
+        let createImageSourceUriOptions =
+            async (done: Function, testNum: string, fileName: string, imageArray: Uint8Array,
+                opts: image.SourceOptions) => {
+                try {
+                    console.log(`${testNum} start`);
+                    await getFilePath(fileName, imageArray);
+                    console.log(`${testNum} getFilePath success`);
+                    const imageSourceApi = image.createImageSource(filePath, opts);
+                    expect(imageSourceApi != undefined).assertTrue();
+                    console.info(`${testNum} success`);
+                    done();
+                } catch (error) {
+                    console.info(`${testNum} error` + error);
+                    expect(false).assertTrue();
+                    done();
+                }
+            }
+
+        let createImageSourceFdOptions =
+            async (done: Function, testNum: string, fileName: string, imageArray: Uint8Array,
+                opts: image.SourceOptions) => {
+                try {
+                    await getFileFd(fileName, imageArray);
+                    const imageSourceApi = image.createImageSource(fileFd, opts);
+                    expect(imageSourceApi != undefined).assertTrue();
+                    console.info(`${testNum} success`);
+                    done();
+                } catch (error) {
+                    console.info(`${testNum} error` + error);
+                    expect(false).assertTrue();
+                    done();
+                }
+            }
+
+        let createImageSourceBufOptions =
+            async (done: Function, testNum: string, imageArray: Uint8Array, opts: image.SourceOptions) => {
+                const data = imageArray.buffer;
+                const imageSourceApi = image.createImageSource(data, opts);
+                if (imageSourceApi == undefined) {
+                    console.info(`${testNum} create image source failed`);
+                    expect(false).assertTrue();
+                    done();
+                } else {
+                    imageSourceApi.getImageInfo((err, imageInfo) => {
+                        console.info(`${testNum} success`);
+                        expect(imageInfo != undefined).assertTrue();
+                        done();
+                    })
+                }
+            }
 
         /**
          * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_001
@@ -184,8 +204,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise001", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.CENTER_CROP, alphaType: image.AlphaType.UNKNOWN };
+        it("testCreatePixelMapPromise001", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.CENTER_CROP,
+                alphaType: image.AlphaType.UNKNOWN
+            };
             createPixMapPromise(done, "testCreatePixelMapPromise001", opts);
         });
 
@@ -200,8 +228,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise002", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.BGRA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.CENTER_CROP, alphaType: image.AlphaType.OPAQUE };
+        it("testCreatePixelMapPromise002", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.BGRA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.CENTER_CROP,
+                alphaType: image.AlphaType.OPAQUE
+            };
             createPixMapPromise(done, "testCreatePixelMapPromise002", opts);
         });
 
@@ -216,8 +252,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise003", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGB_888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.FIT_TARGET_SIZE, alphaType: image.AlphaType.PREMUL };
+        it("testCreatePixelMapPromise003", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGB_888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.FIT_TARGET_SIZE,
+                alphaType: image.AlphaType.PREMUL
+            };
             createPixMapPromise(done, "testCreatePixelMapPromise003", opts);
         });
 
@@ -232,8 +276,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise004", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.ALPHA_8, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.FIT_TARGET_SIZE, alphaType: image.AlphaType.UNPREMUL };
+        it("testCreatePixelMapPromise004", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.ALPHA_8,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.FIT_TARGET_SIZE,
+                alphaType: image.AlphaType.UNPREMUL
+            };
             createPixMapPromise(done, "testCreatePixelMapPromise004", opts);
         });
 
@@ -248,8 +300,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise005", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_F16, size: { height: 4, width: 6 } }
+        it("testCreatePixelMapPromise005", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.RGBA_F16, size: {
+                    height: 4, width: 6
+                }
+            }
             createPixMapPromise(done, "testCreatePixelMapPromise005", opts);
         });
 
@@ -264,8 +320,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise006", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGB_565, size: { height: 6, width: 8 } }
+        it("testCreatePixelMapPromise006", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.RGB_565, size: {
+                    height: 6, width: 8
+                }
+            }
             createPixMapPromise(done, "testCreatePixelMapPromise006", opts);
         });
 
@@ -280,8 +340,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapPromise007", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.UNKNOWN, size: { height: 6, width: 8 } }
+        it("testCreatePixelMapPromise007", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.UNKNOWN, size: {
+                    height: 6, width: 8
+                }
+            }
             createPixMapPromise(done, "testCreatePixelMapPromise007", opts);
         });
 
@@ -296,8 +360,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb001", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.FIT_TARGET_SIZE, alphaType: image.AlphaType.UNKNOWN };
+        it("testCreatePixelMapCb001", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.FIT_TARGET_SIZE,
+                alphaType: image.AlphaType.UNKNOWN
+            };
             createPixMapCb(done, "testCreatePixelMapCb001", opts);
         });
 
@@ -312,8 +384,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb002", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.FIT_TARGET_SIZE, alphaType: image.AlphaType.OPAQUE };
+        it("testCreatePixelMapCb002", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.FIT_TARGET_SIZE,
+                alphaType: image.AlphaType.OPAQUE
+            };
             createPixMapCb(done, "testCreatePixelMapCb002", opts);
         });
 
@@ -328,8 +408,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb003", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.CENTER_CROP, alphaType: image.AlphaType.PREMUL };
+        it("testCreatePixelMapCb003", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.CENTER_CROP,
+                alphaType: image.AlphaType.PREMUL
+            };
             createPixMapCb(done, "testCreatePixelMapCb003", opts);
         });
 
@@ -344,8 +432,16 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb004", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 }, scaleMode: image.ScaleMode.CENTER_CROP, alphaType: image.AlphaType.UNPREMUL };
+        it("testCreatePixelMapCb004", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true,
+                pixelFormat: image.PixelMapFormat.RGBA_8888,
+                size: {
+                    height: 4, width: 6
+                },
+                scaleMode: image.ScaleMode.CENTER_CROP,
+                alphaType: image.AlphaType.UNPREMUL
+            };
             createPixMapCb(done, "testCreatePixelMapCb004", opts);
         });
 
@@ -360,8 +456,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb005", 0, async function (done) {
-            let opts = { editable: false, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } }
+        it("testCreatePixelMapCb005", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: false, pixelFormat: image.PixelMapFormat.RGBA_8888, size: {
+                    height: 4, width: 6
+                }
+            }
             createPixMapCb(done, "testCreatePixelMapCb005", opts);
         });
 
@@ -376,8 +476,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb006", 0, async function (done) {
-            let opts = { editable: false, pixelFormat: image.PixelMapFormat.RGB_565, size: { height: 6, width: 8 } }
+        it("testCreatePixelMapCb006", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: false, pixelFormat: image.PixelMapFormat.RGB_565, size: {
+                    height: 6, width: 8
+                }
+            }
             createPixMapCb(done, "testCreatePixelMapCb006", opts);
         });
 
@@ -392,8 +496,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb007", 0, async function (done) {
-            let opts = { editable: false, pixelFormat: image.PixelMapFormat.UNKNOWN, size: { height: 6, width: 8 } }
+        it("testCreatePixelMapCb007", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: false, pixelFormat: image.PixelMapFormat.UNKNOWN, size: {
+                    height: 6, width: 8
+                }
+            }
             createPixMapCb(done, "testCreatePixelMapCb007", opts);
         });
 
@@ -408,8 +516,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb008", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 6, width: 8 } }
+        it("testCreatePixelMapCb008", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.RGBA_8888, size: {
+                    height: 6, width: 8
+                }
+            }
             createPixMapCb(done, "testCreatePixelMapCb008", opts);
         });
 
@@ -424,8 +536,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb009", 0, async function (done) {
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.RGB_565, size: { height: 2, width: 3 } }
+        it("testCreatePixelMapCb009", 0, async (done: Function) => {
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.RGB_565, size: {
+                    height: 2, width: 3
+                }
+            }
             createPixMapCb(done, "testCreatePixelMapCb009", opts);
         });
 
@@ -440,9 +556,13 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb010", 0, async function (done) {
+        it("testCreatePixelMapCb010", 0, async (done: Function) => {
             const Color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: image.PixelMapFormat.UNKNOWN, size: { height: -1, width: -1 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: image.PixelMapFormat.UNKNOWN, size: {
+                    height: -1, width: -1
+                }
+            }
             image.createPixelMap(Color, opts, (err, pixelmap) => {
                 if (err) {
                     expect(true).assertTrue();
@@ -467,43 +587,33 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreatePixelMapCb011", 0, async function (done) {
+        it("testCreatePixelMapCb011", 0, async (done: Function) => {
             const Color = new ArrayBuffer(96);
-            let opts = { editable: true, pixelFormat: 21, size: { height: 6, width: 8 } }
+            let opts: image.InitializationOptions = {
+                editable: true, pixelFormat: 21, size: {
+                    height: 6, width: 8
+                }
+            }
             image.createPixelMap(Color, opts, (err, pixelmap) => {
                 if (err) {
                     console.info('testCreatePixelMapCb011 err' + err);
                     try {
-                      expect(false).assertTrue();
+                        expect(false).assertTrue();
                     } catch (err) {
-                      console.info('testCreatePixelMapCb011 err' + err);
+                        console.info('testCreatePixelMapCb011 err' + err);
                     }
                     done();
                     return
                 }
                 try {
-                  expect(pixelmap != undefined).assertTrue();
-                  console.info('testCreatePixelMapCb011 success');
+                    expect(pixelmap != undefined).assertTrue();
+                    console.info('testCreatePixelMapCb011 success');
                 } catch (err) {
-                  console.info('testCreatePixelMapCb011 err' + err);
+                    console.info('testCreatePixelMapCb011 err' + err);
                 }
                 done();
             })
         });
-
-        /**
-         * @tc.number    : TEST_CREATEIMAGESOURCE_URI_001
-         * @tc.name      : testCreateImageSourceUri001
-         * @tc.desc      : 1.set uri
-         *                 2.call createImageSource(uri)
-         *                 3.return imagesource
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreateImageSourceUri001', 0, async function (done) {
-            createImageSourceUri(done, 'testCreateImageSourceUri001', 'test.jpg', testJpg);
-        })
 
         /**
          * @tc.number    : TEST_CREATEIMAGESOURCE_URI_002
@@ -515,7 +625,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceUri002', 0, async function (done) {
+        it('testCreateImageSourceUri002', 0, async (done: Function) => {
             createImageSourceUri(done, 'testCreateImageSourceUri002', 'test.bmp', testBmp);
         })
 
@@ -529,7 +639,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceUri003', 0, async function (done) {
+        it('testCreateImageSourceUri003', 0, async (done: Function) => {
             createImageSourceUri(done, 'testCreateImageSourceUri003', 'test.gif', testGif);
         })
 
@@ -543,7 +653,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceUri004', 0, async function (done) {
+        it('testCreateImageSourceUri004', 0, async (done: Function) => {
             createImageSourceUri(done, 'testCreateImageSourceUri004', 'test.png', testPng);
         })
 
@@ -557,7 +667,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceUri005', 0, async function (done) {
+        it('testCreateImageSourceUri005', 0, async (done: Function) => {
             try {
                 await getFilePath('test.123', testJpg);
                 let imageSourceApi = image.createImageSource(filePath);
@@ -570,26 +680,27 @@ export default function Image() {
                         if (err) {
                             console.info('testCreateImageSourceUri005 create pixelmap failed: ' + err);
                             try {
-                              expect(false).assertTrue();
+                                expect(false).assertTrue();
                             } catch (err) {
-                              console.info('testCreateImageSourceUri005 create pixelmap failed: ' + err);
+                                console.info('testCreateImageSourceUri005 create pixelmap failed: ' + err);
                             }
                             done();
                             return
                         }
                         globalpixelmap = pixelmap;
                         try {
-                          expect(pixelmap != undefined).assertTrue();
-                          console.info('testCreateImageSourceUri005 success');
+                            expect(pixelmap != undefined).assertTrue();
+                            console.info('testCreateImageSourceUri005 success');
+                            done();
                         } catch (err) {
-                          console.info('testCreateImageSourceUri005 create pixelmap failed: ' + err);
+                            console.info('testCreateImageSourceUri005 create pixelmap failed: ' + err);
+                            done();
                         }
-                        done();
                     })
                 }
             } catch (error) {
-                expect(false).assertTrue();
                 console.info('testCreateImageSourceUri005 err:' + error);
+                expect(false).assertTrue();
                 done();
             }
         })
@@ -604,7 +715,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceUri006', 0, async function (done) {
+        it('testCreateImageSourceUri006', 0, async (done: Function) => {
             try {
                 const imageSourceApi = image.createImageSource('file:///multimedia/test.jpg');
                 expect(imageSourceApi == undefined).assertTrue();
@@ -627,7 +738,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceFd001', 0, async function (done) {
+        it('testCreateImageSourceFd001', 0, async (done: Function) => {
             try {
                 await getFileFd('test.jpg', testJpg);
                 const imageSourceApi = image.createImageSource(fileFd);
@@ -671,7 +782,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceFd002', 0, async function (done) {
+        it('testCreateImageSourceFd002', 0, async (done: Function) => {
             const imageSourceApi = image.createImageSource(-2);
             expect(imageSourceApi == undefined).assertTrue();
             console.info('testCreateImageSourceFd002 success');
@@ -688,7 +799,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceBuf001', 0, async function (done) {
+        it('testCreateImageSourceBuf001', 0, async (done: Function) => {
             const data = testJpg.buffer;
             const imageSourceApi = image.createImageSource(data);
             if (imageSourceApi == undefined) {
@@ -714,7 +825,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it('testCreateImageSourceBuf002', 0, async function (done) {
+        it('testCreateImageSourceBuf002', 0, async (done: Function) => {
             const data = new ArrayBuffer(0);
             const imageSourceApi = image.createImageSource(data);
             expect(imageSourceApi == undefined).assertTrue();
@@ -732,8 +843,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateImageSourceUriOptions001", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
+        it("testCreateImageSourceUriOptions001", 0, async (done: Function) => {
+            let opts: image.SourceOptions = {
+                sourceDensity: 240, sourcePixelFormat: image.PixelMapFormat.RGBA_8888, sourceSize: {
+                    height: 4, width: 6
+                }
+            };
             createImageSourceUriOptions(done, 'testCreateImageSourceUri001', 'test.jpg', testJpg, opts);
         });
 
@@ -747,8 +862,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateImageSourceFdOptions001", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
+        it("testCreateImageSourceFdOptions001", 0, async (done: Function) => {
+            let opts: image.SourceOptions = {
+                sourceDensity: 240, sourcePixelFormat: image.PixelMapFormat.RGBA_8888, sourceSize: {
+                    height: 4, width: 6
+                }
+            };
             createImageSourceFdOptions(done, 'testCreateImageSourceFdOptions001', 'test.jpg', testJpg, opts);
         });
 
@@ -762,8 +881,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateImageSourceBufOptions001", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
+        it("testCreateImageSourceBufOptions001", 0, async (done: Function) => {
+            let opts: image.SourceOptions = {
+                sourceDensity: 240, sourcePixelFormat: image.PixelMapFormat.RGBA_8888, sourceSize: {
+                    height: 4, width: 6
+                }
+            };
             createImageSourceBufOptions(done, 'testCreateImageSourceBufOptions001', testJpg, opts);
         });
 
@@ -777,7 +900,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateIncrementalSource001", 0, async function (done) {
+        it("testCreateIncrementalSource001", 0, async (done: Function) => {
             const imageSourceApi = image.CreateIncrementalSource(new ArrayBuffer(96));
             if (imageSourceApi != undefined) {
                 expect(true).assertTrue();
@@ -799,8 +922,12 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateIncrementalSourceOptions001", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
+        it("testCreateIncrementalSourceOptions001", 0, async (done: Function) => {
+            let opts: image.SourceOptions = {
+                sourceDensity: 240, sourcePixelFormat: image.PixelMapFormat.RGBA_8888, sourceSize: {
+                    height: 4, width: 6
+                }
+            };
             const imageSourceApi = image.CreateIncrementalSource(new ArrayBuffer(96), opts);
             if (imageSourceApi != undefined) {
                 expect(true).assertTrue();
@@ -820,7 +947,7 @@ export default function Image() {
          * @tc.type      : Function
          * @tc.level     : Level 2
          */
-        it("testCreateImagePacker001", 0, async function (done) {
+        it("testCreateImagePacker001", 0, async (done: Function) => {
             const imagePackerApi = image.createImagePacker();
             if (imagePackerApi == undefined) {
                 console.info("testCreateImagePacker001 create image packer failed");

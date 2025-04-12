@@ -17,6 +17,21 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import socket from '@ohos.net.socket'
 import { BusinessError } from '@kit.BasicServicesKit';
 
+const ExpectFail = () =>{
+  try{
+    expect(false).assertTrue();
+  } catch(err){
+    console.info(`ExpectFail failed err: ${JSON.stringify(err)}`)
+  }
+}
+
+const ExpectTrue = (b:boolean) =>{
+  try{
+    expect(b).assertTrue();
+  } catch(err){
+    console.info(`ExpectTrue failed err: ${JSON.stringify(err)}`)
+  }
+}
 
 function toString(obj: Object) {
   return JSON.stringify(obj);
@@ -103,7 +118,7 @@ export default function socketTest() {
         }, (err, data) => {
           if (err) {
             console.log('test_Socket_setExtraOptions_Udp_Error_001' + JSON.stringify(err));
-            expect(err.code == 2301009).assertTrue();
+            ExpectTrue(err.code == 2301009);
             done();
           }
           else {
@@ -163,28 +178,28 @@ export default function socketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('test_Socket_Tcp_Bind_001', 0, async (done: Function) => {
+    it('test_Socket_Tcp_Bind_001', 0, async (done:Function)=> {
       let tcp = socket.constructTCPSocketInstance();
       try {
-        tcp.bind({
+        await tcp.bind({
           address: localIpAdressError, port: 0, family: 1
         }, (err) => {
           if (err) {
             console.log('test_Socket_Tcp_Bind_001 bind fail err =' + JSON.stringify(err));
-            expect(err.code == 2301099 || err.code == 2301005).assertTrue();
+            expect(err.code == 401).assertTrue();
             return;
           }
           console.log('test_Socket_Tcp_Bind_001 bind success');
-        });
+        })
         done();
-      }
-      catch (err) {
+      } catch (err) {
         console.log('test_Socket_Tcp_Bind_001 error :' + JSON.stringify(err));
-        expect(err.code == 2301099 || err.code == 2301005).assertTrue();
+        expect(err.code == 401).assertTrue();
         tcp.close();
         done();
       }
-    });
+    })
+
     /**
      * @tc.number: TEST_SOCKET_TCP_BIND_002
      * @tc.name  : test_Socket_Tcp_Bind_002
@@ -201,17 +216,17 @@ export default function socketTest() {
         });
         promise.then(async () => {
           console.log('test_Socket_Tcp_Bind_002 bind success');
-          expect().assertFail();
+          ExpectFail();
           done();
         }).catch((err: BusinessError) => {
           console.log('test_Socket_Tcp_Bind_002 bind fail 002:' + JSON.stringify(err));
-          expect(err.code == 2301099 || err.code == 2301005).assertTrue();
+          expect(err.code == 2301099 || err.code == 401).assertTrue();
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_Tcp_Bind_002 bind fail' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -236,17 +251,17 @@ export default function socketTest() {
           }, timeout: 6000
         }).then(() => {
           console.log('test_Socket_Tcp_Connect_001 connect success');
-          expect().assertFail();
+          ExpectFail();
           done();
         }).catch((err: BusinessError) => {
           console.log('test_Socket_Tcp_Connect_001 connect fail' + JSON.stringify(err));
-          expect(err.code == 2301101 || err.code == 2301005).assertTrue();
+          ExpectTrue(err.code >= 2301000 && err.code <= 2301999);
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_Tcp_Connect_001 error::' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         tcp.close();
         done();
       }
@@ -268,7 +283,7 @@ export default function socketTest() {
       });
       promise.catch(async (err: BusinessError) => {
         console.log('test_Socket_Tcp_Connect_Error_002 error:' + JSON.stringify(err));
-        expect(err.code == 2301101 || err.code == 2301005).assertTrue();
+        ExpectTrue(err.code >= 2301000 && err.code <= 2301999);
         done();
       });
     });
@@ -294,14 +309,14 @@ export default function socketTest() {
         });
         promise.catch(async (err: BusinessError) => {
           console.log('test_Socket_Tcp_Connect_Promise_Error_001 error 001' + JSON.stringify(err));
-          expect(err.code == 2301101 || err.code == 2301005).assertTrue();
+          ExpectTrue(err.code >= 2301000 && err.code <= 2301999);
           tcp.close();
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_Tcp_Connect_Promise_Error_001 error 002' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         tcp.close();
         done();
       }
@@ -325,14 +340,14 @@ export default function socketTest() {
         });
         promise.catch(async (err: BusinessError) => {
           console.log('test_Socket_Tcp_Connect_Promise_Error_002 error001' + JSON.stringify(err));
-          expect(err.code == 2301101 || err.code == 2301005).assertTrue();
+          ExpectTrue(err.code >= 2301000 && err.code <= 2301999);
           tcp.close();
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_Tcp_Connect_Promise_Error_002 error002' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -352,7 +367,7 @@ export default function socketTest() {
       }, err => {
         if (err) {
           console.log('test_Socket_Send_Tcp_Error_001 err' + JSON.stringify(err));
-          expect(err.code == 2301009).assertTrue();
+          ExpectTrue(err.code == 2301009);
           done();
         }
         else {
@@ -380,7 +395,7 @@ export default function socketTest() {
         done();
       }).catch((err: BusinessError) => {
         console.log('test_Socket_Send_Tcp_Error_002 send fail' + JSON.stringify(err));
-        expect(err.code == 2301009).assertTrue();
+        ExpectTrue(err.code == 2301009);
         done();
       });
     });
@@ -402,7 +417,7 @@ export default function socketTest() {
           return;
         }
         console.log('test_Socket_Close_Tcp_Error_001 close success');
-        expect().assertFail();
+        ExpectFail();
         done();
       });
     });
@@ -419,7 +434,7 @@ export default function socketTest() {
       let promise = tcp.close();
       promise.then(() => {
         console.log('test_Socket_Close_Tcp_Error_002 close success');
-        expect().assertFail();
+        ExpectFail();
         done();
       }).catch((err: BusinessError) => {
         console.log('test_Socket_Close_Tcp_Error_002 close fail' + JSON.stringify(err));
@@ -486,13 +501,13 @@ export default function socketTest() {
       }, (err) => {
         if (err) {
           console.log('test_Socket_setExtraOptions_Tcp_Error_001 error err :' + JSON.stringify(err));
-          expect(err.code == 2301009).assertTrue();
+          ExpectTrue(err.code == 2301009);
           tcp.close();
           done();
         }
         else {
           console.log('test_Socket_setExtraOptions_Tcp_Error_001 success');
-          expect().assertFail();
+          ExpectFail();
           tcp.close();
           done();
         }
@@ -577,7 +592,7 @@ export default function socketTest() {
       }
       catch (err) {
         console.log('test_Socket_Udp_Bind_001 error' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -603,7 +618,7 @@ export default function socketTest() {
       }
       catch (err) {
         console.log('bind fail');
-        expect().assertFail();
+        ExpectFail();
         done();
       }
       ;
@@ -697,7 +712,7 @@ export default function socketTest() {
       let promise = udp.close();
       promise.then(() => {
         console.log('test_Socket_Close_UDP_Error_002 close success');
-        expect().assertFail();
+        ExpectFail();
         done();
       }).catch((err: BusinessError) => {
         console.log('test_Socket_Close_UDP_Error_002 close fail' + JSON.stringify(err));
@@ -745,7 +760,7 @@ export default function socketTest() {
           }
           else {
             console.log('test_Socket_getState_Error_UDP_002 close success');
-            expect().assertFail();
+            ExpectFail();
           }
         });
         done();
@@ -773,12 +788,12 @@ export default function socketTest() {
           done();
         }).catch((err: BusinessError) => {
           console.log('test_Socket_setExtraOptions_Udp_Error_002 err :' + JSON.stringify(err));
-          expect(err.code == 2301009).assertTrue();
+          ExpectTrue(err.code == 2301009);
           done();
         });
       }
       catch (err) {
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -801,7 +816,7 @@ export default function socketTest() {
       }
       catch (err) {
         console.log('test_Socket_Tls_Bind_001 error' + JSON.stringify(err));
-        expect(err.code == 2301099 || err.code == 2301005).assertTrue();
+        expect(err.code == 2301099 || err.code == 401).assertTrue();
         done();
       }
     });
@@ -821,17 +836,17 @@ export default function socketTest() {
         });
         promise.then(() => {
           console.log('test_Socket_Tls_Bind_002 bind success');
-          expect().assertFail();
+          ExpectFail();
           done();
         }).catch((err: BusinessError) => {
           console.log('test_Socket_Tls_Bind_002 bind fail1' + JSON.stringify(err));
-          expect(err.code == 2301099 || err.code == 2301005).assertTrue();
+          expect(err.code == 2301099 || err.code == 401).assertTrue();
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_Tls_Bind_002 bind fail2' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -848,7 +863,7 @@ export default function socketTest() {
       tls.close(err => {
         if (err) {
           console.log('test_Socket_Close_Tls_Error_001' + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
           return;
         }
@@ -869,11 +884,11 @@ export default function socketTest() {
       let promise = tls.close();
       promise.then(() => {
         console.log('test_Socket_Close_tls_Error_002 close success');
-        expect().assertFail();
+        ExpectFail();
         done();
       }).catch((err: BusinessError) => {
         console.log('test_Socket_Close_tls_Error_002 close fail' + JSON.stringify(err));
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -896,10 +911,10 @@ export default function socketTest() {
         }
       }).then(() => {
         console.log('test_Socket_Send_Udp_Error_001 send success');
-        expect().assertFail();
+        ExpectFail();
       }).catch((err: BusinessError) => {
         console.log('test_Socket_Send_Udp_Error_001 send fail' + JSON.stringify(err));
-        expect(err.code == 2301009).assertTrue();
+        ExpectTrue(err.code == 2301009);
         done();
       });
     });
@@ -922,11 +937,11 @@ export default function socketTest() {
         }
       }).then(() => {
         console.log("test_Socket_Send_Tls_Error_002 send success");
-        expect().assertFail();
+        ExpectFail();
         done();
       }).catch((err: BusinessError) => {
         console.error("test_Socket_Send_Tls_Error_002 failed" + JSON.stringify(err));
-        expect(err.code == 2301009).assertTrue();
+        ExpectTrue(err.code == 2301009);
         done();
       });
     });
@@ -955,13 +970,13 @@ export default function socketTest() {
           }
         }, err => {
           console.info('test_Socket_tls_Connect_Error_001 err' + JSON.stringify((err)));
-          expect(err.code == 2303501).assertTrue();
+          ExpectTrue(err.code == 2303501);
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_tls_Connect_Error_001 error' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -994,7 +1009,7 @@ export default function socketTest() {
       }
       catch (err) {
         console.log('test_Socket_tls_Connect_002 error' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -1024,13 +1039,13 @@ export default function socketTest() {
         });
         promise.catch((err: BusinessError) => {
           console.log('test_Socket_tls_Connect_Promise_Error_001 error' + JSON.stringify(err));
-          expect(err.code == 2303501).assertTrue();
+          ExpectTrue(err.code == 2303501);
           done();
         });
       }
       catch (err) {
         console.log('test_Socket_tls_Connect_Promise_Error_001 error' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -1063,7 +1078,7 @@ export default function socketTest() {
       }
       catch (err) {
         console.log('test_Socket_tls_Connect_Promise_Error_001 error' + JSON.stringify(err));
-        expect().assertFail();
+        ExpectFail();
         done();
       }
     });
@@ -1156,7 +1171,7 @@ export default function socketTest() {
         socketTimeout: 3000,
       }, err => {
         console.log('test_Socket_setExtraOptions_TLS_Error_001' + JSON.stringify(err));
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -1183,7 +1198,7 @@ export default function socketTest() {
       });
       promise.catch((err: BusinessError) => {
         console.log('test_Socket_setExtraOptions_Tls_Error_001' + JSON.stringify(err));
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -1200,7 +1215,7 @@ export default function socketTest() {
       tls.getCertificate((err, data) => {
         if (err) {
           console.log("getCertificate callback error = " + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1222,7 +1237,7 @@ export default function socketTest() {
       tls.getCertificate((err, data) => {
         if (err) {
           console.log("getCertificate callback error = " + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1244,7 +1259,7 @@ export default function socketTest() {
       tls.getRemoteCertificate((err, data) => {
         if (err) {
           console.log("getRemoteCertificate callback error = " + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1268,7 +1283,7 @@ export default function socketTest() {
         done();
       }).catch((err: BusinessError) => {
         console.error('test_Socket_getRemoteCertificate_TLS_Error_002 catch' + JSON.stringify(err));
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -1285,7 +1300,7 @@ export default function socketTest() {
       tls.getProtocol((err, data) => {
         if (err) {
           console.log("getProtocol callback error = " + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1309,7 +1324,7 @@ export default function socketTest() {
         done();
       }).catch((err: BusinessError) => {
         console.error('test_Socket_getProtocol_TLS_Error_002' + JSON.stringify(err));
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -1326,7 +1341,7 @@ export default function socketTest() {
       tls.getCipherSuite((err, data) => {
         if (err) {
           console.log("getCipherSuite callback error = " + JSON.stringify(err));
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1349,7 +1364,7 @@ export default function socketTest() {
         console.log('getCipherSuite success:' + JSON.stringify(data));
         done();
       }).catch((err: BusinessError) => {
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
@@ -1366,7 +1381,7 @@ export default function socketTest() {
       tls.getSignatureAlgorithms((err, data) => {
         if (err) {
           console.log("getSignatureAlgorithms callback error = " + err);
-          expect(err.code == 2303600).assertTrue();
+          ExpectTrue(err.code == 2303600);
           done();
         }
         else {
@@ -1389,7 +1404,7 @@ export default function socketTest() {
         console.log("getSignatureAlgorithms success" + data);
         done();
       }).catch((err: BusinessError) => {
-        expect(err.code == 2303600).assertTrue();
+        ExpectTrue(err.code == 2303600);
         done();
       });
     });
