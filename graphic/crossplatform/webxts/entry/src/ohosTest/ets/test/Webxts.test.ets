@@ -46,10 +46,12 @@ async function startAbility(bundleName: string, abilityName: string) {
 export default function Webxts() {
   describe('Webxts', () => {
     afterEach(async () => {
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      let driver = Driver.create()
-      await driver.delayMs(AWAIT_SLEEP_MS_1000);
+      if (platform != 'iOS') {
+        let topAbility = await delegator.getCurrentTopAbility();
+        await topAbility.context.terminateSelf();
+        let driver = Driver.create()
+        await driver.delayMs(AWAIT_SLEEP_MS_1000);
+      }
     })
 
     /**
