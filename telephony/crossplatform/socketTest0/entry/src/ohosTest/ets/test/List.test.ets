@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 import socketTest from './socket.testerror.test'
-import WaitUiTest from './WaitUiTest.test'
+
 export default function testsuite() {
   socketTest();
-  //WaitUiTest();
 }
