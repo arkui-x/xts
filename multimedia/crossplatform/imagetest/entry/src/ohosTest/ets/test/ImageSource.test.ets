@@ -5675,1627 +5675,1580 @@ export default function ImageSource() {
       getCb(done, "testGetImagePropertyCb005", "picture", key);
     });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_006
-         * @tc.name      : testGetImagePropertyCb006
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(DateTimeOriginal)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb006", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getCb(done, "testGetImagePropertyCb006", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_007
-         * @tc.name      : testGetImagePropertyCb007
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(ExposureTime)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb007", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getCb(done, "testGetImagePropertyCb007", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_008
-         * @tc.name      : testGetImagePropertyCb008
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(FNumber)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb008", 0, async function (done) {
-            let key = F_NUMBER;
-            getCb(done, "testGetImagePropertyCb008", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_009
-         * @tc.name      : testGetImagePropertyCb009
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(ISOSpeedRatings)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb009", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getCb(done, "testGetImagePropertyCb009", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_010
-         * @tc.name      : testGetImagePropertyCb010
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(SceneType)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb010", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getCb(done, "testGetImagePropertyCb010", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_011
-         * @tc.name      : testGetImagePropertyCb011
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb011", 0, async function (done) {
-            let key = "Date";
-            await getCbErr(done, "testGetImagePropertyCb011", "picture", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_012
-         * @tc.name      : testGetImagePropertyCb012
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb012", 0, async function (done) {
-            let key = null;
-            await getCbErr(done, "testGetImagePropertyCb012", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_013
-         * @tc.name      : testGetImagePropertyCb013
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb013", 0, async function (done) {
-            let key = 12;
-            await getCbErr(done, "testGetImagePropertyCb013", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_014
-         * @tc.name      : testGetImagePropertyCb014
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb014", 0, async function (done) {
-            let key = { w: 12 };
-            await getCbErr(done, "testGetImagePropertyCb014", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_015
-         * @tc.name      : testGetImagePropertyCb015
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb015", 0, async function (done) {
-            let key = "Date";
-            await getCbErr(done, "testGetImagePropertyCb015", "buf", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_016
-         * @tc.name      : testGetImagePropertyCb016
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb016", 0, async function (done) {
-            let key = null;
-            await getCbErr(done, "testGetImagePropertyCb016", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_017
-         * @tc.name      : testGetImagePropertyCb017
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb017", 0, async function (done) {
-            let key = 12;
-            await getCbErr(done, "testGetImagePropertyCb017", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_018
-         * @tc.name      : testGetImagePropertyCb018
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb018", 0, async function (done) {
-            let key = { w: 12 };
-            await getCbErr(done, "testGetImagePropertyCb018", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_001
-         * @tc.name      : testGetImagePropertyOptionsCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(DateTimeOriginal,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb001", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getCb2(done, "testGetImagePropertyOptionsCb001", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_002
-         * @tc.name      : testGetImagePropertyOptionsCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ExposureTime,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb002", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getCb2(done, "testGetImagePropertyOptionsCb002", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_003
-         * @tc.name      : testGetImagePropertyOptionsCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(FNumber,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb003", 0, async function (done) {
-            let key = F_NUMBER;
-            getCb2(done, "testGetImagePropertyOptionsCb003", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_004
-         * @tc.name      : testGetImagePropertyOptionsCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ISOSpeedRatings,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb004", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getCb2(done, "testGetImagePropertyOptionsCb004", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_005
-         * @tc.name      : testGetImagePropertyOptionsCb005
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(SceneType,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb005", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getCb2(done, "testGetImagePropertyOptionsCb005", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_006
-         * @tc.name      : testGetImagePropertyOptionsCb006
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(DateTimeOriginal,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb006", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getCb2(done, "testGetImagePropertyOptionsCb006", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_007
-         * @tc.name      : testGetImagePropertyOptionsCb007
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ExposureTime,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb007", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getCb2(done, "testGetImagePropertyOptionsCb007", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_008
-         * @tc.name      : testGetImagePropertyOptionsCb008
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(FNumber,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb008", 0, async function (done) {
-            let key = F_NUMBER;
-            getCb2(done, "testGetImagePropertyOptionsCb008", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_009
-         * @tc.name      : testGetImagePropertyOptionsCb009
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ISOSpeedRatings,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb009", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getCb2(done, "testGetImagePropertyOptionsCb009", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_010
-         * @tc.name      : testGetImagePropertyOptionsCb010
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(SceneType,property)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb010", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getCb2(done, "testGetImagePropertyOptionsCb010", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_011
-         * @tc.name      : testGetImagePropertyOptionsCb011
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb011", 0, async function (done) {
-            let key = "Date";
-            getCb2Err(done, "testGetImagePropertyOptionsCb011", "picture", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_012
-         * @tc.name      : testGetImagePropertyOptionsCb012
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb012", 0, async function (done) {
-            let key = null;
-            getCb2Err(done, "testGetImagePropertyOptionsCb012", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_013
-         * @tc.name      : testGetImagePropertyOptionsCb013
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb013", 0, async function (done) {
-            let key = 12;
-            getCb2Err(done, "testGetImagePropertyOptionsCb013", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_014
-         * @tc.name      : testGetImagePropertyOptionsCb014
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb014", 0, async function (done) {
-            let key = { a: 12 };
-            getCb2Err(done, "testGetImagePropertyOptionsCb014", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_015
-         * @tc.name      : testGetImagePropertyOptionsCb015
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb015", 0, async function (done) {
-            let key = "Date";
-            getCb2Err(done, "testGetImagePropertyOptionsCb015", "buf", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_016
-         * @tc.name      : testGetImagePropertyOptionsCb016
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb016", 0, async function (done) {
-            let key = null;
-            getCb2Err(done, "testGetImagePropertyOptionsCb016", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_017
-         * @tc.name      : testGetImagePropertyOptionsCb017
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb017", 0, async function (done) {
-            let key = 12;
-            getCb2Err(done, "testGetImagePropertyOptionsCb017", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_018
-         * @tc.name      : testGetImagePropertyOptionsCb018
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyOptionsCb018", 0, async function (done) {
-            let key = { a: 12 };
-            getCb2Err(done, "testGetImagePropertyOptionsCb018", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_001
-         * @tc.name      : testModifyImagePropertyPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise001", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "Top-right").assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise001",
-                "fd",
-                ORIENTATION,
-                "2",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_002
-         * @tc.name      : testModifyImagePropertyPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise002", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("38") != -1).assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise002",
-                "fd",
-                GPS_LATITUDE,
-                "114,3",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_003
-         * @tc.name      : testModifyImagePropertyPromise003
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise003", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("9") != -1).assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise003",
-                "fd",
-                GPS_LONGITUDE,
-                "18,2",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_004
-         * @tc.name      : testModifyImagePropertyPromise004
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise004", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "N").assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise004",
-                "fd",
-                GPS_LATITUDE_REF,
-                "N",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_005
-         * @tc.name      : testModifyImagePropertyPromise005
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise005", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "W").assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise005",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "W",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_006
-         * @tc.name      : testModifyImagePropertyPromise006
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise006", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "Top-right").assertTrue();
-            }
-            modifyPromise(done, "testModifyImagePropertyPromise006", "fd", ORIENTATION, "2", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_007
-         * @tc.name      : testModifyImagePropertyPromise007
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise007", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("38") != -1).assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise007",
-                "fd",
-                GPS_LATITUDE,
-                "114,3",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_008
-         * @tc.name      : testModifyImagePropertyPromise008
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise008", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("9") != -1).assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise008",
-                "fd",
-                GPS_LONGITUDE,
-                "18,2",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_009
-         * @tc.name      : testModifyImagePropertyPromise009
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise009", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "N").assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise009",
-                "fd",
-                GPS_LATITUDE_REF,
-                "N",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_010
-         * @tc.name      : testModifyImagePropertyPromise010
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise010", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "W").assertTrue();
-            }
-            modifyPromise(
-                done,
-                "testModifyImagePropertyPromise010",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "W",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_011
-         * @tc.name      : testModifyImagePropertyPromise011
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise011", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise011",
-                "fd",
-                ORIENTATION,
-                "abcdef"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_012
-         * @tc.name      : testModifyImagePropertyPromise012
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise012", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise012",
-                "fd",
-                GPS_LATITUDE,
-                "abc,3"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_013
-         * @tc.name      : testModifyImagePropertyPromise013
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise013", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise013",
-                "fd",
-                GPS_LONGITUDE,
-                "abc,2"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_014
-         * @tc.name      : testModifyImagePropertyPromise014
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise014", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise014",
-                "fd",
-                GPS_LATITUDE_REF,
-                "456"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_015
-         * @tc.name      : testModifyImagePropertyPromise015
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise015", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise015",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "1234"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_016
-         * @tc.name      : testModifyImagePropertyPromise016
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise016", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise016",
-                "fd",
-                ORIENTATION,
-                "abcdef"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_017
-         * @tc.name      : testModifyImagePropertyPromise017
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise017", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise017",
-                "fd",
-                GPS_LATITUDE,
-                "abc,3"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_018
-         * @tc.name      : testModifyImagePropertyPromise018
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise018", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise018",
-                "fd",
-                GPS_LONGITUDE,
-                "abc,2"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_019
-         * @tc.name      : testModifyImagePropertyPromise019
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise019", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise019",
-                "fd",
-                GPS_LATITUDE_REF,
-                "456"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_020
-         * @tc.name      : testModifyImagePropertyPromise020
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyPromise020", 0, async function (done) {
-            modifyImageErrPromise(
-                done,
-                "testModifyImagePropertyPromise020",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "1234"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_001
-         * @tc.name      : testModifyImagePropertyCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb001", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "Top-right").assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb001", "fd", ORIENTATION, "2", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_002
-         * @tc.name      : testModifyImagePropertyCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb002", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("38") != -1).assertTrue();
-            }
-            modifyCb(
-                done,
-                "testModifyImagePropertyCb002",
-                "fd",
-                GPS_LATITUDE,
-                "114,3",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_003
-         * @tc.name      : testModifyImagePropertyCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb003", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("9") != -1).assertTrue();
-            }
-            modifyCb(
-                done,
-                "testModifyImagePropertyCb003",
-                "fd",
-                GPS_LONGITUDE,
-                "18,2",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_004
-         * @tc.name      : testModifyImagePropertyCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb004", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "N").assertTrue();
-            }
-            modifyCb(
-                done,
-                "testModifyImagePropertyCb004",
-                "fd",
-                GPS_LATITUDE_REF,
-                "N",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_005
-         * @tc.name      : testModifyImagePropertyCb005
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb005", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "W").assertTrue();
-            }
-            modifyCb(
-                done,
-                "testModifyImagePropertyCb005",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "W",
-                checkProps
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_006
-         * @tc.name      : testModifyImagePropertyCb006
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb006", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "Top-right").assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb006", "fd", ORIENTATION, "2", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_007
-         * @tc.name      : testModifyImagePropertyCb007
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb007", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("38") != -1).assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb007", "fd", GPS_LATITUDE, "114,3", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_008
-         * @tc.name      : testModifyImagePropertyCb008
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb008", 0, async function (done) {
-            function checkProps(result) {
-                expect(result.search("9") != -1).assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb008", "fd", GPS_LONGITUDE, "18,2", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_009
-         * @tc.name      : testModifyImagePropertyCb009
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb009", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "N").assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb009", "fd", GPS_LATITUDE_REF, "N", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_010
-         * @tc.name      : testModifyImagePropertyCb010
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb010", 0, async function (done) {
-            function checkProps(result) {
-                expect(result == "W").assertTrue();
-            }
-            modifyCb(done, "testModifyImagePropertyCb010", "fd", GPS_LONGITUDE_REF, "W", checkProps);
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_011
-         * @tc.name      : testModifyImagePropertyCb011
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb011", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb011", "fd", ORIENTATION, "abcdef");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_012
-         * @tc.name      : testModifyImagePropertyCb012
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb012", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb012", "fd", GPS_LATITUDE, "abc,3");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_013
-         * @tc.name      : testModifyImagePropertyCb013
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb013", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb013", "fd", GPS_LONGITUDE, "abc,2");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_014
-         * @tc.name      : testModifyImagePropertyCb014
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb014", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb014", "fd", GPS_LATITUDE_REF, "456");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_015
-         * @tc.name      : testModifyImagePropertyCb015
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb015", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb015", "fd", GPS_LONGITUDE_REF, "1234");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_016
-         * @tc.name      : testModifyImagePropertyCb016
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb016", 0, async function (done) {
-            modifyErrCb(
-                done,
-                "testModifyImagePropertyCb016",
-                "fd",
-                ORIENTATION,
-                "abcdef"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_017
-         * @tc.name      : testModifyImagePropertyCb017
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb017", 0, async function (done) {
-            modifyErrCb(done, "testModifyImagePropertyCb017", "fd", GPS_LATITUDE, "abc,3");
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_018
-         * @tc.name      : testModifyImagePropertyCb018
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb018", 0, async function (done) {
-            modifyErrCb(
-                done,
-                "testModifyImagePropertyCb018",
-                "fd",
-                GPS_LONGITUDE,
-                "abc,2"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_019
-         * @tc.name      : testModifyImagePropertyCb019
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb019", 0, async function (done) {
-            modifyErrCb(
-                done,
-                "testModifyImagePropertyCb019",
-                "fd",
-                GPS_LATITUDE_REF,
-                "456"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_020
-         * @tc.name      : testModifyImagePropertyCb020
-         * @tc.desc      : 1.create imagesource
-         *                 2.call modifyImageProperty(key,value)
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testModifyImagePropertyCb020", 0, async function (done) {
-            modifyErrCb(
-                done,
-                "testModifyImagePropertyCb020",
-                "fd",
-                GPS_LONGITUDE_REF,
-                "1234"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_UPDATEDATA_PROMISE_001
-         * @tc.name      : testUpdateDataPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.update data
-         *                 3.create pixelmap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testUpdateDataPromise001", 0, async function (done) {
-            createIncrementalSourcePromise(
-                done,
-                "testUpdateDataPromise001",
-                "noSourceOpts"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_UPDATEDATA_PROMISE_002
-         * @tc.name      : testUpdateDataPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.update data
-         *                 3.create pixelmap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testUpdateDataPromise002", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
-            createIncrementalSourcePromise(
-                done,
-                "testUpdateDataPromise002",
-                "sourceOpts",
-                opts
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_UPDATEDATA_CB_001
-         * @tc.name      : testUpdateDataCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.update data
-         *                 3.create pixelmap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testUpdateDataCb001", 0, async function (done) {
-            createIncrementalSourceCb(
-                done,
-                "testUpdateDataCb001",
-                "noSourceOpts"
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_UPDATEDATA_CB_002
-         * @tc.name      : testUpdateDataCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.update data
-         *                 3.create pixelmap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testUpdateDataCb002", 0, async function (done) {
-            let opts = { sourceDensity: 240, pixelFormat: image.PixelMapFormat.RGBA_8888, size: { height: 4, width: 6 } };
-            createIncrementalSourceCb(
-                done,
-                "testUpdateDataCb002",
-                "sourceOpts",
-                opts
-            );
-        });
-
-        /**
-         * @tc.number    : TEST_RELEASE_PROMISE_001
-         * @tc.name      : testReleasePromise001
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleasePromise001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleasePromise001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release().then(() => {
-                        console.info('testReleasePromise001 success');
-                        expect(true).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.info('testReleasePromise001 error');
-                        expect(false).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleasePromise001 err:' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_PROMISE_002
-         * @tc.name      : testReleasePromise002
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleasePromise002', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleasePromise002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release().then(() => {
-                        console.info('testReleasePromise002 success');
-                        expect(true).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testReleasePromise002 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleasePromise002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_PROMISE_003
-         * @tc.name      : testReleasePromise003
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleasePromise003', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleasePromise003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release().then(() => {
-                        console.info('testReleasePromise003 success');
-                        expect(true).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testReleasePromise003 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleasePromise003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_PROMISE_004
-         * @tc.name      : testReleasePromise004
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleasePromise004', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleasePromise004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release().then(() => {
-                        console.info('testReleasePromise004 success');
-                        expect(true).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testReleasePromise004 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleasePromise004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_CB_001
-         * @tc.name      : testReleaseCb001
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleaseCb001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleaseCb001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release(() => {
-                        console.info('testReleaseCb001 Success');
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleaseCb001 err:' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_CB_002
-         * @tc.name      : testReleaseCb002
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleaseCb002', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleaseCb002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release(async (err) => {
-                        if (err) {
-                            console.info('testReleaseCb002 err:' + err);
-                            expect(false).assertTrue();
-                            done();
-                            return
-                        }
-                        console.info('testReleaseCb002 Success');
-                        expect(true).assertTrue();
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleaseCb002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_CB_003
-         * @tc.name      : testReleaseCb003
-         * @tc.desc      : 1.create ImageSource
-         *                 2.create SourceStream
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleaseCb003', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleaseCb003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release(async () => {
-                        console.info('testReleaseCb003 Success');
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleaseCb003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_RELEASE_CB_004
-         * @tc.name      : testReleaseCb004
-         * @tc.desc      : 1.create ImageSource
-         *                 2.call release()
-         *                 3.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testReleaseCb004', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testReleaseCb004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.release(() => {
-                        console.info('testReleaseCb004 Success');
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testReleaseCb004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_SUPPORTEDFORMATS_001
-         * @tc.name      : testSupportedFormats001
-         * @tc.desc      : 1.create imagesource
-         *                 2.call supportedFormats
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 1
-         */
-        it('testSupportedFormats001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testSupportedFormats001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    expect(imageSourceApi.supportedFormats != undefined).assertTrue();
-                    console.info('testSupportedFormats001 success ');
-                    done();
-                }
-            } catch (error) {
-                console.info('testSupportedFormats001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_006
+     * @tc.name      : testGetImagePropertyCb006
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(DateTimeOriginal)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb006", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getCb(done, "testGetImagePropertyCb006", "buf", key);
     });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_007
+     * @tc.name      : testGetImagePropertyCb007
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(ExposureTime)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb007", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getCb(done, "testGetImagePropertyCb007", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_008
+     * @tc.name      : testGetImagePropertyCb008
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(FNumber)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb008", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getCb(done, "testGetImagePropertyCb008", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_009
+     * @tc.name      : testGetImagePropertyCb009
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(ISOSpeedRatings)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb009", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getCb(done, "testGetImagePropertyCb009", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_010
+     * @tc.name      : testGetImagePropertyCb010
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(SceneType)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb010", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getCb(done, "testGetImagePropertyCb010", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_011
+     * @tc.name      : testGetImagePropertyCb011
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb011", 0, async (done: Function) => {
+      let key = "Date";
+      await getCbErr(done, "testGetImagePropertyCb011", "picture", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_012
+     * @tc.name      : testGetImagePropertyCb012
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb012", 0, async (done: Function) => {
+      let key = null;
+      await getCbErr(done, "testGetImagePropertyCb012", "picture", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_013
+     * @tc.name      : testGetImagePropertyCb013
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb013", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      await getCbErr(done, "testGetImagePropertyCb013", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_014
+     * @tc.name      : testGetImagePropertyCb014
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb014", 0, async (done: Function) => {
+      let key: ESObject = {
+        w: 12
+      };
+      await getCbErr(done, "testGetImagePropertyCb014", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_015
+     * @tc.name      : testGetImagePropertyCb015
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb015", 0, async (done: Function) => {
+      let key = "Date";
+      await getCbErr(done, "testGetImagePropertyCb015", "buf", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_016
+     * @tc.name      : testGetImagePropertyCb016
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb016", 0, async (done: Function) => {
+      await getCbErr(done, "testGetImagePropertyCb016", "buf", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_017
+     * @tc.name      : testGetImagePropertyCb017
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb017", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      await getCbErr(done, "testGetImagePropertyCb017", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_018
+     * @tc.name      : testGetImagePropertyCb018
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb018", 0, async (done: Function) => {
+      let key: ESObject = {
+        w: 12
+      };
+      await getCbErr(done, "testGetImagePropertyCb018", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_001
+     * @tc.name      : testGetImagePropertyOptionsCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(DateTimeOriginal,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb001", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getCb2(done, "testGetImagePropertyOptionsCb001", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_002
+     * @tc.name      : testGetImagePropertyOptionsCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ExposureTime,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb002", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getCb2(done, "testGetImagePropertyOptionsCb002", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_003
+     * @tc.name      : testGetImagePropertyOptionsCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(FNumber,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb003", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getCb2(done, "testGetImagePropertyOptionsCb003", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_004
+     * @tc.name      : testGetImagePropertyOptionsCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ISOSpeedRatings,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb004", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getCb2(done, "testGetImagePropertyOptionsCb004", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_005
+     * @tc.name      : testGetImagePropertyOptionsCb005
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(SceneType,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb005", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getCb2(done, "testGetImagePropertyOptionsCb005", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_006
+     * @tc.name      : testGetImagePropertyOptionsCb006
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(DateTimeOriginal,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb006", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getCb2(done, "testGetImagePropertyOptionsCb006", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_007
+     * @tc.name      : testGetImagePropertyOptionsCb007
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ExposureTime,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb007", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getCb2(done, "testGetImagePropertyOptionsCb007", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_008
+     * @tc.name      : testGetImagePropertyOptionsCb008
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(FNumber,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb008", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getCb2(done, "testGetImagePropertyOptionsCb008", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_009
+     * @tc.name      : testGetImagePropertyOptionsCb009
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ISOSpeedRatings,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb009", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getCb2(done, "testGetImagePropertyOptionsCb009", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_010
+     * @tc.name      : testGetImagePropertyOptionsCb010
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(SceneType,property)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb010", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getCb2(done, "testGetImagePropertyOptionsCb010", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_011
+     * @tc.name      : testGetImagePropertyOptionsCb011
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb011", 0, async (done: Function) => {
+      let key = "Date";
+      getCb2Err(done, "testGetImagePropertyOptionsCb011", "picture", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_012
+     * @tc.name      : testGetImagePropertyOptionsCb012
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb012", 0, async (done: Function) => {
+      getCb2Err(done, "testGetImagePropertyOptionsCb012", "picture", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_013
+     * @tc.name      : testGetImagePropertyOptionsCb013
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb013", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      getCb2Err(done, "testGetImagePropertyOptionsCb013", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_014
+     * @tc.name      : testGetImagePropertyOptionsCb014
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb014", 0, async (done: Function) => {
+      let key: ESObject = {
+        a: 12
+      };
+      getCb2Err(done, "testGetImagePropertyOptionsCb014", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_015
+     * @tc.name      : testGetImagePropertyOptionsCb015
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb015", 0, async (done: Function) => {
+      let key = "Date";
+      getCb2Err(done, "testGetImagePropertyOptionsCb015", "buf", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_016
+     * @tc.name      : testGetImagePropertyOptionsCb016
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb016", 0, async (done: Function) => {
+      getCb2Err(done, "testGetImagePropertyOptionsCb016", "buf", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_017
+     * @tc.name      : testGetImagePropertyOptionsCb017
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb017", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      getCb2Err(done, "testGetImagePropertyOptionsCb017", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_OPTIONS_CB_018
+     * @tc.name      : testGetImagePropertyOptionsCb018
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyOptionsCb018", 0, async (done: Function) => {
+      let key: ESObject = {
+        a: 12
+      };
+      getCb2Err(done, "testGetImagePropertyOptionsCb018", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_001
+     * @tc.name      : testModifyImagePropertyPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise001", 0, async (done: Function) => {
+      // function checkProps(result) {
+      //     expect(result == "Top-right").assertTrue();
+      // }
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise001",
+        "fd",
+        ORIENTATION,
+        "2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_002
+     * @tc.name      : testModifyImagePropertyPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise002", 0, async (done: Function) => {
+      // function checkProps(result) {
+      //     expect(result.search("38") != -1).assertTrue();
+      // }
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise002",
+        "fd",
+        GPS_LATITUDE,
+        "114,3"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_003
+     * @tc.name      : testModifyImagePropertyPromise003
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise003", 0, async (done: Function) => {
+      // function checkProps(result) {
+      //     expect(result.search("9") != -1).assertTrue();
+      // }
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise003",
+        "fd",
+        GPS_LONGITUDE,
+        "18,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_004
+     * @tc.name      : testModifyImagePropertyPromise004
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise004", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise004",
+        "fd",
+        GPS_LATITUDE_REF,
+        "N"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_005
+     * @tc.name      : testModifyImagePropertyPromise005
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise005", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise005",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "W"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_006
+     * @tc.name      : testModifyImagePropertyPromise006
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise006", 0, async (done: Function) => {
+      modifyPromise(done, "testModifyImagePropertyPromise006", "fd", ORIENTATION, "2");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_007
+     * @tc.name      : testModifyImagePropertyPromise007
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise007", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise007",
+        "fd",
+        GPS_LATITUDE,
+        "114,3"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_008
+     * @tc.name      : testModifyImagePropertyPromise008
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise008", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise008",
+        "fd",
+        GPS_LONGITUDE,
+        "18,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_009
+     * @tc.name      : testModifyImagePropertyPromise009
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise009", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise009",
+        "fd",
+        GPS_LATITUDE_REF,
+        "N"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_010
+     * @tc.name      : testModifyImagePropertyPromise010
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise010", 0, async (done: Function) => {
+      modifyPromise(
+        done,
+        "testModifyImagePropertyPromise010",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "W"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_011
+     * @tc.name      : testModifyImagePropertyPromise011
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise011", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise011",
+        "fd",
+        ORIENTATION,
+        "abcdef"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_012
+     * @tc.name      : testModifyImagePropertyPromise012
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise012", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise012",
+        "fd",
+        GPS_LATITUDE,
+        "abc,3"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_013
+     * @tc.name      : testModifyImagePropertyPromise013
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise013", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise013",
+        "fd",
+        GPS_LONGITUDE,
+        "abc,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_014
+     * @tc.name      : testModifyImagePropertyPromise014
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise014", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise014",
+        "fd",
+        GPS_LATITUDE_REF,
+        "456"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_015
+     * @tc.name      : testModifyImagePropertyPromise015
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise015", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise015",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "1234"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_016
+     * @tc.name      : testModifyImagePropertyPromise016
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise016", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise016",
+        "fd",
+        ORIENTATION,
+        "abcdef"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_017
+     * @tc.name      : testModifyImagePropertyPromise017
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise017", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise017",
+        "fd",
+        GPS_LATITUDE,
+        "abc,3"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_018
+     * @tc.name      : testModifyImagePropertyPromise018
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise018", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise018",
+        "fd",
+        GPS_LONGITUDE,
+        "abc,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_019
+     * @tc.name      : testModifyImagePropertyPromise019
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise019", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise019",
+        "fd",
+        GPS_LATITUDE_REF,
+        "456"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_PROMISE_020
+     * @tc.name      : testModifyImagePropertyPromise020
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyPromise020", 0, async (done: Function) => {
+      modifyImageErrPromise(
+        done,
+        "testModifyImagePropertyPromise020",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "1234"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_001
+     * @tc.name      : testModifyImagePropertyCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb001", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb001", "fd", ORIENTATION, "2");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_002
+     * @tc.name      : testModifyImagePropertyCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb002", 0, async (done: Function) => {
+      modifyCb(
+        done,
+        "testModifyImagePropertyCb002",
+        "fd",
+        GPS_LATITUDE,
+        "114,3"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_003
+     * @tc.name      : testModifyImagePropertyCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb003", 0, async (done: Function) => {
+      modifyCb(
+        done,
+        "testModifyImagePropertyCb003",
+        "fd",
+        GPS_LONGITUDE,
+        "18,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_004
+     * @tc.name      : testModifyImagePropertyCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb004", 0, async (done: Function) => {
+      modifyCb(
+        done,
+        "testModifyImagePropertyCb004",
+        "fd",
+        GPS_LATITUDE_REF,
+        "N"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_005
+     * @tc.name      : testModifyImagePropertyCb005
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb005", 0, async (done: Function) => {
+      modifyCb(
+        done,
+        "testModifyImagePropertyCb005",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "W"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_006
+     * @tc.name      : testModifyImagePropertyCb006
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb006", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb006", "fd", ORIENTATION, "2");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_007
+     * @tc.name      : testModifyImagePropertyCb007
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb007", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb007", "fd", GPS_LATITUDE, "114,3");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_008
+     * @tc.name      : testModifyImagePropertyCb008
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb008", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb008", "fd", GPS_LONGITUDE, "18,2");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_009
+     * @tc.name      : testModifyImagePropertyCb009
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb009", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb009", "fd", GPS_LATITUDE_REF, "N");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_010
+     * @tc.name      : testModifyImagePropertyCb010
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb010", 0, async (done: Function) => {
+      modifyCb(done, "testModifyImagePropertyCb010", "fd", GPS_LONGITUDE_REF, "W");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_011
+     * @tc.name      : testModifyImagePropertyCb011
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb011", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb011", "fd", ORIENTATION, "abcdef");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_012
+     * @tc.name      : testModifyImagePropertyCb012
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb012", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb012", "fd", GPS_LATITUDE, "abc,3");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_013
+     * @tc.name      : testModifyImagePropertyCb013
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb013", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb013", "fd", GPS_LONGITUDE, "abc,2");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_014
+     * @tc.name      : testModifyImagePropertyCb014
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb014", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb014", "fd", GPS_LATITUDE_REF, "456");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_015
+     * @tc.name      : testModifyImagePropertyCb015
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb015", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb015", "fd", GPS_LONGITUDE_REF, "1234");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_016
+     * @tc.name      : testModifyImagePropertyCb016
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb016", 0, async (done: Function) => {
+      modifyErrCb(
+        done,
+        "testModifyImagePropertyCb016",
+        "fd",
+        ORIENTATION,
+        "abcdef"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_017
+     * @tc.name      : testModifyImagePropertyCb017
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb017", 0, async (done: Function) => {
+      modifyErrCb(done, "testModifyImagePropertyCb017", "fd", GPS_LATITUDE, "abc,3");
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_018
+     * @tc.name      : testModifyImagePropertyCb018
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb018", 0, async (done: Function) => {
+      modifyErrCb(
+        done,
+        "testModifyImagePropertyCb018",
+        "fd",
+        GPS_LONGITUDE,
+        "abc,2"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_019
+     * @tc.name      : testModifyImagePropertyCb019
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb019", 0, async (done: Function) => {
+      modifyErrCb(
+        done,
+        "testModifyImagePropertyCb019",
+        "fd",
+        GPS_LATITUDE_REF,
+        "456"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_MODIFYIMAGEPROPERTY_CB_020
+     * @tc.name      : testModifyImagePropertyCb020
+     * @tc.desc      : 1.create imagesource
+     *                 2.call modifyImageProperty(key,value)
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testModifyImagePropertyCb020", 0, async (done: Function) => {
+      modifyErrCb(
+        done,
+        "testModifyImagePropertyCb020",
+        "fd",
+        GPS_LONGITUDE_REF,
+        "1234"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_UPDATEDATA_PROMISE_001
+     * @tc.name      : testUpdateDataPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.update data
+     *                 3.create pixelmap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testUpdateDataPromise001", 0, async (done: Function) => {
+      createIncrementalSourcePromise(
+        done,
+        "testUpdateDataPromise001",
+        "noSourceOpts"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_UPDATEDATA_PROMISE_002
+     * @tc.name      : testUpdateDataPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.update data
+     *                 3.create pixelmap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testUpdateDataPromise002", 0, async (done: Function) => {
+      let opts: image.SourceOptions = {
+        sourceDensity: 240,
+        sourcePixelFormat: image.PixelMapFormat.RGBA_8888,
+        sourceSize: {
+          height: 4, width: 6
+        }
+      };
+      createIncrementalSourcePromise(
+        done,
+        "testUpdateDataPromise002",
+        "sourceOpts",
+        opts
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_UPDATEDATA_CB_001
+     * @tc.name      : testUpdateDataCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.update data
+     *                 3.create pixelmap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testUpdateDataCb001", 0, async (done: Function) => {
+      createIncrementalSourceCb(
+        done,
+        "testUpdateDataCb001",
+        "noSourceOpts"
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_UPDATEDATA_CB_002
+     * @tc.name      : testUpdateDataCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.update data
+     *                 3.create pixelmap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testUpdateDataCb002", 0, async (done: Function) => {
+      let opts: image.SourceOptions = {
+        sourceDensity: 240,
+        sourcePixelFormat: image.PixelMapFormat.RGBA_8888,
+        sourceSize: {
+          height: 4, width: 6
+        }
+      };
+      createIncrementalSourceCb(
+        done,
+        "testUpdateDataCb002",
+        "sourceOpts",
+        opts
+      );
+    });
+
+    /**
+     * @tc.number    : TEST_RELEASE_PROMISE_001
+     * @tc.name      : testReleasePromise001
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleasePromise001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleasePromise001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release().then(() => {
+            console.info('testReleasePromise001 success');
+            expect(true).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.info('testReleasePromise001 error');
+            expect(false).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleasePromise001 err:' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_PROMISE_002
+     * @tc.name      : testReleasePromise002
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleasePromise002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleasePromise002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release().then(() => {
+            console.info('testReleasePromise002 success');
+            expect(true).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testReleasePromise002 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleasePromise002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_PROMISE_003
+     * @tc.name      : testReleasePromise003
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleasePromise003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleasePromise003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release().then(() => {
+            console.info('testReleasePromise003 success');
+            expect(true).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testReleasePromise003 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleasePromise003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_PROMISE_004
+     * @tc.name      : testReleasePromise004
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleasePromise004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleasePromise004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release().then(() => {
+            console.info('testReleasePromise004 success');
+            expect(true).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testReleasePromise004 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleasePromise004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_CB_001
+     * @tc.name      : testReleaseCb001
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleaseCb001', 2, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleaseCb001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release(() => {
+            console.info('testReleaseCb001 Success');
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleaseCb001 err:' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_CB_002
+     * @tc.name      : testReleaseCb002
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleaseCb002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleaseCb002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release(async (err) => {
+            if (err) {
+              console.info('testReleaseCb002 err:' + err);
+              expect(false).assertTrue();
+              done();
+              return
+            }
+            console.info('testReleaseCb002 Success');
+            expect(true).assertTrue();
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleaseCb002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_CB_003
+     * @tc.name      : testReleaseCb003
+     * @tc.desc      : 1.create ImageSource
+     *                 2.create SourceStream
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleaseCb003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleaseCb003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release(async () => {
+            console.info('testReleaseCb003 Success');
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleaseCb003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_RELEASE_CB_004
+     * @tc.name      : testReleaseCb004
+     * @tc.desc      : 1.create ImageSource
+     *                 2.call release()
+     *                 3.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testReleaseCb004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testReleaseCb004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.release(() => {
+            console.info('testReleaseCb004 Success');
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testReleaseCb004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_SUPPORTEDFORMATS_001
+     * @tc.name      : testSupportedFormats001
+     * @tc.desc      : 1.create imagesource
+     *                 2.call supportedFormats
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
+     */
+    it('testSupportedFormats001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testSupportedFormats001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          expect(imageSourceApi.supportedFormats != undefined).assertTrue();
+          console.info('testSupportedFormats001 success ');
+          done();
+        }
+      } catch (error) {
+        console.info('testSupportedFormats001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+  });
 }
