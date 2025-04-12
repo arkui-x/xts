@@ -1967,113 +1967,125 @@ export default function ImageSource() {
       }
     });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_004
-         * @tc.name      : testCreatePixelMapOptionsCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb004", 0, async function (done) {
-            try {
-                await getFileFd("test.jpg", testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(
-                        "testCreatePixelMapOptionsCb004 create image source failed"
-                    );
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    let decodingOptions = {
-                        sampleSize: 1,
-                        editable: true,
-                        desiredSize: { width: 1, height: 2 },
-                        rotate: 10,
-                        desiredPixelFormat: UNKNOWN,
-                        desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                        index: 1,
-                    };
-                    imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                        if (err) {
-                            console.info("testCreatePixelMapOptionsCb004 success ");
-                            console.info(
-                                "testCreatePixelMapOptionsCb004 createPixelMap error " +
-                                JSON.stringify(err)
-                            );
-                            expect(true).assertTrue();
-                            done();
-                        } else {
-                            console.info("testCreatePixelMapOptionsCb004 fail  " + pixelmap);
-                            expect(false).assertTrue();
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info("testCreatePixelMapOptionsCb004 error: " + error);
-                expect(false).assertTrue();
-                done();
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_004
+     * @tc.name      : testCreatePixelMapOptionsCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb004", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.jpg", testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(
+            "testCreatePixelMapOptionsCb004 create image source failed"
+          );
+          expect(false).assertTrue();
+          done();
+        } else {
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+            editable: true,
+            desiredSize: {
+              width: 1, height: 2
+            },
+            rotate: 10,
+            desiredPixelFormat: UNKNOWN,
+            desiredRegion: {
+              size: {
+                height: 1, width: 2
+              }, x: 0, y: 0
+            },
+            index: 1,
+          };
+          imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info("testCreatePixelMapOptionsCb004 success ");
+              console.info(
+                "testCreatePixelMapOptionsCb004 createPixelMap error " +
+                JSON.stringify(err)
+              );
+              expect(true).assertTrue();
+              done();
+            } else {
+              console.info("testCreatePixelMapOptionsCb004 fail  " + pixelmap);
+              expect(false).assertTrue();
+              done();
             }
-        });
+          });
+        }
+      } catch (error) {
+        console.info("testCreatePixelMapOptionsCb004 error: " + error);
+        expect(false).assertTrue();
+        done();
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_005
-         * @tc.name      : testCreatePixelMapOptionsCb005
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb005", 0, async function (done) {
-            try {
-                await getFileFd("test.jpg", testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(
-                        "testCreatePixelMapOptionsCb005 create image source failed"
-                    );
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    let decodingOptions = {
-                        sampleSize: 1,
-                        editable: true,
-                        desiredSize: { width: 1, height: 2 },
-                        rotate: 10,
-                        desiredPixelFormat: UNKNOWN,
-                        desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                        index: -1,
-                    };
-                    imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                        if (err) {
-                            console.info("testCreatePixelMapOptionsCb005 success ");
-                            console.info(
-                                "testCreatePixelMapOptionsCb005 createPixelMap error " +
-                                JSON.stringify(err)
-                            );
-                            expect(true).assertTrue();
-                            done();
-                        } else {
-                            console.info("testCreatePixelMapOptionsCb005 fail  " + pixelmap);
-                            expect(false).assertTrue();
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info("testCreatePixelMapOptionsCb005 error: " + error);
-                expect(false).assertTrue();
-                done();
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_005
+     * @tc.name      : testCreatePixelMapOptionsCb005
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb005", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.jpg", testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(
+            "testCreatePixelMapOptionsCb005 create image source failed"
+          );
+          expect(false).assertTrue();
+          done();
+        } else {
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+            editable: true,
+            desiredSize: {
+              width: 1, height: 2
+            },
+            rotate: 10,
+            desiredPixelFormat: UNKNOWN,
+            desiredRegion: {
+              size: {
+                height: 1, width: 2
+              }, x: 0, y: 0
+            },
+            index: -1,
+          };
+          imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info("testCreatePixelMapOptionsCb005 success ");
+              console.info(
+                "testCreatePixelMapOptionsCb005 createPixelMap error " +
+                JSON.stringify(err)
+              );
+              expect(true).assertTrue();
+              done();
+            } else {
+              console.info("testCreatePixelMapOptionsCb005 fail  " + pixelmap);
+              expect(false).assertTrue();
+              done();
             }
-        });
+          });
+        }
+      } catch (error) {
+        console.info("testCreatePixelMapOptionsCb005 error: " + error);
+        expect(false).assertTrue();
+        done();
+      }
+    });
 
     /**
      * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_006
@@ -3990,1548 +4002,1678 @@ export default function ImageSource() {
       }
     });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_040
-         * @tc.name      : testCreatePixelMapOptionsCb040
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb040", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb040 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: -1, y: -1 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb040 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb040 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb040 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_040
+     * @tc.name      : testCreatePixelMapOptionsCb040
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb040", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb040 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: -1, y: -1
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb040 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb040 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb040 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_041
-         * @tc.name      : testCreatePixelMapOptionsCb041
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb041", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb041 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 10000, y: 10000 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb041 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb041 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb041 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_041
+     * @tc.name      : testCreatePixelMapOptionsCb041
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb041", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb041 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 10000, y: 10000
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb041 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb041 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb041 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_042
-         * @tc.name      : testCreatePixelMapOptionsCb042
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb042", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb042 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 500,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 1, y: 2 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb042 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb042 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb042 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_042
+     * @tc.name      : testCreatePixelMapOptionsCb042
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb042", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb042 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 500,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 1, y: 2
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb042 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb042 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb042 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_043
-         * @tc.name      : testCreatePixelMapOptionsCb043
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb043", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_043
+     * @tc.name      : testCreatePixelMapOptionsCb043
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb043", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb043 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGBA_8888,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb043 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            console.info("testCreatePixelMapOptionsCb043 success ");
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_044
+     * @tc.name      : testCreatePixelMapOptionsCb044
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb044", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb044 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb044 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            console.info("testCreatePixelMapOptionsCb044 success ");
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_045
+     * @tc.name      : testCreatePixelMapOptionsCb045
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb045", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb045 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: UNKNOWN,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb045 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            console.info("testCreatePixelMapOptionsCb045 success ");
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_046
+     * @tc.name      : testCreatePixelMapOptionsCb046
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb046", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb046 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: UNKNOWN,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 1,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb046 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb046 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb046 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_047
+     * @tc.name      : testCreatePixelMapOptionsCb047
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb047", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb047 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: UNKNOWN,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: -1,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb047 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb047 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb047 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_048
+     * @tc.name      : testCreatePixelMapOptionsCb048
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb048", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb048 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: -1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: UNKNOWN,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb048 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb048 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info(
+              "testCreatePixelMapOptionsCb048 fail  " + pixelmap
+            );
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_049
+     * @tc.name      : testCreatePixelMapOptionsCb049
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb049", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb049 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: -10,
+          desiredPixelFormat: UNKNOWN,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb049 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb049 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb049 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_050
+     * @tc.name      : testCreatePixelMapOptionsCb050
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb050", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb050 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: 60,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb050 success "
+            );
+            console.info(
+              "testCreatePixelMapOptionsCb050 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info(
+              "testCreatePixelMapOptionsCb050 fail  " +
+                pixelmap
+            );
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_051
+     * @tc.name      : testCreatePixelMapOptionsCb051
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb051", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(
+          "testCreatePixelMapOptionsCb051 create image source failed"
+        );
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: false,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb051 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            console.info("testCreatePixelMapOptionsCb051 success ");
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_052
+     * @tc.name      : testCreatePixelMapOptionsCb052
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb052", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb052 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1500, height: 1500
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb052 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            console.info("testCreatePixelMapOptionsCb052 success ");
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }
+        });
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_053
+     * @tc.name      : testCreatePixelMapOptionsCb053
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb053", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(" testCreatePixelMapOptionsCb053 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 10000, width: 10000
+            }, x: 0, y: 0
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info(
+              "testCreatePixelMapOptionsCb053 createPixelMap error  " +
+              JSON.stringify(err)
+            );
+            expect(false).assertTrue();
+            done();
+          } else {
+            globalpixelmap = pixelmap;
+            pixelmap
+              .getImageInfo()
+              .then((imageInfo) => {
+                expect(imageInfo.size.height == 2).assertTrue();
+                expect(imageInfo.size.width == 1).assertTrue();
+                console.info("testCreatePixelMapOptionsCb053 success ");
+                console.info("imageInfo height :" + imageInfo.size.height);
+                console.info("imageInfo width : " + imageInfo.size.width);
+                done();
+              })
+              .catch((err: BusinessError) => {
                 console.info(
-                    "testCreatePixelMapOptionsCb043 create image source failed"
+                  "testCreatePixelMapOptionsCb053 getimageInfo err " +
+                  JSON.stringify(err)
                 );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGBA_8888,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb043 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        console.info("testCreatePixelMapOptionsCb043 success ");
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }
-                });
-            }
+              });
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_044
-         * @tc.name      : testCreatePixelMapOptionsCb044
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb044", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(
-                    "testCreatePixelMapOptionsCb044 create image source failed"
-                );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb044 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        console.info("testCreatePixelMapOptionsCb044 success ");
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_054
+     * @tc.name      : testCreatePixelMapOptionsCb054
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb054", 0, async (done: Function) => {
+      await getFileFd("test.bmp", testBmp);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb054 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: -1, y: -1
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb054 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb054 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb054 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_045
-         * @tc.name      : testCreatePixelMapOptionsCb045
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb045", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(
-                    "testCreatePixelMapOptionsCb045 create image source failed"
-                );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: UNKNOWN,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb045 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        console.info("testCreatePixelMapOptionsCb045 success ");
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_055
+     * @tc.name      : testCreatePixelMapOptionsCb055
+     * @tc.desc      : 1.create imagesource
+     *                 2.set decodingOptions
+     *                 3.call createPixelMap
+     *                 4.set index=-1,options
+     *                 5.return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb055", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb055 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 10,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 10000, y: 10000
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb055 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb055 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb055 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_046
-         * @tc.name      : testCreatePixelMapOptionsCb046
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb046", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb046 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: UNKNOWN,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 1,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb046 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb046 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb046 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_056
+     * @tc.name      : testCreatePixelMapOptionsCb056
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb056", 0, async (done: Function) => {
+      await getFileFd("test.png", testPng);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info("testCreatePixelMapOptionsCb056 create image source failed");
+        expect(false).assertTrue();
+        done();
+      } else {
+        let decodingOptions: image.DecodingOptions = {
+          sampleSize: 1,
+          editable: true,
+          desiredSize: {
+            width: 1, height: 2
+          },
+          rotate: 500,
+          desiredPixelFormat: RGB_565,
+          desiredRegion: {
+            size: {
+              height: 1, width: 2
+            }, x: 1, y: 2
+          },
+          index: 0,
+        };
+        imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+          if (err) {
+            console.info("testCreatePixelMapOptionsCb056 success ");
+            console.info(
+              "testCreatePixelMapOptionsCb056 createPixelMap error " +
+              JSON.stringify(err)
+            );
+            expect(true).assertTrue();
+            done();
+          } else {
+            console.info("testCreatePixelMapOptionsCb056 fail  " + pixelmap);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_047
-         * @tc.name      : testCreatePixelMapOptionsCb047
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb047", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb047 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: UNKNOWN,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: -1,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb047 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb047 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb047 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_001
+     * @tc.name      : testCreatePixelMapListPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     *                 4.packing
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListPromise001", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListPromise(done, "testCreatePixelMapListPromise001", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_048
-         * @tc.name      : testCreatePixelMapOptionsCb048
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb048", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(
-                    "testCreatePixelMapOptionsCb048 create image source failed"
-                );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: -1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: UNKNOWN,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb048 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb048 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info(
-                            "testCreatePixelMapOptionsCb048 fail  " + pixelmap
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_002
+     * @tc.name      : testCreatePixelMapListPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListPromise002", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: -1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListErrPromise(done, "testCreatePixelMapListPromise002", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_049
-         * @tc.name      : testCreatePixelMapOptionsCb049
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb049", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb049 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: -10,
-                    desiredPixelFormat: UNKNOWN,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb049 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb049 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb049 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_003
+     * @tc.name      : testCreatePixelMapListPromise003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListPromise003", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: RGBA_8888,
+        index: -8,
+      };
+      createPixelMapListErrPromise(done, "testCreatePixelMapListPromise003", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_050
-         * @tc.name      : testCreatePixelMapOptionsCb050
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb050", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(
-                    "testCreatePixelMapOptionsCb050 create image source failed"
-                );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: 60,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb050 success "
-                        );
-                        console.info(
-                            "testCreatePixelMapOptionsCb050 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info(
-                            "testCreatePixelMapOptionsCb050 fail  " +
-                            pixelmap
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_004
+     * @tc.name      : testCreatePixelMapListPromise004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListPromise004", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 500,
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListErrPromise(done, "testCreatePixelMapListPromise004", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_051
-         * @tc.name      : testCreatePixelMapOptionsCb051
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb051", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(
-                    "testCreatePixelMapOptionsCb051 create image source failed"
-                );
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: false,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb051 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        console.info("testCreatePixelMapOptionsCb051 success ");
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_005
+     * @tc.name      : testCreatePixelMapListPromise005
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListPromise005", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: 33,
+        index: 0,
+      };
+      createPixelMapListErrPromise(done, "testCreatePixelMapListPromise005", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_052
-         * @tc.name      : testCreatePixelMapOptionsCb052
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb052", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb052 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1500, height: 1500 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb052 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        console.info("testCreatePixelMapOptionsCb052 success ");
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_053
-         * @tc.name      : testCreatePixelMapOptionsCb053
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb053", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(" testCreatePixelMapOptionsCb053 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 10000, width: 10000 }, x: 0, y: 0 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(
-                            "testCreatePixelMapOptionsCb053 createPixelMap error  " +
-                            JSON.stringify(err)
-                        );
-                        expect(false).assertTrue();
-                        done();
-                    } else {
-                        globalpixelmap = pixelmap;
-                        pixelmap
-                            .getImageInfo()
-                            .then((imageInfo) => {
-                                expect(imageInfo.size.height == 2).assertTrue();
-                                expect(imageInfo.size.width == 1).assertTrue();
-                                console.info("testCreatePixelMapOptionsCb053 success ");
-                                console.info("imageInfo height :" + imageInfo.size.height);
-                                console.info("imageInfo width : " + imageInfo.size.width);
-                                done();
-                            })
-                            .catch((err) => {
-                                console.info(
-                                    "testCreatePixelMapOptionsCb053 getimageInfo err " +
-                                    JSON.stringify(err)
-                                );
-                            });
-                    }
-                });
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_054
-         * @tc.name      : testCreatePixelMapOptionsCb054
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb054", 0, async function (done) {
-            await getFileFd("test.bmp", testBmp);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb054 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: -1, y: -1 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb054 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb054 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb054 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_055
-         * @tc.name      : testCreatePixelMapOptionsCb055
-         * @tc.desc      : 1.create imagesource
-         *                 2.set decodingOptions
-         *                 3.call createPixelMap
-         *                 4.set index=-1,options
-         *                 5.return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb055", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb055 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 10,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 10000, y: 10000 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb055 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb055 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb055 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_056
-         * @tc.name      : testCreatePixelMapOptionsCb056
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb056", 0, async function (done) {
-            await getFileFd("test.png", testPng);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info("testCreatePixelMapOptionsCb056 create image source failed");
-                expect(false).assertTrue();
-                done();
-            } else {
-                let decodingOptions = {
-                    sampleSize: 1,
-                    editable: true,
-                    desiredSize: { width: 1, height: 2 },
-                    rotate: 500,
-                    desiredPixelFormat: RGB_565,
-                    desiredRegion: { size: { height: 1, width: 2 }, x: 1, y: 2 },
-                    index: 0,
-                };
-                imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info("testCreatePixelMapOptionsCb056 success ");
-                        console.info(
-                            "testCreatePixelMapOptionsCb056 createPixelMap error " +
-                            JSON.stringify(err)
-                        );
-                        expect(true).assertTrue();
-                        done();
-                    } else {
-                        console.info("testCreatePixelMapOptionsCb056 fail  " + pixelmap);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_001
-         * @tc.name      : testCreatePixelMapListPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         *                 4.packing
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListPromise001", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListPromise(done, "testCreatePixelMapListPromise001", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_002
-         * @tc.name      : testCreatePixelMapListPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListPromise002", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: -1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListErrPromise(done, "testCreatePixelMapListPromise002", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_003
-         * @tc.name      : testCreatePixelMapListPromise003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListPromise003", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: RGBA_8888,
-                index: -8,
-            };
-            createPixelMapListErrPromise(done, "testCreatePixelMapListPromise003", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_004
-         * @tc.name      : testCreatePixelMapListPromise004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListPromise004", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 500,
-                desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListErrPromise(done, "testCreatePixelMapListPromise004", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_PROMISE_005
-         * @tc.name      : testCreatePixelMapListPromise005
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListPromise005", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: 33,
-                index: 0,
-            };
-            createPixelMapListErrPromise(done, "testCreatePixelMapListPromise005", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_CB_001
-         * @tc.name      : testCreatePixelMapListCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListCb001", 0, async function (done) {
-            try {
-                await getFileFd("test.gif", testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                imageSourceApi.createPixelMap((err, pixelMapList) => {
-                    expect(pixelMapList != undefined).assertTrue();
-                    console.info('testCreatePixelMapListCb001 success');
-                    done();
-                })
-            } catch (err) {
-                console.info('testCreatePixelMapListCb001 fail' + err);
-                done();
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_001
-         * @tc.name      : testCreatePixelMapListOptionsCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         *                 4.packing
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListOptionsCb001", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListCallBack(done, "testCreatePixelMapListOptionsCb001", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_002
-         * @tc.name      : testCreatePixelMapListOptionsCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListOptionsCb002", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: -1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb002", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_003
-         * @tc.name      : testCreatePixelMapListOptionsCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListOptionsCb003", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
-                index: -8,
-            };
-            createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb003", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_004
-         * @tc.name      : testCreatePixelMapListOptionsCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListOptionsCb004", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 500,
-                desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
-                index: 0,
-            };
-            createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb004", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_005
-         * @tc.name      : testCreatePixelMapListOptionsCb005
-         * @tc.desc      : 1.create imagesource
-         *                 2.set DecodeOptions
-         *                 3.createPixelMapList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapListOptionsCb005", 0, async function (done) {
-            let decodeOpts = {
-                sampleSize: 1,
-                editable: true,
-                desiredSize: { width: 198, height: 202 },
-                rotate: 0,
-                desiredPixelFormat: 33,
-                index: 0,
-            };
-            createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb005", decodeOpts);
-        });
-
-        /**
-         * @tc.number    : TEST_GETDELAYTIMELIST_PROMISE_001
-         * @tc.name      : testGetDelayTimeListPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.getDelayTimeList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetDelayTimeListPromise001", 0, async function (done) {
-            getDelayTimeListPromise(done, "testGetDelayTimeListPromise001", "test.gif");
-        });
-
-        /**
-         * @tc.number    : TEST_GETDELAYTIMELIST_CB_001
-         * @tc.name      : testGetDelayTimeListCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.getDelayTimeList
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetDelayTimeListCb001", 0, async function (done) {
-            getDelayTimeListCallBack(done, "testGetDelayTimeListCb001", "test.gif");
-        });
-
-        /**
-         * @tc.number    : TEST_GETFRAMECOUNT_PROMISE_001
-         * @tc.name      : testGetFrameCountPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.getFrameCount
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetFrameCountPromise001", 0, async function (done) {
-            getFrameCountPromise(done, "testGetFrameCountPromise001", "test.gif");
-        });
-
-        /**
-         * @tc.number    : TEST_GETFRAMECOUNT_CB_001
-         * @tc.name      : testGetFrameCountCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.getFrameCount
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetFrameCountCb001", 0, async function (done) {
-            getFrameCountCallBack(done, "testGetFrameCountCb001", "test.gif");
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_001
-         * @tc.name      : testGetImagePropertyPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(DateTimeOriginal)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise001", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getPromise(done, "testGetImagePropertyPromise001", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_002
-         * @tc.name      : testGetImagePropertyPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ExposureTime)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise002", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getPromise(done, "testGetImagePropertyPromise002", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_003
-         * @tc.name      : testGetImagePropertyPromise003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(FNumber)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise003", 0, async function (done) {
-            let key = F_NUMBER;
-            getPromise(done, "testGetImagePropertyPromise003", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_004
-         * @tc.name      : testGetImagePropertyPromise004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ISOSpeedRatings)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise004", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getPromise(done, "testGetImagePropertyPromise004", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_005
-         * @tc.name      : testGetImagePropertyPromise005
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(SceneType)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise005", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getPromise(done, "testGetImagePropertyPromise005", "picture", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_006
-         * @tc.name      : testGetImagePropertyPromise006
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(DateTimeOriginal)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise006", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getPromise(done, "testGetImagePropertyPromise006", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_007
-         * @tc.name      : testGetImagePropertyPromise007
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ExposureTime)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise007", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getPromise(done, "testGetImagePropertyPromise007", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_008
-         * @tc.name      : testGetImagePropertyPromise008
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(FNumber)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise008", 0, async function (done) {
-            let key = F_NUMBER;
-            getPromise(done, "testGetImagePropertyPromise008", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_009
-         * @tc.name      : testGetImagePropertyPromise009
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ISOSpeedRatings)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise009", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getPromise(done, "testGetImagePropertyPromise009", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_010
-         * @tc.name      : testGetImagePropertyPromise010
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(SceneType)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise010", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getPromise(done, "testGetImagePropertyPromise010", "buf", key);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_011
-         * @tc.name      : testGetImagePropertyPromise011
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise011", 0, async function (done) {
-            let key = "Date";
-            getPromiseErr(done, "testGetImagePropertyPromise011", "picture", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_012
-         * @tc.name      : testGetImagePropertyPromise012
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise012", 0, async function (done) {
-            let key = null;
-            getPromiseErr(done, "testGetImagePropertyPromise012", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_013
-         * @tc.name      : testGetImagePropertyPromise013
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise013", 0, async function (done) {
-            let key = 12;
-            getPromiseErr(done, "testGetImagePropertyPromise013", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_014
-         * @tc.name      : testGetImagePropertyPromise014
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise014", 0, async function (done) {
-            let key = { w: 12 };
-            getPromiseErr(done, "testGetImagePropertyPromise014", "picture", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_015
-         * @tc.name      : testGetImagePropertyPromise015
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise015", 0, async function (done) {
-            let key = "Date";
-            getPromiseErr(done, "testGetImagePropertyPromise015", "buf", key, false);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_016
-         * @tc.name      : testGetImagePropertyPromise016
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise016", 0, async function (done) {
-            let key = null;
-            getPromiseErr(done, "testGetImagePropertyPromise016", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_017
-         * @tc.name      : testGetImagePropertyPromise017
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise017", 0, async function (done) {
-            let key = 12;
-            getPromiseErr(done, "testGetImagePropertyPromise017", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_018
-         * @tc.name      : testGetImagePropertyPromise018
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyPromise018", 0, async function (done) {
-            let key = { w: 12 };
-            getPromiseErr(done, "testGetImagePropertyPromise018", "buf", key, true);
-        });
-
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_019
-         * @tc.name      : testGetImagePropertyPromise019
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(BitsPerSample)
-         *                 4.The return value is not empty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImagePropertyPromise019', 0, async function (done) {
-            await getFileFd("test.jpg", getPropertyBuf);
-            let imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info('testGetImagePropertyPromise019 create image source failed');
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.getImageProperty(BITS_PER_SAMPLE)
-                    .then(data => {
-                        console.info('testGetImagePropertyPromise019 BitsPerSample ' + data);
-                        expect(data != undefined && data != '').assertTrue();
-                        done();
-                    })
-                    .catch(error => {
-                        console.log('testGetImagePropertyPromise019 error: ' + error);
-                        expect(false).assertFail();
-                        done();
-                    })
-            }
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_CB_001
+     * @tc.name      : testCreatePixelMapListCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListCb001", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.gif", testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        imageSourceApi.createPixelMap((err, pixelMapList) => {
+          expect(pixelMapList != undefined).assertTrue();
+          console.info('testCreatePixelMapListCb001 success');
+          done();
         })
+      } catch (err) {
+        console.info('testCreatePixelMapListCb001 fail' + err);
+        done();
+      }
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_020
-         * @tc.name      : testGetImagePropertyPromise020
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ImageLength)
-         *                 4.The return value is not empty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImagePropertyPromise020', 0, async function (done) {
-            await getFileFd("test.jpg", getPropertyBuf);
-            let imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info('testGetImagePropertyPromise020 create image source failed');
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.getImageProperty(IMAGE_LENGTH)
-                    .then(data => {
-                        console.info('testGetImagePropertyPromise020 ImageLength ' + data);
-                        expect(data != undefined && data != '').assertTrue();
-                        done();
-                    })
-                    .catch(error => {
-                        console.log('testGetImagePropertyPromise020 error: ' + error);
-                        expect(false).assertFail();
-                        done();
-                    })
-            }
-        })
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_001
+     * @tc.name      : testCreatePixelMapListOptionsCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     *                 4.packing
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListOptionsCb001", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListCallBack(done, "testCreatePixelMapListOptionsCb001", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_021
-         * @tc.name      : testGetImagePropertyPromise021
-         * @tc.desc      : 1.create imagesource
-         *                 2.set property
-         *                 3.call getImageProperty(ImageWidth)
-         *                 4.The return value is not empty
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImagePropertyPromise021', 0, async function (done) {
-            await getFileFd("test.jpg", getPropertyBuf);
-            let imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info('testGetImagePropertyPromise021 create image source failed');
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.getImageProperty(IMAGE_WIDTH)
-                    .then(data => {
-                        console.info('testGetImagePropertyPromise021 ImageWidth ' + data);
-                        expect(data != undefined && data != '').assertTrue();
-                        done();
-                    })
-                    .catch(error => {
-                        console.log('testGetImagePropertyPromise021 error: ' + error);
-                        expect(false).assertFail();
-                        done();
-                    })
-            }
-        })
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_002
+     * @tc.name      : testCreatePixelMapListOptionsCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListOptionsCb002", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: -1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb002", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_001
-         * @tc.name      : testGetImagePropertyCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(DateTimeOriginal)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb001", 0, async function (done) {
-            let key = DATE_TIME_ORIGINAL;
-            getCb(done, "testGetImagePropertyCb001", "picture", key);
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_003
+     * @tc.name      : testCreatePixelMapListOptionsCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListOptionsCb003", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
+        index: -8,
+      };
+      createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb003", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_002
-         * @tc.name      : testGetImagePropertyCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(ExposureTime)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb002", 0, async function (done) {
-            let key = EXPOSURE_TIME;
-            getCb(done, "testGetImagePropertyCb002", "picture", key);
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_004
+     * @tc.name      : testCreatePixelMapListOptionsCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListOptionsCb004", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 500,
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
+        index: 0,
+      };
+      createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb004", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_003
-         * @tc.name      : testGetImagePropertyCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(FNumber)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb003", 0, async function (done) {
-            let key = F_NUMBER;
-            getCb(done, "testGetImagePropertyCb003", "picture", key);
-        });
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAPLIST_OPTIONS_CB_005
+     * @tc.name      : testCreatePixelMapListOptionsCb005
+     * @tc.desc      : 1.create imagesource
+     *                 2.set DecodeOptions
+     *                 3.createPixelMapList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapListOptionsCb005", 0, async (done: Function) => {
+      let decodeOpts: image.DecodingOptions = {
+        sampleSize: 1,
+        editable: true,
+        desiredSize: {
+          width: 198, height: 202
+        },
+        rotate: 0,
+        desiredPixelFormat: 33,
+        index: 0,
+      };
+      createPixelMapListErrCallBack(done, "testCreatePixelMapListOptionsCb005", decodeOpts);
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_004
-         * @tc.name      : testGetImagePropertyCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(ISOSpeedRatings)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb004", 0, async function (done) {
-            let key = ISO_SPEED_RATINGS;
-            getCb(done, "testGetImagePropertyCb004", "picture", key);
-        });
+    /**
+     * @tc.number    : TEST_GETDELAYTIMELIST_PROMISE_001
+     * @tc.name      : testGetDelayTimeListPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.getDelayTimeList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetDelayTimeListPromise001", 0, async (done: Function) => {
+      getDelayTimeListPromise(done, "testGetDelayTimeListPromise001", "test.gif");
+    });
 
-        /**
-         * @tc.number    : TEST_GETIMAGEPROPERTY_CB_005
-         * @tc.name      : testGetImagePropertyCb005
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageProperty(SceneType)
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testGetImagePropertyCb005", 0, async function (done) {
-            let key = SCENE_TYPE;
-            getCb(done, "testGetImagePropertyCb005", "picture", key);
-        });
+    /**
+     * @tc.number    : TEST_GETDELAYTIMELIST_CB_001
+     * @tc.name      : testGetDelayTimeListCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.getDelayTimeList
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetDelayTimeListCb001", 0, async (done: Function) => {
+      getDelayTimeListCallBack(done, "testGetDelayTimeListCb001", "test.gif");
+    });
+
+    /**
+     * @tc.number    : TEST_GETFRAMECOUNT_PROMISE_001
+     * @tc.name      : testGetFrameCountPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.getFrameCount
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetFrameCountPromise001", 0, async (done: Function) => {
+      getFrameCountPromise(done, "testGetFrameCountPromise001", "test.gif");
+    });
+
+    /**
+     * @tc.number    : TEST_GETFRAMECOUNT_CB_001
+     * @tc.name      : testGetFrameCountCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.getFrameCount
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetFrameCountCb001", 0, async (done: Function) => {
+      getFrameCountCallBack(done, "testGetFrameCountCb001", "test.gif");
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_001
+     * @tc.name      : testGetImagePropertyPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(DateTimeOriginal)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise001", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getPromise(done, "testGetImagePropertyPromise001", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_002
+     * @tc.name      : testGetImagePropertyPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ExposureTime)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise002", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getPromise(done, "testGetImagePropertyPromise002", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_003
+     * @tc.name      : testGetImagePropertyPromise003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(FNumber)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise003", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getPromise(done, "testGetImagePropertyPromise003", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_004
+     * @tc.name      : testGetImagePropertyPromise004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ISOSpeedRatings)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise004", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getPromise(done, "testGetImagePropertyPromise004", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_005
+     * @tc.name      : testGetImagePropertyPromise005
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(SceneType)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise005", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getPromise(done, "testGetImagePropertyPromise005", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_006
+     * @tc.name      : testGetImagePropertyPromise006
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(DateTimeOriginal)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise006", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getPromise(done, "testGetImagePropertyPromise006", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_007
+     * @tc.name      : testGetImagePropertyPromise007
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ExposureTime)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise007", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getPromise(done, "testGetImagePropertyPromise007", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_008
+     * @tc.name      : testGetImagePropertyPromise008
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(FNumber)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise008", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getPromise(done, "testGetImagePropertyPromise008", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_009
+     * @tc.name      : testGetImagePropertyPromise009
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ISOSpeedRatings)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise009", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getPromise(done, "testGetImagePropertyPromise009", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_010
+     * @tc.name      : testGetImagePropertyPromise010
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(SceneType)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise010", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getPromise(done, "testGetImagePropertyPromise010", "buf", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_011
+     * @tc.name      : testGetImagePropertyPromise011
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise011", 0, async (done: Function) => {
+      let key = "Date";
+      getPromiseErr(done, "testGetImagePropertyPromise011", "picture", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_012
+     * @tc.name      : testGetImagePropertyPromise012
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise012", 0, async (done: Function) => {
+      // let key = null;
+      getPromiseErr(done, "testGetImagePropertyPromise012", "picture", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_013
+     * @tc.name      : testGetImagePropertyPromise013
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise013", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      getPromiseErr(done, "testGetImagePropertyPromise013", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_014
+     * @tc.name      : testGetImagePropertyPromise014
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise014", 0, async (done: Function) => {
+      let key: ESObject = {
+        w: 12
+      };
+      getPromiseErr(done, "testGetImagePropertyPromise014", "picture", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_015
+     * @tc.name      : testGetImagePropertyPromise015
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise015", 0, async (done: Function) => {
+      let key = "Date";
+      getPromiseErr(done, "testGetImagePropertyPromise015", "buf", key, false);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_016
+     * @tc.name      : testGetImagePropertyPromise016
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise016", 0, async (done: Function) => {
+      getPromiseErr(done, "testGetImagePropertyPromise016", "buf", null!, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_017
+     * @tc.name      : testGetImagePropertyPromise017
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise017", 0, async (done: Function) => {
+      let key: ESObject = 12;
+      getPromiseErr(done, "testGetImagePropertyPromise017", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_018
+     * @tc.name      : testGetImagePropertyPromise018
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyPromise018", 0, async (done: Function) => {
+      let key: ESObject = {
+        w: 12
+      };
+      getPromiseErr(done, "testGetImagePropertyPromise018", "buf", key, true);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_019
+     * @tc.name      : testGetImagePropertyPromise019
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(BitsPerSample)
+     *                 4.The return value is not empty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImagePropertyPromise019', 0, async (done: Function) => {
+      console.info('testGetImagePropertyPromise019 0');
+      await getFileFd("test.jpg", getPropertyBuf);
+      console.info('testGetImagePropertyPromise019 1');
+      let imageSourceApi = image.createImageSource(fileFd);
+      console.info('testGetImagePropertyPromise019 2');
+      if (imageSourceApi == undefined) {
+        console.info('testGetImagePropertyPromise019 create image source failed');
+        expect(false).assertTrue();
+        done();
+      } else {
+        console.info('testGetImagePropertyPromise019 3');
+        imageSourceApi.getImageProperty('BitsPerSample')
+          .then(data => {
+            console.info('testGetImagePropertyPromise019 BitsPerSample ' + data);
+            expect(data != undefined && data != '').assertTrue();
+            done();
+          })
+          .catch((error: BusinessError) => {
+            console.log('testGetImagePropertyPromise019 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        console.info('testGetImagePropertyPromise019 4');
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_020
+     * @tc.name      : testGetImagePropertyPromise020
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ImageLength)
+     *                 4.The return value is not empty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImagePropertyPromise020', 0, async (done: Function) => {
+      await getFileFd("test.jpg", getPropertyBuf);
+      let imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info('testGetImagePropertyPromise020 create image source failed');
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi.getImageProperty('ImageLength')
+          .then(data => {
+            console.info('testGetImagePropertyPromise020 ImageLength ' + data);
+            expect(data != undefined && data != '').assertTrue();
+            done();
+          })
+          .catch((error: BusinessError) => {
+            console.log('testGetImagePropertyPromise020 error: ' + error);
+            expect(false).assertFail();
+            done();
+          })
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_PROMISE_021
+     * @tc.name      : testGetImagePropertyPromise021
+     * @tc.desc      : 1.create imagesource
+     *                 2.set property
+     *                 3.call getImageProperty(ImageWidth)
+     *                 4.The return value is not empty
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImagePropertyPromise021', 0, async (done: Function) => {
+      await getFileFd("test.jpg", getPropertyBuf);
+      let imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info('testGetImagePropertyPromise021 create image source failed');
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi.getImageProperty('ImageWidth')
+          .then(data => {
+            console.info('testGetImagePropertyPromise021 ImageWidth ' + data);
+            expect(data != undefined && data != '').assertTrue();
+            done();
+          })
+          .catch((error: BusinessError) => {
+            console.log('testGetImagePropertyPromise021 error: ' + error);
+            expect(false).assertFail();
+            done();
+          })
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_001
+     * @tc.name      : testGetImagePropertyCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(DateTimeOriginal)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb001", 0, async (done: Function) => {
+      let key = DATE_TIME_ORIGINAL;
+      getCb(done, "testGetImagePropertyCb001", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_002
+     * @tc.name      : testGetImagePropertyCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(ExposureTime)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb002", 0, async (done: Function) => {
+      let key = EXPOSURE_TIME;
+      getCb(done, "testGetImagePropertyCb002", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_003
+     * @tc.name      : testGetImagePropertyCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(FNumber)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb003", 0, async (done: Function) => {
+      let key = F_NUMBER;
+      getCb(done, "testGetImagePropertyCb003", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_004
+     * @tc.name      : testGetImagePropertyCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(ISOSpeedRatings)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb004", 0, async (done: Function) => {
+      let key = ISO_SPEED_RATINGS;
+      getCb(done, "testGetImagePropertyCb004", "picture", key);
+    });
+
+    /**
+     * @tc.number    : TEST_GETIMAGEPROPERTY_CB_005
+     * @tc.name      : testGetImagePropertyCb005
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageProperty(SceneType)
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testGetImagePropertyCb005", 0, async (done: Function) => {
+      let key = SCENE_TYPE;
+      getCb(done, "testGetImagePropertyCb005", "picture", key);
+    });
 
         /**
          * @tc.number    : TEST_GETIMAGEPROPERTY_CB_006
