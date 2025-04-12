@@ -14,9 +14,29 @@
  */
 import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '@ohos/hypium'
 import webSocket from '@ohos.net.webSocket'
+import {BusinessError} from '@ohos.base'
+
+interface  GeneratedObjectLiteralInterface_1{
+  key: string;
+  key2: string;
+}
+
+interface  GeneratedObjectLiteralInterface_2{
+  key: string;
+  key2: string;
+}
+
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function webSocketTest() {
-  describe('webSocketTest', function () {
+  describe('webSocketTest',  ()=> {
+    afterEach(async () => {
+      await sleep(1000);
+    });
+
     console.log("************* webSocket Test start*************");
 
     /*
@@ -27,11 +47,11 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testCreateWebSocket001', 0, async function (done) {
+    it('testCreateWebSocket001', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       try {
         console.log(`testCreateWebSocket001 1`);
-        console.log(`testCreateWebSocket001 2 mWebSocket£º` + mWebSocket);
+        console.log(`testCreateWebSocket001 2 mWebSocketï¿½ï¿½` + mWebSocket);
         expect(mWebSocket != null).assertTrue();
         console.log(`testCreateWebSocket001 3`);
       } catch (error) {
@@ -63,7 +83,7 @@ export default function webSocketTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it('testWebSocketRequestOptions_header001', 0, async function (done) {
+    it('testWebSocketRequestOptions_header001', 0, async (done:Function)=> {
       let webSocketRequestOptions: webSocket.WebSocketRequestOptions = {
         header: "test header"
       }
@@ -79,7 +99,7 @@ export default function webSocketTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it('testWebSocketCloseOptions_code001', 0, async function (done) {
+    it('testWebSocketCloseOptions_code001', 0, async (done:Function)=> {
       let webSocketCloseOptions: webSocket.WebSocketCloseOptions = {
         code: 1,
         reason: "test reason"
@@ -96,7 +116,7 @@ export default function webSocketTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it('testWebSocketCloseOptions_Reason001', 0, async function (done) {
+    it('testWebSocketCloseOptions_Reason001', 0, async (done:Function)=> {
       let webSocketCloseOptions: webSocket.WebSocketCloseOptions = {
         code: 1,
         reason: "test reason"
@@ -113,7 +133,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testConnect001', 0, async function (done) {
+    it('testConnect001', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       mWebSocket.connect(null, (error, value) => {
         if (!error) {
@@ -136,7 +156,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testConnect002', 0, async function (done) {
+    it('testConnect002', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       let webSocketRequestOptions: webSocket.WebSocketRequestOptions = {
         header: {
@@ -166,7 +186,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testConnect003', 0, async function (done) {
+    it('testConnect003', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       mWebSocket.connect("", (error, value) => {
         if (!error) {
@@ -189,13 +209,13 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testConnect004', 0, async function (done) {
+    it('testConnect004', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       mWebSocket.connect(null).then(value => {
-        console.log(`case success11£º` + value);
+        console.log(`case success11ï¿½ï¿½` + value);
         expect(value).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
         expect(error.code).assertEqual(401);
         done();
@@ -210,7 +230,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testConnect005', 0, async function (done) {
+    it('testConnect005', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       let webSocketRequestOptions: webSocket.WebSocketRequestOptions = {
         header: {
@@ -219,10 +239,10 @@ export default function webSocketTest() {
         }
       }
       mWebSocket.connect("ws://19211.16811.1.100:8081/string", webSocketRequestOptions).then(value => {
-        console.log(`case success11£º` + value);
+        console.log(`case success11ï¿½ï¿½` + value);
         expect(value).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
         expect(error.code).assertEqual(-1);
         done();
@@ -237,7 +257,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testSend001', 0, async function (done) {
+    it('testSend001', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       mWebSocket.send("test data", (error, value) => {
         if (!error) {
@@ -260,14 +280,14 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testSend002', 0, async function (done) {
+    it('testSend002', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       let promise = mWebSocket.send("test data");
       promise.then(value => {
         console.log(`case success,data:` + value);
         expect(value).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
         expect(error.code).assertEqual(-1);
         done();
@@ -282,12 +302,12 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testSend003', 0, async function (done) {
+    it('testSend003', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
-      var str = "Hello, server!(arrayBuffer promise mode)";
-      var buf = new ArrayBuffer(str.length);
-      var message = new Uint8Array(buf);
-      for (var i = 0, strLen = str.length; i < strLen; i++) {
+      let str = "Hello, server!(arrayBuffer promise mode)";
+      let buf = new ArrayBuffer(str.length);
+      let message = new Uint8Array(buf);
+      for (let i = 0, strLen = str.length; i < strLen; i++) {
         message[i] = str.charCodeAt(i);
       }
       let promise = mWebSocket.send(message.buffer);
@@ -295,7 +315,7 @@ export default function webSocketTest() {
         console.log(`case success,data:` + value);
         expect(value).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
         expect(error.code).assertEqual(-1);
         done();
@@ -310,12 +330,12 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testSend004', 0, async function (done) {
+    it('testSend004', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
-      var str = "Hello, server!(arrayBuffer promise mode)";
-      var buf = new ArrayBuffer(str.length);
-      var message = new Uint8Array(buf);
-      for (var i = 0, strLen = str.length; i < strLen; i++) {
+      let str = "Hello, server!(arrayBuffer promise mode)";
+      let buf = new ArrayBuffer(str.length);
+      let message = new Uint8Array(buf);
+      for (let i = 0, strLen = str.length; i < strLen; i++) {
         message[i] = str.charCodeAt(i);
       }
       mWebSocket.send(message.buffer, (error, value) => {
@@ -339,7 +359,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testClose001', 0, async function (done) {
+    it('testClose001', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       mWebSocket.close((error, value) => {
         if (!error) {
@@ -362,7 +382,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testClose002', 0, async function (done) {
+    it('testClose002', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       let webSocketCloseOptions: webSocket.WebSocketCloseOptions = {
         code: 1,
@@ -389,7 +409,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testClose003', 0, async function (done) {
+    it('testClose003', 0, async (done:Function)=> {
       let mWebSocket = webSocket.createWebSocket();
       let webSocketCloseOptions: webSocket.WebSocketCloseOptions = {
         code: 1,
@@ -399,7 +419,7 @@ export default function webSocketTest() {
         console.log(`success11`);
         expect(true).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
         expect(error.code).assertEqual(2302999);
         done();
@@ -414,13 +434,17 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_Open001', 0, async function (done) {
+    it('testOn_Open001', 0, async (done:Function)=> {
       let ws = webSocket.createWebSocket();
+      class OutValue{
+        status:number = 0;
+        message:string ='';
+      }
       done();
       console.log("testOn_Open001: 0");
       ws.on('open', (err, value) => {
         console.log("testOn_Open001: 1");
-        console.log("on open, status:" + value['status'] + ", message:" + value['message']);
+        console.log("on open, status:" + (value as OutValue).status + ", message:" + (value as OutValue).message);
         console.log("testOn_Open001: 2");
         expect(true).assertTrue();
         done();
@@ -437,11 +461,15 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOff_Open001', 0, async function (done) {
+    it('testOff_Open001', 0, async (done:Function)=> {
       let ws = webSocket.createWebSocket();
+      class OutValue{
+        status:number = 0;
+        message:string ='';
+      }
       done();
-      let callback1 = (err, value) => {
-        console.log("on open, status:" + value['status'] + ", message:" + value['message']);
+      let callback1 = (err:BusinessError, value:Object) => {
+        console.log("on open, status:" + (value as OutValue).status + ", message:" + (value as OutValue).message);
       }
       ws.on('open', callback1);
       ws.off('open', callback1);
@@ -456,7 +484,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_Off_Message001', 0, async function (done) {
+    it('testOn_Off_Message001', 0, async (done:Function)=> {
       let ws = webSocket.createWebSocket();
       done();
       ws.on('message', (err, value) => {
@@ -474,7 +502,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_Off_Close001', 0, async function (done) {
+    it('testOn_Off_Close001', 0, async (done:Function)=> {
       let ws = webSocket.createWebSocket();
       done();
       ws.on('close', (err, value) => {
@@ -491,7 +519,7 @@ export default function webSocketTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_Off_Error001', 0, async function (done) {
+    it('testOn_Off_Error001', 0, async (done:Function)=> {
       let ws = webSocket.createWebSocket();
       done();
       ws.on('error', (err) => {
