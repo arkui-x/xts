@@ -14,14 +14,23 @@
  */
 import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '@ohos/hypium'
 import connection from '@ohos.net.connection'
+import {BusinessError} from '@ohos.base'
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function connectionTest() {
-  describe('connectionTest', function () {
+  describe('connectionTest',  ()=> {
     const TIMEOUT = 100;
     const DELAY = 1000;
-    const NETID_IVVALID = 99;
-    const NETID_IVVALID2 = 0;
+    const NETID_INVALID = 99;
+    const NETID_INVALID2 = 0;
     let envReady = false;
+
+    afterEach(async () => {
+      await sleep(DELAY)
+    });
 
     /*
      * @tc.number: TEST_CREATE_NET_CONNECTION_001
@@ -31,14 +40,15 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testCreateNetConnection001', 0, function (done) {
+    it('testCreateNetConnection001', 0, async (done:Function)=> {
       try {
-        connection.createNetConnection();
+        await connection.createNetConnection();
         console.log("create success11:" + connection.createNetConnection);
         expect(true).assertTrue();
         done();
       } catch (error) {
-        expect().assertFail();
+        console.error("Failed to create net connection,",error);
+        expect(false).assertTrue();
         done();
       }
     });
@@ -51,7 +61,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testHasDefaultNet001', 0, function (done) {
+    it('testHasDefaultNet001', 0, async (done:Function)=> {
       console.log('testHasDefaultNet001 1');
       connection.hasDefaultNet((error, value) => {
         console.log('testHasDefaultNet001 2');
@@ -81,14 +91,14 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testHasDefaultNet002', 0, function (done) {
+    it('testHasDefaultNet002', 0, async (done:Function)=> {
       connection.hasDefaultNet().then(value => {
         console.log(`case success,data:` + value);
         expect(value).assertTrue();
         done();
-      }).catch((error) => {
+      }).catch((error:BusinessError) => {
         console.log(`error, case failed,errCode:` + error.code);
-        expect().assertFail();
+        expect(false).assertTrue();
         done();
         return;
       });
@@ -102,7 +112,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testRegister001', 0, function (done) {
+    it('testRegister001', 0, async (done:Function)=> {
       console.log('testRegister001 1');
       let netConn = connection.createNetConnection();
       console.log('testRegister001 2 netConn:' + JSON.stringify(netConn));
@@ -133,7 +143,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testUnregister001', 0, function (done) {
+    it('testUnregister001', 0, async (done:Function)=> {
       let netConn = connection.createNetConnection();
       netConn.register((error) => {
         if (!error) {
@@ -161,7 +171,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_NetAvailable001', 0, function (done) {
+    it('testOn_NetAvailable001', 0, async (done:Function)=> {
       try {
         let netConn = connection.createNetConnection();
         netConn.register((error) => {
@@ -192,7 +202,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_NetCapabilitiesChange001', 0, function (done) {
+    it('testOn_NetCapabilitiesChange001', 0, async (done:Function)=> {
       let netConn = connection.createNetConnection();
       netConn.register((error) => {
         if (!error) {
@@ -221,7 +231,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_NetLost001', 0, function (done) {
+    it('testOn_NetLost001', 0, async (done:Function)=> {
       let netConn = connection.createNetConnection();
       netConn.register((error) => {
         if (!error) {
@@ -249,7 +259,7 @@ export default function connectionTest() {
      * @tc.type  : Method
      * @tc.level : Level 2
      */
-    it('testOn_NetUnavailable001', 0, function (done) {
+    it('testOn_NetUnavailable001', 0, async (done:Function)=> {
       let netConn = connection.createNetConnection();
       netConn.register((error) => {
         if (!error) {
@@ -277,7 +287,7 @@ export default function connectionTest() {
      * @tc.type  : Field
      * @tc.level : Level 1
      */
-    it('testNetId001', 0, function (done) {
+    it('testNetId001', 0, async (done:Function)=> {
       let netConn = connection.createNetConnection();
       netConn.register((error) => {
         if (!error) {
@@ -303,7 +313,7 @@ export default function connectionTest() {
      * @tc.type  : Enum
      * @tc.level : Level 0
      */
-    it('testNetBearType001', 0, function (done) {
+    it('testNetBearType001', 0, async (done:Function)=> {
       let nbt_0 = connection.NetBearType.BEARER_CELLULAR;
       let nbt_1 = connection.NetBearType.BEARER_WIFI;
       expect(nbt_0).assertEqual(0);
