@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,1814 +21,1951 @@ import { getPropertyBuf } from "./getPropertyBuf";
 import { modifyBuf } from "./modifyBuffer";
 import { prepareImageFile, prepareImageFileFd } from './Common';
 import fileIO from '@ohos.file.fs';
+import common from '@ohos.app.ability.common'
+import { BusinessError } from "@kit.BasicServicesKit";
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function ImageSource() {
-    describe("ImageSource", function () {
-        let context;
-        let filePath;
-        let fileFd = null;
-        let globalpixelmap;
-        const EXPECTFRAMECOUNT = 1;
-        const { UNKNOWN, RGB_565, RGBA_8888 } = image.PixelMapFormat;
-        const { DATE_TIME_ORIGINAL, EXPOSURE_TIME, SCENE_TYPE, ISO_SPEED_RATINGS, F_NUMBER, BITS_PER_SAMPLE, IMAGE_WIDTH, IMAGE_LENGTH } = image.PropertyKey;
-        const { ORIENTATION, GPS_LATITUDE, GPS_LONGITUDE, GPS_LATITUDE_REF, GPS_LONGITUDE_REF } = image.PropertyKey;
-        let props = {
-            DateTimeOriginal: "2022:06:02 15:51:35",
-            ExposureTime: "1/33 sec.",
-            SceneType: "Directly photographed",
-            ISOSpeedRatings: "400",
-            FNumber: "f/1.8",
+  describe("ImagSource", () => {
+    let context: common.UIAbilityContext;
+    let filePath: string;
+    let fileFd: number | null = null;
+    let globalpixelmap: image.PixelMap;
+    const EXPECTFRAMECOUNT = 1;
+    // const { UNKNOWN, RGB_565, RGBA_8888 } = image.PixelMapFormat;
+    let UNKNOWN: image.PixelMapFormat;
+    let RGB_565: image.PixelMapFormat;
+    let RGBA_8888: image.PixelMapFormat;
+
+    // const { DATE_TIME_ORIGINAL, EXPOSURE_TIME, SCENE_TYPE, ISO_SPEED_RATINGS, F_NUMBER, BITS_PER_SAMPLE, IMAGE_WIDTH, IMAGE_LENGTH } = image.PropertyKey;
+    let DATE_TIME_ORIGINAL: image.PropertyKey.DATE_TIME_ORIGINAL;
+    let EXPOSURE_TIME: image.PropertyKey.EXPOSURE_TIME;
+    let SCENE_TYPE: image.PropertyKey.SCENE_TYPE;
+    let ISO_SPEED_RATINGS: image.PropertyKey.ISO_SPEED_RATINGS;
+    let F_NUMBER: image.PropertyKey.F_NUMBER;
+    let BITS_PER_SAMPLE: image.PropertyKey.BITS_PER_SAMPLE;
+    let IMAGE_WIDTH: image.PropertyKey.IMAGE_WIDTH;
+    let IMAGE_LENGTH: image.PropertyKey.IMAGE_LENGTH;
+
+    // const { ORIENTATION, GPS_LATITUDE, GPS_LONGITUDE, GPS_LATITUDE_REF, GPS_LONGITUDE_REF } = image.PropertyKey;
+    let ORIENTATION: image.PropertyKey.ORIENTATION;
+    let GPS_LATITUDE: image.PropertyKey.GPS_LATITUDE;
+    let GPS_LONGITUDE: image.PropertyKey.GPS_LONGITUDE;
+    let GPS_LATITUDE_REF: image.PropertyKey.GPS_LATITUDE_REF;
+    let GPS_LONGITUDE_REF: image.PropertyKey.GPS_LONGITUDE_REF;
+
+    const DateTimeOriginal = "2022:06:02 15:51:35";
+    const ExposureTime = "1/33 sec.";
+    const SceneType = "Directly photographed";
+    const ISOSpeedRatings = "400";
+    const FNumber = "f/1.8";
+
+    let getFilePath = async (fileName: string, imageArray: Uint8Array) => {
+      filePath = context.cacheDir + '/' + fileName;
+      let result = await prepareImageFile(filePath, imageArray);
+      expect(result).assertTrue();
+    }
+
+    let getFileFd = async (fileName: string, imageArray: Uint8Array) => {
+      filePath = context.cacheDir + '/' + fileName;
+      fileFd = await prepareImageFileFd(filePath, imageArray);
+      expect(fileFd != null).assertTrue();
+    }
+
+    beforeAll(async () => {
+      console.info("beforeAll case");
+      context = globalThis.abilityContext;
+    });
+
+    beforeEach(async () => {
+      console.info("beforeEach case");
+      await sleep(300);
+    });
+
+    afterEach(async () => {
+      console.info('afterEach case');
+      if (fileFd != null) {
+        fileIO.close(fileFd);
+        fileFd = null;
+      }
+      if (globalpixelmap != undefined) {
+        console.info('globalpixelmap release start');
+        try {
+          await globalpixelmap.release();
+        } catch (error) {
+          console.info('globalpixelmap release fail');
+        }
+      }
+
+      await sleep(500);
+    });
+
+    afterAll(async () => {
+      console.info("afterAll case");
+    });
+
+    let packingPromise = async (done: Function, testNum: string, pixelmap: image.PixelMap) => {
+      const imagePackerApi = image.createImagePacker();
+      if (imagePackerApi == undefined) {
+        console.info(`${testNum} packingPromise create image packer failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        let packOpts: image.PackingOption = {
+          format: "image/webp", quality: 100
         };
-
-        async function getFilePath(fileName, imageArray) {
-            filePath = context.cacheDir + '/' + fileName;
-            let result = await prepareImageFile(filePath, imageArray);
-            expect(result).assertTrue();
+        console.info(
+          `${testNum} packingPromise packOpts={${JSON.stringify(packOpts)}}`
+        );
+        try {
+          let data = await imagePackerApi.packing(pixelmap, packOpts);
+          console.info(`${testNum} packing finished`);
+          if (data == undefined) {
+            console.info(`${testNum} packing failed`);
+            expect(false).assertTrue();
+            done();
+            return;
+          }
+          console.info(`${testNum} packing success`);
+          let dataArr = new Uint8Array(data);
+          console.info(`${testNum} packing show begin length: ${dataArr.length} `);
+          let line = 0;
+          for (let i = 0; i < dataArr.length; i++) {
+            let str = `dataArr[ ${i} ]=`;
+            for (let j = 0; j < 20 && i < dataArr.length; j++, i++) {
+              str = str + dataArr[i] + ",";
+            }
+            console.info(`${testNum} packing str: ${str}`);
+            i--;
+            line++;
+          }
+          console.info(`${testNum} packing show end line: ${line}`);
+          expect(true).assertTrue();
+          done();
+        } catch (error) {
+          console.info(`${testNum} packingPromise error: ${error}`);
+          expect(false).assertTrue();
+          done();
         }
+      }
+    }
 
-        async function getFileFd(fileName, imageArray) {
-            filePath = context.cacheDir + '/' + fileName;
-            fileFd = await prepareImageFileFd(filePath, imageArray);
-            expect(fileFd != null).assertTrue();
+    let createPixelMapListPromise = async (done: Function, testNum: string, decodeOpts: image.DecodingOptions) => {
+      await getFileFd("test.gif", testGif);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} createPixelMapListPromise create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        try {
+          console.info(`${testNum} createPixelMapListPromise create imagesource success`);
+          let pixelMapList = await imageSourceApi.createPixelMapList(decodeOpts);
+          if (pixelMapList != undefined) {
+            console.info(`${testNum} pixelMapList show begin(length: ${pixelMapList.length})`);
+            packingPromise(done, testNum, pixelMapList[0]);
+          } else {
+            console.info(`${testNum} createPixelMapListPromise createPixelMapList failed`);
+            expect(false).assertTrue();
+            done();
+          }
+        } catch (error) {
+          console.info(`${testNum} createPixelMapListPromise error: ${error}`);
+          expect(false).assertTrue();
+          done();
         }
+      }
+    }
 
-        beforeAll(async function () {
-            console.info("beforeAll case");
-            context = globalThis.abilityContext;
+    let createPixelMapListCallBack = async (done: Function, testNum: string, decodeOpts: image.DecodingOptions) => {
+      try {
+        await getFileFd("test.gif", testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(`${testNum} createPixelMapListCallBack create imagesource failed`);
+          expect(false).assertTrue();
+          done();
+        } else {
+          console.info(`${testNum} createPixelMapListCallBack create imagesource success`);
+          imageSourceApi.createPixelMapList(decodeOpts, (err, pixelMapList) => {
+            try {
+              if (err != undefined) {
+                console.info(`${testNum} createPixelMapListCallBack failed err: ${err}`);
+                expect(false).assertTrue();
+                done();
+              }
+              expect(pixelMapList != undefined).assertTrue();
+              console.info(`${testNum} pixelMapList show begin length: ${pixelMapList.length}`);
+              packingPromise(done, testNum, pixelMapList[0]);
+            } catch (err) {
+              console.info(`${testNum} createPixelMapListCallBack createPixelMapList callback error` + err);
+              done();
+            }
+          });
+        }
+      } catch (error) {
+        console.info(`${testNum} createPixelMapListCallBack create imagesource error` + error);
+        expect(false).assertTrue();
+        done();
+      }
+    }
+
+    let createPixelMapListErrPromise = async (done: Function, testNum: string, decodeOpts: image.DecodingOptions) => {
+      await getFileFd("test.gif", testGif);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} createPixelMapListPromise create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        try {
+          await imageSourceApi.createPixelMapList(decodeOpts);
+          console.info(`${testNum} failed `);
+          expect(false).assertTrue();
+          done();
+        } catch (error) {
+          console.info(`${testNum} createPixelMapListPromise error: ${error}`);
+          expect(true).assertTrue();
+          done();
+        }
+      }
+    }
+
+    let createPixelMapListErrCallBack = async (done: Function, testNum: string, decodeOpts: image.DecodingOptions) => {
+      await getFileFd("test.gif", testGif);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} createPixelMapListCallBack create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        console.info(`${testNum} createPixelMapListCallBack create imagesource success`);
+        imageSourceApi.createPixelMapList(decodeOpts, (err, pixelMapList) => {
+          if (err != undefined || pixelMapList == undefined) {
+            expect(true).assertTrue();
+            console.info(`${testNum} createPixelMapList err:${err}`);
+            done();
+          } else {
+            console.info(`${testNum} failed`);
+            expect(false).assertTrue();
+            done();
+          }
         });
+      }
+    }
 
-        beforeEach(async function () {
-            console.info("beforeEach case");
+    let getDelayTimeListPromise = async (done: Function, testNum: string, picName: string) => {
+      await getFileFd(picName, testGif);
+      let imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} getDelayTimeListPromise create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        try {
+          console.info(`${testNum} getDelayTimeListPromise create imagesource success`);
+          let delayTimes = await imageSourceApi.getDelayTimeList();
+          if (delayTimes != undefined) {
+            console.info(`${testNum} getDelayTimeListPromise getDelayTimeList success`);
+            expect(true).assertTrue();
+            console.info(`${testNum} delayTimes show begin length: ${delayTimes.length} `);
+            for (let i = 0; i < delayTimes.length; i++) {
+              console.info(`${testNum} delayTimes[ ${i} ]= ${delayTimes[i]}`);
+            }
+            console.info(`${testNum} delayTimes show end`);
+          } else {
+            console.info(`${testNum} getDelayTimeListPromise getDelayTimeList failed`);
+            expect(false).assertTrue();
+          }
+          done();
+        } catch (error) {
+          console.log(`${testNum} getDelayTimeListPromise err: ${error}`);
+          expect(false).assertTrue();
+          done();
+        }
+        ;
+      }
+    }
+
+    let getDelayTimeListCallBack = async (done: Function, testNum: string, picName: string) => {
+      await getFileFd(picName, testGif);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} getDelayTimeListCallBack create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        console.info(`${testNum} getDelayTimeListCallBack create imagesource success`);
+        imageSourceApi.getDelayTimeList((err, delayTimes) => {
+          if (err != undefined) {
+            console.info(`${testNum} getDelayTimeListCallBack getDelayTimeList failed err: ${err}`);
+            expect(false).assertTrue();
+            done();
+            return;
+          }
+          expect(delayTimes != undefined).assertTrue();
+          console.info(`${testNum} getDelayTimeListCallBack getDelayTimeList success`);
+          console.info(`${testNum} delayTimes show begin(length:` + delayTimes.length + `)`);
+          for (let i = 0; i < delayTimes.length; i++) {
+            console.info(`${testNum} delayTimes[` + i + `]=` + delayTimes[i]);
+          }
+          console.info(`${testNum} delayTimes show end`);
+          done();
         });
+      }
+    }
 
-        afterEach(async function () {
-            console.info('afterEach case');
-            if (fileFd != null) {
-                fileIO.close(fileFd);
-                fileFd = null;
-            }
-            if (globalpixelmap != undefined) {
-                console.info('globalpixelmap release start');
-                try {
-                    await globalpixelmap.release();
-                } catch (error) {
-                    console.info('globalpixelmap release fail');
-                }
-            }
+    let getFrameCountPromise = async (done: Function, testNum: string, picName: string) => {
+      try {
+        await getFileFd(picName, testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(`${testNum} getFrameCountPromise create imagesource failed`);
+          expect(false).assertTrue();
+          done();
+        } else {
+          console.info(`${testNum} getFrameCountPromise create imagesource success`);
+          let frameCount = await imageSourceApi.getFrameCount();
+          if (frameCount != undefined) {
+            console.info(`${testNum} getFrameCountPromise getFrameCount success`);
+            expect(frameCount).assertEqual(EXPECTFRAMECOUNT);
+            console.info(`${testNum} getFrameCountPromise frameCount= ${frameCount}`);
+          } else {
+            console.info(`${testNum} getFrameCountPromise getFrameCount failed`);
+            expect(false).assertTrue();
+          }
+          done();
+        }
+      } catch (error) {
+        console.info(`${testNum} getFrameCountPromise error: ` + error);
+        expect(false).assertTrue();
+        done();
+      }
+    }
+
+    let getFrameCountCallBack = async (done: Function, testNum: string, picName: string) => {
+      await getFileFd(picName, testGif);
+      const imageSourceApi = image.createImageSource(fileFd);
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} getFrameCountCallBack create imagesource failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        console.info(`${testNum} getFrameCountCallBack create imagesource success`);
+        imageSourceApi.getFrameCount((err, frameCount) => {
+          if (err != undefined) {
+            console.info(`${testNum} getFrameCountCallBack getFrameCount failed err: ${err}`);
+            expect(false).assertTrue();
+            done();
+            return;
+          }
+          expect(frameCount).assertEqual(EXPECTFRAMECOUNT);
+          console.info(`${testNum} getFrameCountCallBack getFrameCount success`);
+          console.info(`${testNum} getFrameCountCallBack frameCount= ${frameCount}`);
+          done();
         });
+      }
+    }
 
-        afterAll(async function () {
-            console.info("afterAll case");
+    let createIncrementalSourcePromise = async (done: Function, testNum: string, type: string
+      , opts?: image.SourceOptions) => {
+      let testimagebuffer = testPng;
+      let incSouce: image.ImageSource;
+      console.info(`${testNum} 0001 ` + testimagebuffer.length);
+      let bufferSize = 5000;
+      let offset = 0;
+      if (type == "sourceOpts") {
+        console.info(`${testNum} have sourceopts`);
+        incSouce = image.CreateIncrementalSource(new ArrayBuffer(1), opts);
+      } else {
+        console.info(`${testNum} no sourceopts`);
+        incSouce = image.CreateIncrementalSource(new ArrayBuffer(1));
+      }
+
+      let isFinished = false;
+      while (offset < testimagebuffer.length) {
+        let oneStep = testimagebuffer.slice(offset, offset + bufferSize);
+        console.info(`${testNum} 0002 ` + oneStep.length);
+        if (oneStep.length < bufferSize) {
+          isFinished = true;
+        }
+        let ret = await incSouce.updateData(oneStep, isFinished, 0, oneStep.length);
+        if (ret == undefined || ret == null) {
+          console.info(`${testNum} updateData failed`);
+          expect(ret).assertTrue();
+          break;
+        }
+        if (ret != undefined && ret != null) {
+          console.info(`${testNum} updateData success `);
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+          };
+          incSouce.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info(`${testNum} createPixelMap err: ` + err);
+              expect(false).assertTrue();
+              done();
+              return;
+            }
+            console.info(`${testNum} 0004` + pixelmap);
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          });
+        } else {
+          expect(false).assertTrue();
+          done();
+        }
+        offset = offset + oneStep.length;
+        console.info(`${testNum} 0003 ` + offset);
+      }
+    }
+
+    let createIncrementalSourceCb =
+      async (done: Function, testNum: string, type: string, opts?: image.SourceOptions) => {
+        let testimagebuffer = testPng;
+        let incSouce: image.ImageSource;
+        console.info(`${testNum} 0001 ` + testimagebuffer.length);
+        let bufferSize = 5000;
+        let offset = 0;
+        if (type == "sourceOpts") {
+          incSouce = image.CreateIncrementalSource(new ArrayBuffer(1), opts);
+        } else {
+          incSouce = image.CreateIncrementalSource(new ArrayBuffer(1));
+        }
+
+        let isFinished = false;
+        while (offset < testimagebuffer.length) {
+          let oneStep = testimagebuffer.slice(offset, offset + bufferSize);
+          console.info(`${testNum} 0002 ` + oneStep.length);
+          if (oneStep.length < bufferSize) {
+            isFinished = true;
+          }
+          let ret = incSouce.updateData(oneStep, isFinished, 0, oneStep.length);
+
+          if (ret == undefined || ret == null) {
+            console.info(`${testNum} updateData failed`);
+            expect(ret).assertTrue();
+            break;
+          }
+
+          if (ret != undefined && ret != null) {
+            console.info(`${testNum} updateData success `);
+            let decodingOptions: image.DecodingOptions = {
+              sampleSize: 1,
+            };
+            incSouce.createPixelMap(decodingOptions, (err, pixelmap) => {
+              if (err) {
+                console.info(`${testNum} createPixelMap err: ` + err);
+                expect(false).assertTrue();
+                done();
+                return;
+              }
+              console.info(`${testNum} 0004` + pixelmap);
+              expect(pixelmap != undefined).assertTrue();
+              done();
+            });
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+          offset = offset + oneStep.length;
+          console.info(`${testNum} 0003 ` + offset);
+        }
+      }
+
+    let getPromise = async (done: Function, testNum: string, type: string, args: string) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+        done();
+      } else {
+        await getFileFd("test.jpg", getPropertyBuf);
+        imageSourceApi = image.createImageSource(fileFd);
+        done();
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi
+          .getImageProperty(args)
+          .then((data) => {
+            console.info(`${testNum} ${args} ` + data);
+            // expect(data == props[args]).assertTrue();
+            if (args == 'DateTimeOriginal') {
+              expect(data == '2022:06:02 15:51:35').assertTrue();
+            } else if (args == 'ExposureTime') {
+              expect(data == '1/33 sec.').assertTrue();
+            } else if (args == 'SceneType') {
+              expect(data == 'Directly photographed').assertTrue();
+            } else if (args == 'ISOSpeedRatings') {
+              expect(data == '400').assertTrue();
+            } else if (args == 'FNumber') {
+              expect(data == 'f/1.8').assertTrue();
+            } else {
+              console.error('args error');
+              expect(false).assertTrue();
+            }
+            done();
+          })
+          .catch((error: BusinessError) => {
+            console.log(`${testNum} error: ` + error);
+            expect(false).assertTrue();
+            done();
+          });
+        done();
+      }
+      done();
+    }
+
+    let getCb = async (done: Function, testNum: string, type: string, args: string) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+        done();
+      } else {
+        await getFileFd("test.jpg", getPropertyBuf);
+        imageSourceApi = image.createImageSource(fileFd);
+        done();
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi.getImageProperty(args, (err, data) => {
+          if (err) {
+            expect(false).assertTrue();
+            console.info(`${testNum} ${args} err: ` + err);
+          } else {
+            console.info(`${testNum} ${args} ` + data);
+            // expect(data == props[args]).assertTrue();
+            if (args == 'DateTimeOriginal') {
+              expect(data == '2022:06:02 15:51:35').assertTrue();
+            } else if (args == 'ExposureTime') {
+              expect(data == '1/33 sec.').assertTrue();
+            } else if (args == 'SceneType') {
+              expect(data == 'Directly photographed').assertTrue();
+            } else if (args == 'ISOSpeedRatings') {
+              expect(data == '400').assertTrue();
+            } else if (args == 'FNumber') {
+              expect(data == 'f/1.8').assertTrue();
+            } else {
+              console.error('args error');
+              expect(false).assertTrue();
+            }
+            done();
+          }
+          done();
         });
+      }
+    }
 
-        async function packingPromise(done, testNum, pixelmap) {
-            const imagePackerApi = image.createImagePacker();
-            if (imagePackerApi == undefined) {
-                console.info(`${testNum} packingPromise create image packer failed`);
-                expect(false).assertTrue();
-                done();
+    let getCb2 = async (done: Function, testNum: string, type: string, args: string) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+        done();
+      } else {
+        await getFileFd("test.jpg", getPropertyBuf);
+        imageSourceApi = image.createImageSource(fileFd);
+        done();
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        let property: image.ImagePropertyOptions = {
+          index: 0, defaultValue: "9999"
+        };
+        imageSourceApi.getImageProperty(args, property, (err, data) => {
+          if (err) {
+            expect(false).assertTrue();
+            console.info(`${testNum} ${args} err: ` + err);
+          } else {
+            console.info(`${testNum} ${args} ` + data);
+            if (args == 'DateTimeOriginal') {
+              expect(data != '9999').assertTrue();
+              expect(data == DateTimeOriginal).assertTrue();
+            } else if (args == 'ExposureTime') {
+              expect(data != '9999').assertTrue();
+              expect(data == ExposureTime).assertTrue();
+            } else if (args == 'SceneType') {
+              expect(data != '9999').assertTrue();
+              expect(data == SceneType).assertTrue();
+            } else if (args == 'ISOSpeedRatings') {
+              expect(data != '9999').assertTrue();
+              expect(data == ISOSpeedRatings).assertTrue();
+            } else if (args == 'FNumber') {
+              expect(data != '9999').assertTrue();
+              expect(data == FNumber).assertTrue();
             } else {
-                let packOpts = { format: "image/webp", quality: 100 };
-                console.info(
-                    `${testNum} packingPromise packOpts={${JSON.stringify(packOpts)}}`
-                );
-                try {
-                    let data = await imagePackerApi.packing(pixelmap, packOpts);
-                    console.info(`${testNum} packing finished`);
-                    if (data == undefined) {
-                        console.info(`${testNum} packing failed`);
-                        expect(false).assertTrue();
-                        done();
-                        return;
-                    }
-                    console.info(`${testNum} packing success`);
-                    var dataArr = new Uint8Array(data);
-                    console.info(`${testNum} packing show begin length: ${dataArr.length} `);
-                    var line = 0;
-                    for (var i = 0; i < dataArr.length; i++) {
-                        var str = `dataArr[ ${i} ]=`;
-                        for (var j = 0; j < 20 && i < dataArr.length; j++, i++) {
-                            str = str + dataArr[i] + ",";
-                        }
-                        console.info(`${testNum} packing str: ${str}`);
-                        i--;
-                        line++;
-                    }
-                    console.info(`${testNum} packing show end line: ${line}`);
-                    expect(true).assertTrue();
-                    done();
-                } catch (error) {
-                    console.info(`${testNum} packingPromise error: ${error}`);
-                    expect(false).assertTrue();
-                    done();
-                }
+              console.error('args error');
+              expect(false).assertTrue();
             }
-        }
-
-        async function createPixelMapListPromise(done, testNum, decodeOpts) {
-            await getFileFd("test.gif", testGif);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} createPixelMapListPromise create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                try {
-                    console.info(`${testNum} createPixelMapListPromise create imagesource success`);
-                    let pixelMapList = await imageSourceApi.createPixelMapList(decodeOpts);
-                    if (pixelMapList != undefined) {
-                        console.info(`${testNum} pixelMapList show begin(length: ${pixelMapList.length})`);
-                        packingPromise(done, testNum, pixelMapList[0]);
-                    } else {
-                        console.info(`${testNum} createPixelMapListPromise createPixelMapList failed`);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                } catch (error) {
-                    console.info(`${testNum} createPixelMapListPromise error: ${error}`);
-                    expect(false).assertTrue();
-                    done();
-                }
-            }
-        }
-
-        async function createPixelMapListCallBack(done, testNum, decodeOpts) {
-            try {
-                await getFileFd("test.gif", testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(`${testNum} createPixelMapListCallBack create imagesource failed`);
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    console.info(`${testNum} createPixelMapListCallBack create imagesource success`);
-                    imageSourceApi.createPixelMapList(decodeOpts, (err, pixelMapList) => {
-                        try {
-                            if (err != undefined) {
-                                console.info(`${testNum} createPixelMapListCallBack failed err: ${err}`);
-                                expect(false).assertTrue();
-                                done();
-                            }
-                            expect(pixelMapList != undefined).assertTrue();
-                            console.info(`${testNum} pixelMapList show begin length: ${pixelMapList.length}`);
-                            packingPromise(done, testNum, pixelMapList[0]);
-                        } catch (err) {
-                            console.info(`${testNum} createPixelMapListCallBack createPixelMapList callback error` + err);
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info(`${testNum} createPixelMapListCallBack create imagesource error` + error);
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function createPixelMapListErrPromise(done, testNum, decodeOpts) {
-            await getFileFd("test.gif", testGif);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} createPixelMapListPromise create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                try {
-                    await imageSourceApi.createPixelMapList(decodeOpts);
-                    console.info(`${testNum} failed `);
-                    expect(false).assertTrue();
-                    done();
-                } catch (error) {
-                    console.info(`${testNum} createPixelMapListPromise error: ${error}`);
-                    expect(true).assertTrue();
-                    done();
-                }
-            }
-        }
-
-        async function createPixelMapListErrCallBack(done, testNum, decodeOpts) {
-            await getFileFd("test.gif", testGif);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} createPixelMapListCallBack create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                console.info(`${testNum} createPixelMapListCallBack create imagesource success`);
-                imageSourceApi.createPixelMapList(decodeOpts, (err, pixelMapList) => {
-                    if (err != undefined || pixelMapList == undefined) {
-                        expect(true).assertTrue();
-                        console.info(`${testNum} createPixelMapList err:${err}`);
-                        done();
-                    } else {
-                        console.info(`${testNum} failed`);
-                        expect(false).assertTrue();
-                        done();
-                    }
-                });
-            }
-        }
-
-        async function getDelayTimeListPromise(done, testNum, picName) {
-            await getFileFd(picName, testGif);
-            let imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} getDelayTimeListPromise create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                try {
-                    console.info(`${testNum} getDelayTimeListPromise create imagesource success`);
-                    let delayTimes = await imageSourceApi.getDelayTimeList();
-                    if (delayTimes != undefined) {
-                        console.info(`${testNum} getDelayTimeListPromise getDelayTimeList success`);
-                        expect(true).assertTrue();
-                        console.info(`${testNum} delayTimes show begin length: ${delayTimes.length} `);
-                        for (var i = 0; i < delayTimes.length; i++) {
-                            console.info(`${testNum} delayTimes[ ${i} ]= ${delayTimes[i]}`);
-                        }
-                        console.info(`${testNum} delayTimes show end`);
-                    } else {
-                        console.info(`${testNum} getDelayTimeListPromise getDelayTimeList failed`);
-                        expect(false).assertTrue();
-                    }
-                    done();
-                } catch (error) {
-                    console.log(`${testNum} getDelayTimeListPromise err: ${error}`);
-                    expect(false).assertTrue();
-                    done();
-                };
-            }
-        }
-
-        async function getDelayTimeListCallBack(done, testNum, picName) {
-            await getFileFd(picName, testGif);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} getDelayTimeListCallBack create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                console.info(`${testNum} getDelayTimeListCallBack create imagesource success`);
-                imageSourceApi.getDelayTimeList((err, delayTimes) => {
-                    if (err != undefined) {
-                        console.info(`${testNum} getDelayTimeListCallBack getDelayTimeList failed err: ${err}`);
-                        expect(false).assertTrue();
-                        done();
-                        return;
-                    }
-                    expect(delayTimes != undefined).assertTrue();
-                    console.info(`${testNum} getDelayTimeListCallBack getDelayTimeList success`);
-                    console.info(`${testNum} delayTimes show begin(length:` + delayTimes.length + `)`);
-                    for (var i = 0; i < delayTimes.length; i++) {
-                        console.info(`${testNum} delayTimes[` + i + `]=` + delayTimes[i]);
-                    }
-                    console.info(`${testNum} delayTimes show end`);
-                    done();
-                });
-            }
-        }
-
-        async function getFrameCountPromise(done, testNum, picName) {
-            try {
-                await getFileFd(picName, testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(`${testNum} getFrameCountPromise create imagesource failed`);
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    console.info(`${testNum} getFrameCountPromise create imagesource success`);
-                    let frameCount = await imageSourceApi.getFrameCount();
-                    if (frameCount != undefined) {
-                        console.info(`${testNum} getFrameCountPromise getFrameCount success`);
-                        expect(frameCount).assertEqual(EXPECTFRAMECOUNT);
-                        console.info(`${testNum} getFrameCountPromise frameCount= ${frameCount}`);
-                    } else {
-                        console.info(`${testNum} getFrameCountPromise getFrameCount failed`);
-                        expect(false).assertTrue();
-                    }
-                    done();
-                }
-            } catch (error) {
-                console.info(`${testNum} getFrameCountPromise error: ` + error);
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function getFrameCountCallBack(done, testNum, picName) {
-            await getFileFd(picName, testGif);
-            const imageSourceApi = image.createImageSource(fileFd);
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} getFrameCountCallBack create imagesource failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                console.info(`${testNum} getFrameCountCallBack create imagesource success`);
-                imageSourceApi.getFrameCount((err, frameCount) => {
-                    if (err != undefined) {
-                        console.info(`${testNum} getFrameCountCallBack getFrameCount failed err: ${err}`);
-                        expect(false).assertTrue();
-                        done();
-                        return;
-                    }
-                    expect(frameCount).assertEqual(EXPECTFRAMECOUNT);
-                    console.info(`${testNum} getFrameCountCallBack getFrameCount success`);
-                    console.info(`${testNum} getFrameCountCallBack frameCount= ${frameCount}`);
-                    done();
-                });
-            }
-        }
-
-        async function createIncrementalSourcePromise(done, testNum, type, opts?) {
-            let testimagebuffer = testPng;
-            let incSouce;
-            console.info(`${testNum} 0001 ` + testimagebuffer.length);
-            let bufferSize = 5000;
-            let offset = 0;
-            if (type == "sourceOpts") {
-                console.info(`${testNum} have sourceopts`);
-                incSouce = image.CreateIncrementalSource(new ArrayBuffer(1), opts);
-            } else {
-                console.info(`${testNum} no sourceopts`);
-                incSouce = image.CreateIncrementalSource(new ArrayBuffer(1));
-            }
-            let ret;
-            let isFinished = false;
-            while (offset < testimagebuffer.length) {
-                var oneStep = testimagebuffer.slice(offset, offset + bufferSize);
-                console.info(`${testNum} 0002 ` + oneStep.length);
-                if (oneStep.length < bufferSize) {
-                    isFinished = true;
-                }
-                ret = await incSouce.updateData(oneStep, isFinished, 0, oneStep.length);
-                if (!ret) {
-                    console.info(`${testNum} updateData failed`);
-                    expect(ret).assertTrue();
-                    break;
-                }
-                offset = offset + oneStep.length;
-                console.info(`${testNum} 0003 ` + offset);
-            }
-            if (ret) {
-                console.info(`${testNum} updateData success `);
-                let decodingOptions = {
-                    sampleSize: 1,
-                };
-                incSouce.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(`${testNum} createPixelMap err: ` + err);
-                        expect(false).assertTrue();
-                        done();
-                        return;
-                    }
-                    console.info(`${testNum} 0004` + pixelmap);
-                    expect(pixelmap != undefined).assertTrue();
-                    done();
-                });
-            } else {
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function createIncrementalSourceCb(done, testNum, type, opts?) {
-            let testimagebuffer = testPng;
-            let incSouce;
-            console.info(`${testNum} 0001 ` + testimagebuffer.length);
-            let bufferSize = 5000;
-            let offset = 0;
-            if (type == "sourceOpts") {
-                incSouce = image.CreateIncrementalSource(new ArrayBuffer(1), opts);
-            } else {
-                incSouce = image.CreateIncrementalSource(new ArrayBuffer(1));
-            }
-            let ret;
-            let isFinished = false;
-            while (offset < testimagebuffer.length) {
-                var oneStep = testimagebuffer.slice(offset, offset + bufferSize);
-                console.info(`${testNum} 0002 ` + oneStep.length);
-                if (oneStep.length < bufferSize) {
-                    isFinished = true;
-                }
-                ret = await new Promise((res) => {
-                    incSouce.updateData(oneStep, isFinished, 0, oneStep.length, (err, ret) => {
-                        res(ret);
-                    });
-                });
-
-                if (!ret) {
-                    console.info(`${testNum} updateData failed`);
-                    expect(ret).assertTrue();
-                    break;
-                }
-                offset = offset + oneStep.length;
-                console.info(`${testNum} 0003 ` + offset);
-            }
-            if (ret) {
-                console.info(`${testNum} updateData success `);
-                let decodingOptions = {
-                    sampleSize: 1,
-                };
-                incSouce.createPixelMap(decodingOptions, (err, pixelmap) => {
-                    if (err) {
-                        console.info(`${testNum} createPixelMap err: ` + err);
-                        expect(false).assertTrue();
-                        done();
-                        return;
-                    }
-                    console.info(`${testNum} 0004` + pixelmap);
-                    expect(pixelmap != undefined).assertTrue();
-                    done();
-                });
-            } else {
-                expect(false).assertTrue();
-                done();
-            }
-        }
-
-        async function getPromise(done, testNum, type, args) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", getPropertyBuf);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi
-                    .getImageProperty(args)
-                    .then((data) => {
-                        console.info(`${testNum} ${args} ` + data);
-                        expect(data == props[args]).assertTrue();
-                        done();
-                    })
-                    .catch((error) => {
-                        console.log(`${testNum} error: ` + error);
-                        expect(false).assertTrue();
-                        done();
-                    });
-            }
-        }
-
-        async function getCb(done, testNum, type, args) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", getPropertyBuf);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.getImageProperty(args, (err, data) => {
-                    if (err) {
-                        expect(false).assertTrue();
-                        console.info(`${testNum} ${args} err: ` + err);
-                    } else {
-                        console.info(`${testNum} ${args} ` + data);
-                        expect(data == props[args]).assertTrue();
-                        done();
-                    }
-                });
-            }
-        }
-
-        async function getCb2(done, testNum, type, args) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", getPropertyBuf);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                let property = { index: 0, defaultValue: "9999" };
-                imageSourceApi.getImageProperty(args, property, (err, data) => {
-                    if (err) {
-                        expect(false).assertTrue();
-                        console.info(`${testNum} ${args} err: ` + err);
-                    } else {
-                        console.info(`${testNum} ${args} ` + data);
-                        expect(data != "9999" && data == props[args]).assertTrue();
-                        done();
-                    }
-                });
-            }
-        }
-
-        async function getPromiseErr(done, testNum, type, args, isTypeErr) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                if (isTypeErr) {
-                    try {
-                        await imageSourceApi.getImageProperty(args);
-                        expect(false).assertTrue();
-                    } catch (error) {
-                        expect(error.code == 401).assertTrue();
-                        console.log(`${testNum} error msg: ` + error);
-                        done();
-                    }
-                } else {
-                    try {
-                        await imageSourceApi.getImageProperty(args);
-                        expect(false).assertTrue();
-                    } catch (error) {
-                        expect(error.code != 0).assertTrue();
-                        console.log(`${testNum} error msg: ` + error);
-                        done();
-                    }
-                }
-            }
-        }
-
-        async function getCbErr(done, testNum, type, args, isTypeErr) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                if (isTypeErr) {
-                    try {
-                        imageSourceApi.getImageProperty(args, (error, data) => {
-                            expect(false).assertTrue();
-                            done();
-                        });
-                    } catch (error) {
-                        console.log(`${testNum} error1 msg: ` + error);
-                        expect(error.code == 401).assertTrue();
-                        done();
-                    }
-                } else {
-                    imageSourceApi.getImageProperty(args, (error, data) => {
-                        expect(error.code != 0).assertTrue();
-                        console.log(`${testNum} error3 msg: ` + error);
-                        done();
-                    });
-                }
-            }
-        }
-
-        async function getCb2Err(done, testNum, type, args, isTypeErr) {
-            let imageSourceApi;
-            if (type == "buf") {
-                const data = getPropertyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFileFd("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(fileFd);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                let property = { index: 0, defaultValue: "9999" };
-                if (isTypeErr) {
-                    try {
-                        imageSourceApi.getImageProperty(args, property, (error, data) => {
-                            expect(false).assertTrue();
-                        });
-                    } catch (error) {
-                        expect(error.code == 401).assertTrue();
-                        console.log(`${testNum} error msg: ` + error);
-                        done();
-                    }
-                } else {
-                    imageSourceApi.getImageProperty(args, property, (error, data) => {
-                        expect(error.code != 0).assertTrue();
-                        console.log(`${testNum} error msg: ` + error);
-                        done();
-                    });
-                }
-            }
-        }
-
-        async function modifyPromise(done, testNum, type, key, value, checkProps) {
-            let imageSourceApi;
-            if (type == "buffer") {
-                const data = modifyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFilePath("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(filePath);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi
-                    .modifyImageProperty(key, value)
-                    .then(() => {
-                        imageSourceApi
-                            .getImageProperty(key)
-                            .then((data) => {
-                                console.info(`${testNum} ${key} ` + data);
-                                checkProps(data);
-                                done();
-                            })
-                            .catch((err) => {
-                                console.info(`${testNum} getImageProperty failed, err:${err}`);
-                                expect(false).assertTrue();
-                                done();
-                            });
-                    })
-                    .catch((err) => {
-                        console.info(`${testNum} modifyImageProperty failed, err:${err}`);
-                        expect(false).assertTrue();
-                        done();
-                    });
-            }
-        }
-
-        async function modifyImageErrPromise(done, testNum, type, key, value) {
-            let imageSourceApi;
-            try {
-                if (type == "buffer") {
-                    const data = modifyBuf.buffer;
-                    imageSourceApi = image.createImageSource(data);
-                } else {
-                    await getFilePath("test.jpg", testJpg);
-                    imageSourceApi = image.createImageSource(filePath);
-                }
-            } catch (error) {
-                expect(false).assertTrue();
-                done();
-            }
-
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi
-                    .modifyImageProperty(key, value)
-                    .then(() => {
-                        expect(false).assertTrue();
-                        done();
-                    })
-                    .catch((error) => {
-                        expect(error.code != 0).assertTrue();
-                        console.info(`${testNum} message: ` + error);
-                        done();
-                    });
-            }
-        }
-
-        async function modifyCb(done, testNum, type, key, value, checkProps) {
-            let imageSourceApi;
-            if (type == "buffer") {
-                const data = modifyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFilePath("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(filePath);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.modifyImageProperty(key, value, (error) => {
-                    if (error) {
-                        expect(false).assertTrue();
-                        console.info(`${testNum} modify err: ` + error);
-                    } else {
-                        imageSourceApi.getImageProperty(key, (error, data) => {
-                            if (error) {
-                                expect(false).assertTrue();
-                                console.info(`${testNum} get err: ` + error);
-                            } else {
-                                console.info(`${testNum} ${key}: ` + data);
-                                checkProps(data);
-                                done();
-                            }
-                        });
-                    }
-                });
-            }
-        }
-
-        async function modifyErrCb(done, testNum, type, key, value) {
-            let imageSourceApi;
-            if (type == "buffer") {
-                const data = modifyBuf.buffer;
-                imageSourceApi = image.createImageSource(data);
-            } else {
-                await getFilePath("test.jpg", testJpg);
-                imageSourceApi = image.createImageSource(filePath);
-            }
-            if (imageSourceApi == undefined) {
-                console.info(`${testNum} create image source failed`);
-                expect(false).assertTrue();
-                done();
-            } else {
-                imageSourceApi.modifyImageProperty(key, value, (error) => {
-                    expect(error.code != 0).assertTrue();
-                    console.info(`${testNum} errormsg: ` + error);
-                    done();
-                });
-            }
-        }
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_CB_001
-         * @tc.name      : testGetImageInfoCb001
-         * @tc.desc      : 1.create imageSource
-         *                 2.imageSourcecall getImageInfo(ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoCb001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoCb001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo((err, imageInfo) => {
-                        if (err) {
-                            expect(false).assertTrue();
-                            console.info('testGetImageInfoCb001 err:' + err);
-                            done();
-                            return
-                        }
-                        if (imageInfo != undefined) {
-                            console.info('testGetImageInfoCb001 imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('testGetImageInfoCb001 imageInfo.size.width:' + imageInfo.size.width);
-                            expect(true).assertTrue();
-                            done();
-                        } else {
-                            console.info('testGetImageInfoCb001 failed');
-                            expect(false).assertTrue();
-                            done();
-                        }
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoCb001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_CB_002
-         * @tc.name      : testGetImageInfoCb002
-         * @tc.desc      : 1.create imageSource
-         *                 2.imageSourcecall getImageInfo(ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoCb002', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoCb002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo((err, imageInfo) => {
-                        expect(imageInfo != undefined).assertTrue();
-                        console.info('testGetImageInfoCb002 imageInfo.size.height:' + imageInfo.size.height);
-                        console.info('testGetImageInfoCb002 imageInfo.size.width:' + imageInfo.size.width);
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoCb002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_CB_003
-         * @tc.name      : testGetImageInfoCb003
-         * @tc.desc      : 1.create imageSource
-         *                 2.imageSourcecall getImageInfo(ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoCb003', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoCb003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo((err, imageInfo) => {
-                        expect(imageInfo != undefined).assertTrue();
-                        console.info('testGetImageInfoCb003 imageInfo.size.height:' + imageInfo.size.height);
-                        console.info('testGetImageInfoCb003 imageInfo.size.width:' + imageInfo.size.width);
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoCb003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_CB_004
-         * @tc.name      : testGetImageInfoCb004
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoCb004', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoCb004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo((err, imageInfo) => {
-                        if (err) {
-                            expect(false).assertTrue();
-                            console.info('testGetImageInfoCb004 error' + err);
-                            done();
-                            return
-                        }
-                        if (imageInfo != undefined && imageInfo != null) {
-                            expect(true).assertTrue();
-                            console.info('testGetImageInfoCb004 imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('testGetImageInfoCb004 imageInfo.size.width:' + imageInfo.size.width);
-                            console.info('testGetImageInfoCb004 success')
-                            done();
-                        } else {
-                            expect(false).assertTrue();
-                            console.info('testGetImageInfoCb004 failed')
-                            done();
-                        }
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoCb004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_001
-         * @tc.name      : testGetImageInfoIndexCb001
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0, (err, imageInfo) => {
-                        expect(imageInfo != undefined).assertTrue();
-                        console.info('testGetImageInfoIndexCb001 imageInfo.size.height:' + imageInfo.size.height);
-                        console.info('testGetImageInfoIndexCb001 imageInfo.size.width:' + imageInfo.size.width);
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_002
-         * @tc.name      : testGetImageInfoIndexCb002
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb002', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0, (err, imageInfo) => {
-                        expect(imageInfo != undefined).assertTrue();
-                        console.info('testGetImageInfoIndexCb002 imageInfo.size.height:' + imageInfo.size.height);
-                        console.info('testGetImageInfoIndexCb002 imageInfo.size.width:' + imageInfo.size.width);
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_003
-         * @tc.name      : testGetImageInfoIndexCb003
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb003', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0, (err, imageInfo) => {
-                        expect(imageInfo != undefined).assertTrue();
-                        console.info('testGetImageInfoIndexCb003 imageInfo.size.height:' + imageInfo.size.height);
-                        console.info('testGetImageInfoIndexCb003 imageInfo.size.width:' + imageInfo.size.width);
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_004
-         * @tc.name      : testGetImageInfoIndexCb004
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return imageInfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb004', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0, (err, imageInfo) => {
-                        if (err) {
-                            expect(false).assertTrue();
-                            console.info('testGetImageInfoIndexCb004 error' + err);
-                            done();
-                            return
-                        }
-                        if (imageInfo != undefined && imageInfo != null) {
-                            expect(true).assertTrue();
-                            console.info('testGetImageInfoIndexCb004 imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('testGetImageInfoIndexCb004 imageInfo.size.width:' + imageInfo.size.width);
-                            console.info('testGetImageInfoIndexCb004 success')
-                            done();
-                        } else {
-                            expect(false).assertTrue();
-                            console.info('testGetImageInfoIndexCb004 failed')
-                            done();
-                        }
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_005
-         * @tc.name      : testGetImageInfoIndexCb005
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb005', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb005 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(1, (err, imageInfo) => {
-                        if (imageInfo == undefined) {
-                            expect(true).assertTrue();
-                            done();
-                        } else {
-                            expect(false).assertTrue();
-                            done();
-                        }
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb005 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_006
-         * @tc.name      : testGetImageInfoIndexCb006
-         * @tc.desc      : 1.create ImageInfo
-         *                 2.call getImageInfo(index, ImageInfo)
-         *                 3.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexCb006', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexCb006 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(-1, (err, imageInfo) => {
-                        expect(imageInfo == undefined).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexCb006 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_001
-         * @tc.name      : testGetImageInfoIndexPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index)
-         *                 3.callbackcall ,return imageinfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0)
-                        .then(imageInfo => {
-                            expect(imageInfo != undefined).assertTrue();
-                            console.info('testGetImageInfoIndexPromise001 imageInfo');
-                            console.info('imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('imageInfo.size.width:' + imageInfo.size.width);
-                            done();
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise001 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_002
-         * @tc.name      : testGetImageInfoIndexPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index)
-         *                 3.callbackcall ,return imageinfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise002', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0)
-                        .then(imageInfo => {
-                            expect(imageInfo != undefined).assertTrue();
-                            console.info('testGetImageInfoIndexPromise002 imageInfo');
-                            console.info('imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('imageInfo.size.width:' + imageInfo.size.width);
-                            done();
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise002 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_003
-         * @tc.name      : testGetImageInfoIndexPromise003
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index)
-         *                 3.callbackcall ,return imageinfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise003', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0)
-                        .then(imageInfo => {
-                            expect(imageInfo != undefined).assertTrue();
-                            console.info('testGetImageInfoIndexPromise003 imageInfo');
-                            console.info('imageInfo.size.height:' + imageInfo.size.height);
-                            console.info('imageInfo.size.width:' + imageInfo.size.width);
-                            done();
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise003 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_004
-         * @tc.name      : testGetImageInfoIndexPromise004
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index)
-         *                 3.callbackcall ,return imageinfo
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise004', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(0)
-                        .then(imageInfo => {
-                            if (imageInfo != undefined && imageInfo != null) {
-                                expect(true).assertTrue();
-                                console.info('testGetImageInfoIndexPromise004 imageInfo.size.height:' + imageInfo.size.height);
-                                console.info('testGetImageInfoIndexPromise004 imageInfo.size.width:' + imageInfo.size.width);
-                                done();
-                            } else {
-                                expect(false).assertTrue();
-                                console.info('testGetImageInfoIndexPromise004 failed');
-                                done();
-                            }
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise004 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_005
-         * @tc.name      : testGetImageInfoIndexPromise005
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index=1)
-         *                 3.callback return imageinfo undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise005', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise005 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(1)
-                        .then(() => {
-                            console.log('testGetImageInfoIndexPromise005 failed');
-                            expect().assertFail();
-                            done();
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise005 success');
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise005 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_006
-         * @tc.name      : testGetImageInfoIndexPromise006
-         * @tc.desc      : 1.create imagesource
-         *                 2.call getImageInfo(index=-1)
-         *                 3.callback return imageinfo undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testGetImageInfoIndexPromise006', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testGetImageInfoIndexPromise006 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.getImageInfo(-1)
-                        .then(() => {
-                            console.log('testGetImageInfoIndexPromise006 failed');
-                            expect().assertFail();
-                            done();
-                        }).catch(error => {
-                        console.log('testGetImageInfoIndexPromise006 success');
-                        expect(true).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testGetImageInfoIndexPromise006 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_001
-         * @tc.name      : testCreatePixelMapPromise001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapPromise001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapPromise001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap().then(pixelmap => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapPromise001 success ');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testCreatePixelMapPromise001 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapPromise001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_002
-         * @tc.name      : testCreatePixelMapPromise002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapPromise002', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapPromise002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap().then(pixelmap => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapPromise002 success ');
-                        expect(pixelmap !== undefined).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testCreatePixelMapPromise002 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapPromise002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_003
-         * @tc.name      : testCreatePixelMapPromise003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapPromise003', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapPromise003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap().then(pixelmap => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapPromise003 success ');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testCreatePixelMapPromise003 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapPromise003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_004
-         * @tc.name      : testCreatePixelMapPromise004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapPromise004', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapPromise004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap().then(pixelmap => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapPromise004 success');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    }).catch(error => {
-                        console.log('testCreatePixelMapPromise004 error: ' + error);
-                        expect().assertFail();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapPromise004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_CB_001
-         * @tc.name      : testCreatePixelMapCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return null
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapCb001', 0, async function (done) {
-            try {
-                await getFileFd('test.jpg', testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapCb001 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap((err, pixelmap) => {
-                        if (err) {
-                            console.info('testCreatePixelMapCb001 err: ' + err);
-                            expect(false).assertTrue();
-                            done();
-                            return
-                        }
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapCb001 success ');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapCb001 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_CB_002
-         * @tc.name      : testCreatePixelMapCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return null
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapCb002', 0, async function (done) {
-            try {
-                await getFileFd('test.gif', testGif);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapCb002 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap((err, pixelmap) => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapCb002 success ');
-                        expect(pixelmap !== undefined).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapCb002 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_CB_003
-         * @tc.name      : testCreatePixelMapCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return undefined
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapCb003', 0, async function (done) {
-            try {
-                await getFileFd('test.bmp', testBmp);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapCb003 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap((err, pixelmap) => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapCb003 success ');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapCb003 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_CB_004
-         * @tc.name      : testCreatePixelMapCb004
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         *                 4.callback return null
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it('testCreatePixelMapCb004', 0, async function (done) {
-            try {
-                await getFileFd('test.png', testPng);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info('testCreatePixelMapCb004 create image source failed');
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    imageSourceApi.createPixelMap((err, pixelmap) => {
-                        globalpixelmap = pixelmap;
-                        console.info('testCreatePixelMapCb004 success');
-                        expect(pixelmap != undefined).assertTrue();
-                        done();
-                    })
-                }
-            } catch (error) {
-                console.info('testCreatePixelMapCb004 error: ' + error);
-                expect(false).assertTrue();
-                done();
-            }
-        })
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_001
-         * @tc.name      : testCreatePixelMapOptionsCb001
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions-+
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb001", 0, async function (done) {
-            try {
-                await getFileFd("test.jpg", testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(
-                        "testCreatePixelMapOptionsCb001 create image source failed"
-                    );
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    let decodingOptions = {
-                        sampleSize: 1,
-                        editable: true,
-                        desiredSize: { width: 1, height: 2 },
-                        rotate: 10,
-                        desiredPixelFormat: RGBA_8888,
-                        desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                        index: 0,
-                    };
-                    imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                        if (err) {
-                            console.info(
-                                "testCreatePixelMapOptionsCb001 createPixelMap error  " +
-                                JSON.stringify(err)
-                            );
-                            expect(false).assertTrue();
-                            done();
-                        } else {
-                            globalpixelmap = pixelmap;
-                            console.info(
-                                "testCreatePixelMapOptionsCb001 success "
-                            );
-                            expect(pixelmap != undefined).assertTrue();
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info("testCreatePixelMapOptionsCb001 error: " + error);
-                expect(false).assertTrue();
-                done();
-            }
+            done();
+          }
         });
+        done();
+      }
+    }
 
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_002
-         * @tc.name      : testCreatePixelMapOptionsCb002
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb002", 0, async function (done) {
-            try {
-                await getFileFd("test.jpg", testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(
-                        "testCreatePixelMapOptionsCb002 create image source failed"
-                    );
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    let decodingOptions = {
-                        sampleSize: 1,
-                        editable: true,
-                        desiredSize: { width: 1, height: 2 },
-                        rotate: 10,
-                        desiredPixelFormat: RGB_565,
-                        desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                        index: 0,
-                    };
-                    imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                        if (err) {
-                            console.info(
-                                "testCreatePixelMapOptionsCb002 createPixelMap error  " +
-                                JSON.stringify(err)
-                            );
-                            expect(false).assertTrue();
-                            done();
-                        } else {
-                            globalpixelmap = pixelmap;
-                            console.info(
-                                "testCreatePixelMapOptionsCb002 success "
-                            );
-                            expect(pixelmap != undefined).assertTrue();
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info("testCreatePixelMapOptionsCb002 error: " + error);
+    let getPromiseErr = async (done: Function, testNum: string, type: string, args: string, isTypeErr: boolean) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+      } else {
+        await getFileFd("test.jpg", testJpg);
+        imageSourceApi = image.createImageSource(fileFd);
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        if (isTypeErr) {
+          try {
+            await imageSourceApi.getImageProperty(args);
+            expect(false).assertTrue();
+          } catch (error) {
+            expect(error.code == 401).assertTrue();
+            console.log(`${testNum} error msg: ` + error);
+            done();
+          }
+        } else {
+          try {
+            await imageSourceApi.getImageProperty(args);
+            expect(false).assertTrue();
+          } catch (error) {
+            expect(error.code != 0).assertTrue();
+            console.log(`${testNum} error msg: ` + error);
+            done();
+          }
+        }
+      }
+    }
+
+    let getCbErr = async (done: Function, testNum: string, type: string, args: string, isTypeErr: boolean) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+      } else {
+        await getFileFd("test.jpg", testJpg);
+        imageSourceApi = image.createImageSource(fileFd);
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        if (isTypeErr) {
+          try {
+            imageSourceApi.getImageProperty(args, (error, data) => {
+              expect(false).assertTrue();
+              done();
+            });
+          } catch (error) {
+            console.log(`${testNum} error1 msg: ` + error);
+            expect(error.code == 401).assertTrue();
+            done();
+          }
+        } else {
+          imageSourceApi.getImageProperty(args, (error, data) => {
+            expect(error.code != 0).assertTrue();
+            console.log(`${testNum} error3 msg: ` + error);
+            done();
+          });
+        }
+      }
+    }
+
+    let getCb2Err = async (done: Function, testNum: string, type: string, args: string, isTypeErr: boolean) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buf") {
+        const data = getPropertyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+      } else {
+        await getFileFd("test.jpg", testJpg);
+        imageSourceApi = image.createImageSource(fileFd);
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        let property: image.ImagePropertyOptions = {
+          index: 0, defaultValue: "9999"
+        };
+        if (isTypeErr) {
+          try {
+            imageSourceApi.getImageProperty(args, property, (error, data) => {
+              expect(false).assertTrue();
+            });
+          } catch (error) {
+            expect(error.code == 401).assertTrue();
+            console.log(`${testNum} error msg: ` + error);
+            done();
+          }
+        } else {
+          imageSourceApi.getImageProperty(args, property, (error, data) => {
+            expect(error.code != 0).assertTrue();
+            console.log(`${testNum} error msg: ` + error);
+            done();
+          });
+        }
+      }
+    }
+
+    let modifyPromise =
+      async (done: Function, testNum: string, type: string, key: image.PropertyKey, value: string) => {
+        let imageSourceApi: image.ImageSource;
+        if (type == "buffer") {
+          const data = modifyBuf.buffer;
+          imageSourceApi = image.createImageSource(data);
+          done();
+        } else {
+          await getFilePath("test.jpg", testJpg);
+          imageSourceApi = image.createImageSource(filePath);
+          done();
+        }
+        if (imageSourceApi == undefined) {
+          console.info(`${testNum} create image source failed`);
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi
+            .modifyImageProperty(key, value)
+            .then(() => {
+              imageSourceApi
+                .getImageProperty(key)
+                .then((data) => {
+                  console.info(`${testNum} ${key} ` + data);
+                  // checkProps(data);
+                  expect(data == value).assertTrue();
+                  done();
+                })
+                .catch((err: BusinessError) => {
+                  console.info(`${testNum} getImageProperty failed, err:${err}`);
+                  expect(false).assertTrue();
+                  done();
+                });
+            })
+            .catch((err: BusinessError) => {
+              console.info(`${testNum} modifyImageProperty failed, err:${err}`);
+              expect(false).assertTrue();
+              done();
+            });
+          done();
+        }
+      }
+
+    let modifyImageErrPromise = async (done: Function, testNum: string, type: string, key: image.PropertyKey,
+      value: string) => {
+      let imageSourceApi: image.ImageSource;
+      try {
+        console.info(`${testNum} type is ${type}`);
+        if (type == "buffer") {
+          const data = modifyBuf.buffer;
+          imageSourceApi = image.createImageSource(data);
+          if (imageSourceApi == undefined) {
+            console.info(`${testNum} create image source failed`);
+            expect(false).assertTrue();
+          } else {
+            imageSourceApi
+              .modifyImageProperty(key, value)
+              .then(() => {
                 expect(false).assertTrue();
                 done();
-            }
-        });
-
-        /**
-         * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_003
-         * @tc.name      : testCreatePixelMapOptionsCb003
-         * @tc.desc      : 1.create imagesource
-         *                 2.set index and DecodeOptions
-         *                 3.create PixelMap
-         * @tc.size      : MediumTest
-         * @tc.type      : Function
-         * @tc.level     : Level 2
-         */
-        it("testCreatePixelMapOptionsCb003", 0, async function (done) {
-            try {
-                await getFileFd("test.jpg", testJpg);
-                const imageSourceApi = image.createImageSource(fileFd);
-                if (imageSourceApi == undefined) {
-                    console.info(
-                        "testCreatePixelMapOptionsCb003 create image source failed"
-                    );
-                    expect(false).assertTrue();
-                    done();
-                } else {
-                    let decodingOptions = {
-                        sampleSize: 1,
-                        editable: true,
-                        desiredSize: { width: 1, height: 2 },
-                        rotate: 10,
-                        desiredPixelFormat: UNKNOWN,
-                        desiredRegion: { size: { height: 1, width: 2 }, x: 0, y: 0 },
-                        index: 0,
-                    };
-                    imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
-                        if (err) {
-                            console.info(
-                                "testCreatePixelMapOptionsCb003 createPixelMap error  " +
-                                JSON.stringify(err)
-                            );
-                            expect(false).assertTrue();
-                            done();
-                        } else {
-                            globalpixelmap = pixelmap;
-                            console.info(
-                                "testCreatePixelMapOptionsCb003 success "
-                            );
-                            expect(pixelmap != undefined).assertTrue();
-                            done();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.info("testCreatePixelMapOptionsCb003 error: " + error);
+              })
+              .catch((error: BusinessError) => {
+                expect(error.code != 0).assertTrue();
+                console.info(`${testNum} message: ` + error);
+                done();
+              });
+          }
+          done();
+        } else {
+          console.info(`${testNum} start`);
+          await getFilePath("test.jpg", testJpg);
+          imageSourceApi = image.createImageSource(filePath);
+          if (imageSourceApi == undefined) {
+            console.info(`${testNum} create image source failed`);
+            expect(false).assertTrue();
+          } else {
+            imageSourceApi
+              .modifyImageProperty(key, value)
+              .then(() => {
                 expect(false).assertTrue();
                 done();
-            }
+              })
+              .catch((error: BusinessError) => {
+                expect(error.code != 0).assertTrue();
+                console.info(`${testNum} message: ` + error);
+                done();
+              });
+          }
+        }
+        done();
+      } catch (error) {
+        expect(error.code != 0).assertTrue();
+        console.info(`${testNum} message: ` + error);
+        done();
+      }
+    }
+
+    let modifyCb = async (done: Function, testNum: string, type: string, key: string, value: string) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buffer") {
+        const data = modifyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+        done();
+      } else {
+        await getFilePath("test.jpg", testJpg);
+        imageSourceApi = image.createImageSource(filePath);
+        done();
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi.modifyImageProperty(key, value, (error) => {
+          if (error) {
+            expect(false).assertTrue();
+            console.info(`${testNum} modify err: ` + error);
+          } else {
+            imageSourceApi.getImageProperty(key, (error, data) => {
+              if (error) {
+                expect(false).assertTrue();
+                console.info(`${testNum} get err: ` + error);
+              } else {
+                console.info(`${testNum} ${key}: ` + data);
+                // checkProps(data);
+                expect(data == value).aseertTrue();
+                done();
+              }
+            });
+          }
+          done();
         });
+      }
+    }
+
+    let modifyErrCb = async (done: Function, testNum: string, type: string, key: image.PropertyKey, value: string) => {
+      let imageSourceApi: image.ImageSource;
+      if (type == "buffer") {
+        const data = modifyBuf.buffer;
+        imageSourceApi = image.createImageSource(data);
+        done();
+      } else {
+        await getFilePath("test.jpg", testJpg);
+        imageSourceApi = image.createImageSource(filePath);
+        done();
+      }
+      if (imageSourceApi == undefined) {
+        console.info(`${testNum} create image source failed`);
+        expect(false).assertTrue();
+        done();
+      } else {
+        imageSourceApi.modifyImageProperty(key, value, (error) => {
+          expect(error.code != 0).assertTrue();
+          console.info(`${testNum} errormsg: ` + error);
+          done();
+        });
+      }
+    }
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_CB_001
+     * @tc.name      : testGetImageInfoCb001
+     * @tc.desc      : 1.create imageSource
+     *                 2.imageSourcecall getImageInfo(ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoCb001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoCb001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo((err, imageInfo) => {
+            if (err) {
+              expect(false).assertTrue();
+              console.info('testGetImageInfoCb001 err:' + err);
+              done();
+              return
+            }
+            if (imageInfo != undefined) {
+              console.info('testGetImageInfoCb001 imageInfo.size.height:' + imageInfo.size.height);
+              console.info('testGetImageInfoCb001 imageInfo.size.width:' + imageInfo.size.width);
+              expect(true).assertTrue();
+              done();
+            } else {
+              console.info('testGetImageInfoCb001 failed');
+              expect(false).assertTrue();
+              done();
+            }
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoCb001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_CB_002
+     * @tc.name      : testGetImageInfoCb002
+     * @tc.desc      : 1.create imageSource
+     *                 2.imageSourcecall getImageInfo(ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoCb002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoCb002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo((err, imageInfo) => {
+            expect(imageInfo != undefined).assertTrue();
+            console.info('testGetImageInfoCb002 imageInfo.size.height:' + imageInfo.size.height);
+            console.info('testGetImageInfoCb002 imageInfo.size.width:' + imageInfo.size.width);
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoCb002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_CB_003
+     * @tc.name      : testGetImageInfoCb003
+     * @tc.desc      : 1.create imageSource
+     *                 2.imageSourcecall getImageInfo(ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoCb003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoCb003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo((err, imageInfo) => {
+            expect(imageInfo != undefined).assertTrue();
+            console.info('testGetImageInfoCb003 imageInfo.size.height:' + imageInfo.size.height);
+            console.info('testGetImageInfoCb003 imageInfo.size.width:' + imageInfo.size.width);
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoCb003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_CB_004
+     * @tc.name      : testGetImageInfoCb004
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoCb004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoCb004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo((err, imageInfo) => {
+            if (err) {
+              expect(false).assertTrue();
+              console.info('testGetImageInfoCb004 error' + err);
+              done();
+              return
+            }
+            if (imageInfo != undefined && imageInfo != null) {
+              expect(true).assertTrue();
+              console.info('testGetImageInfoCb004 imageInfo.size.height:' + imageInfo.size.height);
+              console.info('testGetImageInfoCb004 imageInfo.size.width:' + imageInfo.size.width);
+              console.info('testGetImageInfoCb004 success')
+              done();
+            } else {
+              expect(false).assertTrue();
+              console.info('testGetImageInfoCb004 failed')
+              done();
+            }
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoCb004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_001
+     * @tc.name      : testGetImageInfoIndexCb001
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0, (err, imageInfo) => {
+            expect(imageInfo != undefined).assertTrue();
+            console.info('testGetImageInfoIndexCb001 imageInfo.size.height:' + imageInfo.size.height);
+            console.info('testGetImageInfoIndexCb001 imageInfo.size.width:' + imageInfo.size.width);
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_002
+     * @tc.name      : testGetImageInfoIndexCb002
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0, (err, imageInfo) => {
+            expect(imageInfo != undefined).assertTrue();
+            console.info('testGetImageInfoIndexCb002 imageInfo.size.height:' + imageInfo.size.height);
+            console.info('testGetImageInfoIndexCb002 imageInfo.size.width:' + imageInfo.size.width);
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_003
+     * @tc.name      : testGetImageInfoIndexCb003
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0, (err, imageInfo) => {
+            expect(imageInfo != undefined).assertTrue();
+            console.info('testGetImageInfoIndexCb003 imageInfo.size.height:' + imageInfo.size.height);
+            console.info('testGetImageInfoIndexCb003 imageInfo.size.width:' + imageInfo.size.width);
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_004
+     * @tc.name      : testGetImageInfoIndexCb004
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return imageInfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0, (err, imageInfo) => {
+            if (err) {
+              expect(false).assertTrue();
+              console.info('testGetImageInfoIndexCb004 error' + err);
+              done();
+              return
+            }
+            if (imageInfo != undefined && imageInfo != null) {
+              expect(true).assertTrue();
+              console.info('testGetImageInfoIndexCb004 imageInfo.size.height:' + imageInfo.size.height);
+              console.info('testGetImageInfoIndexCb004 imageInfo.size.width:' + imageInfo.size.width);
+              console.info('testGetImageInfoIndexCb004 success')
+              done();
+            } else {
+              expect(false).assertTrue();
+              console.info('testGetImageInfoIndexCb004 failed')
+              done();
+            }
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_005
+     * @tc.name      : testGetImageInfoIndexCb005
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb005', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb005 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(1, (err, imageInfo) => {
+            if (imageInfo == undefined) {
+              expect(true).assertTrue();
+              done();
+            } else {
+              expect(false).assertTrue();
+              done();
+            }
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb005 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_CB_006
+     * @tc.name      : testGetImageInfoIndexCb006
+     * @tc.desc      : 1.create ImageInfo
+     *                 2.call getImageInfo(index, ImageInfo)
+     *                 3.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexCb006', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexCb006 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(-1, (err, imageInfo) => {
+            expect(imageInfo == undefined).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexCb006 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_001
+     * @tc.name      : testGetImageInfoIndexPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index)
+     *                 3.callbackcall ,return imageinfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0)
+            .then(imageInfo => {
+              expect(imageInfo != undefined).assertTrue();
+              console.info('testGetImageInfoIndexPromise001 imageInfo');
+              console.info('imageInfo.size.height:' + imageInfo.size.height);
+              console.info('imageInfo.size.width:' + imageInfo.size.width);
+              done();
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise001 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_002
+     * @tc.name      : testGetImageInfoIndexPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index)
+     *                 3.callbackcall ,return imageinfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0)
+            .then(imageInfo => {
+              expect(imageInfo != undefined).assertTrue();
+              console.info('testGetImageInfoIndexPromise002 imageInfo');
+              console.info('imageInfo.size.height:' + imageInfo.size.height);
+              console.info('imageInfo.size.width:' + imageInfo.size.width);
+              done();
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise002 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_003
+     * @tc.name      : testGetImageInfoIndexPromise003
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index)
+     *                 3.callbackcall ,return imageinfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0)
+            .then(imageInfo => {
+              expect(imageInfo != undefined).assertTrue();
+              console.info('testGetImageInfoIndexPromise003 imageInfo');
+              console.info('imageInfo.size.height:' + imageInfo.size.height);
+              console.info('imageInfo.size.width:' + imageInfo.size.width);
+              done();
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise003 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_004
+     * @tc.name      : testGetImageInfoIndexPromise004
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index)
+     *                 3.callbackcall ,return imageinfo
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(0)
+            .then(imageInfo => {
+              if (imageInfo != undefined && imageInfo != null) {
+                expect(true).assertTrue();
+                console.info('testGetImageInfoIndexPromise004 imageInfo.size.height:' + imageInfo.size.height);
+                console.info('testGetImageInfoIndexPromise004 imageInfo.size.width:' + imageInfo.size.width);
+                done();
+              } else {
+                expect(false).assertTrue();
+                console.info('testGetImageInfoIndexPromise004 failed');
+                done();
+              }
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise004 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_005
+     * @tc.name      : testGetImageInfoIndexPromise005
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index=1)
+     *                 3.callback return imageinfo undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise005', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise005 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(1)
+            .then(() => {
+              console.log('testGetImageInfoIndexPromise005 failed');
+              expect().assertFail();
+              done();
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise005 success');
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise005 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_GETIMAGEINFO_INDEX_PROMISE_006
+     * @tc.name      : testGetImageInfoIndexPromise006
+     * @tc.desc      : 1.create imagesource
+     *                 2.call getImageInfo(index=-1)
+     *                 3.callback return imageinfo undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testGetImageInfoIndexPromise006', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testGetImageInfoIndexPromise006 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.getImageInfo(-1)
+            .then(() => {
+              console.log('testGetImageInfoIndexPromise006 failed');
+              expect().assertFail();
+              done();
+            }).catch((error: BusinessError) => {
+            console.log('testGetImageInfoIndexPromise006 success');
+            expect(true).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testGetImageInfoIndexPromise006 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_001
+     * @tc.name      : testCreatePixelMapPromise001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapPromise001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapPromise001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap().then(pixelmap => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapPromise001 success ');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testCreatePixelMapPromise001 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapPromise001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_002
+     * @tc.name      : testCreatePixelMapPromise002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapPromise002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapPromise002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap().then(pixelmap => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapPromise002 success ');
+            expect(pixelmap !== undefined).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testCreatePixelMapPromise002 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapPromise002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_003
+     * @tc.name      : testCreatePixelMapPromise003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapPromise003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapPromise003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap().then(pixelmap => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapPromise003 success ');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testCreatePixelMapPromise003 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapPromise003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_PROMISE_004
+     * @tc.name      : testCreatePixelMapPromise004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapPromise004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapPromise004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap().then(pixelmap => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapPromise004 success');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          }).catch((error: BusinessError) => {
+            console.log('testCreatePixelMapPromise004 error: ' + error);
+            expect().assertFail();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapPromise004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_CB_001
+     * @tc.name      : testCreatePixelMapCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return null
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapCb001', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.jpg', testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapCb001 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap((err, pixelmap) => {
+            if (err) {
+              console.info('testCreatePixelMapCb001 err: ' + err);
+              expect(false).assertTrue();
+              done();
+              return
+            }
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapCb001 success ');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapCb001 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_CB_002
+     * @tc.name      : testCreatePixelMapCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return null
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapCb002', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.gif', testGif);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapCb002 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap((err, pixelmap) => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapCb002 success ');
+            expect(pixelmap !== undefined).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapCb002 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_CB_003
+     * @tc.name      : testCreatePixelMapCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return undefined
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapCb003', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.bmp', testBmp);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapCb003 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap((err, pixelmap) => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapCb003 success ');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapCb003 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_CB_004
+     * @tc.name      : testCreatePixelMapCb004
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     *                 4.callback return null
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('testCreatePixelMapCb004', 0, async (done: Function) => {
+      try {
+        await getFileFd('test.png', testPng);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info('testCreatePixelMapCb004 create image source failed');
+          expect(false).assertTrue();
+          done();
+        } else {
+          imageSourceApi.createPixelMap((err, pixelmap) => {
+            globalpixelmap = pixelmap;
+            console.info('testCreatePixelMapCb004 success');
+            expect(pixelmap != undefined).assertTrue();
+            done();
+          })
+        }
+      } catch (error) {
+        console.info('testCreatePixelMapCb004 error: ' + error);
+        expect(false).assertTrue();
+        done();
+      }
+    })
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_001
+     * @tc.name      : testCreatePixelMapOptionsCb001
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions-+
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb001", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.jpg", testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(
+            "testCreatePixelMapOptionsCb001 create image source failed"
+          );
+          expect(false).assertTrue();
+          done();
+        } else {
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+            editable: true,
+            desiredSize: {
+              width: 1, height: 2
+            },
+            rotate: 10,
+            desiredPixelFormat: RGBA_8888,
+            desiredRegion: {
+              size: {
+                height: 1, width: 2
+              }, x: 0, y: 0
+            },
+            index: 0,
+          };
+          imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info(
+                "testCreatePixelMapOptionsCb001 createPixelMap error  " +
+                JSON.stringify(err)
+              );
+              expect(false).assertTrue();
+              done();
+            } else {
+              globalpixelmap = pixelmap;
+              console.info(
+                "testCreatePixelMapOptionsCb001 success "
+              );
+              expect(pixelmap != undefined).assertTrue();
+              done();
+            }
+          });
+        }
+      } catch (error) {
+        console.info("testCreatePixelMapOptionsCb001 error: " + error);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_002
+     * @tc.name      : testCreatePixelMapOptionsCb002
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb002", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.jpg", testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(
+            "testCreatePixelMapOptionsCb002 create image source failed"
+          );
+          expect(false).assertTrue();
+          done();
+        } else {
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+            editable: true,
+            desiredSize: {
+              width: 1, height: 2
+            },
+            rotate: 10,
+            desiredPixelFormat: RGB_565,
+            desiredRegion: {
+              size: {
+                height: 1, width: 2
+              }, x: 0, y: 0
+            },
+            index: 0,
+          };
+          imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info(
+                "testCreatePixelMapOptionsCb002 createPixelMap error  " +
+                JSON.stringify(err)
+              );
+              expect(false).assertTrue();
+              done();
+            } else {
+              globalpixelmap = pixelmap;
+              console.info(
+                "testCreatePixelMapOptionsCb002 success "
+              );
+              expect(pixelmap != undefined).assertTrue();
+              done();
+            }
+          });
+        }
+      } catch (error) {
+        console.info("testCreatePixelMapOptionsCb002 error: " + error);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_003
+     * @tc.name      : testCreatePixelMapOptionsCb003
+     * @tc.desc      : 1.create imagesource
+     *                 2.set index and DecodeOptions
+     *                 3.create PixelMap
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it("testCreatePixelMapOptionsCb003", 0, async (done: Function) => {
+      try {
+        await getFileFd("test.jpg", testJpg);
+        const imageSourceApi = image.createImageSource(fileFd);
+        if (imageSourceApi == undefined) {
+          console.info(
+            "testCreatePixelMapOptionsCb003 create image source failed"
+          );
+          expect(false).assertTrue();
+          done();
+        } else {
+          let decodingOptions: image.DecodingOptions = {
+            sampleSize: 1,
+            editable: true,
+            desiredSize: {
+              width: 1, height: 2
+            },
+            rotate: 10,
+            desiredPixelFormat: UNKNOWN,
+            desiredRegion: {
+              size: {
+                height: 1, width: 2
+              }, x: 0, y: 0
+            },
+            index: 0,
+          };
+          imageSourceApi.createPixelMap(decodingOptions, (err, pixelmap) => {
+            if (err) {
+              console.info(
+                "testCreatePixelMapOptionsCb003 createPixelMap error  " +
+                JSON.stringify(err)
+              );
+              expect(false).assertTrue();
+              done();
+            } else {
+              globalpixelmap = pixelmap;
+              console.info(
+                "testCreatePixelMapOptionsCb003 success "
+              );
+              expect(pixelmap != undefined).assertTrue();
+              done();
+            }
+          });
+        }
+      } catch (error) {
+        console.info("testCreatePixelMapOptionsCb003 error: " + error);
+        expect(false).assertTrue();
+        done();
+      }
+    });
 
         /**
          * @tc.number    : TEST_CREATEPIXELMAP_OPTIONS_CB_004
