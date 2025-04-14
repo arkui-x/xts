@@ -134,6 +134,39 @@ struct WebComponent {
               }
             })
 
+          Button("setDownloadDelegate")
+            .id("setDownloadDelegate")
+            .height(24)
+            .fontSize(12)
+            .margin({ top: 5 })
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              try {
+                this.delegate.onBeforeDownload((webDownloadItem: webview.WebDownloadItem) => {
+                  webDownloadItem.start("/data/storage/el2/base/cache/web/" + webDownloadItem.getSuggestedFileName());
+                })
+                this.delegate.onDownloadUpdated((webDownloadItem: webview.WebDownloadItem) => {
+                  this.Guid = webDownloadItem.getGuid();
+                  this.CurrentSpeed = `${webDownloadItem.getCurrentSpeed()}`;
+                  this.PercentComplete = `${webDownloadItem.getPercentComplete()}`;
+                  this.TotalBytes = `${webDownloadItem.getTotalBytes()}`;
+                  this.State = `${webDownloadItem.getState()}`;
+                  this.LastErrorCode = `${webDownloadItem.getLastErrorCode().toString()}`;
+                  this.Method = webDownloadItem.getMethod();
+                  this.MimeType = webDownloadItem.getMimeType();
+                  this.Url = webDownloadItem.getUrl();
+                  this.SuggestedFileName = webDownloadItem.getSuggestedFileName();
+                  this.ReceivedBytes = `${webDownloadItem.getReceivedBytes()}`;
+                  this.FullPath = webDownloadItem.getFullPath();
+                  this.State_pause = `${webDownloadItem.getState()}`;
+                  this.download = webDownloadItem;
+                })
+                this.controller.setDownloadDelegate(this.delegate);
+              } catch (error) {
+                console.error(`[Debug][JS]:ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              }
+            })
+
           Button("setDownloadDelegate_onBeforeDownload_error")
             .id("setDownloadDelegate_onBeforeDownload_error")
             .height(24)
