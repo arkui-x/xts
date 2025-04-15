@@ -76,10 +76,10 @@ export default function WebAttributeFun_OnRefreshAccessedHistory() {
     it('SUB_Web_WebView_WebAttribute_OnRefreshAccessedHistory_0100', 0, async () => {
 
       const driver: Driver = Driver.create();
-      await driver.delayMs(1000);
+      await driver.delayMs(1500);
       const ZOOM_PRECISE: Component = await driver.findComponent(ON.id('refresh'));
       await ZOOM_PRECISE.click();
-      await driver.delayMs(1000);
+      await driver.delayMs(1500);
       const MY_TIPS: Component = await driver.findComponent(ON.id('refreshs'));
       await driver.delayMs(2000);
       const webId: string = await MY_TIPS.getText();

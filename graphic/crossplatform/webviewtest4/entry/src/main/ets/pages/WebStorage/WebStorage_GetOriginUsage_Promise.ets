@@ -7,7 +7,7 @@ import { Back } from '../../components/goBack';
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  origin: string = "resource://rawfile/";
+  origin: string = "https://cloud.tencent.com";
   @State originValue: number = -200;
   @State errorMessage: BusinessError = {
     code: 0,
@@ -49,7 +49,7 @@ struct WebComponent {
       Text(`Usage：${this.originValue}`).id("originValue");
       Text(`ErrorCode：${this.errorMessage.code}`).id("errorCode");
       Text(`ErrorMessage：${this.errorMessage.message}`);
-      Web({ src: $rawfile('webStorage.html'), controller: this.controller })
+      Web({ src: 'https://cloud.tencent.com', controller: this.controller })
     }
   }
 }
