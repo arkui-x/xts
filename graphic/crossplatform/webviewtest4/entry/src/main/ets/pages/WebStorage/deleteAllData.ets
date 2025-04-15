@@ -6,7 +6,7 @@ import { Back } from '../../components/goBack';
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  origin: string = "resource://rawfile/";
+  origin: string = "https://cloud.tencent.com";
   @State str: number = 0;
 
   build() {
@@ -37,7 +37,7 @@ struct WebComponent {
           }
         })
       Text(`${this.str}`).id("TEXT");
-      Web({ src: $rawfile('webStorage.html'), controller: this.controller })
+      Web({ src: 'https://cloud.tencent.com', controller: this.controller })
     }
   }
 }
