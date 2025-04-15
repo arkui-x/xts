@@ -17,7 +17,12 @@ import { Driver, ON } from '@ohos.UiTest'
 import { describe, afterEach, it, expect } from '@ohos/hypium';
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
+import deviceInfo from '@ohos.deviceInfo';
 
+let osFullNameInfo: string = deviceInfo.osFullName;
+console.info('the deviceInfo osFullName is :' + osFullNameInfo);
+let platform = osFullNameInfo.split(' ')[0];
+console.info('the device platform is :' + platform)
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 async function startAbility(bundleName: string, abilityName: string) {
@@ -39,10 +44,12 @@ export default function xcomponent() {
 
     const WAIT_TIME = 2000;
     afterEach(async () => {
-      let topAbility = await delegator.getCurrentTopAbility();
-      await topAbility.context.terminateSelf();
-      let driver = Driver.create()
-      await driver.delayMs(WAIT_TIME);
+      if (platform != 'iOS') {
+        let topAbility = await delegator.getCurrentTopAbility();
+        await topAbility.context.terminateSelf();
+        let driver = Driver.create()
+        await driver.delayMs(WAIT_TIME);
+      }
     })
 
     /**
