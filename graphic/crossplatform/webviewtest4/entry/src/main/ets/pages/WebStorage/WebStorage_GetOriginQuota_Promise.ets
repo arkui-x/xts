@@ -2,12 +2,13 @@
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Back } from '../../components/goBack';
+import deviceInfo from '@ohos.deviceInfo';
 
 @Entry
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  origin: string = "resource://rawfile/";
+  origin: string = deviceInfo.osFullName.includes("Android") ? "file:///" : "resource://rawfile/";
   @State originValue: number = -200;
   @State errorMessage: BusinessError = {
     code: 0,
