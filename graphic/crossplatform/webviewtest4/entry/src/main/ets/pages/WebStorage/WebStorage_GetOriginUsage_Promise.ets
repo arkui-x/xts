@@ -2,12 +2,13 @@
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Back } from '../../components/goBack';
+import deviceInfo from '@ohos.deviceInfo';
 
 @Entry
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
-  origin: string = "https://cloud.tencent.com";
+  origin: string = deviceInfo.osFullName.includes("Android") ? "file:///" : "resource://rawfile/";
   @State originValue: number = -200;
   @State errorMessage: BusinessError = {
     code: 0,
@@ -49,7 +50,7 @@ struct WebComponent {
       Text(`Usage：${this.originValue}`).id("originValue");
       Text(`ErrorCode：${this.errorMessage.code}`).id("errorCode");
       Text(`ErrorMessage：${this.errorMessage.message}`);
-      Web({ src: 'https://cloud.tencent.com', controller: this.controller })
+      Web({ src: $rawfile('webStorage.html'), controller: this.controller })
     }
   }
 }
