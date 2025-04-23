@@ -370,6 +370,7 @@ export default function audioCapturerTest() {
        */
       it('SUB_ArkUIX_Audio_capturerOnPeriodReach_Func_0100', 0, async (done: Function) => {
         try{
+          await audioCapturer.release();
           audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
           await onReadData(audioCapturer);
           audioCapturer.on('periodReach', position_1000, (position) => {
@@ -962,7 +963,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -990,7 +990,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1025,7 +1024,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1134,7 +1132,6 @@ export default function audioCapturerTest() {
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0100 error' + error);
       }
       await sleep(waitReadyMs_600);
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1222,7 +1219,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_300);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1290,7 +1286,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_0700 error' + error);
       }
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1342,7 +1337,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1500,7 +1494,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1300 error' + error);
       }
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1576,7 +1569,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1644,7 +1636,6 @@ export default function audioCapturerTest() {
         expect(error).assertFail();
         console.error('SUB_ArkUIX_Audio_capturerCombinedScene_Func_1900 error' + error);
       }
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
@@ -1684,7 +1675,6 @@ export default function audioCapturerTest() {
       }
       await sleep(waitReadyMs_600);
       expect(isPass).assertTrue();
-      await stopPromise(audioCapturer);
       await audioCapturer.release();
       done();
     })
