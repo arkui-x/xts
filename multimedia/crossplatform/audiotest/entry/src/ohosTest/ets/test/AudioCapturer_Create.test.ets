@@ -732,16 +732,13 @@ export default function audioCapturer_CreateTest() {
         await (async (): Promise<audio.AudioCapturer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              err == undefined ? resolve(data) : reject(err)
+              err === undefined ? resolve(data) : reject(err)
             });
           });
         })().then(data => {
-          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
-          expect().assertFail()
+          expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
         }).catch((err: BusinessError) => {
-          if (err.code != errCode_6800301) {
-            isPass = false;
-          }
+          expect().assertFail();
         });
       }
       catch (error) {
@@ -809,11 +806,9 @@ export default function audioCapturer_CreateTest() {
 
         audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_F32LE;
         await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
-          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1000 fail');
+          expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
         }).catch((err: BusinessError) => {
-          if (err.code != errCode_6800301) {
-            isPass = false;
-          }
+          expect().assertFail();
         });
       }
       catch (error) {
