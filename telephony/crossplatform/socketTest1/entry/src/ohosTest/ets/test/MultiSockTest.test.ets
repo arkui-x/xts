@@ -15,11 +15,7 @@
 
 import { BusinessError } from '@ohos.base'
 import { describe, it, expect } from '@ohos/hypium'
-import deviceInfo from '@ohos.deviceInfo'
 import socket from '@ohos.net.socket'
-
-const osFullNameInfo: string = deviceInfo.osFullName
-const platform = osFullNameInfo.split(' ')[0]
 
 async function addMembershipFunc(multicast: socket.MulticastSocket, addr: socket.NetAddress) {
   await multicast.addMembership(addr).then(() => {
@@ -158,11 +154,7 @@ export default function MultiSockTest() {
           let code: Number = (err as BusinessError).code
           let message: string = (err as BusinessError).message
           console.info("addMembershipErrorParam, code =" + code + ", message=" + message)
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301022).assertTrue()
-          }
+          expect(code === 2301022).assertTrue()
         } else {
           console.log('addMembership failed')
           expect().assertFail()
@@ -190,11 +182,7 @@ export default function MultiSockTest() {
           let code: Number = (err as BusinessError).code
           let message: string = (err as BusinessError).message
           console.info("addMembershipErrorParam, code =" + code + ", message=" + message)
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301022).assertTrue()
-          }
+          expect(code === 2301022).assertTrue()
         } else {
           console.log('addMembership failed')
           expect().assertFail()
@@ -252,11 +240,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("addMembershipErrorParam, code =" + code + ", message=" + message)
         console.log('addMembership fail')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301022).assertTrue()
-        }
+        expect(code === 2301022).assertTrue()
         done()
       })
     })
@@ -282,11 +266,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("addMembershipErrorParam, code =" + code + ", message=" + message)
         console.log('addMembership fail')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301022).assertTrue()
-        }
+        expect(code === 2301022).assertTrue()
         done()
       })
     })
@@ -338,11 +318,7 @@ export default function MultiSockTest() {
           let code: Number = (err as BusinessError).code
           let message: string = (err as BusinessError).message
           console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('dropMembership failed')
           expect().assertFail()
@@ -370,11 +346,7 @@ export default function MultiSockTest() {
           let code: Number = (err as BusinessError).code
           let message: string = (err as BusinessError).message
           console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('dropMembership failed')
           expect().assertFail()
@@ -403,11 +375,7 @@ export default function MultiSockTest() {
           let code: Number = (err as BusinessError).code
           let message: string = (err as BusinessError).message
           console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('dropMembership failed')
           expect().assertFail()
@@ -474,11 +442,7 @@ export default function MultiSockTest() {
           let message: string = (err as BusinessError).message
           console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
           console.log('dropMembership success')
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
           done()
         })
       } catch (error) {
@@ -511,11 +475,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
         console.log('dropMembership success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301009).assertTrue()
-        }
+        expect(code === 2301009).assertTrue()
         done()
       })
     })
@@ -541,11 +501,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("dropMembershipErrorParam, code =" + code + ", message=" + message)
         console.log('dropMembership success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301009).assertTrue()
-        }
+        expect(code === 2301009).assertTrue()
         done()
       })
     })
@@ -607,11 +563,7 @@ export default function MultiSockTest() {
             let message: string = (err as BusinessError).message
             console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
             console.log('setMulticastTTL success')
-            if (platform == "iOS") {
-              expect(code == 2301005).assertTrue()
-            } else {
-              expect(code == 2301022).assertTrue()
-            }
+            expect(code === 2301022).assertTrue()
           } else {
             console.log('setMulticastTTL failed')
             expect().assertFail()
@@ -649,11 +601,7 @@ export default function MultiSockTest() {
           let message: string = (err as BusinessError).message
           console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
           console.log('setMulticastTTL success')
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301022).assertTrue()
-          }
+          expect(code === 2301022).assertTrue()
         } else {
           console.log('setMulticastTTL failed')
           expect().assertFail()
@@ -679,11 +627,7 @@ export default function MultiSockTest() {
           let message: string = (err as BusinessError).message
           console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
           console.log('setMulticastTTL success')
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('setMulticastTTL failed')
           expect().assertFail()
@@ -743,11 +687,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
         console.log('setMulticastTTL success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301022).assertTrue()
-        }
+        expect(code === 2301022).assertTrue()
       })
       dropMembershipFunc(multicast, addr)
       done()
@@ -775,11 +715,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
         console.log('setMulticastTTL success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301022).assertTrue()
-        }
+        expect(code === 2301022).assertTrue()
       })
       await dropMembershipFunc(multicast, addr)
       done()
@@ -803,11 +739,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("setMulticastTTLErrorParam, code =" + code + ", message=" + message)
         console.log('setMulticastTTL success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301009).assertTrue()
-        }
+        expect(code === 2301009).assertTrue()
         done()
       })
     })
@@ -885,11 +817,7 @@ export default function MultiSockTest() {
           let message: string = (err as BusinessError).message
           console.info("getMulticastTTLErrorParam, code =" + code + ", message=" + message)
           console.log('tests getMulticastTTL success, err: ' + JSON.stringify(err))
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('test getMulticastTTL failed, value: ' + JSON.stringify(value))
           expect().assertFail()
@@ -971,11 +899,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("getMulticastTTLErrorParam, code =" + code + ", message=" + message)
         console.log('getMulticastTTL success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301009).assertTrue()
-        }
+        expect(code === 2301009).assertTrue()
         done()
       })
     })
@@ -1050,11 +974,7 @@ export default function MultiSockTest() {
           let message: string = (err as BusinessError).message
           console.info("setLoopbackModeErrorParam, code =" + code + ", message=" + message)
           console.log('test setLoopbackMode success, err: ' + JSON.stringify(err))
-          if (platform == "iOS") {
-            expect(code == 2301005).assertTrue()
-          } else {
-            expect(code == 2301009).assertTrue()
-          }
+          expect(code === 2301009).assertTrue()
         } else {
           console.log('test setLoopbackMode fail')
           expect().assertFail()
@@ -1300,11 +1220,7 @@ export default function MultiSockTest() {
         let message: string = (err as BusinessError).message
         console.info("getLoopbackModeErrorParam, code =" + code + ", message=" + message)
         console.log('test getLoopbackMode success')
-        if (platform == "iOS") {
-          expect(code == 2301005).assertTrue()
-        } else {
-          expect(code == 2301009).assertTrue()
-        }
+        expect(code === 2301009).assertTrue()
         done()
       })
     })
