@@ -37,6 +37,8 @@ import fileIOLstat from "./members/lstat.test";
 import fileIOMoveFile from "./members/moveFile.test";
 import fileIOReadtext from "./members/readtext.test";
 import fileIOListfile from "./members/listFile.test";
+import atomicFileTest from './members/atomicFile.test'
+import fileIOWatcher from './members/watcher.test'
 
 export default function testsuite() {
   fileIOClose();
@@ -63,4 +65,6 @@ export default function testsuite() {
   fileIOMoveFile();
   fileIOReadtext();
   fileIOListfile();
+  atomicFileTest();
+  fileIOWatcher();
 }

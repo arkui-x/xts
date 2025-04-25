@@ -55,6 +55,13 @@ export async function fileName(testName:string) {
   return BASE_PATH + testName + "_" + randomString(testName.length);
 }
 
+export async function sleep(times:number) {
+  if (!times) {
+    times = 10;
+  }
+  await new Promise<Function>((res) => setTimeout(res, times));
+}
+
 export function randomString(num:number) {
   let len = num;
   let $chars = "aaaabbbbcccc";
