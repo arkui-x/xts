@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <style>
+        #pageHeight{
+            height:1300px
+        }
+    </style>
+</head>
+<body>
+<div id="demo">Hello World</div>
+<div style="display: flex; flex-direction: column; gap: 15px; width: fit-content; margin-top: 15px;">
+    <button type="button" onclick="htmlTestSyncString()">TestSyncString</button>
+    <button type="button" onclick="htmlTestSyncNumber()">TestSyncNumber</button>
+    <button type="button" onclick="htmlTestSyncBoolean()">TestSyncBoolean</button>
+
+    <button type="button" onclick="htmlTestSyncNumberArray()">TestSyncNumberArray</button>
+    <button type="button" onclick="htmlTestSyncStringArray()">TestSyncStringArray</button>
+    <button type="button" onclick="htmlTestSyncBooleanArray()">TestSyncBooleanArray</button>
+
+    <button type="button" onclick="htmlTestSyncNumberDictionary()">TestSyncNumberDictionary</button>
+    <button type="button" onclick="htmlTestSyncStringDictionary()">TestSyncStringDictionary</button>
+    <button type="button" onclick="htmlTestSyncBooleanDictionary()">TestSyncBooleanDictionary</button>
+</div>
+<div id="pageHeight"></div>
+</body>
+<script>
+    function htmlTestSyncString() {
+        let result = backToEts.testSyncString("webTest");
+        let str = result ? result.toString() : "";
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncNumber() {
+        let str = backToEts.testSyncNumber(123);
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncBoolean() {
+        let str = backToEts.testSyncBoolean(true);
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncNumberArray() {
+        let str = backToEts.testSyncNumberArray([1, 2, 3]);
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncStringArray() {
+        let str = backToEts.testSyncStringArray(['a', 'b', 'c']);
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncBooleanArray() {
+        let str = backToEts.testSyncBooleanArray([true, false, true]);
+        document.getElementById("demo").innerHTML = str;
+        return str;
+    }
+
+    function htmlTestSyncNumberDictionary() {
+        let str = backToEts.testSyncNumberDictionary({'key': 1});
+        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        return JSON.stringify(str);
+    }
+
+    function htmlTestSyncStringDictionary() {
+        let str = backToEts.testSyncStringDictionary({'key': 'test'});
+        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        return JSON.stringify(str);
+    }
+
+    function htmlTestSyncBooleanDictionary() {
+        let str = backToEts.testSyncBooleanDictionary({'key': true});
+        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        return JSON.stringify(str);
+    }
+</script>
+</html>

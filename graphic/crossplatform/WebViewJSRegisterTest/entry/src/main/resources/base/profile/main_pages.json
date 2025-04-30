@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/RegisterJSProxy_SyncMethod_Function",
+    "pages/RegisterJSProxy_AsyncMethod_Function",
+    "pages/RegisterJSProxy_Function_Exception",
+    "pages/RegisterJSProxy_SyncMethod_Component",
+    "pages/RegisterJSProxy_AsyncMethod_Component",
+    "pages/DeleteJSRegister_Function",
+    "pages/DeleteJSRegister_Function_Exception"
+  ]
+}

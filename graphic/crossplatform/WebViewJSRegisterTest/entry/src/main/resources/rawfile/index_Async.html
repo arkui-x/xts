@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <style>
+        #pageHeight{
+            height:1300px
+        }
+    </style>
+</head>
+<body>
+<div id="demo">Hello World</div>
+<div style="display: flex; flex-direction: column; gap: 15px; width: fit-content; margin-top: 15px;">
+    <button type="button" onclick="htmlTestAsyncString()">TestAsyncString</button>
+    <button type="button" onclick="htmlTestAsyncNumber()">TestAsyncNumber</button>
+    <button type="button" onclick="htmlTestAsyncBoolean()">TestAsyncBoolean</button>
+
+    <button type="button" onclick="htmlTestAsyncNumberArray()">TestAsyncNumberArray</button>
+    <button type="button" onclick="htmlTestAsyncStringArray()">TestAsyncStringArray</button>
+    <button type="button" onclick="htmlTestAsyncBooleanArray()">TestAsyncBooleanArray</button>
+
+    <button type="button" onclick="htmlTestAsyncNumberDictionary()">TestAsyncNumberDictionary</button>
+    <button type="button" onclick="htmlTestAsyncStringDictionary()">TestAsyncStringDictionary</button>
+    <button type="button" onclick="htmlTestAsyncBooleanDictionary()">TestAsyncBooleanDictionary</button>
+</div>
+<div id="pageHeight"></div>
+</body>
+<script>
+    function htmlTestAsyncString() {
+        backToEts.testAsyncString("webTest");
+    }
+
+    function htmlTestAsyncNumber() {
+        backToEts.testAsyncNumber(123);
+    }
+
+    function htmlTestAsyncBoolean() {
+        backToEts.testAsyncBoolean(true);
+    }
+
+    function htmlTestAsyncNumberArray() {
+        backToEts.testAsyncNumberArray([1, 2, 3]);
+    }
+
+    function htmlTestAsyncStringArray() {
+        backToEts.testAsyncStringArray(['a', 'b', 'c']);
+    }
+
+    function htmlTestAsyncBooleanArray() {
+        backToEts.testAsyncBooleanArray([true, false, true]);
+    }
+
+    function htmlTestAsyncNumberDictionary() {
+        backToEts.testAsyncNumberDictionary({'key': 1});
+    }
+
+    function htmlTestAsyncStringDictionary() {
+        backToEts.testAsyncStringDictionary({'key': 'test'});
+    }
+
+    function htmlTestAsyncBooleanDictionary() {
+        backToEts.testAsyncBooleanDictionary({'key': true});
+    }
+</script>
+</html>
