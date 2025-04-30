@@ -30,57 +30,57 @@
 </body>
 <script>
     function htmlTestSyncString() {
-        let result = backToEts.testSyncString("webTest");
+        let result = backToEts.testSyncString('webTest');
         let str = result ? result.toString() : "";
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncNumber() {
         let str = backToEts.testSyncNumber(123);
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncBoolean() {
         let str = backToEts.testSyncBoolean(true);
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncNumberArray() {
         let str = backToEts.testSyncNumberArray([1, 2, 3]);
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncStringArray() {
         let str = backToEts.testSyncStringArray(['a', 'b', 'c']);
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncBooleanArray() {
         let str = backToEts.testSyncBooleanArray([true, false, true]);
-        document.getElementById("demo").innerHTML = str;
+        document.getElementById('demo').innerHTML = str;
         return str;
     }
 
     function htmlTestSyncNumberDictionary() {
         let str = backToEts.testSyncNumberDictionary({'key': 1});
-        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        document.getElementById('demo').innerHTML = JSON.stringify(str);
         return JSON.stringify(str);
     }
 
     function htmlTestSyncStringDictionary() {
         let str = backToEts.testSyncStringDictionary({'key': 'test'});
-        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        document.getElementById('demo').innerHTML = JSON.stringify(str);
         return JSON.stringify(str);
     }
 
     function htmlTestSyncBooleanDictionary() {
         let str = backToEts.testSyncBooleanDictionary({'key': true});
-        document.getElementById("demo").innerHTML=JSON.stringify(str);
+        document.getElementById('demo').innerHTML = JSON.stringify(str);
         return JSON.stringify(str);
     }
 </script>

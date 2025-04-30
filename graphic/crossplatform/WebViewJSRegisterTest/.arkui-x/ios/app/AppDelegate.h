@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+#ifndef HEADER_GUARD_H
+#define HEADER_GUARD_H
+
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -20,3 +23,5 @@
 @property (nonatomic, strong) UIWindow *window;
 
 @end
+
+#endif // HEADER_GUARD_H
