@@ -39,6 +39,11 @@ import fileIOReadtext from "./members/readtext.test";
 import fileIOListfile from "./members/listFile.test";
 import atomicFileTest from './members/atomicFile.test'
 import fileIOWatcher from './members/watcher.test'
+import fileIORandomAccessFileClose from './class_randomAccessFile/close.test';
+import fileIORandomAccessFileRead from './class_randomAccessFile/read.test';
+import fileIORandomAccessFileSetFilePointer from './class_randomAccessFile/setFilePointer.test';
+import fileIORandomAccessFileWrite from './class_randomAccessFile/write.test';
+import fileIOCreateRandomAccessFile from './members/createRandomAccessFile.test';
 
 export default function testsuite() {
   fileIOClose();
@@ -67,4 +72,9 @@ export default function testsuite() {
   fileIOListfile();
   atomicFileTest();
   fileIOWatcher();
+  fileIORandomAccessFileClose();
+  fileIORandomAccessFileRead();
+  fileIORandomAccessFileSetFilePointer();
+  fileIORandomAccessFileWrite();
+  fileIOCreateRandomAccessFile();
 }
