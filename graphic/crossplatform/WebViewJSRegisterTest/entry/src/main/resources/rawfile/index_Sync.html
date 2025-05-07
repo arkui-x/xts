@@ -85,20 +85,20 @@
     }
 
     function htmlTestSyncArray10() {
-        let str = backToEts.testSyncArray10([1,[2,[3,[4,[5,[6,[7,[8,[9,[10,[11]]]]]]]]]]]);
-        document.getElementById('demo').innerHTML= str;
+        let str = backToEts.testSyncArray10([1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11]]]]]]]]]]]);
+        document.getElementById('demo').innerHTML = str;
         return JSON.stringify(str);
     }
 
     function htmlTestSyncDictionary10() {
         let str = backToEts.testSyncDictionary10({'1':{'2':{'3':{'4':{'5':{'6':{'7':{'8':{'9':{'10':{'11':222}}}}}}}}}}});
-        document.getElementById('demo').innerHTML= str;
+        document.getElementById('demo').innerHTML = str;
         return JSON.stringify(str);
     }
 
     function htmlTestSyncArrayDictionary10() {
-        let str = backToEts.testSyncArrayDictionary10({'key':[1,[2,[3,[4,[5,[6,[7,[8,[9,[10,[11]]]]]]]]]]]});
-        document.getElementById('demo').innerHTML= str;
+        let str = backToEts.testSyncArrayDictionary10({'key':[1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11]]]]]]]]]]]});
+        document.getElementById('demo').innerHTML = str;
         return JSON.stringify(str);
     }
 </script>
