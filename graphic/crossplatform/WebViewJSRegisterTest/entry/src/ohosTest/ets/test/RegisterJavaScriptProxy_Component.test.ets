@@ -24,7 +24,7 @@ let osFullNameInfo: string = deviceInfo.osFullName;
 let platform = osFullNameInfo.split(' ')[0];
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const WAIT_MS_800 = 800;
-const WAIT_MS_1500 = 1500;
+const WAIT_MS_2000 = 2000;
 const WAIT_MS_3000 = 3000;
 
 async function sleep(ms: number): Promise<void> {
@@ -48,7 +48,7 @@ async function startAbility(bundleName: string, abilityName: string) {
 async function goToPage(pageName: string) {
   let button = await driver.findComponent(ON.id(pageName));
   await button.click();
-  await sleep(WAIT_MS_1500);
+  await sleep(WAIT_MS_2000);
 }
 
 async function clickButton(buttonName: string) {
@@ -60,7 +60,7 @@ async function clickButton(buttonName: string) {
 export default function JavaScriptProxy_Component() {
   describe('JavaScriptProxy_Component', () => {
     beforeAll(async () => {
-      await sleep(WAIT_MS_1500);
+      await sleep(WAIT_MS_2000);
       await startAbility('com.example.webviewjsregistertest', 'EntryAbility');
       await sleep(WAIT_MS_3000);
     });
@@ -87,13 +87,13 @@ export default function JavaScriptProxy_Component() {
       }
       try {
         await goToPage("RegisterJSProxy_SyncMethod_Component");
+        await sleep(WAIT_MS_800);
         await clickButton("TestSyncString");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncString is call, parameter is: webTest");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0100, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0100, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -121,8 +121,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncNumber is call, parameter is: 123");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0200, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0200, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -150,8 +149,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncBoolean is call, parameter is: true");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0300, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0300, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -179,8 +177,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncNumberArray is call, parameter is: 1,2,3");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0400, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0400, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -208,8 +205,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncStringArray is call, parameter is: a,b,c");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0500, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0500, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -237,8 +233,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testSyncBooleanArray is call, parameter is: true,false,true");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0600, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0600, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -266,8 +261,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual('testSyncNumberDictionary is call, parameter is: {"key":1}');
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0700, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0700, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -295,8 +289,7 @@ export default function JavaScriptProxy_Component() {
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual('testSyncStringDictionary is call, parameter is: {"key":"test"}');
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0800, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0800, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -323,11 +316,8 @@ export default function JavaScriptProxy_Component() {
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual('testSyncBooleanDictionary is call, parameter is: {"key":true}');
-
-        await goToPage("Back");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0900, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_0900, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -336,7 +326,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1000
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1000
-     * @tc.desc Test Web.JavaScriptProxy component with string
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested array
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -344,15 +334,24 @@ export default function JavaScriptProxy_Component() {
      */
     it('ArkUIX_WebView_Web_JavaScriptProxy_1000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
       try {
-        await goToPage("RegisterJSProxy_AsyncMethod_Component");
-        await clickButton("TestAsyncString");
+        await clickButton("TestSyncArray10");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncString is call, parameter is: webTest");
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[null,null]]]]]]]]]]');
+        } else {
+          expect(result).assertEqual('testSyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[10,null]]]]]]]]]]');
+        }
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1000, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1000, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -361,7 +360,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1100
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1100
-     * @tc.desc Test Web.JavaScriptProxy component with number
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested dictionary
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -369,14 +368,24 @@ export default function JavaScriptProxy_Component() {
      */
     it('ArkUIX_WebView_Web_JavaScriptProxy_1100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
       try {
-        await clickButton("TestAsyncNumber");
+        await clickButton("TestSyncDictionary10");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncNumber is call, parameter is: 123");
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{}}}}}}}}}}');
+        } else {
+          expect(result).assertEqual('testSyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{"10":null}}}}}}}}}}');
+        }
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1100, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1100, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -385,7 +394,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1200
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1200
-     * @tc.desc Test Web.JavaScriptProxy component with boolean
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested array and dictionary
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -393,23 +402,34 @@ export default function JavaScriptProxy_Component() {
      */
     it('ArkUIX_WebView_Web_JavaScriptProxy_1200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
       try {
-        await clickButton("TestAsyncBoolean");
+        await clickButton("TestSyncArrayDictionary10");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncBoolean is call, parameter is: true");
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[null,null]]]]]]]]]}');
+        } else {
+          expect(result).assertEqual('testSyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[9,null]]]]]]]]]}');
+        }
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1200, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1200, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
+      await goToPage("Back");
       done();
     });
 
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1300
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1300
-     * @tc.desc Test Web.JavaScriptProxy component with number array
+     * @tc.desc Test Web.JavaScriptProxy component with string
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -418,13 +438,14 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
-        await clickButton("TestAsyncNumberArray");
+        await goToPage("RegisterJSProxy_AsyncMethod_Component");
+        await sleep(WAIT_MS_800);
+        await clickButton("TestAsyncString");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncNumberArray is call, parameter is: 1,2,3");
+        expect(result).assertEqual("testAsyncString is call, parameter is: webTest");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1300, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1300, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -433,7 +454,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1400
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1400
-     * @tc.desc Test Web.JavaScriptProxy component with string array
+     * @tc.desc Test Web.JavaScriptProxy component with number
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -442,13 +463,12 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
-        await clickButton("TestAsyncStringArray");
+        await clickButton("TestAsyncNumber");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncStringArray is call, parameter is: a,b,c");
+        expect(result).assertEqual("testAsyncNumber is call, parameter is: 123");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1400, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1400, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -457,7 +477,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1500
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1500
-     * @tc.desc Test Web.JavaScriptProxy component with boolean array
+     * @tc.desc Test Web.JavaScriptProxy component with boolean
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -466,13 +486,12 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
-        await clickButton("TestAsyncBooleanArray");
+        await clickButton("TestAsyncBoolean");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual("testAsyncBooleanArray is call, parameter is: true,false,true");
+        expect(result).assertEqual("testAsyncBoolean is call, parameter is: true");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1500, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1500, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -481,7 +500,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1600
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1600
-     * @tc.desc Test Web.JavaScriptProxy component with number dictionary
+     * @tc.desc Test Web.JavaScriptProxy component with number array
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -490,13 +509,12 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
-        await clickButton("TestAsyncNumberDictionary");
+        await clickButton("TestAsyncNumberArray");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual('testAsyncNumberDictionary is call, parameter is: {"key":1}');
+        expect(result).assertEqual("testAsyncNumberArray is call, parameter is: 1,2,3");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1600, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1600, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -505,7 +523,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1700
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1700
-     * @tc.desc Test Web.JavaScriptProxy component with string dictionary
+     * @tc.desc Test Web.JavaScriptProxy component with string array
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -514,13 +532,12 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
-        await clickButton("TestAsyncStringDictionary");
+        await clickButton("TestAsyncStringArray");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
-        expect(result).assertEqual('testAsyncStringDictionary is call, parameter is: {"key":"test"}');
+        expect(result).assertEqual("testAsyncStringArray is call, parameter is: a,b,c");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1700, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1700, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
       done();
@@ -529,7 +546,7 @@ export default function JavaScriptProxy_Component() {
     /**
      * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1800
      * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1800
-     * @tc.desc Test Web.JavaScriptProxy component with boolean dictionary
+     * @tc.desc Test Web.JavaScriptProxy component with boolean array
      * @tc.size MEDIUM
      * @tc.type Function
      * @tc.level Level 0
@@ -538,17 +555,171 @@ export default function JavaScriptProxy_Component() {
     it('ArkUIX_WebView_Web_JavaScriptProxy_1800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
       try {
+        await clickButton("TestAsyncBooleanArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncBooleanArray is call, parameter is: true,false,true");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1800, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_1900
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_1900
+     * @tc.desc Test Web.JavaScriptProxy component with number dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_1900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
+        await clickButton("TestAsyncNumberDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testAsyncNumberDictionary is call, parameter is: {"key":1}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1900, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_2000
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_2000
+     * @tc.desc Test Web.JavaScriptProxy component with string dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_2000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
+        await clickButton("TestAsyncStringDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testAsyncStringDictionary is call, parameter is: {"key":"test"}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_2000, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_2100
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_2100
+     * @tc.desc Test Web.JavaScriptProxy component with boolean dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_2100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
         await clickButton("TestAsyncBooleanDictionary");
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual('testAsyncBooleanDictionary is call, parameter is: {"key":true}');
-
-        await goToPage("Back");
       } catch (error) {
-        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_1800, code: ${error.code},
-          message: ${error.message}`);
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_2100, code: ${error.code}, message: ${error.message}`);
         expect().assertFail();
       }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_2200
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_2200
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_2200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
+        await clickButton("TestAsyncArray10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[null,null]]]]]]]]]]');
+        } else {
+          expect(result).assertEqual('testAsyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[10,null]]]]]]]]]]');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_2200, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_2300
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_2300
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_2300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
+        await clickButton("TestAsyncDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{}}}}}}}}}}');
+        } else {
+          expect(result).assertEqual('testAsyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{"10":null}}}}}}}}}}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_2300, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_Web_JavaScriptProxy_2400
+     * @tc.name ArkUIX_WebView_Web_JavaScriptProxy_2400
+     * @tc.desc Test Web.JavaScriptProxy component with 10 levels of nested array and dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_Web_JavaScriptProxy_2400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+      try {
+        await clickButton("TestAsyncArrayDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[null,null]]]]]]]]]}');
+        } else {
+          expect(result).assertEqual('testAsyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[9,null]]]]]]]]]}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_Web_JavaScriptProxy_2400, code: ${error.code}, message: ${error.message}`);
+        expect().assertFail();
+      }
+      await goToPage("Back");
       done();
     });
   })

@@ -100,6 +100,36 @@ class TestObj {
     return testSyncBooleanDictionary;
   }
 
+  testSyncArray10(testSyncArray10: Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<
+    number>>>>>>>>>>>) {
+    console.log('Web Component testSyncArray10:' + JSON.stringify(testSyncArray10));
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testSyncArray10 is call, parameter is: " + JSON.stringify(testSyncArray10);
+    }
+    return testSyncArray10;
+  }
+
+  testSyncDictionary10(testSyncDictionary10: Record<string, Record<string, Record<string, Record<string, Record<string,
+    Record<string, Record<string, Record<string, Record<string, Record<string, Record<string, number>>>>>>>>>>>) {
+    console.log('Web Component testSyncDictionary10:' + JSON.stringify(testSyncDictionary10));
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testSyncDictionary10 is call, parameter is: " + JSON.stringify(testSyncDictionary10);
+    }
+    return testSyncDictionary10;
+  }
+
+  testSyncArrayDictionary10(testSyncArrayDictionary10: Record<string,
+    Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<number>>>>>>>>>>>>) {
+    console.log('Web Component testSyncArrayDictionary10' + testSyncArrayDictionary10);
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testSyncArrayDictionary10 is call, parameter is: " + JSON.stringify(testSyncArrayDictionary10);
+    }
+    return testSyncArrayDictionary10;
+  }
+
   private indexRef: Index | null = null;
 }
 
@@ -130,10 +160,13 @@ struct Index {
               .onClick(() => {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, "backToEts",
-                    ["testSyncString", "testSyncNumber", "testSyncBoolean", "testSyncNumberArray", "testSyncStringArray",
-                      "testSyncBooleanArray", "testSyncNumberDictionary", "testSyncStringDictionary", "testSyncBooleanDictionary"]);
+                    ["testSyncString", "testSyncNumber", "testSyncBoolean", "testSyncNumberArray",
+                      "testSyncStringArray", "testSyncBooleanArray", "testSyncNumberDictionary",
+                      "testSyncStringDictionary", "testSyncBooleanDictionary", "testSyncArray10",
+                      "testSyncDictionary10", "testSyncArrayDictionary10"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                 }
               })
 
@@ -227,6 +260,36 @@ struct Index {
                 this.controller.runJavaScriptExt('htmlTestSyncBooleanDictionary()');
               })
 
+          Button('TestSyncArray10')
+            .id('TestSyncArray10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestSyncArray10()');
+            })
+
+          Button('TestSyncDictionary10')
+            .id('TestSyncDictionary10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestSyncDictionary10()');
+            })
+
+          Button('TestSyncArrayDictionary10')
+            .id('TestSyncArrayDictionary10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestSyncArrayDictionary10()');
+            })
+
             Button('Refresh')
               .id('Refresh')
               .width("90%")
@@ -239,7 +302,8 @@ struct Index {
                     this.controller.refresh();
                   }
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                 }
               })
 

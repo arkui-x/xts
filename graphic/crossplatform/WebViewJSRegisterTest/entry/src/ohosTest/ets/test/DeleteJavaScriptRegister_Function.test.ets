@@ -21,7 +21,7 @@ import Want from '@ohos.app.ability.Want';
 let driver = Driver.create();
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const WAIT_MS_800 = 800;
-const WAIT_MS_1500 = 1500;
+const WAIT_MS_2000 = 2000;
 const WAIT_MS_3000 = 3000;
 
 async function sleep(ms: number): Promise<void> {
@@ -45,7 +45,7 @@ async function startAbility(bundleName: string, abilityName: string) {
 async function goToPage(pageName: string) {
   let button = await driver.findComponent(ON.id(pageName));
   await button.click();
-  await sleep(WAIT_MS_1500);
+  await sleep(WAIT_MS_2000);
 }
 
 async function clickButton(buttonName: string) {
@@ -57,7 +57,7 @@ async function clickButton(buttonName: string) {
 export default function DeleteJavaScriptRegister_Function() {
   describe('DeleteJavaScriptRegister_Function', () => {
     beforeAll(async () => {
-      await sleep(WAIT_MS_1500);
+      await sleep(WAIT_MS_2000);
       await startAbility('com.example.webviewjsregistertest', 'EntryAbility');
       await sleep(WAIT_MS_3000);
     });
@@ -92,13 +92,12 @@ export default function DeleteJavaScriptRegister_Function() {
 
         result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertEqual("testAsyncString is not call");
-
-        await goToPage("Back");
       } catch (error) {
         console.error(`ArkUIX_WebView_WebViewController_DeleteJavaScriptRegister_0100, code: ${error.code},
           message: ${error.message}`);
         expect().assertFail();
       }
+      await goToPage("Back");
       done();
     });
 
@@ -215,13 +214,12 @@ export default function DeleteJavaScriptRegister_Function() {
 
         let result = await (await driver.findComponent(ON.id("Result"))).getText();
         expect(result).assertContain("401");
-
-        await goToPage("Back");
       } catch (error) {
         console.error(`ArkUIX_WebView_WebViewController_DeleteJavaScriptRegister_0600, code: ${error.code},
           message: ${error.message}`);
         expect().assertFail();
       }
+      await goToPage("Back");
       done();
     });
   })

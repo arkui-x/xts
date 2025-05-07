@@ -15,10 +15,18 @@
 
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
+import deviceInfo from '@ohos.deviceInfo';
 import { Router } from '@ohos.arkui.UIContext'
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class TestObj {
-  constructor() {
+  constructor(indexRef: Index) {
+    if (indexRef) {
+      this.indexRef = indexRef;
+    }
   }
 
   testNumber(testNum: number): number {
@@ -28,6 +36,9 @@ class TestObj {
 
   testString(testStr: string): string {
     console.info('Web Component string:' + testStr);
+    if (this.indexRef) {
+      this.indexRef.message = "testString is call, parameter is: " + testStr;
+    }
     return testStr;
   }
 
@@ -54,6 +65,9 @@ class TestObj {
   private indexRef: Index | null = null;
 }
 
+let osFullNameInfo: string = deviceInfo.osFullName;
+let platform = osFullNameInfo.split(' ')[0];
+
 @Entry
 @Component
 struct Index {
@@ -61,7 +75,7 @@ struct Index {
   controller: webview.WebviewController = new webview.WebviewController();
   controller1: webview.WebviewController = new webview.WebviewController();
   @State router: Router = this.getUIContext().getRouter();
-  @State testObj: TestObj = new TestObj();
+  @State testObj: TestObj = new TestObj(this);
   @State message: string = "Hello World";
 
   build() {
@@ -81,7 +95,8 @@ struct Index {
                 try {
                   this.controller1.registerJavaScriptProxy(this.testObj, "backToEts", ["testString"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -97,7 +112,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(null, "backToEts", ["testString"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -113,7 +129,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(undefined, "backToEts", ["testString"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -129,7 +146,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, null, ["testString"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -145,7 +163,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, undefined, ["testString"]);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -161,7 +180,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, "backToEts", null);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -177,7 +197,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, "backToEts", undefined);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -193,7 +214,8 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, "backToEts", [], null);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -209,7 +231,46 @@ struct Index {
                 try {
                   this.controller.registerJavaScriptProxy(this.testObj, "backToEts", [], undefined);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
+                  this.message =
+                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
+                }
+              })
+
+            Button('RegisterAsyncMethodAndSyncMethod')
+              .id('RegisterAsyncMethodAndSyncMethod')
+              .width("90%")
+              .height(28)
+              .fontSize(15)
+              .backgroundColor('#0D9FFB')
+              .onClick(async () => {
+                try {
+                  this.controller.registerJavaScriptProxy(this.testObj, "backToEts", ["testString"], ["testString"]);
+                  await sleep(400);
+                  if (platform.startsWith('OpenHarmony')) {
+                    this.controller.refresh();
+                  }
+                } catch (error) {
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
+                  this.message =
+                    `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
+                }
+              })
+
+            Button('TestString')
+              .id('TestString')
+              .width("90%")
+              .height(28)
+              .fontSize(15)
+              .backgroundColor('#0D9FFB')
+              .onClick(async () => {
+                try {
+                  this.controller.runJavaScriptExt('htmlTestString()');
+                } catch (error) {
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }

@@ -64,7 +64,8 @@ struct Index {
                 this.controller.registerJavaScriptProxy(this.testObj, "backToEts",
                   [], ["testAsyncString"]);
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                  .message}`);
               }
             })
 
@@ -77,7 +78,8 @@ struct Index {
               try {
                 this.controller.deleteJavaScriptRegister('backToEts');
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                  .message}`);
               }
             })
 
@@ -104,7 +106,8 @@ struct Index {
                   this.controller.refresh();
                 }
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                  .message}`);
               }
             })
 

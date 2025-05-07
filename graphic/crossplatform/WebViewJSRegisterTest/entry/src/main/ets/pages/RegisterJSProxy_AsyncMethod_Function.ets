@@ -25,49 +25,49 @@ class TestObj {
     }
   }
 
-  async testAsyncNumber(testAsyncNum: number): Promise<void> {
+  testAsyncNumber(testAsyncNum: number): void {
     console.log('Web Component AsyncNumber:' + testAsyncNum);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncNumber is call, parameter is: " + testAsyncNum;
     }
   }
 
-  async testAsyncString(testAsyncStr: string): Promise<void> {
+  testAsyncString(testAsyncStr: string): void {
     console.info('Web Component AsyncString:' + testAsyncStr);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncString is call, parameter is: " + testAsyncStr;
     }
   }
 
-  async testAsyncBoolean(testAsyncBoolean: boolean): Promise<void> {
+  testAsyncBoolean(testAsyncBoolean: boolean): void {
     console.log('Web Component AsyncBoolean:' + testAsyncBoolean);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncBoolean is call, parameter is: " + testAsyncBoolean;
     }
   }
 
-  async testAsyncNumberArray(testAsyncNumberArray: Array<number>): Promise<void> {
+  testAsyncNumberArray(testAsyncNumberArray: Array<number>): void {
     console.log('Web Component AsyncNumberArray:' + testAsyncNumberArray);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncNumberArray is call, parameter is: " + testAsyncNumberArray;
     }
   }
 
-  async testAsyncStringArray(testAsyncStringArray: Array<string>): Promise<void> {
+  testAsyncStringArray(testAsyncStringArray: Array<string>): void {
     console.log('Web Component AsyncStringArray:' + testAsyncStringArray);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncStringArray is call, parameter is: " + testAsyncStringArray;
     }
   }
 
-  async testAsyncBooleanArray(testAsyncBooleanArray: Array<boolean>): Promise<void> {
+  testAsyncBooleanArray(testAsyncBooleanArray: Array<boolean>): void {
     console.log('Web Component AsyncBooleanArray:' + testAsyncBooleanArray);
     if (this.indexRef) {
       this.indexRef.message = "testAsyncBooleanArray is call, parameter is: " + testAsyncBooleanArray;
     }
   }
 
-  async testAsyncNumberDictionary(testAsyncNumberDictionary: Record<string, number>): Promise<void> {
+  testAsyncNumberDictionary(testAsyncNumberDictionary: Record<string, number>): void {
     console.log('Web Component AsyncNumberDictionary:' + JSON.stringify(testAsyncNumberDictionary));
     if (this.indexRef) {
       this.indexRef.message =
@@ -75,7 +75,7 @@ class TestObj {
     }
   }
 
-  async testAsyncStringDictionary(testAsyncStringDictionary: Record<string, string>): Promise<void> {
+  testAsyncStringDictionary(testAsyncStringDictionary: Record<string, string>): void {
     console.log('Web Component AsyncStringDictionary:' + JSON.stringify(testAsyncStringDictionary));
     if (this.indexRef) {
       this.indexRef.message =
@@ -83,11 +83,39 @@ class TestObj {
     }
   }
 
-  async testAsyncBooleanDictionary(testAsyncBooleanDictionary: Record<string, boolean>): Promise<void> {
+  testAsyncBooleanDictionary(testAsyncBooleanDictionary: Record<string, boolean>): void {
     console.log('Web Component AsyncBooleanDictionary:' + JSON.stringify(testAsyncBooleanDictionary));
     if (this.indexRef) {
       this.indexRef.message =
         "testAsyncBooleanDictionary is call, parameter is: " + JSON.stringify(testAsyncBooleanDictionary);
+    }
+  }
+
+  testAsyncArray10(testAsyncArray10: Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<Array<
+    number>>>>>>>>>>>): void {
+    console.log('Web Component testAsyncArray10:' + JSON.stringify(testAsyncArray10));
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testAsyncArray10 is call, parameter is: " + JSON.stringify(testAsyncArray10);
+    }
+  }
+
+  testAsyncDictionary10(testAsyncDictionary10: Record<string, Record<string, Record<string, Record<string,
+    Record<string, Record<string, Record<string, Record<string, Record<string, Record<string, Record<string,
+    number>>>>>>>>>>>): void {
+    console.log('Web Component testAsyncDictionary10:' + JSON.stringify(testAsyncDictionary10));
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testAsyncDictionary10 is call, parameter is: " + JSON.stringify(testAsyncDictionary10);
+    }
+  }
+
+  testAsyncArrayDictionary10(testAsyncArrayDictionary10: Record<string, Array<Array<Array<Array<Array<Array<Array<
+    Array<Array<Array<Array<number>>>>>>>>>>>>): void {
+    console.log('Web Component testAsyncArrayDictionary10' + testAsyncArrayDictionary10);
+    if (this.indexRef) {
+      this.indexRef.message =
+        "testAsyncArrayDictionary10 is call, parameter is: " + JSON.stringify(testAsyncArrayDictionary10);
     }
   }
 
@@ -121,10 +149,13 @@ struct Index {
             .onClick(() => {
               try {
                 this.controller.registerJavaScriptProxy(this.testObj, "backToEts", [],
-                  ["testAsyncString", "testAsyncNumber", "testAsyncBoolean", "testAsyncNumberArray", "testAsyncStringArray",
-                    "testAsyncBooleanArray", "testAsyncNumberDictionary", "testAsyncStringDictionary", "testAsyncBooleanDictionary"]);
+                  ["testAsyncString", "testAsyncNumber", "testAsyncBoolean", "testAsyncNumberArray",
+                    "testAsyncStringArray", "testAsyncBooleanArray", "testAsyncNumberDictionary",
+                    "testAsyncStringDictionary", "testAsyncBooleanDictionary", "testAsyncArray10",
+                    "testAsyncDictionary10", "testAsyncArrayDictionary10"]);
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as
+                  BusinessError).message}`);
               }
             })
 
@@ -218,6 +249,36 @@ struct Index {
               this.controller.runJavaScriptExt('htmlTestAsyncBooleanDictionary()');
             })
 
+          Button('TestAsyncArray10')
+            .id('TestAsyncArray10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestAsyncArray10()');
+            })
+
+          Button('TestAsyncDictionary10')
+            .id('TestAsyncDictionary10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestAsyncDictionary10()');
+            })
+
+          Button('TestAsyncArrayDictionary10')
+            .id('TestAsyncArrayDictionary10')
+            .width("90%")
+            .height(28)
+            .fontSize(15)
+            .backgroundColor('#0D9FFB')
+            .onClick(() => {
+              this.controller.runJavaScriptExt('htmlTestAsyncArrayDictionary10()');
+            })
+
           Button('Refresh')
             .id('Refresh')
             .width("90%")
@@ -230,7 +291,8 @@ struct Index {
                   this.controller.refresh();
                 }
               } catch (error) {
-                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as
+                  BusinessError).message}`);
               }
             })
 

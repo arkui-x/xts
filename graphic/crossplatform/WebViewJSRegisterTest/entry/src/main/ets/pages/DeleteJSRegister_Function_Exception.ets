@@ -43,7 +43,8 @@ struct Index {
                 try {
                   this.controller1.deleteJavaScriptRegister("backToEts");
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -59,7 +60,8 @@ struct Index {
                 try {
                   this.controller.deleteJavaScriptRegister("backToEts");
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -75,7 +77,8 @@ struct Index {
                 try {
                   this.controller.deleteJavaScriptRegister("");
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -91,7 +94,8 @@ struct Index {
                 try {
                   this.controller.deleteJavaScriptRegister(undefined);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
@@ -107,7 +111,8 @@ struct Index {
                 try {
                   this.controller.deleteJavaScriptRegister(null);
                 } catch (error) {
-                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+                  console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError)
+                    .message}`);
                   this.message =
                     `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`;
                 }
