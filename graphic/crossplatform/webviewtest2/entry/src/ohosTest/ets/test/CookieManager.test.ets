@@ -58,7 +58,6 @@ export default function CookieManagerTest() {
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
     afterAll(async () => {
-      await stopAbility();
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
     });
