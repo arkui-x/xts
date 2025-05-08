@@ -15,7 +15,6 @@
 
 import { fileIO, FILE_CONTENT, prepareFile, nextFileName, describe, it, expect, randomString } from '../Common';
 import { TestType, Size, Level } from '@ohos/hypium';
-import deviceInfo from '@ohos.deviceInfo';
 
 export default function fileIOListfile() {
   describe('fileIO_fs_listfile', () => {
@@ -254,15 +253,12 @@ export default function fileIOListfile() {
      */
     it('fileIO_test_listfile_async_027', Level.LEVEL3, async () => {
       let dpath = await nextFileName('fileIO_test_listfile_async_027');
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          await fileIO.listFile(dpath);
-          expect(false).assertTrue();
-        } catch (err) {
-          console.log('fileIO_test_listfile_async_027 has failed for ' + err.message + ', code:' + err.code);
-          expect(err.code == 13900002 && err.message == 'No such file or directory').assertTrue();
-        }
+      try {
+        await fileIO.listFile(dpath);
+        expect(false).assertTrue();
+      } catch (err) {
+        console.log('fileIO_test_listfile_async_027 has failed for ' + err.message + ', code:' + err.code);
+        expect(err.code == 13900002 && err.message == 'No such file or directory').assertTrue();
       }
     });
     /**
@@ -278,15 +274,12 @@ export default function fileIOListfile() {
     it('fileIO_test_listfile_async_028', Level.LEVEL3, async () => {
       let dpath = await nextFileName('fileIO_test_listfile_async_028');
       expect(prepareFile(dpath, FILE_CONTENT)).assertTrue();
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          await fileIO.listFile(dpath);
-          expect(false).assertTrue();
-        } catch (err) {
-          console.log('fileIO_test_listfile_async_028 has failed for ' + err.message + ', code:' + err.code);
-          expect(err.code == 13900018 && err.message == 'Not a directory').assertTrue();
-        }
+      try {
+        await fileIO.listFile(dpath);
+        expect(false).assertTrue();
+      } catch (err) {
+        console.log('fileIO_test_listfile_async_028 has failed for ' + err.message + ', code:' + err.code);
+        expect(err.code == 13900018 && err.message == 'Not a directory').assertTrue();
       }
     });
     /**

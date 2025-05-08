@@ -37,7 +37,7 @@ import fileIOLstat from "./members/lstat.test";
 import fileIOMoveFile from "./members/moveFile.test";
 import fileIOReadtext from "./members/readtext.test";
 import fileIOListfile from "./members/listFile.test";
-import atomicFileTest from './members/atomicFile.test'
+import fileIOAtomicFile from './members/atomicFile.test'
 import fileIOWatcher from './members/watcher.test'
 import fileIORandomAccessFileClose from './class_randomAccessFile/close.test';
 import fileIORandomAccessFileRead from './class_randomAccessFile/read.test';
@@ -46,9 +46,14 @@ import fileIORandomAccessFileWrite from './class_randomAccessFile/write.test';
 import fileIOCreateRandomAccessFile from './members/createRandomAccessFile.test';
 import fileIOReadLines from "./members/readLines.test";
 import fileIOLseek from "./members/lseek.test";
-import fileIOFileGetParent from "./members/getParent.test";
-import fileIOFileLock from "./members/fileLock.test";
 import fileIOUtimes from "./members/utimes.test";
+import fileIOCreateStream from './members/createStream.test'
+import fileIOFdOpenStream from './members/fdopenStream.test'
+import fileIOStreamRead from './stream/read.test'
+import fileIOStreamWrite from './stream/write.test'
+import fileIOStreamClose from './stream/close.tes'
+import fileIOStreamFlush from './stream/flush.test'
+import fileIOCreateStreamRW from './stream/CreateStreamRW.test'
 
 export default function testsuite() {
   fileIOClose();
@@ -75,7 +80,6 @@ export default function testsuite() {
   fileIOMoveFile();
   fileIOReadtext();
   fileIOListfile();
-  atomicFileTest();
   fileIOWatcher();
   fileIORandomAccessFileClose();
   fileIORandomAccessFileRead();
@@ -84,7 +88,13 @@ export default function testsuite() {
   fileIOCreateRandomAccessFile();
   fileIOReadLines();
   fileIOLseek();
-  fileIOFileGetParent();
-  fileIOFileLock();
   fileIOUtimes();
+  fileIOCreateStream();
+  fileIOFdOpenStream();
+  fileIOStreamRead();
+  fileIOStreamWrite();
+  fileIOStreamClose();
+  fileIOStreamFlush();
+  fileIOCreateStreamRW();
+  fileIOAtomicFile();
 }

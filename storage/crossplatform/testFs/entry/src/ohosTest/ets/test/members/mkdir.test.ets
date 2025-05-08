@@ -37,12 +37,11 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_000", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_000", Level.LEVEL1, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_000")) + "d";
 
       try {
         await fileIO.mkdir(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -61,7 +60,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_async_001", 2, async () => {
+    it("fileIO_test_mkdir_async_001", Level.LEVEL2, async () => {
       let fpath = await nextFileName("fileIO_test_mkdir_async_001");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -83,7 +82,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_002", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_002", Level.LEVEL2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_002")) + "d";
 
       try {
@@ -92,7 +91,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_002 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -112,7 +110,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_async_003", 2, async (done: Function) => {
+    it("fileIO_test_mkdir_async_003", Level.LEVEL2, async (done: Function) => {
       let osName: string = deviceInfo.osFullName;
       try {
         fileIO.mkdir("/", (err) => {
@@ -141,7 +139,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_async_004", 2, async (done: Function) => {
+    it("fileIO_test_mkdir_async_004", Level.LEVEL2, async (done: Function) => {
       try {
         await fileIO.mkdir("");
         expect(false).assertTrue();
@@ -162,11 +160,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_005", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_005", Level.LEVEL2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_005")) + "*";
       try {
         await fileIO.mkdir(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -185,11 +182,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_006", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_006", Level.LEVEL2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_006")) + "?";
       try {
         await fileIO.mkdir(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -208,11 +204,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_007", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_007", Level.LEVEL2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_007")) + ":";
       try {
         await fileIO.mkdir(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -231,7 +226,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_async_009", 2, async (done: Function) => {
+    it("fileIO_test_mkdir_async_009", Level.LEVEL2, async (done: Function) => {
       try {
         fileIO.mkdir("", (err) => {
           expect(err != null).assertTrue();
@@ -254,7 +249,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_010", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_010", Level.LEVEL2, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_010")) + "*";
       try {
         fileIO.mkdir(dpath, (err) => {
@@ -262,7 +257,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_010 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -282,7 +276,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_011", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_011", Level.LEVEL1, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_011")) + "?";
       try {
         fileIO.mkdir(dpath, (err) => {
@@ -290,7 +284,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_011 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -310,7 +303,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_async_012", 1, async (done: Function) => {
+    it("fileIO_test_mkdir_async_012", Level.LEVEL1, async (done: Function) => {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_012")) + ":";
       try {
         fileIO.mkdir(dpath, (err) => {
@@ -318,7 +311,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_012 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -343,7 +335,6 @@ export default function fileIOMkdir() {
 
       try {
         await fileIO.mkdir(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -392,7 +383,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_002 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -461,7 +451,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_018")) + "*";
       try {
         await fileIO.mkdir(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -484,7 +473,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_019")) + "?";
       try {
         await fileIO.mkdir(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -507,7 +495,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_async_020")) + ":";
       try {
         await fileIO.mkdir(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
         done();
@@ -557,7 +544,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_022 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -585,7 +571,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_023 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -613,7 +598,6 @@ export default function fileIOMkdir() {
             console.log("fileIO_test_mkdir_async_024 error package: " + JSON.stringify(err));
             expect(false).assertTrue();
           }
-          // @ts-nocheck
           expect(fileIO.accessSync(dpath)).assertTrue();
           fileIO.rmdirSync(dpath);
           done();
@@ -633,12 +617,11 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_sync_000", 1, async () => {
+    it("fileIO_test_mkdir_sync_000", Level.LEVEL1, async () => {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_000")) + "d";
 
       try {
         fileIO.mkdirSync(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -656,7 +639,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_sync_001", 2, async () => {
+    it("fileIO_test_mkdir_sync_001", Level.LEVEL2, async () => {
       let osName: string = deviceInfo.osFullName;
       try {
         fileIO.mkdirSync("/");
@@ -680,7 +663,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_sync_002", 2, async () => {
+    it("fileIO_test_mkdir_sync_002", Level.LEVEL2, async () => {
       try {
         fileIO.mkdirSync("");
         expect(false).assertTrue();
@@ -699,7 +682,7 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it("fileIO_test_mkdir_sync_003", 2, async () => {
+    it("fileIO_test_mkdir_sync_003", Level.LEVEL2, async () => {
       let fpath = await nextFileName("fileIO_test_mkdir_sync_003");
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -721,11 +704,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_sync_004", 1, async () => {
+    it("fileIO_test_mkdir_sync_004", Level.LEVEL1, async () => {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_004")) + "*";
       try {
         await fileIO.mkdirSync(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -743,11 +725,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_sync_005", 1, async () => {
+    it("fileIO_test_mkdir_sync_005", Level.LEVEL1, async () => {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_005")) + "?";
       try {
         await fileIO.mkdirSync(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -765,11 +746,10 @@ export default function fileIOMkdir() {
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("fileIO_test_mkdir_sync_006", 1, async () => {
+    it("fileIO_test_mkdir_sync_006", Level.LEVEL1, async () => {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_006")) + ":";
       try {
         await fileIO.mkdirSync(dpath);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -792,7 +772,6 @@ export default function fileIOMkdir() {
 
       try {
         fileIO.mkdirSync(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -874,7 +853,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_011")) + "*";
       try {
         await fileIO.mkdirSync(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -896,7 +874,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_012")) + "?";
       try {
         await fileIO.mkdirSync(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {
@@ -918,7 +895,6 @@ export default function fileIOMkdir() {
       let dpath = (await nextFileName("fileIO_test_mkdir_sync_013")) + ":";
       try {
         await fileIO.mkdirSync(dpath, true);
-        // @ts-nocheck
         expect(fileIO.accessSync(dpath)).assertTrue();
         fileIO.rmdirSync(dpath);
       } catch (e) {

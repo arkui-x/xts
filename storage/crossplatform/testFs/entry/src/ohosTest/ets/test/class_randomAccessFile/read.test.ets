@@ -233,7 +233,6 @@ export default function fileIORandomAccessFileRead() {
         console.info('fileIO_randomaccessfile_read_sync_008 has failed for ' + err);
         expect(false).assertTrue();
         done();
-
       }
     });
 

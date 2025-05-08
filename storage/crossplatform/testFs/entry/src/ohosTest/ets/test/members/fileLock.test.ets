@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -37,21 +37,15 @@ export default function fileIOFileLock() {
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
       try {
-        console.log("lvshiqi 1212121");
         let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
-        console.log("lvshiqi 1313131");
         expect(isIntNum(file.fd)).assertTrue();
-        console.log("lvshiqi 1212121");
+
         await file.lock();
-        console.log("lvshiqi 111");
         file.unlock();
-        console.log("lvshiqi 222");
         expect(true).assertTrue();
-        console.log("lvshiqi 3333");
+
         fileIO.closeSync(file);
-        console.log("lvshiqi 444");
         fileIO.unlinkSync(fpath);
-        console.log("lvshiqi 5555");
         done();
       } catch (e) {
         console.log('fileIO_test_filelock_promise_000 has failed for ' + e.message + ', code: ' + e.code);
@@ -69,7 +63,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_001', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_001', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_001');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -98,7 +92,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_002', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_002', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_002');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -127,7 +121,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_003', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_003', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_003');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -157,7 +151,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_004', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_004', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_004');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -187,7 +181,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_005', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_005', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_005');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -216,7 +210,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_006', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_006', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_006');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -244,7 +238,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_007', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_007', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_007');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -330,7 +324,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_abnormal_000', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_abnormal_000', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_abnormal_000');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -358,7 +352,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_promise_abnormal_001', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_promise_abnormal_001', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_promise_abnormal_003');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -387,7 +381,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_callback_000', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_callback_000', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_callback_000');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -421,7 +415,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_callback_001', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_callback_001', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_callback_001');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -455,7 +449,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_callback_002', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_callback_002', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_callback_002');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
 
@@ -523,7 +517,7 @@ export default function fileIOFileLock() {
      * @tc.level Level 3
      * @tc.require
      */
-    it('fileIO_test_filelock_callback_abnormal_000', Level.LEVEL0, async (done: Function) => {
+    it('fileIO_test_filelock_callback_abnormal_000', Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_filelock_callback_abnormal_000');
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
       let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);

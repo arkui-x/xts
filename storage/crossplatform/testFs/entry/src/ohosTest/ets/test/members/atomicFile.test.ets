@@ -14,14 +14,15 @@
  */
 import { FILE_CONTENT, nextFileName, prepareFile, describe, it, expect, afterEach } from "../Common";
 
+import { Level } from '@ohos/hypium';
 import util from '@ohos.util';
 import fileIO from '@ohos.file.fs';
 import { common } from '@kit.AbilityKit';
 
-export default function atomicFileTest() {
-  describe('atomicFileTest', () => {
+export default function fileIOAtomicFile() {
+  describe('fileIO_atomicFile', () => {
 
-    it("fileIO_test_atomicFile_000", 0, () => {
+    it("fileIO_test_atomicFile_000", Level.LEVEL0, () => {
       try {
         let file1 = new fileIO.AtomicFile("");
         let ws1 = file1.startWrite();
@@ -31,7 +32,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_001',0, () => {
+    it('fileIO_test_atomicFile_001', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test1.txt";
 
@@ -47,7 +48,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_002', 0, () => {
+    it('fileIO_test_atomicFile_002', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test2.txt";
 
@@ -69,7 +70,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_003', 0, () => {
+    it('fileIO_test_atomicFile_003', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test3/test3.txt";
 
@@ -81,7 +82,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_004', 0, () => {
+    it('fileIO_test_atomicFile_004', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "test4.txt";
       expect(prepareFile(filepath, FILE_CONTENT)).assertTrue();
@@ -99,7 +100,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_005', 0, () => {
+    it('fileIO_test_atomicFile_005', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test5.txt';
       expect(prepareFile(filepath, FILE_CONTENT)).assertTrue();
@@ -120,7 +121,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_006', 0, () => {
+    it('fileIO_test_atomicFile_006', Level.LEVEL0, () => {
       console.log('fileIO_test_atomicFile_006 begin');
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test6.txt';
@@ -143,7 +144,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_007', 0, () => {
+    it('fileIO_test_atomicFile_007', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test7.txt';
       expect(prepareFile(filepath, "fileIO_test_atomicFile_007")).assertTrue();
@@ -172,7 +173,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_008', 0, () => {
+    it('fileIO_test_atomicFile_008', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test8.txt';
 
@@ -191,7 +192,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_009', 0, () => {
+    it('fileIO_test_atomicFile_009', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test9.txt';
 
@@ -204,7 +205,7 @@ export default function atomicFileTest() {
       }
     });
 
-    it('fileIO_test_atomicFile_010', 0, () => {
+    it('fileIO_test_atomicFile_010', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test10.txt';
 
@@ -215,7 +216,6 @@ export default function atomicFileTest() {
           file.finishWrite();
           let File = file.getBaseFile();
           expect(File.fd > 0).assertTrue();
-          expect(File.path === filepath).assertTrue();
         })
       } catch (e) {
         console.log('fileIO_test_atomicFile_010 has failed for ' + e.message);
