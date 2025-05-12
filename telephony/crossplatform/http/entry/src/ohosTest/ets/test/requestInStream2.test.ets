@@ -4,6 +4,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import deviceInfo from '@ohos.deviceInfo';
 
 const AWAIT_SLEEP_MS_1000: number = 1000;
+const AWAIT_SLEEP_MS_4000: number = 4000;
 let osFullNameInfo: string = deviceInfo.osFullName;
 let platform = osFullNameInfo.split(' ')[0];
 const certPath_legitimate: string = "xtsTest";
@@ -26,12 +27,11 @@ export default function requestInStream2() {
      * @tc.level Level 0
      * @tc.require
      */
-
     it('ACTS_ARKUIX_Http_requestInStream_CallBackWithOutOptions_0100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         httpRequest.requestInStream("https://www.baidu.com", (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_CallBackWithOutOptions_0100 requestInStream OK! ResponseCode is " +
@@ -42,7 +42,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
         httpRequest.destroy();
         console.info('the deviceInfo osFullName is :' + osFullNameInfo);
       } catch (error) {
@@ -60,12 +60,11 @@ export default function requestInStream2() {
      * @tc.level Level 0
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream("https://www.baidu.com", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
@@ -77,7 +76,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000);
+        await sleep(AWAIT_SLEEP_MS_4000);
         console.info('the deviceInfo osFullName is :' + osFullNameInfo);
 
       } catch (error) {
@@ -95,13 +94,12 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
 
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream(null, options, (err: BusinessError<void>, data: number) => {
           if (!err) {
@@ -113,7 +111,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(401)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
         console.info('the deviceInfo osFullName is :' + osFullNameInfo);
 
       } catch (error) {
@@ -131,12 +129,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream("http://www.aol.com", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
@@ -148,7 +145,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -164,12 +161,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           connectTimeout: 60000,
@@ -186,7 +182,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -202,12 +198,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream("https:www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
@@ -219,7 +214,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300003)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -235,12 +230,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream('https://www.baidu', options, (err: BusinessError<void>, data: number) => {
           if (!err) {
@@ -252,7 +246,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300006)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -268,12 +262,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -288,7 +281,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -304,12 +297,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -324,7 +316,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -340,12 +332,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_0900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -361,7 +352,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300999)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -377,12 +368,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.HEAD,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -397,7 +387,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -413,12 +403,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.HEAD,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -433,7 +422,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -449,12 +438,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.HEAD,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -470,7 +458,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300999)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -486,12 +474,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.OPTIONS,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -506,7 +493,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -522,12 +509,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.OPTIONS,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -542,7 +528,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -558,12 +544,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.OPTIONS,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -579,7 +564,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300999)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -595,12 +580,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -615,7 +599,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -631,12 +615,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -651,7 +634,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -667,12 +650,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -688,7 +670,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300999)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -704,12 +686,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_1900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -725,7 +706,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -741,12 +722,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -762,7 +742,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -778,12 +758,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -800,7 +779,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300999)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -816,12 +795,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -837,7 +815,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -853,12 +831,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -874,7 +851,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -890,12 +867,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -912,7 +888,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300999)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -928,12 +904,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -949,7 +924,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -965,12 +940,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -986,7 +960,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1002,12 +976,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -1024,7 +997,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300999)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1040,12 +1013,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP1_1,
@@ -1061,7 +1033,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1077,12 +1049,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_2900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP2,
@@ -1098,7 +1069,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1114,12 +1085,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP3,
@@ -1136,7 +1106,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300999)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1152,12 +1122,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           extraData: 'data to send',
@@ -1173,7 +1142,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1189,12 +1158,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           connectTimeout: 60000,
@@ -1210,7 +1178,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1226,12 +1194,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           extraData: {
             letter: "test",
@@ -1250,7 +1217,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1266,12 +1233,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           extraData: 'testInformation测试',
           header: "content-type': 'application/x-www-form-urlencoded",
@@ -1287,7 +1253,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1303,12 +1269,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           extraData: 'testInformation测试',
           header: "content-type': 'text/xml",
@@ -1324,7 +1289,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1340,12 +1305,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           extraData: ''
         };
@@ -1360,7 +1324,7 @@ export default function requestInStream2() {
               JSON.stringify(err));
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1376,12 +1340,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           priority: 0.5
         };
@@ -1395,7 +1358,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1411,12 +1374,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           priority: 1
         };
@@ -1430,7 +1392,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1446,12 +1408,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_3900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           priority: AWAIT_SLEEP_MS_1000
         };
@@ -1465,7 +1426,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1481,12 +1442,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           priority: 1001
         };
@@ -1500,7 +1460,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1516,12 +1476,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           maxLimit: 999999999999
         };
@@ -1535,7 +1494,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1551,12 +1510,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           usingProxy: false
         };
@@ -1570,7 +1528,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1586,12 +1544,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           usingProxy: true
         };
@@ -1605,7 +1562,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1621,12 +1578,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           usingProxy: ({
             host: "192.168.xx.xxx",
@@ -1647,7 +1603,7 @@ export default function requestInStream2() {
             }
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1663,12 +1619,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           dnsOverHttps: 'https://dns.xtstest.com/dns-query'
         };
@@ -1682,7 +1637,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1698,12 +1653,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           dnsOverHttps: undefined
         };
@@ -1715,7 +1669,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1731,12 +1685,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           dnsServers: ['http://dns.xtstest1.com/dns-query', 'http://dns.xtstest2.com/dns-query',
             'http://dns.xtstest3.com/dns-query']
@@ -1751,7 +1704,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1767,12 +1720,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           dnsServers: undefined
         };
@@ -1786,7 +1738,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1802,13 +1754,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_4900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           readTimeout: 1,
         };
@@ -1822,7 +1772,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300028)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1838,12 +1788,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           readTimeout: 60000,
         };
@@ -1857,7 +1806,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1873,12 +1822,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           connectTimeout: 1
         };
@@ -1892,7 +1840,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300028)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1908,12 +1856,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           connectTimeout: 60000
         };
@@ -1927,7 +1874,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1943,12 +1890,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           caPath: ' '
         };
@@ -1962,7 +1908,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -1978,12 +1924,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           caPath: '../../../main/resources/rawfile/certificate.pem'
         };
@@ -1997,7 +1942,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2013,12 +1958,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           resumeFrom: 4294967299
@@ -2033,7 +1977,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2049,12 +1993,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           resumeFrom: 0
@@ -2069,7 +2012,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2085,12 +2028,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           resumeTo: 4294967299
@@ -2105,7 +2047,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2121,12 +2063,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           resumeTo: 0
@@ -2141,7 +2082,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2157,12 +2098,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_5900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           resumeFrom: 9999,
@@ -2178,7 +2118,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2194,12 +2134,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           expectDataType: http.HttpDataType.STRING
         };
@@ -2214,7 +2153,7 @@ export default function requestInStream2() {
 
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2230,12 +2169,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           expectDataType: http.HttpDataType.OBJECT
         };
@@ -2249,7 +2187,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2265,12 +2203,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           expectDataType: http.HttpDataType.ARRAY_BUFFER
         };
@@ -2284,7 +2221,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2300,12 +2237,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           usingCache: false
         };
@@ -2319,7 +2255,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2335,12 +2271,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           usingCache: true
         };
@@ -2354,7 +2289,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2370,12 +2305,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           extraData: "MineMine",
@@ -2403,7 +2337,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300058)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2419,12 +2353,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
           extraData: "MineMine",
@@ -2452,7 +2385,7 @@ export default function requestInStream2() {
               expect(err.code).assertEqual(2300058)
             }
           })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2472,7 +2405,7 @@ export default function requestInStream2() {
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           header: "content-type': 'multipart/form-data",
@@ -2494,7 +2427,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2510,12 +2443,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           certificatePinning: [
             {
@@ -2537,7 +2469,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2553,12 +2485,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_6900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
         };
@@ -2572,7 +2503,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2588,7 +2519,6 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7000', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
@@ -2601,7 +2531,7 @@ export default function requestInStream2() {
         }
 
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.POST,
           extraData: 'data to send',
@@ -2614,7 +2544,7 @@ export default function requestInStream2() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
         httpRequest.requestInStream('https://www.baidu.com/', options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_7000 requestInStream OK! ResponseCode is " +
@@ -2640,12 +2570,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           maxLimit: 999
         };
@@ -2660,7 +2589,7 @@ export default function requestInStream2() {
 
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2676,12 +2605,11 @@ export default function requestInStream2() {
      * @tc.level Level 2
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
         httpRequest.requestInStream("https://0.0.0.0/", options, (err: BusinessError<void>, data: number) => {
           if (err) {
@@ -2697,7 +2625,7 @@ export default function requestInStream2() {
               data);
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2713,12 +2641,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           connectTimeout: -1
         };
@@ -2733,7 +2660,7 @@ export default function requestInStream2() {
 
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2749,12 +2676,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           readTimeout: -1
         };
@@ -2768,7 +2694,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2784,12 +2710,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           resumeFrom: 1
         };
@@ -2803,7 +2728,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2819,12 +2744,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           resumeFrom: 4294967296
         };
@@ -2839,7 +2763,7 @@ export default function requestInStream2() {
 
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2855,12 +2779,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           resumeTo: 4294967296
         };
@@ -2874,7 +2797,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2890,12 +2813,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           resumeTo: 1
         };
@@ -2909,7 +2831,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2925,12 +2847,11 @@ export default function requestInStream2() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_requestInStream_CallBackWithOptions_7900', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           maxLimit: 104857600
         };
@@ -2944,7 +2865,7 @@ export default function requestInStream2() {
             JSON.stringify(err));
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -2964,7 +2885,7 @@ export default function requestInStream2() {
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest: http.HttpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         httpRequest.requestInStream("https://httpbin.org/anything", {
           method: http.RequestMethod.POST,
           header: {
@@ -2990,7 +2911,7 @@ export default function requestInStream2() {
             done();
           }
         });
-        await sleep(3000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }
@@ -3011,7 +2932,7 @@ export default function requestInStream2() {
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         httpRequest.destroy();
 
         let options: http.HttpRequestOptions = {};
@@ -3027,7 +2948,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300999)
           }
         })
-        await sleep(4000);
+        await sleep(AWAIT_SLEEP_MS_4000);
         console.info('the deviceInfo osFullName is :' + osFullNameInfo);
 
       } catch (error) {
@@ -3049,7 +2970,7 @@ export default function requestInStream2() {
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest = http.createHttp();
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
         };
@@ -3064,7 +2985,7 @@ export default function requestInStream2() {
             expect(err.code).assertEqual(2300001)
           }
         })
-        await sleep(4000)
+        await sleep(AWAIT_SLEEP_MS_4000)
       } catch (error) {
         expect().assertFail()
       }

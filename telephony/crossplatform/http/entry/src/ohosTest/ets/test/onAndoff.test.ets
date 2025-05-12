@@ -2,6 +2,10 @@ import { describe, it, expect, afterEach, Level, TestType, Size, } from '@ohos/h
 import { http } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
+const AWAIT_SLEEP_MS_1000: number = 1000;
+const AWAIT_SLEEP_MS_2000: number = 2000;
+
+const AWAIT_SLEEP_MS_3000: number = 3000;
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -9,8 +13,9 @@ function sleep(ms: number): Promise<void> {
 export default function onAndoff() {
   describe('onAndoff', () => {
     afterEach(async () => {
-      await sleep(3000)
+      await sleep(AWAIT_SLEEP_MS_3000)
     })
+
     /**
      * @tc.number ARKUIX_Http_OnAndOff_0100
      * @tc.name ARKUIX_Http_OnAndOff_0100
@@ -20,7 +25,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0100', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -52,7 +56,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0100 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -61,7 +65,7 @@ export default function onAndoff() {
             console.info("ARKUIX_Http_OnAndOff_0100 requestInStream ERROR : err = " + JSON.stringify(err));
           }
         })
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
       } catch (error) {
         expect().assertFail()
       }
@@ -77,7 +81,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0200', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -109,7 +112,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0200 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -118,7 +121,7 @@ export default function onAndoff() {
           }
         })
         httpRequest.off("dataReceiveProgress", func)
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count == 0).assertTrue()
       } catch (error) {
         expect().assertFail()
@@ -135,7 +138,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0300', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -167,7 +169,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0300 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -175,7 +177,7 @@ export default function onAndoff() {
             console.info("ARKUIX_Http_OnAndOff_0300 requestInStream ERROR : err = " + JSON.stringify(err));
           }
         })
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count != 0).assertTrue()
       } catch (error) {
         expect().assertFail()
@@ -192,7 +194,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0400', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -224,7 +225,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0400 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -234,7 +235,7 @@ export default function onAndoff() {
         })
         httpRequest.off("headersReceive", func);
         console.log("ARKUIX_Http_OnAndOff_0400 header: " + JSON.stringify(count));
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count == 0).assertTrue()
       } catch (error) {
         expect().assertFail()
@@ -251,7 +252,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0500', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -283,7 +283,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0500 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -291,7 +291,7 @@ export default function onAndoff() {
             console.info("ARKUIX_Http_OnAndOff_0500 requestInStream ERROR : err = " + JSON.stringify(err));
           }
         })
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count != 0).assertTrue()
       } catch (error) {
         expect().assertFail()
@@ -308,7 +308,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0600', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -340,7 +339,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0600 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -349,7 +348,7 @@ export default function onAndoff() {
           }
         })
         httpRequest.off("dataReceive", func)
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count == 0).assertTrue()
       } catch (error) {
         expect().assertFail()
@@ -366,7 +365,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0700', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -398,7 +396,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0700 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -406,14 +404,13 @@ export default function onAndoff() {
             console.info("ARKUIX_Http_OnAndOff_0700 requestInStream ERROR : err = " + JSON.stringify(err));
           }
         })
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count != 0).assertTrue()
       } catch (error) {
         expect().assertFail()
       }
       done()
     })
-
 
     /**
      * @tc.number ARKUIX_Http_OnAndOff_0800
@@ -424,7 +421,6 @@ export default function onAndoff() {
      * @tc.level Level 1
      * @tc.require
      */
-
     it('ARKUIX_Http_OnAndOff_0800', TestType.FUNCTION |
     Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
@@ -456,7 +452,7 @@ export default function onAndoff() {
           usingProtocol: http.HttpProtocol.HTTP1_1,
           usingProxy: false,
         };
-        await sleep(2000)
+        await sleep(AWAIT_SLEEP_MS_2000)
         httpRequest.requestInStream("https://www.baidu.com/", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_OnAndOff_0800 requestInStream OK! ResponseCode is " + JSON.stringify(data));
@@ -466,7 +462,7 @@ export default function onAndoff() {
         })
 
         httpRequest.off("dataEnd", func);
-        await sleep(1000)
+        await sleep(AWAIT_SLEEP_MS_1000)
         expect(count == 0).assertTrue()
       } catch (error) {
         expect().assertFail()

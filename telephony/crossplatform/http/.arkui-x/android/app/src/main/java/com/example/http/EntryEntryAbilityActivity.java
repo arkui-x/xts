@@ -23,7 +23,7 @@ import ohos.stage.ability.adapter.StageActivity;
  * StageActivity is provided by ArkUI-X
  *
  * @see <a href=
- * "https://gitee.com/arkui-crossplatform/doc/blob/master/contribute/tutorial/how-to-build-Android-app.md">
+ * "https://gitcode.com/arkui-x/docs/blob/master/zh-cn/application-dev/tutorial/how-to-integrate-arkui-into-android.md">
  * to build android library</a>
  * @since 2025-04-14
  */
