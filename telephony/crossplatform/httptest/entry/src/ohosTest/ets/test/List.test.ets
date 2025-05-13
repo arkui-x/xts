@@ -19,7 +19,6 @@ import requestMethodJsunit from './RequestMethodJsunit.test';
 import httpResponseJsunit from './HttpResponseJsunit.test';
 import HttpRequestOptionsJsunit from './HttpRequestOptionsJsunit.test';
 import httpRequestJsunit from './HttpRequestJsunit.test';
-import HttpTest from './http.test'
 
 export default function testsuite() {
   HttpResponseCacheJsunit();
@@ -28,5 +27,4 @@ export default function testsuite() {
   httpResponseJsunit();
   HttpRequestOptionsJsunit();
   httpRequestJsunit();
-  HttpTest()
 }

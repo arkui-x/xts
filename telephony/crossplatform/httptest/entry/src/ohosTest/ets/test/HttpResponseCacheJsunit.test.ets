@@ -12,11 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {describe,it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 import http from '@ohos.net.http';
 
-export default function httpResponseJsunit() {
+export default function HttpResponseCacheJsunit() {
   describe("HttpResponseCacheJsunitTest", () => {
+
     /**
      * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_001
      * @tc.name      : testTelephonyHttpResponseCacheSize001
@@ -27,7 +28,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheSize001", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheSize_0001';
+      let caseName = 'testTelephonyHttpResponseCacheSize001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -49,13 +50,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -66,20 +65,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_002
      * @tc.name      : testTelephonyHttpResponseCacheSize002
@@ -90,7 +88,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheSize002", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheSize_0002';
+      let caseName = 'testTelephonyHttpResponseCacheSize002';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -112,13 +110,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -129,20 +125,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONYHTTPRESPONSECACHESIZE_003
      * @tc.name      : testTelephonyHttpResponseCacheSize003
@@ -153,7 +148,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheSize003", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheSize_0003';
+      let caseName = 'testTelephonyHttpResponseCacheSize003';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -175,13 +170,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -192,20 +185,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       // httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_001
      * @tc.name      : testTelephonyHttpResponseCacheFlush001
@@ -216,7 +208,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheFlush001", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheFlush_0001';
+      let caseName = 'testTelephonyHttpResponseCacheFlush001';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -238,13 +230,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -255,20 +245,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONY_HTTPRESPONSECACHEFLUSH_002
      * @tc.name      : testTelephonyHttpResponseCacheFlush002
@@ -279,7 +268,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheFlush002", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheFlush_0001';
+      let caseName = 'testTelephonyHttpResponseCacheFlush002';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -301,13 +290,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' flush fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -318,20 +305,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log(caseName + " : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       // httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_003
      * @tc.name      : testTelephonyHttpResponseCacheFlush_003
@@ -342,7 +328,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheFlush_003", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheFlush_0002';
+      let caseName = 'testTelephonyHttpResponseCacheFlush_003';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -373,20 +359,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log("Telephony_http_HttpRequestOptions_method_0200 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TEST_TELEPHONY_HTTP_RESPONSE_CACHE_FLUSH_004
      * @tc.name      : testTelephonyHttpResponseCacheFlush_004
@@ -397,7 +382,7 @@ export default function httpResponseJsunit() {
      */
     it("testTelephonyHttpResponseCacheFlush_004", 0, async (done: Function) => {
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
-      let caseName = 'telephonyHttpResponseCacheFlush_0002';
+      let caseName = 'testTelephonyHttpResponseCacheFlush_004';
       try {
         console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
         try {
@@ -428,20 +413,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log("Telephony_http_HttpRequestOptions_method_0200 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       // httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_001
      * @tc.name      : testTelephonyHttpResponseCacheDelete001
@@ -474,13 +458,11 @@ export default function httpResponseJsunit() {
                 if (err) {
                   console.info(caseName + ' delete fail: ' + err);
                   expect().assertFail();
-                }
-                else {
+                } else {
                   expect(true).assertTrue();
                 }
                 done();
-              }
-              catch (err) {
+              } catch (err) {
                 console.info(caseName + ' meet error: ' + err);
                 done();
               }
@@ -491,20 +473,19 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log("testTelephonyHttpResponseCacheDelete001 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
       }
       //httpRequest.destroy();
     });
+
     /**
      * @tc.number    : TELEPHONY_HTTP_RESPONSE_CACHE_DELETE_002
      * @tc.name      : testTelephonyHttpResponseCacheDelete002
@@ -546,14 +527,12 @@ export default function httpResponseJsunit() {
             expect(false).assertTrue();
             done();
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.log("telephonyHttpResponseCacheDelete_0001 : error = " + error);
           expect(false).assertTrue();
           done();
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(caseName + " : error = " + error);
         expect().assertFail();
         done();
@@ -562,4 +541,3 @@ export default function httpResponseJsunit() {
     });
   })
 };
-

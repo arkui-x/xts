@@ -12,13 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {describe, it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 import http from '@ohos.net.http';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 
 export default function HttpRequestOptionsJsunit() {
   describe("HttpRequestOptionsJsunitTest", () => {
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSMETHOD_001
      * @tc.name testTelephonyHttpRequestOptionsMethod001
@@ -28,7 +29,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsMethod001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0100';
+      let casename = 'testTelephonyHttpRequestOptionsMethod001';
       console.log("-----------------------HttpRequestOptions_method Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -46,13 +47,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsMethod001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSMETHOD_002
      * @tc.name testTelephonyHttpRequestOptionsMethod002
@@ -62,7 +63,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsMethod002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0100';
+      let casename = 'testTelephonyHttpRequestOptionsMethod002';
       console.log("-----------------------HttpRequestOptions_method_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -84,13 +85,13 @@ export default function HttpRequestOptionsJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsMethod002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSMETHOD_003
      * @tc.name testTelephonyHttpRequestOptionsMethod003
@@ -100,7 +101,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsMethod003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0100';
+      let casename = 'testTelephonyHttpRequestOptionsMethod003';
       console.log("-----------------------HttpRequestOptions_method Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -118,13 +119,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsMethod003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSEXTRADATA_001
      * @tc.name testTelephonyHttpRequestOptionsExtraData001
@@ -134,7 +135,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExtraData001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0200';
+      let casename = 'testTelephonyHttpRequestOptionsExtraData001';
       console.log("-----------------------HttpRequestOptions_extraData Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -153,20 +154,20 @@ export default function HttpRequestOptionsJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsExtraData001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSEXTRADATA_002
      * @tc.name testTelephonyHttpRequestOptionsExtraData002
@@ -176,7 +177,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExtraData002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0200';
+      let casename = 'testTelephonyHttpRequestOptionsExtraData002';
       console.log("-----------------------HttpRequestOptions_extraData_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -195,7 +196,7 @@ export default function HttpRequestOptionsJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions).then(data => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData_01 Test end-----------------------");
@@ -206,13 +207,13 @@ export default function HttpRequestOptionsJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsExtraData002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSEXPECTDATATYPE_001
      * @tc.name testTelephonyHttpRequestOptionsExpectDataType001
@@ -222,7 +223,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExpectDataType001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_expectDataType_010011';
+      let casename = 'testTelephonyHttpRequestOptionsExpectDataType001';
       console.log("-----------------------HttpRequestOptions_extraData Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -242,7 +243,7 @@ export default function HttpRequestOptionsJsunit() {
           expectDataType: http.HttpDataType.STRING
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + '1111111111111111111');
           console.log(casename + JSON.stringify(data.responseCode));
           console.log(casename + '1111111122222222');
@@ -253,13 +254,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsExpectDataType001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSEXPECTDATATYPE_002
      * @tc.name testTelephonyHttpRequestOptionsExpectDataType002
@@ -269,7 +270,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExpectDataType002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_expectDataType_0100';
+      let casename = 'testTelephonyHttpRequestOptionsExpectDataType002';
       console.log("-----------------------HttpRequestOptions_extraData Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -289,20 +290,20 @@ export default function HttpRequestOptionsJsunit() {
           expectDataType: http.HttpDataType.OBJECT
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsExpectDataType002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSEXPECTDATATYPE_003
      * @tc.name testTelephonyHttpRequestOptionsExpectDataType003
@@ -312,7 +313,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsExpectDataType003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_expectDataType_0100';
+      let casename = 'testTelephonyHttpRequestOptionsExpectDataType003';
       console.log("-----------------------HttpRequestOptions_extraData Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -332,20 +333,20 @@ export default function HttpRequestOptionsJsunit() {
           expectDataType: http.HttpDataType.ARRAY_BUFFER
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsExpectDataType003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSHEADER_001
      * @tc.name testTelephonyHttpRequestOptionsHeader001
@@ -355,7 +356,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsHeader001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0300';
+      let casename = 'testTelephonyHttpRequestOptionsHeader001';
       console.log("-----------------------HttpRequestOptions_header Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -373,20 +374,19 @@ export default function HttpRequestOptionsJsunit() {
             console.log("-----------------------HttpRequestOptions_header Test end-----------------------");
             httpRequest.destroy();
             done();
-          }
-          catch (error) {
+          } catch (error) {
             console.log("testTelephonyHttpRequestOptionsHeaders001 : JSON parse error = " + error);
             expect(false).assertFail();
             done();
           }
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsHeader001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSHEADER_002
      * @tc.name testTelephonyHttpRequestOptionsHeader002
@@ -396,7 +396,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsHeader002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0300';
+      let casename = 'testTelephonyHttpRequestOptionsHeader002';
       console.log("-----------------------HttpRequestOptions_header_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -414,8 +414,7 @@ export default function HttpRequestOptionsJsunit() {
             console.log("-----------------------HttpRequestOptions_header_01 Test end-----------------------");
             httpRequest.destroy();
             done();
-          }
-          catch (error) {
+          } catch (error) {
             console.log("Telephony_Http_HttpRequestOptions_header_0200 : JSON parse error = " + error);
             expect().assertFail();
             done();
@@ -425,13 +424,13 @@ export default function HttpRequestOptionsJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsHeader002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSHEADER_003
      * @tc.name testTelephonyHttpRequestOptionsHeader003
@@ -441,7 +440,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsHeader003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0300';
+      let casename = 'testTelephonyHttpRequestOptionsHeader003';
       console.log("-----------------------HttpRequestOptions_header_02 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -459,20 +458,19 @@ export default function HttpRequestOptionsJsunit() {
             console.log("-----------------------HttpRequestOptions_header_02 Test end-----------------------");
             httpRequest.destroy();
             done();
-          }
-          catch (error) {
+          } catch (error) {
             console.log("testTelephonyHttpRequestOptionsHeader003 : JSON parse error = " + error);
             expect().assertFail();
             done();
           }
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsHeader003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSHEADER_004
      * @tc.name testTelephonyHttpRequestOptionsHeader004
@@ -482,7 +480,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsHeader004", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0300';
+      let casename = 'testTelephonyHttpRequestOptionsHeader004';
       console.log("-----------------------HttpRequestOptions_header_03 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -500,8 +498,7 @@ export default function HttpRequestOptionsJsunit() {
             console.log("-----------------------HttpRequestOptions_header_03 Test end-----------------------");
             httpRequest.destroy();
             done();
-          }
-          catch (error) {
+          } catch (error) {
             console.log("testTelephonyHttpRequestOptionsHeader004 : JSON parse error = " + error);
             expect().assertFail();
             done();
@@ -511,13 +508,13 @@ export default function HttpRequestOptionsJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsHeader004 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSHEADER_005
      * @tc.name testTelephonyHttpRequestOptionsHeader005
@@ -527,7 +524,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsHeader005", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0300';
+      let casename = 'testTelephonyHttpRequestOptionsHeader005';
       console.log("-----------------------HttpRequestOptions_header Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -545,20 +542,19 @@ export default function HttpRequestOptionsJsunit() {
             console.log("-----------------------HttpRequestOptions_header Test end-----------------------");
             httpRequest.destroy();
             done();
-          }
-          catch (error) {
+          } catch (error) {
             console.log("testTelephonyHttpRequestOptionsHeaders001 : JSON parse error = " + error);
             expect(false).assertFail();
             done();
           }
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsHeader005 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSUSINGCACHE_001
      * @tc.name testTelephonyHttpRequestOptionsUsingCache001
@@ -568,7 +564,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsUsingCache001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_usingCache_0100';
+      let casename = 'testTelephonyHttpRequestOptionsUsingCache001';
       console.log("-----------------------HttpRequestOptions_usingCache Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -588,20 +584,20 @@ export default function HttpRequestOptionsJsunit() {
           usingCache: true
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsUsingCache001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSPRIORITY_001
      * @tc.name testTelephonyHttpRequestOptionsPriority001
@@ -611,7 +607,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsPriority001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_priority_0100';
+      let casename = 'testTelephonyHttpRequestOptionsPriority001';
       console.log("-----------------------HttpRequestOptions_priority Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -631,20 +627,20 @@ export default function HttpRequestOptionsJsunit() {
           priority: 1
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsPriority001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONYHTTPREQUESTOPTIONSPRIORITY_002
      * @tc.name testTelephonyHttpRequestOptionsPriority002
@@ -654,7 +650,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsPriority002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_priority_0100';
+      let casename = 'testTelephonyHttpRequestOptionsPriority002';
       console.log("-----------------------HttpRequestOptions_priority Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -674,20 +670,20 @@ export default function HttpRequestOptionsJsunit() {
           priority: 1000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_extraData Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsPriority001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_USINGPROTOCOL_001
      * @tc.name testTelephonyHttpRequestOptionsUsingProtocol001
@@ -697,7 +693,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsUsingProtocol001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_usingProtocol_0100';
+      let casename = 'testTelephonyHttpRequestOptionsUsingProtocol001';
       console.log("-----------------------HttpRequestOptions_usingProtocol Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -717,20 +713,20 @@ export default function HttpRequestOptionsJsunit() {
           usingProtocol: http.HttpProtocol.HTTP1_1
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_usingProtocol Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsUsingProtocol001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_USINGPROTOCOL_002
      * @tc.name testTelephonyHttpRequestOptionsUsingProtocol002
@@ -740,7 +736,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsUsingProtocol002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_usingProtocol_0100';
+      let casename = 'testTelephonyHttpRequestOptionsUsingProtocol002';
       console.log("-----------------------HttpRequestOptions_usingProtocol Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -758,13 +754,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsUsingProtocol002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_USINGPROTOCOL_003
      * @tc.name testTelephonyHttpRequestOptionsUsingProtocol003
@@ -774,7 +770,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsUsingProtocol003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_usingProtocol_0300';
+      let casename = 'testTelephonyHttpRequestOptionsUsingProtocol003';
       console.log("-----------------------HttpRequestOptions_usingProtocol Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -795,13 +791,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsUsingProtocol003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_READTIOMEOUT_001
      * @tc.name testTelephonyHttpRequestOptionsReadTimeout001
@@ -831,13 +827,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsReadTimeout001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_READTIOMEOUT_002
      * @tc.name testTelephonyHttpRequestOptionsReadTimeout002
@@ -870,13 +866,13 @@ export default function HttpRequestOptionsJsunit() {
           expect(error.message == 'Timeout was reached').assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsReadTimeout002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_CONNECTTIMEOUT_001
      * @tc.name testTelephonyHttpRequestOptionsConnectTimeout001
@@ -886,7 +882,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsConnectTimeout001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0500';
+      let casename = 'testTelephonyHttpRequestOptionsConnectTimeout001';
       console.log("-----------------------HttpRequestOptions_connectTimeout Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -905,13 +901,13 @@ export default function HttpRequestOptionsJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsConnectTimeout001 : error = " + error);
         //expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTOPTIONS_CONNECTTIMEOUT_002
      * @tc.name testTelephonyHttpRequestOptionsConnectTimeout002
@@ -921,7 +917,7 @@ export default function HttpRequestOptionsJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestOptionsConnectTimeout002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpRequestOptions_0600';
+      let casename = 'testTelephonyHttpRequestOptionsConnectTimeout002';
       console.log("-----------------------testTelephonyHttpRequestOptionsConnectTimeout002 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -944,8 +940,7 @@ export default function HttpRequestOptionsJsunit() {
           expect(error.message == 'Timeout was reached').assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestOptionsConnectTimeout002 : error = " + error);
         done();
       }

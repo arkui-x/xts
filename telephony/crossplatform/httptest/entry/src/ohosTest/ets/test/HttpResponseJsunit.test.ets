@@ -12,11 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {describe,it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 import http from '@ohos.net.http';
 
 export default function httpResponseJsunit() {
   describe("HttpResponseJsunitTest", () => {
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULT_001
      * @tc.name testTelephonyHttpResponseResult001
@@ -26,7 +27,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResult001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResult001';
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -44,13 +45,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResult001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULT_002
      * @tc.name testTelephonyHttpResponseResult002
@@ -60,7 +61,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResult002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResult002';
       console.log("-----------------------HttpResponse result_01 Test is starting-----------------------");
       try {
         let httpRequest = http.createHttp();
@@ -71,13 +72,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResult002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULT_003
      * @tc.name testTelephonyHttpResponseResult003
@@ -87,7 +88,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResult003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResult003';
       console.log("-----------------------HttpResponse result_02 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -109,13 +110,13 @@ export default function httpResponseJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResult003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULT_004
      * @tc.name testTelephonyHttpResponseResult004
@@ -125,7 +126,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResult004", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResult004';
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -143,13 +144,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResult004 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULTTYPE_001
      * @tc.name testTelephonyHttpResponseResultType001
@@ -159,7 +160,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResultType001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResultType001';
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -178,13 +179,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResultType001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULTTYPE_002
      * @tc.name testTelephonyHttpResponseResultType002
@@ -194,7 +195,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResultType002", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResultType002';
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -213,13 +214,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResultType002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESULTTYPE_003
      * @tc.name testTelephonyHttpResponseResultType003
@@ -229,7 +230,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResultType003", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0100';
+      let casename = 'testTelephonyHttpResponseResultType003';
       console.log("-----------------------HttpResponse result Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -248,13 +249,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResultType003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESPONSECODE_001
      * @tc.name testTelephonyHttpResponseResponseCode001
@@ -264,7 +265,7 @@ export default function httpResponseJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpResponseResponseCode001", 0, async (done: Function) => {
-      let casename = 'Telephony_Http_HttpResponse_0200';
+      let casename = 'testTelephonyHttpResponseResponseCode001';
       console.log("-----------------------HttpResponse responseCode Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -282,13 +283,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResponseCode001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESPONSECODE_002
      * @tc.name testTelephonyHttpResponseResponseCode002
@@ -309,13 +310,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResponseCode002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESPONSECODE_003
      * @tc.name testTelephonyHttpResponseResponseCode003
@@ -347,13 +348,13 @@ export default function httpResponseJsunit() {
           expect(false).assertTrue();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResponseCode003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_RESPONSECODE_004
      * @tc.name testTelephonyHttpResponseResponseCode004
@@ -381,13 +382,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseResponseCode004 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_HEADER_001
      * @tc.name testTelephonyHttpResponseHeader001
@@ -415,13 +416,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseHeader001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_HEADER_002
      * @tc.name testTelephonyHttpResponseHeader002
@@ -442,13 +443,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseHeader002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_HEADER_003
      * @tc.name testTelephonyHttpResponseHeader003
@@ -479,13 +480,13 @@ export default function httpResponseJsunit() {
           console.info(casename + "errocode" + JSON.stringify(error));
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseHeader003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_HEADER_004
      * @tc.name testTelephonyHttpResponseHeader004
@@ -513,13 +514,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseHeader001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_Cookies_001
      * @tc.name testTelephonyHttpResponseCookies001
@@ -547,13 +548,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseCookies001 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_Cookies_002
      * @tc.name testTelephonyHttpResponseCookies002
@@ -574,13 +575,13 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseCookies002 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_Cookies_003
      * @tc.name testTelephonyHttpResponseCookies003
@@ -611,13 +612,13 @@ export default function httpResponseJsunit() {
           console.info(casename + "errocode" + JSON.stringify(error));
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseCookies003 : error = " + error);
         expect(false).assertTrue();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPRESPONSE_Cookies_004
      * @tc.name testTelephonyHttpResponseCookies004
@@ -645,8 +646,7 @@ export default function httpResponseJsunit() {
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpResponseCookies001 : error = " + error);
         expect(false).assertTrue();
         done();
