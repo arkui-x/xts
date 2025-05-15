@@ -12,8 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {describe, it, expect} from '@ohos/hypium';
+import { describe, it, expect } from '@ohos/hypium';
 import http from '@ohos.net.http';
+
+const ExpectFail = () => {
+  try {
+    expect(false).assertTrue();
+  } catch (err) {
+    console.info(`ExpectFail failed err: ${JSON.stringify(err)}`)
+  }
+}
+
+const ExpectTrue = (b: boolean) => {
+  try {
+    expect(b).assertTrue();
+  } catch (err) {
+    console.info(`ExpectTrue failed err: ${JSON.stringify(err)}`)
+  }
+}
+
 
 export default function requestMethodJsunit() {
   describe("requestMethodJsunit", () => {
@@ -26,7 +43,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodOptions001", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0100';
+      let casename = 'testTelephonyHttpRequestMethodOptions001';
       console.log("-----------------------HttpRequestMethod_options Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -39,15 +56,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_options Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodOptions001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -60,7 +76,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodOptions002", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0100';
+      let casename = 'testTelephonyHttpRequestMethodOptions002';
       console.log("-----------------------HttpRequestMethod_options_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -73,19 +89,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_options_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodOptions002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -97,8 +112,8 @@ export default function requestMethodJsunit() {
      * @tc.type: Method
      * @tc.level: level 2
      */
-    it("testTelephonyHttpRequestMethodOptions003", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0100';
+    it("testTelephonyHttpRequestMethodOptions002", 0, async (done: Function) => {
+      let casename = 'testTelephonyHttpRequestMethodOptions002';
       console.log("-----------------------HttpRequestMethod_options Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -111,15 +126,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_options Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodOptions001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -132,7 +146,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodGet001", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0200";
+      let casename = "testTelephonyHttpRequestMethodGet001";
       console.log("-----------------------HttpRequestMethod_GET Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -145,18 +159,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_GET Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodGet001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTMETHOD_GET_002
      * @tc.name testTelephonyHttpRequestMethodGet002
@@ -166,7 +180,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodGet002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0200";
+      let casename = "testTelephonyHttpRequestMethodGet002";
       console.log("-----------------------HttpRequestMethod_GET_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -179,7 +193,7 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_GET_01 Test end-----------------------");
           httpRequest.destroy();
           done();
@@ -187,10 +201,9 @@ export default function requestMethodJsunit() {
           console.info(casename + "errocode" + JSON.stringify(error));
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodGet002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -202,8 +215,9 @@ export default function requestMethodJsunit() {
      * @tc.type: Method
      * @tc.level: level 2
      */
+
     it("testTelephonyHttpRequestMethodGet003", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0200";
+      let casename = "testTelephonyHttpRequestMethodGet003";
       console.log("-----------------------HttpRequestMethod_GET Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -216,15 +230,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_GET Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodGet001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -237,7 +250,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodPost001", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0300";
+      let casename = "testTelephonyHttpRequestMethodPost001";
       console.log("-----------------------HttpRequestMethod_POST Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -256,20 +269,20 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_POST Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodPost001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
+
     /**
      * @tc.number TEST_TELEPHONY_HTTPREQUESTMETHOD_POST_002
      * @tc.name testTelephonyHttpRequestMethodPost002
@@ -298,21 +311,20 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://image.baidu.com/search/albumsdetail/", httpRequestOptions).then(data => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_POST_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodPost002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -325,7 +337,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodTrace001", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0400";
+      let casename = "testTelephonyHttpRequestMethodTrace001";
       console.log("-----------------------HttpRequestMethod_TRACE Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -338,15 +350,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_TRACE Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodTrace001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -358,8 +369,8 @@ export default function requestMethodJsunit() {
      * @tc.type: Method
      * @tc.level: level 2
      */
-    it("testTelephonyHttpRequestMethodTrace002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0400";
+    it("testTelephonyHttpRequestMethodTrace001", 0, async (done: Function) => {
+      let casename = "testTelephonyHttpRequestMethodTrace001";
       console.log("-----------------------HttpRequestMethod_TRACE_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -372,19 +383,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_TRACE_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodTrace002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -414,15 +424,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_PUT Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodPut001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -435,7 +444,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodPut002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0500";
+      let casename = "testTelephonyHttpRequestMethodPut002";
       console.log("-----------------------HttpRequestMethod_PUT_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -452,19 +461,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_PUT_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodPut002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -477,7 +485,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodPut003", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0500";
+      let casename = "testTelephonyHttpRequestMethodPut003";
       console.log("-----------------------HttpRequestMethod_PUT Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -494,15 +502,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_PUT Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodPut003 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -515,7 +522,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodHead001", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0600';
+      let casename = 'testTelephonyHttpRequestMethodHead001';
       console.log("-----------------------HttpRequestMethod_head Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -528,15 +535,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_head Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodHead001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -549,7 +555,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodHead002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0500";
+      let casename = "testTelephonyHttpRequestMethodHead002";
       console.log("-----------------------HttpRequestMethod_HEAD_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -562,19 +568,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_HEAD_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodHead002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -587,7 +592,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodHead003", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0600';
+      let casename = 'testTelephonyHttpRequestMethodHead003';
       console.log("-----------------------HttpRequestMethod_head Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -601,15 +606,14 @@ export default function requestMethodJsunit() {
         //httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
         httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_head Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodHead003 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -622,7 +626,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodDelete001", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0600';
+      let casename = 'testTelephonyHttpRequestMethodDelete001';
       console.log("-----------------------HttpRequestMethod_DELETE Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -636,15 +640,14 @@ export default function requestMethodJsunit() {
         //httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
         httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodDelete001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -657,7 +660,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodDelete002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0500";
+      let casename = "testTelephonyHttpRequestMethodDelete002";
       console.log("-----------------------HttpRequestMethod_DELETE_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -671,19 +674,18 @@ export default function requestMethodJsunit() {
         // httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
         httpRequest.request("https://www.4399.cn/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodDelete002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -696,7 +698,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodDelete003", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0600';
+      let casename = 'testTelephonyHttpRequestMethodDelete003';
       console.log("-----------------------HttpRequestMethod_DELETE Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -709,15 +711,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodDelete003 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -730,7 +731,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodConnect001", 0, async (done: Function) => {
-      let casename = 'Telephony_http_HttpRequestMethod_0600';
+      let casename = 'testTelephonyHttpRequestMethodConnect001';
       console.log("-----------------------HttpRequestMethod_CONNECT Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -743,15 +744,14 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_CONNECT Test end-----------------------");
           httpRequest.destroy();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodConnect001 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
@@ -764,7 +764,7 @@ export default function requestMethodJsunit() {
      * @tc.level: level 2
      */
     it("testTelephonyHttpRequestMethodConnect002", 0, async (done: Function) => {
-      let casename = "Telephony_http_HttpRequestMethod_0500";
+      let casename = "testTelephonyHttpRequestMethodConnect002";
       console.log("-----------------------HttpRequestMethod_CONNECT_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -777,19 +777,18 @@ export default function requestMethodJsunit() {
         let httpRequest = http.createHttp();
         httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
-          expect(data.responseCode == 200).assertTrue();
+          ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_CONNECT_01 Test end-----------------------");
           httpRequest.destroy();
           done();
         }).catch((error: Object) => {
           console.info(casename + "errocode" + JSON.stringify(error));
-          expect(false).assertTrue();
+          ExpectFail();
           done();
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.log("testTelephonyHttpRequestMethodConnect002 : error = " + error);
-        expect(false).assertTrue();
+        ExpectFail();
         done();
       }
     });
