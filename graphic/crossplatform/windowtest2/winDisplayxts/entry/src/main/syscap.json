@@ -1,0 +1,19 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+
+    ]
+  },
+  "production": {
+    "addedSysCaps": [],
+    "removedSysCaps": [
+      "SystemCapability.HiviewDFX.HiDumper",
+      "SystemCapability.Location.Location.Geofence"]
+  }
+}
