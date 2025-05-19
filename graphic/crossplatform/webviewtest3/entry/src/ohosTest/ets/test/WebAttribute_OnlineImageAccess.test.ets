@@ -63,7 +63,6 @@ export default function WebAttribute_OnlineImageAccess() {
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
     afterAll(async () => {
-      await stopAbility();
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
     });
@@ -96,10 +95,12 @@ export default function WebAttribute_OnlineImageAccess() {
 
         const onlineImageAccessTrueButton: Component = await driver.findComponent(ON.text('onlineImageAccess true'));
         await onlineImageAccessTrueButton.click();
-        await driver.delayMs(2000);
+        await driver.delayMs(3000);
 
         const onlineImageAccess: Component = await driver.findComponent(ON.id('onlineImageAccessTrue'));
+        await driver.delayMs(2000);
         const onlineImageAccessTextValue: string = await onlineImageAccess.getText();
+        await driver.delayMs(2000);
         expect(onlineImageAccessTextValue).assertContain('ImageLoadResult: "load image complete"');
       } else if (osName.startsWith('iOS')) {
         console.log('当前设配不支持')
