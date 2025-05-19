@@ -55,14 +55,13 @@ export default function OnPermissionTest() {
      * afterEach: Test case-level clearance conditions, which are executed after each test case is executed.
      */
     afterEach(async () => {
-      await sleep(500);
+      await sleep(1000);
     });
 
     /**
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
     afterAll(async () => {
-      await stopAbility();
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
     });
@@ -118,7 +117,7 @@ export default function OnPermissionTest() {
       console.log('SUB_Web_WebView_On_Permission_Request_Func_0200 success');
       console.log('SUB_Web_WebView_On_Permission_Request_Func_0200 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_On_Permission_Request_Func_0300
      * @tc.name  : SUB_Web_WebView_On_Permission_Request_Func_0300
