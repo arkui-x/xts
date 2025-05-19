@@ -52,11 +52,10 @@ export default function WebController_SetWebDebuggingAccessFalseTest() {
     /**
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
-    // afterAll(async () => {
-    //   await stopAbility();
-    //   const driver: Driver = Driver.create();
-    //   await driver.delayMs(waitUiReadyMs);
-    // });
+    afterAll(async () => {
+       const driver: Driver = Driver.create();
+       await driver.delayMs(waitUiReadyMs);
+     });
 
     /**
      * @tc.number: SUB_Web_WebView_Stop_Func_0100
