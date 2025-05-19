@@ -65,7 +65,6 @@ export default function WebAttribute_ImageAccess() {
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
     afterAll(async () => {
-      await stopAbility();
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
     });
@@ -97,6 +96,7 @@ export default function WebAttribute_ImageAccess() {
         await imageAccessTrueButton.click();
         await driver.delayMs(2000);
         const imageAccessTrue: Component = await driver.findComponent(ON.id('imageAccessTrue'));
+        await driver.delayMs(2000);
         const imageAccessTrueTextValue: string = await imageAccessTrue.getText();
         expect(imageAccessTrueTextValue).assertContain('ImageLoadResult: "load image complete"');
       } else if (osName.startsWith('iOS')) {
