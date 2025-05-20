@@ -26,6 +26,8 @@ import fileIOStat from "./members/stat.test";
 import fileIOTruncate from "./members/truncate.test";
 import fileIOUnlink from "./members/unlink.test";
 import fileIOWrite from "./members/write.test";
+import fileIOStatvfs from "./members/statvfs.test";
+import fileIOHash from "./members/hash.test";
 
 export default function testsuite() {
   fileIOClose();
@@ -41,4 +43,6 @@ export default function testsuite() {
   fileIOTruncate();
   fileIOUnlink();
   fileIOWrite();
+  fileIOStatvfs();
+  fileIOHash();
 }
