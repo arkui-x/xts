@@ -44,6 +44,11 @@ import fileIORandomAccessFileRead from './class_randomAccessFile/read.test';
 import fileIORandomAccessFileSetFilePointer from './class_randomAccessFile/setFilePointer.test';
 import fileIORandomAccessFileWrite from './class_randomAccessFile/write.test';
 import fileIOCreateRandomAccessFile from './members/createRandomAccessFile.test';
+import fileIOReadLines from "./members/readLines.test";
+import fileIOLseek from "./members/lseek.test";
+import fileIOFileGetParent from "./members/getParent.test";
+import fileIOFileLock from "./members/fileLock.test";
+import fileIOUtimes from "./members/utimes.test";
 
 export default function testsuite() {
   fileIOClose();
@@ -77,4 +82,9 @@ export default function testsuite() {
   fileIORandomAccessFileSetFilePointer();
   fileIORandomAccessFileWrite();
   fileIOCreateRandomAccessFile();
+  fileIOReadLines();
+  fileIOLseek();
+  fileIOFileGetParent();
+  fileIOFileLock();
+  fileIOUtimes();
 }
