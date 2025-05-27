@@ -13,11 +13,12 @@
  * limitations under the License.
  */
 
-
 import windowTest from './window.test'
 import windowTest2 from './window2.test'
+import displayTest from './display.test'
 
 export default function testsuite() {
-  windowTest();
-  windowTest2();
+  // windowTest();
+  // windowTest2();
+  displayTest();
 }
