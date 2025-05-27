@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.test;
+package com.example.sendablecollections;
 
 import android.os.Bundle;
 
@@ -28,7 +28,7 @@ import ohos.stage.ability.adapter.StageActivity;
 public class EntryEntryAbilityActivity extends StageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setInstanceName("com.example.test:entry:EntryAbility:");
+        setInstanceName("com.example.sendablecollections:entry:EntryAbility:");
         super.onCreate(savedInstanceState);
     }
 }

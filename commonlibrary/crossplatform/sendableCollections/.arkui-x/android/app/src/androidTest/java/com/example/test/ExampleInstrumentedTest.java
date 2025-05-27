@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.test;
+package com.example.sendablecollections;
 
 import android.content.Context;
 
