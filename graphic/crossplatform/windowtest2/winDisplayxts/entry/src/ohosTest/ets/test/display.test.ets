@@ -17,7 +17,7 @@ import { describe, it, expect, Level, TestType, Size, beforeEach, afterAll } fro
 import { display } from '@kit.ArkUI';
 
 const waitReadyMs_600 = 600;
-const waitReadyMs_2000 = 2000;
+const waitReadyMs_3000 = 3000;
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -26,7 +26,7 @@ function sleep(ms: number): Promise<void> {
 export default function displayTest() {
   describe('displayTest', () => {
     afterAll(async () => {
-      await sleep(waitReadyMs_2000);
+      await sleep(waitReadyMs_3000);
     })
 
     /**
