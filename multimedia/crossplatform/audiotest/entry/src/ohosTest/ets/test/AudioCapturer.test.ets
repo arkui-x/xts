@@ -3,7 +3,6 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import fs from '@ohos.file.fs';
 import audio from '@ohos.multimedia.audio';
 import deviceInfo from '@ohos.deviceInfo';
-import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
 
 const position_1000 = 1000;
 const position_err = -1000;
@@ -12,7 +11,6 @@ const waitReadyMs_100 = 100;
 const waitReadyMs_300 = 300;
 const waitReadyMs_600 = 600;
 const waitReadyMs_1000 = 1000;
-const waitReadyMs_1500 = 1500;
 const waitReadyMs_5000 = 5000;
 let capturerOffsetStart = 0;
 let isPass = false;
@@ -37,7 +35,6 @@ let audioCapturerOptions: audio.AudioCapturerOptions = {
   streamInfo: audioStreamInfo,
   capturerInfo: audioCapturerInfo,
 }
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 class Options {
   offset?: number;

@@ -2,13 +2,11 @@ import { BusinessError } from '@ohos.base';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import audio from '@ohos.multimedia.audio';
 import deviceInfo from '@ohos.deviceInfo';
-import resourceManager from '@ohos.resourceManager';
 
-const enum_10 = 10;
+const enum_err = -99;
 const errCode_6800104 = 6800104;
 const errCode_6800301 = 6800301;
 const waitReadyMs_100 = 100;
-const waitReadyMs_300 = 300;
 const waitReadyMs_600 = 600;
 const waitReadyMs_1000 = 1000;
 const waitReadyMs_5000 = 5000;
@@ -16,7 +14,6 @@ let isPass = false;
 let isSuccess = true;
 let audioDeviceDescriptors: audio.AudioDeviceDescriptors;
 let audioRenderer: audio.AudioRenderer;
-let audioCapturer: audio.AudioCapturer;
 let audioManager: audio.AudioManager;
 let audioRoutingManager: audio.AudioRoutingManager;
 let androidVersion: number;
@@ -271,8 +268,13 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevices_Func_0400', 0, async (done: Function) => {
         try{
-          audioDeviceDescriptors = await getDevicesCallback(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          audioRoutingManager.getDevices(enum_err, (err, data) => {
+            if (err) {
+              isPass = true;
+            }
+          });
+          await sleep(waitReadyMs_600);
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -368,8 +370,13 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevices_Func_0800', 0, async (done: Function) => {
         try{
-          audioDeviceDescriptors = await getDevicesPromise(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          await audioRoutingManager.getDevices(enum_err).then((data) => {
+          }).catch((err: BusinessError) => {
+            if (err) {
+              isPass = true;
+            }
+          });
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -465,11 +472,11 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevicesSync_Func_1200', 0, async (done: Function) => {
         try{
-          audioDeviceDescriptors = audioRoutingManager.getDevicesSync(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          audioDeviceDescriptors = audioRoutingManager.getDevicesSync(enum_err);
+          expect().assertFail();
         }
         catch (error) {
-          expect(error).assertFail();
+          expect(error.code).assertEqual("6800101");
           console.error('SUB_ArkUIX_Audio_getDevicesSync_Func_1200 error' + error);
         }
         done();
@@ -610,7 +617,7 @@ export default function audioRoutingManagerTest() {
           try{
             await (async (): Promise<boolean> => {
               return new Promise((resolve, reject) => {
-                audioRoutingManager.setCommunicationDevice(10, false, (err: BusinessError) => {
+                audioRoutingManager.setCommunicationDevice(enum_err, false, (err: BusinessError) => {
                   err == undefined ? resolve(false) : reject(err)
                 });
               });
@@ -636,7 +643,7 @@ export default function audioRoutingManagerTest() {
          */
         it('SUB_ArkUIX_Audio_setCommunicationDevice_Func_0600', 0, async (done: Function) => {
           try{
-            await audioRoutingManager.setCommunicationDevice(10, false).then(() => {
+            await audioRoutingManager.setCommunicationDevice(enum_err, false).then(() => {
               console.error('SUB_ArkUIX_Audio_setCommunicationDevice_Func_0600 fail');
             }).catch((err: BusinessError) => {
               expect(err.code == errCode_6800301).assertTrue();
@@ -732,7 +739,7 @@ export default function audioRoutingManagerTest() {
           try{
             await (async (): Promise<boolean> => {
               return new Promise((resolve, reject) => {
-                audioRoutingManager.isCommunicationDeviceActive(10, (err, value) => {
+                audioRoutingManager.isCommunicationDeviceActive(enum_err, (err, value) => {
                   err == undefined ? resolve(value) : reject(err)
                 });
               });
@@ -812,7 +819,7 @@ export default function audioRoutingManagerTest() {
          */
         it('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0600', 0, async (done: Function) => {
           try{
-            await audioRoutingManager.isCommunicationDeviceActive(10).then((value) => {
+            await audioRoutingManager.isCommunicationDeviceActive(enum_err).then((value) => {
               console.error('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0600 fail');
             }).catch((err: BusinessError) => {
               expect(err.code == 6800104).assertTrue();
@@ -880,7 +887,7 @@ export default function audioRoutingManagerTest() {
          */
         it('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0900', 0, async (done: Function) => {
           try{
-            let isCommunicationDeviceActive = audioRoutingManager.isCommunicationDeviceActiveSync(10);
+            let isCommunicationDeviceActive = audioRoutingManager.isCommunicationDeviceActiveSync(enum_err);
             expect().assertFail();
           }
           catch (error) {
@@ -899,8 +906,13 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevices_Func_0200', 0, async (done: Function) => {
         try {
-          audioDeviceDescriptors = await getDevicesCallback(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          audioRoutingManager.getDevices(enum_err, (err, data) => {
+            if (err) {
+              isPass = true;
+            }
+          });
+          await sleep(waitReadyMs_600);
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -940,8 +952,13 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevices_Func_0400', 0, async (done: Function) => {
         try {
-          audioDeviceDescriptors = await getDevicesPromise(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          await audioRoutingManager.getDevices(enum_err).then((data) => {
+          }).catch((err: BusinessError) => {
+            if (err) {
+              isPass = true;
+            }
+          });
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -981,11 +998,11 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getDevicesSync_Func_0600', 0, async (done: Function) => {
         try {
-          audioDeviceDescriptors = audioRoutingManager.getDevicesSync(4);
-          expect(audioDeviceDescriptors.length == 0).assertTrue();
+          audioDeviceDescriptors = audioRoutingManager.getDevicesSync(enum_err);
+          expect().assertFail();
         }
         catch (error) {
-          expect(error).assertFail();
+          expect(error.code).assertEqual("6800101");
           console.error('SUB_ArkUIX_Audio_getDevicesSync_Func_0600 error' + error);
         }
         done();
@@ -1117,7 +1134,7 @@ export default function audioRoutingManagerTest() {
         try{
           await (async (): Promise<boolean> => {
             return new Promise((resolve, reject) => {
-              audioRoutingManager.setCommunicationDevice(10, false, (err: BusinessError) => {
+              audioRoutingManager.setCommunicationDevice(enum_err, false, (err: BusinessError) => {
                 err == undefined ? resolve(false) : reject(err)
               });
             });
@@ -1143,7 +1160,7 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_setCommunicationDevice_Func_0600', 0, async (done: Function) => {
         try{
-          await audioRoutingManager.setCommunicationDevice(10, false).then(() => {
+          await audioRoutingManager.setCommunicationDevice(enum_err, false).then(() => {
             console.error('SUB_ArkUIX_Audio_setCommunicationDevice_Func_0600 fail');
           }).catch((err: BusinessError) => {
             expect(err.code == 6800301).assertTrue();
@@ -1233,7 +1250,7 @@ export default function audioRoutingManagerTest() {
         try{
           await (async (): Promise<boolean> => {
             return new Promise((resolve, reject) => {
-              audioRoutingManager.isCommunicationDeviceActive(enum_10, (err, value) => {
+              audioRoutingManager.isCommunicationDeviceActive(enum_err, (err, value) => {
                 err == undefined ? resolve(value) : reject(err)
               });
             });
@@ -1309,7 +1326,7 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0600', 0, async (done: Function) => {
         try{
-          await audioRoutingManager.isCommunicationDeviceActive(enum_10).then((value) => {
+          await audioRoutingManager.isCommunicationDeviceActive(enum_err).then((value) => {
             console.error('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0600 fail');
           }).catch((err: BusinessError) => {
             expect(err.code == errCode_6800104).assertTrue();
@@ -1373,7 +1390,7 @@ export default function audioRoutingManagerTest() {
        */
       it('SUB_ArkUIX_Audio_isCommunicationDeviceActive_Func_0900', 0, async (done: Function) => {
         try{
-          let isCommunicationDeviceActive = audioRoutingManager.isCommunicationDeviceActiveSync(enum_10);
+          let isCommunicationDeviceActive = audioRoutingManager.isCommunicationDeviceActiveSync(enum_err);
           expect().assertFail();
         }
         catch (error) {
