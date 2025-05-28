@@ -1,0 +1,998 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { afterAll, afterEach, beforeAll, describe, expect, it, Level, TestType, Size } from '@ohos/hypium';
+import { Driver, ON } from '@ohos.UiTest'
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
+import deviceInfo from '@ohos.deviceInfo';
+import Want from '@ohos.app.ability.Want';
+
+let driver = Driver.create();
+let osFullNameInfo: string = deviceInfo.osFullName;
+let platform = osFullNameInfo.split(' ')[0];
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+const WAIT_MS_800 = 800;
+const WAIT_MS_2000 = 2000;
+const WAIT_MS_3000 = 3000;
+
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function startAbility(bundleName: string, abilityName: string) {
+  let want: Want = {
+    bundleName: `${bundleName}`,
+    abilityName: `${abilityName}`,
+    moduleName: "entry"
+  };
+
+  await delegator.startAbility(want).then(result => {
+    console.info(`UiTestCase, start abilityFinished: ${result}`)
+  }).catch((err: object) => {
+    console.error(`UiTestCase, start abilityFailed: ${err}`)
+  })
+}
+
+async function goToPage(pageName: string) {
+  let button = await driver.findComponent(ON.id(pageName));
+  await button.click();
+  await sleep(WAIT_MS_2000);
+}
+
+async function clickButton(buttonName: string) {
+  let button = await driver.findComponent(ON.id(buttonName));
+  await button.click();
+  await sleep(WAIT_MS_800);
+}
+
+export default function RegisterJavaScriptProxy_Function() {
+  describe('RegisterJavaScriptProxy_Function', () => {
+    beforeAll(async () => {
+      await sleep(WAIT_MS_2000);
+      await startAbility('com.example.webviewjsregistertest', 'EntryAbility');
+      await sleep(WAIT_MS_3000);
+    });
+    afterAll(async () => {
+      let topAbility = await delegator.getCurrentTopAbility();
+      await topAbility.context.terminateSelf();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0100
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0100
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0100', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await goToPage("RegisterJSProxy_SyncMethod_Function");
+        await sleep(WAIT_MS_800);
+        await clickButton("RegisterSyncMethodList");
+        await clickButton("Refresh");
+        await clickButton("TestSyncString");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncString is call, parameter is: webTest");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0100, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0200
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0200
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0200', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncNumber");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncNumber is call, parameter is: 123");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0200, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0300
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0300
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0300', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncBoolean");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncBoolean is call, parameter is: true");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0300, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0400
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0400
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0400', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncNumberArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncNumberArray is call, parameter is: 1,2,3");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0400, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0500
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0500
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with string array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0500', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncStringArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncStringArray is call, parameter is: a,b,c");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0500, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0600
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0600
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0600', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncBooleanArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testSyncBooleanArray is call, parameter is: true,false,true");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0600, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0700
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0700
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0700', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncNumberDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testSyncNumberDictionary is call, parameter is: {"key":1}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0700, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0800
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0800
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with string dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0800', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncStringDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testSyncStringDictionary is call, parameter is: {"key":"test"}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0800, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0900
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0900
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0900', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncBooleanDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testSyncBooleanDictionary is call, parameter is: {"key":true}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_0900, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1000
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1000
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1000', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncArray10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[null,null]]]]]]]]]]');
+        } else {
+          expect(result).assertEqual('testSyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[10,null]]]]]]]]]]');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1000, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1100
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1100
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1100', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{}}}}}}}}}}');
+        } else {
+          expect(result).assertEqual('testSyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{"10":null}}}}}}}}}}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1100, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1200
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1200
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested array and dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1200', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      // The iOS side does not support JS synchronization method registration, so this use case will be skipped on iOS
+      if (platform === 'iOS') {
+        done();
+        return;
+      }
+      try {
+        await clickButton("TestSyncArrayDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testSyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[null,null]]]]]]]]]}');
+        } else {
+          expect(result).assertEqual('testSyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[9,null]]]]]]]]]}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1200, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      await goToPage("Back");
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1300
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1300
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with method list
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1300', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await goToPage("RegisterJSProxy_AsyncMethod_Function");
+        await sleep(WAIT_MS_800);
+        await clickButton("RegisterAsyncMethodList");
+        await clickButton("Refresh");
+        await clickButton("TestAsyncString");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncString is call, parameter is: webTest");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1300, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1400
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1400
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1400', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncNumber");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncNumber is call, parameter is: 123");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1400, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1500
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1500
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1500', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncBoolean");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncBoolean is call, parameter is: true");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1500, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1600
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1600
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1600', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncNumberArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncNumberArray is call, parameter is: 1,2,3");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1600, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1700
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1700
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with string array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1700', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncStringArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncStringArray is call, parameter is: a,b,c");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1700, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1800
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1800
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1800', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncBooleanArray");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual("testAsyncBooleanArray is call, parameter is: true,false,true");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1800, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1900
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1900
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with number dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1900', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncNumberDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testAsyncNumberDictionary is call, parameter is: {"key":1}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_1900, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2000
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2000
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with string dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2000', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncStringDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testAsyncStringDictionary is call, parameter is: {"key":"test"}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2000, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2100
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2100
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with boolean dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2100', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncBooleanDictionary");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertEqual('testAsyncBooleanDictionary is call, parameter is: {"key":true}');
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2100, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2200
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2200
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested array
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2200', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncArray10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[null,null]]]]]]]]]]');
+        } else {
+          expect(result).assertEqual('testAsyncArray10 is call, parameter is: ' +
+            '[1,[2,[3,[4,[5,[6,[7,[8,[9,[10,null]]]]]]]]]]');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2200, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2300
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2300
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2300', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{}}}}}}}}}}');
+        } else {
+          expect(result).assertEqual('testAsyncDictionary10 is call, parameter is: ' +
+            '{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{"10":null}}}}}}}}}}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2300, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2400
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2400
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with 10 levels of nested array and dictionary
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2400', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL0, async (done: Function) => {
+      try {
+        await clickButton("TestAsyncArrayDictionary10");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        if (platform.startsWith('OpenHarmony')) {
+          expect(result).assertEqual('testAsyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[null,null]]]]]]]]]}');
+        } else {
+          expect(result).assertEqual('testAsyncArrayDictionary10 is call, parameter is: ' +
+            '{"key":[1,[2,[3,[4,[5,[6,[7,[8,[9,null]]]]]]]]]}');
+        }
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2400, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      await goToPage("Back");
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2500
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2500
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with no binding exception
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2500', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await goToPage("RegisterJSProxy_Function_Exception");
+        await sleep(WAIT_MS_800);
+        await clickButton("NoBinding");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("17100001");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2500, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2600
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2600
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with null object
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2600', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterObjectIsNull");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2600, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2700
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2700
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with undefined object
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2700', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterObjectIsUndefined");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2700, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2800
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2800
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with null name
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2800', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterNameIsNull");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2800, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2900
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2900
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with undefined name
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2900', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterNameIsUndefined");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_2900, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3000
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3000
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with null synchronized method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3000', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterSyncMethodListIsNull");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3000, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3100
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3100
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with undefined synchronized method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3100', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterSyncMethodListIsUndefined");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3100, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3200
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3200
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with null asynchronized method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3200', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterAsyncMethodListIsNull");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3200, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3300
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3300
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with undefined asynchronized method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3300', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterAsyncMethodListIsUndefined");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("401");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3300, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    });
+
+    /**
+     * @tc.number ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3400
+     * @tc.name ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3400
+     * @tc.desc Test WebViewController.RegisterJavaScriptProxy function with synchronized and asynchronized method
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 2
+     * @tc.require
+     */
+    it('ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3400', TestType.FUNCTION | Size.MEDIUMTEST |
+      Level.LEVEL2, async (done: Function) => {
+      try {
+        await clickButton("RegisterAsyncMethodAndSyncMethod");
+        await clickButton("TestString");
+
+        let result = await (await driver.findComponent(ON.id("Result"))).getText();
+        expect(result).assertContain("testString is call, parameter is: webTest");
+      } catch (error) {
+        console.error(`ArkUIX_WebView_WebViewController_RegisterJavaScriptProxy_3400, code: ${error.code},
+          message: ${error.message}`);
+        expect().assertFail();
+      }
+      await goToPage("Back");
+      done();
+    });
+  })
+}
