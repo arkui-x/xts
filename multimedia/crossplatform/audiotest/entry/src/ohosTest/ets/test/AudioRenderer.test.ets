@@ -13,7 +13,7 @@ const volume_2 = 2;
 const volume_err = -1;
 const position_1000 = 1000;
 const position_err = -1000;
-const enum_4 = 4;
+const enum_err = 99;
 const errCode_6800104 = 6800104;
 const androidVersion_10 = 10;
 const waitReadyMs_100 = 100;
@@ -1825,7 +1825,7 @@ export default function audioRendererTest() {
        */
       it('SUB_ArkUIX_Audio_setChannelBlendMode_Func_0500', 0, async (done: Function) => {
         try{
-          audioRenderer.setChannelBlendMode(enum_4);
+          audioRenderer.setChannelBlendMode(enum_err);
           await sleep(waitReadyMs_100);
           expect().assertFail()
           console.info('SUB_ArkUIX_Audio_setChannelBlendMode_Func_0500 fail');
