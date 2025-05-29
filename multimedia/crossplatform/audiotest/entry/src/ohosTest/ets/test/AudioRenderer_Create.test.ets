@@ -3,9 +3,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import audio from '@ohos.multimedia.audio';
 import deviceInfo from '@ohos.deviceInfo';
 
-const enum_2 = 2;
-const enum_5 = 5;
-const enum_20 = 20;
+const enum_err = -99;
 const enum_100000 = 100000;
 const errCode_6800301 = 6800301;
 const channelLayout_err = 0x1000000033333;
@@ -417,7 +415,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0700', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.channels = enum_20;
+        audioRendererOptions.streamInfo.channels = enum_err;
         await (async (): Promise<audio.AudioRenderer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioRenderer(audioRendererOptions, (err, data) => {
@@ -448,7 +446,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0800', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.channels = enum_20;
+        audioRendererOptions.streamInfo.channels = enum_err;
         await audio.createAudioRenderer(audioRendererOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_0800 fail');
         }).catch((err: BusinessError) => {
@@ -672,7 +670,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1100', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.sampleFormat = enum_5;
+        audioRendererOptions.streamInfo.sampleFormat = enum_err;
         await (async (): Promise<audio.AudioRenderer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioRenderer(audioRendererOptions, (err, data) => {
@@ -703,7 +701,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1200', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.sampleFormat = enum_5;
+        audioRendererOptions.streamInfo.sampleFormat = enum_err;
         await audio.createAudioRenderer(audioRendererOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1200 fail');
         }).catch((err: BusinessError) => {
@@ -801,7 +799,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1500', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.encodingType = enum_2;
+        audioRendererOptions.streamInfo.encodingType = enum_err;
         await (async (): Promise<audio.AudioRenderer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioRenderer(audioRendererOptions, (err, data) => {
@@ -832,7 +830,7 @@ export default function audioRenderer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1600', 0, async (done: Function) => {
       try{
-        audioRendererOptions.streamInfo.encodingType = enum_2;
+        audioRendererOptions.streamInfo.encodingType = enum_err;
         await audio.createAudioRenderer(audioRendererOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_1600 fail');
         }).catch((err: BusinessError) => {
@@ -1365,7 +1363,7 @@ export default function audioRenderer_CreateTest() {
        */
       it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2700', 0, async (done: Function) => {
         try{
-          audioRendererOptions.rendererInfo.usage = enum_20;
+          audioRendererOptions.rendererInfo.usage = enum_err;
           await (async (): Promise<audio.AudioRenderer> => {
             return new Promise((resolve, reject) => {
               audio.createAudioRenderer(audioRendererOptions, (err, data) => {
@@ -1396,7 +1394,7 @@ export default function audioRenderer_CreateTest() {
        */
       it('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2800', 0, async (done: Function) => {
         try{
-          audioRendererOptions.rendererInfo.usage = enum_20;
+          audioRendererOptions.rendererInfo.usage = enum_err;
           await audio.createAudioRenderer(audioRendererOptions).then((data) => {
             console.error('SUB_ArkUIX_Audio_CreateAudioRenderer_Func_2800 fail');
           }).catch((err: BusinessError) => {
@@ -1519,7 +1517,7 @@ export default function audioRenderer_CreateTest() {
               usage: audio.StreamUsage.STREAM_USAGE_MUSIC,
               rendererFlags: 0
             },
-            privacyType: enum_2
+            privacyType: enum_err
           }
           await createAudioRendererCallback();
           expect(audioRenderer.state).assertEqual(audio.AudioState.STATE_PREPARED);
@@ -1552,7 +1550,7 @@ export default function audioRenderer_CreateTest() {
               usage: audio.StreamUsage.STREAM_USAGE_MUSIC,
               rendererFlags: 0
             },
-            privacyType: enum_2
+            privacyType: enum_err
           }
           await audio.createAudioRenderer(audioRendererOptions).then((data) => {
             audioRenderer = data;

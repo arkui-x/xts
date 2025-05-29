@@ -22,7 +22,7 @@ export default function audioManagerTest() {
       isPass = false;
       await sleep(waitReadyMs_100);
     })
-	  afterAll(async() => {
+    afterAll(async() => {
       await sleep(waitReadyMs_5000);
     })
 
