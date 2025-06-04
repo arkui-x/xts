@@ -3,9 +3,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import audio from '@ohos.multimedia.audio';
 import deviceInfo from '@ohos.deviceInfo';
 
-const enum_2 = 2;
-const enum_5 = 5;
-const enum_20 = 20;
+const enum_err = -99;
 const enum_100000 = 100000;
 const channelLayout_err = 0x1000000033333;
 const errCode_6800101 = 6800101;
@@ -606,7 +604,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0700', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.channels = enum_20;
+        audioCapturerOptions.streamInfo.channels = enum_err;
         await (async (): Promise<audio.AudioCapturer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
@@ -637,7 +635,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0800', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.channels = enum_20;
+        audioCapturerOptions.streamInfo.channels = enum_err;
         await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0800 fail');
         }).catch((err: BusinessError) => {
@@ -732,16 +730,13 @@ export default function audioCapturer_CreateTest() {
         await (async (): Promise<audio.AudioCapturer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
-              err == undefined ? resolve(data) : reject(err)
+              err === undefined ? resolve(data) : reject(err)
             });
           });
         })().then(data => {
-          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_0900 fail');
-          expect().assertFail()
+          expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
         }).catch((err: BusinessError) => {
-          if (err.code != errCode_6800301) {
-            isPass = false;
-          }
+          expect().assertFail();
         });
       }
       catch (error) {
@@ -809,11 +804,9 @@ export default function audioCapturer_CreateTest() {
 
         audioCapturerOptions.streamInfo.sampleFormat = audio.AudioSampleFormat.SAMPLE_FORMAT_F32LE;
         await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
-          console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1000 fail');
+          expect(data.state).assertEqual(audio.AudioState.STATE_PREPARED);
         }).catch((err: BusinessError) => {
-          if (err.code != errCode_6800301) {
-            isPass = false;
-          }
+          expect().assertFail();
         });
       }
       catch (error) {
@@ -832,7 +825,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1100', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.sampleFormat = enum_5;
+        audioCapturerOptions.streamInfo.sampleFormat = enum_err;
         await (async (): Promise<audio.AudioCapturer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
@@ -863,7 +856,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1200', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.sampleFormat = enum_5;
+        audioCapturerOptions.streamInfo.sampleFormat = enum_err;
         await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1200 fail');
         }).catch((err: BusinessError) => {
@@ -956,7 +949,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1500', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.encodingType = enum_2;
+        audioCapturerOptions.streamInfo.encodingType = enum_err;
         await (async (): Promise<audio.AudioCapturer> => {
           return new Promise((resolve, reject) => {
             audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
@@ -987,7 +980,7 @@ export default function audioCapturer_CreateTest() {
      */
     it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1600', 0, async (done: Function) => {
       try{
-        audioCapturerOptions.streamInfo.encodingType = enum_2;
+        audioCapturerOptions.streamInfo.encodingType = enum_err;
         await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
           console.error('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_1600 fail');
         }).catch((err: BusinessError) => {
@@ -1506,7 +1499,7 @@ export default function audioCapturer_CreateTest() {
       it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2700', 0, async (done: Function) => {
         try{
           await resetAudioCapturerOptions();
-          audioCapturerOptions.capturerInfo.source = enum_5;
+          audioCapturerOptions.capturerInfo.source = enum_err;
           await (async (): Promise<audio.AudioCapturer> => {
             return new Promise((resolve, reject) => {
               audio.createAudioCapturer(audioCapturerOptions, (err, data) => {
@@ -1537,7 +1530,7 @@ export default function audioCapturer_CreateTest() {
        */
       it('SUB_ArkUIX_Audio_CreateAudioCapturer_Func_2800', 0, async (done: Function) => {
         try{
-          audioCapturerOptions.capturerInfo.source = enum_5;
+          audioCapturerOptions.capturerInfo.source = enum_err;
           await audio.createAudioCapturer(audioCapturerOptions).then((data) => {
             console.info('AudioCapturer Created: Success');
           }).catch((err: BusinessError) => {

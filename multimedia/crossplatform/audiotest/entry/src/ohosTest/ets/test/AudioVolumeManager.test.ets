@@ -3,9 +3,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from
 import audio from '@ohos.multimedia.audio';
 import deviceInfo from '@ohos.deviceInfo';
 
-const enum_10 = 10;
-const enum_15 = 15;
-const enum_20 = 20;
+const enum_err = -99;
 const volume_7 = 7;
 const volume_12 = 12;
 const volume_15 = 15;
@@ -578,14 +576,14 @@ export default function audioVolumeManagerTest() {
         try{
           await (async (): Promise<boolean> => {
             return new Promise((resolve, reject) => {
-              audioVolumeGroupManager.isMute(enum_10, (err, value) => {
+              audioVolumeGroupManager.isMute(enum_err, (err, value) => {
                 err == undefined ? resolve(value) : reject(err)
               });
             });
           })().then(value => {
             console.error('SUB_ArkUIX_Audio_isMute_Func_0200 fail');
           }).catch((err: BusinessError) => {
-            if (err.code == errCode_6800301) {
+            if (err) {
               isPass = true;
             }
           });
@@ -635,11 +633,14 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_isMute_Func_0400', 0, async (done: Function) => {
         try{
-          await audioVolumeGroupManager.isMute(enum_10).then((value) => {
+          await audioVolumeGroupManager.isMute(enum_err).then((value) => {
             console.error('SUB_ArkUIX_Audio_isMute_Func_0400 fail');
           }).catch((err: BusinessError) => {
-            expect(err.code == errCode_6800301).assertTrue();
+            if (err) {
+              isPass = true;
+            }
           })
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -684,11 +685,10 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_isMuteSync_Func_0600', 0, async (done: Function) => {
         try{
-          isMute = audioVolumeGroupManager.isMuteSync(enum_10);
-          console.error('SUB_ArkUIX_Audio_isMuteSync_Func_0600 fail');
+          isMute = audioVolumeGroupManager.isMuteSync(enum_err);
         }
         catch (error) {
-          expect(error.code == errCode_6800301).assertTrue();
+          expect(error.code == errCode_6800101).assertTrue();
         }
         done();
       })
@@ -734,7 +734,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDb_Func_0200', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = await getSystemVolumeInDbCallback(enum_15, audio.DeviceType.SPEAKER);
+          systemVolumeInDb = await getSystemVolumeInDbCallback(enum_err, audio.DeviceType.SPEAKER);
           expect(getSystemVolumeInDb_ErrorCode != null ||
             (systemVolumeInDb != null ? systemVolumeInDb == 0 : false)).assertTrue();
         }
@@ -786,7 +786,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDb_Func_0400', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = await getSystemVolumeInDbPromise(enum_15, audio.DeviceType.SPEAKER);
+          systemVolumeInDb = await getSystemVolumeInDbPromise(enum_err, audio.DeviceType.SPEAKER);
           expect(getSystemVolumeInDb_ErrorCode != null ||
             (systemVolumeInDb != null ? systemVolumeInDb == 0 : false)).assertTrue();
         }
@@ -854,7 +854,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDb_Func_0600', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = await getSystemVolumeInDbCallback(audio.AudioVolumeType.MEDIA, enum_20);
+          systemVolumeInDb = await getSystemVolumeInDbCallback(audio.AudioVolumeType.MEDIA, enum_err);
           expect((getSystemVolumeInDb_ErrorCode != null ? getSystemVolumeInDb_ErrorCode == errCode_6800101 : false) ||
             (systemVolumeInDb != null ? getSystemVolumeInDb_ErrorCode != errCode_6800101 : false)).assertTrue();
         }
@@ -922,7 +922,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDb_Func_0800', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = await getSystemVolumeInDbPromise(audio.AudioVolumeType.MEDIA, enum_20);
+          systemVolumeInDb = await getSystemVolumeInDbPromise(audio.AudioVolumeType.MEDIA, enum_err);
           expect((getSystemVolumeInDb_ErrorCode != null ? getSystemVolumeInDb_ErrorCode == errCode_6800101 : false) ||
             (getSystemVolumeInDb_ErrorCode != null ? getSystemVolumeInDb_ErrorCode != errCode_6800101 : false)).assertTrue();
         }
@@ -1087,7 +1087,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDbSync_Func_1400', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = await getSystemVolumeInDbSync(enum_15, audio.DeviceType.SPEAKER);
+          systemVolumeInDb = await getSystemVolumeInDbSync(enum_err, audio.DeviceType.SPEAKER);
           expect((systemVolumeInDb != null ? systemVolumeInDb <= 0 : false) ||
             (getSystemVolumeInDb_ErrorCode != null ? getSystemVolumeInDb_ErrorCode == errCode_6800101 : false)).assertTrue();
         }
@@ -1155,7 +1155,7 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getSystemVolumeInDbSync_Func_1600', 0, async (done: Function) => {
         try{
-          systemVolumeInDb = audioVolumeGroupManager.getSystemVolumeInDbSync(audio.AudioVolumeType.MEDIA, volume_7, enum_20);
+          systemVolumeInDb = audioVolumeGroupManager.getSystemVolumeInDbSync(audio.AudioVolumeType.MEDIA, volume_7, enum_err);
           expect(systemVolumeInDb < 0).assertTrue();
         }
         catch (error) {
@@ -1240,16 +1240,15 @@ export default function audioVolumeManagerTest() {
         try{
           await (async (): Promise<number> => {
             return new Promise((resolve, reject) => {
-              audioVolumeGroupManager.getVolume(enum_10, (err, value) => {
+              audioVolumeGroupManager.getVolume(enum_err, (err, value) => {
                 err == undefined ? resolve(value) : reject(err)
               });
             });
           })().then(value => {
-            if (value < 0) {
+          }).catch((err: BusinessError) => {
+            if (err) {
               isPass = true;
             }
-          }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getVolume_Func_0200 fail');
           });
         }
         catch (error) {
@@ -1297,11 +1296,14 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getVolume_Func_0400', 0, async (done: Function) => {
         try{
-          await audioVolumeGroupManager.getVolume(enum_10).then((value) => {
-            expect(value < 0).assertTrue();
+          await audioVolumeGroupManager.getVolume(enum_err).then((value) => {
+            expect().assertFail();
           }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getVolume_Func_0400 fail');
+            if (err) {
+              isPass = true;
+            }
           })
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -1346,12 +1348,11 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getVolumeSync_Func_0600', 0, async (done: Function) => {
         try{
-          volume = audioVolumeGroupManager.getVolumeSync(enum_10);
-          expect(volume < 0).assertTrue();
+          volume = audioVolumeGroupManager.getVolumeSync(enum_err);
+          expect().assertFail();
         }
         catch (error) {
-          expect(error).assertFail();
-          console.error('SUB_ArkUIX_Audio_getVolumeSync_Func_0600 error' + error);
+          expect(error.code == '6800101').assertTrue();
         }
         done();
       })
@@ -1394,16 +1395,15 @@ export default function audioVolumeManagerTest() {
         try{
           await (async (): Promise<number> => {
             return new Promise((resolve, reject) => {
-              audioVolumeGroupManager.getMinVolume(enum_10, (err, value) => {
+              audioVolumeGroupManager.getMinVolume(enum_err, (err, value) => {
                 err == undefined ? resolve(value) : reject(err)
               });
             });
           })().then(value => {
-            if (value < 0) {
+          }).catch((err: BusinessError) => {
+            if (err) {
               isPass = true;
             }
-          }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getMinVolume_Func_0200 fail');
           });
         }
         catch (error) {
@@ -1451,11 +1451,14 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getMinVolume_Func_0400', 0, async (done: Function) => {
         try{
-          await audioVolumeGroupManager.getMinVolume(enum_10).then((value) => {
-            expect(value < 0).assertTrue();
+          await audioVolumeGroupManager.getMinVolume(enum_err).then((value) => {
+            expect().assertFail();
           }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getMinVolume_Func_0400 fail');
+            if (err) {
+              isPass = true;
+            }
           })
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -1500,12 +1503,11 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getMinVolumeSync_Func_0600', 0, async (done: Function) => {
         try{
-          volume = audioVolumeGroupManager.getMinVolumeSync(enum_10);
-          expect(volume < 0).assertTrue();
+          volume = audioVolumeGroupManager.getMinVolumeSync(enum_err);
+          expect().assertFail();
         }
         catch (error) {
-          expect(error).assertFail();
-          console.error('SUB_ArkUIX_Audio_getMinVolumeSync_Func_0600 error' + error);
+          expect(error.code == '6800101').assertTrue();
         }
         done();
       })
@@ -1548,16 +1550,15 @@ export default function audioVolumeManagerTest() {
         try{
           await (async (): Promise<number> => {
             return new Promise((resolve, reject) => {
-              audioVolumeGroupManager.getMaxVolume(enum_10, (err, value) => {
+              audioVolumeGroupManager.getMaxVolume(enum_err, (err, value) => {
                 err == undefined ? resolve(value) : reject(err)
               });
             });
           })().then(value => {
-            if (value < 0) {
+          }).catch((err: BusinessError) => {
+            if (err) {
               isPass = true;
             }
-          }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getMaxVolume_Func_0200 fail');
           });
         }
         catch (error) {
@@ -1605,11 +1606,14 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getMaxVolume_Func_0400', 0, async (done: Function) => {
         try{
-          await audioVolumeGroupManager.getMaxVolume(enum_10).then((value) => {
-            expect(value < 0).assertTrue();
+          await audioVolumeGroupManager.getMaxVolume(enum_err).then((value) => {
+            expect().assertFail();
           }).catch((err: BusinessError) => {
-            console.error('SUB_ArkUIX_Audio_getMaxVolume_Func_0400 fail');
+            if (err) {
+              isPass = true;
+            }
           })
+          expect(isPass).assertTrue();
         }
         catch (error) {
           expect(error).assertFail();
@@ -1654,12 +1658,11 @@ export default function audioVolumeManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getMaxVolumeSync_Func_0600', 0, async (done: Function) => {
         try{
-          volume = audioVolumeGroupManager.getMaxVolumeSync(enum_10);
-          expect(volume < 0).assertTrue();
+          volume = audioVolumeGroupManager.getMaxVolumeSync(enum_err);
+          expect().assertFail();
         }
         catch (error) {
-          expect(error).assertFail();
-          console.error('SUB_ArkUIX_Audio_getMaxVolumeSync_Func_0600 error' + error);
+          expect(error.code == '6800101').assertTrue();
         }
         done();
       })

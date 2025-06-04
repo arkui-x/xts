@@ -330,6 +330,7 @@ export default function audioStreamManagerTest() {
           await onWriteData(audioRenderer, fileDescriptor);
           await startRenderer(audioRenderer);
           await sleep(waitReadyMs_1000);
+          await stopPromise(audioRenderer);
           await audioRenderer.release();
         }
         catch (error) {
@@ -422,8 +423,8 @@ export default function audioStreamManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0100', 0, async (done: Function) => {
         try {
-		     audioRenderer = await createAudioRenderer();
-		      fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
+         audioRenderer = await createAudioRenderer();
+          fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
           await onWriteData(audioRenderer, fileDescriptor);
           await startRenderer(audioRenderer);
           await sleep(waitReadyMs_600);
@@ -451,7 +452,8 @@ export default function audioStreamManagerTest() {
           console.error('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0100 error' + error);
         }
         expect(isPass).assertTrue();
-		    await audioRenderer.release();
+        await stopPromise(audioRenderer);
+        await audioRenderer.release();
         done();
       })
       /**
@@ -462,8 +464,8 @@ export default function audioStreamManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0200', 0, async (done: Function) => {
         try {
-		      audioRenderer = await createAudioRenderer();
-		      fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
+          audioRenderer = await createAudioRenderer();
+          fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
           await onWriteData(audioRenderer, fileDescriptor);
           await startRenderer(audioRenderer);
           await sleep(waitReadyMs_600);
@@ -485,7 +487,8 @@ export default function audioStreamManagerTest() {
           console.error('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArray_Func_0200 error' + error);
         }
         expect(isPass).assertTrue();
-		    await audioRenderer.release();
+        await stopPromise(audioRenderer);
+        await audioRenderer.release();
         done();
       })
       /**
@@ -496,8 +499,8 @@ export default function audioStreamManagerTest() {
        */
       it('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArraySync_Func_0300', 0, async (done: Function) => {
         try {
-		      audioRenderer = await createAudioRenderer();
-		      fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
+          audioRenderer = await createAudioRenderer();
+          fileDescriptor = await getContext().resourceManager.getRawFd('test.wav');
           await onWriteData(audioRenderer, fileDescriptor);
           await startRenderer(audioRenderer);
           await sleep(waitReadyMs_600);
@@ -516,6 +519,7 @@ export default function audioStreamManagerTest() {
           console.error('SUB_ArkUIX_Audio_getCurrentAudioRendererInfoArraySync_Func_0300 error' + error);
         }
         expect(isPass).assertTrue();
+        await stopPromise(audioRenderer);
         await audioRenderer.release();
         done();
       })
