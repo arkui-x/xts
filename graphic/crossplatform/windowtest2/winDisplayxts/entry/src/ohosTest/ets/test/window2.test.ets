@@ -44,17 +44,18 @@ export default function windowTest2() {
      * @tc.desc Verify that the main window calls the callback function on(‘windowStatusChange’)
      * @tc.size MEDIUM
      * @tc.type Function
-     * @tc.level Level0
+     * @tc.level Level 0
      * @tc.require
      */
-    it('ArkUIX_window_on_windowStatusChange_0100', TestType.FUNCTION |
-    Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('ArkUIX_window_on_windowStatusChange_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
       try {
         let windowClass: window.Window = globalThis.windowStage.getMainWindowSync();
         let flag: boolean = false;
         if (windowClass != null && windowClass != undefined) {
           const callback = (data: window.WindowStatusType) => {
-            console.info('Succeeded in enabling the listener for window status changes. Data: ' + JSON.stringify(data));
+            console.info('Succeeded in enabling the listener for window status changes. Data: ' +
+            JSON.stringify(data));
             flag = true;
           }
           if (platform.startsWith('OpenHarmony')) {
@@ -104,21 +105,22 @@ export default function windowTest2() {
 
     /**
      * @tc.number ArkUIX_window_on_windowStatusChange_0200
-     * @tc.name setWindowPrivacyMode
+     * @tc.name ArkUIX_window_on_windowStatusChange_0200
      * @tc.desc Verify that the sub-window calls the callback function on(‘windowStatusChange’)
      * @tc.size MEDIUM
      * @tc.type Function
-     * @tc.level Level0
+     * @tc.level Level 0
      * @tc.require
      */
-    it('ArkUIX_window_on_windowStatusChange_0200', TestType.FUNCTION |
-    Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('ArkUIX_window_on_windowStatusChange_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
       try {
         let subWindow: window.Window = await globalThis.windowStage.createSubWindow('mySubWindow');
         let flag: boolean = false;
         if (subWindow != null && subWindow != undefined) {
           const callback = (data: window.WindowStatusType) => {
-            console.info('Succeeded in enabling the listener for window status changes. Data: ' + JSON.stringify(data));
+            console.info('Succeeded in enabling the listener for window status changes. Data: ' +
+            JSON.stringify(data));
             flag = true;
           }
           if (platform.startsWith('OpenHarmony') || platform === 'iOS') {

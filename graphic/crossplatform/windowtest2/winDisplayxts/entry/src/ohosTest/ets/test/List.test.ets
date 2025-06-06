@@ -14,7 +14,11 @@
  */
 
 import displayTest from './display.test'
+import windowTest from './window.test'
+import windowTest2 from './window2.test'
 
 export default function testsuite() {
   displayTest();
+  windowTest();	
+  windowTest2();
 }
