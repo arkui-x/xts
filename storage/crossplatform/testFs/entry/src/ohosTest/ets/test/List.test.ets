@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Huawei Device Co., Ltd.
+ * Copyright (C) 2023-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,6 +28,15 @@ import fileIOUnlink from "./members/unlink.test";
 import fileIOWrite from "./members/write.test";
 import fileIOStatvfs from "./members/statvfs.test";
 import fileIOHash from "./members/hash.test";
+import fileIOAccess from "./members/access.test";
+import fileIOCopyDir from "./members/copydir.test";
+import fileIOSetxattr from "./members/setxattr.test";
+import fileIOGetxattr from "./members/getxattr.test";
+import fileIOMoveDir from "./members/moveDir.test";
+import fileIOLstat from "./members/lstat.test";
+import fileIOMoveFile from "./members/moveFile.test";
+import fileIOReadtext from "./members/readtext.test";
+import fileIOListfile from "./members/listFile.test";
 
 export default function testsuite() {
   fileIOClose();
@@ -45,4 +54,13 @@ export default function testsuite() {
   fileIOWrite();
   fileIOStatvfs();
   fileIOHash();
+  fileIOAccess();
+  fileIOCopyDir();
+  fileIOSetxattr();
+  fileIOGetxattr();
+  fileIOMoveDir();
+  fileIOLstat();
+  fileIOMoveFile();
+  fileIOReadtext();
+  fileIOListfile();
 }

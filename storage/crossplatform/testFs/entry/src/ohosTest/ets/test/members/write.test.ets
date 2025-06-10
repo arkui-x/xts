@@ -15,6 +15,7 @@
 
 import { FILE_CONTENT, prepareFile, nextFileName, isIntNum, describe, it, expect, afterEach } from "../Common";
 import fileIO from "@ohos.file.fs";
+import { Level } from '@ohos/hypium';
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -1084,6 +1085,1218 @@ export default function fileIOWrite() {
         fileIO.unlinkSync(fpath);
         console.log("fileIO_test_write_sync_011 has failed for " + e.message + ", code: " + e.code);
         expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0000
+     * @tc.name fileIO_test_write_sync_new_000
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, default write from current offset.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_000', Level.LEVEL0, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_000');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = fileIO.writeSync(file.fd, FILE_CONTENT);
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = fileIO.writeSync(file.fd, new ArrayBuffer(FILE_CONTENT.length));
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_000 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0100
+     * @tc.name fileIO_test_write_sync_new_001
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing a string with encoding = 'utf-8'.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_001', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_001');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          encoding: 'utf-8',
+        })
+        expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_001 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0200
+     * @tc.name fileIO_test_write_sync_new_002
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing a string from offset(position) = 1.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_002', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_002');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          offset: 1,
+        });
+        expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_002 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0300
+     * @tc.name fileIO_test_write_sync_new_003
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing a string of length = 1.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_003', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_003');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          length: 1,
+        });
+        expect(bytesWritten == 1).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_003 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0400
+     * @tc.name fileIO_test_write_sync_new_004
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing a string of length = 1 and offset(position) = 1.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_004', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_004');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          offset: 1,
+          length: 1,
+        });
+        expect(bytesWritten == 1).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_004 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0500
+     * @tc.name fileIO_test_write_sync_new_005
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing a string of length = 1, offset(position) = 1, encoding = 'utf-8'.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_005', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_005');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          offset: 1,
+          length: 5,
+          encoding: 'utf-8',
+        });
+        expect(bytesWritten == 5).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_005 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0600
+     * @tc.name fileIO_test_write_sync_new_006
+     * @tc.desc Test writeSync() interfaces.
+     * Write with invalid 'length' option.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_006', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_006');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidLength = 9999;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.writeSync(file.fd, FILE_CONTENT, { length: invalidLength })
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_sync_new_006 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0700
+     * @tc.name fileIO_test_write_sync_new_007
+     * @tc.desc Test writeSync() interfaces.
+     * Write with invalid fd parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_007', Level.LEVEL3, () => {
+
+      try {
+        fileIO.writeSync(-1, FILE_CONTENT);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_007 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0800
+     * @tc.name fileIO_test_write_sync_new_008
+     * @tc.desc Test writeSync() interfaces.
+     * Open the file in write-only mode, writing an ArrayBuffer(4096).
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_008', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_008');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = fileIO.writeSync(file.fd, new ArrayBuffer(4096));
+        expect(bytesWritten == 4096).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_008 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_0900
+     * @tc.name fileIO_test_write_sync_new_009
+     * @tc.desc Test writeSync() interfaces.
+     * Write with invalid 'length' option.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_009', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_009');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidLength = 4097;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.writeSync(file.fd, new ArrayBuffer(4096), { length: invalidLength })
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_sync_new_009 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_1000
+     * @tc.name fileIO_test_write_sync_new_010
+     * @tc.desc Test writeSync() interfaces.
+     * Write with invalid 'offset' option.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_010', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_010');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidOffset = -1;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.writeSync(file.fd, FILE_CONTENT, { offset: invalidOffset });
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_sync_new_010 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_1100
+     * @tc.name fileIO_test_write_sync_new_011
+     * @tc.desc Test writeSync() interfaces.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_011', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_011');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = fileIO.writeSync(file.fd, FILE_CONTENT, undefined);
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = fileIO.writeSync(file.fd, new ArrayBuffer(FILE_CONTENT.length), undefined);
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_011 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_SYNC_NEW_1200
+     * @tc.name fileIO_test_write_sync_new_012
+     * @tc.desc Test writeSync() interfaces.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_sync_new_012', Level.LEVEL3, async () => {
+      let fpath = await nextFileName('fileIO_test_write_sync_new_012');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = fileIO.writeSync(file.fd, FILE_CONTENT, {
+          offset: undefined,
+          length: undefined,
+          encoding: undefined,
+        });
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = fileIO.writeSync(file.fd, new ArrayBuffer(FILE_CONTENT.length), {
+          offset: undefined,
+          length: undefined,
+          encoding: undefined,
+        });
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log('fileIO_test_write_sync_new_012 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0000
+     * @tc.name fileIO_test_write_async_new_000
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, default write from current offset.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_000', Level.LEVEL0, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_000');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = await fileIO.write(file.fd, FILE_CONTENT);
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = await fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length));
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_000 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0100
+     * @tc.name fileIO_test_write_async_new_001
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, default write from current offset.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_001', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_001');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, (err, bytesWritten1) => {
+          if (err) {
+            console.log('fileIO_test_write_async_new_001 err package1: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+          fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length), (err, bytesWritten2) => {
+            if (err) {
+              console.log('fileIO_test_write_async_new_001 err package2: ' + JSON.stringify(err));
+              expect(false).assertTrue();
+            }
+            expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+            let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+            expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            done();
+          });
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_001 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0200
+     * @tc.name fileIO_test_write_async_new_002
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in read-only mode, verifying that it is not writable.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_002', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_002');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_ONLY);
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        await fileIO.write(file.fd, FILE_CONTENT);
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_002 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900008 && e.message == 'Bad file descriptor').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0300
+     * @tc.name fileIO_test_write_async_new_003
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in read-only mode, verifying that it is not writable.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_003', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_003');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_ONLY);
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, (err) => {
+          if(err) {
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            console.log('fileIO_test_write_async_new_003 error: {message: ' + err.message + ', code: ' + err.code + '}');
+            expect(err.code == 13900008 && err.message == 'Bad file descriptor').assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_003 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0400
+     * @tc.name fileIO_test_write_async_new_004
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, writing a string of length = 3.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_004', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_004');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, FILE_CONTENT, {
+          length: 3,
+        });
+        expect(bytesWritten == 3).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_004 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0500
+     * @tc.name fileIO_test_write_async_new_005
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing a string of length = 3.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_005', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_005');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          length: 3,
+        }, (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_005 err package: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == 3).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_005 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0600
+     * @tc.name fileIO_test_write_async_new_006
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, writing a string from offset(position) = 5.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_006', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_006');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, FILE_CONTENT, {
+          offset: 5,
+        });
+        expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_006 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0700
+     * @tc.name fileIO_test_write_async_new_007
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing a string from offset(position) = 5.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_007', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_007');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          offset: 5,
+        }, (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_007 err package: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_007 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0800
+     * @tc.name fileIO_test_write_async_new_008
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, writing a string of with length = 3 and offset = 5.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_008', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_008');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, FILE_CONTENT, {
+          length: 3,
+          offset: 5,
+        });
+        expect(bytesWritten == 3).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_008 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_0900
+     * @tc.name fileIO_test_write_async_new_009
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing a string of with length = 3 and offset = 5.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_009', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_009');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          length: 3,
+          offset: 5,
+        }, (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_009 err package: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == 3).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_009 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1000
+     * @tc.name fileIO_test_write_async_new_010
+     * @tc.desc Test write() interfaces.
+     * Open the file in write-only mode, writing a string of with length = 3, offset = 5 and encoding = 'utf-8'.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_010', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_010');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, FILE_CONTENT, {
+          length: 4,
+          offset: 5,
+          encoding: 'utf-8',
+        });
+        expect(bytesWritten == 4).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_010 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1100
+     * @tc.name fileIO_test_write_async_new_011
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing a string of with length = 3, offset = 5 and encoding = 'utf-8'.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_011', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_011');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          length: 5,
+          offset: 5,
+          encoding: 'utf-8',
+        }, (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_011 err package: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == 5).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_011 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1200
+     * @tc.name fileIO_test_write_async_new_012
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, writing an ArrayBuffer(4096).
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_012', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_012');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, new ArrayBuffer(4096));
+        expect(bytesWritten == 4096).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_012 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1300
+     * @tc.name fileIO_test_write_async_new_013
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing an ArrayBuffer(4096).
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_013', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_013');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, new ArrayBuffer(4096), (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_013 err package: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == 4096).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_013 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1400
+     * @tc.name fileIO_test_write_async_new_014
+     * @tc.desc Test write() interfaces. Promise.
+     * Open the file in write-only mode, writing a string with empty option parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_014', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_014');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten = await fileIO.write(file.fd, FILE_CONTENT, {});
+        expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_014 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1500
+     * @tc.name fileIO_test_write_async_new_015
+     * @tc.desc Test write() interfaces. Callback.
+     * Open the file in write-only mode, writing a string with empty option parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_015', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_015');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, new ArrayBuffer(4096), {
+        }, (err, bytesWritten) => {
+          if(err) {
+            console.log('fileIO_test_write_async_new_015 err package ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten == 4096).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_015 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1600
+     * @tc.name fileIO_test_write_async_new_016
+     * @tc.desc Test write() interfaces. Promise.
+     * Write with invalid fd parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_016', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_016');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        await fileIO.write(-1, FILE_CONTENT);
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_016 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1700
+     * @tc.name fileIO_test_write_async_new_017
+     * @tc.desc Test write() interfaces. Callback.
+     * Write with invalid fd parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_017', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_017');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        fileIO.write(-1, FILE_CONTENT, (err) => {
+          expect(false).assertTrue();
+        });
+      } catch (e) {
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_017 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1800
+     * @tc.name fileIO_test_write_async_new_018
+     * @tc.desc Test write() interfaces. Callback.
+     * Write with invalid length parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_018', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_018');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidLength = 9999;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          length: invalidLength,
+        }, (err) => {
+          expect(false).assertTrue();
+        });
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_018 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_1900
+     * @tc.name fileIO_test_write_async_new_019
+     * @tc.desc Test write() interfaces. Callback.
+     * Write with invalid length parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_019', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_019');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidLength = 4097;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, new ArrayBuffer(4096), {
+          length: invalidLength,
+        }, (err) => {
+          expect(false).assertTrue();
+        });
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_019 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_2000
+     * @tc.name fileIO_test_write_async_new_020
+     * @tc.desc Test write() interfaces. Callback.
+     * Write with invalid length parameters.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_020', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_020');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let file = fileIO.openSync(fpath, fileIO.OpenMode.WRITE_ONLY);
+      const invalidOffset = -1;
+
+      try {
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          offset: invalidOffset,
+        }, (err) => {
+          expect(false).assertTrue();
+        });
+      } catch (e) {
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        console.log('fileIO_test_write_async_new_020 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900020 && e.message == 'Invalid argument').assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_2100
+     * @tc.name fileIO_test_write_async_new_021
+     * @tc.desc Test write() interfaces. Promise.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_021', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_021');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = await fileIO.write(file.fd, FILE_CONTENT, undefined);
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = await fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length), undefined);
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_021 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_2200
+     * @tc.name fileIO_test_write_async_new_022
+     * @tc.desc Test write() interfaces. Callback.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_022', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_022');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, undefined, (err, bytesWritten1) => {
+          if (err) {
+            console.log('fileIO_test_write_async_new_022 err package1: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+          fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length), undefined, (err, bytesWritten2) => {
+            if (err) {
+              console.log('fileIO_test_write_async_new_022 err package2: ' + JSON.stringify(err));
+              expect(false).assertTrue();
+            }
+            expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+            let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+            expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            done();
+          });
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_022 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_2300
+     * @tc.name fileIO_test_write_async_new_023
+     * @tc.desc Test write() interfaces. Promise.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_023', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_023');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        let bytesWritten1 = await fileIO.write(file.fd, FILE_CONTENT, {
+          length: undefined,
+          offset: undefined,
+          encoding: undefined,
+        });
+        expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+        let bytesWritten2 = await fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length), {
+          length: undefined,
+          offset: undefined,
+          encoding: undefined,
+        });
+        expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+        let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_023 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_WRITE_ASYNC_NEW_2400
+     * @tc.name fileIO_test_write_async_new_024
+     * @tc.desc Test write() interfaces. Callback.
+     * Undefined option arguments, use default options.
+     * @tc.size MEDIUM
+     * @tc.type Functoin
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_write_async_new_024', Level.LEVEL3, async(done: Function) => {
+      let fpath = await nextFileName('fileIO_test_write_async_new_024');
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.write(file.fd, FILE_CONTENT, {
+          length: undefined,
+          offset: undefined,
+          encoding: undefined,
+        }, (err, bytesWritten1) => {
+          if (err) {
+            console.log('fileIO_test_write_async_new_011 err package1: ' + JSON.stringify(err));
+            expect(false).assertTrue();
+          }
+          expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
+          fileIO.write(file.fd, new ArrayBuffer(FILE_CONTENT.length), {
+            length: undefined,
+            offset: undefined,
+            encoding: undefined,
+          }, (err, bytesWritten2) => {
+            if (err) {
+              console.log('fileIO_test_write_async_new_005 err package2: ' + JSON.stringify(err));
+              expect(false).assertTrue();
+            }
+            expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+            let readLen = fileIO.readSync(file.fd, new ArrayBuffer(4096), { offset: 0 });
+            expect(readLen == FILE_CONTENT.length * 2).assertTrue();
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            done();
+          });
+        });
+      } catch (e) {
+        console.log('fileIO_test_write_async_new_024 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
       }
     });
   });
