@@ -56,7 +56,7 @@ export default function abilityTest() {
     it('SUB_setKeyboardAvoidMode_Func_0100', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.RESIZE");
+      expect(status).assertEqual(KeyboardAvoidMode.RESIZE);
       done();
     })
 
@@ -69,7 +69,7 @@ export default function abilityTest() {
     it('SUB_setKeyboardAvoidMode_Func_0200', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.OFFSET);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.OFFSET");
+      expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
 
@@ -82,7 +82,7 @@ export default function abilityTest() {
     it('SUB_setKeyboardAvoidMode_Func_0300', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(null);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.OFFSET");
+      expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
 
@@ -95,7 +95,7 @@ export default function abilityTest() {
     it('SUB_setKeyboardAvoidMode_Func_0400', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(undefined);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.OFFSET");
+      expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
 
@@ -108,7 +108,7 @@ export default function abilityTest() {
     it('SUB_setKeyboardAvoidMode_Func_0500', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode();
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.OFFSET");
+      expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
 
@@ -121,7 +121,7 @@ export default function abilityTest() {
     it('SUB_getKeyboardAvoidMode_Func_0100', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.RESIZE");
+      expect(status).assertEqual(KeyboardAvoidMode.RESIZE);
       done();
     })
 
@@ -134,7 +134,7 @@ export default function abilityTest() {
     it('SUB_getKeyboardAvoidMode_Func_0200', 0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.OFFSET);
       let status = JSON.stringify(globalThis.context.getKeyboardAvoidMode());
-      expect(status).assertContain("KeyBoardAvoidMode.OFFSET");
+      expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
 
