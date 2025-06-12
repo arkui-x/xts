@@ -176,9 +176,9 @@ ace test apk --b com.example.demo --m entry_test --unittest OpenHarmonyTestRunne
 - 执行测试命令
 
 ```
-ace test app --b bundleName --m moduleName --unittest OpenHarmonyTestRunner  --timeout 10000
+ace test ios --b bundleName --m moduleName --unittest OpenHarmonyTestRunner  --timeout 10000
 示例：
-ace test app --b com.example.demo --m entry_test --unittest OpenHarmonyTestRunner --timeout 10000
+ace test ios --b com.example.demo --m entry_test --unittest OpenHarmonyTestRunner --timeout 10000
 ```
 
 ### 参数说明
