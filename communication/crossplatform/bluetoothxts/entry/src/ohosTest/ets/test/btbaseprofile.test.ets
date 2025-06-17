@@ -78,7 +78,7 @@ export default function btbaseProfile() {
         A2dpSourceProfile.on('connectionStateChange', onReceiveEvent);
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0020 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       A2dpSourceProfile.off('connectionStateChange', onReceiveEvent);
       done();
@@ -99,7 +99,7 @@ export default function btbaseProfile() {
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0030 getConnectedDevices errCode:" + err.code + ",errMessage:" +
         err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       done();
     })
@@ -118,7 +118,7 @@ export default function btbaseProfile() {
         expect().assertFail();
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0040 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -137,7 +137,7 @@ export default function btbaseProfile() {
         expect().assertFail();
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0050 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -157,7 +157,7 @@ export default function btbaseProfile() {
         expect().assertFail();
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0060 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -177,7 +177,7 @@ export default function btbaseProfile() {
         expect().assertFail()
       } catch (err) {
         console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0070 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })

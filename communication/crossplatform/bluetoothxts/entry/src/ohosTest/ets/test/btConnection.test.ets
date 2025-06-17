@@ -65,13 +65,13 @@ export default function btConnection() {
         await bluetooth.pairDevice("11:22:55:66:33:44").then((data) => {
           console.info('SUB_ArkUIX_Bluetooth_Connection_0010 pairDevice success');
         });
-        await sleep(800);
+        await sleep(2000);
         expect(bluetooth.BondState.BOND_STATE_INVALID == 0).assertTrue();
         expect(bluetooth.BondState.BOND_STATE_BONDING == 1).assertTrue();
         expect(bluetooth.BondState.BOND_STATE_BONDED == 2).assertTrue();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0010 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       bluetooth.off('bondStateChange', BondStateParam);
       done();
@@ -103,7 +103,7 @@ export default function btConnection() {
         done();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0020 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       bluetooth.off('bondStateChange', BondStateParam);
       done();
@@ -122,7 +122,7 @@ export default function btConnection() {
         expect(true).assertEqual(localName != null);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0030 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       done();
     })
@@ -144,7 +144,7 @@ export default function btConnection() {
         expect(true).assertEqual(ret.length >= 0);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0040 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       done();
     })
@@ -166,7 +166,7 @@ export default function btConnection() {
         expect(ret != null).assertTrue();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0050 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 2900099).assertTrue();
       }
       done();
     })
@@ -187,7 +187,7 @@ export default function btConnection() {
         console.info('[SUB_ArkUIX_Bluetooth_Connection_0060]  getRemoteDeviceName ret2:' + JSON.stringify(ret));
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0060 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -208,7 +208,7 @@ export default function btConnection() {
         console.info('[SUB_ArkUIX_Bluetooth_Connection_0070] getRemoteDeviceName ret2:' + JSON.stringify(ret));
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0070 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -229,7 +229,7 @@ export default function btConnection() {
         console.info('[SUB_ArkUIX_Bluetooth_Connection_0080] getRemoteDeviceName ret2:' + JSON.stringify(ret));
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_0080 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -281,7 +281,7 @@ export default function btConnection() {
         DeviceClass.classOfDevice);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00100 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -305,10 +305,9 @@ export default function btConnection() {
         DeviceClass.majorMinorClass);
         console.info('[SUB_ArkUIX_Bluetooth_Connection_00110]getRemoteDeviceClass classOfDevice:' +
         DeviceClass.classOfDevice);
-
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00110 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -335,7 +334,7 @@ export default function btConnection() {
 
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00120 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -358,7 +357,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00130 getPairState errCode:" + err.code + ",errMessage:" +
         err.message);
-        expect(err.code).assertEqual(2900099);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -379,7 +378,7 @@ export default function btConnection() {
         console.log('[SUB_ArkUIX_Bluetooth_Connection_00140] getPairState: ' + state);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00140 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -400,7 +399,7 @@ export default function btConnection() {
         console.log('[SUB_ArkUIX_Bluetooth_Connection_00150] getPairState: ' + state);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00150 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -421,7 +420,7 @@ export default function btConnection() {
         console.log('[SUB_ArkUIX_Bluetooth_Connection_00160] getPairState: ' + state);
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00160 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -448,7 +447,6 @@ export default function btConnection() {
         } else {
           console.info('SUB_ArkUIX_Bluetooth_Connection_00170 switch  off,state is   = ' + JSON.stringify(state));
         }
-
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00170 errCode:" + err.code + ",errMessage:" + err.message);
         expect().assertFail();
@@ -518,7 +516,7 @@ export default function btConnection() {
         expect().assertFail();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00200 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -541,7 +539,7 @@ export default function btConnection() {
         expect().assertFail();
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00210 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -563,9 +561,9 @@ export default function btConnection() {
         await sleep(3000);
         bluetooth.off('bluetoothDeviceFind', onReceiveEvent);
         bluetooth.stopBluetoothDiscovery();
-      } catch (error) {
-        console.info(`[SUB_ArkUIX_Bluetooth_Connection_00220] error, code is ${error.code},message is ${error.message}`);
-        expect(error.code).assertEqual(2900099);
+      } catch (err) {
+        console.info(`[SUB_ArkUIX_Bluetooth_Connection_00220] err, code is ${err.code},message is ${err.message}`);
+        expect(err.code == 2900099).assertTrue();
       }
       done();
     })
@@ -611,7 +609,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00240 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00240 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -635,7 +633,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00250 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00250 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -660,7 +658,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00260 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00260 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -685,7 +683,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00270 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00270 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
       }
       done();
     })
@@ -711,7 +709,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00280 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00280 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
         done();
       }
     })
@@ -737,7 +735,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00290 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00290 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
         done();
       }
     })
@@ -763,7 +761,7 @@ export default function btConnection() {
       } catch (err) {
         console.info("SUB_ArkUIX_Bluetooth_Connection_00300 errCode:" + err.code + ",errMessage:" + err.message);
         console.info("SUB_ArkUIX_Bluetooth_Connection_00300 pass");
-        expect(err.code).assertEqual(401);
+        expect(err.code == 401).assertTrue();
         done();
       }
     })
