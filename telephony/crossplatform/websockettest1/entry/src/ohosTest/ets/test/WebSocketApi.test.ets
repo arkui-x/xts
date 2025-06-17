@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, beforeEach } from '@ohos/hypium';
+import { describe, it, expect, beforeEach, beforeAll} from '@ohos/hypium';
 import { BusinessError } from '@ohos.base';
 import webSocket from '@ohos.net.webSocket';
 import deviceInfo from '@ohos.deviceInfo';
@@ -168,11 +168,18 @@ let WebSocketRequestOptions_clientCert_caPath: webSocket.WebSocketRequestOptions
 }
 
 let ws: webSocket.WebSocket;
-let availableWebSocketAddress: string = 'wss://ws.welive.huawei.com/';
+let availableWebSocketAddress: string = 'ws://124.222.6.60:8800/';
 let errorWebSocketAddress: string = '192.168.1.1';
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default function WebSocketApiTest() {
   describe('webSocketApiTest', () => {
+    beforeAll(async ()=>{
+      await sleep(3000);
+    })
+
     beforeEach((done: Function) => {
       ws = webSocket.createWebSocket();
       done();
