@@ -111,16 +111,11 @@ export default function fileIOMkdir() {
      * @tc.level  : Level 2
      */
     it("fileIO_test_mkdir_async_003", Level.LEVEL2, async (done: Function) => {
-      let osName: string = deviceInfo.osFullName;
       try {
         fileIO.mkdir("/", (err) => {
           if (err) {
             console.log("fileIO_test_mkdir_async_003 error: {message: " + err.message + ", code: " + err.code + "}");
-            if (osName.startsWith('Android')) {
-              expect(err.code == 13900015 && err.message == "File exists").assertTrue();
-            } else if (osName.startsWith('iOS')) {
-              expect(err.code == 13900019 && err.message == "Is a directory").assertTrue();
-            }
+            expect((err.code == 13900015 && err.message == "File exists") || (err.code == 13900019 && err.message == "Is a directory")).assertTrue();
             done();
           }
         });
@@ -640,17 +635,12 @@ export default function fileIOMkdir() {
      * @tc.level  : Level 2
      */
     it("fileIO_test_mkdir_sync_001", Level.LEVEL2, async () => {
-      let osName: string = deviceInfo.osFullName;
       try {
         fileIO.mkdirSync("/");
         expect(false).assertTrue();
       } catch (e) {
         console.log("fileIO_test_mkdir_sync_001 has failed for " + e.message + ", code: " + e.code);
-        if (osName.startsWith('Android')) {
-          expect(e.code == 13900015 && e.message == "File exists").assertTrue();
-        } else if (osName.startsWith('iOS')) {
-          expect(e.code == 13900019 && e.message == "Is a directory").assertTrue();
-        }
+        expect((e.code == 13900015 && e.message == "File exists") || (e.code == 13900019 && e.message == "Is a directory")).assertTrue();
       }
     });
 
