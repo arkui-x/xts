@@ -18,7 +18,6 @@ import {
 } from '../Common';
 import { TestType, Size, Level } from '@ohos/hypium';
 import { BusinessError } from '@kit.BasicServicesKit';
-import deviceInfo from '@ohos.deviceInfo';
 
 export default function fileIOReadtext() {
   describe('fileIO_fs_readtext', () => {
@@ -636,18 +635,14 @@ export default function fileIOReadtext() {
      */
     it('fileIO_test_readtext_async_011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_readtext_async_011');
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          await fileIO.readText(fpath);
-          expect(false).assertTrue();
-        } catch (e) {
-          console.log('fileIO_test_readtext_async_011 has failed for ' + e.message + ', code: ' + e.code);
-          expect(e.code == 13900002 && e.message == 'No such file or directory').assertTrue();
-          done();
-        }
+      try {
+        await fileIO.readText(fpath);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log('fileIO_test_readtext_async_011 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900002 && e.message == 'No such file or directory').assertTrue();
+        done();
       }
-      done();
     });
 
     /**
@@ -662,22 +657,18 @@ export default function fileIOReadtext() {
      */
     it('fileIO_test_readtext_async_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_readtext_async_012');
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          fileIO.readText(fpath, (err) => {
-            if (err) {
-              console.log('fileIO_test_readtext_async_012 error: {message:' + err.message + ', code: ' + err.code + '}');
-              expect(err.code == 13900002 && err.message == 'No such file or directory').assertTrue();
-              done();
-            }
-          });
-        } catch (e) {
-          console.log('fileIO_test_readtext_async_012 has failed for ' + e.message + ', code: ' + e.code);
-          expect(false).assertTrue();
-        }
+      try {
+        fileIO.readText(fpath, (err) => {
+          if (err) {
+            console.log('fileIO_test_readtext_async_012 error: {message:' + err.message + ', code: ' + err.code + '}');
+            expect(err.code == 13900002 && err.message == 'No such file or directory').assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('fileIO_test_readtext_async_012 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
       }
-      done();
     });
 
     /**
@@ -889,18 +880,14 @@ export default function fileIOReadtext() {
     it('fileIO_test_readtext_async_020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_readtext_async_020');
       fileIO.mkdirSync(fpath);
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          let str = await fileIO.readText(fpath);
-          expect(false).assertTrue();
-        } catch (e) {
-          console.log('fileIO_test_readtext_async_020 has failed for ' + e.message + ', code: ' + e.code);
-          expect(e.code == 13900019 && e.message == 'Is a directory').assertTrue();
-          done();
-        }
+      try {
+        let str = await fileIO.readText(fpath);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log('fileIO_test_readtext_async_020 has failed for ' + e.message + ', code: ' + e.code);
+        expect(e.code == 13900019 && e.message == 'Is a directory').assertTrue();
+        done();
       }
-      done();
     });
 
     /**
@@ -916,22 +903,18 @@ export default function fileIOReadtext() {
     it('fileIO_test_readtext_async_021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       let fpath = await nextFileName('fileIO_test_readtext_async_021');
       fileIO.mkdirSync(fpath);
-      let osName: string = deviceInfo.osFullName;
-      if (osName.startsWith('Android')) {
-        try {
-          fileIO.readText(fpath, (err) => {
-            if (err) {
-              console.log('fileIO_test_readtext_async_021 error package: ' + err.message + ', code: ' + err.code);
-              expect(err.code == 13900019 && err.message == 'Is a directory').assertTrue();
-              done();
-            }
-          });
-        } catch (e) {
-          console.log('fileIO_test_readtext_async_021 has failed for ' + e.message + ', code: ' + e.code);
-          expect(false).assertTrue();
-        }
+      try {
+        fileIO.readText(fpath, (err) => {
+          if (err) {
+            console.log('fileIO_test_readtext_async_021 error package: ' + err.message + ', code: ' + err.code);
+            expect(err.code == 13900019 && err.message == 'Is a directory').assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log('fileIO_test_readtext_async_021 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
       }
-      done();
     });
   });
 }
