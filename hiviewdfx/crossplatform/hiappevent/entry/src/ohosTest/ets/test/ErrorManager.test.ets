@@ -44,7 +44,7 @@ export default function ErrorManager() {
     /**
      * @tc.number ARKUIX_ErrorManager_ErrOnOff_Callback_0100
      * @tc.name testErrorManagerErrOnOffCallback0100
-     * @tc.desc Verify on interface call, off interface call, set invalid observerId (non--1 value)
+     * @tc.desc Verify off interface call, set invalid observerId (non--1 value)
      * @tc.level Level2
      */
     it('testErrorManagerErrOnOffCallback0100', Level.LEVEL2, async (done: Function) => {
@@ -103,7 +103,7 @@ export default function ErrorManager() {
     /**
      * @tc.number ARKUIX_ErrorManager_ErrOnOff_Callback_0300
      * @tc.name testErrorManagerErrOnOffCallback0300
-     * @tc.desc Verify on interface calls, off interface calls, set -1
+     * @tc.desc Verify off interface calls, set -1
      * @tc.level Level2
      */
     it('testErrorManagerErrOnOffCallback0300', Level.LEVEL2, async (done: Function) => {
@@ -123,7 +123,7 @@ export default function ErrorManager() {
     /**
      * @tc.number ARKUIX_ErrorManager_ErrOnOff_Promise_0100
      * @tc.name testErrorManagerErrOnOffPromise0100
-     * @tc.desc Verify on interface call, off interface call, set invalid observerId (non--1 value)
+     * @tc.desc Verify off interface call, set invalid observerId (non--1 value)
      * @tc.level Level2
      */
     it('testErrorManagerErrOnOffPromise0100', Level.LEVEL2, async (done: Function) => {
@@ -183,7 +183,7 @@ export default function ErrorManager() {
     /**
      * @tc.number ARKUIX_ErrorManager_ErrOnOff_Promise_0300
      * @tc.name testErrorManagerErrOnOffPromise0300
-     * @tc.desc Verify on interface call, off interface call, set -1
+     * @tc.desc Verify off interface call, set -1
      * @tc.level Level2
      */
     it('testErrorManagerErrOnOffPromise0300', Level.LEVEL2, async (done: Function) => {
