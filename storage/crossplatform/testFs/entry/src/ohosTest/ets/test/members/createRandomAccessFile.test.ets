@@ -14,29 +14,7 @@
  */
 
 import { fileIO, prepareFile, nextFileName, isIntNum, FILE_CONTENT, describe, it, expect, util } from '../Common';
-import fs from '@ohos.file.fs';
 import { TestType, Size, Level, afterEach } from '@ohos/hypium';
-import Hash from '@ohos.file.hash';
-import { common } from '@kit.AbilityKit';
-
-let context = getContext(this) as common.UIAbilityContext;
-let pathDir = context.filesDir;
-let wpath = pathDir + "/test.txt";
-
-function initReadfile(fpath: string): void {
-  const file = fileIO.openSync(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE | fileIO.OpenMode.TRUNC);
-  const buffer: Array<string> = new Array<string>(16 * 1024);
-  for (let times = 0; times < 1; times++) {
-    let charCode: number = 'a'.charCodeAt(0);
-    for(let i = 0; i < 26; i++) {
-      buffer.fill(String.fromCharCode(charCode));
-      fileIO.writeSync(file.fd, buffer.join(''));
-      charCode++;
-    }
-  }
-  const writefile = fileIO.openSync(wpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE | fileIO.OpenMode.TRUNC);
-  fileIO.closeSync(writefile);
-}
 
 export default function fileIOCreateRandomAccessFile() {
   describe('fileIO_create_randomAccessFile', () => {

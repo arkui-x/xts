@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { fileIO, FILE_CONTENT, prepareFile, nextFileName, describe, it, expect, } from '../Common';
+import { fileIO, FILE_CONTENT, prepareFile, nextFileName, describe, it, expect, ArrayBufToString} from '../Common';
 import { Level } from '@ohos/hypium';
 
 export default function fileIOStreamWrite() {
@@ -38,6 +38,7 @@ export default function fileIOStreamWrite() {
         expect(bytesWritten1 == FILE_CONTENT.length).assertTrue();
         let bytesWritten2 = sr.writeSync(new ArrayBuffer(FILE_CONTENT.length));
         expect(bytesWritten2 == FILE_CONTENT.length).assertTrue();
+
         let readLen = sr.readSync(new ArrayBuffer(4096), { offset: 0 });
         expect(readLen == FILE_CONTENT.length * 2).assertTrue();
         sr.closeSync();
@@ -65,6 +66,10 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(FILE_CONTENT);
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf,readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -90,6 +95,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(FILE_CONTENT, { offset: 1 });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf,readLen) == "hhello world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -141,6 +149,10 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(FILE_CONTENT, { encoding: 'utf-8' });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf,readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -166,6 +178,10 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(FILE_CONTENT, { length: 5 });
         expect(bytesWritten == 5).assertTrue();
+
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf,readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -247,6 +263,9 @@ export default function fileIOStreamWrite() {
           encoding: 'utf-8'
         });
         expect(bytesWritten == 4096).assertTrue();
+
+        let readLen = sr.readSync(new ArrayBuffer(4096), { offset: 1 });
+        expect(readLen == 4096).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -276,6 +295,9 @@ export default function fileIOStreamWrite() {
           encoding: 'utf-8'
         });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == "hhello world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -301,6 +323,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(FILE_CONTENT, {});
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -327,6 +352,8 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = sr.writeSync(new ArrayBuffer(4096), undefined);
         expect(bytesWritten == 4096).assertTrue();
+        let readLen = sr.readSync(new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == 4096).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -356,6 +383,8 @@ export default function fileIOStreamWrite() {
           encoding: undefined
         });
         expect(bytesWritten == 4096).assertTrue();
+        let readLen = sr.readSync(new ArrayBuffer(4096), { offset: 0 });
+        expect(readLen == 4096).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
       } catch (e) {
@@ -451,6 +480,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = await sr.write(FILE_CONTENT);
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -481,6 +513,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -508,6 +543,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = await sr.write(FILE_CONTENT, { offset: 1 });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == "hhello world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -540,6 +578,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == "hhello world").assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -597,6 +638,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = await sr.write(FILE_CONTENT, { encoding: 'utf-8' });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -629,6 +673,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -657,6 +704,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = await sr.write(FILE_CONTENT, { length: 5 });
         expect(bytesWritten == 5).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -689,6 +739,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == 5).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -780,6 +833,9 @@ export default function fileIOStreamWrite() {
           encoding: 'utf-8'
         });
         expect(bytesWritten == 4096).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 1 });
+        expect(readLen == 4096).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -814,6 +870,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == 4096).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 1 });
+          expect(readLen == 4096).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -845,6 +904,9 @@ export default function fileIOStreamWrite() {
           encoding: 'utf-8'
         });
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == "hhello world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -879,6 +941,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == "hhello world").assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();
@@ -906,6 +971,9 @@ export default function fileIOStreamWrite() {
         expect(sr !== null).assertTrue();
         let bytesWritten = await sr.write(FILE_CONTENT, {});
         expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 0 });
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fPath);
         done();
@@ -936,6 +1004,9 @@ export default function fileIOStreamWrite() {
             expect(false).assertTrue();
           }
           expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let buf = new ArrayBuffer(4096);
+          let readLen = sr.readSync(buf, { offset: 0 });
+          expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fPath);
           done();

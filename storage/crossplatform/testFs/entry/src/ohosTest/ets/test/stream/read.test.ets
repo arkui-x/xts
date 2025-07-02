@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { fileIO, FILE_CONTENT, prepareFile, nextFileName, describe, it, expect, } from '../Common';
+import { fileIO, FILE_CONTENT, prepareFile, nextFileName, describe, it, expect, ArrayBufToString } from '../Common';
 import { Level } from '@ohos/hypium';
 
 export default function fileIOStreamRead() {
@@ -34,8 +34,11 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = sr.readSync(new ArrayBuffer(16));
+        let buf = new ArrayBuffer(16);
+        let readLen1 = sr.readSync(buf);
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
+
         let readLen2 = sr.readSync(new ArrayBuffer(8));
         expect(readLen2 == 0).assertTrue();
         sr.closeSync();
@@ -61,8 +64,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = sr.readSync(new ArrayBuffer(4096), { length: 2 });
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { length: 2 });
         expect(readLen == 2).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == "he").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
       } catch (e) {
@@ -86,8 +91,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = sr.readSync(new ArrayBuffer(4096), { offset: 2 });
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, { offset: 2 });
         expect(readLen == FILE_CONTENT.length - 2).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == "llo world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
       } catch (e) {
@@ -111,11 +118,13 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = sr.readSync(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        let readLen = sr.readSync(buf, {
           offset: 1,
           length: FILE_CONTENT.length
         });
         expect(readLen == FILE_CONTENT.length - 1).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == "ello world").assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
       } catch (e) {
@@ -192,8 +201,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = sr.readSync(new ArrayBuffer(16), undefined);
+        let buf = new ArrayBuffer(16);
+        let readLen1 = sr.readSync(buf, undefined);
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
         let readLen2 = sr.readSync(new ArrayBuffer(8), undefined);
         expect(readLen2 == 0).assertTrue();
         sr.closeSync();
@@ -219,11 +230,13 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = sr.readSync(new ArrayBuffer(16), {
+        let buf = new ArrayBuffer(16);
+        let readLen1 = sr.readSync(buf, {
           offset: undefined,
           length: undefined
         });
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
         let readLen2 = sr.readSync(new ArrayBuffer(8), {
           offset: undefined,
           length: undefined
@@ -252,8 +265,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = await sr.read(new ArrayBuffer(16));
+        let buf = new ArrayBuffer(16);
+        let readLen1 = await sr.read(buf);
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
         let readLen2 = await sr.read(new ArrayBuffer(8));
         expect(readLen2 == 0).assertTrue();
         sr.closeSync();
@@ -280,12 +295,14 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(16), (err, readLen1) => {
+        let buf = new ArrayBuffer(16);
+        sr.read(buf, (err, readLen1) => {
           if (err) {
             console.log('fileIO_test_stream_read_async_001 error package1: ' + JSON.stringify(err));
             expect(false).assertTrue();
           }
           expect(readLen1 == FILE_CONTENT.length).assertTrue();
+          expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
           sr.read(new ArrayBuffer(8), (err, readLen2) => {
             if (err) {
               console.log('fileIO_test_stream_read_async_001 error package2: ' + JSON.stringify(err));
@@ -318,10 +335,12 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = await sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        let readLen = await sr.read(buf, {
           length: 5
         });
         expect(readLen == 5).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == 'hello').assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
         done();
@@ -346,7 +365,8 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        sr.read(buf, {
           length: 5
         }, (err, readLen) => {
           if (err) {
@@ -354,6 +374,7 @@ export default function fileIOStreamRead() {
             expect(false).assertTrue();
           }
           expect(readLen == 5).assertTrue();
+          expect(ArrayBufToString(buf, readLen) == 'hello').assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fpath);
           done();
@@ -379,10 +400,12 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = await sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        let readLen = await sr.read(buf, {
           offset: 5
         });
         expect(readLen == FILE_CONTENT.length - 5).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == ' world').assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
         done();
@@ -407,7 +430,8 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        sr.read(buf, {
           offset: 5
         }, (err, readLen) => {
           if (err) {
@@ -415,6 +439,7 @@ export default function fileIOStreamRead() {
             expect(false).assertTrue();
           }
           expect(readLen == FILE_CONTENT.length - 5).assertTrue();
+          expect(ArrayBufToString(buf, readLen) == ' world').assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fpath);
           done();
@@ -497,11 +522,13 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = await sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        let readLen = await sr.read(buf, {
           offset: 1,
           length: FILE_CONTENT.length
         });
         expect(readLen == FILE_CONTENT.length - 1).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == 'ello world').assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
         done();
@@ -526,7 +553,8 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        sr.read(buf, {
           offset: 1,
           length: FILE_CONTENT.length
         }, (err, readLen) => {
@@ -535,6 +563,7 @@ export default function fileIOStreamRead() {
             expect(false).assertTrue();
           }
           expect(readLen == FILE_CONTENT.length - 1).assertTrue();
+          expect(ArrayBufToString(buf, readLen) == 'ello world').assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fpath);
           done();
@@ -560,8 +589,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen = await sr.read(new ArrayBuffer(4096), {});
+        let buf = new ArrayBuffer(4096);
+        let readLen = await sr.read(buf, {});
         expect(readLen == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
         sr.closeSync();
         fileIO.unlinkSync(fpath);
         done();
@@ -586,12 +617,14 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(4096), {}, (err, readLen) => {
+        let buf = new ArrayBuffer(4096);
+        sr.read(buf, {}, (err, readLen) => {
           if (err) {
             console.log('fileIO_test_stream_read_async_011 error package: ' + JSON.stringify(err));
             expect(false).assertTrue();
           }
           expect(readLen == FILE_CONTENT.length).assertTrue();
+          expect(ArrayBufToString(buf, readLen) == FILE_CONTENT).assertTrue();
           sr.closeSync();
           fileIO.unlinkSync(fpath);
           done();
@@ -618,8 +651,10 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = await sr.read(new ArrayBuffer(16), undefined);
+        let buf = new ArrayBuffer(16);
+        let readLen1 = await sr.read(buf, undefined);
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
         let readLen2 = await sr.read(new ArrayBuffer(8), undefined);
         expect(readLen2 == 0).assertTrue();
         sr.closeSync();
@@ -646,12 +681,14 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(16), undefined, (err, readLen1) => {
+        let buf = new ArrayBuffer(16);
+        sr.read(buf, undefined, (err, readLen1) => {
           if (err) {
             console.log('fileIO_test_stream_read_async_016 error package1: ' + JSON.stringify(err));
             expect(false).assertTrue();
           }
           expect(readLen1 == FILE_CONTENT.length).assertTrue();
+          expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
           sr.read(new ArrayBuffer(8), undefined, (err, readLen2) => {
             if (err) {
               console.log('fileIO_test_stream_read_async_016 error package2: ' + JSON.stringify(err));
@@ -684,11 +721,13 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        let readLen1 = await sr.read(new ArrayBuffer(16), {
+        let buf = new ArrayBuffer(16);
+        let readLen1 = await sr.read(buf, {
           offset: undefined,
           length: undefined
         });
         expect(readLen1 == FILE_CONTENT.length).assertTrue();
+        expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
         let readLen2 = await sr.read(new ArrayBuffer(8), {
           offset: undefined,
           length: undefined
@@ -718,7 +757,8 @@ export default function fileIOStreamRead() {
       try {
         let sr = fileIO.createStreamSync(fpath, 'r+');
         expect(sr !== null).assertTrue();
-        sr.read(new ArrayBuffer(4096), {
+        let buf = new ArrayBuffer(4096);
+        sr.read(buf, {
           offset: undefined,
           length: undefined
         }, (err, readLen1) => {
@@ -727,6 +767,7 @@ export default function fileIOStreamRead() {
             expect(false).assertTrue();
           }
           expect(readLen1 == FILE_CONTENT.length).assertTrue();
+          expect(ArrayBufToString(buf, readLen1) == FILE_CONTENT).assertTrue();
           sr.read(new ArrayBuffer(8), {
             offset: undefined,
             length: undefined

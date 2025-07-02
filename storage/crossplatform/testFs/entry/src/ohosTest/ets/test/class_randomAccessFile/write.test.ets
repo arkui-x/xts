@@ -334,6 +334,33 @@ export default function fileIORandomAccessFileWrite() {
     });
 
     /**
+     * @tc.number SUB_STORAGE_FILEIO_RANDOMACCESSFILE_WRITE_SYNC_1300
+     * @tc.name fileIO_randomaccessfile_write_sync_013
+     * @tc.desc Test writeSync() interface. Check the write text content.
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it("fileIO_randomaccessfile_write_sync_013", Level.LEVEL0, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_randomaccessfile_write_sync_013");
+      let randomaccessfile = fileIO.createRandomAccessFileSync(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
+
+      try {
+        let bytesWritten = randomaccessfile.writeSync(FILE_CONTENT, { length: FILE_CONTENT.length });
+        expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+        let str = fileIO.readTextSync(fpath);
+        expect(str == FILE_CONTENT).assertTrue();
+        done();
+      } catch(err) {
+        console.info('fileIO_randomaccessfile_write_sync_013 has failed for ' + err);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+
+    /**
      * @tc.number SUB_STORAGE_FILEIO_RANDOMACCESSFILE_WRITE_ASYNC_0000
      * @tc.name fileIO_randomaccessfile_write_async_000
      * @tc.desc Test write() interface. return in promise mode. Test write data asynchronously.
@@ -674,6 +701,34 @@ export default function fileIORandomAccessFileWrite() {
         });
       } catch(err) {
         console.info('fileIO_randomaccessfile_write_async_013 has failed for ' + err);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number SUB_STORAGE_FILEIO_RANDOMACCESSFILE_WRITE_ASYNC_1400
+     * @tc.name fileIO_randomaccessfile_write_async_014
+     * @tc.desc Test write() interface. When the length is greater than the buffer length.
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+
+      it("fileIO_randomaccessfile_write_async_014", Level.LEVEL0, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_randomaccessfile_write_async_014");
+      let randomaccessfile = await fileIO.createRandomAccessFile(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
+
+      try {
+        randomaccessfile.write(FILE_CONTENT, { length: FILE_CONTENT.length }, (err, bytesWritten) => {
+          expect(bytesWritten == FILE_CONTENT.length).assertTrue();
+          let str = fileIO.readTextSync(fpath);
+          expect(str == FILE_CONTENT).assertTrue();
+          done();
+        });
+      } catch(err) {
+        console.info('fileIO_randomaccessfile_write_async_014 has failed for ' + err);
         expect(false).assertTrue();
         done();
       }
