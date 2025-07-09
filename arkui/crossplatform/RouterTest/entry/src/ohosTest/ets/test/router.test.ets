@@ -78,6 +78,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0100
      * @tc.name   : testRouterReplaceUrlPromise0001
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0001", Level.LEVEL0, async (done: Function) => {
@@ -101,6 +102,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0200
      * @tc.name   : testRouterReplaceUrlPromise0002
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0002", Level.LEVEL0, async (done: Function) => {
@@ -124,6 +126,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0300
      * @tc.name   : testRouterReplaceUrlPromise0003
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0003", Level.LEVEL2, async (done: Function) => {
@@ -145,6 +148,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0400
      * @tc.name   : testRouterReplaceUrlPromise0004
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0004", Level.LEVEL2, async (done: Function) => {
@@ -170,6 +174,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0500
      * @tc.name   : testRouterReplaceUrlPromise0005
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0005", Level.LEVEL2, async (done: Function) => {
@@ -191,6 +196,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0600
      * @tc.name   : testRouterReplaceUrlPromise0006
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0006", Level.LEVEL2, async (done: Function) => {
@@ -212,6 +218,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0700
      * @tc.name   : testRouterReplaceUrlPromise0007
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0007", Level.LEVEL0, async (done: Function) => {
@@ -242,6 +249,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0800
      * @tc.name   : testRouterReplaceUrlPromise0008
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0008", Level.LEVEL2, async (done: Function) => {
@@ -267,6 +275,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_0900
      * @tc.name   : testRouterReplaceUrlPromise0009
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0009", Level.LEVEL2, async (done: Function) => {
@@ -292,6 +301,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1000
      * @tc.name   : testRouterReplaceUrlPromise0010
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0010", Level.LEVEL0, async (done: Function) => {
@@ -315,6 +325,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1100
      * @tc.name   : testRouterReplaceUrlPromise0011
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0011", Level.LEVEL0, async (done: Function) => {
@@ -338,6 +349,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1200
      * @tc.name   : testRouterReplaceUrlPromise0012
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0012", Level.LEVEL2, async (done: Function) => {
@@ -359,6 +371,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1300
      * @tc.name   : testRouterReplaceUrlPromise0013
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0013", Level.LEVEL2, async (done: Function) => {
@@ -384,6 +397,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1400
      * @tc.name   : testRouterReplaceUrlPromise0014
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0014", Level.LEVEL2, async (done: Function) => {
@@ -405,6 +419,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1500
      * @tc.name   : testRouterReplaceUrlPromise0015
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0015", Level.LEVEL2, async (done: Function) => {
@@ -426,6 +441,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1600
      * @tc.name   : testRouterReplaceUrlPromise0016
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0016", Level.LEVEL0, async (done: Function) => {
@@ -456,6 +472,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1700
      * @tc.name   : testRouterReplaceUrlPromise0017
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0017", Level.LEVEL2, async (done: Function) => {
@@ -481,6 +498,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1800
      * @tc.name   : testRouterReplaceUrlPromise0018
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlPromise0018", Level.LEVEL2, async (done: Function) => {
@@ -506,6 +524,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_1900
      * @tc.name   : testRouterReplaceUrlPromise0019
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0019", Level.LEVEL0, async (done: Function) => {
@@ -531,6 +550,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Promise_2000
      * @tc.name   : testRouterReplaceUrlPromise0020
      * @tc.desc   : Test ReplaceUrl Promise
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlPromise0020", Level.LEVEL0, async (done: Function) => {
@@ -556,6 +576,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0100
      * @tc.name   : testRouterReplaceUrlCallback0001
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0001", Level.LEVEL0, async (done: Function) => {
@@ -579,6 +600,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0200
      * @tc.name   : testRouterReplaceUrlCallback0002
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0002", Level.LEVEL0, async (done: Function) => {
@@ -602,6 +624,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0300
      * @tc.name   : testRouterReplaceUrlCallback0003
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0003", Level.LEVEL2, async (done: Function) => {
@@ -623,6 +646,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0400
      * @tc.name   : testRouterReplaceUrlCallback0004
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0004", Level.LEVEL2, async (done: Function) => {
@@ -648,6 +672,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0500
      * @tc.name   : testRouterReplaceUrlCallback0005
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0005", Level.LEVEL2, async (done: Function) => {
@@ -669,6 +694,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0600
      * @tc.name   : testRouterReplaceUrlCallback0006
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0006", Level.LEVEL2, async (done: Function) => {
@@ -690,6 +716,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0700
      * @tc.name   : testRouterReplaceUrlCallback0007
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0007", Level.LEVEL0, async (done: Function) => {
@@ -720,6 +747,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0800
      * @tc.name   : testRouterReplaceUrlCallback0008
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0008", Level.LEVEL2, async (done: Function) => {
@@ -745,6 +773,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_0900
      * @tc.name   : testRouterReplaceUrlCallback0009
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0009", Level.LEVEL2, async (done: Function) => {
@@ -770,6 +799,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1000
      * @tc.name   : testRouterReplaceUrlCallback0010
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0010", Level.LEVEL0, async (done: Function) => {
@@ -793,6 +823,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1100
      * @tc.name   : testRouterReplaceUrlCallback0011
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0011", Level.LEVEL0, async (done: Function) => {
@@ -816,6 +847,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1200
      * @tc.name   : testRouterReplaceUrlCallback0012
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0012", Level.LEVEL2, async (done: Function) => {
@@ -837,6 +869,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1300
      * @tc.name   : testRouterReplaceUrlCallback0013
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0013", Level.LEVEL2, async (done: Function) => {
@@ -862,6 +895,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1400
      * @tc.name   : testRouterReplaceUrlCallback0014
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0014", Level.LEVEL2, async (done: Function) => {
@@ -883,6 +917,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1500
      * @tc.name   : testRouterReplaceUrlCallback0015
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0015", Level.LEVEL2, async (done: Function) => {
@@ -904,6 +939,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1600
      * @tc.name   : testRouterReplaceUrlCallback0016
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0016", Level.LEVEL0, async (done: Function) => {
@@ -934,6 +970,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1700
      * @tc.name   : testRouterReplaceUrlCallback0017
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0017", Level.LEVEL2, async (done: Function) => {
@@ -959,6 +996,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1800
      * @tc.name   : testRouterReplaceUrlCallback0018
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterReplaceUrlCallback0018", Level.LEVEL2, async (done: Function) => {
@@ -984,6 +1022,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_1900
      * @tc.name   : testRouterReplaceUrlCallback0019
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0019", Level.LEVEL0, async (done: Function) => {
@@ -1009,6 +1048,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_ReplaceUrl_Callback_2000
      * @tc.name   : testRouterReplaceUrlCallback0020
      * @tc.desc   : Test ReplaceUrl Callback
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterReplaceUrlCallback0020", Level.LEVEL0, async (done: Function) => {
@@ -1034,6 +1074,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0100
      * @tc.name   : testRouterBack0001
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0001", Level.LEVEL0, async (done: Function) => {
@@ -1058,6 +1099,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0200
      * @tc.name   : testRouterBack0002
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0002", Level.LEVEL0, async (done: Function) => {
@@ -1084,6 +1126,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0300
      * @tc.name   : testRouterBack0003
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0003", Level.LEVEL2, async (done: Function) => {
@@ -1110,6 +1153,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0400
      * @tc.name   : testRouterBack0004
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0004", Level.LEVEL2, async (done: Function) => {
@@ -1134,6 +1178,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0500
      * @tc.name   : testRouterBack0005
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0005", Level.LEVEL2, async (done: Function) => {
@@ -1158,6 +1203,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0600
      * @tc.name   : testRouterBack0006
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0006", Level.LEVEL2, async (done: Function) => {
@@ -1182,6 +1228,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0700
      * @tc.name   : testRouterBack0007
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0007", Level.LEVEL0, async (done: Function) => {
@@ -1213,6 +1260,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0800
      * @tc.name   : testRouterBack0008
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0008", Level.LEVEL2, async (done: Function) => {
@@ -1239,6 +1287,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_0900
      * @tc.name   : testRouterBack0009
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0009", Level.LEVEL2, async (done: Function) => {
@@ -1265,6 +1314,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1000
      * @tc.name   : testRouterBack0010
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0010", Level.LEVEL2, async (done: Function) => {
@@ -1289,6 +1339,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1100
      * @tc.name   : testRouterBack0011
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0011", Level.LEVEL2, async (done: Function) => {
@@ -1313,6 +1364,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1200
      * @tc.name   : testRouterBack0012
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0012", Level.LEVEL0, async (done: Function) => {
@@ -1337,6 +1389,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1300
      * @tc.name   : testRouterBack0013
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0013", Level.LEVEL0, async (done: Function) => {
@@ -1361,6 +1414,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1400
      * @tc.name   : testRouterBack0014
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0014", Level.LEVEL2, async (done: Function) => {
@@ -1387,6 +1441,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1500
      * @tc.name   : testRouterBack0015
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0015", Level.LEVEL2, async (done: Function) => {
@@ -1413,6 +1468,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1600
      * @tc.name   : testRouterBack0016
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0016", Level.LEVEL2, async (done: Function) => {
@@ -1439,6 +1495,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1700
      * @tc.name   : testRouterBack0017
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0017", Level.LEVEL2, async (done: Function) => {
@@ -1465,6 +1522,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1800
      * @tc.name   : testRouterBack0018
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
     it("testRouterBack0018", Level.LEVEL0, async (done: Function) => {
@@ -1496,6 +1554,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_1900
      * @tc.name   : testRouterBack0019
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0019", Level.LEVEL2, async (done: Function) => {
@@ -1522,6 +1581,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Back_2000
      * @tc.name   : testRouterBack0020
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it("testRouterBack0020", Level.LEVEL2, async (done: Function) => {
@@ -1548,6 +1608,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Combined_0100
      * @tc.name   : testRouterCombined0001
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
     it("testRouterCombined0001", Level.LEVEL1, async (done: Function) => {
@@ -1588,6 +1649,7 @@ export default function RouterTest() {
      * @tc.number : ArkUIX_Router_Combined_0200
      * @tc.name   : testRouterCombined0002
      * @tc.desc   : Test Back
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
     it("testRouterCombined0002", Level.LEVEL1, async (done: Function) => {

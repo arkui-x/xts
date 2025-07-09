@@ -14,7 +14,7 @@
  */
 
 import { Driver, ON } from '@ohos.UiTest'
-import { describe, afterEach, it, expect } from '@ohos/hypium';
+import { describe, afterEach, it, expect, Level } from '@ohos/hypium';
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
 import deviceInfo from '@ohos.deviceInfo';
@@ -41,7 +41,6 @@ async function startAbility(bundleName: string, abilityName: string) {
 
 export default function xcomponent() {
   describe('ActsAbilityTest', () => {
-
     const WAIT_TIME = 2000;
     afterEach(async () => {
       if (platform != 'iOS') {
@@ -54,11 +53,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0100
-     * @tc.name   : onload
+     * @tc.name   : XComponent_Test_Func_0100
      * @tc.desc   : Test XComponent onload interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0100', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0100', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);
@@ -75,11 +75,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0200
-     * @tc.name   : XComponentSurfaceId
+     * @tc.name   : XComponent_Test_Func_0200
      * @tc.desc   : Test XComponent GetXComponentSurfaceId interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0200', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0200', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);
@@ -99,11 +100,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0300
-     * @tc.name   : XComponentContext
+     * @tc.name   : XComponent_Test_Func_0300
      * @tc.desc   : Test XComponent XComponentContext interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0300', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0300', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);
@@ -123,11 +125,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0400
-     * @tc.name   : XComponentSurfaceId
+     * @tc.name   : XComponent_Test_Func_0400
      * @tc.desc   : Test XComponent XComponentSurfaceId interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0400', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0400', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);
@@ -156,11 +159,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0500
-     * @tc.name   : onload->onDestroy
+     * @tc.name   : XComponent_Test_Func_0500
      * @tc.desc   : Test XComponent onDestroy interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0500', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0500', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);
@@ -182,11 +186,12 @@ export default function xcomponent() {
 
     /**
      * @tc.number : XComponent_Test_Func_0600
-     * @tc.name   : XComponentContext->onDestroy
+     * @tc.name   : XComponent_Test_Func_0600
      * @tc.desc   : Test XComponent XComponentContext interface
+     * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('XComponent_Test_Func_0600', 0, async (done: Function) => {
+    it('XComponent_Test_Func_0600', Level.LEVEL1, async (done: Function) => {
       await startAbility('com.example.xcomponent', 'EntryAbility');
       let driver = Driver.create();
       await driver.delayMs(WAIT_TIME);

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
-import { DisplayRotation, Driver, MatchPattern, ON, ResizeDirection, WindowMode } from '@ohos.UiTest'
+import { describe, beforeAll, it, expect, Level } from '@ohos/hypium'
+import { Driver, ON } from '@ohos.UiTest'
 
 import promptAction from '@ohos.promptAction';
 
@@ -29,14 +29,16 @@ export default function PromptActionTest() {
   beforeAll(async () => {
     await sleep(waitReadyMs_3000);
   })
+
   describe('PromptActionTest', () => {
     /**
      * @tc.number : SUB_promptAction_showToast_Func_0010
      * @tc.name   : ShowToast
      * @tc.desc   : Test the ToastShowMode.DEFAULT property of the ShowToastOptions
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_promptAction_showToast_Func_0010', 0, async (done: Function) => {
+    it('SUB_promptAction_showToast_Func_0010', Level.LEVEL0, async (done: Function) => {
       try {
         let driver = Driver.create();
         promptAction.showToast({
