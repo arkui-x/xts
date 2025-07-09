@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import fileio from '@ohos.fileio';
-import { fileIO, FILE_CONTENT, prepareFile, sleep, nextFileName, describe, it, expect, } from '../Common';
+import { WatchEvent } from "@ohos.file.fs";
+import { fileIO, FILE_CONTENT, prepareFile, sleep, nextFileName, describe, it, expect } from '../Common';
 import { Level } from '@ohos/hypium';
 
 const WAIT_HALF_SECOND = 500;
@@ -49,13 +49,7 @@ const watcherEvent: watcherEventInterface = {
   'IN_MOVE_SELF': 0x00000800
 }
 
-interface WatcherCallbackData {
-  event: number;
-  fileName: string;
-  cookie: number;
-}
-
-const callback = (data: WatcherCallbackData) => {
+const callback = (data: WatchEvent) => {
   console.log(`The watcher is triggered :{event: ${data.event}, fileName: ${data.fileName}, cookie:${data.cookie}}`);
 }
 
@@ -70,12 +64,9 @@ function startWatcher(testNum: string, eventCode: number, watchPath: string) {
     watcher: null as fileIO.Watcher | null
   }
   try {
-    console.log(`lzyLOG Into startWacher`);
-    ret.watcher = fileIO.createWatcher(watchPath, eventCode, (data) => {
-      console.log(`${testNum} :{event: ${data.event}, fileName: ${data.fileName}, cookie: ${data.cookie}}`);
-      console.log(`lzyLOG eventCode ` + eventCode);
-      console.log(`lzyLOG data.event ` + data.event);
-      if (eventCode === data.event) {
+    ret.watcher = fileIO.createWatcher(watchPath, eventCode, (watchEvent: WatchEvent) => {
+      console.log(`${testNum} :{event: ${watchEvent.event}, fileName: ${watchEvent.fileName}, cookie: ${watchEvent.cookie}}`);
+      if (eventCode === watchEvent.event) {
         ret.flag = true;
       }
     });
@@ -162,7 +153,6 @@ export default function fileIOWatcher() {
       let fpath = dpath + '/file_001.txt';
       fileIO.mkdirSync(dpath);
       expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
-      console.log('lzyLOG success to prepare');
 
       try {
         let file = fileIO.openSync(fpath, fileIO.OpenMode.READ_WRITE);
@@ -170,7 +160,7 @@ export default function fileIOWatcher() {
         fileIO.readSync(file.fd, new ArrayBuffer(4096));
         await sleep(WAIT_HALF_SECOND);
         if (resWatcher.flag == false) {
-          console.log('lzyLOG resWatcher.flag == false');
+          console.log('LOG resWatcher.flag == false');
         }
         expect(resWatcher.flag == true).assertTrue();
         if (resWatcher.watcher != null) {

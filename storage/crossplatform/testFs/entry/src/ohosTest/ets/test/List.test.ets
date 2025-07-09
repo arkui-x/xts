@@ -49,6 +49,7 @@ import fileIOLseek from "./members/lseek.test";
 import fileIOUtimes from "./members/utimes.test";
 import fileIOCreateStream from './members/createStream.test'
 import fileIOFdOpenStream from './members/fdopenStream.test'
+import fileIOCopyfile from './members/copyFile.test'
 import fileIOStreamRead from './stream/read.test'
 import fileIOStreamWrite from './stream/write.test'
 import fileIOStreamClose from './stream/close.tes'
@@ -59,6 +60,7 @@ import deviceInfo from '@ohos.deviceInfo';
 let osName:string = deviceInfo.osFullName;
 
 export default function testsuite() {
+  fileIOCopyfile();
   fileIOClose();
   fileIOFdatasync();
   fileIOFsync();
