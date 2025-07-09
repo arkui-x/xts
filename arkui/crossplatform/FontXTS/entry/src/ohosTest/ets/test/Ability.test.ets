@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium'
 import { Driver, ON } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
 import Want from '@ohos.app.ability.Want'
@@ -51,11 +51,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0100
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0100
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 0
      */
-    it('SUB_font_registerFont_Func_0100', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0100', Level.LEVEL0, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text01')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -70,11 +70,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0200
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0200
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 0
      */
-    it('SUB_font_registerFont_Func_0200', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0200', Level.LEVEL0, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text02')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -89,11 +89,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0300
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0300
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 0
      */
-    it('SUB_font_registerFont_Func_0300', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0300', Level.LEVEL0, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text03')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -108,11 +108,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0400
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0400
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 0
      */
-    it('SUB_font_registerFont_Func_0400', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0400', Level.LEVEL0, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text04')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -127,11 +127,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0500
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0500
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_0500', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0500', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text11')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -145,11 +145,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0600
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0600
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_0600', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0600', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text12')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -163,11 +163,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0700
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0700
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_0700', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0700', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text13')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -181,11 +181,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0800
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0800
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_0800', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0800', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text14')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -199,11 +199,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_0900
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_0900
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_0900', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_0900', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text15')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -217,11 +217,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1000
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1000
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1000', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1000', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text16')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -235,11 +235,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1100
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1100
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1100', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1100', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text21')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -258,7 +258,7 @@ export default function abilityTest() {
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1200', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1200', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text22')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -277,7 +277,7 @@ export default function abilityTest() {
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1300', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1300', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text23')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -292,11 +292,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1400
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1400
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1400', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1400', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text24')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -311,11 +311,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1500
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1500
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1500', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1500', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text25')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -330,11 +330,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1600
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1600
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1600', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1600', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text26')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -349,11 +349,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_registerFont_Func_1700
-     * @tc.name   : registerFont
+     * @tc.name   : SUB_font_registerFont_Func_1700
      * @tc.desc   : Tests the FontOptions
      * @tc.level  : Level 2
      */
-    it('SUB_font_registerFont_Func_1700', 0, async (done: Function) => {
+    it('SUB_font_registerFont_Func_1700', Level.LEVEL2, async (done: Function) => {
       try {
         let strJson = getInspectorByKey('text27')
         console.info('strJson is ' + JSON.stringify(strJson))
@@ -368,11 +368,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_getSystemFontList_Func_0100
-     * @tc.name   : getSystemFontList
+     * @tc.name   : SUB_font_getSystemFontList_Func_0100
      * @tc.desc   : Test the return value of getSystemFontList
      * @tc.level  : Level 0
      */
-    it('SUB_font_getSystemFontList_Func_0100', 0, async (done: Function) => {
+    it('SUB_font_getSystemFontList_Func_0100', Level.LEVEL0, async (done: Function) => {
       try {
         let fontList = font.getSystemFontList()
         if (platform == "Android" || platform == "IOS") {
@@ -395,11 +395,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_getFontByName_Func_0100
-     * @tc.name   : getFontByName
+     * @tc.name   : SUB_font_getFontByName_Func_0100
      * @tc.desc   : Test Func getFontByName
      * @tc.level  : Level 0
      */
-    it('SUB_font_getFontByName_Func_0100', 0, async (done: Function) => {
+    it('SUB_font_getFontByName_Func_0100', Level.LEVEL0, async (done: Function) => {
       try {
         let fontInfo = font.getFontByName(fontName)
         if (platform == "Android") {
@@ -426,11 +426,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_getFontByName_Func_0200
-     * @tc.name   : getFontByName
+     * @tc.name   : SUB_font_getFontByName_Func_0200
      * @tc.desc   : Test Func getFontByName
      * @tc.level  : Level 2
      */
-    it('SUB_font_getFontByName_Func_0200', 0, async (done: Function) => {
+    it('SUB_font_getFontByName_Func_0200', Level.LEVEL2, async (done: Function) => {
       try {
         let fontInfo = font.getFontByName('123456ABAC')
         expect(fontInfo).assertUndefined()
@@ -443,11 +443,11 @@ export default function abilityTest() {
 
     /**
      * @tc.number : SUB_font_getFontByName_Func_0300
-     * @tc.name   : getFontByName
+     * @tc.name   : SUB_font_getFontByName_Func_0300
      * @tc.desc   : Test Func getFontByName
      * @tc.level  : Level 2
      */
-    it('SUB_font_getFontByName_Func_0300', 0, async (done: Function) => {
+    it('SUB_font_getFontByName_Func_0300', Level.LEVEL2, async (done: Function) => {
       try {
         let fontInfo = font.getFontByName('')
         expect(fontInfo).assertUndefined()

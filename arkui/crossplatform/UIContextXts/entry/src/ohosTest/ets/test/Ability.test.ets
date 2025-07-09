@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, Level } from '@ohos/hypium';
 import { Driver } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
 import Want from '@ohos.app.ability.Want';
@@ -26,6 +26,7 @@ let driver = Driver.create()
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 async function startAbility(bundleName: string, abilityName: string) {
   let want: Want = {
     bundleName: `${bundleName}`,
@@ -50,11 +51,12 @@ export default function abilityTest() {
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0100
      * @tc.name   : setKeyboardAvoidMode
      * @tc.desc   : Test the KeyboardAvoidMode.RESIZE property of the setKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_setKeyboardAvoidMode_Func_0100', 0, (done: Function) => {
+    it('SUB_setKeyboardAvoidMode_Func_0100', Level.LEVEL0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.RESIZE);
       done();
     })
@@ -63,11 +65,12 @@ export default function abilityTest() {
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0200
      * @tc.name   : setKeyboardAvoidMode
      * @tc.desc   : Test the KeyboardAvoidMode.OFFSET property of the setKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_setKeyboardAvoidMode_Func_0200', 0, (done: Function) => {
+    it('SUB_setKeyboardAvoidMode_Func_0200', Level.LEVEL0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.OFFSET);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
@@ -76,11 +79,12 @@ export default function abilityTest() {
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0300
      * @tc.name   : setKeyboardAvoidMode
      * @tc.desc   : Test the KeyboardAvoidMode property of the setKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_setKeyboardAvoidMode_Func_0300', 0, (done: Function) => {
+    it('SUB_setKeyboardAvoidMode_Func_0300', Level.LEVEL2, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(null);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
@@ -89,11 +93,12 @@ export default function abilityTest() {
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0400
      * @tc.name   : setKeyboardAvoidMode
      * @tc.desc   : Test the KeyboardAvoidMode property of the setKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_setKeyboardAvoidMode_Func_0400', 0, (done: Function) => {
+    it('SUB_setKeyboardAvoidMode_Func_0400', Level.LEVEL0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(undefined);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
@@ -102,11 +107,12 @@ export default function abilityTest() {
      * @tc.number : SUB_setKeyboardAvoidMode_Func_0500
      * @tc.name   : setKeyboardAvoidMode
      * @tc.desc   : Test the KeyboardAvoidMode property of the setKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_setKeyboardAvoidMode_Func_0500', 0, (done: Function) => {
+    it('SUB_setKeyboardAvoidMode_Func_0500', Level.LEVEL2, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode();
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })
@@ -115,11 +121,12 @@ export default function abilityTest() {
      * @tc.number : SUB_getKeyboardAvoidMode_Func_0100
      * @tc.name   : getKeyboardAvoidMode
      * @tc.desc   : Test the getKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_getKeyboardAvoidMode_Func_0100', 0, (done: Function) => {
+    it('SUB_getKeyboardAvoidMode_Func_0100', Level.LEVEL0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.RESIZE);
       done();
     })
@@ -128,11 +135,12 @@ export default function abilityTest() {
      * @tc.number : SUB_getKeyboardAvoidMode_Func_0200
      * @tc.name   : getKeyboardAvoidMode
      * @tc.desc   : Test the getKeyboardAvoidMode
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_getKeyboardAvoidMode_Func_0200', 0, (done: Function) => {
+    it('SUB_getKeyboardAvoidMode_Func_0200', Level.LEVEL0, (done: Function) => {
       globalThis.context.setKeyboardAvoidMode(KeyboardAvoidMode.OFFSET);
-      let status:number = globalThis.context.getKeyboardAvoidMode();
+      let status: number = globalThis.context.getKeyboardAvoidMode();
       expect(status).assertEqual(KeyboardAvoidMode.OFFSET);
       done();
     })

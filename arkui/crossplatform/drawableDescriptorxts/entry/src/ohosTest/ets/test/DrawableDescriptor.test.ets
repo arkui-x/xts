@@ -15,7 +15,7 @@
 import image from '@ohos.multimedia.image';
 import common from '@ohos.app.ability.common';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, Level } from '@ohos/hypium';
 import { DrawableDescriptor, LayeredDrawableDescriptor } from '@ohos.arkui.drawableDescriptor';
 
 let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -30,11 +30,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0010
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0010
      * @tc.desc   : Test Generate PNG Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0010', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0010',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_png: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.icon').id));
@@ -53,11 +53,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0020
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0020
      * @tc.desc   : Test Generate JPG Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0020', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0020',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_jpg: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.jpg').id));
@@ -76,11 +76,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0030
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0030
      * @tc.desc   : Test Generate BMP Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0030', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0030',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_bmp: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.bmp').id));
@@ -99,11 +99,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0040
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0040
      * @tc.desc   : Test Generate svg Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0040', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0040',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_svg: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.svg').id));
@@ -123,11 +123,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0050
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0050
      * @tc.desc   : Test Generate gif Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0050', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0050',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_gif: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.gif').id));
@@ -146,11 +146,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0060
-     * @tc.name   : DrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0060
      * @tc.desc   : Test Generate webp Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0060', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0060',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_webp: DrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.webp').id));
@@ -169,11 +169,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0070
-     * @tc.name   : LayeredDrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0070
      * @tc.desc   : Test Generate JSON Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0070', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0070',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_json_lay: LayeredDrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.drawble')
@@ -193,11 +193,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0080
-     * @tc.name   : LayeredDrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0080
      * @tc.desc   : Test Generate JSON Foreground Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0080', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0080',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_json_lay: LayeredDrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.drawble')
@@ -218,11 +218,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_0090
-     * @tc.name   : LayeredDrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_0090
      * @tc.desc   : Test Generate JSON Background Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_0090', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_0090',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_json_lay: LayeredDrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.drawble')
@@ -243,11 +243,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_00100
-     * @tc.name   : LayeredDrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_00100
      * @tc.desc   : Test Generate JSON Mask Pixlmap display image
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_00100', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_00100',Level.LEVEL1, async (done: Function) => {
       try {
         let resManager = context.resourceManager
         let drawable_id_json_lay: LayeredDrawableDescriptor = (resManager.getDrawableDescriptor($r('app.media.drawble')
@@ -267,11 +267,11 @@ export default function drawableDescriptorTest() {
 
     /**
      * @tc.number : SUB_Test_DrawableDescriptor_Func_00110
-     * @tc.name   : LayeredDrawableDescriptor
+     * @tc.name   : SUB_Test_DrawableDescriptor_Func_00110
      * @tc.desc   : Test getMaskClipPath
      * @tc.level  : Level 1
      */
-    it('SUB_Test_DrawableDescriptor_Func_00110', 0, async (done: Function) => {
+    it('SUB_Test_DrawableDescriptor_Func_00110',Level.LEVEL1, async (done: Function) => {
       try {
         let maskClipPath = LayeredDrawableDescriptor.getMaskClipPath()
         console.log('SUB_Test_DrawableDescriptor_Func_00110 getMaskClipPath is' + maskClipPath);

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium'
 import { Driver, ON } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
@@ -41,11 +41,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0010
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0010
      * @tc.desc   : Test getRectangleById with Image Component ID
      * @tc.level  : Level 0
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0010', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0010', Level.LEVEL0, async (done: Function) => {
       let driver = Driver.create();
       await driver.delayMs(2000);
       let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById('Test0010');
@@ -64,11 +64,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0020
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0020
      * @tc.desc   : Test getRectangleById with Row Component ID
      * @tc.level  : Level 0
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0020', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0020', Level.LEVEL0, async (done: Function) => {
       let driver = Driver.create();
       await driver.delayMs(2000);
       let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById('Test0020');
@@ -87,11 +87,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0030
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0030
      * @tc.desc   : Test getRectangleById with Rect Component ID
      * @tc.level  : Level 0
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0030', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0030', Level.LEVEL0, async (done: Function) => {
       let driver = Driver.create();
       await driver.delayMs(2000);
       let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById('Test0030');
@@ -110,11 +110,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0040
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0040
      * @tc.desc   : Test getRectangleById with False Component ID
      * @tc.level  : Level 2
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0040', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0040', Level.LEVEL2, async (done: Function) => {
       let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById('123456');
       console.info("SUB_ComponentUtils_getRectangleById_Func_0040 modePosition data is : " + JSON.stringify(modePosition));
 
@@ -130,11 +130,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0050
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0050
      * @tc.desc   : Test getRectangleById with null
      * @tc.level  : Level 2
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0050', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0050', Level.LEVEL2, async (done: Function) => {
       try {
         let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById(null);
         console.info("SUB_ComponentUtils_getRectangleById_Func_0050 modePosition data is : " + JSON.stringify(modePosition));
@@ -148,11 +148,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0060
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0060
      * @tc.desc   : Test getRectangleById with undefined
      * @tc.level  : Level 2
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0060', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0060', Level.LEVEL2, async (done: Function) => {
       try {
         let modePosition: componentUtils.ComponentInfo = componentUtils.getRectangleById(undefined);
         console.info("SUB_ComponentUtils_getRectangleById_Func_0060 modePosition data is : " + JSON.stringify(modePosition));
@@ -166,11 +166,11 @@ export default function ComponentUtilsTest() {
 
     /**
      * @tc.number : SUB_ComponentUtils_getRectangleById_Func_0070
-     * @tc.name   : getRectangleById
+     * @tc.name   : SUB_ComponentUtils_getRectangleById_Func_0070
      * @tc.desc   : Test getRectangleById with dynamic data scenarios
      * @tc.level  : Level 1
      */
-    it('SUB_ComponentUtils_getRectangleById_Func_0070', 0, async (done: Function) => {
+    it('SUB_ComponentUtils_getRectangleById_Func_0070', Level.LEVEL1, async (done: Function) => {
       let driver = Driver.create();
       await driver.delayMs(2000);
       let modePositionBefore: componentUtils.ComponentInfo = componentUtils.getRectangleById('Test0040');
