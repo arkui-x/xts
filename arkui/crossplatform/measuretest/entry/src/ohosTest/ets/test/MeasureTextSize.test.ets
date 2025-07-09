@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium'
 import measure from '@ohos.measure'
 import deviceInfo from '@ohos.deviceInfo';
 import { getResult } from '../testability/pages/Index';
@@ -70,7 +70,7 @@ function sleep(ms: number): Promise<void> {
 
 export default function MeasureTextSizeTest() {
   describe('MeasureTextSizeTest', () => {
-    beforeAll(async() => {
+    beforeAll(async () => {
       await sleep(waitReadyMs_1000);
       textContentResult_width_base = measure.measureTextSize({
         textContent: 'This\'s a test text.'
@@ -195,20 +195,21 @@ export default function MeasureTextSizeTest() {
         wordBreak: WordBreak.BREAK_WORD
       }).height
     })
-    beforeEach(async() => {
+    beforeEach(async () => {
       await sleep(waitReadyMs_50);
     })
-    afterAll(async() => {
+    afterAll(async () => {
       await sleep(waitReadyMs_2000);
     })
 
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0010
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0010
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0010', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0010', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s another test text.',
@@ -219,20 +220,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0010 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0020
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0020
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0020', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0020', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureTextSize_0020.width).assertLarger(0);
@@ -242,20 +244,21 @@ export default function MeasureTextSizeTest() {
           expect(getResult().MeasureTextSize_0020.height).assertLarger(0);
         }
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0020 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0030
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0030
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0030', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0030', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text.',
@@ -266,20 +269,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0030 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0040
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0040
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0040', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0040', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: 'This\’s a test text。',
@@ -290,20 +294,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0040 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0050
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0050
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0050', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0050', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: '中文文本',
@@ -314,20 +319,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0050 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0060
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0060
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0060', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0060', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text.加入中文',
@@ -338,20 +344,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0060 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0070
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0070
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0070', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0070', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text.加入中文与全角符号。！',
@@ -362,20 +369,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertLarger(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0070 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0080
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0080
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0080', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0080', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: '',
@@ -386,20 +394,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertEqual(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0080 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0090
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0090
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0090', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0090', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: $r('app.media.icon'),
@@ -410,20 +419,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertEqual(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0090 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0100
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0100
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0100', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0100', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: null,
@@ -434,20 +444,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertEqual(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0100 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0110
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0110
      * @tc.desc   : Test the textContent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0110', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0110', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_width_test = measure.measureTextSize({
           textContent: undefined,
@@ -458,20 +469,21 @@ export default function MeasureTextSizeTest() {
         expect(textContentResult_width_test).assertEqual(0);
         expect(textContentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0110 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0120
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0120
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0120', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0120', Level.LEVEL0, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -484,20 +496,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0120 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0130
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0130
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0130', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0130', Level.LEVEL0, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -510,20 +523,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0130 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0140
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0140
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0140', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0140', Level.LEVEL0, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -536,20 +550,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0140 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0150
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0150
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0150', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0150', Level.LEVEL0, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -562,20 +577,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0150 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0160
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0160
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0160', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0160', Level.LEVEL0, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -588,20 +604,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0160 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0170
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0170
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0170', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0170', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureTextSize_0170.width).assertLarger(0);
@@ -611,20 +628,21 @@ export default function MeasureTextSizeTest() {
           expect(getResult().MeasureTextSize_0170.height).assertLarger(0);
         }
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0170 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0180
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0180
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0180', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0180', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -637,20 +655,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertEqual(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0180 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0190
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0190
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0190', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0190', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -663,20 +682,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertEqual(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0190 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0200
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0200
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0200', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0200', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -689,20 +709,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertEqual(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0200 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0210
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0210
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0210', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0210', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -715,20 +736,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertEqual(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0210 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0220
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0220
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0220', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0220', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -741,20 +763,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertEqual(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0220 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0230
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0230
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0230', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0230', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -767,20 +790,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0230 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0240
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0240
      * @tc.desc   : Test the constraintWidth property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0240', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0240', Level.LEVEL2, async (done: Function) => {
       try {
         let constraintWidthResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -793,20 +817,21 @@ export default function MeasureTextSizeTest() {
         expect(constraintWidthResult_width_test).assertLarger(0);
         expect(constraintWidthResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0240 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0250
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0250
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0250', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0250', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -819,20 +844,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0250 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0260
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0260
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0260', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0260', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -845,20 +871,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0260 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0270
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0270
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0270', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0270', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -871,20 +898,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0270 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0280
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0280
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0280', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0280', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -897,20 +925,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0280 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0290
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0290
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0290', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0290', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -923,20 +952,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0290 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0300
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0300
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0300', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0300', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureTextSize_0300.width).assertLarger(0);
@@ -946,20 +976,21 @@ export default function MeasureTextSizeTest() {
           expect(getResult().MeasureTextSize_0300.height).assertLarger(0);
         }
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0300 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0310
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0310
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0310', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0310', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -972,20 +1003,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0310 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0320
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0320
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0320', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0320', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -998,20 +1030,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0320 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0330
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0330
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0330', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0330', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1024,20 +1057,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0330 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0340
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0340
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0340', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0340', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1050,20 +1084,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0340 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0350
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0350
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0350', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0350', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1076,20 +1111,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0350 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0360
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0360
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0360', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0360', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1102,20 +1138,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0360 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0370
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0370
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0370', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0370', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1128,20 +1165,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0370 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0380
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0380
      * @tc.desc   : Test the fontSize property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0380', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0380', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1154,20 +1192,21 @@ export default function MeasureTextSizeTest() {
         expect(fontSizeResult_width_test).assertLarger(0);
         expect(fontSizeResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0380 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0390
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0390
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0390', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0390', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1180,20 +1219,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0390 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0400
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0400
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0400', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0400', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1206,20 +1246,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0400 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0410
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0410
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0410', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0410', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1232,20 +1273,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0410 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0420
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0420
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0420', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0420', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1258,20 +1300,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0420 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0430
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0430
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0430', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0430', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1284,20 +1327,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0430 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0440
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0440
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0440', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0440', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1310,20 +1354,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0440 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0450
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0450
      * @tc.desc   : Test the fontStyle property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0450', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0450', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1336,20 +1381,21 @@ export default function MeasureTextSizeTest() {
         expect(fontStyleResult_width_test).assertLarger(0);
         expect(fontStyleResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0450 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0460
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0460
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0460', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0460', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1362,20 +1408,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0460 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0470
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0470
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0470', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0470', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1388,20 +1435,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0470 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0480
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0480
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0480', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0480', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1414,20 +1462,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0480 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0490
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0490
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0490', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0490', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1440,20 +1489,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0490 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0500
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0500
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0500', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0500', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1466,20 +1516,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0500 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0510
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0510
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0510', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0510', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1492,20 +1543,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0510 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0520
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0520
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0520', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0520', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1518,20 +1570,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0520 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0530
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0530
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0530', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0530', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1544,20 +1597,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0530 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0540
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0540
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0540', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0540', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1570,20 +1624,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0540 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0550
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0550
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0550', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0550', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1596,20 +1651,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0550 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0560
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0560
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0560', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0560', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1622,20 +1678,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0560 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0570
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0570
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0570', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0570', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1648,20 +1705,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0570 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0580
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0580
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0580', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0580', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1674,20 +1732,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0580 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0590
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0590
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0590', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0590', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1700,20 +1759,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0590 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0600
      * @tc.name   : MeasureTextSize
      * @tc.desc   : Test the fontWeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0600', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0600', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1726,20 +1786,21 @@ export default function MeasureTextSizeTest() {
         expect(fontWeightResult_width_test).assertLarger(0);
         expect(fontWeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0600 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0610
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0610
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0610', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0610', Level.LEVEL0, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1752,20 +1813,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0610 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0620
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0620
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0620', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0620', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureTextSize_0620.width).assertLarger(0);
@@ -1775,20 +1837,21 @@ export default function MeasureTextSizeTest() {
           expect(getResult().MeasureTextSize_0620.height).assertLarger(0);
         }
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0620 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0630
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0630
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0630', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0630', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1801,20 +1864,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0630 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0640
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0640
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0640', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0640', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1827,20 +1891,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0640 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0650
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0650
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0650', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0650', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1853,20 +1918,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0650 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0660
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0660
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0660', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0660', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1879,20 +1945,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0660 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0670
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0670
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0670', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0670', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1905,20 +1972,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0670 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0680
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0680
      * @tc.desc   : Test the fontFamily property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0680', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0680', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1931,20 +1999,21 @@ export default function MeasureTextSizeTest() {
         expect(fontFamilyResult_width_test).assertLarger(0);
         expect(fontFamilyResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0680 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0690
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0690
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0690', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0690', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1957,20 +2026,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0690 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0700
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0700
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0700', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0700', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -1983,20 +2053,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0700 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0710
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0710
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0710', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0710', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2009,20 +2080,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0710 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0720
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0720
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0720', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0720', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2035,20 +2107,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0720 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0730
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0730
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0730', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0730', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2061,20 +2134,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0730 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0740
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0740
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0740', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0740', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2087,20 +2161,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0740 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0750
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0750
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0750', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0750', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2113,20 +2188,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0750 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0760
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0760
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0760', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0760', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2139,20 +2215,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0760 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0770
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0770
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0770', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0770', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2165,20 +2242,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0770 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0780
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0780
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0780', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0780', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2191,20 +2269,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0780 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0790
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0790
      * @tc.desc   : Test the letterSpacing property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0790', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0790', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2217,20 +2296,21 @@ export default function MeasureTextSizeTest() {
         expect(letterSpacingResult_width_test).assertLarger(0);
         expect(letterSpacingResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0790 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0800
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0800
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0800', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0800', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2243,20 +2323,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0800 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0810
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0810
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0810', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0810', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2269,20 +2350,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0810 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0820
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0820
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0820', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0820', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2295,20 +2377,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0820 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0830
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0830
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0830', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0830', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2321,20 +2404,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0830 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0840
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0840
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0840', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0840', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2347,20 +2431,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0840 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0850
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0850
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0850', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0850', Level.LEVEL0, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2373,20 +2458,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0850 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0860
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0860
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0860', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0860', Level.LEVEL2, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2399,20 +2485,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0860 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0870
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0870
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0870', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0870', Level.LEVEL2, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2425,20 +2512,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0870 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0880
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0880
      * @tc.desc   : Test the textAlign property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0880', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0880', Level.LEVEL2, async (done: Function) => {
       try {
         let textAlignResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2451,20 +2539,21 @@ export default function MeasureTextSizeTest() {
         expect(textAlignResult_width_test).assertLarger(0);
         expect(textAlignResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0880 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0890
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0890
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0890', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0890', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2477,20 +2566,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0890 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0900
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0900
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0900', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0900', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2503,20 +2593,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0900 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0910
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0910
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0910', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0910', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2529,20 +2620,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0910 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0920
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0920
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0920', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0920', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2555,20 +2647,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0920 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0930
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0930
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0930', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0930', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2581,20 +2674,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0930 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0940
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0940
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0940', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0940', Level.LEVEL0, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2607,20 +2701,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0940 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0950
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0950
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0950', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0950', Level.LEVEL2, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2633,20 +2728,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0950 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0960
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0960
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0960', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0960', Level.LEVEL2, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2659,20 +2755,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0960 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0970
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0970
      * @tc.desc   : Test the overflow property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_0970', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0970', Level.LEVEL2, async (done: Function) => {
       try {
         let overflowResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2685,20 +2782,21 @@ export default function MeasureTextSizeTest() {
         expect(overflowResult_width_test).assertLarger(0);
         expect(overflowResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0970 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0980
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0980
      * @tc.desc   : Test the maxLines property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0980', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0980', Level.LEVEL0, async (done: Function) => {
       try {
         let maxLinesResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2713,20 +2811,21 @@ export default function MeasureTextSizeTest() {
         expect(maxLinesResult_width_test).assertLarger(0);
         expect(maxLinesResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0980 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_0990
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_0990
      * @tc.desc   : Test the maxLines property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_0990', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_0990', Level.LEVEL0, async (done: Function) => {
       try {
         let maxLinesResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2741,20 +2840,21 @@ export default function MeasureTextSizeTest() {
         expect(maxLinesResult_width_test).assertLarger(0);
         expect(maxLinesResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_0990 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1000
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1000
      * @tc.desc   : Test the maxLines property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1000', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1000', Level.LEVEL2, async (done: Function) => {
       try {
         let maxLinesResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2769,20 +2869,21 @@ export default function MeasureTextSizeTest() {
         expect(maxLinesResult_width_test).assertLarger(0);
         expect(maxLinesResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1000 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1010
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1010
      * @tc.desc   : Test the maxLines property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1010', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1010', Level.LEVEL2, async (done: Function) => {
       try {
         let maxLinesResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2797,20 +2898,21 @@ export default function MeasureTextSizeTest() {
         expect(maxLinesResult_width_test).assertLarger(0);
         expect(maxLinesResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1010 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1020
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1020
      * @tc.desc   : Test the maxLines property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1020', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1020', Level.LEVEL2, async (done: Function) => {
       try {
         let maxLinesResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2825,20 +2927,21 @@ export default function MeasureTextSizeTest() {
         expect(maxLinesResult_width_test).assertLarger(0);
         expect(maxLinesResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1020 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1030
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1030
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1030', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1030', Level.LEVEL0, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2851,20 +2954,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1030 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1040
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1040
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1040', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1040', Level.LEVEL0, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2877,20 +2981,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1040 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1050
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1050
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1050', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1050', Level.LEVEL0, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2903,20 +3008,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1050 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1060
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1060
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1060', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1060', Level.LEVEL0, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2929,20 +3035,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1060 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1070
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1070
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1070', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1070', Level.LEVEL0, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -2955,20 +3062,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1070 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1080
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1080
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1080', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1080', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureTextSize_1080.width).assertLarger(0);
@@ -2978,20 +3086,21 @@ export default function MeasureTextSizeTest() {
           expect(getResult().MeasureTextSize_1080.height).assertLarger(0);
         }
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1080 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1090
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1090
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1090', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1090', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3004,20 +3113,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1090 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1100
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1100
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1100', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1100', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3030,20 +3140,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1100 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1110
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1110
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1110', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1110', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3056,20 +3167,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1110 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1120
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1120
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1120', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1120', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3082,20 +3194,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1120 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1130
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1130
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1130', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1130', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3108,20 +3221,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1130 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1140
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1140
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1140', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1140', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3134,20 +3248,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1140 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1150
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1150
      * @tc.desc   : Test the lineHeight property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1150', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1150', Level.LEVEL2, async (done: Function) => {
       try {
         let lineHeightResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3160,20 +3275,21 @@ export default function MeasureTextSizeTest() {
         expect(lineHeightResult_width_test).assertLarger(0);
         expect(lineHeightResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1150 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1160
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1160
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1160', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1160', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3186,20 +3302,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1160 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1170
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1170
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1170', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1170', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3212,20 +3329,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1170 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1180
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1180
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1180', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1180', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3238,20 +3356,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1180 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1190
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1190
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1190', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1190', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3264,20 +3383,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1190 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1200
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1200
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1200', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1200', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3290,20 +3410,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1200 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1210
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1210
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1210', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1210', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3316,20 +3437,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1210 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1220
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1220
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1220', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1220', Level.LEVEL0, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3342,20 +3464,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1220 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1230
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1230
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1230', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1230', Level.LEVEL2, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3368,20 +3491,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1230 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1240
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1240
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1240', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1240', Level.LEVEL2, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3394,20 +3518,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1240 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1250
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1250
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1250', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1250', Level.LEVEL2, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3420,20 +3545,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1250 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1260
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1260
      * @tc.desc   : Test the baselineOffset property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1260', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1260', Level.LEVEL2, async (done: Function) => {
       try {
         let baselineOffsetResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3446,20 +3572,21 @@ export default function MeasureTextSizeTest() {
         expect(baselineOffsetResult_width_test).assertLarger(0);
         expect(baselineOffsetResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1260 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1270
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1270
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1270', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1270', Level.LEVEL0, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3472,20 +3599,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1270 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1280
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1280
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1280', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1280', Level.LEVEL0, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3498,20 +3626,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1280 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1290
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1290
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1290', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1290', Level.LEVEL0, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3524,20 +3653,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1290 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1300
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1300
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1300', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1300', Level.LEVEL0, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3550,20 +3680,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1300 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1310
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1310
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1310', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1310', Level.LEVEL0, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3576,20 +3707,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1310 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1320
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1320
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1320', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1320', Level.LEVEL2, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3602,20 +3734,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1320 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1330
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1330
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1330', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1330', Level.LEVEL2, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3628,20 +3761,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1330 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1340
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1340
      * @tc.desc   : Test the textCase property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1340', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1340', Level.LEVEL2, async (done: Function) => {
       try {
         let textCaseResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3654,20 +3788,21 @@ export default function MeasureTextSizeTest() {
         expect(textCaseResult_width_test).assertLarger(0);
         expect(textCaseResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1340 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1350
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1350
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1350', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1350', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3684,20 +3819,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1350 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1360
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1360
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1360', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1360', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3714,20 +3850,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1360 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1370
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1370
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1370', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1370', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3744,20 +3881,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1370 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1380
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1380
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1380', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1380', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3774,20 +3912,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1380 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1390
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1390
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1390', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1390', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3804,20 +3943,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1390 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1400
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1400
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1400', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1400', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3834,20 +3974,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1400 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1410
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1410
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1410', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1410', Level.LEVEL0, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3864,20 +4005,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1410 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1420
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1420
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1420', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1420', Level.LEVEL2, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3894,20 +4036,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1420 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1430
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1430
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1430', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1430', Level.LEVEL2, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3924,20 +4067,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1430 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1440
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1440
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1440', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1440', Level.LEVEL2, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3954,20 +4098,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1440 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1450
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1450
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1450', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1450', Level.LEVEL2, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -3984,20 +4129,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1450 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1460
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1460
      * @tc.desc   : Test the textIndent property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1460', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1460', Level.LEVEL2, async (done: Function) => {
       try {
         let textIndentResult_width_test = measure.measureTextSize({
           textContent: 'This\'s a test text',
@@ -4014,20 +4160,21 @@ export default function MeasureTextSizeTest() {
         expect(textIndentResult_width_test).assertLarger(0);
         expect(textIndentResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1460 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1470
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1470
      * @tc.desc   : Test the wordBreak property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1470', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1470', Level.LEVEL0, async (done: Function) => {
       try {
         let wordBreakResult_width_test = measure.measureTextSize({
           textContent: 'abcdefghigklmnopqrstuvwxyz',
@@ -4042,20 +4189,21 @@ export default function MeasureTextSizeTest() {
         expect(wordBreakResult_width_test).assertLarger(0);
         expect(wordBreakResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1470 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1480
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1480
      * @tc.desc   : Test the wordBreak property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1480', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1480', Level.LEVEL0, async (done: Function) => {
       try {
         let wordBreakResult_width_test = measure.measureTextSize({
           textContent: 'abcdefghigklmnopqrstuvwxyz',
@@ -4070,20 +4218,21 @@ export default function MeasureTextSizeTest() {
         expect(wordBreakResult_width_test).assertLarger(0);
         expect(wordBreakResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1480 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1490
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1490
      * @tc.desc   : Test the wordBreak property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureTextSize_Func_1490', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1490', Level.LEVEL0, async (done: Function) => {
       try {
         let wordBreakResult_width_test = measure.measureTextSize({
           textContent: 'abcdefghigklmnopqrstuvwxyz',
@@ -4098,20 +4247,21 @@ export default function MeasureTextSizeTest() {
         expect(wordBreakResult_width_test).assertLarger(0);
         expect(wordBreakResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1490 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1500
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1500
      * @tc.desc   : Test the wordBreak property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1500', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1500', Level.LEVEL2, async (done: Function) => {
       try {
         let wordBreakResult_width_test = measure.measureTextSize({
           textContent: 'abcdefghigklmnopqrstuvwxyz',
@@ -4126,20 +4276,21 @@ export default function MeasureTextSizeTest() {
         expect(wordBreakResult_width_test).assertLarger(0);
         expect(wordBreakResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1500 error' + err);
         done();
       }
     });
+
     /**
      * @tc.number : SUB_Measure_measureTextSize_Func_1510
-     * @tc.name   : MeasureTextSize
+     * @tc.name   : SUB_Measure_measureTextSize_Func_1510
      * @tc.desc   : Test the wordBreak property of the measureTextSize
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureTextSize_Func_1510', 0, async (done: Function) => {
+    it('SUB_Measure_measureTextSize_Func_1510', Level.LEVEL2, async (done: Function) => {
       try {
         let wordBreakResult_width_test = measure.measureTextSize({
           textContent: 'abcdefghigklmnopqrstuvwxyz',
@@ -4154,8 +4305,7 @@ export default function MeasureTextSizeTest() {
         expect(wordBreakResult_width_test).assertLarger(0);
         expect(wordBreakResult_height_test).assertLarger(0);
         done();
-      }
-      catch (err) {
+      } catch (err) {
         expect(err).assertFail();
         console.info('SUB_Measure_measureTextSize_Func_1510 error' + err);
         done();

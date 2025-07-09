@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
 import measure from '@ohos.measure'
 import deviceInfo from '@ohos.deviceInfo';
@@ -86,13 +86,15 @@ export default function MeasureTextTest() {
       await sleep(waitReadyMs_50);
     })
 
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0010
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0010
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0010', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0010', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: 'This\'s another test text.',
@@ -105,13 +107,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0020
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0020
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0020', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0020', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureText_0020).assertLarger(textContentResult_base);
@@ -125,13 +129,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0030
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0030
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0030', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0030', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: 'This\'s a test text.',
@@ -144,13 +150,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0040
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0040
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0040', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0040', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: 'This\’s a test text。',
@@ -163,13 +171,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0050
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0050
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0050', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0050', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: '中文文本',
@@ -182,13 +192,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0060
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0060
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0060', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0060', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: 'This\'s a test text.加入中文',
@@ -201,13 +213,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0070
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0070
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0070', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0070', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: 'This\'s a test text.加入中文与全角符号。！',
@@ -220,13 +234,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0080
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0080
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0080', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0080', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: '',
@@ -239,13 +255,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0090
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0090
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0090', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0090', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: $r('app.media.icon'),
@@ -258,13 +276,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0100
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0100
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0100', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0100', Level.LEVEL0, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: null,
@@ -277,13 +297,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0110
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0110
      * @tc.desc   : Test the textContent property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0110', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0110', Level.LEVEL2, async (done: Function) => {
       try {
         let textContentResult_test = measure.measureText({
           textContent: undefined,
@@ -296,13 +318,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0120
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0120
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0120', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0120', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -316,13 +340,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0130
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0130
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0130', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0130', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -336,13 +362,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0140
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0140
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0140', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0140', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -356,13 +384,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0150
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0150
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0150', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0150', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -376,13 +406,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0160
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0160
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0160', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0160', Level.LEVEL0, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -396,13 +428,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0170
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0170
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0170', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0170', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureText_0170).assertLarger(0);
@@ -416,17 +450,19 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0180
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0180
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0180', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0180', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
-          fontSize: 0,
+          fontSize: Level.LEVEL0,
         })
         expect(fontSizeResult_test).assertLargerOrEqual(0);
       }
@@ -436,13 +472,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0190
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0190
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0190', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0190', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -456,13 +494,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0200
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0200
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0200', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0200', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -476,13 +516,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0210
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0210
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0210', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0210', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -496,13 +538,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0220
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0220
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0220', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0220', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -516,13 +560,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0230
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0230
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0230', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0230', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -536,13 +582,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0240
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0240
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0240', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0240', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -556,13 +604,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0250
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0250
      * @tc.desc   : Test the fontSize property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0250', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0250', Level.LEVEL2, async (done: Function) => {
       try {
         let fontSizeResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -576,13 +626,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0260
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0260
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0260', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0260', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -596,17 +648,19 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0270
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0270
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0270', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0270', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
-          fontStyle: 0,
+          fontStyle: Level.LEVEL0,
         })
         expect(fontStyleResult_test).assertLarger(0);
       }
@@ -616,13 +670,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0280
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0280
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0280', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0280', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -636,13 +692,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0290
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0290
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0290', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0290', Level.LEVEL0, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -656,13 +714,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0300
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0300
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0300', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0300', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -676,13 +736,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0310
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0310
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0310', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0310', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -696,13 +758,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0320
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0320
      * @tc.desc   : Test the fontStyle property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0320', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0320', Level.LEVEL2, async (done: Function) => {
       try {
         let fontStyleResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -716,13 +780,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0330
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0330
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0330', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0330', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -736,13 +802,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0340
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0340
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0340', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0340', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -756,13 +824,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0350
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0350
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0350', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0350', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -776,13 +846,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0360
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0360
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0360', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0360', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -796,13 +868,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0370
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0370
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0370', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0370', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -816,13 +890,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0380
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0380
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0380', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0380', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -836,13 +912,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0390
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0390
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0390', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0390', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -856,13 +934,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0400
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0400
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0400', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0400', Level.LEVEL0, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -876,17 +956,19 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0410
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0410
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0410', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0410', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
-          fontWeight: 0,
+          fontWeight: Level.LEVEL0,
         })
         expect(fontWeightResult_test).assertLarger(0);
       }
@@ -896,13 +978,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0420
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0420
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0420', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0420', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -916,13 +1000,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0430
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0430
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0430', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0430', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -936,13 +1022,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0440
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0440
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0440', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0440', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -956,13 +1044,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0450
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0450
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0450', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0450', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -976,13 +1066,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0460
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0460
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0460', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0460', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -996,13 +1088,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0470
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0470
      * @tc.desc   : Test the fontWeight property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0470', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0470', Level.LEVEL2, async (done: Function) => {
       try {
         let fontWeightResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1016,13 +1110,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0480
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0480
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0480', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0480', Level.LEVEL0, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1036,13 +1132,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0490
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0490
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0490', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0490', Level.LEVEL0, async (done: Function) => {
       try {
         if (platform != "Android" && platform != "iOS") {
           expect(globalThis.MeasureText_0490).assertLarger(0);
@@ -1056,13 +1154,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0500
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0500
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0500', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0500', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1076,13 +1176,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0510
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0510
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0510', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0510', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1096,13 +1198,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0520
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0520
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0520', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0520', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1116,13 +1220,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0530
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0530
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0530', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0530', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1136,13 +1242,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0540
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0540
      * @tc.desc   : Test the fontFamily property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0540', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0540', Level.LEVEL2, async (done: Function) => {
       try {
         let fontFamilyResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1156,13 +1264,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0550
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0550
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0550', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0550', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1176,17 +1286,19 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0560
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0560
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0560', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0560', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
-          letterSpacing: 0,
+          letterSpacing: Level.LEVEL0,
         })
         expect(letterSpacingResult_test).assertLarger(0);
       }
@@ -1196,13 +1308,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0570
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0570
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0570', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0570', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1216,13 +1330,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0580
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0580
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0580', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0580', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1236,13 +1352,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0590
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0590
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0590', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0590', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1256,13 +1374,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0600
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0600
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0600', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0600', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1276,13 +1396,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0610
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0610
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 0
      */
-    it('SUB_Measure_measureText_Func_0610', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0610', Level.LEVEL0, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1296,13 +1418,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0620
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0620
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0620', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0620', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1316,13 +1440,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0630
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0630
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0630', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0630', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1336,13 +1462,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0640
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0640
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0640', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0640', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
@@ -1356,13 +1484,15 @@ export default function MeasureTextTest() {
       }
       done();
     });
+
     /**
      * @tc.number : SUB_Measure_measureText_Func_0650
-     * @tc.name   : MeasureText
+     * @tc.name   : SUB_Measure_measureText_Func_0650
      * @tc.desc   : Test the letterSpacing property of the measureText
+     * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_Measure_measureText_Func_0650', 0, async (done: Function) => {
+    it('SUB_Measure_measureText_Func_0650', Level.LEVEL2, async (done: Function) => {
       try {
         let letterSpacingResult_test = measure.measureText({
           textContent: 'This\'s a test text',
