@@ -575,6 +575,62 @@ export default function fileIOMoveDir() {
     });
 
     /**
+     * @tc.number SUB_DF_FILEIO_MOVEDIRSYNC_1300
+     * @tc.name fileIO_test_moveDir_sync_013
+     * @tc.desc Test moveDirSync() interface.
+     * There is no target folder(src) under path dest.
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 0
+     * @tc.require
+     */
+    it('fileIO_test_moveDir_sync_013', Level.LEVEL0, async () => {
+      let dpath = await nextFileName('fileIO_test_moveDir_sync_013');
+      let ddpath1 = dpath + '/srcDir';
+      let ddpath2 = dpath + '/destDir';
+      let fpath1 = ddpath1 + '/srcFile_first_01';
+      let fpath2 = ddpath1 + '/srcFile_first_02';
+      let dddpath = ddpath1 + '/srcDir_first';
+      let ffpath1 = dddpath + '/srcFile_second_01';
+      let ffpath2 = dddpath + '/srcFile_second_02';
+      fileIO.mkdirSync(dpath);
+      fileIO.mkdirSync(ddpath1);
+      fileIO.mkdirSync(ddpath2);
+      fileIO.mkdirSync(dddpath);
+      expect(prepareFile(fpath1, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(fpath2, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(ffpath1, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(ffpath2, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = fileIO.openSync(fpath1, fileIO.OpenMode.READ_WRITE);
+        let buf = new ArrayBuffer(4096);
+        let readLen = fileIO.readSync(file.fd, buf);
+        let reuslt = buffer.from(buf, 0, readLen);
+        let stat1 = fileIO.statSync(fpath1);
+        let stat2 = fileIO.statSync(ffpath1);
+        fileIO.moveDirSync(ddpath1, ddpath2);
+        expect(fileIO.accessSync(ddpath1)).assertFalse();
+        expect(fileIO.accessSync(ddpath2 + '/srcDir/srcFile_first_01')).assertTrue();
+        expect(fileIO.accessSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01')).assertTrue();
+
+        let stat3 = fileIO.statSync(ddpath2 + '/srcDir/srcFile_first_01');
+        expect(stat1.size == stat3.size).assertTrue();
+        let stat4 = fileIO.statSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01');
+        expect(stat2.size == stat4.size).assertTrue();
+
+        let str1 = fileIO.readTextSync(ddpath2 + '/srcDir/srcFile_first_01');
+        let str2 = fileIO.readTextSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01');
+        expect(str1 == FILE_CONTENT).assertTrue();
+        expect(str2 == FILE_CONTENT).assertTrue();
+        fileIO.rmdirSync(dpath);
+      } catch (e) {
+        console.log('fileIO_test_moveDir_sync_013 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
      * @tc.number SUB_DF_FILEIO_MOVEDIR_ASYNC_0000
      * @tc.name fileIO_test_moveDir_async_000
      * @tc.desc Test moveDir() interface.Promise.
@@ -1462,6 +1518,59 @@ export default function fileIOMoveDir() {
         });
       } catch (e) {
         console.log('fileIO_test_moveDir_async_025 has failed for ' + e.message + ', code: ' + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number SUB_DF_FILEIO_MOVEDIR_ASYNC_2600
+     * @tc.name fileIO_test_moveDir_async_026
+     * @tc.desc Test moveDir() interface.Promise.
+     * There is no target folder(src) under path dest.
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     * @tc.require
+     */
+    it('fileIO_test_moveDir_async_026', Level.LEVEL3, async (done: Function) => {
+      let dpath = await nextFileName('fileIO_test_moveDir_async_026');
+      let ddpath1 = dpath + '/srcDir';
+      let ddpath2 = dpath + '/destDir';
+      let fpath1 = ddpath1 + '/srcFile_first_01';
+      let fpath2 = ddpath1 + '/srcFile_first_02';
+      let dddpath = ddpath1 + '/srcDir_first';
+      let ffpath1 = dddpath + '/srcFile_second_01';
+      let ffpath2 = dddpath + '/srcFile_second_02';
+      fileIO.mkdirSync(dpath);
+      fileIO.mkdirSync(ddpath1);
+      fileIO.mkdirSync(ddpath2);
+      fileIO.mkdirSync(dddpath);
+      expect(prepareFile(fpath1, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(fpath2, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(ffpath1, FILE_CONTENT)).assertTrue();
+      expect(prepareFile(ffpath2, FILE_CONTENT)).assertTrue();
+
+      try {
+        let stat1 = fileIO.statSync(fpath1);
+        let stat2 = fileIO.statSync(ffpath1);
+        await fileIO.moveDir(ddpath1, ddpath2);
+        expect(fileIO.accessSync(ddpath1)).assertFalse();
+        expect(fileIO.accessSync(ddpath2 + '/srcDir/srcFile_first_01')).assertTrue();
+        expect(fileIO.accessSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01')).assertTrue();
+
+        let stat3 = fileIO.statSync(ddpath2 + '/srcDir/srcFile_first_01');
+        expect(stat1.size == stat3.size).assertTrue();
+        let stat4 = fileIO.statSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01');
+        expect(stat2.size == stat4.size).assertTrue();
+
+        let str1 = fileIO.readTextSync(ddpath2 + '/srcDir/srcFile_first_01');
+        expect(str1 == FILE_CONTENT).assertTrue();
+        let str2 = fileIO.readTextSync(ddpath2 + '/srcDir/srcDir_first/srcFile_second_01');
+        expect(str2 == FILE_CONTENT).assertTrue();
+        fileIO.rmdirSync(dpath);
+        done();
+      } catch (e) {
+        console.log('fileIO_test_moveDir_async_000 has failed for ' + e.message + ', code: ' + e.code);
         expect(false).assertTrue();
       }
     });

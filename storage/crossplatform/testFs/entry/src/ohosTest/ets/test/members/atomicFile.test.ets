@@ -22,6 +22,15 @@ import { common } from '@kit.AbilityKit';
 export default function fileIOAtomicFile() {
   describe('fileIO_atomicFile', () => {
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0000
+     * @tc.name   : fileIO_test_atomicFile_000
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, when path is invalid
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it("fileIO_test_atomicFile_000", Level.LEVEL0, () => {
       try {
         let file1 = new fileIO.AtomicFile("");
@@ -32,6 +41,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0100
+     * @tc.name   : fileIO_test_atomicFile_001
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, when path is file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_001', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test1.txt";
@@ -48,6 +66,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0200
+     * @tc.name   : fileIO_test_atomicFile_002
+     * @tc.desc   : Test AtomicFile constructor.
+     * startWrite create writeStream and write content to file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_002', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test2.txt";
@@ -70,6 +97,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0300
+     * @tc.name   : fileIO_test_atomicFile_003
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, when parentPath is not exist
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_003', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "/test3/test3.txt";
@@ -82,6 +118,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0400
+     * @tc.name   : fileIO_test_atomicFile_004
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, use readFully to read the entire content of the file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_004', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + "test4.txt";
@@ -100,6 +145,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0500
+     * @tc.name   : fileIO_test_atomicFile_005
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, use openRead to read the entire content of the file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_005', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test5.txt';
@@ -121,10 +175,20 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0600
+     * @tc.name   : fileIO_test_atomicFile_006
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, use openRead to read the entire content of the file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_006', Level.LEVEL0, () => {
       console.log('fileIO_test_atomicFile_006 begin');
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test6.txt';
+      expect(prepareFile(filepath, "fileIO_test_atomicFile_006")).assertTrue();
 
       try {
         let file = new fileIO.AtomicFile(filepath);
@@ -144,6 +208,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0700
+     * @tc.name   : fileIO_test_atomicFile_007
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create atomicFile object, use readFully read content form one file to write another file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_007', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test7.txt';
@@ -173,6 +246,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0800
+     * @tc.name   : fileIO_test_atomicFile_008
+     * @tc.desc   : Test AtomicFile constructor.
+     * Use finishWrite to ensure the file is written successfully, and then use delete to delete the file
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_008', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test8.txt';
@@ -192,6 +274,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_0900
+     * @tc.name   : fileIO_test_atomicFile_009
+     * @tc.desc   : Test AtomicFile constructor.
+     * When the file has not been created, use getBaseFile to obtain the file object
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_009', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test9.txt';
@@ -205,6 +296,15 @@ export default function fileIOAtomicFile() {
       }
     });
 
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_1000
+     * @tc.name   : fileIO_test_atomicFile_0010
+     * @tc.desc   : Test AtomicFile constructor.
+     * startWrite() create one file name, getBaseFile() will get the file object
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
     it('fileIO_test_atomicFile_010', Level.LEVEL0, () => {
       let context = getContext() as common.UIAbilityContext;
       const filepath = context.filesDir + 'test10.txt';
@@ -219,6 +319,94 @@ export default function fileIOAtomicFile() {
         })
       } catch (e) {
         console.log('fileIO_test_atomicFile_010 has failed for ' + e.message);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_1100
+     * @tc.name   : fileIO_test_atomicFile_011
+     * @tc.desc   : Test AtomicFile constructor.
+     * startWrite() create an existing file and call finishWrite()
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
+    it('fileIO_test_atomicFile_011', Level.LEVEL0, () => {
+      let context = getContext() as common.UIAbilityContext;
+      const filepath = context.filesDir + 'test11.txt';
+      expect(prepareFile(filepath, "fileIO_test_atomicFile_011")).assertTrue();
+
+      try {
+        let file = new fileIO.AtomicFile(filepath);
+        let ws = file.startWrite();
+        file.finishWrite();
+        let stat = fileIO.statSync(filepath);
+        expect(stat.size == 0).assertTrue();
+        } catch (e) {
+        console.log('fileIO_test_atomicFile_011 has failed for ' + e.message);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_1200
+     * @tc.name   : fileIO_test_atomicFile_012
+     * @tc.desc   : Test AtomicFile constructor.
+     * Create an existing file, write new content and call readFully() to read the file content
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
+    it('fileIO_test_atomicFile_012', Level.LEVEL0, () => {
+      let context = getContext() as common.UIAbilityContext;
+      const filepath = context.filesDir + 'test12.txt';
+      expect(prepareFile(filepath, "fileIO_test_atomicFile_012")).assertTrue();
+
+      try {
+        let file = new fileIO.AtomicFile(filepath);
+        let ws = file.startWrite();
+        ws.write(FILE_CONTENT,"utf-8",()=> {
+          file.finishWrite();
+          setTimeout(() => {
+            let writeData = file.readFully();
+            let decoder = util.TextDecoder.create('utf-8');
+            let str = decoder.decodeToString(new Uint8Array(writeData));
+            expect(str === FILE_CONTENT).assertTrue();
+          }, 1000)
+        })
+      } catch (e) {
+        console.log('fileIO_test_atomicFile_012 has failed for ' + e.message);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_DF_FILEIO_ATOMICFILE_1300
+     * @tc.name   : fileIO_test_atomicFile_013
+     * @tc.desc   : Test AtomicFile constructor.
+     * startWrite() create an existing file and call delete()
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 0
+     */
+    it('fileIO_test_atomicFile_013', Level.LEVEL0, () => {
+      let context = getContext() as common.UIAbilityContext;
+      const filepath = context.filesDir + 'test13.txt';
+      expect(prepareFile(filepath, "fileIO_test_atomicFile_013")).assertTrue();
+
+      try {
+        let file = new fileIO.AtomicFile(filepath);
+        let ws = file.startWrite();
+        file.delete();
+
+        let filenames = fileIO.listFileSync(`${context.filesDir}`);
+        for (let i = 0; i < filenames.length; i++) {
+          let fileName = filenames[i];
+          expect(fileName.includes("test13.txt", 0)).assertFalse();
+        }
+      } catch (e) {
+        console.log('fileIO_test_atomicFile_013 has failed for ' + e.message);
         expect(false).assertTrue();
       }
     });

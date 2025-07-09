@@ -54,6 +54,9 @@ import fileIOStreamWrite from './stream/write.test'
 import fileIOStreamClose from './stream/close.tes'
 import fileIOStreamFlush from './stream/flush.test'
 import fileIOCreateStreamRW from './stream/CreateStreamRW.test'
+import deviceInfo from '@ohos.deviceInfo';
+
+let osName:string = deviceInfo.osFullName;
 
 export default function testsuite() {
   fileIOClose();
@@ -80,7 +83,9 @@ export default function testsuite() {
   fileIOMoveFile();
   fileIOReadtext();
   fileIOListfile();
-  fileIOWatcher();
+  if (!osName.startsWith('iOS')) {
+    fileIOWatcher();
+  }
   fileIORandomAccessFileClose();
   fileIORandomAccessFileRead();
   fileIORandomAccessFileSetFilePointer();

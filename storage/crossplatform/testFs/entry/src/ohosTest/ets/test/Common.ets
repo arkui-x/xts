@@ -73,6 +73,18 @@ export function randomString(num:number) {
   return pwd;
 }
 
+function ArrayBufToString(buf: ArrayBuffer, length: number):string {
+  try {
+    let decoder = util.TextDecoder.create('utf-8');
+    let uint8Array = new Uint8Array(buf, 0, length);
+    let str = decoder.decodeToString(uint8Array);
+    return str;
+  } catch (e) {
+    console.log("Failed to ArrayBufToString for " + e);
+    return "";
+  }
+}
+
 function isIntNum(val:number) {
   return typeof val === "number" && val % 1 === 0;
 }
@@ -89,4 +101,4 @@ function isBoolean(val:boolean) {
   return typeof val == "boolean";
 }
 
-export { fileIO, isIntNum, isBigInt, isString, isBoolean, describe, it, expect, util, afterEach };
+export { fileIO, isIntNum, isBigInt, isString, isBoolean, describe, it, expect, util, afterEach , ArrayBufToString};

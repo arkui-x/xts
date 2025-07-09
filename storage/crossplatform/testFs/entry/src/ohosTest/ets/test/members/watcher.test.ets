@@ -83,7 +83,11 @@ function startWatcher(testNum: string, eventCode: number, watchPath: string) {
     console.log(testNum + ' startWatcher failed for ' + e.message + ', code: ' + e.code);
   }
   if (ret.watcher !== null) {
-    ret.watcher.start();
+    try {
+      ret.watcher.start();
+    } catch (e) {
+      console.log(testNum + ' watcher.start() failed for ' + e.message + ', code: ' + e.code);
+    }
   }
   return ret;
 }
