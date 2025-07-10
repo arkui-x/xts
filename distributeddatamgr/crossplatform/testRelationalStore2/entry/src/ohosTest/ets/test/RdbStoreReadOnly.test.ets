@@ -128,8 +128,11 @@ export default function RdbStoreReadOnlyTest() {
      * @tc.name testReadOnly0100
      * @tc.desc 1. set isReadOnly as true
      *          2. delete read-only database
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('testReadOnly0100', 0, async (done: Function) => {
+    it('testReadOnly0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       console.info(TAG + "************* testReadOnly0100 start *************");
       try {
         readOnlyStore3 = await relationalStore.getRdbStore(context, STORE_CONFIG3);
@@ -163,8 +166,11 @@ export default function RdbStoreReadOnlyTest() {
      * @tc.name testReadOnly0200
      * @tc.desc 1. set isReadOnly as true
      *          2. open read-only database if the database is not exist
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('testReadOnly0200', 0, async (done: Function) => {
+    it('testReadOnly0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       console.info(TAG + "************* testReadOnly0200 start *************");
       try {
         await relationalStore.deleteRdbStore(context, STORE_CONFIG1);

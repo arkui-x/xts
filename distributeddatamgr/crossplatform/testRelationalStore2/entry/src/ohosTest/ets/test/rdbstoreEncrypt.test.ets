@@ -55,8 +55,11 @@ export default function rdbstoreEncryptTest() {
      * @tc.name RdbEncryptTest_0010
      * @tc.number SUB_DDM_RDB_RdbEncryptTest_0010
      * @tc.desc RDB create encrypt db test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('RdbEncryptTest_0010', 0, async () => {
+    it('RdbEncryptTest_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       console.log(TAG + "************* RdbEncryptTest_0010 start *************")
       let STORE_CONFIG_NON_DEFAULT: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -89,8 +92,11 @@ export default function rdbstoreEncryptTest() {
      * @tc.name RdbEncryptTest_0020
      * @tc.number SUB_DDM_RDB_RdbEncryptTest_0020
      * @tc.desc RDB create unencrypted db test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('RdbEncryptTest_0020', 0, async () => {
+    it('RdbEncryptTest_0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       console.log(TAG + "************* RdbEncryptTest_0020 start *************")
       let STORE_CONFIG_NON_DEFAULT: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -123,8 +129,11 @@ export default function rdbstoreEncryptTest() {
      * @tc.name RdbDecryptTest_0030
      * @tc.number SUB_DDM_RDB_RdbDecryptTest_0030
      * @tc.desc RDB decrypt function invalid iteration config test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('RdbDecryptTest_0030', 0, async () => {
+    it('RdbDecryptTest_0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       console.info(TAG + "************* RdbDecryptTest_0030 start *************")
       let invalid_iter_config: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -153,8 +162,11 @@ export default function rdbstoreEncryptTest() {
      * @tc.name RdbDecryptTest_0040
      * @tc.number SUB_DDM_RDB_RdbDecryptTest_0040
      * @tc.desc RDB decrypt function invalid algorithm config test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
      */
-    it('RdbDecryptTest_0040', 0, async () => {
+    it('RdbDecryptTest_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       console.info(TAG + "************* RdbDecryptTest_0040 start *************")
       let invalid_algo_config: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
