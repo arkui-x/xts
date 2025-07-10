@@ -139,7 +139,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotContains_0001
-     * @tc.name Normal test case of predicates, test "notContains" for string value
+     * @tc.name testNotContains0001
      * @tc.desc 1.Execute notContains ("stringValue", "ABC")
      *          2.Query data
      * @tc.size MediumTest
@@ -160,7 +160,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotContains_0002
-     * @tc.name Normal test case of predicates, test "notContains" for  Chinese character value
+     * @tc.name testNotContains0002
      * @tc.desc 1.Execute notContains ("characterValue", "中")
      *          2.Query data
      * @tc.size MediumTest
@@ -181,7 +181,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotContains_0003
-     * @tc.name Normal test case of predicates, test "notContains" for character value
+     * @tc.name testNotContains0003
      * @tc.desc 1.Execute notContains ("characterValue", "#")
      *          2.Query data
      * @tc.size MediumTest
@@ -203,7 +203,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotContains_0004
-     * @tc.name Abnormal test case of predicates, test "notContains" for character value
+     * @tc.name testNotContains0004
      * @tc.desc 1.Execute notContains ("characterValue", null)
      *          2.Query data
      * @tc.size MediumTest
@@ -226,7 +226,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotLike_0001
-     * @tc.name Normal test case of predicates, test "notLike" for string value
+     * @tc.name testNotLike0001
      * @tc.desc 1.Execute notLike ("stringValue", "ABCDEFGHIJKLMN")
      *          2.Query data
      * @tc.size MediumTest
@@ -247,7 +247,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotLike_0002
-     * @tc.name Normal test case of predicates, test "notLike" for Chinese character value
+     * @tc.name testNotLike0002
      * @tc.desc 1.Execute notLike ("characterValue", "中")
      *          2.Query data
      * @tc.size MediumTest
@@ -268,7 +268,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotLike_0003
-     * @tc.name Normal test case of predicates, test "notLike" for character value
+     * @tc.name testNotLike0003
      * @tc.desc 1.Execute notLike ("characterValue", "#")
      *          2.Query data
      * @tc.size MediumTest
@@ -289,7 +289,7 @@ export default function relationalStorePredicatesTest() {
 
     /**
      * @tc.number SUB_DistributedData_RelationalStore_SDK_PredicatesEtsAPITest_NotLike_0004
-     * @tc.name Abnormal test case of predicates, test "notLike" for character value
+     * @tc.name testNotLike0004
      * @tc.desc 1.Execute notLike ("characterValue", null)
      *          2.Query data
      * @tc.size MediumTest

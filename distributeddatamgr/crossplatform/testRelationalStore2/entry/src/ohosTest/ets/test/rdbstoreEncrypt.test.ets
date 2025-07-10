@@ -49,11 +49,10 @@ export default function rdbstoreEncryptTest() {
       console.info(TAG + 'afterAll');
       await sleep(3000);
     });
-
     console.log(TAG + "*************Unit Test Begin*************");
 
     /**
-     * @tc.name RDB encrypted test
+     * @tc.name RdbEncryptTest_0010
      * @tc.number SUB_DDM_RDB_RdbEncryptTest_0010
      * @tc.desc RDB create encrypt db test
      */
@@ -87,7 +86,7 @@ export default function rdbstoreEncryptTest() {
     })
 
     /**
-     * @tc.name RDB unencrypted test
+     * @tc.name RdbEncryptTest_0020
      * @tc.number SUB_DDM_RDB_RdbEncryptTest_0020
      * @tc.desc RDB create unencrypted db test
      */
@@ -121,7 +120,7 @@ export default function rdbstoreEncryptTest() {
     })
 
     /**
-     * @tc.name RDB decrypt test
+     * @tc.name RdbDecryptTest_0030
      * @tc.number SUB_DDM_RDB_RdbDecryptTest_0030
      * @tc.desc RDB decrypt function invalid iteration config test
      */
@@ -151,7 +150,7 @@ export default function rdbstoreEncryptTest() {
     })
 
     /**
-     * @tc.name RDB decrypt test
+     * @tc.name RdbDecryptTest_0040
      * @tc.number SUB_DDM_RDB_RdbDecryptTest_0040
      * @tc.desc RDB decrypt function invalid algorithm config test
      */
@@ -179,7 +178,7 @@ export default function rdbstoreEncryptTest() {
       }
       console.info(TAG + "************* RdbDecryptTest_0040 end *************")
     })
-
+    
     console.log(TAG + "*************Unit Test End*************");
   })
 }

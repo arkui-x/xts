@@ -69,7 +69,7 @@ export default function RdbStoreValueTypeTest() {
     console.log(TAG + "*************Unit Test Begin*************");
 
     /**
-     * @tc.name the value type BigInt(45)
+     * @tc.name testValueType0001
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BigIntAPITest_0100
      * @tc.desc the value type BigInt(45)
      * @tc.size MediumTest
@@ -113,7 +113,7 @@ export default function RdbStoreValueTypeTest() {
     })
 
     /**
-     * @tc.name the value BigInt "15822401018187971961171"
+     * @tc.name testValueType0002
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BigIntAPITest_0200
      * @tc.desc the value BigInt "15822401018187971961171"
      * @tc.size MediumTest
@@ -158,7 +158,7 @@ export default function RdbStoreValueTypeTest() {
     })
 
     /**
-     * @tc.name the value update
+     * @tc.name testValueType0003
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BigIntAPITest_0300
      * @tc.desc the value update
      * @tc.size MediumTest

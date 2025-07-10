@@ -41,7 +41,7 @@ export default function error14800021Test() {
      * @tc.type      : Function
      * @tc.level     : Level 3
      */
-    it('SUB_DistributedData_RDB_SDK_ErrorCode14800021Test_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+    it('testSUBDistributedDataRDBSDKErrorCode14800021_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
       async (done: Function) => {
         rdbStore = await data_relationalStore.getRdbStore(context, STORE_CONFIG1);
         const SQL_DELETE_TABLE = 'DELETE FROM test1';

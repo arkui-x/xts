@@ -55,7 +55,7 @@ export default function relationalStoreErrorCodeTest() {
     })
 
     /**
-     * @tc.name transaction.querySql errcode is 401
+     * @tc.name errcode001
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0100
      * @tc.desc transaction.querySql errcode is 401
      * @tc.size MediumTest
@@ -79,7 +79,7 @@ export default function relationalStoreErrorCodeTest() {
     })
 
     /**
-     * @tc.name transaction.querySqlSync errcode is 401
+     * @tc.name errcode002
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0200
      * @tc.desc transaction.querySqlSync errcode is 401
      * @tc.size MediumTest
@@ -104,7 +104,7 @@ export default function relationalStoreErrorCodeTest() {
     })
 
     /**
-     * @tc.name transaction.executeSync errcode is 401
+     * @tc.name errcode003
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0300
      * @tc.desc transaction.executeSync errcode is 401
      * @tc.size MediumTest
@@ -139,7 +139,7 @@ export default function relationalStoreErrorCodeTest() {
     })
 
     /**
-     * @tc.name transaction.executeSync errcode is 801
+     * @tc.name errcode004
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0400
      * @tc.desc transaction.executeSync errcode is 801
      * @tc.size MediumTest

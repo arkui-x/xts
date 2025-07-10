@@ -58,7 +58,7 @@ export default function relationalStoreBatchInsertErrcodeTest() {
     })
 
     /**
-     * @tc.name rdbstore.batchInsertWithConflictResolution errcode is 14800014
+     * @tc.name testRdbStoreBatchInsertWithConflictResolutionErrcode0100
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0100
      * @tc.desc rdbstore.batchInsertWithConflictResolution errcode is 14800014
      * @tc.size MediumTest
@@ -94,7 +94,7 @@ export default function relationalStoreBatchInsertErrcodeTest() {
       })
 
     /**
-     * @tc.name rdbstore.batchInsertWithConflictResolutionSync errcode is 14800014
+     * @tc.name testRdbStoreBatchInsertWithConflictResolutionSyncErrcode0200
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0200
      * @tc.desc rdbstore.batchInsertWithConflictResolutionSync errcode is 14800014
      * @tc.size MediumTest

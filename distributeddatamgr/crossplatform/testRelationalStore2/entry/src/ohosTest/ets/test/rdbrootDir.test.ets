@@ -48,7 +48,7 @@ export default function rdbrootDirTest() {
     });
 
     /**
-     * @tc.name invalid rootDir path promise test
+     * @tc.name rdbrootDirTest0100
      * @tc.number SUB_DistributedData_RelationalStore_SDK_rootDirJsAPITest_0100
      * @tc.desc invalid rootDir path promise test
      * @tc.size MediumTest
@@ -83,7 +83,7 @@ export default function rdbrootDirTest() {
     })
 
     /**
-     * @tc.name invalid rootDir path callback test
+     * @tc.name rdbrootDirTest0200
      * @tc.number SUB_DistributedData_RelationalStore_SDK_rootDirJsAPITest_0200
      * @tc.desc invalid rootDir path callback test
      * @tc.size MediumTest
@@ -120,7 +120,7 @@ export default function rdbrootDirTest() {
     })
 
     /**
-     * @tc.name db not exist promise test
+     * @tc.name rdbrootDirTest0300
      * @tc.number SUB_DistributedData_RelationalStore_SDK_rootDirJsAPITest_0300
      * @tc.desc db not exist promise test
      * @tc.size MediumTest

@@ -45,8 +45,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0100
-     * @tc.number    : testPreferencesOnOff001
+     * @tc.name      : testPreferencesDataChange001
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0100
      * @tc.desc      : test on dataChange with an empty array key
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -65,10 +65,9 @@ export default function preferencesOnDatachangeTest() {
       }
     })
 
-
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0200
-     * @tc.number    : testPreferencesOnOff002
+     * @tc.name      : testPreferencesDataChange002
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0200
      * @tc.desc      : test the subscription callback of on dataChange
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -121,8 +120,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0300
-     * @tc.number    : testPreferencesOnOff003
+     * @tc.name      : testPreferencesDataChange003
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0300
      * @tc.desc      : test off dataChange with an empty key and callback1
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -158,8 +157,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0400
-     * @tc.number    : testPreferencesOnOff004
+     * @tc.name      : testPreferencesDataChange004
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0400
      * @tc.desc      : test off dataChange with array keys1 and without callback
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -196,8 +195,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0500
-     * @tc.number    : testPreferencesOnOff005
+     * @tc.name      : testPreferencesDataChange005
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0500
      * @tc.desc      : test off dataChange with an empty array key without callback
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -235,8 +234,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0600
-     * @tc.number    : testPreferencesOnOff006
+     * @tc.name      : testPreferencesDataChange006
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0600
      * @tc.desc      : test off dataChange with array keys1, callback1 and array keys2, callback2
      * @tc.size      : MediumTest
      * @tc.type      : Function
@@ -274,8 +273,8 @@ export default function preferencesOnDatachangeTest() {
     })
 
     /**
-     * @tc.name      : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0700
-     * @tc.number    : testPreferencesOnOff007
+     * @tc.name      : testPreferencesDataChange007
+     * @tc.number    : SUB_DistributeData_CrossPlatform_SDK_Preferences_OnOFFJSAPITest_0700
      * @tc.desc      : test put then delete and on dataChange subscribe to callback
      * @tc.size      : MediumTest
      * @tc.type      : Function

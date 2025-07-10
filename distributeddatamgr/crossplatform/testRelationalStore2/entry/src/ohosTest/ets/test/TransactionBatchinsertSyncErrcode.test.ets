@@ -52,7 +52,7 @@ export default function TransactionBatchinsertTestSyncErrcode() {
     });
 
     /**
-     * @tc.name transaction.batchInsertWithConflictResolutionSync errcode is 14800014
+     * @tc.name testTransactionBatchInsertWithConflictResolutionSyncErrcode0100
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0100
      * @tc.desc transaction.batchInsertWithConflictResolutionSync errcode is 14800014
      * @tc.size MediumTest
@@ -91,7 +91,7 @@ export default function TransactionBatchinsertTestSyncErrcode() {
       })
 
     /**
-     * @tc.name transaction.batchInsertWithConflictResolutionSync errcode is 14800027
+     * @tc.name testTransactionBatchInsertWithConflictResolutionSyncErrcode0200
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0200
      * @tc.desc transaction.batchInsertWithConflictResolutionSync errcode is 14800027
      * @tc.size MediumTest
@@ -135,7 +135,7 @@ export default function TransactionBatchinsertTestSyncErrcode() {
       })
 
     /**
-     * @tc.name transaction.batchInsertWithConflictResolutionSync errcode is 14800033
+     * @tc.name testTransactionBatchInsertWithConflictResolutionSyncErrcode0300
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0300
      * @tc.desc transaction.batchInsertWithConflictResolutionSync errcode is 14800033
      * @tc.size MediumTest
@@ -174,7 +174,7 @@ export default function TransactionBatchinsertTestSyncErrcode() {
       })
 
     /**
-     * @tc.name transaction.batchInsertWithConflictResolutionSync errcode is 14800047
+     * @tc.name testTransactionBatchInsertWithConflictResolutionSyncErrcode0400
      * @tc.number SUB_DistributedData_RelationalStore_SDK_BatchInsertWithConflictResolutionEtsAPI16Test_0400
      * @tc.desc transaction.batchInsertWithConflictResolutionSync errcode is 14800047
      * @tc.size MediumTest

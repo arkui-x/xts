@@ -63,7 +63,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.insert errcode is 14800047
+     * @tc.name errcode001
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0100
      * @tc.desc transaction.insert errcode is 14800047
      * @tc.size MediumTest
@@ -95,7 +95,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.insertSync errcode is 14800047
+     * @tc.name errcode002
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0200
      * @tc.desc transaction.insertSync errcode is 14800047
      * @tc.size MediumTest
@@ -127,7 +127,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.batchInsert errcode is 14800047
+     * @tc.name errcode003
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0300
      * @tc.desc transaction.batchInsert errcode is 14800047
      * @tc.size MediumTest
@@ -166,7 +166,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.batchInsertSync errcode is 14800047
+     * @tc.name errcode004
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0400
      * @tc.desc transaction.batchInsertSync errcode is 14800047
      * @tc.size MediumTest
@@ -205,7 +205,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.update errcode is 14800047
+     * @tc.name errcode005
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0500
      * @tc.desc transaction.update errcode is 14800047
      * @tc.size MediumTest
@@ -242,7 +242,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.updateSync errcode is 14800047
+     * @tc.name errcode006
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0600
      * @tc.desc transaction.updateSync errcode is 14800047
      * @tc.size MediumTest
@@ -280,7 +280,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name delete errcode is 14800047
+     * @tc.name errcode007
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0700
      * @tc.desc delete errcode is 14800047
      * @tc.size MediumTest
@@ -313,7 +313,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.delete errcode is 14800047
+     * @tc.name errcode008
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0800
      * @tc.desc transaction.delete errcode is 14800047
      * @tc.size MediumTest
@@ -346,7 +346,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.query errcode is 14800047
+     * @tc.name errcode009
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_0900
      * @tc.desc transaction.query errcode is 14800047
      * @tc.size MediumTest
@@ -379,7 +379,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.querySync rrcode is 14800047
+     * @tc.name errcode010
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1000
      * @tc.desc transaction.querySync errcode is 14800047
      * @tc.size MediumTest
@@ -413,7 +413,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.querySql errcode is 14800047
+     * @tc.name errcode011
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1100
      * @tc.desc transaction.querySql errcode is 14800047
      * @tc.size MediumTest
@@ -445,7 +445,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.querySqlSync errcode is 14800047
+     * @tc.name errcode012
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1200
      * @tc.desc transaction.querySqlSync errcode is 14800047
      * @tc.size MediumTest
@@ -477,7 +477,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.execute errcode is 14800047
+     * @tc.name errcode013
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1300
      * @tc.desc transaction.execute errcode is 14800047
      * @tc.size MediumTest
@@ -512,7 +512,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name transaction.executeSync errcode is 14800047
+     * @tc.name errcode014
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1400
      * @tc.desc transaction.executeSync errcode is 14800047
      * @tc.size MediumTest
@@ -547,7 +547,7 @@ export default function relationalStoreErrorCode47Test() {
     })
 
     /**
-     * @tc.name errcode is 14800013
+     * @tc.name errcode015
      * @tc.number SUB_DistributedData_RelationalStore_SDK_RDBAPIErrcodeTest_1500
      * @tc.desc errcode is 14800013
      * @tc.size MediumTest

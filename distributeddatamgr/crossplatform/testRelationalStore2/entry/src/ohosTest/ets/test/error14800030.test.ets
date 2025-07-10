@@ -39,7 +39,7 @@ export default function error14800030Test() {
      * @tc.type      : Function
      * @tc.level     : Level 3
      */
-    it('SUB_DistributedData_RDB_SDK_ErrorCode14800030Test_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+    it('testSUBDistributedDataRDBSDKErrorCode14800030_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
       async (done: Function) => {
         let rdbStore = await data_relationalStore.getRdbStore(context, STORE_CONFIG1);
         await rdbStore.executeSql(CREATE_TABLE_TEST1, null);

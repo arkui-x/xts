@@ -124,13 +124,13 @@ export default function RdbStoreReadOnlyTest() {
     console.info(TAG + "*************JS Test Begin*************");
 
     /**
-     * @tc.number SUB_DistributedData_RelationalStore_SDK_ReadOnlyAPITest_0200
-     * @tc.name testReadOnly0200
+     * @tc.number SUB_DistributedData_RelationalStore_SDK_ReadOnlyAPITest_0100
+     * @tc.name testReadOnly0100
      * @tc.desc 1. set isReadOnly as true
      *          2. delete read-only database
      */
-    it('testReadOnly0200', 0, async (done: Function) => {
-      console.info(TAG + "************* testReadOnly0200 start *************");
+    it('testReadOnly0100', 0, async (done: Function) => {
+      console.info(TAG + "************* testReadOnly0100 start *************");
       try {
         readOnlyStore3 = await relationalStore.getRdbStore(context, STORE_CONFIG3);
         console.info(TAG + 'getRdbStore successfully.');
@@ -155,17 +155,17 @@ export default function RdbStoreReadOnlyTest() {
         expect().assertFail();
         done();
       }
-      console.log(TAG + "************* testReadOnly0200 end *************");
+      console.log(TAG + "************* testReadOnly0100 end *************");
     });
 
     /**
-     * @tc.number SUB_DistributedData_RelationalStore_SDK_ReadOnlyAPITest_0300
-     * @tc.name testReadOnly0300
+     * @tc.number SUB_DistributedData_RelationalStore_SDK_ReadOnlyAPITest_0200
+     * @tc.name testReadOnly0200
      * @tc.desc 1. set isReadOnly as true
      *          2. open read-only database if the database is not exist
      */
-    it('testReadOnly0300', 0, async (done: Function) => {
-      console.info(TAG + "************* testReadOnly0300 start *************");
+    it('testReadOnly0200', 0, async (done: Function) => {
+      console.info(TAG + "************* testReadOnly0200 start *************");
       try {
         await relationalStore.deleteRdbStore(context, STORE_CONFIG1);
 
@@ -178,7 +178,7 @@ export default function RdbStoreReadOnlyTest() {
         expect((err as BusinessError).code).assertEqual(14800030);
         done();
       }
-      console.log(TAG + "************* testReadOnly0300 end *************");
+      console.log(TAG + "************* testReadOnly0200 end *************");
     });
   });
 }
