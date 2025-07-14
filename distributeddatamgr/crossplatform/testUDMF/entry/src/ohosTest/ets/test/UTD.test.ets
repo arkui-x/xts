@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { afterAll, afterEach, beforeAll, describe, expect, it } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, Size, TestType } from '@ohos/hypium';
 import UTD from '@ohos.data.uniformTypeDescriptor';
 
 function sleep(ms: number) {
@@ -739,6 +739,28 @@ export default function UTDTest() {
         expect(err.code == "401").assertEqual(true);
       }
       console.log("SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3000 end");
+    });
+
+    /**
+     * @tc.name      : SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100
+     * @tc.number    : SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100
+     * @tc.desc      : parameter to getUniformDataTypesByFilenameExtension()  --parameter is ".xls"
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 2
+     */
+    it('SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      console.log('SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100 start');
+      try {
+        let result = UTD.getUniformDataTypesByFilenameExtension(".rb", 'general.shell-script');
+        console.log("result=====>" + JSON.stringify(result));
+        expect(result[0]).assertEqual("general.ruby-script")
+      } catch (err) {
+        console.log("err message:" + err.message + ";err code:" + err.code);
+        expect().assertFail();
+      }
+      console.log("SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100 end");
     });
   });
 }
