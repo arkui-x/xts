@@ -742,20 +742,20 @@ export default function UTDTest() {
     });
 
     /**
-     * @tc.name      : SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100
+     * @tc.name      : testSUBDistributedDataUDMFSDKUniformTypeDescriptorAPITest3100
      * @tc.number    : SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100
-     * @tc.desc      : parameter to getUniformDataTypesByFilenameExtension()  --parameter is ".xls"
+     * @tc.desc      : parameter to getUniformDataTypesByFilenameExtension()  --parameter is ".ts" and "general.source-code"
      * @tc.size      : MediumTest
      * @tc.type      : Function
      * @tc.level     : Level 2
      */
-    it('SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100',
+    it('testSUBDistributedDataUDMFSDKUniformTypeDescriptorAPITest3100',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       console.log('SUB_DistributedData_UDMF_SDK_UniformTypeDescriptorAPITest_3100 start');
       try {
-        let result = UTD.getUniformDataTypesByFilenameExtension(".rb", 'general.shell-script');
+        let result = UTD.getUniformDataTypesByFilenameExtension(".ts", 'general.source-code');
         console.log("result=====>" + JSON.stringify(result));
-        expect(result[0]).assertEqual("general.ruby-script")
+        expect(result[0]).assertEqual("general.type-script")
       } catch (err) {
         console.log("err message:" + err.message + ";err code:" + err.code);
         expect().assertFail();
