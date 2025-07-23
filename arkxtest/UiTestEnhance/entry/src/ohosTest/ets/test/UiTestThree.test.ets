@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, TestType, Level, Size } from '@ohos/hypium';
 import { Component, Driver, ON, PointerMatrix } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
@@ -22,26 +22,29 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 
   await delegator.startAbility(want).then(result => {
     console.info(`UiTestCase, start abilityFinished: ${result}`)
-  }).catch((err:BusinessError) => {
+  }).catch((err: BusinessError) => {
     console.error(`UiTestCase, start abilityFailed: ${err}`)
   })
 }
 
 export default function uiTestThreeTest() {
   describe('UiTestThree', () => {
-    afterEach(async ()=>{
+    afterEach(async () => {
       let topAbility = await delegator.getCurrentTopAbility();
       await topAbility.context.terminateSelf();
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs);
-    })
+    });
 
     /*
-     * @tc.number: 001
-     * @tc.name: testTriggerCombineKeys_001
-     * @tc.desc: 使用组合键复制并粘贴文本
+     * @tc.number    : testTriggerCombineKeys_001
+     * @tc.name      : testTriggerCombineKeys_001
+     * @tc.desc      : 使用组合键复制并粘贴文本
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testTriggerCombineKeys_001', 0, async (done: Function) => {
+    it('testTriggerCombineKeys_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -77,87 +80,98 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(textB).assertEqual('123abcABC')
       done();
-    })
+    });
 
     /*
-     * @tc.number: 002
-     * @tc.name: testTriggerCombineKeysSpecialCharacters_002
-     * @tc.desc: 使用组合键复制并粘贴特殊字符文本
+     * @tc.number    : testTriggerCombineKeysSpecialCharacters_002
+     * @tc.name      : testTriggerCombineKeysSpecialCharacters_002
+     * @tc.desc      : 使用组合键复制并粘贴特殊字符文本
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testTriggerCombineKeysSpecialCharacters_002', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
+    it('testTriggerCombineKeysSpecialCharacters_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
+        await driver.delayMs(waitUiReadyMs)
 
-      let textInputButton: Component = await driver.findComponent(ON.text('TextInputPage'))
-      await textInputButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let textInputA: Component = await driver.findComponent(ON.id('inputA'))
-      let textInputB: Component = await driver.findComponent(ON.id('inputB'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(textInputA != null).assertTrue()
+        let textInputButton: Component = await driver.findComponent(ON.text('TextInputPage'))
+        await textInputButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let textInputA: Component = await driver.findComponent(ON.id('inputA'))
+        let textInputB: Component = await driver.findComponent(ON.id('inputB'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(textInputA != null).assertTrue()
 
-      await textInputA.click()
-      await driver.delayMs(waitUiReadyMs)
-      await textInputA.inputText('你好!@#$%&')
-      await driver.delayMs(waitUiReadyMs)
-      let textA: string = await textInputA.getText()
-      await driver.delayMs(waitUiReadyMs)
-      expect(textA == '你好!@#$%&').assertTrue()
-      await textInputA.click()
-      await driver.delayMs(waitUiReadyMs)
-      await driver.triggerCombineKeys(2072, 2017)
-      await driver.delayMs(waitUiReadyMs)
-      await driver.triggerCombineKeys(2072, 2019)
-      await driver.delayMs(waitUiReadyMs)
-      await textInputB.click()
-      await driver.delayMs(waitUiReadyMs)
-      await driver.triggerCombineKeys(2072, 2038)
-      await driver.delayMs(waitUiReadyMs)
-      let textInputBB: Component = await driver.findComponent(ON.id('inputB'))
-      await driver.delayMs(waitUiReadyMs)
-      let textB: string = await textInputBB.getText()
-      await driver.delayMs(waitUiReadyMs)
-      expect(textB == '你好!@#$%&').assertTrue()
-      done()
-    })
+        await textInputA.click()
+        await driver.delayMs(waitUiReadyMs)
+        await textInputA.inputText('你好!@#$%&')
+        await driver.delayMs(waitUiReadyMs)
+        let textA: string = await textInputA.getText()
+        await driver.delayMs(waitUiReadyMs)
+        expect(textA == '你好!@#$%&').assertTrue()
+        await textInputA.click()
+        await driver.delayMs(waitUiReadyMs)
+        await driver.triggerCombineKeys(2072, 2017)
+        await driver.delayMs(waitUiReadyMs)
+        await driver.triggerCombineKeys(2072, 2019)
+        await driver.delayMs(waitUiReadyMs)
+        await textInputB.click()
+        await driver.delayMs(waitUiReadyMs)
+        await driver.triggerCombineKeys(2072, 2038)
+        await driver.delayMs(waitUiReadyMs)
+        let textInputBB: Component = await driver.findComponent(ON.id('inputB'))
+        await driver.delayMs(waitUiReadyMs)
+        let textB: string = await textInputBB.getText()
+        await driver.delayMs(waitUiReadyMs)
+        expect(textB == '你好!@#$%&').assertTrue()
+        done()
+      });
 
     /*
-     * @tc.number: 003
-     * @tc.name: testTriggerCombineKeysError_003
-     * @tc.desc: 使用组合键并传入错误参数
+     * @tc.number    : testTriggerCombineKeysError_003
+     * @tc.name      : testTriggerCombineKeysError_003
+     * @tc.desc      : 使用组合键并传入错误参数
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testTriggerCombineKeysError_003', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
+    it('testTriggerCombineKeysError_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
+        await driver.delayMs(waitUiReadyMs)
 
-      let textInputButton: Component = await driver.findComponent(ON.text('TextInputPage'))
-      await textInputButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let textInputA: Component = await driver.findComponent(ON.id('inputA'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(textInputA != null).assertTrue()
+        let textInputButton: Component = await driver.findComponent(ON.text('TextInputPage'))
+        await textInputButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let textInputA: Component = await driver.findComponent(ON.id('inputA'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(textInputA != null).assertTrue()
 
-      await textInputA.click()
-      await driver.delayMs(waitUiReadyMs)
-      await textInputA.inputText('123')
-      await driver.delayMs(waitUiReadyMs)
-      let textA: string = await textInputA.getText()
-      await driver.delayMs(waitUiReadyMs)
-      expect(textA == '123').assertTrue()
-      await textInputA.click()
-      await driver.delayMs(waitUiReadyMs)
-      expect((await driver.triggerCombineKeys(0, 0)) == null).assertTrue()
-      done()
-    })
+        await textInputA.click()
+        await driver.delayMs(waitUiReadyMs)
+        await textInputA.inputText('123')
+        await driver.delayMs(waitUiReadyMs)
+        let textA: string = await textInputA.getText()
+        await driver.delayMs(waitUiReadyMs)
+        expect(textA == '123').assertTrue()
+        await textInputA.click()
+        await driver.delayMs(waitUiReadyMs)
+        expect((await driver.triggerCombineKeys(0, 0)) == null).assertTrue()
+        done()
+      });
 
     /*
-     * @tc.number: 004
-     * @tc.name: testGetBounds_004
-     * @tc.desc: 获取控件边框
+     * @tc.number    : testGetBounds_004
+     * @tc.name      : testGetBounds_004
+     * @tc.desc      : 获取控件边框
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testGetBounds_004', 0, async (done: Function) => {
+    it('testGetBounds_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -171,14 +185,17 @@ export default function uiTestThreeTest() {
       expect(buttonRect.left < buttonRect.right).assertTrue()
       expect(buttonRect.top < buttonRect.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 005
-     * @tc.name: testGetBoundsSmall_005
-     * @tc.desc: 获取极小控件边框
+     * @tc.number    : testGetBoundsSmall_005
+     * @tc.name      : testGetBoundsSmall_005
+     * @tc.desc      : 获取极小
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testGetBoundsSmall_005', 0, async (done: Function) => {
+    it('testGetBoundsSmall_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -197,14 +214,17 @@ export default function uiTestThreeTest() {
       expect(textRect.left < textRect.right).assertTrue()
       expect(textRect.top < textRect.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 006
-     * @tc.name: testGetBoundsHalfImage_006
-     * @tc.desc: 获取显示不全控件边框
+     * @tc.number    : testGetBoundsHalfImage_006
+     * @tc.name      : testGetBoundsHalfImage_006
+     * @tc.desc      : 获取显示不全
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testGetBoundsHalfImage_006', 0, async (done: Function) => {
+    it('testGetBoundsHalfImage_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -223,14 +243,17 @@ export default function uiTestThreeTest() {
       expect(imageRect.left < imageRect.right).assertTrue()
       expect(imageRect.top < imageRect.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 007
-     * @tc.name: testGetBoundsLarge_007
-     * @tc.desc: 获取超大控件边框
+     * @tc.number    : testGetBoundsLarge_007
+     * @tc.name      : testGetBoundsLarge_007
+     * @tc.desc      : 获取超大
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testGetBoundsLarge_007', 0, async (done: Function) => {
+    it('testGetBoundsLarge_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -250,14 +273,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(imageRect.top < imageRect.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 008
-     * @tc.name: testPointerMatrixCreate_008
-     * @tc.desc: 创建PointerMatrix对象
+     * @tc.number    : testPointerMatrixCreate_008
+     * @tc.name      : testPointerMatrixCreate_008
+     * @tc.desc      : 创建PointerMatr
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPointerMatrixCreate_008', 0, async (done: Function) => {
+    it('testPointerMatrixCreate_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -265,41 +291,48 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(navigationPage != null).assertTrue()
 
-      let pointerMatrix: PointerMatrix = PointerMatrix.create(2,3);
+      let pointerMatrix: PointerMatrix = PointerMatrix.create(2, 3);
       await driver.delayMs(waitUiReadyMs)
       expect(pointerMatrix != null).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 009
-     * @tc.name: testPointerMatrixCreateError_009
-     * @tc.desc: 创建PointerMatrix对象时传入异常参数
+     * @tc.number    : testPointerMatrixCreateError_009
+     * @tc.name      : testPointerMatrixCreateError_009
+     * @tc.desc      : 创建PointerMatrix对象时传入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPointerMatrixCreateError_009', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-      let navigationPage: Component = await driver.findComponent(ON.text('NavigationPage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(navigationPage != null).assertTrue()
-
-      try {
-        let pointerMatrix: PointerMatrix = PointerMatrix.create(-999,-999);
+    it('testPointerMatrixCreateError_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
-        expect(pointerMatrix).assertNull()
-      } catch (exception) {
-        hilog.info(0x0000, 'testPointerMatrixCreateError_009', '%{public}s', 'pointerMatrix create parameter error');
-      }
-      done()
-    })
+        let navigationPage: Component = await driver.findComponent(ON.text('NavigationPage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(navigationPage != null).assertTrue()
+
+        try {
+          let pointerMatrix: PointerMatrix = PointerMatrix.create(-999, -999);
+          await driver.delayMs(waitUiReadyMs)
+          expect(pointerMatrix).assertNull()
+        } catch (exception) {
+          hilog.info(0x0000, 'testPointerMatrixCreateError_009', '%{public}s', 'pointerMatrix create parameter error');
+        }
+        done()
+      });
 
     /*
-     * @tc.number: 010
-     * @tc.name: testSetPoint_010
-     * @tc.desc: 设置并注入多指操作
+     * @tc.number    : testSetPoint_010
+     * @tc.name      : testSetPoint_010
+     * @tc.desc      : 设置并注入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testSetPoint_010', 0, async (done: Function) => {
+    it('testSetPoint_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -314,11 +347,11 @@ export default function uiTestThreeTest() {
       let imageRectA = await scaleImage.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 100, y: 1100})
-      pointers.setPoint(0, 1, {x: 300, y: 800})
-      pointers.setPoint(1, 0, {x: 600, y: 300})
-      pointers.setPoint(1, 1, {x: 400, y: 600})
+      let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+      pointers.setPoint(0, 0, { x: 100, y: 1100 })
+      pointers.setPoint(0, 1, { x: 300, y: 800 })
+      pointers.setPoint(1, 0, { x: 600, y: 300 })
+      pointers.setPoint(1, 1, { x: 400, y: 600 })
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
 
@@ -333,14 +366,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 011
-     * @tc.name: testSetPointUnorderedSteps_011
-     * @tc.desc: 不按照顺序设置并注入多指操作
+     * @tc.number    : testSetPointUnorderedSteps_011
+     * @tc.name      : testSetPointUnorderedSteps_011
+     * @tc.desc      : 不按照顺序设置并注入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testSetPointUnorderedSteps_011', 0, async (done: Function) => {
+    it('testSetPointUnorderedSteps_011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -355,11 +391,11 @@ export default function uiTestThreeTest() {
       let imageRectA = await scaleImage.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 1, {x: 300, y: 800})
-      pointers.setPoint(0, 0, {x: 100, y: 1100})
-      pointers.setPoint(1, 1, {x: 400, y: 600})
-      pointers.setPoint(1, 0, {x: 600, y: 300})
+      let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+      pointers.setPoint(0, 1, { x: 300, y: 800 })
+      pointers.setPoint(0, 0, { x: 100, y: 1100 })
+      pointers.setPoint(1, 1, { x: 400, y: 600 })
+      pointers.setPoint(1, 0, { x: 600, y: 300 })
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
 
@@ -377,44 +413,52 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 012
-     * @tc.name: testSetPointExceptionParameter_012
-     * @tc.desc: setPoint传入错误参数
+     * @tc.number    : testSetPointExceptionParameter_012
+     * @tc.name      : testSetPointExceptionParameter_012
+     * @tc.desc      : setPoint传入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testSetPointExceptionParameter_012', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
-
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      try {
-        pointers.setPoint(-1, -1, {x: 300, y: 800})
-        pointers.setPoint(-1, -2, {x: 100, y: 1100})
-        pointers.setPoint(-2, -1, {x: 400, y: 600})
-        pointers.setPoint(-2, -2, {x: 600, y: 300})
+    it('testSetPointExceptionParameter_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
-      } catch (exception) {
-        hilog.info(0x0000, 'testSetPointExceptionParameter_012', '%{public}s', 'pointerMatrix setPoint parameter error');
-      }
-      done()
-    })
+
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
+
+        let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+        try {
+          pointers.setPoint(-1, -1, { x: 300, y: 800 })
+          pointers.setPoint(-1, -2, { x: 100, y: 1100 })
+          pointers.setPoint(-2, -1, { x: 400, y: 600 })
+          pointers.setPoint(-2, -2, { x: 600, y: 300 })
+          await driver.delayMs(waitUiReadyMs)
+        } catch (exception) {
+          hilog.info(0x0000, 'testSetPointExceptionParameter_012', '%{public}s',
+            'pointerMatrix setPoint parameter error');
+        }
+        done()
+      });
 
     /*
-     * @tc.number: 013
-     * @tc.name: testSetPointCoincide_013
-     * @tc.desc: 多指操作同一个点
+     * @tc.number    : testSetPointCoincide_013
+     * @tc.name      : testSetPointCoincide_013
+     * @tc.desc      : 多指操作
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testSetPointCoincide_013', 0, async (done: Function) => {
+    it('testSetPointCoincide_013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -426,11 +470,11 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(column != null).assertTrue()
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 300, y: 1100})
-      pointers.setPoint(0, 1, {x: 300, y: 300})
-      pointers.setPoint(1, 0, {x: 300, y: 1100})
-      pointers.setPoint(1, 1, {x: 300, y: 300})
+      let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+      pointers.setPoint(0, 0, { x: 300, y: 1100 })
+      pointers.setPoint(0, 1, { x: 300, y: 300 })
+      pointers.setPoint(1, 0, { x: 300, y: 1100 })
+      pointers.setPoint(1, 1, { x: 300, y: 300 })
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
       await driver.delayMs(waitUiReadyMs)
@@ -440,14 +484,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(text).assertEqual('7')
       done()
-    })
+    });
 
     /*
-     * @tc.number: 014
-     * @tc.name: testSetPointOut_014
-     * @tc.desc: 设置从屏幕内滑动到屏幕外并注入多指操作
+     * @tc.number    : testSetPointOut_014
+     * @tc.name      : testSetPointOut_014
+     * @tc.desc      : 设置从屏幕内滑动到屏幕外并注入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testSetPointOut_014', 0, async (done: Function) => {
+    it('testSetPointOut_014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -462,11 +509,11 @@ export default function uiTestThreeTest() {
       let imageRectA = await scaleImage.getBounds()
       await driver.delayMs(waitUiReadyMs)
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 100, y: 1100})
-      pointers.setPoint(0, 1, {x: 300, y: 800})
-      pointers.setPoint(1, 0, {x: 600, y: 300})
-      pointers.setPoint(1, 1, {x: 400, y: 600})
+      let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+      pointers.setPoint(0, 0, { x: 100, y: 1100 })
+      pointers.setPoint(0, 1, { x: 300, y: 800 })
+      pointers.setPoint(1, 0, { x: 600, y: 300 })
+      pointers.setPoint(1, 1, { x: 400, y: 600 })
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
 
@@ -481,14 +528,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 015
-     * @tc.name: testPinchOut_015
-     * @tc.desc: 放大接口
+     * @tc.number    : testPinchOut_015
+     * @tc.name      : testPinchOut_015
+     * @tc.desc      : test PinchOut
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchOut_015', 0, async (done: Function) => {
+    it('testPinchOut_015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -516,40 +566,47 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right < imageRectB.right).assertTrue()
       expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 016
-     * @tc.name: testPinchOutExceptionParameter_016
-     * @tc.desc: 放大接口传入异常参数
+     * @tc.number    : testPinchOutExceptionParameter_016
+     * @tc.name      : testPinchOutExceptionParameter_016
+     * @tc.desc      : 放大接口异常传参
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchOutExceptionParameter_016', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
-
-      try {
-        await scaleImage.pinchOut(-2)
+    it('testPinchOutExceptionParameter_016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
-      } catch (exception) {
-        hilog.info(0x0000, 'testPinchOutExceptionParameter_016', '%{public}s', 'pinchOut interface parameter error');
-      }
-      done()
-    })
+
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
+
+        try {
+          await scaleImage.pinchOut(-2)
+          await driver.delayMs(waitUiReadyMs)
+        } catch (exception) {
+          hilog.info(0x0000, 'testPinchOutExceptionParameter_016', '%{public}s', 'pinchOut interface parameter error');
+        }
+        done()
+      });;
 
     /*
-     * @tc.number: 017
-     * @tc.name: testPinchOutLessThanOne_017
-     * @tc.desc: 放大接口传入小于1的参数
+     * @tc.number    : testPinchOutLessThanOne_017
+     * @tc.name      : testPinchOutLessThanOne_017
+     * @tc.desc      : 放大接口传入小于1
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchOutLessThanOne_017', 0, async (done: Function) => {
+    it('testPinchOutLessThanOne_017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -578,14 +635,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right < imageRectB.right).assertTrue()
       expect(imageRectA.bottom < imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 018
-     * @tc.name: testPinchOutManyTimes_018
-     * @tc.desc: 放大接口放大多次
+     * @tc.number    : testPinchOutManyTimes_018
+     * @tc.name      : testPinchOutManyTimes_018
+     * @tc.desc      : 放大接口多次调用
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchOutManyTimes_018', 0, async (done: Function) => {
+    it('testPinchOutManyTimes_018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -623,14 +683,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right < imageRectB.right && imageRectB.right < imageRectC.right).assertTrue()
       expect(imageRectA.bottom < imageRectB.bottom && imageRectB.bottom < imageRectC.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 019
-     * @tc.name: testPinchOutInvalid_019
-     * @tc.desc: 放大接口放大不可变控件
+     * @tc.number    : testPinchOutInvalid_019
+     * @tc.name      : testPinchOutInvalid_019
+     * @tc.desc      : test PinchOut Invalid
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchOutInvalid_019', 0, async (done: Function) => {
+    it('testPinchOutInvalid_019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -655,14 +718,17 @@ export default function uiTestThreeTest() {
       expect(buttonRectA.right == buttonRectB.right).assertTrue()
       expect(buttonRectA.bottom == buttonRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 020
-     * @tc.name: testPinchIn_020
-     * @tc.desc: 缩小接口
+     * @tc.number    : testPinchIn_020
+     * @tc.name      : testPinchIn_020
+     * @tc.desc      : test PinchIn
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchIn_020', 0, async (done: Function) => {
+    it('testPinchIn_020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -690,40 +756,47 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 021
-     * @tc.name: testPinchInExceptionParameter_021
-     * @tc.desc: 缩小接口传入异常参数
+     * @tc.number    : testPinchInExceptionParameter_021
+     * @tc.name      : testPinchInExceptionParameter_021
+     * @tc.desc      : 缩小接口异常传参
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchInExceptionParameter_021', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
-
-      try {
-        await scaleImage.pinchIn(-2)
+    it('testPinchInExceptionParameter_021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
-      } catch (exception) {
-        hilog.info(0x0000, 'testPinchInExceptionParameter_021', '%{public}s', 'pinchIn interface parameter error');
-      }
-      done()
-    })
+
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
+
+        try {
+          await scaleImage.pinchIn(-2)
+          await driver.delayMs(waitUiReadyMs)
+        } catch (exception) {
+          hilog.info(0x0000, 'testPinchInExceptionParameter_021', '%{public}s', 'pinchIn interface parameter error');
+        }
+        done()
+      });
 
     /*
-     * @tc.number: 022
-     * @tc.name: testPinchInGreaterThanOne_022
-     * @tc.desc: 缩小接口传入大于1的参数
+     * @tc.number    : testPinchInGreaterThanOne_022
+     * @tc.name      : testPinchInGreaterThanOne_022
+     * @tc.desc      : 缩小接口传入大于1
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchInGreaterThanOne_022', 0, async (done: Function) => {
+    it('testPinchInGreaterThanOne_022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -752,14 +825,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 023
-     * @tc.name: testPinchInManyTimes_023
-     * @tc.desc: 缩小接口缩小多次
+     * @tc.number    : testPinchInManyTimes_023
+     * @tc.name      : testPinchInManyTimes_023
+     * @tc.desc      : test PinchIn Many Times
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchInManyTimes_023', 0, async (done: Function) => {
+    it('testPinchInManyTimes_023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -795,14 +871,17 @@ export default function uiTestThreeTest() {
       expect(imageRectA.right > imageRectB.right && imageRectB.right > imageRectC.right).assertTrue()
       expect(imageRectA.bottom > imageRectB.bottom && imageRectB.bottom > imageRectC.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 024
-     * @tc.name: testPinchInInvalid_024
-     * @tc.desc: 缩小接口缩小不可变控件
+     * @tc.number    : testPinchInInvalid_024
+     * @tc.name      : testPinchInInvalid_024
+     * @tc.desc      : test PinchIn Invalid
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testPinchInInvalid_024', 0, async (done: Function) => {
+    it('testPinchInInvalid_024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -827,14 +906,17 @@ export default function uiTestThreeTest() {
       expect(buttonRectA.right == buttonRectB.right).assertTrue()
       expect(buttonRectA.bottom == buttonRectB.bottom).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 025
-     * @tc.name: testFindcomponents_025
-     * @tc.desc: 查找多个控件
+     * @tc.number    : testFindcomponents_025
+     * @tc.name      : testFindcomponents_025
+     * @tc.desc      : 查找
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testFindcomponents_025', 0, async (done: Function) => {
+    it('testFindcomponents_025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -848,14 +930,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(buttonNumber > 0).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 026
-     * @tc.name: testFindcomponentsZero_026
-     * @tc.desc: 查找不存在的控件
+     * @tc.number    : testFindcomponentsZero_026
+     * @tc.name      : testFindcomponentsZero_026
+     * @tc.desc      : 查找不存
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testFindcomponentsZero_026', 0, async (done: Function) => {
+    it('testFindcomponentsZero_026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -868,14 +953,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(scroll == null).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 027
-     * @tc.name: testScrollSearch_027
-     * @tc.desc: 滑动搜索
+     * @tc.number    : testScrollSearch_027
+     * @tc.name      : testScrollSearch_027
+     * @tc.desc      : scrollComponent.scrollSearch
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testScrollSearch_027', 0, async (done: Function) => {
+    it('testScrollSearch_027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -891,14 +979,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(await numText.getText()).assertEqual('7')
       done()
-    })
+    });
 
     /*
-     * @tc.number: 028
-     * @tc.name: testScrollSearchAbsent_028
-     * @tc.desc: 滑动搜索不存在的控件
+     * @tc.number    : testScrollSearchAbsent_028
+     * @tc.name      : testScrollSearchAbsent_028
+     * @tc.desc      : 滑动搜索不存
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testScrollSearchAbsent_028', 0, async (done: Function) => {
+    it('testScrollSearchAbsent_028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -914,103 +1005,39 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(numText == null).assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 029
-     * @tc.name: testInjectMultiPointerAction_029
-     * @tc.desc: 注入多指操作
+     * @tc.number    : testInjectMultiPointerAction_029
+     * @tc.name      : testInjectMultiPointerAction_029
+     * @tc.desc      : 注入
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testInjectMultiPointerAction_029', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
+    it('testInjectMultiPointerAction_029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
+        await driver.delayMs(waitUiReadyMs)
 
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
 
-      let imageRectA = await scaleImage.getBounds()
-      await driver.delayMs(waitUiReadyMs)
+        let imageRectA = await scaleImage.getBounds()
+        await driver.delayMs(waitUiReadyMs)
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 100, y: 1100})
-      pointers.setPoint(0, 1, {x: 300, y: 800})
-      pointers.setPoint(1, 0, {x: 600, y: 300})
-      pointers.setPoint(1, 1, {x: 400, y: 600})
-      await driver.delayMs(waitUiReadyMs)
-      await driver.injectMultiPointerAction(pointers)
-
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImageB: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      let imageRectB = await scaleImageB.getBounds()
-      await driver.delayMs(waitUiReadyMs)
-
-      expect(imageRectA.left < imageRectB.left).assertTrue()
-      expect(imageRectA.top < imageRectB.top).assertTrue()
-      expect(imageRectA.right > imageRectB.right).assertTrue()
-      expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
-      done()
-    })
-
-    /*
-     * @tc.number: 030
-     * @tc.name: testInjectMultiPointerActionNoOperation_030
-     * @tc.desc: 注入多指操作空对象
-     */
-    it('testInjectMultiPointerActionNoOperation_030', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await driver.delayMs(waitUiReadyMs)
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
-
-      await driver.delayMs(waitUiReadyMs)
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      await driver.delayMs(waitUiReadyMs)
-
-      try {
+        let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+        pointers.setPoint(0, 0, { x: 100, y: 1100 })
+        pointers.setPoint(0, 1, { x: 300, y: 800 })
+        pointers.setPoint(1, 0, { x: 600, y: 300 })
+        pointers.setPoint(1, 1, { x: 400, y: 600 })
+        await driver.delayMs(waitUiReadyMs)
         await driver.injectMultiPointerAction(pointers)
-      } catch (exception) {
-        hilog.info(0x0000, 'testInjectMultiPointerActionNoOperation_030', '%{public}s', 'pointers finger steps not set');
-      }
-      done()
-    })
-
-    /*
-     * @tc.number: 031
-     * @tc.name: testInjectMultiPointerActionExceptionParameter_031
-     * @tc.desc: 注入多指操作参数为空
-     */
-    it('testInjectMultiPointerActionExceptionParameter_031', 0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
-      let driver: Driver = Driver.create()
-      await driver.delayMs(waitUiReadyMs)
-
-      let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
-      await driver.delayMs(waitUiReadyMs)
-      await multiFingerOperationButton.click()
-      await driver.delayMs(waitUiReadyMs)
-      let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
-      await driver.delayMs(waitUiReadyMs)
-      expect(scaleImage != null).assertTrue()
-
-      await driver.delayMs(waitUiReadyMs)
-      let imageRectA = await scaleImage.getBounds()
-      await driver.delayMs(waitUiReadyMs)
-
-      try {
-        await driver.injectMultiPointerAction(null)
 
         await driver.delayMs(waitUiReadyMs)
         let scaleImageB: Component = await driver.findComponent(ON.id('scaleImage'))
@@ -1018,22 +1045,103 @@ export default function uiTestThreeTest() {
         let imageRectB = await scaleImageB.getBounds()
         await driver.delayMs(waitUiReadyMs)
 
-        expect(imageRectA.left == imageRectB.left).assertTrue()
-        expect(imageRectA.top == imageRectB.top).assertTrue()
-        expect(imageRectA.right == imageRectB.right).assertTrue()
-        expect(imageRectA.bottom == imageRectB.bottom).assertTrue()
-      } catch (exception) {
-        hilog.info(0x0000, 'testInjectMultiPointerActionExceptionParameter_031', '%{public}s', 'injectMultiPointerAction parameter error');
-      }
-      done()
-    })
+        expect(imageRectA.left < imageRectB.left).assertTrue()
+        expect(imageRectA.top < imageRectB.top).assertTrue()
+        expect(imageRectA.right > imageRectB.right).assertTrue()
+        expect(imageRectA.bottom > imageRectB.bottom).assertTrue()
+        done()
+      });
 
     /*
-     * @tc.number: 032
-     * @tc.name: testMultiFingerRotation_032
-     * @tc.desc: 测试多指旋转
+     * @tc.number    : testInjectMultiPointerActionNoOperation_030
+     * @tc.name      : testInjectMultiPointerActionNoOperation_030
+     * @tc.desc      : 注入多指操
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testMultiFingerRotation_032', 0, async (done: Function) => {
+    it('testInjectMultiPointerActionNoOperation_030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
+        await driver.delayMs(waitUiReadyMs)
+
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await driver.delayMs(waitUiReadyMs)
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
+
+        await driver.delayMs(waitUiReadyMs)
+        let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+        await driver.delayMs(waitUiReadyMs)
+
+        try {
+          await driver.injectMultiPointerAction(pointers)
+        } catch (exception) {
+          hilog.info(0x0000, 'testInjectMultiPointerActionNoOperation_030', '%{public}s',
+            'pointers finger steps not set');
+        }
+        done()
+      });
+
+    /*
+     * @tc.number    : testInjectMultiPointerActionExceptionParameter_031
+     * @tc.name      : testInjectMultiPointerActionExceptionParameter_031
+     * @tc.desc      : 注入多指操作
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('testInjectMultiPointerActionExceptionParameter_031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        await startAbility('com.example.uitest', 'EntryAbility')
+        let driver: Driver = Driver.create()
+        await driver.delayMs(waitUiReadyMs)
+
+        let multiFingerOperationButton: Component = await driver.findComponent(ON.text('MultiFingerOperationPage'))
+        await driver.delayMs(waitUiReadyMs)
+        await multiFingerOperationButton.click()
+        await driver.delayMs(waitUiReadyMs)
+        let scaleImage: Component = await driver.findComponent(ON.id('scaleImage'))
+        await driver.delayMs(waitUiReadyMs)
+        expect(scaleImage != null).assertTrue()
+
+        await driver.delayMs(waitUiReadyMs)
+        let imageRectA = await scaleImage.getBounds()
+        await driver.delayMs(waitUiReadyMs)
+
+        try {
+          await driver.injectMultiPointerAction(null)
+
+          await driver.delayMs(waitUiReadyMs)
+          let scaleImageB: Component = await driver.findComponent(ON.id('scaleImage'))
+          await driver.delayMs(waitUiReadyMs)
+          let imageRectB = await scaleImageB.getBounds()
+          await driver.delayMs(waitUiReadyMs)
+
+          expect(imageRectA.left == imageRectB.left).assertTrue()
+          expect(imageRectA.top == imageRectB.top).assertTrue()
+          expect(imageRectA.right == imageRectB.right).assertTrue()
+          expect(imageRectA.bottom == imageRectB.bottom).assertTrue()
+        } catch (exception) {
+          hilog.info(0x0000, 'testInjectMultiPointerActionExceptionParameter_031', '%{public}s',
+            'injectMultiPointerAction parameter error');
+        }
+        done()
+      });
+
+    /*
+     * @tc.number    : testMultiFingerRotation_032
+     * @tc.name      : testMultiFingerRotation_032
+     * @tc.desc      : 测试 RotatePage
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('testMultiFingerRotation_032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -1046,11 +1154,11 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(rotateTextBefore).assertEqual('0')
 
-      let pointers: PointerMatrix = PointerMatrix.create(2,2);
-      pointers.setPoint(0, 0, {x: 600, y: 1100})
-      pointers.setPoint(0, 1, {x: 100, y: 1100})
-      pointers.setPoint(1, 0, {x: 100, y: 200})
-      pointers.setPoint(1, 1, {x: 600, y: 200})
+      let pointers: PointerMatrix = PointerMatrix.create(2, 2);
+      pointers.setPoint(0, 0, { x: 600, y: 1100 })
+      pointers.setPoint(0, 1, { x: 100, y: 1100 })
+      pointers.setPoint(1, 0, { x: 100, y: 200 })
+      pointers.setPoint(1, 1, { x: 600, y: 200 })
       await driver.delayMs(waitUiReadyMs)
       await driver.injectMultiPointerAction(pointers)
 
@@ -1059,14 +1167,17 @@ export default function uiTestThreeTest() {
       await driver.delayMs(waitUiReadyMs)
       expect(text != '0').assertTrue()
       done()
-    })
+    });
 
     /*
-     * @tc.number: 033
-     * @tc.name: testTriggerKey_033
-     * @tc.desc: 测试模拟点击按键
+     * @tc.number    : testTriggerKey_033
+     * @tc.name      : testTriggerKey_033
+     * @tc.desc      : 测试模拟点击按键
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
      */
-    it('testTriggerKey_033', 0, async (done: Function) => {
+    it('testTriggerKey_033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -1092,7 +1203,6 @@ export default function uiTestThreeTest() {
       expect(inputText).assertEqual('0')
       await driver.delayMs(waitUiReadyMs)
       done();
-    })
-
+    });
   })
 }
