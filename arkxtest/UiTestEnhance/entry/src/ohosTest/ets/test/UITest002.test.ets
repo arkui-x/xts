@@ -1,7 +1,8 @@
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, TestType, Level, Size } from '@ohos/hypium';
 import { Component, Driver, ON, PointerMatrix } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
+
 interface want {
   bundleName: string,
   abilityName: string,
@@ -20,7 +21,7 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 
   await delegator.startAbility(want).then(result => {
     console.info(`UiTestCase, start abilityFinished: ${result}`)
-  }).catch((err:BusinessError) => {
+  }).catch((err: BusinessError) => {
     console.error(`UiTestCase, start abilityFailed: ${err}`)
   })
 }
@@ -28,15 +29,22 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 export default function UITest002() {
   describe('UITest002', () => {
 
-    afterEach(async ()=>{
+    afterEach(async () => {
       let topAbility = await delegator.getCurrentTopAbility();
       await topAbility.context.terminateSelf();
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs);
     })
 
-    // 正常测试isBefore 前面元素为 Text控件
-    it('Test_isBefore_0100', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isBefore_0100
+     * @tc.number    : Test_isBefore_0100
+     * @tc.desc      : findComponent(ON.isBefore()) 前面元素为 Text控件
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isBefore_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -59,9 +67,15 @@ export default function UITest002() {
       }
     })
 
-    //当前运行错误
-    // 正常测试isBefore 不传获取类型 使用默认方式  替换  不是孩子控件
-    it('Test_isBefore_0500', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isBefore_0500
+     * @tc.number    : Test_isBefore_0500
+     * @tc.desc      : 正常测试isBefore 不传获取类型 使用默认方式  替换  不是孩子控件
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isBefore_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -81,8 +95,15 @@ export default function UITest002() {
       }
     })
 
-    // 获取第一个孩子的before
-    it('Test_isBefore_0300', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isBefore_0300
+     * @tc.number    : Test_isBefore_0300
+     * @tc.desc      : ON.isBefore()
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isBefore_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -103,8 +124,15 @@ export default function UITest002() {
       }
     })
 
-    // 获取可视区域外的前一个孩子
-    it('Test_isBefore_0400', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isBefore_0400
+     * @tc.number    : Test_isBefore_0400
+     * @tc.desc      : 获取可视区域外的前一个孩子
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isBefore_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -124,7 +152,5 @@ export default function UITest002() {
         done()
       }
     })
-
-    //进行测试
   })
 }

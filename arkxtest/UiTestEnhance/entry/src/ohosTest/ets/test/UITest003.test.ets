@@ -1,7 +1,8 @@
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, Level, Size, TestType } from '@ohos/hypium';
 import { Component, Driver, ON, PointerMatrix } from '@ohos.UiTest'
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
+
 interface want {
   bundleName: string,
   abilityName: string,
@@ -20,7 +21,7 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 
   await delegator.startAbility(want).then(result => {
     console.info(`UiTestCase, start abilityFinished: ${result}`)
-  }).catch((err:BusinessError) => {
+  }).catch((err: BusinessError) => {
     console.error(`UiTestCase, start abilityFailed: ${err}`)
   })
 }
@@ -28,15 +29,22 @@ const startAbility = async (bundleName: string, abilityName: string) => {
 export default function UITest003() {
   describe('UITest003', () => {
 
-    afterEach(async ()=>{
+    afterEach(async () => {
       let topAbility = await delegator.getCurrentTopAbility();
       await topAbility.context.terminateSelf();
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs);
     })
 
-    // 正常测试isAfter 下面元素为 Text控件
-    it('Test_isAfter_0100', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isAfter_0100
+     * @tc.number    : Test_isAfter_0100
+     * @tc.desc      : 正常测试isAfter 下面元素为 Text控件
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isAfter_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -58,8 +66,15 @@ export default function UITest003() {
       }
     })
 
-    // 正常测试iisAfter 下面 不传获取类型 使用默认方式  替换  不是孩子控件
-    it('Test_isAfter_0200', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isAfter_0200
+     * @tc.number    : Test_isAfter_0200
+     * @tc.desc      : 正常测试iisAfter 下面 不传获取类型 使用默认方式  替换  不是孩子控件
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isAfter_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -80,8 +95,15 @@ export default function UITest003() {
       }
     })
 
-    // 获取最外层控件before
-    it('Test_isAfter_0300', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isAfter_0300
+     * @tc.number    : Test_isAfter_0300
+     * @tc.desc      : 获取最外层控件before
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isAfter_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -101,8 +123,15 @@ export default function UITest003() {
       }
     })
 
-    // 获取最后一个孩子的下一个
-    it('Test_isAfter_0400', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isAfter_0400
+     * @tc.number    : Test_isAfter_0400
+     * @tc.desc      : 获取最后一个孩子的下一个
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isAfter_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -123,8 +152,15 @@ export default function UITest003() {
       }
     })
 
-    // 获取一个在可视区域外的孩子的下一个孩子
-    it('Test_isAfter_0500', 0, async (done : Function) => {
+    /**
+     * @tc.name      : Test_isAfter_0500
+     * @tc.number    : Test_isAfter_0500
+     * @tc.desc      : 获取一个在可视区域外的孩子的下一个孩子
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 0
+     */
+    it('Test_isAfter_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       await startAbility('com.example.uitest', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
@@ -144,6 +180,5 @@ export default function UITest003() {
         done()
       }
     })
-
   })
 }
