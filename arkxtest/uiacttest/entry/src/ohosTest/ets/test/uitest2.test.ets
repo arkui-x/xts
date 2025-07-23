@@ -271,6 +271,7 @@ export default function UiTest2() {
         done();
       }
     });
+    
     /*
      * @tc.number: TEST_CONTROL_CLICK_NO_0092
      * @tc.name: testScrollSearch
