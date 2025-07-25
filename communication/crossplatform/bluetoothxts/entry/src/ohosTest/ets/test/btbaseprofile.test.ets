@@ -16,7 +16,7 @@
 import btAccess from '@ohos.bluetooth.access';
 import baseProfile from '@ohos.bluetooth.baseProfile';
 import a2dp from '@ohos.bluetooth.a2dp';
-import { describe, beforeAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, it, expect, TestType, Level, Size } from '@ohos/hypium'
 import deviceInfo from '@ohos.deviceInfo';
 
 let osFullNameInfo: string = deviceInfo.osFullName;
@@ -47,139 +47,166 @@ export default function btbaseProfile() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_BaseProfile_0010
      * @tc.name   : SUB_ArkUIX_Bluetooth_BaseProfile_0010
      * @tc.desc   : Test bluetooth BaseProfile getConnectionState interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0010', 0, async (done: Function) => {
-      try {
-        await sleep(3000)
-        let state = A2dpSourceProfile.getConnectionState("11:22:33:AA:BB:FF");
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0010 the connection state:" + state);
-        expect(true).assertEqual(state == 0 || state == 1 || state == 2);
-      } catch (err) {
-        await sleep(3000)
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0010 getConnectionState errCode:" + err.code + ",errMessage:" +
-        err.message);
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          await sleep(3000)
+          let state = A2dpSourceProfile.getConnectionState("11:22:33:AA:BB:FF");
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0010 the connection state:" + state);
+          expect(true).assertEqual(state == 0 || state == 1 || state == 2);
+        } catch (err) {
+          await sleep(3000)
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0010 getConnectionState errCode:" + err.code +
+            ",errMessage:" +
+          err.message);
+        }
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_BaseProfile_0020
      * @tc.name   : SUB_ArkUIX_Bluetooth_BaseProfile_0020
      * @tc.desc   : Test bluetooth BaseProfile on('connectionStateChange') interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0020', 0, async (done: Function) => {
-      try {
-        await sleep(3000)
-        A2dpSourceProfile.on('connectionStateChange', onReceiveEvent);
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0020 errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code == 2900099).assertTrue();
-      }
-      A2dpSourceProfile.off('connectionStateChange', onReceiveEvent);
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          await sleep(3000)
+          A2dpSourceProfile.on('connectionStateChange', onReceiveEvent);
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0020 errCode:" + err.code + ",errMessage:" + err.message);
+          expect(err.code == 2900099).assertTrue();
+        }
+        A2dpSourceProfile.off('connectionStateChange', onReceiveEvent);
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_BaseProfile_0030
      * @tc.name   : SUB_ArkUIX_Bluetooth_BaseProfile_0030
      * @tc.desc   : Test bluetooth BaseProfile getConnectedDevices interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0030', 0, async (done: Function) => {
-      try {
-        await sleep(3000)
-        let devices: Array<string> = A2dpSourceProfile.getConnectedDevices();
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0030 getConnectedDevices devices list:" + devices);
-        expect(true).assertEqual(devices != null);
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0030 getConnectedDevices errCode:" + err.code + ",errMessage:" +
-        err.message);
-        expect(err.code == 2900099).assertTrue();
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          await sleep(3000)
+          let devices: Array<string> = A2dpSourceProfile.getConnectedDevices();
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0030 getConnectedDevices devices list:" + devices);
+          expect(true).assertEqual(devices != null);
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0030 getConnectedDevices errCode:" + err.code +
+            ",errMessage:" +
+          err.message);
+          expect(err.code == 2900099).assertTrue();
+        }
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Connection_0040
      * @tc.name   : SUB_ArkUIX_Bluetooth_Connection_0040
      * @tc.desc   : Test bluetooth BaseProfile on('connectionStateChange') interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0040', 0, async (done: Function) => {
-      try {
-        A2dpSourceProfile.on(null, onReceiveEvent);
-        await sleep(1000);
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0040 fail");
-        expect().assertFail();
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0040 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code == 401).assertTrue();
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          A2dpSourceProfile.on(null, onReceiveEvent);
+          await sleep(1000);
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0040 fail");
+          expect().assertFail();
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0040 pass errCode:" + err.code + ",errMessage:" +
+          err.message);
+          expect(err.code == 401).assertTrue();
+        }
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Connection_0050
      * @tc.name   : SUB_ArkUIX_Bluetooth_Connection_0050
      * @tc.desc   : Test bluetooth BaseProfile on('connectionStateChange') interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0050', 0, async (done: Function) => {
-      try {
-        A2dpSourceProfile.on(undefined, onReceiveEvent);
-        await sleep(1000);
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0050 fail");
-        expect().assertFail();
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0050 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code == 401).assertTrue();
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          A2dpSourceProfile.on(undefined, onReceiveEvent);
+          await sleep(1000);
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0050 fail");
+          expect().assertFail();
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0050 pass errCode:" + err.code + ",errMessage:" +
+          err.message);
+          expect(err.code == 401).assertTrue();
+        }
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_BaseProfile_0060
      * @tc.name   : SUB_ArkUIX_Bluetooth_BaseProfile_0060
      * @tc.desc   : Test bluetooth BaseProfile off('connectionStateChange') interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0060', 0, async (done: Function) => {
-      try {
-        A2dpSourceProfile.on(undefined, onReceiveEvent);
-        await sleep(1000);
-        A2dpSourceProfile.on(null, onReceiveEvent);
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0060 fail");
-        expect().assertFail();
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0060 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code == 401).assertTrue();
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          A2dpSourceProfile.on(undefined, onReceiveEvent);
+          await sleep(1000);
+          A2dpSourceProfile.on(null, onReceiveEvent);
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0060 fail");
+          expect().assertFail();
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0060 pass errCode:" + err.code + ",errMessage:" +
+          err.message);
+          expect(err.code == 401).assertTrue();
+        }
+        done();
+      })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_BaseProfile_0070
      * @tc.name   : SUB_ArkUIX_Bluetooth_BaseProfile_0070
      * @tc.desc   : Test bluetooth BaseProfile off('connectionStateChange') interface
      * @tc.type   : Function
+     * @tc.size   : MediumTest
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_BaseProfile_0070', 0, async (done: Function) => {
-      try {
-        A2dpSourceProfile.on(null, onReceiveEvent);
-        await sleep(1000);
-        A2dpSourceProfile.off(null, onReceiveEvent);
-        console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0070 fail");
-        expect().assertFail()
-      } catch (err) {
-        console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0070 pass errCode:" + err.code + ",errMessage:" + err.message);
-        expect(err.code == 401).assertTrue();
-      }
-      done();
-    })
+    it('SUB_ArkUIX_Bluetooth_BaseProfile_0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        try {
+          A2dpSourceProfile.on(null, onReceiveEvent);
+          await sleep(1000);
+          A2dpSourceProfile.off(null, onReceiveEvent);
+          console.info("SUB_ArkUIX_Bluetooth_BaseProfile_0070 fail");
+          expect().assertFail()
+        } catch (err) {
+          console.error("SUB_ArkUIX_Bluetooth_BaseProfile_0070 pass errCode:" + err.code + ",errMessage:" +
+          err.message);
+          expect(err.code == 401).assertTrue();
+        }
+        done();
+      })
   })
 }
