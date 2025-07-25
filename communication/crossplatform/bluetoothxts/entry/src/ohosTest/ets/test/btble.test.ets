@@ -14,7 +14,7 @@
 */
 import btAccess from '@ohos.bluetooth.access';
 import bluetoothBle from '@ohos.bluetooth.ble';
-import { describe, beforeAll, it, expect } from '@ohos/hypium'
+import { describe, beforeAll, it, expect, TestType, Level, Size } from '@ohos/hypium'
 import { BusinessError } from '@ohos.base';
 import deviceInfo from '@ohos.deviceInfo';
 
@@ -195,12 +195,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0010
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0010
      * @tc.desc   : Test bluetooth ble createGattClientDevice interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0010', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattClient.connect();
         await sleep(2000);
@@ -214,12 +216,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0020
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0020
      * @tc.desc   : Test bluetooth ble getDeviceName interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0020', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattClient.getDeviceName((err, data) => {
           if (err) {
@@ -240,12 +244,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0030
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0030
      * @tc.desc   : Test bluetooth ble getDeviceName interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0030', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         await gattClient.getDeviceName().then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_0030] device name:' + JSON.stringify(data))
@@ -264,12 +270,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0040
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0040
      * @tc.desc   : Test bluetooth ble getServices interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0040', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattClient.getServices((err, data) => {
           if (err) {
@@ -288,12 +296,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0050
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0050
      * @tc.desc   : Test bluetooth ble getServices interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0050', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         await gattClient.getServices().then((GattService) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_0050] getServices successfully:' + JSON.stringify(GattService));
@@ -309,12 +319,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0060
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0060
      * @tc.desc   : Test bluetooth ble readCharacteristicValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0060', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let descriptors: Array<bluetoothBle.BLEDescriptor> = [];
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
@@ -347,12 +359,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0070
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0070
      * @tc.desc   : Test bluetooth ble readCharacteristicValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0070', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let descriptors: Array<bluetoothBle.BLEDescriptor> = [];
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
@@ -386,12 +400,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0080
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0080
      * @tc.desc   : Test bluetooth ble readDescriptorValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0080', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
       descV[0] = 11;
@@ -413,12 +429,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_0090
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_0090
      * @tc.desc   : Test bluetooth ble readDescriptorValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_0090', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
       descV[0] = 11;
@@ -440,12 +458,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00100
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00100
      * @tc.desc   : Test bluetooth ble writeCharacteristicValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00100', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let descriptors: Array<bluetoothBle.BLEDescriptor> = [];
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
@@ -486,12 +506,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00110
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00110
      * @tc.desc   : Test bluetooth ble writeCharacteristicValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00110', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let descriptors: Array<bluetoothBle.BLEDescriptor> = [];
       let bufferDesc = new ArrayBuffer(8);
       let descV = new Uint8Array(bufferDesc);
@@ -533,12 +555,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00120
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00120
      * @tc.desc   : Test bluetooth ble writeDescriptorValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00120', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -570,12 +594,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00130
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00130
      * @tc.desc   : Test bluetooth ble writeDescriptorValue interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00130', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -608,12 +634,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00140
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00140
      * @tc.desc   : Test bluetooth ble setBLEMtuSize interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00140', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -629,12 +657,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00150
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00150
      * @tc.desc   : Test bluetooth ble on('BLEConnectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00150', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattClient.on('BLEConnectionStateChange', ConnectStateChanged);
         await sleep(1000);
@@ -648,12 +678,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00160
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00160
      * @tc.desc   : Test bluetooth ble on('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00160', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -672,12 +704,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00170
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00170
      * @tc.desc   : Test bluetooth ble on('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00170', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       gattClient.on('BLEMtuChange', (mtu: number) => {
         console.info('BLEMtuChange, mtu: ' + mtu);
       });
@@ -692,12 +726,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00180
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00180
      * @tc.desc   : Test bluetooth ble getConnectedBLEDevices interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00180', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         let result = bluetoothBle.getConnectedBLEDevices();
         await sleep(1000);
@@ -712,12 +748,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00190
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00190
      * @tc.desc   : Test bluetooth ble addService interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00190', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -761,12 +799,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00200
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00200
      * @tc.desc   : Test bluetooth ble removeService interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00200', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattServer.removeService('00001810-0000-1000-8000-00805F9B34FB');
         await sleep(2000);
@@ -778,12 +818,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00210
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00210
      * @tc.desc   : Test bluetooth ble on("BLEDeviceFind") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00210', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         bluetoothBle.on("BLEDeviceFind", onReceiveEvent);
         bluetoothBle.startBLEScan(
@@ -810,12 +852,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00220
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00220
      * @tc.desc   : Test bluetooth ble on("characteristicWrite") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00220', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattServer.on("characteristicWrite", WriteCharacteristicReq);
         await sleep(1000);
@@ -830,12 +874,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number :SUB_ArkUIX_Bluetooth_Ble_00230
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00230
      * @tc.desc   : Test bluetooth ble on("characteristicRead") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00230', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00230', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         await gattServer.on("characteristicRead", ReadCharacteristicReq);
         await sleep(1000);
@@ -849,12 +895,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00240
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00240
      * @tc.desc   : Test bluetooth ble on("descriptorRead") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00240', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00240', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         await gattServer.on("descriptorRead", ReadDescriptorReq);
         await gattServer.off("descriptorRead");
@@ -867,12 +915,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00250
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00250
      * @tc.desc   : Test bluetooth ble on("descriptorWrite") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00250', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00250', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       if (platform == "iOS") {
         done();
         return;
@@ -890,12 +940,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00260
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00260
      * @tc.desc   : Test bluetooth ble on("connectionStateChange") interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00260', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00260', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       try {
         gattServer.on("connectionStateChange", Connected);
         await sleep(1000);
@@ -909,12 +961,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00270
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00270
      * @tc.desc   : Test bluetooth ble startAdvertising stopAdvertising Promise interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00270', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00270', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let advertisingParams: bluetoothBle.AdvertisingParams = {
         advertisingSettings: setting,
         advertisingData: advData,
@@ -943,12 +997,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00280
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00280
      * @tc.desc   : Test bluetooth ble startAdvertising stopAdvertising Callback interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00280', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00280', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let advertisingParams: bluetoothBle.AdvertisingParams = {
         advertisingSettings: setting,
         advertisingData: advData,
@@ -985,12 +1041,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00290
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00290
      * @tc.desc   : Test bluetooth ble on('advertisingStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00290', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00290', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let advertisingParams: bluetoothBle.AdvertisingParams = {
         advertisingSettings: setting,
         advertisingData: advData,
@@ -1021,12 +1079,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00300
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00300
      * @tc.desc   : Test bluetooth ble createGattClientDevice interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00300', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient = bluetoothBle.createGattClientDevice(undefined);
         gattClient.connect();
@@ -1042,12 +1102,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00310
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00310
      * @tc.desc   : Test bluetooth ble createGattClientDevice interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00310', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00310', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient = bluetoothBle.createGattClientDevice(null);
         gattClient.connect();
@@ -1063,12 +1125,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00320
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00320
      * @tc.desc   : Test bluetooth Ble on('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00320', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00320', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(undefined, (mtu: number) => {
           console.info('BLEMtuChange, mtu: ' + mtu);
@@ -1084,12 +1148,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00330
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00330
      * @tc.desc   : Test bluetooth Ble on('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00330', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00330', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(null, (mtu: number) => {
           console.info('BLEMtuChange, mtu: ' + mtu);
@@ -1105,12 +1171,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00340
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00340
      * @tc.desc   : Test bluetooth Ble on('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00340', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00340', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(null, (mtu: number) => {
           console.info('BLEMtuChange, mtu: ' + mtu);
@@ -1127,12 +1195,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00350
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00350
      * @tc.desc   : Test bluetooth Ble off('BLEMtuChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00350', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00350', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(undefined, (mtu: number) => {
           console.info('BLEMtuChange, mtu: ' + mtu);
@@ -1149,12 +1219,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00360
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00360
      * @tc.desc   : Test bluetooth Ble on('BLEDeviceFind') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00360', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00360', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(undefined, onReceiveEvent);
         await sleep(1000);
@@ -1168,12 +1240,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00370
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00370
      * @tc.desc   : Test bluetooth Ble on('BLEDeviceFind') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00370', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00370', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(null, onReceiveEvent);
         await sleep(1000);
@@ -1187,12 +1261,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00380
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00380
      * @tc.desc   : Test bluetooth Ble off('BLEDeviceFind') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00380', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00380', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(null, onReceiveEvent);
         await sleep(1000);
@@ -1207,12 +1283,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00390
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00390
      * @tc.desc   : Test bluetooth Ble off('BLEDeviceFind') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00390', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00390', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(undefined, onReceiveEvent);
         await sleep(1000);
@@ -1227,12 +1305,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00400
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00400
      * @tc.desc   : Test bluetooth Ble on('BLEConnectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00400', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(null, ConnectStateChanged);
         await sleep(1000);
@@ -1246,12 +1326,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00410
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00410
      * @tc.desc   : Test bluetooth Ble on('BLEConnectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00410', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00410', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(undefined, ConnectStateChanged);
         await sleep(1000);
@@ -1265,12 +1347,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00420
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00420
      * @tc.desc   : Test bluetooth Ble off('BLEConnectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00420', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00420', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(undefined, ConnectStateChanged);
         await sleep(1000);
@@ -1285,12 +1369,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00430
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00430
      * @tc.desc   : Test bluetooth Ble off('BLEConnectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00430', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00430', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.on(null, ConnectStateChanged);
         await sleep(1000);
@@ -1305,12 +1391,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00440
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00440
      * @tc.desc   : Test bluetooth Ble on('characteristicWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00440', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00440', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, WriteCharacteristicReq);
         await sleep(1000);
@@ -1324,12 +1412,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00450
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00450
      * @tc.desc   : Test bluetooth Ble on('characteristicWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00450', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00450', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, WriteCharacteristicReq);
         await sleep(1000);
@@ -1343,12 +1433,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00460
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00460
      * @tc.desc   : Test bluetooth Ble off('characteristicWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00460', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00460', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, WriteCharacteristicReq);
         await sleep(1000);
@@ -1363,12 +1455,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00470
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00470
      * @tc.desc   : Test bluetooth Ble off('characteristicWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00470', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00470', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, WriteCharacteristicReq);
         await sleep(1000);
@@ -1383,12 +1477,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00480
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00480
      * @tc.desc   : Test bluetooth Ble on('characteristicRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00480', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00480', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(undefined, ReadCharacteristicReq);
         await sleep(1000);
@@ -1402,12 +1498,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00490
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00490
      * @tc.desc   : Test bluetooth Ble on('characteristicRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00490', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00490', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(null, ReadCharacteristicReq);
         await sleep(1000);
@@ -1421,12 +1519,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00500
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00500
      * @tc.desc   : Test bluetooth Ble off('characteristicRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00500', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(null, ReadCharacteristicReq);
         await sleep(1000);
@@ -1441,12 +1541,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00510
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00510
      * @tc.desc   : Test bluetooth Ble off('characteristicRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00510', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00510', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(undefined, ReadCharacteristicReq);
         await sleep(1000);
@@ -1461,12 +1563,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00520
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00520
      * @tc.desc   : Test bluetooth Ble on('descriptorRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00520', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00520', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(undefined, ReadDescriptorReq);
         await sleep(1000);
@@ -1480,12 +1584,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00530
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00530
      * @tc.desc   : Test bluetooth Ble on('descriptorRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00530', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00530', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(null, ReadDescriptorReq);
         await sleep(1000);
@@ -1499,12 +1605,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00540
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00540
      * @tc.desc   : Test bluetooth Ble off('descriptorRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00540', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00540', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(undefined, ReadDescriptorReq);
         await sleep(1000);
@@ -1519,12 +1627,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00550
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00550
      * @tc.desc   : Test bluetooth Ble off('descriptorRead') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00550', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00550', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await gattServer.on(null, ReadDescriptorReq);
         await sleep(1000);
@@ -1539,12 +1649,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00560
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00560
      * @tc.desc   : Test bluetooth Ble on('descriptorWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00560', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00560', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, WriteDescriptorReq);
         await sleep(1000);
@@ -1558,12 +1670,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00570
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00570
      * @tc.desc   : Test bluetooth Ble on('descriptorWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00570', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00570', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, WriteDescriptorReq);
         await sleep(1000);
@@ -1577,12 +1691,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00580
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00580
      * @tc.desc   : Test bluetooth Ble off('descriptorWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00580', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00580', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, WriteDescriptorReq);
         await sleep(1000);
@@ -1597,12 +1713,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00590
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00590
      * @tc.desc   : Test bluetooth Ble off('descriptorWrite') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00590', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00590', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, WriteDescriptorReq);
         await sleep(1000);
@@ -1617,12 +1735,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00600
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00600
      * @tc.desc   : Test bluetooth Ble on('connectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00600', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, Connected);
         await sleep(1000);
@@ -1636,12 +1756,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00610
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00610
      * @tc.desc   : Test bluetooth Ble on('connectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00610', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00610', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, Connected);
         await sleep(1000);
@@ -1655,12 +1777,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00620
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00620
      * @tc.desc   : Test bluetooth Ble off('connectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00620', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00620', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(undefined, Connected);
         await sleep(1000);
@@ -1675,12 +1799,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00630
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00630
      * @tc.desc   : Test bluetooth Ble off('connectionStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00630', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00630', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattServer.on(null, Connected);
         await sleep(1000);
@@ -1695,12 +1821,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00640
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00640
      * @tc.desc   : Test bluetooth Ble on('advertisingStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00640', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00640', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(null, onReceiveEvent1);
         await sleep(1000);
@@ -1714,12 +1842,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00650
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00650
      * @tc.desc   : Test bluetooth Ble on('advertisingStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00650', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00650', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
 
         bluetoothBle.on(undefined, onReceiveEvent1);
@@ -1734,12 +1864,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00660
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00660
      * @tc.desc   : Test bluetooth Ble off('advertisingStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00660', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00660', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(undefined, onReceiveEvent1);
         await sleep(1000);
@@ -1754,12 +1886,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00670
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00670
      * @tc.desc   : Test bluetooth Ble off('advertisingStateChange') interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00670', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00670', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.on(null, onReceiveEvent1);
         await sleep(1000);
@@ -1774,12 +1908,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00680
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00680
      * @tc.desc   : Test bluetooth Ble startAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00680', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00680', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.startAdvertising(null).then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00680]startAdvertising promise fail');
@@ -1795,12 +1931,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00690
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00690
      * @tc.desc   : Test bluetooth Ble startAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
-     * @tc.level  : Level 2e
+     * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00690', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00690', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.startAdvertising(undefined).then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00690]startAdvertising promise fail');
@@ -1816,12 +1954,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00700
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00700
      * @tc.desc   : Test bluetooth Ble startAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00700', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         bluetoothBle.startAdvertising(setting, advData, null);
         await sleep(1000);
@@ -1835,12 +1975,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00710
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00710
      * @tc.desc   : Test bluetooth Ble stopAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00710', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00710', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(undefined).then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00710] stopAdvertising promise fail');
@@ -1856,12 +1998,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00720
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00720
      * @tc.desc   : Test bluetooth Ble stopAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00720', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00720', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(null).then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00720] stopAdvertising promise fail');
@@ -1877,12 +2021,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00730
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00730
      * @tc.desc   : Test bluetooth Ble stopAdvertising interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00730', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00730', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await bluetoothBle.stopAdvertising(88).then((data) => {
           console.info('[SUB_ArkUIX_Bluetooth_Ble_00730] stopAdvertising promise fail');
@@ -1898,12 +2044,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00740
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00740
      * @tc.desc   : Test bluetooth Ble setBLEMtuSize interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00740', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00740', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(undefined);
         await sleep(1000);
@@ -1917,12 +2065,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00750
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00750
      * @tc.desc   : Test bluetooth Ble setBLEMtuSize interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00750', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00750', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(null);
         await sleep(1000);
@@ -1936,12 +2086,14 @@ export default function btble() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Bluetooth_Ble_00760
      * @tc.name   : SUB_ArkUIX_Bluetooth_Ble_00760
      * @tc.desc   : Test bluetooth Ble setBLEMtuSize interface
+     * @tc.size   : MediumTest
      * @tc.type   : Function
      * @tc.level  : Level 2
      */
-    it('SUB_ArkUIX_Bluetooth_Ble_00760', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Bluetooth_Ble_00760', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         gattClient.setBLEMtuSize(1000);
         console.info("[SUB_ArkUIX_Bluetooth_Ble_00760]setBLEMtuSize fail");
@@ -1956,5 +2108,3 @@ export default function btble() {
     })
   })
 }
-
-
