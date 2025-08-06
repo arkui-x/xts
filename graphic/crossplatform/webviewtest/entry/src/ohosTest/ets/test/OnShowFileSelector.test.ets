@@ -13,17 +13,9 @@
  * limitations under the License.
  */
 
-import {
-  describe,
-  it,
-  expect,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  afterAll,
-} from '@ohos/hypium';
+import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, TestType, Level, Size } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep, stopAbility } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
 
 export default function OnShowFileSelectorTest() {
   describe('OnShowFileSelectorTest', () => {
@@ -64,10 +56,10 @@ export default function OnShowFileSelectorTest() {
      * @tc.name  : SUB_Web_WebView_On_Show_File_Selector_Func_0100
      * @tc.desc  : test whether the onShowFileSelector attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Show_File_Selector_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_On_Show_File_Selector_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Show_File_Selector_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
