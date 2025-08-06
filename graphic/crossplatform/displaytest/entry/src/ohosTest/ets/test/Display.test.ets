@@ -12,9 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import app from '@system.app'
-import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect} from '@ohos/hypium'
-import window from '@ohos.window'
+
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, TestType, Size } from '@ohos/hypium'
 import display from '@ohos.display'
 
 async function sleep(ms: number): Promise<void> {
@@ -37,10 +36,10 @@ export default function DisplayTest() {
      * @tc.name  : testGetDefaultDisplaySync001
      * @tc.desc  : To test the sync function of obtaining the default display.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
-     * @tc.level : Level 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('testGetDefaultDisplaySync001', 0, async (done:Function) => {
+    it('testGetDefaultDisplaySync001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       console.info('displayTest getDefaultDisplaySyncTest1 begin');
       try {
         let dsp = display.getDefaultDisplaySync();
@@ -67,10 +66,10 @@ export default function DisplayTest() {
      * @tc.name  : testDisplay_Orientation001
      * @tc.desc  : To test value of Display.
      * @tc.size  : MediumTest
-     * @tc.type  : Field
-     * @tc.level : Level 1
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('testDisplay_Orientation001', 0, async (done:Function) => {
+    it('testDisplay_Orientation001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       let dsp = display.getDefaultDisplaySync();
       console.log("testDisplay_Orientation001 1");
       expect(dsp.id != null).assertTrue();
@@ -89,10 +88,10 @@ export default function DisplayTest() {
      * @tc.name  : testOrientation001
      * @tc.desc  : To test value of Orientation.
      * @tc.size  : MediumTest
-     * @tc.type  : Enum
+     * @tc.type  : Function
      * @tc.level : Level 0
      */
-    it('testOrientation001', 0, async (done:Function) => {
+    it('testOrientation001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       let dsp = display.getDefaultDisplaySync();
       console.log("testOrientation001 1...orientation:" + dsp.orientation);
       expect(dsp.orientation == 0).assertTrue();
