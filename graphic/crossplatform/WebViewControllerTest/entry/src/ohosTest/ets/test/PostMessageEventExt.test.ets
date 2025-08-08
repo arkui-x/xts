@@ -311,7 +311,7 @@ export default function PostMessageEventExtTest() {
         try {
           let message: webview.WebMessageExt = new webview.WebMessageExt();
           message.setType(webview.WebMessageType.ARRAY);
-          message.setArray([1, TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, 3]);
+          message.setArray([1, 2, 3]);
           expect(message.getType()).assertEqual(webview.WebMessageType.ARRAY);
           expect(JSON.stringify(message.getArray())).assertEqual('[1,2,3]');
           message.setArray(["1", "2", "3"]);
