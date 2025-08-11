@@ -13,17 +13,9 @@
  * limitations under the License.
  */
 
-import {
-  describe,
-  it,
-  expect,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  afterAll,
-} from '@ohos/hypium';
+import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, Level, TestType, Size } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
 
 export default function WebMessagePortTest() {
   describe('WebMessagePortTest', () => {
@@ -70,32 +62,33 @@ export default function WebMessagePortTest() {
      * @tc.name  : SUB_Web_WebView_Create_Web_Message_Ports_Func_0100
      * @tc.desc  : test whether the createWebMessagePorts function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100', 0, async () => {
-      console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 test start');
-      const driver: Driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
-      const CREATE: Component = await driver.findComponent(ON.text('createPorts'));
-      await CREATE.click();
-      await driver.delayMs(waitUiReadyMs);
-      const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
-      const text: string = await ON_EVENT_VALUE.getText();
-      expect(text).assertEqual('create ports: 2个');
-      console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 success');
-      console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 test end');
-    });
-    
+    it('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async () => {
+        console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 test start');
+        const driver: Driver = Driver.create();
+        await driver.delayMs(waitUiReadyMs);
+        const CREATE: Component = await driver.findComponent(ON.text('createPorts'));
+        await CREATE.click();
+        await driver.delayMs(waitUiReadyMs);
+        const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
+        const text: string = await ON_EVENT_VALUE.getText();
+        expect(text).assertEqual('create ports: 2个');
+        console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 success');
+        console.log('SUB_Web_WebView_Create_Web_Message_Ports_Func_0100 test end');
+      });
+
     /**
      * @tc.number: SUB_Web_WebView_Post_Message_Func_0100
      * @tc.name  : SUB_Web_WebView_Post_Message_Func_0100
      * @tc.desc  : test whether the postMessage function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_Post_Message_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_Post_Message_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_Post_Message_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -111,16 +104,16 @@ export default function WebMessagePortTest() {
       console.log('SUB_Web_WebView_Post_Message_Func_0100 success');
       console.log('SUB_Web_WebView_Post_Message_Func_0100 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_Post_Message_Event_Func_0100
      * @tc.name  : SUB_Web_WebView_Post_Message_Event_Func_0100
      * @tc.desc  : test whether the postMessageEvent function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_Post_Message_Event_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_Post_Message_Event_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -145,16 +138,16 @@ export default function WebMessagePortTest() {
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0100 success');
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0100 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_Post_Message_Event_Func_0200
      * @tc.name  : SUB_Web_WebView_Post_Message_Event_Func_0200
      * @tc.desc  : test whether the postMessageEvent function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_Post_Message_Event_Func_0200', 0, async () => {
+    it('SUB_Web_WebView_Post_Message_Event_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0200 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -179,16 +172,16 @@ export default function WebMessagePortTest() {
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0200 success');
       console.log('SUB_Web_WebView_Post_Message_Event_Func_0200 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_On_Message_Event_Func_0100
      * @tc.name  : SUB_Web_WebView_On_Message_Event_Func_0100
      * @tc.desc  : test whether the onMessageEvent function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Message_Event_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_On_Message_Event_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Message_Event_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -207,16 +200,16 @@ export default function WebMessagePortTest() {
       console.log('SUB_Web_WebView_On_Message_Event_Func_0100 success');
       console.log('SUB_Web_WebView_On_Message_Event_Func_0100 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_Close_Func_0100
      * @tc.name  : SUB_Web_WebView_Close_Func_0100
      * @tc.desc  : test whether the close function is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_Close_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_Close_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_Close_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);

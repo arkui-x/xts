@@ -21,6 +21,9 @@ import {
   beforeEach,
   afterEach,
   afterAll,
+  TestType,
+  Level,
+  Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
@@ -70,10 +73,10 @@ export default function OnConfirmTest() {
      * @tc.name  : SUB_Web_WebView_On_Confirm_Func_0100
      * @tc.desc  : test whether the onConfirm attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Confirm_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_On_Confirm_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Confirm_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -96,10 +99,10 @@ export default function OnConfirmTest() {
      * @tc.name  : SUB_Web_WebView_On_Confirm_Func_0200
      * @tc.desc  : test whether the onConfirm attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Confirm_Func_0200', 0, async () => {
+    it('SUB_Web_WebView_On_Confirm_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Confirm_Func_0200 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -122,10 +125,10 @@ export default function OnConfirmTest() {
      * @tc.name  : SUB_Web_WebView_On_Confirm_Func_0300
      * @tc.desc  : test whether the onConfirm attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Confirm_Func_0300', 0, async () => {
+    it('SUB_Web_WebView_On_Confirm_Func_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Confirm_Func_0300 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -148,10 +151,10 @@ export default function OnConfirmTest() {
      * @tc.name  : SUB_Web_WebView_On_Confirm_Func_0400
      * @tc.desc  : test whether the onConfirm attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Confirm_Func_0400', 0, async () => {
+    it('SUB_Web_WebView_On_Confirm_Func_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Confirm_Func_0400 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -174,10 +177,10 @@ export default function OnConfirmTest() {
      * @tc.name  : SUB_Web_WebView_On_Console_Func_0200
      * @tc.desc  : test whether the onConsole attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Console_Func_0200', 0, async () => {
+    it('SUB_Web_WebView_On_Console_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('ON_CONSOLE_TEST_001 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);

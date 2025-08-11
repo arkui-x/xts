@@ -21,9 +21,12 @@ import {
   beforeEach,
   afterEach,
   afterAll,
+  Level,
+  TestType,
+  Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
 
 export default function OnDownloadStartTest() {
   describe('OnDownloadStartTest', () => {
@@ -64,10 +67,10 @@ export default function OnDownloadStartTest() {
      * @tc.name  : SUB_Web_WebView_On_Download_Start_Func_0100
      * @tc.desc  : test whether the onDownloadStart attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
-    it('SUB_Web_WebView_On_Download_Start_Func_0100', 0, async () => {
+    it('SUB_Web_WebView_On_Download_Start_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       console.log('SUB_Web_WebView_On_Download_Start_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
@@ -98,49 +101,50 @@ export default function OnDownloadStartTest() {
       console.log('SUB_Web_WebView_On_Download_Start_Func_0100 success');
       console.log('SUB_Web_WebView_On_Download_Start_Func_0100 test end');
     });
-    
+
     /**
      * @tc.number: SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100
      * @tc.name  : SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100
      * @tc.desc  : test whether the mediaPlayGestureAccess attribute is valid
      * @tc.size  : MediumTest
-     * @tc.type  : Func
-     * @tc.level : 2
+     * @tc.type  : Function
+     * @tc.level : Level 0
      */
     /* IOS does not support mediaPlayGestureAccess（IOS不支持mediaPlayGestureAccess） */
-    it('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100', 0, async () => {
-      console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 test start');
-      const driver: Driver = Driver.create();
-      await driver.delayMs(waitUiReadyMs);
-      const CHANGE_TABS: Component = await driver.findComponent(ON.text('设置页签'));
-      await CHANGE_TABS.click();
-      await driver.delayMs(waitUiReadyMs);
-      const TAB: Component = await driver.findComponent(ON.text('Goto playVideo'));
-      await TAB.click();
-      await driver.delayMs(waitUiReadyMs * 2);
-      const UA: Component = await driver.findComponent(ON.text('UA'));
-      await UA.click();
-      await driver.delayMs(waitUiReadyMs);
-      const USER_AGENT: Component = await driver.findComponent(ON.id('USER_AGENT'));
-      const uaText: string = await USER_AGENT.getText();
-      if (uaText.includes('OpenHarmony') || uaText.includes('Android')) {
-        const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
-        await TRIGGER.click();
+    it('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async () => {
+        console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 test start');
+        const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
-        const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
-        const value: string = await ON_EVENT_VALUE.getText();
-        expect(value).assertContain('是否播放: 是');
-        console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
-      } else {
-        const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
-        await TRIGGER.click();
+        const CHANGE_TABS: Component = await driver.findComponent(ON.text('设置页签'));
+        await CHANGE_TABS.click();
         await driver.delayMs(waitUiReadyMs);
-        const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
-        const value: string = await ON_EVENT_VALUE.getText();
-        expect(value).assertContain('是否播放: 否');
-        console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
-      }
-      console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 test end');
-    });
+        const TAB: Component = await driver.findComponent(ON.text('Goto playVideo'));
+        await TAB.click();
+        await driver.delayMs(waitUiReadyMs * 2);
+        const UA: Component = await driver.findComponent(ON.text('UA'));
+        await UA.click();
+        await driver.delayMs(waitUiReadyMs);
+        const USER_AGENT: Component = await driver.findComponent(ON.id('USER_AGENT'));
+        const uaText: string = await USER_AGENT.getText();
+        if (uaText.includes('OpenHarmony') || uaText.includes('Android')) {
+          const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
+          await TRIGGER.click();
+          await driver.delayMs(waitUiReadyMs);
+          const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
+          const value: string = await ON_EVENT_VALUE.getText();
+          expect(value).assertContain('是否播放: 是');
+          console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
+        } else {
+          const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
+          await TRIGGER.click();
+          await driver.delayMs(waitUiReadyMs);
+          const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
+          const value: string = await ON_EVENT_VALUE.getText();
+          expect(value).assertContain('是否播放: 否');
+          console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
+        }
+        console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 test end');
+      });
   });
 }
