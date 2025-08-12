@@ -6,7 +6,7 @@ project(Filepickerxts)
 set(NATIVERENDER_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(NATIVE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../entry/src/main/cpp)
 if (DEFINED ENV{ARKUIX_SDK_HOME})
-    set(NATIVE_INCLUDE_PATH "$ENV{ARKUIX_SDK_HOME}/11/arkui-x/engine/lib/include/")
+    set(NATIVE_INCLUDE_PATH "$ENV{ARKUIX_SDK_HOME}/20/arkui-x/engine/lib/include/")
 endif ()
 
 # Macro isolation

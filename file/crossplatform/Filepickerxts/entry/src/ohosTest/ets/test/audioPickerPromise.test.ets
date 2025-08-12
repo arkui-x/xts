@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium'
+import { describe, it, expect, Level, TestType, Size } from '@ohos/hypium'
 import picker from '@ohos.file.picker';
 import testNapi from 'libentry.so'
 import deviceInfo from '@ohos.deviceInfo';
@@ -30,7 +30,8 @@ async function sleep(times: number) {
   await new Promise<number>((res: Function | string) => setTimeout(res, times));
 }
 
-async function selectWithOption(testNum: string, done: Function, option: picker.AudioSelectOptions, dirName: string, fileName: string) {
+async function selectWithOption(testNum: string, done: Function, option: picker.AudioSelectOptions, dirName: string,
+  fileName: string) {
   await sleep(1000)
   let audioPicker = new picker.AudioViewPicker();
   audioPicker.select(option).then((result) => {
@@ -73,85 +74,97 @@ export default function audioPickerPromise() {
   describe("audioPickerPromise", () => {
 
     /**
-     * @tc.name   : SUB_ArkUIX_audiopicker_save_promise_0010
-     * @tc.desc   : save without option, cancel
-     * @tc.type   : Function
-     * @tc.level   : Level 0
+     * @tc.number   : SUB_ArkUIX_audiopicker_save_promise_0010
+     * @tc.name     : SUB_ArkUIX_audiopicker_save_promise_0010
+     * @tc.desc     : save without option, cancel
+     * @tc.size     : MediumTest
+     * @tc.type     : Function
+     * @tc.level    : Level 0
      */
-    it("SUB_ArkUIX_audiopicker_save_promise_0010", 0, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_audiopicker_save_promise_001";
-      let option = new picker.AudioSaveOptions();
-      let saveDir = "Audios";
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else {
-        done();
-      }
-    });
+    it("SUB_ArkUIX_audiopicker_save_promise_0010", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_audiopicker_save_promise_001";
+        let option = new picker.AudioSaveOptions();
+        let saveDir = "Audios";
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_audiopicker_save_promise_0020
-     * @tc.desc   : save mp3 in Audios
-     * @tc.type   : Function
-     * @tc.level  : Level 0
+     * @tc.number   : SUB_ArkUIX_audiopicker_save_promise_0020
+     * @tc.name     : SUB_ArkUIX_audiopicker_save_promise_0020
+     * @tc.desc     : save mp3 in Audios
+     * @tc.size     : MediumTest
+     * @tc.type     : Function
+     * @tc.level    : Level 0
      */
-    it("SUB_ArkUIX_audiopicker_save_promise_0020", 0, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_audiopicker_save_promise_0020";
-      let option = new picker.AudioSaveOptions();
-      option.newFileNames = ["AudioViewPicker01.mp3"];
-      let saveDir = "Audios";
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await saveWithOption(testNum, done, option, saveDir);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_audiopicker_save_promise_0020", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_audiopicker_save_promise_0020";
+        let option = new picker.AudioSaveOptions();
+        option.newFileNames = ["AudioViewPicker01.mp3"];
+        let saveDir = "Audios";
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await saveWithOption(testNum, done, option, saveDir);
+        } else {
+          done()
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_audiopicker_select_promise_0010
-     * @tc.desc   : select with option
-     * @tc.type   : Function
-     * @tc.level   : Level 0
+     * @tc.number   : SUB_ArkUIX_audiopicker_select_promise_0010
+     * @tc.name     : SUB_ArkUIX_audiopicker_select_promise_0010
+     * @tc.desc     : select with option
+     * @tc.size     : MediumTest
+     * @tc.type     : Function
+     * @tc.level    : Level 0
      */
-    it("SUB_ArkUIX_audiopicker_select_promise_0010", 0, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_audiopicker_save_promise_0010";
-      let option = new picker.AudioSelectOptions();
-      let dirName = "Audios";
-      let fileName = "01.mp3";
-      option.maxSelectNumber = 3;
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option, dirName, fileName);
-      } else {
-        done()
-      }
-    })
+    it("SUB_ArkUIX_audiopicker_select_promise_0010", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_audiopicker_save_promise_0010";
+        let option = new picker.AudioSelectOptions();
+        let dirName = "Audios";
+        let fileName = "01.mp3";
+        option.maxSelectNumber = 3;
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option, dirName, fileName);
+        } else {
+          done()
+        }
+      })
 
     /**
-     * @tc.name   : SUB_ArkUIX_audiopicker_save_promise_0020
-     * @tc.desc   : select without option
-     * @tc.type   : Function
-     * @tc.level   : Level 0
+     * @tc.number   : SUB_ArkUIX_audiopicker_save_promise_0020
+     * @tc.name     : SUB_ArkUIX_audiopicker_save_promise_0020
+     * @tc.desc     : select without option
+     * @tc.size     : MediumTest
+     * @tc.type     : Function
+     * @tc.level    : Level 0
      */
-    it("SUB_ArkUIX_audiopicker_select_promise_0020", 0, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_audiopicker_save_promise_0020";
-      let option = new picker.AudioSelectOptions();
-      let dirName = "Audios";
-      let fileName = "01.mp3";
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option, dirName, fileName);
-      } else {
-        done()
-      }
-    })
+    it("SUB_ArkUIX_audiopicker_select_promise_0020", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_audiopicker_save_promise_0020";
+        let option = new picker.AudioSelectOptions();
+        let dirName = "Audios";
+        let fileName = "01.mp3";
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option, dirName, fileName);
+        } else {
+          done()
+        }
+      })
   });
 }

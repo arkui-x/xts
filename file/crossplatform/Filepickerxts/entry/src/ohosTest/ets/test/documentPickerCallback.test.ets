@@ -14,7 +14,7 @@
  */
 
 import hilog from '@ohos.hilog';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, TestType, Size } from '@ohos/hypium';
 import picker from '@ohos.file.picker';
 import testNapi from 'libentry.so'
 import deviceInfo from '@ohos.deviceInfo';
@@ -126,293 +126,337 @@ export default function documentPickerPromise() {
     })
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_callback_0010
-     * @tc.desc   : select without option
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_callback_0010
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_callback_0010
+     * @tc.desc      : select without option
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0010", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0010";
-      if (platform == "iOS") {
-        await select(testNum, done);
-      } else {
-        done();
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0010", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0010";
+        if (platform == "iOS") {
+          await select(testNum, done);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_callback_0020
-     * @tc.desc   : select with option
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_callback_0020
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_callback_0020
+     * @tc.desc      : select with option
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0020", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0020";
-      let option = new picker.DocumentSelectOptions();
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0020", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0020";
+        let option = new picker.DocumentSelectOptions();
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_promise_0030
-     * @tc.desc   : select with option maxSelectNumber
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number   : SUB_ArkUIX_documentpicker_select_promise_0030
+     * @tc.name     : SUB_ArkUIX_documentpicker_select_promise_0030
+     * @tc.desc     : select with option maxSelectNumber
+     * @tc.size     : MediumTest
+     * @tc.type     : Function
+     * @tc.level    : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0030", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0030";
-      let option = new picker.DocumentSelectOptions();
-      option.maxSelectNumber = 3;
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0030", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0030";
+        let option = new picker.DocumentSelectOptions();
+        option.maxSelectNumber = 3;
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_promise_0040
-     * @tc.desc   : select with option defaultFilePathUri
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_promise_0040
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_promise_0040
+     * @tc.desc      : select with option defaultFilePathUri
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0040", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0040";
-      let option = new picker.DocumentSelectOptions();
-      option.defaultFilePathUri = "";
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0040", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0040";
+        let option = new picker.DocumentSelectOptions();
+        option.defaultFilePathUri = "";
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_promise_0050
-     * @tc.desc   : select with option image fileSuffixFilters
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_promise_0050
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_promise_0050
+     * @tc.desc      : select with option image fileSuffixFilters
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0050", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0050";
-      let option = new picker.DocumentSelectOptions();
-      option.fileSuffixFilters = ['.png', '.jpg'];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0050", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0050";
+        let option = new picker.DocumentSelectOptions();
+        option.fileSuffixFilters = ['.png', '.jpg'];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_promise_0060
-     * @tc.desc   : select with option docs fileSuffixFilters
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_promise_0060
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_promise_0060
+     * @tc.desc      : select with option docs fileSuffixFilters
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0060", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0060";
-      let option = new picker.DocumentSelectOptions();
-      option.fileSuffixFilters = ['.pptx', '.docx', '.xlsx', '.txt'];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0060", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0060";
+        let option = new picker.DocumentSelectOptions();
+        option.fileSuffixFilters = ['.pptx', '.docx', '.xlsx', '.txt'];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_callback_0070
-     * @tc.desc   : select with option video fileSuffixFilters
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_callback_0070
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_callback_0070
+     * @tc.desc      : select with option video fileSuffixFilters
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0070", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0070";
-      let option = new picker.DocumentSelectOptions();
-      option.fileSuffixFilters = ['.mp4'];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0070", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0070";
+        let option = new picker.DocumentSelectOptions();
+        option.fileSuffixFilters = ['.mp4'];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_callback_0080
-     * @tc.desc   : select with option audio fileSuffixFilters
-     * @tc.size   : MEDIUM
-     * @tc.type   : Function
+     * @tc.number  : SUB_ArkUIX_documentpicker_select_callback_0080
+     * @tc.name    : SUB_ArkUIX_documentpicker_select_callback_0080
+     * @tc.desc    : select with option audio fileSuffixFilters
+     * @tc.size    : MEDIUM
+     * @tc.type    : Function
      * @tc.level   : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0080", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0080";
-      let option = new picker.DocumentSelectOptions();
-      option.fileSuffixFilters = ['.mp3'];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0080", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0080";
+        let option = new picker.DocumentSelectOptions();
+        option.fileSuffixFilters = ['.mp3'];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_promise_0090
-     * @tc.desc   : select with option file parameter
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_promise_0090
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_promise_0090
+     * @tc.desc      : select with option file parameter
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_0090", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_0090";
-      let option = new picker.DocumentSelectOptions();
-      option.selectMode = picker.DocumentSelectMode.FILE;
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_0090", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_0090";
+        let option = new picker.DocumentSelectOptions();
+        option.selectMode = picker.DocumentSelectMode.FILE;
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_select_callback_00100
-     * @tc.desc   : select with option folder parameter
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_select_callback_00100
+     * @tc.name      : SUB_ArkUIX_documentpicker_select_callback_00100
+     * @tc.desc      : select with option folder parameter
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_select_callback_00100", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_select_callback_00100";
-      let option = new picker.DocumentSelectOptions();
-      option.selectMode = picker.DocumentSelectMode.FOLDER;
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await selectWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_select_callback_00100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_select_callback_00100";
+        let option = new picker.DocumentSelectOptions();
+        option.selectMode = picker.DocumentSelectMode.FOLDER;
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await selectWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_save_callback_0010
-     * @tc.desc   : save file in Documents
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_save_callback_0010
+     * @tc.name      : SUB_ArkUIX_documentpicker_save_callback_0010
+     * @tc.desc      : save file in Documents
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_save_callback_0010", 0, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_save_callback_0010";
-      let option = new picker.DocumentSaveOptions();
-      option.newFileNames = ["DocumentViewPicker01.jpg"];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await saveWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_save_callback_0010", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_save_callback_0010";
+        let option = new picker.DocumentSaveOptions();
+        option.newFileNames = ["DocumentViewPicker01.jpg"];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await saveWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_save_callback_0020
-     * @tc.desc   : save mp4 in Videos
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_save_callback_0020
+     * @tc.name      : SUB_ArkUIX_documentpicker_save_callback_0020
+     * @tc.desc      : save mp4 in Videos
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_save_callback_0020", 3, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_save_callback_0020";
-      let option = new picker.DocumentSaveOptions();
-      option.newFileNames = ["DocumentViewPicker01.mp4"];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await saveWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_save_callback_0020", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_save_callback_0020";
+        let option = new picker.DocumentSaveOptions();
+        option.newFileNames = ["DocumentViewPicker01.mp4"];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await saveWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_save_callback_003
-     * @tc.desc   : save mp3 in Audios
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_save_callback_003
+     * @tc.name      : SUB_ArkUIX_documentpicker_save_callback_003
+     * @tc.desc      : save mp3 in Audios
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 3
      */
-    it("SUB_ArkUIX_documentpicker_save_callback_0030", 3, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_save_callback_0030";
-      let option = new picker.DocumentSaveOptions();
-      option.newFileNames = ["DocumentViewPicker01.mp3"];
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await saveWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_save_callback_0030", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_save_callback_0030";
+        let option = new picker.DocumentSaveOptions();
+        option.newFileNames = ["DocumentViewPicker01.mp3"];
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await saveWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_save_callback_0040
-     * @tc.desc   : save png in Pictures
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_save_callback_0040
+     * @tc.name      : SUB_ArkUIX_documentpicker_save_callback_0040
+     * @tc.desc      : save png in Pictures
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_save_callback_0040", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_save_callback_0040";
-      let option = new picker.DocumentSaveOptions();
-      option.defaultFilePathUri = "";
-      if (platform == "Android") {
-        expect(option != null).assertTrue();
-        done();
-      } else if (platform == "IOS") {
-        await saveWithOption(testNum, done, option);
-      } else {
-        done()
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_save_callback_0040", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_save_callback_0040";
+        let option = new picker.DocumentSaveOptions();
+        option.defaultFilePathUri = "";
+        if (platform == "Android") {
+          expect(option != null).assertTrue();
+          done();
+        } else if (platform == "IOS") {
+          await saveWithOption(testNum, done, option);
+        } else {
+          done();
+        }
+      });
 
     /**
-     * @tc.name   : SUB_ArkUIX_documentpicker_save_callback_0050
-     * @tc.desc   : save png in Pictures
-     * @tc.type   : Function
-     * @tc.level   : Level 1
+     * @tc.number    : SUB_ArkUIX_documentpicker_save_callback_0050
+     * @tc.name      : SUB_ArkUIX_documentpicker_save_callback_0050
+     * @tc.desc      : save png in Pictures
+     * @tc.size      : MediumTest
+     * @tc.type      : Function
+     * @tc.level     : Level 1
      */
-    it("SUB_ArkUIX_documentpicker_save_callback_0050", 1, async (done: Function) => {
-      let testNum = "SUB_ArkUIX_documentpicker_save_callback_0050";
-      if (platform == "iOS") {
-        await save(testNum, done);
-      } else {
-        done();
-      }
-    });
+    it("SUB_ArkUIX_documentpicker_save_callback_0050", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+        let testNum = "SUB_ArkUIX_documentpicker_save_callback_0050";
+        if (platform == "iOS") {
+          await save(testNum, done);
+        } else {
+          done();
+        }
+      });
   })
 }
