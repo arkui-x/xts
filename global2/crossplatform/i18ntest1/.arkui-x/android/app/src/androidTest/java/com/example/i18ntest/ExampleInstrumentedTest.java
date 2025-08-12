@@ -1,4 +1,4 @@
-package com.example.i18ntest;
+package com.example.i18ntest1;
 
 import android.content.Context;
 
