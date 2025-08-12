@@ -18,7 +18,7 @@
 #import <libarkui_ios/StageApplication.h>
 
 #define BUNDLE_DIRECTORY @"arkui-x"
-#define BUNDLE_NAME @"com.example.i18ntest"
+#define BUNDLE_NAME @"com.example.i18ntest1"
 
 @interface AppDelegate ()
 
