@@ -1,4 +1,4 @@
-package com.example.imagetest;
+package com.example.2;
 
 import android.content.Context;
 
