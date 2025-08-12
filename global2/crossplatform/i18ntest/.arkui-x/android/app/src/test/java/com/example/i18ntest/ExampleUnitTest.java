@@ -1,4 +1,4 @@
-package com.example.i18ntest;
+package com.example.i18ntest2;
 
 import org.junit.Test;
 

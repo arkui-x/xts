@@ -1,4 +1,4 @@
-package com.example.i18ntest;
+package com.example.i18ntest2;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ public class EntryEntryAbilityActivity extends StageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("HiHelloWorld", "EntryEntryAbilityActivity");
-        setInstanceName("com.example.i18ntest:entry:EntryAbility:");
+        setInstanceName("com.example.i18ntest2:entry:EntryAbility:");
         super.onCreate(savedInstanceState);
     }
 }
