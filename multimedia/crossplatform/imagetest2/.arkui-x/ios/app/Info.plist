@@ -9,9 +9,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>imagetest</string>
+	<string>imagetest2</string>
 	<key>CFBundleDisplayName</key>
-	<string>Imagetest</string>
+	<string>Imagetest2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>
