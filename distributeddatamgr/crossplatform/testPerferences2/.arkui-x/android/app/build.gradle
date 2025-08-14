@@ -31,7 +31,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.testperferences"
+        applicationId "com.example.testperferences2"
         minSdkVersion 26
         targetSdkVersion 33
         versionCode 1
