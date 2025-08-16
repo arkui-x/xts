@@ -12,8 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.example.requesttest;
+package com.example.requesttest2;
 
 import android.util.Log;
 
@@ -22,7 +21,6 @@ import ohos.stage.ability.adapter.StageApplication;
 /**
  * Example ace application class, which will load ArkUI-X application instance.
  * StageApplication is provided by ArkUI-X
- *
  * @see <a href=
  * "https://gitee.com/arkui-crossplatform/doc/blob/master/contribute/tutorial/how-to-build-Android-app.md">
  * to build android library</a>

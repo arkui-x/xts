@@ -12,8 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.example.requesttest;
+package com.example.requesttest2;
 
 import android.content.Context;
 
@@ -22,6 +21,8 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
 
 /**
  * Instrumented test, which will execute on an Android device.

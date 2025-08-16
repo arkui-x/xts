@@ -11,9 +11,9 @@ if [ "$scriptBuildFlag" = "false" ]; then
   exit 0
 fi
 
-project_path="/Users/drag/Desktop/zq/requesttest222"
-ohpm_path="/Applications/DevEco-Studio.app/Contents/tools/ohpm/bin/ohpm"
-arkuiXSdkPath="/Users/drag/Library/ArkUI-X/Sdk/18/arkui-x"
+project_path="/Users/gxy/Desktop/guoxyu/01-test/01_gitCode/master-xts/dong/xts/request/crossplatform/requesttest3"
+ohpm_path="/Users/gxy/ohpm/ohpm-1.2.5/bin/ohpm"
+arkuiXSdkPath="/Users/gxy/Desktop/guoxyu/Ark-X_SDK/20/arkui-x"
 
 # You can change the module name you want to compile.
 moduleLists=entry
