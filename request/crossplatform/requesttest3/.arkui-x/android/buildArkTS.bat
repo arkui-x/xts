@@ -11,9 +11,9 @@ if "%isAceBuildFlag%" == "true" goto :eof
 set scriptBuildFlag=true
 if "%scriptBuildFlag%" == "false" goto :eof
 
-set project_path=/Users/drag/Desktop/zq/requesttest222
-set ohpm_path=/Applications/DevEco-Studio.app/Contents/tools/ohpm/bin/ohpm
-set arkuiXSdkPath=/Users/drag/Library/ArkUI-X/Sdk/18/arkui-x
+set project_path=/Users/gxy/Desktop/guoxyu/01-test/01_gitCode/master-xts/dong/xts/request/crossplatform/requesttest3
+set ohpm_path=/Users/gxy/ohpm/ohpm-1.2.5/bin/ohpm
+set arkuiXSdkPath=/Users/gxy/Desktop/guoxyu/Ark-X_SDK/20/arkui-x
 
 @REM You can change the module name you want to compile.
 set moduleLists=entry
