@@ -13,29 +13,26 @@
  * limitations under the License.
  */
 
-package com.example.requesttest;
+package com.example.requesttest3;
 
+import android.os.Bundle;
 import android.util.Log;
 
-import ohos.stage.ability.adapter.StageApplication;
+import ohos.stage.ability.adapter.StageActivity;
 
 /**
- * Example ace application class, which will load ArkUI-X application instance.
- * StageApplication is provided by ArkUI-X
+ * Example ace activity class, which will load ArkUI-X ability instance.
+ * StageActivity is provided by ArkUI-X
  *
  * @see <a href=
  * "https://gitee.com/arkui-crossplatform/doc/blob/master/contribute/tutorial/how-to-build-Android-app.md">
  * to build android library</a>
  */
-public class MyApplication extends StageApplication {
-    private static final String LOG_TAG = "HiHelloWorld";
-
-    private static final String RES_NAME = "res";
-
+public class EntryEntryAbilityActivity extends StageActivity {
     @Override
-    public void onCreate() {
-        Log.e(LOG_TAG, "MyApplication");
-        super.onCreate();
-        Log.e(LOG_TAG, "MyApplication onCreate");
+    protected void onCreate(Bundle savedInstanceState) {
+        Log.e("HiHelloWorld", "EntryEntryAbilityActivity");
+        setInstanceName("com.example.requesttest3:entry:EntryAbility:");
+        super.onCreate(savedInstanceState);
     }
 }
