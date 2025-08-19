@@ -7,7 +7,6 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.xts1.test</string>
 				<string>com.example.abilityaccessctrl</string>
 			</array>
 		</dict>
