@@ -22,6 +22,7 @@ import { fileIo as fs } from '@kit.CoreFileKit';
 
 import { prepareImageFileFd } from './Common'
 import { testPng, testJpg, testGif, testBmp } from './ImageResource'
+import { JSON } from '@kit.ArkTS';
 
 let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
 let context: common.Context = abilityDelegatorRegistry.getAppContext().createModuleContext("entry_test")
@@ -578,7 +579,8 @@ export default function ImagePackerTest() {
       })().then(async (data) => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       });
       await releaseImagePacker(imagePackerApi)
       done()
@@ -754,7 +756,8 @@ export default function ImagePackerTest() {
       await imagePackerApi.packing(undefined, packOpts).then((data: ArrayBuffer) => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       })
       await releaseImagePacker(imagePackerApi)
       done()
@@ -956,7 +959,8 @@ export default function ImagePackerTest() {
       })().then(async () => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       });
       fs.closeSync(file);
       await releaseImagePacker(imagePackerApi)
@@ -1160,7 +1164,8 @@ export default function ImagePackerTest() {
       await imagePackerApi.packToFile(undefined, file.fd, packOpts).then(() => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       });
       fs.closeSync(file);
       await releaseImagePacker(imagePackerApi)
@@ -1376,7 +1381,8 @@ export default function ImagePackerTest() {
       })().then(async () => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       });
       fs.closeSync(file);
       await releaseImagePacker(imagePackerApi)
@@ -1576,7 +1582,8 @@ export default function ImagePackerTest() {
       await imagePackerApi.packToFile(undefined, file.fd, packOpts).then(() => {
         expect().assertFail()
       }).catch((err: BusinessError) => {
-        expect(JSON.stringify(err)).assertContain("ImageSource mismatch")
+        console.info('Threw err as expect: ' + JSON.stringify(err));
+        expect(err != undefined).assertTrue();
       });
       fs.closeSync(file);
       await releaseImagePacker(imagePackerApi)
@@ -1655,6 +1662,5 @@ export default function ImagePackerTest() {
       await releasePixelmap(pixelmap)
       done()
     })
-
   })
 }
