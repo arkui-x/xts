@@ -1,7 +1,5 @@
 import { webview } from '@kit.ArkWeb';
 import { router } from '@kit.ArkUI';
-import { Want } from '@kit.AbilityKit';
-import { wifiManager } from '@kit.MDMKit';
 
 @Entry
 @Component
@@ -29,6 +27,7 @@ struct WebComponent {
 
       Text('getErrorInfo: ' + this.getErrorInfo)
         .id('getErrorInfo')
+        .fontSize(8)
       Text('getErrorCode: ' + this.getErrorCode)
         .id('getErrorCode')
       Text('url: ' + this.url)
