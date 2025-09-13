@@ -9,9 +9,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>testrelationalstore</string>
+	<string>testrelationalstore2</string>
 	<key>CFBundleDisplayName</key>
-	<string>Testrelationalstore</string>
+	<string>Testrelationalstore2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>

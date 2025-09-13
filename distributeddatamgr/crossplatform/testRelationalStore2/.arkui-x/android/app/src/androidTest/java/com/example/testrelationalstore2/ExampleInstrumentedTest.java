@@ -1,4 +1,4 @@
-package com.example.testrelationalstore;
+package com.example.testrelationalstore2;
 
 import android.content.Context;
 

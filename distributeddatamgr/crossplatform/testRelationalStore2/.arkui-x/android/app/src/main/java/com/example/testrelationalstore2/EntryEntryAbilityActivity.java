@@ -1,4 +1,4 @@
-package com.example.testrelationalstore;
+package com.example.testrelationalstore2;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ public class EntryEntryAbilityActivity extends StageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("HiHelloWorld", "EntryEntryAbilityActivity");
-        setInstanceName("com.example.testrelationalstore:entry:EntryAbility:");
+        setInstanceName("com.example.testrelationalstore2:entry:EntryAbility:");
         super.onCreate(savedInstanceState);
     }
 }
