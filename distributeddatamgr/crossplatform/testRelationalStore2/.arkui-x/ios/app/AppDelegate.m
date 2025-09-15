@@ -18,7 +18,7 @@
 #import <libarkui_ios/StageApplication.h>
 
 #define BUNDLE_DIRECTORY @"arkui-x"
-#define BUNDLE_NAME @"com.example.testrelationalstore"
+#define BUNDLE_NAME @"com.example.testrelationalstore2"
 
 @interface AppDelegate ()
 
