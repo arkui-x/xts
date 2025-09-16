@@ -15,6 +15,8 @@
 
 import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
+import { BusinessError } from '@ohos.base';
 
 var abilityDelegator = undefined
 var abilityDelegatorArguments = undefined
@@ -37,23 +39,23 @@ export default class OpenHarmonyTestRunner implements TestRunner {
 
     async onRun() {
         console.log('onRun');
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        var bundleName = abilityDelegatorArguments.bundleName
-        var parameters = abilityDelegatorArguments.parameters
-        let moduleName = parameters["moduleName"]
-        let lMonitor = {
+        const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+        const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
+        const bundleName: string = abilityDelegatorArguments.bundleName;
+        const parameters: Record<string, string> = abilityDelegatorArguments.parameters;
+        const moduleName: string = parameters["moduleName"];
+        const lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
             abilityName: "TestAbility",
             onAbilityCreate: onAbilityCreateCallback,
         };
         abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-        let want = {
+        let want: Want = {
             abilityName: "TestAbility",
             bundleName: bundleName,
             moduleName: moduleName
         };
-        abilityDelegator.startAbility(want, (err: any, data: any) => {
-            console.log('startAbility' + err + data);
+        abilityDelegator.startAbility(want, (err: BusinessError) => {
+            console.log('startAbility' + err);
         });
     }
 }
