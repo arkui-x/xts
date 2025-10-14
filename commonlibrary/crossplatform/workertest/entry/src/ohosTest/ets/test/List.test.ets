@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 import WorkerTest from './Worker.test'
+import workerPriTest from './WorkerThreadWorkerPriority.test'
+
 export default function testsuite() {
    WorkerTest()
+   workerPriTest()
 }

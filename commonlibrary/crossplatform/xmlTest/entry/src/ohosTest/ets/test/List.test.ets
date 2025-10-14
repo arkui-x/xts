@@ -14,8 +14,10 @@
  */
 import xmlTest from './xml.test'
 import xmlEventTypeTest from './xmlParseOption.test'
+import XmlSerializerXmlPullParserTest from './xmlParseOption2.test';
 
 export default function testsuite() {
   xmlTest();
   xmlEventTypeTest();
+  XmlSerializerXmlPullParserTest()
 }
