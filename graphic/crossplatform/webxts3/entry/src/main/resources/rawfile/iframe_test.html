@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>iframe 加载测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        /* 每个 iframe 模块独立包裹，区分清晰 */
+        .iframe-module {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .iframe-title {
+            color: #444;
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        /* 确保 iframe 仅在自身容器内加载，不影响顶层窗口 */
+        iframe {
+            width: 100%;
+            height: 200px; /* 足够高度展示页面内容，便于观察加载状态 */
+            border: 1px dashed #666;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .protocol-note {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>iframe 协议内部跳转测试</h1>
+
+    <!-- 2. HTTPS 协议 iframe（内部加载，不触发顶层回调） -->
+    <div class="iframe-module">
+        <h3 class="iframe-title">1. HTTPS 协议（iframe 内部加载）</h3>
+        <iframe src="https://example.com"
+                title="HTTPS 协议测试页面"
+                sandbox="allow-scripts allow-same-origin">
+        </iframe>
+        <p class="protocol-note"></p>
+    </div>
+
+    <!-- 3. about:blank 协议 iframe（内部加载，不触发顶层回调） -->
+    <div class="iframe-module">
+        <h3 class="iframe-title">2. about:blank 空白页面（iframe 内部加载）</h3>
+        <!-- 直接加载 about:blank，iframe 内部显示空白页 -->
+        <iframe src="about:blank"
+                title="about:blank 测试页面">
+            <!-- 可在空白页中添加简单内容，便于区分是否加载成功 -->
+        </iframe>
+        <p class="protocol-note"></p>
+    </div>
+
+    <!-- 4. 非 HTTP(s) 协议（data:text/html 协议，含返回按钮，跨平台兼容） -->
+    <div class="iframe-module">
+        <h3 class="iframe-title">3. 非HTTP(s) 协议（data:text/html）</h3>
+        <iframe
+                src="data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%3Chtml%3E%3Chead%3E%3Cmeta%20charset%3D%22utf-8%22%3E%3Ctitle%3EBlank%3C%2Ftitle%3E%3Cstyle%3Ehtml%2Cbody%7Bheight%3A100%25%3Bmargin%3A0%3Bdisplay%3Aflex%3Bflex-direction%3Acolumn%3Balign-items%3Acenter%3Bjustify-content%3Acenter%3Bbackground-color%3A%23eeeeee%7D.info-text%7Bfont-size%3A24px%3Bmargin-bottom%3A20px%3Bcolor%3A%23333333%7D.back-btn%7Bfont-size%3A20px%3Bpadding%3A10px%2020px%3Bbackground-color%3A%232196F3%3Bcolor%3Awhite%3Bborder%3Anone%3Bborder-radius%3A6px%3Bcursor%3Apointer%3Btransition%3Abackground-color%200.3s%20ease%7D.back-btn%3Ahover%7Bbackground-color%3A%231976D2%7D%3C%2Fstyle%3E%3C%2Fhead%3E%3Cbody%3E%3Cdiv%20class%3D%22info-text%22%3E这是一个网页文件%3C%2Fdiv%3E%3Cbutton%20class%3D%22back-btn%22%20onclick%3D%22window.history.back()%3Bconsole.log('尝试回退上一页')%22%3E返回上一页%3C%2Fbutton%3E%3Cscript%3E%2F%2F%20回退失败时控制台提示window.history.length%20%3C%3D%201%20%26%26%20(window.onload%3Dfunction()%7Bconsole.log('当前已是最前页面，无法回退')%7D)%3C%2Fscript%3E%3C%2Fbody%3E%3C%2Fhtml%3E"
+                sandbox="allow-scripts allow-same-origin"
+                width="100%"
+                height="220"> <!-- 适当增加高度，容纳按钮 -->
+        </iframe>
+        <p class="protocol-note"></p>
+    </div>
+</div>
+
+<script>
+    // 页面加载完成后，打印各 iframe 的初始状态（仅在控制台输出，不修改任何 URL）
+    window.onload = function() {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach((iframe, index) => {
+            console.log(`[iframe ${index + 1}] 初始 src：${iframe.src}`);
+            // 监听 iframe 加载完成事件，确认内部加载成功
+            iframe.onload = function() {
+                console.log(`[iframe ${index + 1}] 加载完成，当前内部 URL：${iframe.contentWindow.location.href}`);
+            };
+        });
+    };
+</script>
+</body>
+</html>

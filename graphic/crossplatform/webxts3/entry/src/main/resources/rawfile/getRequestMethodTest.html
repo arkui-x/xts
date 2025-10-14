@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
+    <title>请求方法与回调测试</title>
+    <style>
+        .test-btn {
+            width: 80%;
+            max-width: 600px;
+            height: 30%;
+            font-size: 1rem;
+            margin: 5px 0;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .test-btn:hover {
+            filter: brightness(0.9);
+            transform: translateY(-2px);
+        }
+        .test-btn.get-btn {
+            background-color: #2196F3;
+        }
+        .test-btn.post-btn {
+            background-color: #4CAF50;
+        }
+        .test-btn.put-btn {
+            background-color: #FF9800;
+        }
+        .test-btn.delete-btn {
+            background-color: #F44336;
+        }
+        .test-btn.patch-btn {
+            background-color: #9C27B0;
+        }
+        .test-btn.empty-btn {
+            background-color: #795548;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            background-color: #f5f5f5;
+            margin: 0;
+            font-family: sans-serif;
+            min-height: 80vh;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #333;
+            font-size: 1.2rem;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        /* 初始按钮容器 */
+        #initialContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+            justify-content: center;
+        }
+        /* 结果显示容器 */
+        #resultContainer {
+            width: 95%;
+            height: 60vh;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
+            display: none;
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        /* 结果内容包裹器 */
+        #resultWrapper {
+            width: 100%;
+            max-width: 600px;
+            height: 80%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        /* 隐藏的iframe：仅用于POST请求 */
+        #hiddenPostIframe {
+            display: none;
+            width: 0;
+            height: 0;
+            border: none;
+        }
+        /* 返回按钮 */
+        #backBtn {
+            margin-top: 15px;
+            background-color: #ff5722;
+            display: none;
+        }
+
+        /* 横屏适配 */
+        @media screen and (orientation: landscape) {
+            #initialContainer {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                padding: 0 10px;
+            }
+            .test-btn {
+                width: 45%;
+                max-width: 300px;
+                height: 70px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>请求方法与回调测试</h1>
+
+<!-- 1. 初始按钮容器 -->
+<div id="initialContainer">
+    <button class="test-btn get-btn" onclick="sendRequest('GET')">触发GET请求</button>
+    <button class="test-btn post-btn" onclick="sendRequest('POST')">触发POST请求</button>
+    <button class="test-btn put-btn" onclick="sendRequest('PUT')">触发PUT请求</button>
+    <button class="test-btn delete-btn" onclick="sendRequest('DELETE')">触发DELETE请求</button>
+    <button class="test-btn patch-btn" onclick="sendRequest('PATCH')">触发PATCH请求</button>
+    <button class="test-btn empty-btn" onclick="sendEmptyRequest()">触发空请求</button>
+</div>
+
+<!-- 2. 结果显示容器 -->
+<div id="resultContainer">
+    <div id="resultWrapper"></div>
+</div>
+
+<!-- 3. 隐藏的iframe：仅用于POST请求 -->
+<iframe id="hiddenPostIframe" name="hiddenPostTarget"></iframe>
+
+<!-- 4. 返回按钮 -->
+<button id="backBtn" class="test-btn" onclick="backToInitial()">返回上一页</button>
+
+<script>
+    // 生成请求结果的HTML
+    function generateResultHtml(method, param, triggersCallback) {
+        // 定义不同请求方法的标签颜色
+        const methodColors = {
+            'GET': '#2196F3',
+            'POST': '#4CAF50',
+            'PUT': '#FF9800',
+            'DELETE': '#F44336',
+            'PATCH': '#9C27B0',
+            'EMPTY': '#795548'
+        };
+
+        return `
+      <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${method} 请求结果</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .result-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-width: 500px;
+            width: 100%;
+        }
+        .method-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            font-size: 0.8rem;
+            color: #333;
+            margin: 8px 0;
+            text-align: left;
+        }
+        /* 新增：控制“请求成功”的字体大小 */
+        .result-card h1 {
+            font-size: 1.0rem; /* 核心：调小字体，可根据需求改为1rem/16px等 */
+            margin: 0 0 15px 0; /* 可选：调整上下间距，避免与其他元素拥挤 */
+            color: #333; /* 可选：统一字体颜色，与.info-item保持协调 */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-card">
+        <span class="method-tag" style="background-color: ${methodColors[method] || '#333'}">${method} 请求</span>
+        <h1>请求成功</h1>
+        <div class="info-item">是否触发onOverrideUrlLoading：${triggersCallback ? '是' : '否'}</div>
+    </div>
+</body>
+</html>
+        `;
+    }
+
+    // 切换到结果界面
+    function showResultView(html) {
+        const resultWrapper = document.getElementById('resultWrapper');
+        const resultContainer = document.getElementById('resultContainer');
+
+        resultWrapper.innerHTML = html;
+        resultContainer.style.display = 'flex';
+
+        document.getElementById('initialContainer').style.display = 'none';
+        document.getElementById('backBtn').style.display = 'block';
+
+        // 强制重绘
+        resultContainer.offsetHeight;
+    }
+
+    // 返回初始界面
+    function backToInitial() {
+        document.getElementById('resultContainer').style.display = 'none';
+        document.getElementById('backBtn').style.display = 'none';
+        document.getElementById('initialContainer').style.display = window.innerWidth > window.innerHeight ? 'flex' : 'flex';
+
+        // 清空隐藏iframe内容
+        document.getElementById('hiddenPostIframe').src = 'about:blank';
+    }
+
+    // 通用请求发送函数
+    function sendRequest(method) {
+        // 为不同请求方法生成不同的参数
+        const params = {
+            'GET': 'get_param=123',
+            'POST': 'post_param=456',
+            'PUT': 'put_param=789',
+            'DELETE': 'delete_param=abc',
+            'PATCH': 'patch_param=def'
+        };
+        const param = params[method] || '';
+
+        // 只有POST请求不触发回调，使用隐藏表单提交
+        if (method === 'POST') {
+            const hiddenIframe = document.getElementById('hiddenPostIframe');
+            const hiddenForm = document.createElement('form');
+
+            // 配置表单
+            hiddenForm.method = method;
+            hiddenForm.target = 'hiddenPostTarget';
+            hiddenForm.action = `data:text/html;charset=utf-8,${encodeURIComponent('')}`;
+
+            // 添加POST参数
+            if (param) {
+                const paramInput = document.createElement('input');
+                paramInput.type = 'hidden';
+                paramInput.name = param.split('=')[0];
+                paramInput.value = param.split('=')[1];
+                hiddenForm.appendChild(paramInput);
+            }
+
+            // 监听隐藏iframe加载完成
+            hiddenIframe.onload = function() {
+                console.log(`${method}请求提交成功（不触发回调）`);
+                showResultView(generateResultHtml(method, param, false));
+                hiddenIframe.onload = null;
+            };
+
+            // 提交表单并清理
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+            document.body.removeChild(hiddenForm);
+            return;
+        }
+
+        // 除POST外的所有请求都像GET一样触发回调
+        // 使用iframe直接加载data URL实现
+        const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(generateResultHtml(method, param, true))}`;
+        showResultView(`<iframe src="${dataUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
+        console.log(`${method}请求发送（触发回调）`);
+    }
+
+    // 空请求处理（触发回调，与GET逻辑一致）
+    function sendEmptyRequest() {
+        const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(generateResultHtml('EMPTY', '无参数', true))}`;
+        showResultView(`<iframe src="${dataUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
+        console.log(`空请求发送（触发回调）`);
+    }
+
+    // 监听屏幕旋转
+    window.addEventListener('orientationchange', function() {
+        if (document.getElementById('initialContainer').style.display !== 'none') {
+            document.getElementById('initialContainer').style.display = 'flex';
+        }
+    });
+</script>
+</body>
+</html>
