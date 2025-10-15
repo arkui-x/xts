@@ -31,25 +31,25 @@ export default function i18nTest() {
       "123公顷", "¥123.00", "1天前", "1个季度前"]
 
     let measuresPhoneExpect_1: Array<string> = [
-      "size-file-byte: ", "1 byte", "1.00 kB", "1.00 MB", "1.00 GB", "1.00 TB"]
+      "size-file-byte: ", "1 byte", "1.00 KB", "1.00 MB", "1.00 GB", "1.00 TB"]
     let measuresPhoneExpect_2: Array<string> = [
-      "size-shortfile-byte: ", "1 byte", "1.0 kB", "1.0 MB", "1.0 GB", "1.0 TB"]
+      "size-shortfile-byte: ", "1 byte", "1.0 KB", "1.0 MB", "1.0 GB", "1.0 TB"]
     let measuresPhoneExpect_3: Array<string> = [
       "elapsed-time-second: ", "now", "1 minute ago", "yesterday", "last month", "last year"]
     let measuresPhoneExpect_4: Array<string> = [
       "elapsed-time-second: ", "现在", "1分钟前", "昨天", "上个月", "去年"]
     let measuresPhoneExpect_5: Array<string> = [
-      "size-file-byte: ", "1 B", "1.00 kB", "1.00 MB", "1.00 GB", "1.00 TB"]
+      "size-file-byte: ", "1 B", "1.00 KB", "1.00 MB", "1.00 GB", "1.00 TB"]
     let measuresPhoneExpect_6: Array<string> = [
-      "size-shortfile-byte: ", "1 B", "1.0 kB", "1.0 MB", "1.0 GB", "1.0 TB"]
+      "size-shortfile-byte: ", "1 B", "1.0 KB", "1.0 MB", "1.0 GB", "1.0 TB"]
     let measuresPhoneExpect_7: Array<string> = [
-      "size-file-byte: ", "3 byte", "2.95 kB", "2.95 MB", "2.95 GB", "2.95 TB"]
+      "size-file-byte: ", "3 byte", "2.95 KB", "2.95 MB", "2.95 GB", "2.95 TB"]
     let measuresPhoneExpect_8: Array<string> = [
-      "size-shortfile-byte: ", "3 byte", "2.9 kB", "3.0 MB", "3.0 GB", "3.0 TB"]
+      "size-shortfile-byte: ", "3 byte", "2.9 KB", "3.0 MB", "3.0 GB", "3.0 TB"]
     let measuresPhoneExpect_9: Array<string> = [
-      "size-file-byte: ", "3 B", "2.95 kB", "2.95 MB", "2.95 GB", "2.95 TB"]
+      "size-file-byte: ", "3 B", "2.95 KB", "2.95 MB", "2.95 GB", "2.95 TB"]
     let measuresPhoneExpect_10: Array<string> = [
-      "size-shortfile-byte: ", "3 B", "2.9 kB", "3.0 MB", "3.0 GB", "3.0 TB"]
+      "size-shortfile-byte: ", "3 B", "2.9 KB", "3.0 MB", "3.0 GB", "3.0 TB"]
 
     let measuresTabletExpect_1: Array<string> = [
       "size-file-byte: ", "1 byte", "1.00 kilobytes", "1.00 megabytes", "1.00 gigabytes", "1.00 terabytes"]
