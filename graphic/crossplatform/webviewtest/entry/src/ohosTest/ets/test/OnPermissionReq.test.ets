@@ -170,7 +170,15 @@ export default function OnPermissionTest() {
           console.log('SUB_Web_WebView_On_Permission_Request_Func_0400 success');
           console.log('SUB_Web_WebView_On_Permission_Request_Func_0400 test end');
         } else {
-          expect(secondaryButton == undefined).assertTrue();
+          if (secondaryButton != undefined){  // Android 不同厂商底层存在差异可能二次允许不弹窗
+            await secondaryButton.click();
+            await driver.delayMs(waitUiReadyMs);
+            const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
+            const text: string = await ON_EVENT_VALUE.getText();
+            console.log(`SUB_Web_WebView_On_Permission_Request_Func_0400 ON_EVENT_VALUE: ${text}`);
+            expect(text).assertContain('VIDEO_CAPTURE');
+            expect(text).assertContain('AUDIO_CAPTURE');
+          }
           console.log('SUB_Web_WebView_On_Permission_Request_Func_0400 success');
           console.log('SUB_Web_WebView_On_Permission_Request_Func_0400 test end');
         }
