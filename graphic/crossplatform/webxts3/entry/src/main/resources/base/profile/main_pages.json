@@ -1,0 +1,43 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/SettingFileAccess",
+    "pages/WithoutSettingFileAccess",
+    "pages/TextZoomRatio",
+    "pages/onSslError/OnSslError",
+    "pages/onSslError/onSslError_callback_null",
+    "pages/onSslError/onSslError_callback_undefined",
+    "pages/onSslError/onSslError_expired",
+    "pages/onSslError/onSslError_wrongHost",
+    "pages/onSslError/onSslError_selfSigned",
+    "pages/onSslError/onSslError_untrustedRoot",
+    "pages/onSslError/onSslError_SubRes",
+
+    "pages/onInterceptRequest/onInterceptRequest",
+    "pages/onInterceptRequest/onInterceptRequest-WebResourceRequest",
+    "pages/onInterceptRequest/onInterceptRequest-MimeType-Encoding",
+    "pages/onInterceptRequest/onInterceptRequest-text-html",
+    "pages/onInterceptRequest/onInterceptRequest-application-json",
+    "pages/onInterceptRequest/onInterceptRequest-mock-delay",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason-204",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason-400",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason-404",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason-500",
+    "pages/onInterceptRequest/onInterceptRequest-code-reason-503",
+    "pages/onInterceptRequest/onInterceptRequest-callback-null",
+    "pages/onInterceptRequest/onInterceptRequest-callback-undefined",
+    "pages/onInterceptRequest/onInterceptRequest-data",
+    "pages/onInterceptRequest/onInterceptRequest-data-string",
+    "pages/onInterceptRequest/onInterceptRequest-data-array",
+    "pages/onInterceptRequest/onInterceptRequest-data-empty-string",
+    "pages/onInterceptRequest/onInterceptRequest-data-null",
+    "pages/onInterceptRequest/onInterceptRequest-data-undefined",
+    "pages/onInterceptRequest/onInterceptRequest-no-response",
+
+    "pages/onOverrideUrlLoading/Index",
+    "pages/onOverrideUrlLoading/loadUrlTest",
+    "pages/onOverrideUrlLoading/getRequestMethod",
+    "pages/onOverrideUrlLoading/iFrameTest"
+  ]
+}
