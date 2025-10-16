@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import decimalTest from './decimal/Decimal.test'
-
-export default function testsuite() {
-  decimalTest();
+import worker, { MessageEvents, ThreadWorkerGlobalScope } from '@ohos.worker';
+const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
+workerPort.onmessage = (e: MessageEvents) => {
+  console.info(`worker: worker receive data ${e.data}`);
+  workerPort.postMessage(e.data);
 }
