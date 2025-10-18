@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.geolocationManager2;
+package com.example.geolocationmanager2;
 
 import android.content.Context;
 

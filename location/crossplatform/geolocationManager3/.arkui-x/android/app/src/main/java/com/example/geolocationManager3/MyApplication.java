@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.geolocationManager3;
+package com.example.geolocationmanager3;
 
 import android.util.Log;
 
