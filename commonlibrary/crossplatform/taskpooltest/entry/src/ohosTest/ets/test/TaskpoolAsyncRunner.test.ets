@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import taskpool from '@ohos.taskpool';
 import { BusinessError } from '@ohos.base';
@@ -76,9 +75,9 @@ export default function TaskPoolStateTest() {
      * @tc.desc      : Test AsyncRunner constructor with valid capacity parameter, verify no exception is thrown.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testAsyncRunnerConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+    it('testAsyncRunnerConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       try {
         let runner1: taskpool.AsyncRunner = new taskpool.AsyncRunner(5);
         console.info('testAsyncRunnerConstructor0001 pass');
@@ -112,9 +111,9 @@ export default function TaskPoolStateTest() {
      * @tc.desc      : Test AsyncRunner constructor with valid name and capacity parameters, verify no exception is thrown.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testAsyncRunnerConstructor0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+    it('testAsyncRunnerConstructor0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       try {
         let runner4: taskpool.AsyncRunner = new taskpool.AsyncRunner("runner3", 5);
         console.info('testAsyncRunnerConstructor0003 pass');
@@ -148,9 +147,9 @@ export default function TaskPoolStateTest() {
      * @tc.desc      : Test normal execution of a single task, verify no exception is thrown and task returns expected result.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testAsyncRunnerExecute0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    it('testAsyncRunnerExecute0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const TAG = 'testAsyncRunnerExecute0001';
       let result: number = 0;
       try {
@@ -169,9 +168,9 @@ export default function TaskPoolStateTest() {
      * @tc.desc      : Test execution of a single task with HIGH priority, verify no exception is thrown and task returns expected result.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testAsyncRunnerExecute0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    it('testAsyncRunnerExecute0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const TAG = 'testAsyncRunnerExecute0002';
       let result: number = 0;
       try {
@@ -312,9 +311,9 @@ export default function TaskPoolStateTest() {
      * @tc.desc      : Test task cancellation after submitting to taskpool queue, verify task is not executed.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testCancel0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    it('testCancel0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const caseName: string = 'testCancel0001';
       console.info(`${caseName} test start`);
       try {

@@ -34,9 +34,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testFloat32ArrayLastIndexOf0001";
         try {
@@ -57,9 +57,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testFloat32ArrayLastIndexOf0002";
         try {
@@ -163,9 +163,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testFloat32ArrayReduceRight0001";
         try {
@@ -186,9 +186,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc      : Testing a reduction function on each element and returning the final result.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testFloat32ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = 'testFloat32ArrayReduceRight0002';
         try {
@@ -216,9 +216,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testFloat32ArrayReduceRight0003";
         try {
@@ -302,9 +302,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc      : Testing the filling of an ArkTS TypedArray within a specified range with specific values.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testFloat32ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testFloat32ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testFloat32ArrayToString0001";
       try {
         const array1 = new collections.Float32Array([1.0, 2.5, 3.25, 2.5, 4.0]);
@@ -382,9 +382,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testFloat32ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testFloat32ArrayToLocaleString0001";
         try {
@@ -464,9 +464,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testFloat32ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testFloat32ArrayOf0001";
       try {
         let result: collections.Float32Array = collections.Float32Array.of(1);
@@ -487,9 +487,9 @@ export default function Float32ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testFloat32ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testFloat32ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testFloat32ArrayOf0002";
       try {
         let result: collections.Float32Array = collections.Float32Array.of(1.0, 2.5, 3.25, 2.5, 4.0);
@@ -502,6 +502,5 @@ export default function Float32ArrayTest2() {
       }
       done()
     });
-
   })
 }

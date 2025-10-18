@@ -90,6 +90,5 @@ export default function XmlSerializerXmlPullParserTest() {
       let result = 'column name Giana value integer 1';
       expect(str.trim()).assertEqual(result);
     })
-
   })
 }

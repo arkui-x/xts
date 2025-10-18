@@ -186,7 +186,6 @@ export default function workerPriTest() {
       console.info(`${caseName} test end`);
     });
 
-
     /**
      * @tc.number     : SUB_COMMONLIBRARY_WORKER_THREADWORKERPRIORITY_0500
      * @tc.name       : testThreadWorkerPriority0005
@@ -260,6 +259,5 @@ export default function workerPriTest() {
       }
       console.info(`${caseName} test end`);
     });
-
   });
 }

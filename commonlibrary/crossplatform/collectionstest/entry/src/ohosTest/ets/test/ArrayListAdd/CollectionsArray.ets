@@ -33,9 +33,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Testing Collections of Array from.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayFrom0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayFrom0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayFrom0001";
       try {
         let array: Array<string> = ['d', 'e', 'f'];
@@ -83,9 +83,9 @@ export default function ArrayTest2() {
      * @tc.desc  : Testing Collections of Array from.
      * @tc.size  : MediumTest
      * @tc.type  : Function
-     * @tc.level : Level 0
+     * @tc.level : Level 1
      */
-    it('testArrayFrom0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayFrom0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let caseName: string = 'testArrayFrom0003';
       console.log(`${caseName} test start `);
       try {
@@ -109,9 +109,9 @@ export default function ArrayTest2() {
      * @tc.desc  : Testing Collections of Array from.
      * @tc.size  : MediumTest
      * @tc.type  : Function
-     * @tc.level : Level 0
+     * @tc.level : Level 1
      */
-    it('testArrayFrom0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayFrom0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let caseName: string = 'testArrayFrom0004';
       console.log(`${caseName} test start `);
       try {
@@ -161,9 +161,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayIsArray0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayIsArray0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayIsArray0001";
         try {
@@ -184,9 +184,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayIsArray0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayIsArray0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayIsArray0002";
         try {
@@ -207,9 +207,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayOf0001";
       try {
         let result: collections.Array<number> = collections.Array.of(1, 2, 3);
@@ -228,9 +228,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayOf0002";
       try {
         let result: collections.Array<string> = collections.Array.of("str1", "str2", "str3");
@@ -249,9 +249,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array CopyWithin
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayCopyWithin0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayCopyWithin0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayCopyWithin0001";
       try {
         let arr1: collections.Array<number> = new collections.Array(1, 2, 3, 4, 5);
@@ -345,9 +345,9 @@ export default function ArrayTest2() {
      * @tc.desc      : Test the function of the interface ArkTS Array CopyWithin
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testArrayCopyWithin0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayCopyWithin0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayCopyWithin0005";
         try {
@@ -369,9 +369,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array CopyWithin
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayCopyWithin0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayCopyWithin0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayCopyWithin0006";
         try {
@@ -417,9 +417,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array CopyWithin
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayCopyWithin0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayCopyWithin0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayCopyWithin0008";
         try {
@@ -441,9 +441,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array CopyWithin
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayCopyWithin0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayCopyWithin0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayCopyWithin0009";
         try {
@@ -522,9 +522,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array Reverse.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayReverse0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayReverse0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayReverse0001";
       try {
         const items: collections.Array<number> = new collections.Array(1, 2, 3);
@@ -603,9 +603,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array LastIndexOf.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testArrayLastIndexOf0001";
         try {
@@ -627,9 +627,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array LastIndexOf.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayLastIndexOf0002";
       try {
         const numbers: collections.Array<number> = new collections.Array(2, 5, 9, 2);
@@ -731,9 +731,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array Every.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayEvery0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayEvery0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayEvery0001";
       try {
         let array = new collections.Array(1, 2, 3);
@@ -755,9 +755,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array Every.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayEvery0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayEvery0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayEvery0002";
       try {
         let array: collections.Array<number> = new collections.Array(1, 2, 3);
@@ -839,9 +839,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array Some.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArraySome0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArraySome0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArraySome0001";
       try {
         let array: collections.Array<number> = new collections.Array(1, 2, 3);
@@ -863,9 +863,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array Some.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArraySome0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArraySome0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArraySome0002";
       try {
         let array: collections.Array<number> = new collections.Array(1, 2, 3);
@@ -943,9 +943,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayToString0001";
       try {
         const array1: collections.Array<number | string> = new collections.Array<number | string>(1, 2, 'a', '1a');
@@ -1025,9 +1025,9 @@ export default function ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testArrayToLocaleString0001";
       try {
         const array1: collections.Array<number> = new collections.Array<number>();
@@ -1109,9 +1109,9 @@ export default function ArrayTest2() {
      * @tc.desc  : Test the function of the interface ArkTS Array ReduceRight.
      * @tc.size  : MediumTest
      * @tc.type  : Function
-     * @tc.level : Level 0
+     * @tc.level : Level 1
      */
-    it('testArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let caseName: string = 'testArrayReduceRight0001';
       console.log(`${caseName} test start `);
       try {
@@ -1135,9 +1135,9 @@ export default function ArrayTest2() {
      * @tc.desc  : Test the function of the interface ArkTS Array ReduceRight.
      * @tc.size  : MediumTest
      * @tc.type  : Function
-     * @tc.level : Level 0
+     * @tc.level : Level 1
      */
-    it('testArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       let caseName: string = 'testArrayReduceRight0002';
       console.log(`${caseName} test start `);
       try {
@@ -1220,9 +1220,9 @@ export default function ArrayTest2() {
      * @tc.desc      : Test the function of the interface ArkTS Array ReduceRight.
      * @tc.size      : MediumTest
      * @tc.type      : Function
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      */
-    it('testArrayReduceRight0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testArrayReduceRight0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         let caseName: string = 'testArrayReduceRight0005';
         console.log(`${caseName} test start `);

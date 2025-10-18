@@ -33,7 +33,7 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
     it('testInt32ArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayLastIndexOf0001";
@@ -55,9 +55,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayLastIndexOf0002";
       try {
         let array: collections.Int32Array = collections.Int32Array.from([1, 2, 3, 4, 3, 5, 3, 6, 3, 3]);
@@ -160,7 +160,7 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
     it('testInt32ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayReduceRight0001";
@@ -182,9 +182,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = 'testInt32ArrayReduceRight0002';
       try {
         const array: collections.Int32Array = collections.Int32Array.from([1, 2, 3, 4, 5]);
@@ -211,9 +211,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Int32Array reduceRight 10200201
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = 'testInt32ArrayReduceRight0003';
       try {
         let array: collections.Int32Array = collections.Int32Array.from([1, 2, 3, 4, 5]);
@@ -297,9 +297,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayToString0001";
       try {
         const array1 = new collections.Int32Array([1, 2, 3]);
@@ -378,9 +378,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testInt32ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const caseName = "testInt32ArrayToLocaleString0001";
         try {
@@ -460,9 +460,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayOf0001";
       try {
         let result: collections.Int32Array = collections.Int32Array.of(1);
@@ -482,9 +482,9 @@ export default function Int32ArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt32ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt32ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const caseName = "testInt32ArrayOf0002";
       try {
         let result: collections.Int32Array = collections.Int32Array.of(1, 2, 3);

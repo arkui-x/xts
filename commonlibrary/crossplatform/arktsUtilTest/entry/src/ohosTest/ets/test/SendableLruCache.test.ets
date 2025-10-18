@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,9 +25,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: The default constructor is used to create a new SendableLRUCache instance with a default capacity of 64.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheConstructor0001";
         try {
@@ -48,9 +48,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: The default constructor is used to create a new SendableLRUCache instance with a default capacity of 64.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheConstructor0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheConstructor0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheConstructor0002";
         try {
@@ -72,9 +72,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Updates the buffer capacity to a specified capacity.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheUpdateCapacity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheUpdateCapacity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheUpdateCapacity0001";
         try {
@@ -120,9 +120,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the value associated with a specified key.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGet0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheGet0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheGet0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>(100)
@@ -143,9 +143,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the value associated with a specified key.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGet0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheGet0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheGet0002";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>(100)
@@ -166,9 +166,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Adds a key-value pair to the buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCachePut0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCachePut0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCachePut0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -188,9 +188,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Adds a key-value pair to the buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCachePut0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCachePut0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCachePut0002";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -211,9 +211,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Deletes a specified key and its associated value from the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheRemove0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheRemove0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheRemove0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -234,9 +234,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Deletes a specified key and its associated value from the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheRemove0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheRemove0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheRemove0002";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -259,9 +259,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Checks whether the current buffer contains a specified key.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheContains0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheContains0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheContains0001";
         try {
@@ -283,9 +283,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Checks whether the current buffer contains a specified key.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheContains0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheContains0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheContains0002";
         try {
@@ -310,9 +310,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the number of times createDefault(Object) returned a value.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGetCreateCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheGetCreateCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheGetCreateCount0001";
         try {
@@ -339,9 +339,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the number of times that the queried values are not matched.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGetMissCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheGetMissCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheGetMissCount0001";
         try {
@@ -368,9 +368,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the number of times that values are evicted from the buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGetRemoveCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheGetRemoveCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheGetRemoveCount0001";
         try {
@@ -397,9 +397,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the number of times that the queried values are successfully matched.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGetMatchCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheGetMatchCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheGetMatchCount0001";
         try {
@@ -426,9 +426,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the number of times that values are added to the buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheGetPutCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheGetPutCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheGetPutCount0001";
         try {
@@ -476,9 +476,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Clears key-value pairs from the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheClear0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheClear0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheClear0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -502,9 +502,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Checks whether the current buffer is empty.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheIsEmpty0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheIsEmpty0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheIsEmpty0001";
         try {
@@ -526,9 +526,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Checks whether the current buffer is empty.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheIsEmpty0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheIsEmpty0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheIsEmpty0002";
         try {
@@ -547,16 +547,15 @@ export default function SendableLruCacheTest() {
         }
       })
 
-
     /**
      * @tc.number: SUB_COMMONLIBRARY_ARKTSUTILS_SENDABLELRUCACHE_TOSTRING_0100
      * @tc.name: testSendableLruCacheToString0001
      * @tc.desc: Returns a string representation of the object.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheToString0001";
         try {
@@ -581,9 +580,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains a list of all values in the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheValues0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheValues0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheValues0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -611,9 +610,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains a list of keys for the values in the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheKeys0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLruCacheKeys0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLruCacheKeys0001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -633,15 +632,16 @@ export default function SendableLruCacheTest() {
         done();
       }
     })
+
     /**
      * @tc.number: SUB_COMMONLIBRARY_ARKTSUTILS_SENDABLELRUCACHE_ENTRIES_0100
      * @tc.name: testSendableLruCacheENTRIES0001
      * @tc.desc: Returns an array of key-value pairs of enumeratable properties of a given object.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLruCacheENTRIES0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testSendableLruCacheENTRIES0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testSendableLruCacheENTRIES0001";
         try {
@@ -673,9 +673,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the total number of values in the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLRUCacheLength001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLRUCacheLength001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLRUCacheLength001";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()
@@ -699,9 +699,9 @@ export default function SendableLruCacheTest() {
      * @tc.desc: Obtains the total number of values in the current buffer.
      * @tc.size: MediumTest
      * @tc.type: Function
-     * @tc.level: Level 0
+     * @tc.level: Level 1
      */
-    it('testSendableLRUCacheLength002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testSendableLRUCacheLength002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testSendableLRUCacheLength002";
       try {
         let that = new ArkTSUtils.SendableLruCache<number | string, number | string>()

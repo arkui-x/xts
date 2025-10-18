@@ -33,9 +33,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayLastIndexOf0001";
         try {
@@ -50,13 +50,14 @@ export default function Uint8ClampedArrayTest2() {
         }
         done()
       })
+
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_Uint8ClampedArray_LASTINDEXOF_0200
      * @tc.name       : testUint8ClampedArrayLastIndexOf0002
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
     it('testUint8ClampedArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
@@ -164,9 +165,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayReduceRight0001";
         try {
@@ -187,9 +188,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayReduceRight0002";
         try {
@@ -217,9 +218,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayReduceRight0003";
         try {
@@ -303,9 +304,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Testing create an ArrayBuffer with a not empty buffer.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayToString0001";
         try {
@@ -384,9 +385,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayToLocalString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ClampedArrayToLocalString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ClampedArrayToLocalString0001";
         try {
@@ -465,9 +466,9 @@ export default function Uint8ClampedArrayTest2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ClampedArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ClampedArrayOf0001";
       try {
         let result: collections.Uint8ClampedArray = collections.Uint8ClampedArray.of(1);
@@ -480,15 +481,16 @@ export default function Uint8ClampedArrayTest2() {
       }
       done()
     });
+
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_Uint8ClampedArray_OF_0200
      * @tc.name       : testUint8ClampedArrayOf0002
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ClampedArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ClampedArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ClampedArrayOf0002";
       try {
         let result: collections.Uint8ClampedArray = collections.Uint8ClampedArray.of(1, 2, 3);

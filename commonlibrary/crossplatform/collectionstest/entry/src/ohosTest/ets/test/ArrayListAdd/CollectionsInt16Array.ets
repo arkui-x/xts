@@ -33,9 +33,9 @@ export default function Int16Test2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ClampedArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testInt16ClampedArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testInt16ClampedArrayLastIndexOf0001";
         try {
@@ -57,9 +57,9 @@ export default function Int16Test2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayLastIndexOf0002";
       try {
         let array: collections.Int16Array = collections.Int16Array.from([1, 2, 3, 4, 3, 5, 3, 6, 3, 3]);
@@ -164,9 +164,9 @@ export default function Int16Test2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayReduceRight0001";
       try {
         let array: collections.Int16Array = collections.Int16Array.from([]);
@@ -185,9 +185,9 @@ export default function Int16Test2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayReduceRight0002";
       try {
         const array: collections.Int16Array = collections.Int16Array.from([1, 2, 3, 4, 5]);
@@ -213,9 +213,9 @@ export default function Int16Test2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayReduceRight0003";
       try {
         let array: collections.Int16Array = collections.Int16Array.from([1, 2, 3, 4, 5]);
@@ -299,9 +299,9 @@ export default function Int16Test2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayToString0001";
       try {
         const array1 = new collections.Int16Array([1, 2, 3]);
@@ -379,9 +379,9 @@ export default function Int16Test2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testInt16ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testInt16ArrayToLocaleString0001";
         try {
@@ -462,9 +462,9 @@ export default function Int16Test2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayOf0001";
       try {
         let result: collections.Int16Array = collections.Int16Array.of(1);
@@ -477,15 +477,16 @@ export default function Int16Test2() {
       }
       done()
     });
+    
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_INT16ARRAY_OF_0200
      * @tc.name       : testInt16ArrayOf0002
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testInt16ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testInt16ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testInt16ArrayOf0002";
       try {
         let result: collections.Int16Array = collections.Int16Array.of(1, 2, 3);
@@ -498,6 +499,5 @@ export default function Int16Test2() {
       }
       done()
     });
-
   })
 }

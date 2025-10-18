@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SwanLink (Jiangsu) Technology Development Co., LTD.
+ * Copyright (c) 2025 SwanLink (Jiangsu) Technology Development Co., LTD.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,11 +38,11 @@ export default function ConditionVariableTest() {
      * @tc.number    : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_CONSTRUCTOR_0100
      * @tc.name      : testConditionVariableConstructor0001
      * @tc.desc      : check create wait thread
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      * @tc.size      : MediumTest
      * @tc.type      : Function
      */
-    it('testConditionVariableConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testConditionVariableConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testConditionVariableConstructor0001";
         try {
@@ -54,15 +54,16 @@ export default function ConditionVariableTest() {
           done()
         }
       })
+
     /**
      * @tc.number     : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_REQUEST_0100
      * @tc.name       : testConditionVariableRequest0001
      * @tc.desc       : Test the Buffer interface includes request with input emoji \ud83d\ude0a.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testConditionVariableRequest0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+    it('testConditionVariableRequest0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let TAG = 'testConditionVariableRequest0001';
       try {
         let lockName = '\ud83d\ude0a';
@@ -79,7 +80,7 @@ export default function ConditionVariableTest() {
      * @tc.desc       : Test the Buffer interface includes request with input emoji \ud83d\ude0a.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
     it('testConditionVariableRequest0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       let TAG = 'testConditionVariableRequest0002';
@@ -93,15 +94,16 @@ export default function ConditionVariableTest() {
         console.error(`${TAG} failed, error: ${err.message}`);
       }
     });
+
     /**
      * @tc.number    : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_WAITFOR_0100
      * @tc.name      : testConditionVariableWaitFor0001
      * @tc.desc      : check create wait thread
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      * @tc.size      : MediumTest
      * @tc.type      : Function
      */
-    it('testConditionVariableWaitFor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testConditionVariableWaitFor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testConditionVariableWaitFor0001";
         try {
@@ -127,11 +129,11 @@ export default function ConditionVariableTest() {
      * @tc.number    : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_WAIT_0100
      * @tc.name      : testConditionVariableWait0001
      * @tc.desc      : check create wait thread
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      * @tc.size      : MediumTest
      * @tc.type      : Function
      */
-    it('testConditionVariableWait0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+    it('testConditionVariableWait0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const CASE: string = 'testConditionVariableWait0001';
       console.info(`${CASE} START`);
       try {
@@ -153,11 +155,11 @@ export default function ConditionVariableTest() {
      * @tc.number    : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_NOTIFYALL_0100
      * @tc.name      : testConditionVariableNotifyAll0001
      * @tc.desc      : check notify use
-     * @tc.level     : Level 0
+     * @tc.level     : Level 1
      * @tc.size      : MediumTest
      * @tc.type      : Function
      */
-    it('testConditionVariableNotifyAll0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testConditionVariableNotifyAll0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const CASE: string = 'testConditionVariableNotifyAll0001';
         console.info(`${CASE} START`);

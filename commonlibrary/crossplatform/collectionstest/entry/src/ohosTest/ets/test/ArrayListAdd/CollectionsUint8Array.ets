@@ -33,9 +33,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayLastIndexOf0001";
       try {
         let array: collections.Uint8Array = collections.Uint8Array.from([1, 2, 3, 4, 3, 5, 3, 6, 3, 3]);
@@ -56,9 +56,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Testing whether lastIndexOf returns the first index of the given element or -1 if it does not exist.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayLastIndexOf0002";
       try {
         let array: collections.Uint8Array = collections.Uint8Array.from([1, 2, 3, 4, 3, 5, 3, 6, 3, 3]);
@@ -162,9 +162,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayReduceRight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayReduceRight0001";
       try {
         let array: collections.Uint8Array = collections.Uint8Array.from([]);
@@ -177,15 +177,16 @@ export default function Uint8Test2() {
       }
       done()
     })
+    
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_UINT8ARRAY_REDUCERIGHT_0200
      * @tc.name       : testUint8ArrayReduceRight0002
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayReduceRight0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayReduceRight0002";
       try {
         const array: collections.Uint8Array = collections.Uint8Array.from([1, 2, 3, 4, 5]);
@@ -205,15 +206,16 @@ export default function Uint8Test2() {
       }
       done()
     })
+    
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_UINT8ARRAY_REDUCERIGHT_0300
      * @tc.name       : testUint8ArrayReduceRight0003
      * @tc.desc       : Testing a reduction function on each element and returning the final result.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayReduceRight0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayReduceRight0003";
       try {
         let array: collections.Uint8Array = collections.Uint8Array.from([1, 2, 3, 4, 5]);
@@ -296,9 +298,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayToString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayToString0001";
       try {
         const array1 = new collections.Uint8Array([1, 2, 3]);
@@ -376,9 +378,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Test the function of the interface ArkTS Array ToLocaleString.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testUint8ArrayToLocaleString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testUint8ArrayToLocaleString0001";
         try {
@@ -459,9 +461,9 @@ export default function Uint8Test2() {
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayOf0001";
       try {
         let result: collections.Uint8Array = collections.Uint8Array.of(1);
@@ -474,15 +476,16 @@ export default function Uint8Test2() {
       }
       done()
     });
+ 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_UINT8ARRAY_OF_0200
      * @tc.name       : testUint8ArrayOf0002
      * @tc.desc       : Test the function of the interface Of
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testUint8ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testUint8ArrayOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testUint8ArrayOf0002";
       try {
         let result: collections.Uint8Array = collections.Uint8Array.of(1, 2, 3);
@@ -495,6 +498,5 @@ export default function Uint8Test2() {
       }
       done()
     });
-
   })
 }

@@ -17,7 +17,6 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level
 import { collections, taskpool } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-
 @Concurrent
 export function testPush(index: number, bit: collections.BitVector) {
   let tag = 'testPush'
@@ -173,9 +172,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the constructor of bitVector, length is 10
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorConstructor0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorConstructor0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(10);
@@ -193,9 +192,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the constructor of bitVector, length is 0
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorConstructor0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorConstructor0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorConstructor0002";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -238,9 +237,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the Push of bitVector, push 0
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorPush0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorPush0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorPush0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -260,9 +259,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the Push of bitVector, push multiple values
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorPush0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorPush0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorPush0002";
       try {
         let bitVector = new collections.BitVector(0);
@@ -358,9 +357,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the pop of bitVector, pop succeed
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorPop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorPop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorPop0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -380,9 +379,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the pop of bitVector, pop succeed
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorPop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorPop0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorPop0002";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -465,9 +464,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the has of bitVector, element=0 fromIndex=0 toIndex=10, return true.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorHas0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorHas0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorHas0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -496,9 +495,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the has of bitVector, element=1 fromIndex=0 toIndex=5, return false.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorHas0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorHas0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorHas0002";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -661,9 +660,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the setBitsByRange of bitVector, return true.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorSetBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorSetBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorSetBitsByRange0001";
         try {
@@ -864,9 +863,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the SetAllBits of bitVector, set 0, return 0(all).
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorSetAllBits0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorSetAllBits0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorSetAllBits0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -962,9 +961,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getBitsByRange of bitVector, fromIndex=0,toIndex=6, return 000001.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorGetBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorGetBitsByRange0001";
         try {
@@ -1161,9 +1160,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the resize of bitVector, size is 5, return 01000.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorResize0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorResize0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorResize0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -1190,9 +1189,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the resize of bitVector, size is 1, return 0.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorResize0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorResize0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorResize0002";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -1314,9 +1313,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getBitCountByRange of bitVector, range is 0~6, return 1.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetBitCountByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorGetBitCountByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorGetBitCountByRange0001";
         try {
@@ -1504,9 +1503,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getIndexOf of bitVector, element=1 fromIndex=0 toIndex=5, return -1.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorGetIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorGetIndexOf0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -1532,9 +1531,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getIndexOf of bitVector, element=1 fromIndex=0 toIndex=10, return 5.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorGetIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorGetIndexOf0002";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -1692,9 +1691,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getLastIndexOf of bitVector, element=1 fromIndex=0 toIndex=5, return -1.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorGetLastIndexOf0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorGetLastIndexOf0001";
         try {
@@ -1721,9 +1720,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the getLastIndexOf of bitVector, element=1 fromIndex=0 toIndex=10, return 9.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorGetLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorGetLastIndexOf0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorGetLastIndexOf0002";
         try {
@@ -1882,9 +1881,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the flipBitByIndex of bitVector, index is 0.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorFlipBitByIndex0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorFlipBitByIndex0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorFlipBitByIndex0001";
         try {
@@ -2039,9 +2038,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the flipBitsByRange of bitVector, fromIndex=0,toIndex=6.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorFlipBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+    it('testBitVectorFlipBitsByRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
         const TAG = "testBitVectorFlipBitsByRange0001";
         try {
@@ -2232,9 +2231,9 @@ export default function BitVectorTest2() {
      * @tc.desc       : Testing the values of bitVector, bitvector is not null, return true.
      * @tc.size       : MediumTest
      * @tc.type       : Function
-     * @tc.level      : Level 0
+     * @tc.level      : Level 1
      */
-    it('testBitVectorValues0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+    it('testBitVectorValues0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       const TAG = "testBitVectorValues0001";
       try {
         let bitVectorList: collections.BitVector = new collections.BitVector(0);
@@ -2321,6 +2320,5 @@ export default function BitVectorTest2() {
         console.info(`${caseName} test end`);
         done()
       })
-
   })
 }
