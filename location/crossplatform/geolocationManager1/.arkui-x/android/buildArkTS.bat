@@ -11,7 +11,7 @@ if "%isAceBuildFlag%" == "true" goto :eof
 set scriptBuildFlag=true
 if "%scriptBuildFlag%" == "false" goto :eof
 
-set project_path=D:\demo2
+set project_path=D:\geolocationManager1
 set ohpm_path=C:\Program Files\Huawei\DevEcoStudio\tools\ohpm\bin\ohpm
 set arkuiXSdkPath=C:\Users\Xu_gq\AppData\Local\ArkUI-X\Sdk\20\arkui-x
 

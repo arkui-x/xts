@@ -15,6 +15,10 @@
 import geolocationm from '@ohos.geoLocationManager';
 import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Size, Level} from '@ohos/hypium'
 import { BusinessError } from '@ohos.base';
+import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
+import AtManager from '@ohos.abilityAccessCtrl'
+
+let context: common.UIAbilityContext;
 
 function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => {
@@ -29,11 +33,32 @@ enum  CountryCodeType {
         COUNTRY_CODE_FROM_NETWORK = 4,
     }
 
+const LOCATION_PERMISSIONS: Permissions[] = ['ohos.permission.LOCATION', 'ohos.permission.APPROXIMATELY_LOCATION', 'ohos.permission.LOCATION_IN_BACKGROUND']
+
+function reqPermissionsFromUser(permissions: Array<Permissions>, context: common.UIAbilityContext): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    atManager.requestPermissionsFromUser(context, permissions)
+      .then((data) => {
+        let grantStatus: Array<number> = data.authResults;
+        let allGranted = grantStatus.every(status => status === 0);
+        if (allGranted) {
+          resolve(true);
+        }
+      }).catch((err: BusinessError) => {
+      console.error('permission has been reject, test stop');
+      reject(new Error('permission denied'));
+    });
+  });
+}
+
 export default function geolocationTest_geo4() {
 
 
     describe('geolocationTest_geo4', () => {
         beforeAll(async (done : Function) => {
+            context = getContext();
+            const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
             console.info('beforeAll case');
             await sleep(3000);
             done();

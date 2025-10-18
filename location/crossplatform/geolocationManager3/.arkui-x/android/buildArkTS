@@ -11,7 +11,7 @@ if [ "$scriptBuildFlag" = "false" ]; then
   exit 0
 fi
 
-project_path="D:\demo6"
+project_path="D:\geolocationManager3"
 ohpm_path="C:\Program Files\Huawei\DevEcoStudio\tools\ohpm\bin\ohpm"
 arkuiXSdkPath="C:\Users\Xu_gq\AppData\Local\ArkUI-X\Sdk\20\arkui-x"
 

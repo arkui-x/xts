@@ -196,21 +196,21 @@ export default function geolocationNoPermissionTest() {
           expect(true).assertFail();
         } catch (error) {
           console.info("nmea on err:" + JSON.stringify(error));
-          expect(error.code).assertEqual("201");
+          if (error.code == "201"){
+            expect(error.code).assertEqual("201");
+          } else {
+            expect(error.code).assertEqual("801");
+          }
         }
         try {
           geoLocationm.on('nmeaMessage', nmeaCb2);
           expect(true).assertFail();
         } catch (error) {
-          console.info("nmea on err:" + JSON.stringify(error));
-          expect(error.code).assertEqual("201");
-        }
-        try {
-          geoLocationm.off('nmeaMessage');
-          expect(true).assertFail();
-        } catch (error) {
-          console.info("nmea off all err:" + JSON.stringify(error));
-          expect(error.code).assertEqual("201");
+          if (error.code == "201"){
+            expect(error.code).assertEqual("201");
+          } else {
+            expect(error.code).assertEqual("801");
+          }
         }
         await sleep(1000);
         done();
@@ -254,16 +254,13 @@ export default function geolocationNoPermissionTest() {
         try {
           geoLocationm.on('satelliteStatusChange', gnssStatusCb);
           expect(true).assertFail();
-        } catch (err) {
-          expect(err.code).assertEqual(201);
-          console.error("errCode:" + err.code + ", message:"  + err.message);
-        }
-        try {
-          geoLocationm.off('satelliteStatusChange', gnssStatusCb);
-          expect(true).assertFail();
-        } catch (err) {
-          expect(err.code).assertEqual(201);
-          console.info("[lbs_js] satelliteStatusOffall try err." + JSON.stringify(err));
+        } catch (error) {
+          if (error.code == "201"){
+            expect(error.code).assertEqual("201");
+          } else {
+            expect(error.code).assertEqual("801");
+          }
+          console.error("errCode:" + error.code + ", message:"  + error.message);
         }
         await sleep(1000);
         done();

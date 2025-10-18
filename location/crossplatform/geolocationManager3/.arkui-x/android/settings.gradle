@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "demo6"
+rootProject.name = "geolocationManager3"

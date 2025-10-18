@@ -18,7 +18,7 @@
 #import <libarkui_ios/StageApplication.h>
 
 #define BUNDLE_DIRECTORY @"arkui-x"
-#define BUNDLE_NAME @"com.example.demo2"
+#define BUNDLE_NAME @"com.example.geolocationManager1"
 
 @interface AppDelegate ()
 

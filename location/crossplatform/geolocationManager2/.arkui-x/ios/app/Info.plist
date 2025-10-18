@@ -9,9 +9,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>demo3</string>
+	<string>geolocationManager2</string>
 	<key>CFBundleDisplayName</key>
-	<string>Demo3</string>
+	<string>GeolocationManager2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>

@@ -14,10 +14,12 @@
  */
 
 import geolocationm from '@ohos.geoLocationManager';
-import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Size, Level} from '@ohos/hypium'
+import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Size, Level} from '@ohos/hypium';
 import { BusinessError } from '@ohos.base';
+import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
+import AtManager from '@ohos.abilityAccessCtrl';
 
-
+let context: common.UIAbilityContext;
 let request_scenario_UNSET = geolocationm.LocationRequestScenario.UNSET
 let request_scenario_NAVIGATION = geolocationm.LocationRequestScenario.NAVIGATION
 let request_scenario_TRAJECTORY_TRACKING = geolocationm.LocationRequestScenario.TRAJECTORY_TRACKING
@@ -37,12 +39,37 @@ function sleep(ms: number): Promise<void> {
     });
 }
 
+const LOCATION_PERMISSIONS: Permissions[] = ['ohos.permission.LOCATION', 'ohos.permission.APPROXIMATELY_LOCATION', 'ohos.permission.LOCATION_IN_BACKGROUND']
+
+function reqPermissionsFromUser(permissions: Array<Permissions>, context: common.UIAbilityContext): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    atManager.requestPermissionsFromUser(context, permissions)
+      .then((data) => {
+        let grantStatus: Array<number> = data.authResults;
+        let allGranted = grantStatus.every(status => status === 0);
+        if (allGranted) {
+          resolve(true);
+        }
+      }).catch((err: BusinessError) => {
+      console.error('permission has been reject, test stop');
+      reject(new Error('permission denied'));
+    });
+  });
+}
+
 export default function geolocationTest_geo3() {
 
 
     describe('geolocationTest_geo3', () => {
         beforeAll(async (done : Function) => {
             console.info('beforeAll case');
+            context = getContext();
+            const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
+            if (!isAllGranted) {
+                console.error('no permission');
+                throw new Error('no permission');
+            }
             await sleep(3000);
             done();
         })

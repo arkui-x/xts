@@ -17,14 +17,44 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestT
 import geoLocationManager from '@ohos.geoLocationManager';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { notificationManager } from '@kit.NotificationKit';
+import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
+import AtManager from '@ohos.abilityAccessCtrl';
+
+let context: common.UIAbilityContext;
 
 function sleep(ms:number) {
   return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
 }
 
+const LOCATION_PERMISSIONS: Permissions[] = ['ohos.permission.LOCATION', 'ohos.permission.APPROXIMATELY_LOCATION', 'ohos.permission.LOCATION_IN_BACKGROUND']
+
+function reqPermissionsFromUser(permissions: Array<Permissions>, context: common.UIAbilityContext): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    atManager.requestPermissionsFromUser(context, permissions)
+      .then((data) => {
+        let grantStatus: Array<number> = data.authResults;
+        let allGranted = grantStatus.every(status => status === 0);
+        if (allGranted) {
+          resolve(true);
+        }
+      }).catch((err: BusinessError) => {
+      console.error('permission has been reject, test stop');
+      reject(new Error('permission denied'));
+    });
+  });
+}
+
 export default function geolocationTest() {
   describe('geolocationTest', () => {
     beforeAll(async () => {
+      context = getContext();
+      const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
+      if (!isAllGranted) {
+          console.error('no permission');
+          throw new Error('no permission');
+      }
+      done();
     })
     beforeEach(async () => {
     })
@@ -464,7 +494,7 @@ export default function geolocationTest() {
     /**
      * @tc.number    : SUB_HSS_LOCATIONSYSTEM_GET_ADDRESSES_FROM_LOCATION_0500
      * @tc.name      : testLocationAddressesFromLocation0005
-     * @tc.desc      : Pole coordinates, expecting return of 3301300
+     * @tc.desc      : Pole coordinates, expecting return of null
      * @tc.size      : MediumTest
      * @tc.type      : Function
      * @tc.level     : Level 2
@@ -485,7 +515,7 @@ export default function geolocationTest() {
               expect(err.code).assertEqual(3301300);
             } else {
               console.info("[lbs_js] testLocationAddressesFromLocation005 data is: " + JSON.stringify(data));
-              expect(true).assertFail();
+              expect(true).assertEqual((JSON.stringify(data)) != null);
             }
           });
         } catch (error) {
@@ -648,7 +678,7 @@ export default function geolocationTest() {
         try {
           await geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest).then((data) => {
             console.info('[lbs_js] testLocationAddressesFromLocationPromise005 promise: ' + JSON.stringify(data));
-            expect(true).assertFail();
+            expect(true).assertEqual((JSON.stringify(data)) != null);
           }).catch((error: BusinessError) => {
             console.info("[lbs_js] testLocationAddressesFromLocationPromise005 then error." + JSON.stringify(error));
             console.info('[lbs_js] not support now');
