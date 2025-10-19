@@ -48,15 +48,17 @@ function reqPermissionsFromUser(permissions: Array<Permissions>, context: common
 export default function geolocationTest() {
   describe('geolocationTest', () => {
     beforeAll(async () => {
-      context = getContext();
+      context = globalThis.abilityContext;
       const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
       if (!isAllGranted) {
-          console.error('no permission');
-          throw new Error('no permission');
+        console.error('no permission');
+        throw new Error('no permission');
       }
-      done();
+      console.info('beforeAll case');
+      await sleep(3000);
     })
     beforeEach(async () => {
+      console.info('beforeEach case');
     })
     afterEach(async () => {
       await sleep(3000)
@@ -494,7 +496,7 @@ export default function geolocationTest() {
     /**
      * @tc.number    : SUB_HSS_LOCATIONSYSTEM_GET_ADDRESSES_FROM_LOCATION_0500
      * @tc.name      : testLocationAddressesFromLocation0005
-     * @tc.desc      : Pole coordinates, expecting return of null
+     * @tc.desc      : Pole coordinates, expecting return of 3301300
      * @tc.size      : MediumTest
      * @tc.type      : Function
      * @tc.level     : Level 2

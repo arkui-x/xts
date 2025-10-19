@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import geolocationNoPermissionTest from './GeoLocationManager_Permission_Test.test'
+import geolocationNoPermissionTest from './GeoLocationManagerNop.test'
 
 export default function testsuite() {
   geolocationNoPermissionTest()

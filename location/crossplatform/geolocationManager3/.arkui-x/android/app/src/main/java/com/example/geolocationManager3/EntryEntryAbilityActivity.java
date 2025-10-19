@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,7 @@ public class EntryEntryAbilityActivity extends StageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("HiHelloWorld", "EntryEntryAbilityActivity");
-        setInstanceName("com.example.geolocationManager3:entry:EntryAbility:");
+        setInstanceName("com.example.geolocationmanager3:entry:EntryAbility:");
         super.onCreate(savedInstanceState);
     }
 }

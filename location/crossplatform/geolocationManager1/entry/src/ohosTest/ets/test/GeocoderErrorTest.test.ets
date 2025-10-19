@@ -17,6 +17,7 @@ import geolocationm from '@ohos.geoLocationManager';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
 import AtManager from '@ohos.abilityAccessCtrl'
+import { BusinessError } from '@ohos.base';
 
 let context: common.UIAbilityContext;
 
@@ -49,8 +50,12 @@ export default function geolocationTest_GeoErr() {
   describe('geolocationTest_GeoErr', () => {
     console.log('#start AccessTokenTests#');
     beforeAll(async (done:Function) => {
-      context = getContext();
-      const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
+      context = globalThis.abilityContext;
+      const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context);
+      if (!isAllGranted) {
+        console.error('no permission');
+        throw new Error('no permission');
+      }
       console.info('beforeAll case');
       done();
     });

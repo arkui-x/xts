@@ -31,7 +31,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.geolocationManager2"
+        applicationId "com.example.geolocationmanager2"
         minSdkVersion 26
         targetSdkVersion 33
         versionCode 1

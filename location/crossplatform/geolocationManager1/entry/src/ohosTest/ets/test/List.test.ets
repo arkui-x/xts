@@ -25,6 +25,7 @@ import geolocationTest_geo5 from './LocationMTest02.test'
 
 
 
+
 export default function testsuite() {
     geolocationTest_GeoErr()
     geolocationTest_geoM()

@@ -52,7 +52,7 @@ function reqPermissionsFromUser(permissions: Array<Permissions>, context: common
 export default function geolocationTest_geo1(){
     describe('geolocationTest_geo1', ()=> {
         beforeAll(async (done:Function) => {
-            context = getContext();
+            context = globalThis.abilityContext;
             const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
             if (!isAllGranted) {
                 console.error('no permission');

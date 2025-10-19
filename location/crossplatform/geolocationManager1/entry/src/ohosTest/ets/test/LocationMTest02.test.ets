@@ -20,6 +20,8 @@ import AtManager from '@ohos.abilityAccessCtrl';
 import {describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Size, Level} from '@ohos/hypium';
 import { BusinessError } from '@ohos.base';
 
+let context: common.UIAbilityContext;
+
 function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
@@ -48,7 +50,7 @@ function reqPermissionsFromUser(permissions: Array<Permissions>, context: common
 export default function geolocationTest_geo5() {
     describe('geolocationTest_geo5', () => {
         beforeAll(async (done : Function) => {
-            context = getContext();
+            context = globalThis.abilityContext;
             const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
             if (!isAllGranted) {
                 console.error('no permission');

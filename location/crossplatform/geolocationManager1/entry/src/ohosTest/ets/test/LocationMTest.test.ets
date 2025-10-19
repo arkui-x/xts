@@ -64,7 +64,7 @@ export default function geolocationTest_geo3() {
     describe('geolocationTest_geo3', () => {
         beforeAll(async (done : Function) => {
             console.info('beforeAll case');
-            context = getContext();
+            context = globalThis.abilityContext;
             const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
             if (!isAllGranted) {
                 console.error('no permission');

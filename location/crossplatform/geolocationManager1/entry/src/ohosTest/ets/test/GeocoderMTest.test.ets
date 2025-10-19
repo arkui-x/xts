@@ -51,8 +51,12 @@ export default function geolocationTest_geoM() {
 
         console.log('#start AccessTokenTests#');
         beforeAll(async (done:Function)=> {
-            context = getContext();
+            context = globalThis.abilityContext;
             const isAllGranted = await reqPermissionsFromUser(LOCATION_PERMISSIONS, context as common.UIAbilityContext);
+            if (!isAllGranted) {
+                console.error('no permission');
+                throw new Error('no permission');
+            }
             console.info('beforeAll case');
             await sleep(3000);
             done();
