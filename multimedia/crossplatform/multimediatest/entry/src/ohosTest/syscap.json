@@ -1,0 +1,14 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+      "SystemCapability.Multimedia.VideoProcessingEngine",
+      "SystemCapability.FileManagement.File.FileIO.Lite"
+    ]
+  }
+}
