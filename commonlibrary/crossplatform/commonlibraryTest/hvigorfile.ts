@@ -12,9 +12,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import decimalTest from './decimal/Decimal.test'
-
-export default function testsuite() {
-  decimalTest();
-}
+// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
+export { AppTasksForArkUIX } from '@ohos/hvigor-ohos-arkui-x-plugin';
