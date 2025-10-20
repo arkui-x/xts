@@ -31,5 +31,4 @@ export default function testsuite() {
     geolocationTest_geo2()
     geolocationTest_geo3()
     geolocationTest_geo5()
-
 }
