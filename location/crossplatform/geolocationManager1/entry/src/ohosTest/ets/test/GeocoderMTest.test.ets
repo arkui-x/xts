@@ -161,8 +161,7 @@ export default function geolocationTest_geoM() {
                         + ',roadName:'+JSON.stringify(data[0].roadName)
                         + ',subAdministrativeArea:'+JSON.stringify(data[0].subAdministrativeArea)
                         + ',subLocality:'+JSON.stringify(data[0].subLocality )
-                        +',subRoadName:'+ JSON.stringify(data[0].subRoadName)
-                        + ',isFromMock:'+JSON.stringify(data[0].isFromMock));
+                        +',subRoadName:'+ JSON.stringify(data[0].subRoadName);
                     }
                 }).catch((error: BusinessError) => {
                     console.info("[lbs_js] getAddressesFromLocation21 promise then error." + JSON.stringify(error));

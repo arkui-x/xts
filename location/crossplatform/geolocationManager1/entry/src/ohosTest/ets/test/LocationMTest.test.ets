@@ -1362,8 +1362,7 @@ export default function geolocationTest_geo3() {
             ' longitude: ' + last.longitude +' altitude: ' + last.altitude
             +' accuracy: ' + last.accuracy+' speed: ' + last.speed +
             'timeStamp: ' + last.timeStamp+'direction:' + last.direction+' timeSinceBoot: '
-            + last.timeSinceBoot +'additions: ' + last.additions+' additionSize' + last.additionSize
-            + 'isFromMock' +last.isFromMock);
+            + last.timeSinceBoot +'additions: ' + last.additions+' additionSize' + last.additionSize);
 
             expect(true).assertEqual(JSON.stringify(last) != null);
         } catch (error) {

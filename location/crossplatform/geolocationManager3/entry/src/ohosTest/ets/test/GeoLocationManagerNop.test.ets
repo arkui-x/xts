@@ -17,12 +17,18 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level
 import geoLocationm from '@ohos.geoLocationManager';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { notificationManager } from '@kit.NotificationKit';
+import deviceInfo from '@ohos.deviceInfo';
 
 function sleep(ms:number) {
   return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
 }
 
+
+
 export default function geolocationNoPermissionTest() {
+  let osFullNameInfo: string = deviceInfo.osFullName;
+  let isIos: boolean = osFullNameInfo.includes('iOS');
+  
   describe('geolocationTest', () => {
     beforeAll(async () => {
     })
@@ -191,6 +197,11 @@ export default function geolocationNoPermissionTest() {
         let nmeaCb2 = (str: string): void => {
           console.log('[lbs_js] nmeaMessage2: ' + str);
         }
+       if (isIos) {
+          console.log('Skipping 201 test on ios system')
+          done()
+          return;
+        }
         try {
           geoLocationm.on('nmeaMessage', nmeaCb1);
           expect(true).assertFail();
@@ -251,6 +262,11 @@ export default function geolocationNoPermissionTest() {
           }
         }
 
+       if (isIos) {
+          console.log('Skipping 201 test on ios system')
+          done()
+          return;
+        }
         try {
           geoLocationm.on('satelliteStatusChange', gnssStatusCb);
           expect(true).assertFail();
