@@ -22,7 +22,6 @@ import vibrate_getEffectInfoSync from './vibrate_getVibInfoSync/vibrate_getEffec
 import vibrate_getVibratorInfoSync from './vibrate_getVibInfoSync/vibrate_getVibratorInfoSync.test';
 import Vibtate_PatternBuilder from './vibtate_PatternBuilder/Vibtate_PatternBuilder.test';
 import Vibrator_isHdHapticSupported from './vibtate_PatternBuilder/Vibrator_isHdHapticSupported.test';
-// import vibrator_nop_Test from './miscdevice_standard_nop/Vibrator_nop_Test.test';
 
 export default function testsuite() {
   Vibrator_star_normal();
@@ -34,5 +33,4 @@ export default function testsuite() {
   vibrate_getVibratorInfoSync();
   Vibtate_PatternBuilder();
   Vibrator_isHdHapticSupported();
-  // vibrator_nop_Test()
 }
