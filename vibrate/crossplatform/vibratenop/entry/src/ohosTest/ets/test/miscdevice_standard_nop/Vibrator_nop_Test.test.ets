@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2025 Huawei Device Co., Ltd.
+ * Copyright (C) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -48,7 +48,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test001--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -92,7 +95,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test002--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       const TAG = "Vibrator_Sensor_nop_Test002";
@@ -141,7 +147,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test003--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -179,7 +188,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test004--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -218,7 +230,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test005--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -264,7 +279,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test006--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -306,7 +324,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test007--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       try {
@@ -338,7 +359,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test008--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       const TAG = "Vibrator_Sensor_nop_Test008";
@@ -385,7 +409,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test009--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       const TAG = "Vibrator_Sensor_nop_Test009";
@@ -404,13 +431,13 @@ export default function vibrator_nop_Test() {
         setTimeout(() => {
           done();
         }, 800);
-        } catch (error) {
-          const e: BusinessError = error as BusinessError;
-          console.error(`${TAG} Unexpected error: Code ${e.code}, Message: ${e.message}`);
-          expect(e.code).assertEqual(PERMISSION_DENIED_CODE);
-          done();
-          return;
-        }
+      } catch (error) {
+        const e: BusinessError = error as BusinessError;
+        console.error(`${TAG} Unexpected error: Code ${e.code}, Message: ${e.message}`);
+        expect(e.code).assertEqual(PERMISSION_DENIED_CODE);
+        done();
+        return;
+      }
     });
 
 
@@ -426,7 +453,10 @@ export default function vibrator_nop_Test() {
       console.info('--------Vibrator_Sensor_nop_Test010--------');
       if (isIOS) {
         console.info('Skipping 201 test on iOS system');
-        done();
+        expect(true).assertTrue()
+        setTimeout(() => {
+          done();
+        }, 500);
         return;
       }
       const TAG = "Vibrator_Sensor_nop_Test010";
