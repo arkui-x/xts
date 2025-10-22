@@ -27,6 +27,16 @@ import Uint8ClampedArrayTest from './normal/TypedArray/Uint8ClampedArray.test';
 import Float32ArrayTest from './normal/TypedArray/Float32Array.test';
 import BitVectorTest from './normal/BitVector.test';
 import SetTest from './normal/Set.test';
+import ArrayTest2 from './ArrayListAdd/CollectionsArray';
+import BitVectorTest2 from './ArrayListAdd/CollectionsBitVector.test';
+import Float32ArrayTest2 from './ArrayListAdd/CollectionsFloat32Array.test';
+import Int8ArrayTest2 from './ArrayListAdd/CollectionsInt8Array';
+import Int16Test2 from './ArrayListAdd/CollectionsInt16Array';
+import Int32ArrayTest2 from './ArrayListAdd/CollectionsInt32Array';
+import Uint8Test2 from './ArrayListAdd/CollectionsUint8Array';
+import Uint8ClampedArrayTest2 from './ArrayListAdd/CollectionsUint8ClampedAarry';
+import Uint16Test2 from './ArrayListAdd/CollectionsUint16Array';
+import Uint32Test2 from './ArrayListAdd/CollectionsUint32Array.test';
 
 export default function testsuite() {
   ConcatArrayTest();
@@ -43,4 +53,14 @@ export default function testsuite() {
   Float32ArrayTest();
   BitVectorTest();
   SetTest();
+  ArrayTest2()
+  BitVectorTest2()
+  Float32ArrayTest2()
+  Int8ArrayTest2()
+  Int16Test2()
+  Int32ArrayTest2()
+  Uint8Test2()
+  Uint8ClampedArrayTest2()
+  Uint16Test2()
+  Uint32Test2()
 }
