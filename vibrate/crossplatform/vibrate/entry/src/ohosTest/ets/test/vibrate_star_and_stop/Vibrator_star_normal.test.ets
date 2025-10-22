@@ -82,9 +82,15 @@ export default function Vibrator_star_normal() {
             if (error) {
               console.info(`${TAG} vibrator error: Code ${error.code}, Message: ${error.message}`);
               expect(false).assertTrue();
+              setTimeout(() => {
+                done();
+              }, 500);
             } else {
               console.info(`${TAG} vibrator success`);
               expect(true).assertTrue();
+              setTimeout(() => {
+                done();
+              }, 500);
             }
           } catch (err) {
             const e: BusinessError = err as BusinessError;

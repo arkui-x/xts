@@ -11,9 +11,9 @@ if [ "$scriptBuildFlag" = "false" ]; then
   exit 0
 fi
 
-project_path="C:/Users/wym/AppData/Local/Temp/aceProject/vibratenop"
+project_path="C:\Users\wym\Desktop\XTScode\vibratenop"
 ohpm_path="C:\Program Files\Huawei\DevEco Studio\tools\ohpm\bin\ohpm"
-arkuiXSdkPath="D:\HuaWei\ArkUI-X\SDK\16\arkui-x"
+arkuiXSdkPath="D:\HuaWei\ArkUI-X\SDK\22\arkui-x"
 
 # You can change the module name you want to compile.
 moduleLists=entry

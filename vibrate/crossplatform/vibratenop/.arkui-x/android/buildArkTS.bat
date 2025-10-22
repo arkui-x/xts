@@ -11,9 +11,9 @@ if "%isAceBuildFlag%" == "true" goto :eof
 set scriptBuildFlag=true
 if "%scriptBuildFlag%" == "false" goto :eof
 
-set project_path=C:/Users/wym/AppData/Local/Temp/aceProject/vibratenop
+set project_path=C:\Users\wym\Desktop\XTScode\vibratenop
 set ohpm_path=C:\Program Files\Huawei\DevEco Studio\tools\ohpm\bin\ohpm
-set arkuiXSdkPath=D:\HuaWei\ArkUI-X\SDK\16\arkui-x
+set arkuiXSdkPath=D:\HuaWei\ArkUI-X\SDK\22\arkui-x
 
 @REM You can change the module name you want to compile.
 set moduleLists=entry
