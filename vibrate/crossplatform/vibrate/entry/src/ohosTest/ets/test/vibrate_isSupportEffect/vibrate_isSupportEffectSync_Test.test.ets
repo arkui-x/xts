@@ -152,15 +152,20 @@ export default function vibrate_isSupportEffectSync_Test() {
           if (error) {
             console.info(TAG + ' vibrator error');
             expect(false).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           } else {
             console.info(TAG + ' vibrator success');
+            expect(true).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           }
-          setTimeout(() => {
-            done();
-          }, 500);
         });
       } else {
         console.info(TAG + ' This device is not supportEffect haptic.effect.soft');
+        expect(true).assertTrue();
         done();
       }
     });
@@ -189,15 +194,20 @@ export default function vibrate_isSupportEffectSync_Test() {
           if (error) {
             console.info(TAG + ' vibrator error');
             expect(false).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           } else {
             console.info(TAG + ' vibrator success');
+            expect(true).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           }
-          setTimeout(() => {
-            done();
-          }, 500);
         });
       } else {
         console.info(TAG + ' This device is not supportEffect haptic.effect.hard');
+        expect(true).assertTrue();
         done();
       }
     });
@@ -226,15 +236,20 @@ export default function vibrate_isSupportEffectSync_Test() {
           if (error) {
             console.info(TAG + ' vibrator error');
             expect(false).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           } else {
             console.info(TAG + ' vibrator success');
+            expect(true).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           }
-          setTimeout(() => {
-            done();
-          }, 500);
         });
       } else {
         console.info(TAG + ' This device is not supportEffect haptic.effect.sharp');
+        expect(true).assertTrue();
         done();
       }
     });
@@ -263,15 +278,20 @@ export default function vibrate_isSupportEffectSync_Test() {
           if (error) {
             console.info(TAG + ' vibrator error');
             expect(false).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           } else {
             console.info(TAG + ' vibrator success');
+            expect(true).assertTrue();
+            setTimeout(() => {
+              done();
+            }, 500);
           }
-          setTimeout(() => {
-            done();
-          }, 500);
         });
       } else {
         console.info(TAG + ' This device is not supportEffect  haptic.clock.timer');
+        expect(true).assertTrue();
         done();
       }
     });

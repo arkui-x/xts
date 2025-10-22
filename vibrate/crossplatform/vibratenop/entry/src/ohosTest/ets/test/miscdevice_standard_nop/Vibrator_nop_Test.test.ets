@@ -65,16 +65,17 @@ export default function vibrator_nop_Test() {
           if (error) {
             console.error(`Failed to start vibration. Code: ${error.code}, message: ${error.message}`);
             expect(error.code).assertEqual(PERMISSION_DENIED_CODE);
-            done();
+            setTimeout(() => {
+              done();
+            }, 500);
           } else {
             console.info('Succeed in starting vibration');
             expect(false).assertTrue();
-            done();
+            setTimeout(() => {
+              done();
+            }, 500);
           }
         });
-        setTimeout(() => {
-          done();
-        }, 1200);
       } catch (err) {
         const e: BusinessError = err as BusinessError;
         console.error(`An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -127,7 +128,6 @@ export default function vibrator_nop_Test() {
             }
           }
         );
-        done();
       } catch (err) {
         const e: BusinessError = err as BusinessError;
         console.error(`${TAG} An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -165,9 +165,6 @@ export default function vibrator_nop_Test() {
             done();
           }
         });
-        setTimeout(() => {
-          done();
-        }, 800);
       } catch (err) {
         const e: BusinessError = err as BusinessError;
         console.error(`An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -210,7 +207,6 @@ export default function vibrator_nop_Test() {
             done()
           }
         });
-        done();
       } catch (err) {
         let e: BusinessError = err as BusinessError;
         console.error(`An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -257,9 +253,6 @@ export default function vibrator_nop_Test() {
             done()
           }
         });
-        setTimeout(() => {
-          done();
-        }, 800);
       } catch (err) {
         let e: BusinessError = err as BusinessError;
         console.error(`An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -302,9 +295,6 @@ export default function vibrator_nop_Test() {
             done()
           }
         })
-        setTimeout(() => {
-          done();
-        }, 800);
       } catch (error) {
         let e: BusinessError = error as BusinessError;
         console.error(`An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -383,9 +373,6 @@ export default function vibrator_nop_Test() {
               done();
             }
           });
-          setTimeout(() => {
-            done();
-          }, 800);
         } catch (err) {
           const e: BusinessError = err as BusinessError;
           console.error(`${TAG} An unexpected error occurred. Code: ${e.code}, message: ${e.message}`);
@@ -428,9 +415,6 @@ export default function vibrator_nop_Test() {
             done();
           }
         });
-        setTimeout(() => {
-          done();
-        }, 800);
       } catch (error) {
         const e: BusinessError = error as BusinessError;
         console.error(`${TAG} Unexpected error: Code ${e.code}, Message: ${e.message}`);

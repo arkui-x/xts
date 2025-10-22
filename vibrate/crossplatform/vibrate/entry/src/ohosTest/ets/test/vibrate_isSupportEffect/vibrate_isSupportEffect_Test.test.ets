@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Huawei Device Co., Ltd.
+ * Copyright (C) 2021-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -111,7 +111,6 @@ export default function vibrate_isSupportEffect_Test() {
         expect(false).assertTrue();
         done();
       }
-      done();
     });
     /*
      * @tc.name:UniversalVibratorEtsTest013
@@ -161,6 +160,7 @@ export default function vibrate_isSupportEffect_Test() {
         vibrator.stopVibration(async (error: BusinessError) => {
           if (error) {
             console.error(`${TAG} stopVibration error: ${error.message}`);
+            expect(false).assertTrue();
             done();
           } else {
             console.log(`${TAG} stopVibration success`);
@@ -185,11 +185,12 @@ export default function vibrate_isSupportEffect_Test() {
       const TAG = "UniversalVibratorEtsTest014";
       vibrator.isSupportEffect(INVALID_EFFECT_ID).then((state) => {
         expect(!state).assertTrue();
+        done();
       }, async (error: BusinessError) => {
         console.error(TAG + ' isSupportEffect error: ' + error.message);
         expect(false).assertTrue();
+        done();
       });
-      done();
     });
     /*
      * @tc.name:UniversalVibratorEtsTest015
