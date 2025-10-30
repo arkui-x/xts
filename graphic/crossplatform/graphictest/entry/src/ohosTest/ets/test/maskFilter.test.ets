@@ -17,23 +17,30 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, TestT
 import drawing from '@ohos.graphics.drawing';
 import { getEnumCount } from './utils';
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function maskFilterTest() {
   describe('DrawingTsMaskFilterTest', () => {
     const DEFAULT = 0;
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
     beforeAll(async () => {
     })
-    beforeEach(() => {
+    beforeEach(async () => {
+      await sleep(100)
       // Presets an action, which is performed before each unit test case starts.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
     })
-    afterEach(() => {
+    afterEach(async () => {
+      await sleep(1000)
       // Presets a clear action, which is performed after each unit test case ends.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
     })
-    afterAll(() => {
+    afterAll(async () => {
+      await sleep(500)
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })

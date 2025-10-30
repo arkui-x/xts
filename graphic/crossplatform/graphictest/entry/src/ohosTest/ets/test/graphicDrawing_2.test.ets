@@ -22,7 +22,9 @@ import { getEnumCount } from './utils';
 
 let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
 const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
 export default function graphicsDrawingTest2() {
   describe('ActsComponentUtilsTest', () => {
     let pixel: image.PixelMap;
@@ -47,10 +49,13 @@ export default function graphicsDrawingTest2() {
       pixelMap = await image.createPixelMap(color, opts);
     })
     afterAll(async () => {
+      await sleep(500)
     })
     beforeEach(async () => {
+      await sleep(100)
     })
     afterEach(async () => {
+      await sleep(1000)
     })
 
     /**
