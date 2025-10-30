@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2024 Huawei Device Co., Ltd.
+* Copyright (c) 2024-2025 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -132,6 +132,10 @@ function onReceiveEvent1(data: bluetoothBle.AdvertisingStateChangeInfo) {
   console.info('bluetooth advertising state = ' + JSON.stringify(data));
 }
 
+function BluetoothState(data: btAccess.BluetoothState) {
+  console.info('bluetooth state001 =' + JSON.stringify(data));
+}
+
 export default function btble() {
   let manufactureValueBuffer = new Uint8Array(4);
   manufactureValueBuffer[0] = 1;
@@ -187,6 +191,7 @@ export default function btble() {
 
     beforeAll(async () => {
       await sleep(3000);
+      btAccess.on('stateChange', BluetoothState);
       let sta = btAccess.getState();
       if (sta != btAccess.BluetoothState.STATE_ON) {
         btAccess.enableBluetooth();
