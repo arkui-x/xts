@@ -45,7 +45,6 @@ async function updateDataCallbackTest(done: Function, testName: string, pathUri:
 
 export default function imageSourceUpdateDataPropertyTest() {
   describe('imageSourceUpdateDataPropertyTest', () => {
-
     beforeAll(async () => {
       console.info(TAG, 'beforeAll case.');
     });

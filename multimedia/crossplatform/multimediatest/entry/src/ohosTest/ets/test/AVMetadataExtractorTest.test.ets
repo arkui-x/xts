@@ -18,7 +18,7 @@ import { media } from "@kit.MediaKit";
 import { BusinessError } from "@kit.BasicServicesKit";
 import { image } from "@kit.ImageKit";
 import MediaTestBase from "./MediaTestBase.test";
-import { LOG_TAG, MediaErrorCode, SLEEP_TIME_200 } from "./Constants.test";
+import { LOG_TAG, MediaErrorCode, SLEEP_TIME_200, SLEEP_TIME_100, SLEEP_TIME_500 } from "./Constants.test";
 import { sleep } from './Common.test';
 import { common } from "@kit.AbilityKit";
 
@@ -144,6 +144,7 @@ export default function AVMetadataExtractorTest() {
     });
 
     beforeEach(async () => {
+      await sleep(SLEEP_TIME_100);
       console.info(TAG, 'beforeEach case');
     });
 
@@ -157,6 +158,7 @@ export default function AVMetadataExtractorTest() {
     });
 
     afterAll(async () => {
+      await sleep(SLEEP_TIME_500);
       console.info(TAG, 'afterAll case');
       await mediaTestBase.closeFdNumber(fileDescriptor.fd);
       await mediaTestBase.closeFdNumber(fileDescriptor2.fd);

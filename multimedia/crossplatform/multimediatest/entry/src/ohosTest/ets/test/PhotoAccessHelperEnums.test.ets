@@ -16,7 +16,6 @@ import photoAccessHelper from '@ohos.file.photoAccessHelper';
 import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
 
 export default function photoAccessHelperEnumsTest() {
-
   describe('photoAccessHelperEnumsTest', () => {
     /**
      * @tc.number    : SUB_FILE_PHOTOACCESSHELPER_ENUM_0100

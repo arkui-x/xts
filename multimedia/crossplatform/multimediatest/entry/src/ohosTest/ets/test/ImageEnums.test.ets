@@ -17,7 +17,6 @@ import { describe, it, expect,  Level, Size, TestType } from '@ohos/hypium';
 import image from '@ohos.multimedia.image';
 
 export default function imageEnumsTest() {
-
   describe('ImageEnumsTest', () => {
     /**
      * @tc.number    : SUB_MULTIMEDIA_IMAGE_ENUM_0100
