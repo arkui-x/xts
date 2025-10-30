@@ -14,10 +14,20 @@
  */
 
 import bluetooth from '@ohos.bluetooth.ble';
-import { describe, it, expect, TestType, Level, Size } from '@ohos/hypium';
+import { describe, it, expect, TestType, Level, Size, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
+
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
 
 export default function PhyTypeTest() {
   describe('PhyTypeTest', () => {
+    beforeEach(async () => {
+      await sleep(100);
+    })
+    afterAll(async () => {
+      await sleep(500);
+    })
     /**
      * @tc.number : SUB_COMMUNICATION_BLUETOOTHBLE_PHYTYPE_0100
      * @tc.name   : testConstantPhyType0001

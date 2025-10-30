@@ -32,15 +32,12 @@ export default function GattDisconnectReasonTest() {
           let CONN_TIMEOUT = bluetoothBle.GattDisconnectReason.CONN_TIMEOUT;
           console.info("CONN_TIMEOUT:" + CONN_TIMEOUT);
           expect(CONN_TIMEOUT).assertEqual(1);
-
           let CONN_TERMINATE_PEER_USER = bluetoothBle.GattDisconnectReason.CONN_TERMINATE_PEER_USER;
           console.info("CONN_TERMINATE_PEER_USER:" + CONN_TERMINATE_PEER_USER);
           expect(CONN_TERMINATE_PEER_USER).assertEqual(2);
-
           let CONN_TERMINATE_LOCAL_HOST = bluetoothBle.GattDisconnectReason.CONN_TERMINATE_LOCAL_HOST;
           console.info("CONN_TERMINATE_LOCAL_HOST:" + CONN_TERMINATE_LOCAL_HOST);
           expect(CONN_TERMINATE_LOCAL_HOST).assertEqual(3);
-
           let CONN_UNKNOWN = bluetoothBle.GattDisconnectReason.CONN_UNKNOWN;
           console.info("CONN_UNKNOWN:" + CONN_UNKNOWN);
           expect(CONN_UNKNOWN).assertEqual(4);

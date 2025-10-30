@@ -24,7 +24,6 @@ export default function UnbondCauseTest() {
      * @tc.desc   : Test UnbondCause api12
      * @tc.type   : Function
      * @tc.size   : MediumTest
-     * @tc.type   : Function
      * @tc.level  : Level 2
      */
     it('testUnbondCause0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
