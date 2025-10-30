@@ -14,24 +14,31 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, Size, TestType} from "@ohos/hypium";
 import { Decimal } from '@kit.ArkTS';
+
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
 function test_trunc_001 (expected: string, n: string) {
   expect(expected).assertEqual(Decimal.trunc(n).valueOf());
 }
 function test_trunc_002 (expected: string, n: number) {
   expect(expected).assertEqual(Decimal.trunc(n).valueOf());
 }
+
 export default function TruncTest() {
   describe("TruncTest", () => {
     beforeAll(() => {
       console.info("beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.");
     });
-    beforeEach(() => {
+    beforeEach(async() => {
+      await sleep(100);
       console.info("beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.");
     });
     afterEach(() => {
       console.info("afterEach: Test case-level clearance conditions, which are executed after each test case is executed.");
     });
-    afterAll(() => {
+    afterAll(async() => {
+      await sleep(500);
       console.info("afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed");
     });
     console.info("start################################start");

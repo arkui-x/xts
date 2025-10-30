@@ -25,9 +25,10 @@ class MyReadable extends stream.Readable {
   }
 }
 
-function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
 }
+
 
 class StringDecoderReadable extends stream.Readable {
   constructor(opt?: stream.ReadableOptions) {
@@ -49,26 +50,22 @@ class Encoding028_34 extends stream.Readable {
 
 export default function ReadablePropertiesTest() {
   describe('ReadablePropertiesTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(async () => {
-      await sleep(200);
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
+      console.info("beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.");
+    });
+    beforeEach(async() => {
+      await sleep(100);
+      console.info("beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.");
+    });
+    afterEach(() => {
+      console.info("afterEach: Test case-level clearance conditions, which are executed after each test case is executed.");
+    });
+    afterAll(async() => {
+      await sleep(500);
+      console.info("afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed");
+    });
+    console.info("start################################start");
+
     /**
      * @tc.number SUB_COMMONLIBRARY_READABLE_OBJECT_MODE_0100
      * @tc.name testStreamReadableObjectMode0001

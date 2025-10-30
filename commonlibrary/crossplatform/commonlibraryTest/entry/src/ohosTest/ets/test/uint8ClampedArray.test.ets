@@ -14,20 +14,29 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestType, Level, Size } from '@ohos/hypium';
 import { collections } from '@kit.ArkTS';
+
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function uint8ClampedArrayTest() {
   describe('uint8ClampedArraysTest', () => {
     beforeAll(() => {
-      console.info('Uint8ClampedArrayPropertiesTest beforeAll called');
+      console.info("beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.");
     });
-    beforeEach(() => {
-      console.info('Uint8ClampedArrayPropertiesTest beforeEach called');
+    beforeEach(async() => {
+      await sleep(100);
+      console.info("beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.");
     });
     afterEach(() => {
-      console.info('Uint8ClampedArrayPropertiesTest afterEach called');
+      console.info("afterEach: Test case-level clearance conditions, which are executed after each test case is executed.");
     });
-    afterAll(() => {
-      console.info('Uint8ClampedArrayPropertiesTest afterAll called');
+    afterAll(async() => {
+      await sleep(500);
+      console.info("afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed");
     });
+    console.info("start################################start");
+
     /**
      * @tc.number : SUB_COMMONLIBRARY_UINT8CLAMPED_ARRAY_BYTES_PER_ELEMENT_0100
      * @tc.name   : testBytesPerElement0001
