@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import ColorSpaceManager from '@ohos.graphics.colorSpaceManager';
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, Level, TestType, Size } from '@ohos/hypium';
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -42,10 +42,10 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate001
      * @tc.desc  : To test Create a user-defined color gamut object
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(primaries, gamma);
         expect(value.getColorSpaceName()).assertEqual(5);
@@ -62,10 +62,10 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate002
      * @tc.desc  : To test Create a user-defined color gamut object.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(primaries, gamma);
         expect(Array.isArray(value.getWhitePoint())).assertTrue();
@@ -82,10 +82,10 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate003
      * @tc.desc  : To test Create a user-defined color gamut object.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(primaries, gamma);
         expect(typeof value.getGamma() === 'number').assertTrue();

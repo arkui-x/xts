@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import ColorSpaceManager from '@ohos.graphics.colorSpaceManager';
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, TestType, Level, Size } from '@ohos/hypium';
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -31,10 +31,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate001
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let ADOBE_RGB_1998: ColorSpaceManager.ColorSpace.ADOBE_RGB_1998 = ColorSpaceManager.ColorSpace.ADOBE_RGB_1998;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(ADOBE_RGB_1998);
@@ -52,10 +52,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate002
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DCI_P3: ColorSpaceManager.ColorSpace.DCI_P3 = ColorSpaceManager.ColorSpace.DCI_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DCI_P3);
@@ -73,10 +73,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate003
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DISPLAY_P3: ColorSpaceManager.ColorSpace.DISPLAY_P3 = ColorSpaceManager.ColorSpace.DISPLAY_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DISPLAY_P3);
@@ -94,10 +94,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate004
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0400', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0400',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let SRGB: ColorSpaceManager.ColorSpace.SRGB = ColorSpaceManager.ColorSpace.SRGB;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(SRGB);
@@ -115,10 +115,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate005
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0500', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0500',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let ADOBE_RGB_1998: ColorSpaceManager.ColorSpace.ADOBE_RGB_1998 = ColorSpaceManager.ColorSpace.ADOBE_RGB_1998;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(ADOBE_RGB_1998);
@@ -136,10 +136,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate006
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0600', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0600',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DCI_P3: ColorSpaceManager.ColorSpace.DCI_P3 = ColorSpaceManager.ColorSpace.DCI_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DCI_P3);
@@ -157,10 +157,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate007
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0700', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0700',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DISPLAY_P3: ColorSpaceManager.ColorSpace.DISPLAY_P3 = ColorSpaceManager.ColorSpace.DISPLAY_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DISPLAY_P3);
@@ -178,10 +178,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate008
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0800', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0800',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let SRGB: ColorSpaceManager.ColorSpace.SRGB = ColorSpaceManager.ColorSpace.SRGB;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(SRGB);
@@ -199,10 +199,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate009
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0900', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0900',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let ADOBE_RGB_1998: ColorSpaceManager.ColorSpace.ADOBE_RGB_1998 = ColorSpaceManager.ColorSpace.ADOBE_RGB_1998;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(ADOBE_RGB_1998);
@@ -220,10 +220,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate010
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1000', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1000',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DCI_P3: ColorSpaceManager.ColorSpace.DCI_P3 = ColorSpaceManager.ColorSpace.DCI_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DCI_P3);
@@ -241,10 +241,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate011
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1100',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let DISPLAY_P3: ColorSpaceManager.ColorSpace.DISPLAY_P3 = ColorSpaceManager.ColorSpace.DISPLAY_P3;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(DISPLAY_P3);
@@ -262,10 +262,10 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate012
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1200',TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let SRGB: ColorSpaceManager.ColorSpace.SRGB = ColorSpaceManager.ColorSpace.SRGB;
         let value: ColorSpaceManager.ColorSpaceManager = ColorSpaceManager.create(SRGB);

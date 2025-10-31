@@ -43,8 +43,6 @@ import JsGeolocation_invoke_false from "./JsGeolocation_invoke_false.test";
 
 export default function testsuite() {
   CookieManage_ExistCookie_False();
-  CookieManage_ExistCookie_True();
-  CookieManage_ClearSessionCookie();
   GeolocationPermissions_AllowGeolocation();
   GeolocationPermissions_GetAccessibleGeolocation_Callback();
   GeolocationPermissions_GetAccessibleGeolocation_Promise();
@@ -54,6 +52,8 @@ export default function testsuite() {
   GeolocationPermissions_DeleteAllGeolocation();
   JsGeolocation_invoke_true();
   JsGeolocation_invoke_false();
+  CookieManage_ExistCookie_True();
+  CookieManage_ClearSessionCookie();
   WebStorage_GetOrigins_Callback_error();
   WebStorage_GetOrigins_Promise_error();
   WebStorage_DeleteAllData();
