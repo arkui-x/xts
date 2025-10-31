@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import ColorSpaceManager from '@ohos.graphics.colorSpaceManager';
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, TestType, Level, Size } from '@ohos/hypium';
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -34,7 +34,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.UNKNOWN = ColorSpaceManager.ColorSpace.UNKNOWN;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0100 :${value}`);
@@ -55,7 +55,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.ADOBE_RGB_1998 = ColorSpaceManager.ColorSpace.ADOBE_RGB_1998;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0200 :${value}`);
@@ -76,7 +76,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DCI_P3 = ColorSpaceManager.ColorSpace.DCI_P3;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0300 :${value}`);
@@ -97,7 +97,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0400', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_P3 = ColorSpaceManager.ColorSpace.DISPLAY_P3;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0400 :${value}`);
@@ -118,7 +118,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0500', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.SRGB = ColorSpaceManager.ColorSpace.SRGB;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0500 :${value}`);
@@ -139,7 +139,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0600', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.CUSTOM = ColorSpaceManager.ColorSpace.CUSTOM;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0600 :${value}`);
@@ -160,7 +160,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0700', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT709 = ColorSpaceManager.ColorSpace.BT709;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0700 :${value}`);
@@ -181,7 +181,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0800', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT601_EBU = ColorSpaceManager.ColorSpace.BT601_EBU;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0800 :${value}`);
@@ -202,7 +202,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0900', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT601_SMPTE_C = ColorSpaceManager.ColorSpace.BT601_SMPTE_C;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0900 :${value}`);
@@ -223,7 +223,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1000', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT2020_HLG = ColorSpaceManager.ColorSpace.BT2020_HLG;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1000 :${value}`);
@@ -244,7 +244,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT2020_PQ = ColorSpaceManager.ColorSpace.BT2020_PQ;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1100 :${value}`);
@@ -265,7 +265,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.P3_HLG = ColorSpaceManager.ColorSpace.P3_HLG;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1200 :${value}`);
@@ -286,7 +286,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.P3_PQ = ColorSpaceManager.ColorSpace.P3_PQ;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1300 :${value}`);
@@ -307,7 +307,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1400', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.ADOBE_RGB_1998_LIMIT = ColorSpaceManager.ColorSpace.ADOBE_RGB_1998_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1400 :${value}`);
@@ -328,7 +328,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1500', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_P3_LIMIT = ColorSpaceManager.ColorSpace.DISPLAY_P3_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1500 :${value}`);
@@ -349,7 +349,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1600', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.SRGB_LIMIT = ColorSpaceManager.ColorSpace.SRGB_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1600 :${value}`);
@@ -370,7 +370,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1700', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT709_LIMIT = ColorSpaceManager.ColorSpace.BT709_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1700 :${value}`);
@@ -391,7 +391,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1800', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT601_EBU_LIMIT = ColorSpaceManager.ColorSpace.BT601_EBU_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1800 :${value}`);
@@ -412,7 +412,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1900', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT601_SMPTE_C_LIMIT = ColorSpaceManager.ColorSpace.BT601_SMPTE_C_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1900 :${value}`);
@@ -433,7 +433,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2000', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT2020_HLG_LIMIT = ColorSpaceManager.ColorSpace.BT2020_HLG_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2000 :${value}`);
@@ -454,7 +454,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.BT2020_PQ_LIMIT = ColorSpaceManager.ColorSpace.BT2020_PQ_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2100 :${value}`);
@@ -475,7 +475,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.P3_HLG_LIMIT = ColorSpaceManager.ColorSpace.P3_HLG_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2200 :${value}`);
@@ -496,7 +496,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.P3_PQ_LIMIT = ColorSpaceManager.ColorSpace.P3_PQ_LIMIT;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2300 :${value}`);
@@ -517,7 +517,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2400', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.LINEAR_P3 = ColorSpaceManager.ColorSpace.LINEAR_P3;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2400 :${value}`);
@@ -538,7 +538,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2500', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.LINEAR_BT709 = ColorSpaceManager.ColorSpace.LINEAR_BT709;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2500:${value}`);
@@ -559,7 +559,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2600', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.LINEAR_BT2020 = ColorSpaceManager.ColorSpace.LINEAR_BT2020;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2600 :${value}`);
@@ -580,7 +580,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2700', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_SRGB = ColorSpaceManager.ColorSpace.DISPLAY_SRGB;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2700 :${value}`);
@@ -601,7 +601,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2800', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_P3_SRGB = ColorSpaceManager.ColorSpace.DISPLAY_P3_SRGB;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2800 :${value}`);
@@ -622,7 +622,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2900', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_P3_HLG = ColorSpaceManager.ColorSpace.DISPLAY_P3_HLG;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2900 :${value}`);
@@ -643,7 +643,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3000', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.DISPLAY_P3_PQ = ColorSpaceManager.ColorSpace.DISPLAY_P3_PQ;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3000 :${value}`);
@@ -664,7 +664,7 @@ export default function ColorSpaceTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let value: ColorSpaceManager.ColorSpace.CUSTOM = ColorSpaceManager.ColorSpace.CUSTOM;
         console.log(`SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3100 :${value}`);

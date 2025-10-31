@@ -14,7 +14,7 @@
  */
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base';
-import { describe, it, expect, afterEach } from '@ohos/hypium';
+import { describe, it, expect, afterEach, Level, Size, TestType } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
 
@@ -32,7 +32,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_WindowEventType_Func_0100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_WindowEventType_Func_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
 
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
@@ -81,7 +81,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_On_Func_0200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_On_Func_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
 
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
@@ -130,7 +130,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_Off_Func_0300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_Off_Func_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -169,7 +169,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0400', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -194,7 +194,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0500', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -227,7 +227,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0600', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -260,7 +260,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0700', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -291,7 +291,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0800', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         await startAbility('com.example.windowsubsystem', 'EntryAbility');
         let driver: Driver = Driver.create();
@@ -322,7 +322,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0900', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let windowClass: window.Window = window.findWindow("uncreatedWindow");
         let value: window.ColorSpace = windowClass.getWindowColorSpace();
@@ -344,7 +344,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1000', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let windowClass: window.Window = window.findWindow("uncreatedWindow");
         windowClass.setWindowColorSpace(window.ColorSpace.DEFAULT, (err: BusinessError) => {
@@ -374,7 +374,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1100', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let windowClass: window.Window = window.findWindow("uncreatedWindow");
         windowClass.setWindowColorSpace(window.ColorSpace.WIDE_GAMUT, (err: BusinessError) => {
@@ -404,7 +404,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1200', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let windowClass: window.Window = window.findWindow("uncreatedWindow");
         let promise: Promise<void> = windowClass.setWindowColorSpace(window.ColorSpace.DEFAULT);
@@ -432,7 +432,7 @@ export default function WindowTest() {
      * @tc.type  : Function
      * @tc.level : Level 2
      */
-    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1300', 0, async (done: Function) => {
+    it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let windowClass: window.Window = window.findWindow("uncreatedWindow");
         let promise: Promise<void> = windowClass.setWindowColorSpace(window.ColorSpace.WIDE_GAMUT);
