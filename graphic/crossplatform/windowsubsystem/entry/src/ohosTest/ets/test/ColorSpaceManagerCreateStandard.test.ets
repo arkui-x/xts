@@ -31,7 +31,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate001
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100', 0, async (done: Function) => {
@@ -52,7 +52,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate002
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200', 0, async (done: Function) => {
@@ -73,7 +73,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate003
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300', 0, async (done: Function) => {
@@ -94,7 +94,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate004
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0400', 0, async (done: Function) => {
@@ -115,7 +115,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate005
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0500', 0, async (done: Function) => {
@@ -136,7 +136,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate006
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0600', 0, async (done: Function) => {
@@ -157,7 +157,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate007
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0700', 0, async (done: Function) => {
@@ -178,7 +178,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate008
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0800', 0, async (done: Function) => {
@@ -199,7 +199,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate009
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0900', 0, async (done: Function) => {
@@ -220,7 +220,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate010
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1000', 0, async (done: Function) => {
@@ -241,7 +241,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate011
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1100', 0, async (done: Function) => {
@@ -262,7 +262,7 @@ export default function ColorSpaceManagerCreateStandardTest() {
      * @tc.name  : testCreate012
      * @tc.desc  : To test Create standard color gamut objects.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_1200', 0, async (done: Function) => {

@@ -37,7 +37,7 @@ export default function DisplayTest() {
      * @tc.name  : testDensityDPI
      * @tc.desc  : To test The screen density of the display device.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_display_densityDPI_Func_0100', 0, async (done: Function) => {
@@ -58,7 +58,7 @@ export default function DisplayTest() {
      * @tc.name  : testDensityPixels
      * @tc.desc  : To test Displays the logical density of the device.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_display_densityPixels_Func_0200', 0, async (done: Function) => {
@@ -79,7 +79,7 @@ export default function DisplayTest() {
      * @tc.name  : testScaledDensity
      * @tc.desc  : To test Displays the logical density of the device.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_display_scaledDensity_Func_0300', 0, async (done: Function) => {

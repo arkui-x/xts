@@ -42,7 +42,7 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate001
      * @tc.desc  : To test Create a user-defined color gamut object
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0100', 0, async (done: Function) => {
@@ -62,7 +62,7 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate002
      * @tc.desc  : To test Create a user-defined color gamut object.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0200', 0, async (done: Function) => {
@@ -82,7 +82,7 @@ export default function ColorSpaceManagerCreateCustomTest() {
      * @tc.name  : testCreate003
      * @tc.desc  : To test Create a user-defined color gamut object.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_Create_Func_0300', 0, async (done: Function) => {

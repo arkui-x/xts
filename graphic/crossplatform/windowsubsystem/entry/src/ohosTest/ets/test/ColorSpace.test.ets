@@ -31,7 +31,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace001
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0100', 0, async (done: Function) => {
@@ -52,7 +52,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace002
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0200', 0, async (done: Function) => {
@@ -73,7 +73,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace003
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0300', 0, async (done: Function) => {
@@ -94,7 +94,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace004
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0400', 0, async (done: Function) => {
@@ -115,7 +115,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace005
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0500', 0, async (done: Function) => {
@@ -136,7 +136,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace006
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0600', 0, async (done: Function) => {
@@ -157,7 +157,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace007
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0700', 0, async (done: Function) => {
@@ -178,7 +178,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace008
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0800', 0, async (done: Function) => {
@@ -199,7 +199,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace009
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_0900', 0, async (done: Function) => {
@@ -220,7 +220,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace010
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1000', 0, async (done: Function) => {
@@ -241,7 +241,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace011
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1100', 0, async (done: Function) => {
@@ -262,7 +262,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace012
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1200', 0, async (done: Function) => {
@@ -283,7 +283,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace013
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1300', 0, async (done: Function) => {
@@ -304,7 +304,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace014
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1400', 0, async (done: Function) => {
@@ -325,7 +325,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace015
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1500', 0, async (done: Function) => {
@@ -346,7 +346,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace016
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1600', 0, async (done: Function) => {
@@ -367,7 +367,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace017
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1700', 0, async (done: Function) => {
@@ -388,7 +388,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace018
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1800', 0, async (done: Function) => {
@@ -409,7 +409,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace009
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_1900', 0, async (done: Function) => {
@@ -430,7 +430,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace020
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2000', 0, async (done: Function) => {
@@ -451,7 +451,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace021
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2100', 0, async (done: Function) => {
@@ -472,7 +472,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace022
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2200', 0, async (done: Function) => {
@@ -493,7 +493,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace023
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2300', 0, async (done: Function) => {
@@ -514,7 +514,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace024
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2400', 0, async (done: Function) => {
@@ -535,7 +535,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace025
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2500', 0, async (done: Function) => {
@@ -556,7 +556,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace026
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2600', 0, async (done: Function) => {
@@ -577,7 +577,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace027
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2700', 0, async (done: Function) => {
@@ -598,7 +598,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace028
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2800', 0, async (done: Function) => {
@@ -619,7 +619,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace029
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_2900', 0, async (done: Function) => {
@@ -640,7 +640,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace030
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3000', 0, async (done: Function) => {
@@ -661,7 +661,7 @@ export default function ColorSpaceTest() {
      * @tc.name  : testColorSpace031
      * @tc.desc  : To test Enumeration of color gamut types.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_ColorSpaceManager_ColorSpace_Func_3100', 0, async (done: Function) => {

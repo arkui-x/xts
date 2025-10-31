@@ -29,7 +29,7 @@ export default function WindowTest() {
      * @tc.name  : testWindowEventType
      * @tc.desc  : To test Window life cycle.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_WindowEventType_Func_0100', 0, async (done: Function) => {
@@ -78,7 +78,7 @@ export default function WindowTest() {
      * @tc.name  : testOn
      * @tc.desc  : To test Enable the monitoring of window life cycle changes.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_On_Func_0200', 0, async (done: Function) => {
@@ -127,7 +127,7 @@ export default function WindowTest() {
      * @tc.name  : testOff
      * @tc.desc  : To test Disable the monitoring of window life cycle changes.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_Off_Func_0300', 0, async (done: Function) => {
@@ -166,7 +166,7 @@ export default function WindowTest() {
      * @tc.name  : testGetWindowColorSpace001
      * @tc.desc  : To test Get the current window color gamut mode.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0400', 0, async (done: Function) => {
@@ -191,7 +191,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace001
      * @tc.desc  : To test Set the current window to default color gamut mode and use callback asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0500', 0, async (done: Function) => {
@@ -224,7 +224,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace002
      * @tc.desc  : To test Set the current window to wide color gamut mode and use callback asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0600', 0, async (done: Function) => {
@@ -257,7 +257,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace003
      * @tc.desc  : To test Set the current window to default color gamut mode and use Promise asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0700', 0, async (done: Function) => {
@@ -288,7 +288,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace004
      * @tc.desc  : To test Set the current window to wide gamut mode and use Promise asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_0800', 0, async (done: Function) => {
@@ -319,7 +319,7 @@ export default function WindowTest() {
      * @tc.name  : testGetWindowColorSpace002
      * @tc.desc  : To test Get the current window color gamut mode.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_getWindowColorSpace_Func_0900', 0, async (done: Function) => {
@@ -341,7 +341,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace005
      * @tc.desc  : To test Set the current window to default color gamut mode and use callback asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1000', 0, async (done: Function) => {
@@ -371,7 +371,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace006
      * @tc.desc  : To test Set the current window to wide color gamut mode and use callback asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1100', 0, async (done: Function) => {
@@ -401,7 +401,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace007
      * @tc.desc  : To test Set the current window to default color gamut mode and use Promise asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1200', 0, async (done: Function) => {
@@ -429,7 +429,7 @@ export default function WindowTest() {
      * @tc.name  : testSetWindowColorSpace008
      * @tc.desc  : To test Set the current window to wide gamut mode and use Promise asynchronous callback.
      * @tc.size  : MediumTest
-     * @tc.type  : Method
+     * @tc.type  : Function
      * @tc.level : Level 2
      */
     it('SUB_GraphicImage_Window_setWindowColorSpace_Func_1300', 0, async (done: Function) => {
