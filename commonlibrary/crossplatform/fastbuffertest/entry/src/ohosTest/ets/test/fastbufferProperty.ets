@@ -30,7 +30,7 @@ function sleep(time: number) {
 export default function PropertyTest() {
   describe('PropertyTest', () => {
     afterEach(async (done: Function) => {
-      await sleep(10);
+      await sleep(500);
       done();
     })
 
