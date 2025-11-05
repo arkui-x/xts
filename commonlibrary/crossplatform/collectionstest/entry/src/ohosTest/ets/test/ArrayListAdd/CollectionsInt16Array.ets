@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType,afterEach } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import collections from '@arkts.collections';
 
 class NormalClass {
