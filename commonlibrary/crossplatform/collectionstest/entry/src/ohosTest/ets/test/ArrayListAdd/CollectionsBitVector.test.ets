@@ -169,7 +169,6 @@ export default function BitVectorTest2() {
       await sleep(1000)
     });
 
-
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_BITVECTOR_CONSTRUCTOR_0100
      * @tc.name       : testBitVectorConstructor0001

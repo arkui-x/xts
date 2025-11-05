@@ -35,7 +35,6 @@ export default function Float32ArrayTest2() {
       await sleep(1000)
     });
 
-
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_FLOAT32ARRAY_LASTINDEXOF_0100
      * @tc.name       : testFloat32ArrayLastIndexOf0001
