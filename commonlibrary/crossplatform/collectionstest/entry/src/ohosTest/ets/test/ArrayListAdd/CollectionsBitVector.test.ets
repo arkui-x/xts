@@ -163,10 +163,6 @@ export function sleep(time: number): Promise<void> {
   })
 }
 
-function sleep(ms: number) {
-  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
-}
-
 export default function BitVectorTest2() {
   describe('BitVectorTest2', () => {
     afterEach(async () => {
