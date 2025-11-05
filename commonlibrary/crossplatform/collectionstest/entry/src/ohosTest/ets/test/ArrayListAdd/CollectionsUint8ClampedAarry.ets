@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import { collections } from '@kit.ArkTS';
 
 class NormalClass {
@@ -24,8 +24,15 @@ class NormalClass {
   }
 }
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Uint8ClampedArrayTest2() {
   describe('Uint8ClampedArrayTest2', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_Uint8ClampedArray_LASTINDEXOF_0100
