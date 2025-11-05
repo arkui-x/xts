@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, expect, it, Level, Size, TestType, sleep } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import worker, { ThreadWorkerPriority } from '@ohos.worker';
 
 const asyncSleep: Function = (time: number): Promise<Object> => {
