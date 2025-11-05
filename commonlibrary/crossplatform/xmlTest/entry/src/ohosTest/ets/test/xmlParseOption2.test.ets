@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import xml from '@ohos.xml';
 import util from '@ohos.util';
 
@@ -41,8 +41,16 @@ function attrWithTag2(tagName: string, key: string, value: string) {
   return true;
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export default function XmlSerializerXmlPullParserTest() {
   describe('XmlSerializerXmlPullParserTest', () => {
+    afterEach(async () => {
+      await sleep(200);
+    });
+    
     /**
      * @tc.number: SUB_COMMONLIBRARY_XML_PARSEOPTIONS_0100
      * @tc.name: testAttributeWithTagCallbackFunction0001
