@@ -21,8 +21,8 @@ async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export default function xmlTest() {
-  describe("xmlTest", () => {
+export default function XmlSerializerXmlPullParserTest() {
+  describe("XmlSerializerXmlPullParserTest", () => {
     afterEach(async () => {
       await sleep(200);
     });
