@@ -17,8 +17,8 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, TestT
 import drawing from '@ohos.graphics.drawing';
 import { common2D } from '@kit.ArkGraphics2D';
 import { getEnumCount } from './utils';
-const loop_times = 20;
 
+const loop_times = 20;
 export default function drawingTsMatrixTest() {
   describe('drawingTsMatrixTest', () => {
     beforeAll(() => {
