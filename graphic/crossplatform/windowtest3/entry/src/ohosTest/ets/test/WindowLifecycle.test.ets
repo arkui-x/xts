@@ -18,7 +18,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestT
 import common from '@ohos.app.ability.common';
 import { BusinessError, settings } from '@kit.BasicServicesKit';
 import * as LoadContentByName from './testability/pages/WindowTest/LoadContentByName';
-import { StartOptions } from '@kit.AbilityKit';
+import { StartOptions, Want } from '@kit.AbilityKit';
 
 let sleep = (sleepMs: number) => new Promise<string>(resolve => setTimeout(resolve, sleepMs));
 
