@@ -12,13 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, TestType, Size, Level, expect } from '@ohos/hypium';
+import { describe, it, TestType, Size, Level, expect, afterAll, beforeEach } from '@ohos/hypium';
 import cryptoFramework from '@ohos.security.cryptoFramework';
 import * as specUtil from './utils/common/keyGenSpecUtil';
+
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
 
 export default function SecurityCryptoFwGenerateECCBrainPoolTestUnit() {
   describe('SecurityCryptoFwCipherSM2TestUnit', () => {
 
+    beforeEach(async() => {
+      await sleep(100);
+      console.info(TAG, 'beforeEach case');
+    });
+
+    afterAll(async() => {
+      await sleep(1000);
+    });
+    
     /**
      * @tc.number : SUB_SECURITY_Cryptoframework_Cipher_SM2_Func_0100
      * @tc.name   : testSecurityCryptoframeworkCipherSM2Func0100
