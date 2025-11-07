@@ -1637,7 +1637,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
      */
     it("SUB_Security_Cert_Framework_CertP7ExtCms_Func_3400", 0, async (done: Function) => {
       try {
-        let cmsContentType: cert.CmsContentType = 1;
+        let cmsContentType: cert.CmsContentType = 7;
         cert.createCmsGenerator(cmsContentType);
         expect(null).assertFail();
       } catch (error) {
