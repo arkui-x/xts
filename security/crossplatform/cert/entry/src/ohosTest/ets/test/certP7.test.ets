@@ -1553,7 +1553,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         expect(null).assertFail();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_3100 catch error: ${JSON.stringify(error)}`);
-        expect(error.code).assertEqual(801);
+        expect(error.code).assertEqual(cert.CertResult.ERR_CRYPTO_OPERATION);
       }
       done();
     });
@@ -1588,7 +1588,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         expect(null).assertFail();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_3200 catch error: ${JSON.stringify(error)}`);
-        expect(error.code).assertEqual(801);
+        expect(error.code).assertEqual(cert.CertResult.ERR_CRYPTO_OPERATION);
       }
       done();
     });
@@ -1622,7 +1622,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         expect(null).assertFail();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_3300 catch error: ${JSON.stringify(error)}`);
-        expect(error.code).assertEqual(801);
+        expect(error.code).assertEqual(cert.CertResult.ERR_CRYPTO_OPERATION);
       }
       done();
     });
@@ -1642,7 +1642,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         expect(null).assertFail();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_3400 catch error: ${JSON.stringify(error)}`);
-        expect(error.code).assertEqual(401);
+        expect(error.code).assertEqual(cert.CertResult.ERR_CRYPTO_OPERATION);
       }
       done();
     });
@@ -1933,8 +1933,8 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         let priCert: string = ecc_p256_cert;
         let mdName: string = "SHA384";
         let ret: boolean = await cmsSignerTest(mdName, addCert, addAttr, addSmime,
-          priCert, priKey, 801);
-        expect(ret).assertFalse();
+          priCert, priKey, 0);
+        expect(ret).assertTrue();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_4500 catch error: ${JSON.stringify(error)}`);
         expect(null).assertFail();
