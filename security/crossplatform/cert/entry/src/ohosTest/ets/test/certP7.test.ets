@@ -1642,7 +1642,7 @@ export default function certFrameworkCertPkcs7ExtCMSFunctionTestUnit() {
         expect(null).assertFail();
       } catch (error) {
         console.error(`CertP7ExtCms_Func_3400 catch error: ${JSON.stringify(error)}`);
-        expect(error.code).assertEqual(cert.CertResult.ERR_CRYPTO_OPERATION);
+        expect(error.code).assertEqual(401);
       }
       done();
     });
