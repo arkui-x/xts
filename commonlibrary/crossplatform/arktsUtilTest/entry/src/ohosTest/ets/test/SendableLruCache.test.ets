@@ -16,8 +16,15 @@
 import { describe, afterAll, it, expect, beforeAll, beforeEach, afterEach, TestType, Level, Size } from '@ohos/hypium'
 import { ArkTSUtils } from '@kit.ArkTS';
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function SendableLruCacheTest() {
   describe('SendableLruCacheTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number: SUB_COMMONLIBRARY_ARKTSUTILS_SENDABLELRUCACHE_CONSTRUCTOR_0100

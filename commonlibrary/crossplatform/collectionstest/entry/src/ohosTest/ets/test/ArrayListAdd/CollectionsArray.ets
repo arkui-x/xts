@@ -24,8 +24,15 @@ class NormalClass {
   }
 }
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function ArrayTest2() {
   describe('ArrayTest2', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_ARRAY_FROM_0100

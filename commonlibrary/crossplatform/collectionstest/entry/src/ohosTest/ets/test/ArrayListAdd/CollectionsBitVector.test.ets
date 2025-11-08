@@ -165,6 +165,9 @@ export function sleep(time: number): Promise<void> {
 
 export default function BitVectorTest2() {
   describe('BitVectorTest2', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_BITVECTOR_CONSTRUCTOR_0100

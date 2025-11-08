@@ -33,6 +33,9 @@ function threadWaitNotAwait(conditionVariable: ArkTSUtils.locks.ConditionVariabl
 
 export default function ConditionVariableTest() {
   describe('ConditionVariableTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number    : SUB_COMMONLIBRARY_ARKTSUTILS_CONDITIONVARIABLE_CONSTRUCTOR_0100

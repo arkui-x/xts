@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import worker, { ThreadWorkerPriority } from '@ohos.worker';
 
 const asyncSleep: Function = (time: number): Promise<Object> => {
@@ -37,6 +37,9 @@ let sleep = async (delay: number = 1000): Promise<void> => {
 
 export default function workerPriTest() {
   describe('workerPriTest', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_WORKER_THREADWORKERPRIORITY_0100

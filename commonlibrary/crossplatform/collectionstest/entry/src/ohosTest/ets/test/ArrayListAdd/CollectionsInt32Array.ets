@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { describe, expect, it, Level, Size, TestType, afterEach } from '@ohos/hypium';
 import { collections } from '@kit.ArkTS';
 
 class NormalClass {
@@ -24,8 +24,15 @@ class NormalClass {
   }
 }
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Int32ArrayTest2() {
   describe('Int32ArrayTest2', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_INT32ARRAY_LASTINDEXOF_0100

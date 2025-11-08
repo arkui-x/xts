@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { beforeEach, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEach, afterEach, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { collections, taskpool } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -25,8 +25,15 @@ class NormalClass {
   }
 }
 
+function sleep(ms: number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Float32ArrayTest2() {
   describe('Float32ArrayTest2', () => {
+    afterEach(async () => {
+      await sleep(1000)
+    });
 
     /**
      * @tc.number     : SUB_COMMONLIBRARY_COLLECTIONS_FLOAT32ARRAY_LASTINDEXOF_0100
