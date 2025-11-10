@@ -86,7 +86,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0100';
       let nameString = '/C=BE/O=GlobalSign nv-sa/CN=GlobalSign Extended Validation CA - G2';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       try {
@@ -109,7 +109,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0200", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0200';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       let nameString = certChainFunc3.nameString;
       try {
@@ -132,7 +132,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0300", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0300';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       try {
         let toStringData = await x509Cert.toString();
@@ -155,7 +155,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0400", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0400';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       try {
         let hashCodeData = await x509Cert.hashCode();
@@ -178,7 +178,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0500", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0500';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       try {
         let certExtension = await x509Cert.getExtensionsObject();
@@ -203,7 +203,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0600", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0600';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509CrlEntryTest1();
       try {
         let x500DistinguishedName = await x509CRL.getRevokedCert(BigInt(1000)).getCertIssuerX500DistinguishedName();
@@ -225,7 +225,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0700", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0700';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509CrlEntryTest1();
       try {
         let x500DistinguishedName = await x509CRL.getRevokedCert(BigInt(1000)).getCertIssuerX500DistinguishedName();
@@ -247,7 +247,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0800", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0800';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509CrlEntryTest1();
       try {
         let hashCodeData = await x509CRL.getRevokedCert(BigInt(1000)).hashCode();
@@ -270,7 +270,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method0900", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method0900';
       const x509CRLEntry: cert.X509CRL = await certChainFunc3.createX509CrlEntryTest3();
       let serialNumber = BigInt('14091103387070223745671018446433705560');
       try {
@@ -295,7 +295,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1000", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1000';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509Crl();
       try {
         let x500DistinguishedName = await x509CRL.getIssuerX500DistinguishedName();
@@ -317,7 +317,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1100';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509Crl();
       try {
         let toStringData = await x509CRL.toString();
@@ -340,7 +340,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1200", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1200';
       const x509CRL: cert.X509CRL = await certChainFunc3.createX509Crl();
       try {
         let hashCodeData = await x509CRL.hashCode();
@@ -363,7 +363,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1300", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1300';
       const x509Cert: cert.X509Cert = await certChainFunc3.createX509Cert();
       try {
         let certExtension = await x509Cert.getExtensionsObject();
@@ -388,7 +388,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1400", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1400';
       const x509CertChain: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
       try {
         let toStringData = await x509CertChain.toString();
@@ -411,7 +411,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1500", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1500';
       const x509CertChain: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
       try {
         let hashCodeData = await x509CertChain.hashCode();
@@ -434,7 +434,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1600", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1600';
       let nameStr = '/CN=John Doe/OU=IT Department/O=ACME Inc./L=San Francisco/ST=California/C=US/CN=ALN C/CN=XTS';
       try {
         cert.createX500DistinguishedName(nameStr)
@@ -464,7 +464,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1700", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1700';
       let nameStr = '/CN=John Doe/OU=IT Department/O=ACME Inc./L=San Francisco/ST=California/C=US/CN=ALN C/CN=XTS';
       let nameType = 'CN';
       try {
@@ -497,7 +497,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1800", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1800';
       let nameStr = '/CN=John Doe/OU=IT Department/O=ACME Inc./L=San Francisco/ST=California/C=US/CN=ALN C/CN=XTS';
       let nameType = 'abc';
       try {
@@ -528,7 +528,7 @@ export default function x509MethodFunc() {
      * @tc.type   : Function
      */
     it("testX509Method1900", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      let caseName = 'testX509Method';
+      let caseName = 'testX509Method1900';
       let nameStr = '/CN=John Doe/OU=IT Department/O=ACME Inc./L=San Francisco/ST=California/C=US/CN=ALN C/CN=XTS';
       let nameType = '';
       try {
