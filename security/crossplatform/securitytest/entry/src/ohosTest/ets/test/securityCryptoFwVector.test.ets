@@ -26,14 +26,14 @@ export default function SecurityCryptoFwVectorTestUnit() {
     hilog.info(domain, tag, '%{public}s', 'describe start');
 
     /**
-     * @tc.number : SUB_SECURITY_Cryptoframework_VectorTest_Func_0300
-     * @tc.name   : testSecurityCryptoframeworkVectorTestFunc0300
+     * @tc.number : SUB_SECURITY_Cryptoframework_VectorTest_Func_0100
+     * @tc.name   : testSecurityCryptoframeworkVectorTestFunc0100
      * @tc.desc   : Test PBKDF2 key derivation functionality
      * @tc.size   : Medium
      * @tc.type   : Function
      * @tc.level  : Level 1
      */
-    it("testSecurityCryptoframeworkVectorTestFunc0300", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+    it("testSecurityCryptoframeworkVectorTestFunc0100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (): Promise<void> => {
         try {
           let pbkdf2Vectors: v.pbkdf2VectorData[] = v.pbkdf2Vectors;

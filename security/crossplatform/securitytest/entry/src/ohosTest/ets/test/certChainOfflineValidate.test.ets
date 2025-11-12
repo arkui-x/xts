@@ -179,7 +179,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0400", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0600';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0400';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const x509Cert2: cert.X509Cert = await certChainFunc3.createX509Cert2();
         const param: cert.CertChainValidationParameters = {
@@ -214,7 +214,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0500", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0700';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0500';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -247,7 +247,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0600", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0800';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0600';
         let param: cert.CertChainValidationParameters = {
           trustAnchors: [{
             CACert: rootCaCert0
@@ -280,7 +280,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0700", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1000';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0700';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -314,7 +314,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0800", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1100';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0800';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -348,7 +348,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate0900", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1300';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0900';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -385,7 +385,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1000", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1400';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1000';
         let param: cert.CertChainValidationParameters = {
           trustAnchors: [{
             CACert: rootCaCert0
@@ -417,7 +417,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1600';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1100';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -451,7 +451,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1200", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1700';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1200';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -485,7 +485,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1300", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1900';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1300';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
 
         const crl: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
@@ -525,7 +525,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1400", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2100';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1400';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -563,7 +563,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1500", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2200';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1500';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -599,7 +599,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1600", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2300';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1600';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -636,7 +636,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1700", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2400';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1700';
         const crl: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl]);
         let param: cert.CertChainValidationParameters = {
@@ -674,7 +674,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1800", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2500';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1800';
         const crl1: cert.X509CRL = await certChainFunc.createX509CrlPromise(1);
         const crl2: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl1, crl2]);
@@ -705,7 +705,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate1900", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2600';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_1900';
         let param: cert.CertChainValidationParameters = {
           certCRLs: [],
           trustAnchors: [{
@@ -739,7 +739,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2000", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2900';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2000';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -779,7 +779,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2100", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3000';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2100';
         const crl: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl]);
         let param: cert.CertChainValidationParameters = {
@@ -822,7 +822,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2200", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3100';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2200';
         const crl1: cert.X509CRL = await certChainFunc.createX509CrlPromise(1);
         const crl2: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl1, crl2]);
@@ -864,7 +864,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2300", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3400';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2300';
         const crl: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl]);
         let param: cert.CertChainValidationParameters = {
@@ -906,7 +906,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2400", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3500';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2400';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -945,7 +945,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2500", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3600';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2500';
         const crl1: cert.X509CRL = await certChainFunc.createX509CrlPromise(1);
         const crl2: cert.X509CRL = await certChainFunc.createX509CrlPromise(2);
         let certCrl: cert.CertCRLCollection = cert.createCertCRLCollection([], [crl1, crl2]);
@@ -986,7 +986,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2600", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3700';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2600';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -1016,7 +1016,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2700", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3800';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2700';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
@@ -1046,7 +1046,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2800", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_Security_Cert_Framework_CertChain_Online_Func_3900';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2800';
         let param: cert.CertChainValidationParameters = {
           trustAnchors: [{
             CACert: rootCaCert0
@@ -1076,7 +1076,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate2900", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_4000';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2900';
         let param: cert.CertChainValidationParameters = {
           trustAnchors: [{
             CACert: rootCaCert0
@@ -1106,7 +1106,7 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
      */
     it("testCertChainOnlineValidate3000", TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
       async (done: Function) => {
-        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_4100';
+        let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_3000';
         const certChain1: cert.X509CertChain = await certChainFunc3.createX509CertChain1();
         const param: cert.CertChainValidationParameters = {
           date: '20231212080000Z',
