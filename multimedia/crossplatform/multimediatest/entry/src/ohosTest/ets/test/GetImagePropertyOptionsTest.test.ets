@@ -13,21 +13,25 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, TestType, Size } from '@ohos/hypium'
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, TestType, Size } from '@ohos/hypium';
+import { SLEEP_TIME_3000, SLEEP_TIME_100 } from "./Constants.test";
 import { image } from '@kit.ImageKit';
+import { sleep } from './Common.test';
 
 export default function ImagePropertyOptionsTest() {
   describe('GetImagePropertyOptionsTest', () => {
-    beforeAll(() => {
+    beforeAll(async () => {
       console.info('beforeAll case');
     });
-    beforeEach(() => {
+    beforeEach(async () => {
+      await sleep(SLEEP_TIME_100);
       console.info('beforeEach case');
     });
     afterEach(() => {
       console.info('afterEach case');
     });
-    afterAll(() => {
+    afterAll(async () => {
+      await sleep(SLEEP_TIME_3000);
       console.info('afterAll case');
     });
 
