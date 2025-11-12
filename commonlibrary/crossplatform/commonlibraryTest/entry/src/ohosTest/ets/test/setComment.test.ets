@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 import {
-  afterEach,
+  afterAll,
+  afterEach, beforeAll,
+  beforeEach,
   describe,
   expect,
   it,
@@ -22,6 +24,11 @@ import {
   TestType
 } from '@ohos/hypium';
 import xml from '@ohos.xml'
+
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function setCommentTest() {
   class Utils {
     static async msSleep(count: number): Promise<number> {
@@ -33,9 +40,21 @@ export default function setCommentTest() {
     }
   }
   describe('setCommentTest', (): void => {
-    afterEach(async (): Promise<void>=> {
-      await Utils.msSleep(10)
+    beforeAll(() => {
+      console.info("beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.");
     });
+    beforeEach(async() => {
+      await sleep(100);
+      console.info("beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.");
+    });
+    afterEach(() => {
+      console.info("afterEach: Test case-level clearance conditions, which are executed after each test case is executed.");
+    });
+    afterAll(async() => {
+      await sleep(500);
+      console.info("afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed");
+    });
+    console.info("start################################start");
     
     /**
      * @tc.number : SUB_COMMONLIBRARY_XML_DYNAMIC_SERIALIZER_SET_COMMENET_0100

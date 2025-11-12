@@ -14,6 +14,7 @@
  */
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, Size, TestType} from "@ohos/hypium";
 import { Decimal } from '@kit.ArkTS';
+
 type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 function test_add_001 (addendA: number, addendB: number, expected: string) {
   expect(expected).assertEqual(Decimal.add(addendA, addendB).valueOf());
@@ -36,18 +37,24 @@ function test_add_005 (addendA: string, addendB: number, expected: string) {
   expect(expected).assertEqual(Decimal.add(addendA, addendB).valueOf());
   expect(expected).assertEqual(new Decimal(addendA).add(addendB).valueOf());
 }
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function AddTest() {
   describe("AddTest", () => {
     beforeAll(() => {
       console.info("beforeAll: Prerequisites at the test suite level, which are executed before the test suite is executed.");
     });
-    beforeEach(() => {
+    beforeEach(async() => {
+      await sleep(100);
       console.info("beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.");
     });
     afterEach(() => {
       console.info("afterEach: Test case-level clearance conditions, which are executed after each test case is executed.");
     });
-    afterAll(() => {
+    afterAll(async() => {
+      await sleep(500);
       console.info("afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed");
     });
     console.info("start################################start");
