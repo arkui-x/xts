@@ -16,6 +16,10 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, TestType, Size } from '@ohos/hypium';
 import { intl } from '@kit.LocalizationKit';
 
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function OptionsFormatTest() {
   describe('OptionsFormatTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
@@ -28,7 +32,8 @@ export default function OptionsFormatTest() {
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
     })
-    afterEach(() => {
+    afterEach(async() => {
+      await sleep(1000)
       // Presets a clear action, which is performed after each unit test case ends.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
