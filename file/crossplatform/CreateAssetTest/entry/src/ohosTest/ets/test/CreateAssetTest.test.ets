@@ -170,21 +170,24 @@ async function CreateAssetPromise(photoType: photoAccessHelper.PhotoType | null,
 const permissions: Array<Permissions> = ['ohos.permission.WRITE_IMAGEVIDEO'];
 
 function reqPermissionsFromUser(permissions: Array<Permissions>, context: common.UIAbilityContext): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    atManager.requestPermissionsFromUser(context, permissions)
-      .then((data) => {
-        let grantStatus: Array<number> = data.authResults;
-        let allGranted = grantStatus.every(status => status === 0);
-        if (allGranted) {
-          resolve(true);
-        }
-      }).catch((err: BusinessError) => {
-      console.error('permission has been reject, test stop');
-      reject(new Error('permission denied'));
+    return new Promise((resolve, reject) => {
+      try {
+        let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+        atManager.requestPermissionsFromUser(context, permissions)
+          .then((data) => {
+            let grantStatus: Array<number> = data.authResults;
+            let allGranted = grantStatus.every(status => status === 0);
+            if (allGranted) {
+              resolve(true);
+            }
+          }).catch((err: BusinessError) => {
+          reject(new Error('permission denied'));
+        });
+      } catch (err) {
+        reject(new Error('permission denied'));
+      }
     });
-  });
-}
+  }
 
 export default function CreateAssetTest() {
   describe('CreateAssetTest', () => {
@@ -193,12 +196,20 @@ export default function CreateAssetTest() {
       await sleep(waitReadyMs_3000);
       console.log("XTS platfrom is " + platform);
       context = getContext();
-      const isAllGranted = await reqPermissionsFromUser(permissions, context as common.UIAbilityContext);
-      if (!isAllGranted) {
-        console.error('no permission');
-        throw new Error('no permission');
-      }
       phAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);
+      try {
+        await reqPermissionsFromUser(permissions, context as common.UIAbilityContext).then((isGranted)=>{
+          if(isGranted) {
+            console.log("XTS get permission");
+          } else {
+            console.log("XTS no permission");
+          }
+        }).catch((err:BusinessError)=>{
+          console.log("XTS no permission:" + err.message);
+        })
+      } catch (err) {
+        console.log("XTS no permission:" + err.message);
+      }
     })
     beforeEach(async () => {
       await sleep(waitReadyMs_100);
