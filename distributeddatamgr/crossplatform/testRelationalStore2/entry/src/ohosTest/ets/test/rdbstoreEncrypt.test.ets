@@ -131,9 +131,9 @@ export default function rdbstoreEncryptTest() {
      * @tc.desc RDB decrypt function invalid iteration config test
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 1
+     * @tc.level Level 2
      */
-    it('RdbDecryptTest_0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('RdbDecryptTest_0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       console.info(TAG + "************* RdbDecryptTest_0030 start *************")
       let invalid_iter_config: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -164,9 +164,9 @@ export default function rdbstoreEncryptTest() {
      * @tc.desc RDB decrypt function invalid algorithm config test
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 1
+     * @tc.level Level 2
      */
-    it('RdbDecryptTest_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    it('RdbDecryptTest_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       console.info(TAG + "************* RdbDecryptTest_0040 start *************")
       let invalid_algo_config: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -175,7 +175,7 @@ export default function rdbstoreEncryptTest() {
         cryptoParam: {
           encryptionKey: new Uint8Array('testkey'.split('').map(it => it.charCodeAt(0))),
           iterationCount: 25000,
-          encryptionAlgo: data_relationalStore.EncryptionAlgo.AES_256_CBC + 1,
+          encryptionAlgo: data_relationalStore.EncryptionAlgo.AES_256_CBC + 2,
           hmacAlgo: data_relationalStore.HmacAlgo.SHA512,
           kdfAlgo: data_relationalStore.KdfAlgo.KDF_SHA512,
           cryptoPageSize: 2048
