@@ -161,12 +161,12 @@ export default function rdbstoreEncryptTest() {
     /**
      * @tc.name RdbDecryptTest_0040
      * @tc.number SUB_DDM_RDB_RdbDecryptTest_0040
-     * @tc.desc RDB decrypt function invalid algorithm config test
+     * @tc.desc RDB decrypt function valid algorithm config test
      * @tc.size MediumTest
      * @tc.type Function
-     * @tc.level Level 2
+     * @tc.level Level 1
      */
-    it('RdbDecryptTest_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    it('RdbDecryptTest_0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       console.info(TAG + "************* RdbDecryptTest_0040 start *************")
       let invalid_algo_config: data_relationalStore.StoreConfig = {
         name: "nondefault.db",
@@ -175,7 +175,73 @@ export default function rdbstoreEncryptTest() {
         cryptoParam: {
           encryptionKey: new Uint8Array('testkey'.split('').map(it => it.charCodeAt(0))),
           iterationCount: 25000,
-          encryptionAlgo: data_relationalStore.EncryptionAlgo.AES_256_CBC + 2,
+          encryptionAlgo: data_relationalStore.EncryptionAlgo.AES_256_CBC,
+          hmacAlgo: data_relationalStore.HmacAlgo.SHA512,
+          kdfAlgo: data_relationalStore.KdfAlgo.KDF_SHA512,
+          cryptoPageSize: 2048
+        }
+      }
+      try {
+        let rdbStore = await data_relationalStore.getRdbStore(context, invalid_algo_config)
+        console.info(TAG + "************* RdbDecryptTest_0040 getRdbStore success *************")
+      } catch (err) {
+        console.error(`Valid algorithm config, error code: ${err.code}, err message: ${err.message}`);
+        expect().assertFail();
+      }
+      console.info(TAG + "************* RdbDecryptTest_0040 end *************")
+    })
+
+    /**
+     * @tc.name RdbDecryptTest_0050
+     * @tc.number SUB_DDM_RDB_RdbDecryptTest_0050
+     * @tc.desc RDB decrypt function valid algorithm config test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('RdbDecryptTest_0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      console.info(TAG + "************* RdbDecryptTest_0050 start *************")
+      let invalid_algo_config: data_relationalStore.StoreConfig = {
+        name: "nondefault.db",
+        securityLevel: data_relationalStore.SecurityLevel.S1,
+        encrypt: true,
+        cryptoParam: {
+          encryptionKey: new Uint8Array('testkey'.split('').map(it => it.charCodeAt(0))),
+          iterationCount: 25000,
+          encryptionAlgo: data_relationalStore.EncryptionAlgo.PLAIN_TEXT,
+          hmacAlgo: data_relationalStore.HmacAlgo.SHA512,
+          kdfAlgo: data_relationalStore.KdfAlgo.KDF_SHA512,
+          cryptoPageSize: 2048
+        }
+      }
+      try {
+        let rdbStore = await data_relationalStore.getRdbStore(context, invalid_algo_config)
+        console.info(TAG + "************* RdbDecryptTest_0050 getRdbStore success *************")
+      } catch (err) {
+        console.error(`Valid algorithm config, error code: ${err.code}, err message: ${err.message}`);
+        expect().assertFail();
+      }
+      console.info(TAG + "************* RdbDecryptTest_0050 end *************")
+    })
+
+    /**
+     * @tc.name RdbDecryptTest_0060
+     * @tc.number SUB_DDM_RDB_RdbDecryptTest_0060
+     * @tc.desc RDB decrypt function invalid algorithm config test
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('RdbDecryptTest_0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      console.info(TAG + "************* RdbDecryptTest_0060 start *************")
+      let invalid_algo_config: data_relationalStore.StoreConfig = {
+        name: "nondefault.db",
+        securityLevel: data_relationalStore.SecurityLevel.S1,
+        encrypt: true,
+        cryptoParam: {
+          encryptionKey: new Uint8Array('testkey'.split('').map(it => it.charCodeAt(0))),
+          iterationCount: 25000,
+          encryptionAlgo: data_relationalStore.EncryptionAlgo.PLAIN_TEXT + 1,
           hmacAlgo: data_relationalStore.HmacAlgo.SHA512,
           kdfAlgo: data_relationalStore.KdfAlgo.KDF_SHA512,
           cryptoPageSize: 2048
@@ -188,9 +254,8 @@ export default function rdbstoreEncryptTest() {
         console.error(`Invalid algorithm config, error code: ${err.code}, err message: ${err.message}`);
         expect("401").assertEqual(err.code)
       }
-      console.info(TAG + "************* RdbDecryptTest_0040 end *************")
+      console.info(TAG + "************* RdbDecryptTest_0060 end *************")
     })
-    
     console.log(TAG + "*************Unit Test End*************");
   })
 }
