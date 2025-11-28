@@ -31,6 +31,7 @@ class Resettable {
 class TestWritable extends stream.Writable {
   constructor() {
     super();
+    writeSuccess = false;
   }
 
   doWrite(chunk: string | Uint8Array, encoding: string, callback: Function) {
@@ -66,12 +67,13 @@ export default function WritableEndTest() {
      * @tc.type       : Function
      * @tc.level      : Level 1
      */
-    it('testStreamWritableEnd0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testStreamWritableEnd0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       let TAG = 'testStreamWritableEnd0001';
       try {
         let writableStream = new TestWritable();
         let res = writableStream.end('finish');
         expect(res.writable).assertEqual(false);
+        await sleep(1000);
         expect(writeSuccess).assertEqual(true);
       } catch (err) {
         console.error(`${TAG} failed, error: ${err.message}`);
@@ -87,12 +89,13 @@ export default function WritableEndTest() {
      * @tc.type       : Function
      * @tc.level      : Level 1
      */
-    it('testStreamWritableEnd0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('testStreamWritableEnd0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       let TAG = 'testStreamWritableEnd0002';
       try {
         let writableStream = new TestWritable();
         let res = writableStream.end();
         expect(res.writable).assertEqual(false);
+        await sleep(1000);
         expect(writeSuccess).assertEqual(false);
       } catch (err) {
         console.error(`${TAG} failed, error: ${err.message}`);
