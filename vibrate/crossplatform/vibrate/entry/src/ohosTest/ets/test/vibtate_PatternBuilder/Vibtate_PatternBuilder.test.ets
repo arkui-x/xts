@@ -164,7 +164,6 @@ export default function Vibtate_PatternBuilder() {
               pattern: builder.build()
             }, {
               usage: "alarm",
-              systemUsage: false
             }, async (error: BusinessError) => {
               if (error) {
                 console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -238,7 +237,6 @@ export default function Vibtate_PatternBuilder() {
             pattern: builder.build()
           }, {
             usage: "alarm",
-            systemUsage: false
           }, async (error: BusinessError) => {
             if (error) {
               console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -315,7 +313,6 @@ export default function Vibtate_PatternBuilder() {
             pattern: builder.build()
           }, {
             usage: "alarm",
-            systemUsage: false
           }, async (error: BusinessError) => {
             if (error) {
               console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -360,7 +357,6 @@ export default function Vibtate_PatternBuilder() {
             pattern: builder.build()
           }, {
             usage: "alarm",
-            systemUsage: false
           }, async (error: BusinessError) => {
             if (error) {
               console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -403,7 +399,6 @@ export default function Vibtate_PatternBuilder() {
             pattern: builder.build()
           }, {
             usage: "alarm",
-            systemUsage: false
           }, async (error: BusinessError) => {
             if (error) {
               console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -618,7 +613,6 @@ export default function Vibtate_PatternBuilder() {
           pattern: builder.build()
         }, {
           usage: "alarm",
-          systemUsage: false
         }, async (error: BusinessError) => {
           if (error) {
             console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -666,7 +660,6 @@ export default function Vibtate_PatternBuilder() {
           pattern: builder.build()
         }, {
           usage: "alarm",
-          systemUsage: false
         }, async (error: BusinessError) => {
           if (error) {
             console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -714,7 +707,6 @@ export default function Vibtate_PatternBuilder() {
           pattern: builder.build()
         }, {
           usage: "alarm",
-          systemUsage: false
         }, async (error: BusinessError) => {
           if (error) {
             console.info(TAG + " vibrate fail:" + JSON.stringify(error));

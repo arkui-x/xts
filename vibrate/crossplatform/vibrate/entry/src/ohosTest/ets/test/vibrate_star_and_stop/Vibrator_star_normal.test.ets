@@ -785,7 +785,6 @@ export default function Vibrator_star_normal() {
             pattern:builder.build()
           },{
             usage:"alarm",
-            systemUsage:false
           },(error) => {
             if (error) {
               console.info(TAG + " vibrate fail:" + JSON.stringify(error))
@@ -834,7 +833,6 @@ export default function Vibrator_star_normal() {
           pattern: builder.build()
         }, {
           usage: "alarm",
-          systemUsage: false
         },async  (error: BusinessError) => {
           if (error) {
             console.info(TAG + " vibrate fail:" + JSON.stringify(error));
@@ -883,7 +881,6 @@ export default function Vibrator_star_normal() {
           pattern: builder.build()
         }, {
           usage: "alarm",
-          systemUsage: false
         },async  (error: BusinessError) => {
           if (error) {
             console.info(TAG + " vibrate fail:" + JSON.stringify(error));
