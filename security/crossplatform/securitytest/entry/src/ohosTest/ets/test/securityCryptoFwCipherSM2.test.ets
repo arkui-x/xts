@@ -19,13 +19,14 @@ import * as specUtil from './utils/common/keyGenSpecUtil';
 function sleep(ms:number) {
   return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
 }
+let tag: string = 'SecurityCryptoFwCipherSM2TestUnit_';
 
 export default function SecurityCryptoFwGenerateECCBrainPoolTestUnit() {
   describe('SecurityCryptoFwCipherSM2TestUnit', () => {
 
     beforeEach(async() => {
       await sleep(100);
-      console.info(TAG, 'beforeEach case');
+      console.info(tag, 'beforeEach case');
     });
 
     afterAll(async() => {
