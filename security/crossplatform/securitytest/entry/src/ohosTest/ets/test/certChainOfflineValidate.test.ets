@@ -17,6 +17,10 @@ import cert from '@ohos.security.cert';
 import * as certChainFunc from "../certChain/certChainFunc";
 import * as certChainFunc3 from "../certChain/certChainFunc3";
 
+function sleep(ms:number) {
+  return new Promise<ESObject>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUnit() {
   describe("certFrameworkCertChainOfflineValidateJsAPIFunctionTestUnit", () => {
     console.info("##########start certFrameworkCertChainOfflineValidateJsAPIFunctionTestUnit##########");
@@ -52,7 +56,8 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
         expect(null).assertFail();
       }
     })
-    beforeEach(() => {
+    beforeEach(async() => {
+      await sleep(1000);
       // Presets an action, which is performed before each unit test case starts.
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: preset action function.
@@ -62,10 +67,9 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
       // The number of execution times is the same as the number of test cases defined by **it**.
       // This API supports only one parameter: clear action function.
     })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
+    afterAll(async() => {
+      await sleep(1000);
+    });
 
     /**
      * @tc.number : SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_0100
@@ -1049,19 +1053,16 @@ export default function certFrameworkCertChainOfflineValidateJsAPIFunctionTestUn
         let caseName = 'SUB_SECURITY_CERT_FRAMEWORK_CertChain_Online_Func_2800';
         let param: cert.CertChainValidationParameters = {
           trustAnchors: [{
-            CACert: rootCaCert0
           }],
-          revocationCheckParam: {
-            options: [4, 5]
-          }
         }
         try {
-          await certChain0.validate(param);
+          let tempChain = await certChainFunc.createX509CertChainPromise("pem", 0);
+          await tempChain.validate(param);
           expect(null).assertFail();
           done();
         } catch (err) {
           console.error(`${caseName} X509CertChain validate error: ${JSON.stringify(err)}`);
-          expect(err.code == cert.CertResult.INVALID_PARAMS).assertTrue();
+          expect(err.code).assertEqual(cert.CertResult.INVALID_PARAMS);
           done();
         }
       });
