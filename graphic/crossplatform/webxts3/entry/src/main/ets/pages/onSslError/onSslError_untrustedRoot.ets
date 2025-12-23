@@ -110,8 +110,6 @@ struct WebComponent {
                 action: () => {
                   try {
                     event.handler.handleCancel()
-                    event.handler.handleCancel(false)
-                    event.handler.handleCancel(true)
                     this.result = "未产生异常"
                   } catch (error) {
                     this.result = "产生异常"
@@ -147,8 +145,6 @@ struct WebComponent {
                 action: () => {
                   try {
                     event.handler.handleCancel()
-                    event.handler.handleCancel(false)
-                    event.handler.handleCancel(true)
                     this.result = "未产生异常"
                   } catch (error) {
                     this.result = "产生异常"

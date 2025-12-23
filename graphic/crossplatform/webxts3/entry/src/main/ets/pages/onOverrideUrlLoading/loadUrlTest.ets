@@ -162,6 +162,9 @@ struct WebComponent {
         })
 
       Web({ src: "https://www.example.com", controller: this.controller })
+        .onSslErrorEvent((event: SslErrorEvent) => {
+          event.handler.handleConfirm();
+        })
         .onOverrideUrlLoading((webResourceRequest: WebResourceRequest) => {
           if (!webResourceRequest) {
             console.error("WebResourceRequest is null");
