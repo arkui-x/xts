@@ -2852,7 +2852,7 @@ export default function requestInStream3() {
     Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       try {
         let httpRequest: http.HttpRequest = http.createHttp();
-        let promise = httpRequest.requestInStream('ws://baidu.com', {
+        let promise = httpRequest.requestInStream('ws://huawei.com', {
           method: http.RequestMethod.GET,
         });
         await promise.then((data: number) => {
