@@ -2974,7 +2974,7 @@ export default function requestInStream2() {
         let options: http.HttpRequestOptions = {
           method: http.RequestMethod.GET,
         };
-        httpRequest.requestInStream('ws://baidu.com', options, (err: BusinessError<void>, data: number) => {
+        httpRequest.requestInStream('ws://huawei.com', options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_8200 requestInStream OK! ResponseCode is " +
               data);
