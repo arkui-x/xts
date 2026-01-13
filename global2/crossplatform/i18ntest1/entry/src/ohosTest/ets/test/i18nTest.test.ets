@@ -19,13 +19,13 @@ export default function i18nTest() {
     date.setMilliseconds(60);
 
     let formatTabletExpect: Array<string> = [
-      "20 May 2024, 15:30:45", "May 2024 Monday", "7 in the morning", "15 China Standard Time",
+      "20 May 2024, 15:30:45", "May 2024 Monday", "7 in the morning", "15 China Standard Time",
       "123 hectares", "US$123.00", "1 day ago", "1 quarter ago",
       "2024年5月20日 15:30:45", "2024年5月 星期一", "清晨7时", "中国标准时间15时",
       "123公顷", "¥123.00", "1天前", "1个季度前"]
 
     let formatPhoneExpect: Array<string> = [
-      "20/05/2024, 15:30", "May 2024 Mon", "7 in the morning", "15 GMT+8",
+      "20/05/2024, 15:30", "May 2024 Mon", "7 in the morning", "15 GMT+8",
       "123 ha", "US$123.00", "1 day ago", "1 quarter ago",
       "2024/5/20 15:30", "2024年5月 周一", "早上7时", "GMT+815时",
       "123公顷", "¥123.00", "1天前", "1个季度前"]
