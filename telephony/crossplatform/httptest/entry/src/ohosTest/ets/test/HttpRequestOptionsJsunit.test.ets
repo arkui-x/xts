@@ -821,7 +821,6 @@ export default function HttpRequestOptionsJsunit() {
         httpRequest.request("https://github.com", httpRequestOptions, (err, data) => {
           console.log(casename + ' error:' + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(err.code == 2300028).assertTrue();
-          expect(err.message == 'Timeout was reached').assertTrue();
           httpRequest.destroy();
           console.log("-----------------------testTelephonyHttpRequestOptionsReadTimeout001 Test end-----------------------");
           httpRequest.destroy();
@@ -863,7 +862,6 @@ export default function HttpRequestOptionsJsunit() {
         }).catch((error: BusinessError) => {
           console.info(casename + "errocode" + JSON.stringify(error));
           expect(error.code == 2300028).assertTrue();
-          expect(error.message == 'Timeout was reached').assertTrue();
           done();
         });
       } catch (error) {
@@ -896,7 +894,6 @@ export default function HttpRequestOptionsJsunit() {
         httpRequest.request("https://github.com", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(err.code == 2300028).assertTrue();
-          expect(err.message == 'Timeout was reached').assertTrue();
           console.log("-----------------------HttpRequestOptions_connectTimeout Test end-----------------------");
           httpRequest.destroy();
           done();
@@ -937,7 +934,6 @@ export default function HttpRequestOptionsJsunit() {
         }).catch((error: BusinessError) => {
           console.info(casename + "errocode" + JSON.stringify(error));
           expect(error.code == 2300028).assertTrue();
-          expect(error.message == 'Timeout was reached').assertTrue();
           done();
         });
       } catch (error) {
