@@ -135,7 +135,7 @@ export default function requestInStream2() {
         let httpRequest = http.createHttp();
         await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
-        httpRequest.requestInStream("https://httpbin.org/status/403", options, (err: BusinessError<void>, data: number) => {
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/status/403", options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_0300 requestInStream OK! ResponseCode is " +
               data);
@@ -1168,7 +1168,7 @@ export default function requestInStream2() {
           connectTimeout: 60000,
           readTimeout: 60000,
         };
-        httpRequest.requestInStream('https://httpbin.org/post', options, (err: BusinessError<void>, data: number) => {
+        httpRequest.requestInStream('https://httpbin.moyufangge.com/status/411', options, (err: BusinessError<void>, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3200 requestInStream OK! ResponseCode is " +
               data);
