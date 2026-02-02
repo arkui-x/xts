@@ -25,13 +25,6 @@ const WEB_SOCKET_ERROR_UNKNOWN = 2302999;
 const ERR_CODE_PARAMETER_ERROR = 401;
 const WEB_SOCKET_ERROR_BIND_PORT_FAILED = 2302005;
 
-let serverConfig: webSocket.WebSocketServerConfig = {
-  serverIP: "0.0.0.0",
-  serverPort: 8088,
-  maxConcurrentClientsNumber: 10,
-  maxConnectionsForOneClient: 4,
-}
-
 function sleep(time: number): Promise<string> {
   return new Promise<string>((resolve) => {
     setTimeout(() => {
@@ -70,7 +63,7 @@ export default function WebSocketTest_2() {
             }
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8086,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "my-protocol",
@@ -178,7 +171,7 @@ export default function WebSocketTest_2() {
             }
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8088,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "my-protocol",
@@ -229,7 +222,7 @@ export default function WebSocketTest_2() {
             }
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8089,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "my-protocol",
@@ -239,14 +232,14 @@ export default function WebSocketTest_2() {
               expect().assertFail();
               done();
             }).catch((error: BusinessError) => {
-              console.error(`${caseName} failed, error111: ${error.code}, ${error.message}`);
+              console.error(`${caseName} failed, error: ${error.code}, ${error.message}`);
               const errCode = Number(error.code);
               expect(errCode === WEB_SOCKET_ERROR_FILE_NOT_EXIST).assertTrue();
               done();
             })
           }
         } catch (err) {
-          console.info(`${caseName} catch error222 ${JSON.stringify(err)}`);
+          console.info(`${caseName} catch error ${JSON.stringify(err)}`);
           const errCode = Number(err.code);
           expect(errCode === WEB_SOCKET_ERROR_FILE_NOT_EXIST).assertTrue();
           done();
@@ -278,7 +271,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8090,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               serverCert: undefined,
@@ -330,7 +323,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8091,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: undefined,
@@ -382,7 +375,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8092,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "",
@@ -435,7 +428,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8093,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "11111",
@@ -488,7 +481,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8094,
               maxConcurrentClientsNumber: 0,
               maxConnectionsForOneClient: 4,
             }
@@ -538,6 +531,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8095,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -586,7 +585,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8096,
               maxConcurrentClientsNumber: -1,
               maxConnectionsForOneClient: 4,
             }
@@ -632,7 +631,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8097,
               maxConcurrentClientsNumber: 11,
               maxConnectionsForOneClient: 4,
             }
@@ -677,7 +676,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8098,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 0,
             }
@@ -728,7 +727,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8099,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 10,
             }
@@ -779,7 +778,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8100,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: -1,
             }
@@ -824,7 +823,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8101,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 11,
             }
@@ -948,7 +947,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8102,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "my-protocol",
@@ -1002,7 +1001,7 @@ export default function WebSocketTest_2() {
             }
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8087,
+              serverPort: 8103,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
               protocol: "my-protocol",
@@ -1101,7 +1100,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8089,
+              serverPort: 8104,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             }
@@ -1125,7 +1124,7 @@ export default function WebSocketTest_2() {
             await sleep(100)
             let client: webSocket.WebSocket = webSocket.createWebSocket()
             console.info(`${caseName}client-- >${client}`)
-            await client.connect('ws://127.0.0.1:8089', (err: BusinessError, value: boolean) => {
+            await client.connect('ws://127.0.0.1:8104', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1179,7 +1178,7 @@ export default function WebSocketTest_2() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "0.0.0.0",
-              serverPort: 8089,
+              serverPort: 8105,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             }
@@ -1203,7 +1202,7 @@ export default function WebSocketTest_2() {
             await sleep(500)
             let client: webSocket.WebSocket = webSocket.createWebSocket()
             console.info(`${caseName}client-- >${client}`)
-            client.connect('ws://127.0.0.1:8089', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8105', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1271,6 +1270,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8106,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1285,7 +1290,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8106', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1339,6 +1344,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8107,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1353,7 +1364,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8107', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1435,6 +1446,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8108,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1449,7 +1466,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8108', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1507,6 +1524,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8109,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1520,7 +1543,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8109', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1576,6 +1599,12 @@ export default function WebSocketTest_2() {
           if (!server) {
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8110,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1590,7 +1619,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8110', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1648,6 +1677,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8111,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1662,7 +1697,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8111', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1718,6 +1753,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8112,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1731,7 +1772,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8112', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1786,6 +1827,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8113,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1800,7 +1847,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8113', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {
@@ -1856,6 +1903,12 @@ export default function WebSocketTest_2() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8114,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             await server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -1870,7 +1923,7 @@ export default function WebSocketTest_2() {
               done();
             });
             let client: webSocket.WebSocket = webSocket.createWebSocket();
-            client.connect('ws://127.0.0.1:8088', (err: BusinessError, value: boolean) => {
+            client.connect('ws://127.0.0.1:8114', (err: BusinessError, value: boolean) => {
               if (value) {
                 console.info(`${caseName} test connect success and value is ${value}`);
               } else {

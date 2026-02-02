@@ -85,7 +85,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerStart': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8138;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -112,7 +112,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerStop': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8089;
+            const port = data.port || 8139;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -143,7 +143,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerListAllConnections': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8090;
+            const port = data.port || 8140;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -201,7 +201,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerSend': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8091;
+            const port = data.port || 8141;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -270,7 +270,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerClose': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8092;
+            const port = data.port || 8142;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -391,7 +391,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOnConnect': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8143;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -443,7 +443,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffConnectSpecific': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8144;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -493,7 +493,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffConnectAll': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8145;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -546,7 +546,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOnMessage': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8146;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -617,7 +617,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffMessageSpecific': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8147;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -684,7 +684,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffMessageAll': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8148;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -754,7 +754,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOnError': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8149;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -859,7 +859,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffErrorSpecific': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8150;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -910,7 +910,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffErrorAll': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8151;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -962,7 +962,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOnClose': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8152;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -1036,7 +1036,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffCloseSpecific': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8153;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -1107,7 +1107,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerOffCloseAll': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8154;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -1181,7 +1181,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerEventMixed': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8155;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,
@@ -1279,7 +1279,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'webSocketServerEventUnsubscribeStress': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            const port = data.port || 8088;
+            const port = data.port || 8156;
             const serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: data.serverIP || "0.0.0.0",
               serverPort: port,

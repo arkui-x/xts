@@ -22,7 +22,7 @@ const ERR_CODE_PARAMETER_ERROR = 401;
 
 let serverConfig: webSocket.WebSocketServerConfig = {
   serverIP: "0.0.0.0",
-  serverPort: 8088,
+  serverPort: 8080,
   maxConcurrentClientsNumber: 10,
   maxConnectionsForOneClient: 4,
 }
@@ -626,7 +626,7 @@ export default function WebSocketTest_1() {
         let server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
         let serverConfig: webSocket.WebSocketServerConfig = {
           serverIP: "0.0.0.0",
-          serverPort: 8088,
+          serverPort: 8081,
           maxConcurrentClientsNumber: 10,
           maxConnectionsForOneClient: 4,
         }
@@ -684,6 +684,12 @@ export default function WebSocketTest_1() {
             console.info(`${caseName} Server is nullptr`);
             done();
           } else {
+            let serverConfig: webSocket.WebSocketServerConfig = {
+              serverIP: "0.0.0.0",
+              serverPort: 8200,
+              maxConcurrentClientsNumber: 10,
+              maxConnectionsForOneClient: 4,
+            }
             server.start(serverConfig).then((success: boolean) => {
               if (success) {
                 console.log(`${caseName} webSocketServer start success`);
@@ -733,7 +739,7 @@ export default function WebSocketTest_1() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: undefined,
-              serverPort: 8087,
+              serverPort: 8082,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             }
@@ -786,7 +792,7 @@ export default function WebSocketTest_1() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "",
-              serverPort: 8087,
+              serverPort: 8083,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             }
@@ -839,7 +845,7 @@ export default function WebSocketTest_1() {
           } else {
             let serverConfig: webSocket.WebSocketServerConfig = {
               serverIP: "11111",
-              serverPort: 8087,
+              serverPort: 8084,
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             }
