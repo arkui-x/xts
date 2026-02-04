@@ -88,7 +88,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_0100
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -115,7 +115,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_0200
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -146,7 +146,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0200
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0300
      * @tc.desc   Test Js Api SingleKvStore.GetString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -174,7 +174,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0400
      * @tc.desc   Test Js Api SingleKvStore.GetString() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -201,7 +201,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0500
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -228,7 +228,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0600
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -256,7 +256,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0700
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -284,7 +284,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0800
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -312,7 +312,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_0900
      * @tc.desc   Test Js Api SingleKvStore.GetInt() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -339,7 +339,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1000
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1000
      * @tc.desc   Test Js Api SingleKvStore.GetInt() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -367,7 +367,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_1100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_1100
      * @tc.desc   Test Js Api SingleKvStore.Put(Bool) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -390,7 +390,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1200
      * @tc.desc   Test Js Api SingleKvStore.GetBool() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -418,7 +418,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1300
      * @tc.desc   Test Js Api SingleKvStore.GetBool() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -445,7 +445,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_1400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUT_CALLBACK_1400
      * @tc.desc   Test Js Api SingleKvStore.Put(Float) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -468,7 +468,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2200
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1500
      * @tc.desc   Test Js Api SingleKvStore.Put(Float) testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -496,7 +496,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1600
      * @tc.desc   Test Js Api SingleKvStore.Put(Float) testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -524,7 +524,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1700
      * @tc.desc   Test Js Api SingleKvStore.Put(Float) testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -552,7 +552,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GET_CALLBACK_1800
      * @tc.desc   Test Js Api SingleKvStore.GetFloat() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -580,7 +580,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_1900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_1900
      * @tc.desc   Test Js Api SingleKvStore.DeleteString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -607,7 +607,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2000
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2000
      * @tc.desc   Test Js Api SingleKvStore.DeleteString() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -634,7 +634,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2100
      * @tc.desc   Test Js Api SingleKvStore.DeleteInt() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -661,7 +661,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2200
      * @tc.desc   Test Js Api SingleKvStore.DeleteInt() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -688,7 +688,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2300
      * @tc.desc   Test Js Api SingleKvStore.DeleteFloat() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -715,7 +715,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2400
      * @tc.desc   Test Js Api SingleKvStore.DeleteFloat() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -742,7 +742,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2500
      * @tc.desc   Test Js Api SingleKvStore.DeleteBool() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -769,7 +769,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_2600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2600
      * @tc.desc   Test Js Api SingleKvStore.DeleteBool() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -796,7 +796,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2700
      * @tc.desc   Test Js Api SingleKvStore.Delete() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -820,7 +820,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_1100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETE_CALLBACK_2800
      * @tc.desc   Test Js Api SingleKvStore.Delete() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -847,7 +847,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_3900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_3900
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -890,7 +890,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4000
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4000
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -933,7 +933,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5200
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4100
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -976,7 +976,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4200
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1019,7 +1019,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_4900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4300
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1063,7 +1063,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4400
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1107,7 +1107,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_CALLBACK_4500
      * @tc.desc   Test Js Api SingleKvStore.DeleteBatch() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1149,7 +1149,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCH_CALLBACK_4600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCH_CALLBACK_4600
      * @tc.desc   Test Js Api SingleKvStore.DeleteBatch() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1173,7 +1173,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCH_CALLBACK_4700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_5500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCH_CALLBACK_4700
      * @tc.desc   Test Js Api SingleKvStore.DeleteBatch() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1214,7 +1214,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULT_CALLBACK_7500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_4000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULT_CALLBACK_7500
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1259,7 +1259,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULT_CALLBACK_7800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_4700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULT_CALLBACK_7800
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1290,7 +1290,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULT_CALLBACK_7900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_3800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULT_CALLBACK_7900
      * @tc.desc   Test Js Api SingleKvStore.CloseResultSet() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1319,7 +1319,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULT_CALLBACK_8000
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_3700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULT_CALLBACK_8000
      * @tc.desc   Test Js Api SingleKvStore.CloseResultSet() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1352,7 +1352,7 @@ export default function SingleKvStoreCallbackTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETENTRIES_CALLBACK_8300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvCallbackEtsApiTest_4800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETENTRIES_CALLBACK_8300
      * @tc.desc   Test Js Api SingleKvStore.GetEntries() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

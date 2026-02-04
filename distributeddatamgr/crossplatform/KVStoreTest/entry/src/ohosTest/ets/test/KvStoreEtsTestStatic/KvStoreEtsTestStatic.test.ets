@@ -68,7 +68,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest001
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0010
+     * @tc.number ArkUIX_KvStoreTest001
      * @tc.desc   getKVStore<distributedKVStore.SingleKVStore>
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -92,7 +92,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest003
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0030
+     * @tc.number ArkUIX_KvStoreTest003
      * @tc.desc   SingleKVStore put get string
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -124,7 +124,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest005
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0050
+     * @tc.number ArkUIX_KvStoreTest005
      * @tc.desc   SingleKVStore put get Boolean
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -152,7 +152,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest006
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0060
+     * @tc.number ArkUIX_KvStoreTest006
      * @tc.desc   SingleKVStore put get Uint8Array
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -178,7 +178,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest007
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0070
+     * @tc.number ArkUIX_KvStoreTest007
      * @tc.desc   SingleKVStore backup
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -202,7 +202,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest009
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0090
+     * @tc.number ArkUIX_KvStoreTest009
      * @tc.desc   SingleKVStore backup  callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -227,7 +227,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest018
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0180
+     * @tc.number ArkUIX_KvStoreTest018
      * @tc.desc   SingleKVStore put get  callback string
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -257,7 +257,7 @@ export default function KvStoreEtsTestStatic() {
 
     /**
      * @tc.name   ArkUIX_KvStoreTest021
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0210
+     * @tc.number ArkUIX_KvStoreTest021
      * @tc.desc   Schema.constructor, FieldNode.constructor, Query.constructor
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -278,7 +278,7 @@ export default function KvStoreEtsTestStatic() {
     
     /**
      * @tc.name   ArkUIX_KvStoreTest022
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0220
+     * @tc.number ArkUIX_KvStoreTest022
      * @tc.desc   SingleKVStore get(key)
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -308,7 +308,7 @@ export default function KvStoreEtsTestStatic() {
     
     /**
      * @tc.name   ArkUIX_KvStoreTest023
-     * @tc.number SUB_DistributedData_KvStore_SDK_APITest_STATIC_0230
+     * @tc.number ArkUIX_KvStoreTest023
      * @tc.desc   SingleKVStore get(key)  callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

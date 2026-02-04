@@ -125,7 +125,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETCOUNT_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETCOUNT_0100
      * @tc.desc   Test Js Api KvStoreResultSet.GetCount() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -145,7 +145,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETCOUNT_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_0200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETCOUNT_0200
      * @tc.desc   Test Js Api KvStoreResultSet.GetCount() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -177,7 +177,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETPOSITION_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETPOSITION_0100
      * @tc.desc   Test Js Api KvStoreResultSet.GetPosition() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -197,7 +197,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETPOSITION_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_1000
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETPOSITION_0200
      * @tc.desc   Test Js Api KvStoreResultSet.GetPosition() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -221,7 +221,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToFirst() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -241,7 +241,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3300
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToFirst() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -264,7 +264,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOFIRST_0500
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToFirst() testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -285,7 +285,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOLAST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3700
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOLAST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToLast() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -305,7 +305,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOLAST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3800
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOLAST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToLast() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -325,7 +325,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETONEXT_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETONEXT_0100
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToNext() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -345,7 +345,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETONEXT_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETONEXT_0200
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToNext() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -367,7 +367,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4800
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0100
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToPrevious() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -387,7 +387,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4900
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0200
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToPrevious() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -412,7 +412,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_5200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVETOPREVIOUS_0500
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToPrevious() testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -436,7 +436,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3000
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVE_0200
      * @tc.desc   Test Js Api KvStoreResultSet.Move() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -459,7 +459,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_3100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_SETMOVE_0300
      * @tc.desc   Test Js Api KvStoreResultSet.Move() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -483,7 +483,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_MOVETOPOSITION_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_MOVETOPOSITION_0200
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToPosition() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -502,7 +502,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_MOVETOPOSITION_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_4700
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_MOVETOPOSITION_0300
      * @tc.desc   Test Js Api KvStoreResultSet.MoveToPosition() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -524,7 +524,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISFIRST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_2100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISFIRST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.IsFirst() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -544,7 +544,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISFIRST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_2200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISFIRST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.IsFirst() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -568,7 +568,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISLAST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_2500
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISLAST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.IsLast() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -588,7 +588,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISLAST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_2600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISLAST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.IsLast() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -609,7 +609,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISBEFOREFIRST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_1700
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISBEFOREFIRST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.IsBeforeFirst() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -629,7 +629,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISBEFOREFIRST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_1800
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISBEFOREFIRST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.IsBeforeFirst() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -651,7 +651,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISAFTERLAST_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_1300
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISAFTERLAST_0100
      * @tc.desc   Test Js Api KvStoreResultSet.IsAfterLast() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -671,7 +671,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISAFTERLAST_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_1400
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_ISAFTERLAST_0200
      * @tc.desc   Test Js Api KvStoreResultSet.IsAfterLast() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -697,7 +697,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETENTRY_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETENTRY_0100
      * @tc.desc   Test Js Api KvStoreResultSet.GetEntry() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -719,7 +719,7 @@ export default function KvStoreResultSetTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETENTRY_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultEtsApiTest_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVSTORERESULTSET_GETENTRY_0200
      * @tc.desc   Test Js Api KvStoreResultSet.GetEntry() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

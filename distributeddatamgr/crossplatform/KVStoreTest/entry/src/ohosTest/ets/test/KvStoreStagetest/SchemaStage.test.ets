@@ -81,7 +81,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJsonString001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_2100
+     * @tc.number ArkUIX_testEtsToJsonString001
      * @tc.desc   Test Js Api Schema.ToJsonString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -116,7 +116,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJsonString003
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_2300
+     * @tc.number ArkUIX_testEtsToJsonString003
      * @tc.desc   Test Js Api Schema.ToJsonString() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -164,7 +164,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJsonString004
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_2000
+     * @tc.number ArkUIX_testEtsToJsonString004
      * @tc.desc   Test Js Api Schema.ToJsonString() testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -209,7 +209,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsroot001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1800
+     * @tc.number ArkUIX_testEtsroot001
      * @tc.desc   Test Js Api Schema.root testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -231,7 +231,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsindexes001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1500
+     * @tc.number ArkUIX_testEtsindexes001
      * @tc.desc   Test Js Api Schema.indexes testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -251,7 +251,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsmode001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1700
+     * @tc.number ArkUIX_testEtsmode001
      * @tc.desc   Test Js Api Schema.mode testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -272,7 +272,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsmode002
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1600
+     * @tc.number ArkUIX_testEtsmode002
      * @tc.desc   Test Js Api Schema.mode testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -293,7 +293,7 @@ export default function schemaStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsskip001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1900
+     * @tc.number ArkUIX_testEtsskip001
      * @tc.desc   Test Js Api Schema.skip testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

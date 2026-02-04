@@ -90,8 +90,8 @@ export default function SchemaFieldNode(){
     });
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0100
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0100
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0100
      * @tc.desc   FieldNode.type=STRING，default='field'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -150,8 +150,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0200
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0200
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0200
      * @tc.desc   FieldNode.type=STRING，default='+'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -210,8 +210,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0300
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0300
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0300
      * @tc.desc   FieldNode.type=STRING，default='-'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -270,8 +270,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0400
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0400
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0400
      * @tc.desc   FieldNode.type=STRING，default=' '
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -330,8 +330,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0500
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0500
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0500
      * @tc.desc   FieldNode.type=STRING，default='~!@#$%^&*()'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -390,8 +390,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0600
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0600
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0600
      * @tc.desc   FieldNode.type=STRING，default='//;,.=-'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -450,8 +450,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0700
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0700
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0700
      * @tc.desc   FieldNode.type=STRING，default='3'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -506,8 +506,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0800
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0800
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0800
      * @tc.desc   FieldNode.type=STRING，default='true'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -562,8 +562,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_STRING_0900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_STRING_0900
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_STRING_0900
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_STRING_0900
      * @tc.desc   FieldNode('+- *#')
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -603,8 +603,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0100
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0100
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0100
      * @tc.desc   FieldNode.type=INTEGER，default='0'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -664,8 +664,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0200
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0200
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0200
      * @tc.desc   FieldNode.type=INTEGER，default='field', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -707,8 +707,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0300
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0300
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0300
      * @tc.desc   FieldNode.type=INTEGER，default='+', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -749,8 +749,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0400
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0400
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0400
      * @tc.desc   FieldNode.type=INTEGER，default='-', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -790,8 +790,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0500
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0500
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0500
      * @tc.desc   FieldNode.type=INTEGER，default=' ', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -831,8 +831,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0600
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0600
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0600
      * @tc.desc   FieldNode.type=INTEGER，default='~!@#$%^&*()', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -872,8 +872,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0700
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0700
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0700
      * @tc.desc   FieldNode.type=INTEGER，default='//;,.=-', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -913,8 +913,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0800
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0800
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0800
      * @tc.desc   FieldNode.type=INTEGER，default='3.21', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -954,8 +954,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INTEGER_0900
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_INTEGER_0900
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_INTEGER_0900
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_INTEGER_0900
      * @tc.desc   FieldNode.type=INTEGER，default='3.21', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -997,8 +997,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_FLOAT_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_FLOAT_0100
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_FLOAT_0100
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_FLOAT_0100
      * @tc.desc   FieldNode.type=FLOAT，default='3.21'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1058,8 +1058,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_FLOAT_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_FLOAT_0200
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_FLOAT_0200
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_FLOAT_0200
      * @tc.desc   FieldNode.type=FLOAT，default='field', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1100,8 +1100,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_FLOAT_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_FLOAT_0300
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_FLOAT_0300
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_FLOAT_0300
      * @tc.desc   FieldNode.type=FLOAT，default='+-  ', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1141,8 +1141,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_FLOAT_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_FLOAT_0400
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_FLOAT_0400
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_FLOAT_0400
      * @tc.desc   FieldNode.type=FLOAT，default='~!@#$%^&*()//;,.=-', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1182,8 +1182,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_FLOAT_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_FLOAT_0500
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_FLOAT_0500
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_FLOAT_0500
      * @tc.desc   FieldNode.type=FLOAT，default='true', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1223,8 +1223,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_DOUBLE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_DOUBLE_0100
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_DOUBLE_0100
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_DOUBLE_0100
      * @tc.desc   FieldNode.type=DOUBLE，default='3.21'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1283,8 +1283,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_DOUBLE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_DOUBLE_0200
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_DOUBLE_0200
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_DOUBLE_0200
      * @tc.desc   FieldNode.type=DOUBLE，default='field', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1325,8 +1325,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_DOUBLE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_DOUBLE_0300
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_DOUBLE_0300
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_DOUBLE_0300
      * @tc.desc   FieldNode.type=DOUBLE，default='+-  ', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1366,8 +1366,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_DOUBLE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_DOUBLE_0400
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_DOUBLE_0400
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_DOUBLE_0400
      * @tc.desc   FieldNode.type=DOUBLE，default='~!@#$%^&*()//;,.=-', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1407,8 +1407,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_DOUBLE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_DOUBLE_0500
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_DOUBLE_0500
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_DOUBLE_0500
      * @tc.desc   FieldNode.type=DOUBLE，default='true', 失败
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1449,8 +1449,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0100
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0100
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0100
      * @tc.desc   FieldNode.type=BOOLEAN，default='true'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1509,8 +1509,8 @@ export default function SchemaFieldNode(){
 
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0101
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0101
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0101
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0101
      * @tc.desc   FieldNode.type=BOOLEAN，default='false'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1568,8 +1568,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0102
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0102
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0102
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0102
      * @tc.desc   FieldNode.type=BOOLEAN，default='TRUE'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1608,8 +1608,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0103
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0103
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0103
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0103
      * @tc.desc   FieldNode.type=BOOLEAN，default='FALSE'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1648,8 +1648,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0200
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0200
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0200
      * @tc.desc   FieldNode.type=BOOLEAN，default='field'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1688,8 +1688,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0300
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0300
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0300
      * @tc.desc   FieldNode.type=BOOLEAN，default='+-  '
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1728,8 +1728,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0400
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0400
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0400
      * @tc.desc   FieldNode.type=BOOLEAN，default='~!@#$%^&*()//;,.=-'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1768,8 +1768,8 @@ export default function SchemaFieldNode(){
     })
 
     /**
-     * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_BOOLEAN_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SchemaFieldNode_BOOLEAN_0500
+     * @tc.name   ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0500
+     * @tc.number ArkUIX_SUB_SchemaFieldNode_BOOLEAN_0500
      * @tc.desc   FieldNode.type=BOOLEAN，default='0'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

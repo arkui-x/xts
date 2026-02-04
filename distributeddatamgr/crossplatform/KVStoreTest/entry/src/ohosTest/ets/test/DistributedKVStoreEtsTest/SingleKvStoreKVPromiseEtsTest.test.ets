@@ -107,7 +107,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0950
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -133,7 +133,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0970
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -160,7 +160,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0960
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -187,7 +187,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0980
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTSTRING_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.Put(String) testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -226,7 +226,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETSTRING_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETSTRING_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetString testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -261,7 +261,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETSTRING_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0460
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETSTRING_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreGetString testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -286,7 +286,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0940
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -313,7 +313,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0880
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -349,7 +349,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0920
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -386,7 +386,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0930
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -424,7 +424,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0890
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -461,7 +461,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0600
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -498,7 +498,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0910
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTINT_PROMISE_0700
      * @tc.desc   Test Js Api SingleKvStore.Put(Int) testcase 007
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -535,7 +535,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETINT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETINT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetInt testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -570,7 +570,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBOOLEAN_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0860
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBOOLEAN_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.Put(Bool) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -597,7 +597,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETBOOLEAN_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0290
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETBOOLEAN_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetBool testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -633,7 +633,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTFLOAT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0870
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTFLOAT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.Put(Float) testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -660,7 +660,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0850
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetFloat testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -696,7 +696,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreGetFloat testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -732,7 +732,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_1000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETFLOAT_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStoreGetFloat testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -768,7 +768,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0130
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreDeleteString testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -804,7 +804,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0090
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreDeleteString testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -843,7 +843,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0080
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETESTRING_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStoreDeleteString testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -870,7 +870,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEINT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0120
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEINT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreDeleteInt testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -905,7 +905,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEFLOAT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0110
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEFLOAT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreDeleteFloat testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -940,7 +940,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBOOLEAN_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBOOLEAN_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreDeleteBool testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -975,7 +975,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0050
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.Delete() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1002,7 +1002,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0060
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.Delete() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1037,7 +1037,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0070
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEPREDICATES_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.Delete() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1072,7 +1072,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0520
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1111,7 +1111,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0510
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1160,7 +1160,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1209,7 +1209,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0490
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1258,7 +1258,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0470
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1308,7 +1308,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0480
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCH_PROMISE_0600
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1358,7 +1358,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0450
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1402,7 +1402,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0440
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1454,7 +1454,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0430
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1498,7 +1498,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0410
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1542,7 +1542,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0420
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_PUTBATCHVALUE_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStore.PutBatch() testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1589,7 +1589,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0530
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreDeleteBatch testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1639,7 +1639,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0540
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreDeleteBatch testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1667,7 +1667,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0550
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_DELETEBATCHVALUE_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStoreDeleteBatch testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1716,7 +1716,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0020
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetResultSet testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1771,7 +1771,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0040
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreGetResultSet testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1807,7 +1807,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0370
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStoreGetResultSet testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1864,7 +1864,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0380
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0600
      * @tc.desc   Test Js Api SingleKvStoreGetResultSet testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1921,7 +1921,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0360
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0700
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 007
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1979,7 +1979,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0800
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0350
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSET_PROMISE_0800
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 008
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2016,7 +2016,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULTSET_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0270
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULTSET_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreCloseResultSet testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2042,7 +2042,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULTSET_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0280
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_CLOSERESULTSET_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStoreCloseResultSet testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2077,7 +2077,7 @@ export default function SingleKvStorePromiseTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSIZE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvPromiseEtsApiTest_0390
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_GETRESULTSIZE_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStoreGetResultSize testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
