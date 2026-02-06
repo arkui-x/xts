@@ -149,7 +149,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0100
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0100
      * @tc.desc   getResultSet getCount
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -171,7 +171,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0200
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0200
      * @tc.desc   getResultSet getPosition
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -200,7 +200,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0300
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0300
      * @tc.desc   getResultSet is not null , moveToFirst return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -222,7 +222,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0400
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0400
      * @tc.desc   getResultSet is null , moveToFirst return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -253,7 +253,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0500
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0500
      * @tc.desc   getResultSet is not null , moveToLast return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -275,7 +275,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0600
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0600
      * @tc.desc   getResultSet is null , moveToLast return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -306,7 +306,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0700
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0700
      * @tc.desc   getResultSet is not null , moveToNext return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -328,7 +328,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0800
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0800
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0800
      * @tc.desc   getResultSet is null , moveToNext return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -359,7 +359,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest0900
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_0900
+     * @tc.number ArkUIX_DisKVResultReturnValueTest0900
      * @tc.desc   getResultSet is not null , moveToPrevious return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -383,7 +383,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1000
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1000
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1000
      * @tc.desc   getResultSet is null , moveToPrevious return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -414,7 +414,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1100
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1100
      * @tc.desc   getResultSet not Exceeded the maximum , move return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -436,7 +436,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1200
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1200
      * @tc.desc   getResultSet Exceeded the maximum , move return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -458,7 +458,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1300
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1300
      * @tc.desc   getResultSet Parameter error , move return 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -479,7 +479,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1400
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1400
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1400
      * @tc.desc   getResultSet not Exceeded the maximum , moveToPosition return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -501,7 +501,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1500
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1500
      * @tc.desc   getResultSet Exceeded the maximum , moveToPosition return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -523,7 +523,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1600
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1600
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1600
      * @tc.desc   getResultSet param error , moveToPosition return 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -544,7 +544,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1700
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1700
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1700
      * @tc.desc   getResultSet isFirst , is First return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -568,7 +568,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1800
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1800
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1800
      * @tc.desc   getResultSet isFirst , is not First return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -590,7 +590,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest1900
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_1900
+     * @tc.number ArkUIX_DisKVResultReturnValueTest1900
      * @tc.desc   getResultSet isLast , is Last return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -614,7 +614,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2000
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2000
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2000
      * @tc.desc   getResultSet isLast , is not Last return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -636,7 +636,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2100
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2100
      * @tc.desc   getResultSet isBeforeFirst , is BeforeFirst return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -658,7 +658,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2200
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2200
      * @tc.desc   getResultSet isBeforeFirst , is not BeforeFirst return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -682,7 +682,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2300
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2300
      * @tc.desc   getResultSet isAfterLast , is  AfterLast return true
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -710,7 +710,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2400
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2400
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2400
      * @tc.desc   getResultSet isAfterLast , is not AfterLast return false
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -734,7 +734,7 @@ export default function KVStoreResultSetReturnValue(){
 
     /**
      * @tc.name   ArkUIX_DisKVResultReturnValueTest2500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVResultReturnValueTest_2500
+     * @tc.number ArkUIX_DisKVResultReturnValueTest2500
      * @tc.desc   getResultSet getEntry
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

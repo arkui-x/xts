@@ -90,7 +90,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0020
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0020
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0020
      * @tc.desc   distributedKVStore move errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -116,7 +116,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0030
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0030
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0030
      * @tc.desc   distributedKVStore moveToPosition errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -149,7 +149,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0040
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0040
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0040
      * @tc.desc   distributedKVStore equalTo errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -172,7 +172,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0050
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0050
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0050
      * @tc.desc   distributedKVStore notEqualTo errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -195,7 +195,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0060
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0060
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0060
      * @tc.desc   distributedKVStore greaterThan errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -218,7 +218,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0070
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0070
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0070
      * @tc.desc   distributedKVStore lessThan errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -242,7 +242,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0080
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0080
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0080
      * @tc.desc   distributedKVStore greaterThanOrEqualTo errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -266,7 +266,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0090
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0090
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0090
      * @tc.desc   distributedKVStore lessThanOrEqualTo errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -290,7 +290,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0100
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0100
      * @tc.desc   distributedKVStore put errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -317,7 +317,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0110
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0110
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0110
      * @tc.desc   distributedKVStore putBatch errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -344,7 +344,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0120
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0120
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0120
      * @tc.desc   distributedKVStore putBatch errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -366,7 +366,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0130
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0130
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0130
      * @tc.desc   distributedKVStore delete errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -388,7 +388,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0140
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0140
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0140
      * @tc.desc   distributedKVStore deleteBatch errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -415,7 +415,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0150
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0150
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0150
      * @tc.desc   distributedKVStore deleteBatch errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -437,7 +437,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0180
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0180
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0180
      * @tc.desc   distributedKVStore get errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -464,7 +464,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0190
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0190
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0190
      * @tc.desc   distributedKVStore get errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -486,7 +486,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0200
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0200
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0200
      * @tc.desc   distributedKVStore getEntries errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -513,7 +513,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0210
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0210
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0210
      * @tc.desc   distributedKVStore getEntries errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -535,7 +535,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0220
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0220
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0220
      * @tc.desc   distributedKVStore getEntries query errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -564,7 +564,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0230
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0230
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0230
      * @tc.desc   distributedKVStore getEntries query errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -588,7 +588,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0240
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0240
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0240
      * @tc.desc   distributedKVStore getResultSize errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -617,7 +617,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0250
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0250
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0250
      * @tc.desc   distributedKVStore getResultSize errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -641,7 +641,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0260
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0260
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0260
      * @tc.desc   distributedKVStore deleteBackup errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -669,7 +669,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0270
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0270
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0270
      * @tc.desc   distributedKVStore deleteBackup errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -691,7 +691,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0400
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0400
      * @tc.desc   distributedKVStore appendChild errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -714,7 +714,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0410
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0410
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0410
      * @tc.desc   distributedKVStore isNull errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -738,7 +738,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0420
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0420
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0420
      * @tc.desc   distributedKVStore inNumber errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -762,7 +762,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0430
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0430
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0430
      * @tc.desc   distributedKVStore inString errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -786,7 +786,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0440
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0440
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0440
      * @tc.desc   distributedKVStore notInNumber errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -810,7 +810,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0450
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0450
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0450
      * @tc.desc   distributedKVStore notInString errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -834,7 +834,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0460
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0460
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0460
      * @tc.desc   distributedKVStore like errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -858,7 +858,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0470
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0470
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0470
      * @tc.desc   distributedKVStore unlike errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -882,7 +882,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0480
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0480
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0480
      * @tc.desc   distributedKVStore orderByAsc errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -906,7 +906,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0490
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0490
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0490
      * @tc.desc   distributedKVStore orderByAsc errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -930,7 +930,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0500
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0500
      * @tc.desc   distributedKVStore orderByDesc errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -954,7 +954,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0510
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0510
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0510
      * @tc.desc   distributedKVStore limit errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -978,7 +978,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0520
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0520
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0520
      * @tc.desc   distributedKVStore isNotNull errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1002,7 +1002,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0530
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0530
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0530
      * @tc.desc   distributedKVStore prefixKey errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1026,7 +1026,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0540
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0540
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0540
      * @tc.desc   distributedKVStore setSuggestIndex errcode 401
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1050,7 +1050,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0560
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0560
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0560
      * @tc.desc   distributedKVStore put errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1072,7 +1072,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0570
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0570
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0570
      * @tc.desc   distributedKVStore delete errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1100,7 +1100,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0580
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0580
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0580
      * @tc.desc   distributedKVStore getResultSet query errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1129,7 +1129,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0590
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0590
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0590
      * @tc.desc   distributedKVStore getResultSet query errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1153,7 +1153,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0600
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0600
      * @tc.desc   distributedKVStore getResultSet errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1180,7 +1180,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0610
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0610
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0610
      * @tc.desc   distributedKVStore getResultSet errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1202,7 +1202,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0620
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0620
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0620
      * @tc.desc   distributedKVStore closeResultSet errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1229,7 +1229,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0630
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0630
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0630
      * @tc.desc   distributedKVStore closeResultSet errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1251,7 +1251,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0640
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0640
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0640
      * @tc.desc   distributedKVStore backup errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1278,7 +1278,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0650
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0650
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0650
      * @tc.desc   distributedKVStore backup errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1300,7 +1300,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0660
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0660
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0660
      * @tc.desc   distributedKVStore restore errcode 401 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1327,7 +1327,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0670
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0670
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0670
      * @tc.desc   distributedKVStore restore errcode 401 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1349,7 +1349,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0720
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0720
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0720
      * @tc.desc   distributedKVStore getResultSet errcode 15100001 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1400,7 +1400,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0730
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0730
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0730
      * @tc.desc   distributedKVStore getResultSet errcode 15100001 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1442,7 +1442,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0740
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0740
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0740
      * @tc.desc   distributedKVStore query getResultSet errcode 15100001 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1500,7 +1500,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0750
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0750
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0750
      * @tc.desc   distributedKVStore query getResultSet errcode 15100001 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1544,7 +1544,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0790
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0790
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0790
      * @tc.desc   distributedKVStore get errcode 15100004 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1565,7 +1565,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0800
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0800
      * @tc.desc   distributedKVStore get errcode 15100004 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1593,7 +1593,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0810
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0810
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0810
      * @tc.desc   distributedKVStore put errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1625,7 +1625,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0820
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0820
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0820
      * @tc.desc   distributedKVStore put errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1650,7 +1650,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0830
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0830
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0830
      * @tc.desc   distributedKVStore putBatch errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1695,7 +1695,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0840
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0840
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0840
      * @tc.desc   distributedKVStore putBatch errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1733,7 +1733,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0850
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0850
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0850
      * @tc.desc   distributedKVStore delete errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1765,7 +1765,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0860
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0860
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0860
      * @tc.desc   distributedKVStore delete errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1790,7 +1790,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0870
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0870
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0870
      * @tc.desc   distributedKVStore deleteBatch errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1823,7 +1823,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0880
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0880
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0880
      * @tc.desc   distributedKVStore deleteBatch errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1849,7 +1849,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0910
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0910
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0910
      * @tc.desc   distributedKVStore get errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1879,7 +1879,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0920
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0920
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0920
      * @tc.desc   distributedKVStore get errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1902,7 +1902,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0930
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0930
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0930
      * @tc.desc   distributedKVStore getEntries errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1932,7 +1932,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0940
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0940
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0940
      * @tc.desc   distributedKVStore getEntries errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1955,7 +1955,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0950
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0950
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0950
      * @tc.desc   distributedKVStore getEntries errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1986,7 +1986,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0960
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0960
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0960
      * @tc.desc   distributedKVStore getEntries errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2010,7 +2010,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0970
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0970
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0970
      * @tc.desc   distributedKVStore getResultSet errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2040,7 +2040,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0980
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0980
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0980
      * @tc.desc   distributedKVStore getResultSet errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2063,7 +2063,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0990
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0990
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_0990
      * @tc.desc   distributedKVStore getResultSet errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2094,7 +2094,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1000
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1000
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1000
      * @tc.desc   distributedKVStore getResultSet errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2118,7 +2118,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1010
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1010
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1010
      * @tc.desc   distributedKVStore getResultSize errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2149,7 +2149,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1020
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1020
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1020
      * @tc.desc   distributedKVStore getResultSize errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2173,7 +2173,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1030
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1030
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1030
      * @tc.desc   distributedKVStore backup errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2203,7 +2203,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1040
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1040
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1040
      * @tc.desc   distributedKVStore backup errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2226,7 +2226,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1050
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1050
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1050
      * @tc.desc   distributedKVStore restore errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2256,7 +2256,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1060
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1060
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1060
      * @tc.desc   distributedKVStore restore errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2279,7 +2279,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1070
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1070
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1070
      * @tc.desc   distributedKVStore startTransaction errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2309,7 +2309,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1080
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1080
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1080
      * @tc.desc   distributedKVStore startTransaction errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2332,7 +2332,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1090
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1090
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1090
      * @tc.desc   distributedKVStore commit errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2362,7 +2362,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1100
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1100
      * @tc.desc   distributedKVStore commit errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2385,7 +2385,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1110
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1110
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1110
      * @tc.desc   distributedKVStore rollback errcode 15100005 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2415,7 +2415,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1120
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1120
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1120
      * @tc.desc   distributedKVStore rollback errcode 15100005 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2438,7 +2438,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1170
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1170
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1170
      * @tc.desc   distributedKVStore put errcode 14800047
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2482,7 +2482,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1180
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1180
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1180
      * @tc.desc   distributedKVStore putbatch errcode 14800047 callback
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2539,7 +2539,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1200
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1200
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1200
      * @tc.desc   distributedKVStore putbatch errcode 14800047 promise
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2590,7 +2590,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1210
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1210
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1210
      * @tc.desc   distributedKVStore delete errcode 14800047
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2642,7 +2642,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1220
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1220
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1220
      * @tc.desc   distributedKVStore delete errcode 14800047
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -2696,7 +2696,7 @@ export default function SingleKvStoreErrCodeTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1230
-     * @tc.number SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1230
+     * @tc.number ArkUIX_SUB_DDM_DKV_SINGLEKVSTORE_ERRCODE_1230
      * @tc.desc   distributedKVStore startTransaction errcode 14800047
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

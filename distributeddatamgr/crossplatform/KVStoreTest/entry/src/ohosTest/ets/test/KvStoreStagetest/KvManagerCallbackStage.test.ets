@@ -81,7 +81,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore109
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_4500
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore109
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 109
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -110,7 +110,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore110
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_3700
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore110
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 110
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -139,7 +139,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore111
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_4700
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore111
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 111
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -168,7 +168,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore116
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_5200
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore116
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 116
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -196,7 +196,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore117
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_5300
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore117
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 117
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -224,7 +224,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerCloseKVStore103
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0700
+     * @tc.number ArkUIX_testEtsKVManagerCloseKVStore103
      * @tc.desc   Test Js Api KVManager.CloseKVStore testcase 103
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -256,7 +256,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerDeleteKVStore101
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_1100
+     * @tc.number ArkUIX_testEtsKVManagerDeleteKVStore101
      * @tc.desc   Test Js Api KVManager.DeleteKVStore testcase 101
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -283,7 +283,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerDeleteKVStore103
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_1300
+     * @tc.number ArkUIX_testEtsKVManagerDeleteKVStore103
      * @tc.desc   Test Js Api KVManager.DeleteKVStore testcase 103
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -309,7 +309,7 @@ export default function kvManagerCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVStorePut100
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0100
+     * @tc.number ArkUIX_testEtsKVStorePut100
      * @tc.desc   Test Js Api KVManager.Put testcase 100
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

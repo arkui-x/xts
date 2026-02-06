@@ -79,7 +79,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSet102
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1230
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSet102
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 102
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -108,7 +108,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSet105
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1260
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSet105
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 105
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -155,7 +155,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSet106
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1270
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSet106
      * @tc.desc   Test Js Api SingleKvStore.GetResultSet() testcase 106
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -201,7 +201,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSize101
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1280
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSize101
      * @tc.desc   Test Js Api SingleKvStore.GetResultSize() testcase 101
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -241,7 +241,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSize102
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1290
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSize102
      * @tc.desc   Test Js Api SingleKvStore.GetResultSize() testcase 102
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -282,7 +282,7 @@ export default function singleKvStoreCallbackStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetEntries102
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_1180
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetEntries102
      * @tc.desc   Test Js Api SingleKvStore.GetEntries() testcase 102
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

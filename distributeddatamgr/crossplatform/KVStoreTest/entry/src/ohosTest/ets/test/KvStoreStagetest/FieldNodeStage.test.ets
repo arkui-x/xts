@@ -21,7 +21,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsAppendChild001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0400
+     * @tc.number ArkUIX_testEtsAppendChild001
      * @tc.desc   Test Js Api FieldNode.AppendChild() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -49,7 +49,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsAppendChild002
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0100
+     * @tc.number ArkUIX_testEtsAppendChild002
      * @tc.desc   Test Js Api FieldNode.AppendChild() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -71,7 +71,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsAppendChild003
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0600
+     * @tc.number ArkUIX_testEtsAppendChild003
      * @tc.desc   Test Js Api FieldNode.AppendChild() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -91,7 +91,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJson001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0500
+     * @tc.number ArkUIX_testEtsToJson001
      * @tc.desc   Test Js Api FieldNode.ToJson() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -110,7 +110,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJson002
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0200
+     * @tc.number ArkUIX_testEtsToJson002
      * @tc.desc   Test Js Api FieldNode.ToJson() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -129,7 +129,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsToJson003
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0300
+     * @tc.number ArkUIX_testEtsToJson003
      * @tc.desc   Test Js Api FieldNode.ToJson() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -149,7 +149,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsdefault001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0700
+     * @tc.number ArkUIX_testEtsdefault001
      * @tc.desc   Test Js Api FieldNode.default testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -169,7 +169,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsnullable001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0800
+     * @tc.number ArkUIX_testEtsnullable001
      * @tc.desc   Test Js Api FieldNode.nullable testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -189,7 +189,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1400
+     * @tc.number ArkUIX_testEtstype001
      * @tc.desc   Test Js Api FieldNode.type testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -210,7 +210,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype002
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1300
+     * @tc.number ArkUIX_testEtstype002
      * @tc.desc   Test Js Api FieldNode.type testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -231,7 +231,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype003
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1200
+     * @tc.number ArkUIX_testEtstype003
      * @tc.desc   Test Js Api FieldNode.type testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -252,7 +252,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype004
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1000
+     * @tc.number ArkUIX_testEtstype004
      * @tc.desc   Test Js Api FieldNode.type testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -273,7 +273,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype005
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_0900
+     * @tc.number ArkUIX_testEtstype005
      * @tc.desc   Test Js Api FieldNode.type testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -295,7 +295,7 @@ export default function fieldNodeStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtstype006
-     * @tc.number SUB_DistributedData_KVStore_SDK_KvStoreSchemaEtsApiTest_1100
+     * @tc.number ArkUIX_testEtstype006
      * @tc.desc   Test Js Api FieldNode.type testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

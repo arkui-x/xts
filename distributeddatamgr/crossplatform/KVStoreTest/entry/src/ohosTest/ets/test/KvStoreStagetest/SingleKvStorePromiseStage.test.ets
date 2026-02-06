@@ -83,7 +83,7 @@ export default function singleKvStorePromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetResultSize002
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_0350
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetResultSize002
      * @tc.desc   Test Js Api SingleKvStoreGetResultSize testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -131,7 +131,7 @@ export default function singleKvStorePromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsSingleKvStoreGetEntries001
-     * @tc.number SUB_DistributedData_KVStore_SDK_SingleKvStoreEtsApiTest_0220
+     * @tc.number ArkUIX_testEtsSingleKvStoreGetEntries001
      * @tc.desc   Test Js Api SingleKvStoreGetEntries testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

@@ -195,7 +195,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALRESTORE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALRESTORE_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.restore() manal testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -229,7 +229,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0300
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -261,7 +261,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0400
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -293,7 +293,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -325,7 +325,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -357,7 +357,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0700
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -387,7 +387,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0800
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0600
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -453,7 +453,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0700
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_MANALBACKUP_PROMISE_0700
      * @tc.desc   Test Js Api SingleKvStore.backup() manal testcase 007
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -535,7 +535,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1000
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -569,7 +569,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1100
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -603,7 +603,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1200
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -637,7 +637,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0400
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1300
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0400
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -671,7 +671,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0500
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1400
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0500
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 005
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -708,7 +708,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1500
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_RESTORESPECIFIEDVERSION_PROMISE_0600
      * @tc.desc   Test Js Api SingleKvStore.restore() SpecifiedVerision testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -737,7 +737,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_DELETEBACKUP_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1600
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_DELETEBACKUP_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.deleteBackup() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -766,7 +766,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1700
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0100
      * @tc.desc   Test Js Api SingleKvStore.put() db testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -787,7 +787,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1800
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0200
      * @tc.desc   Test Js Api SingleKvStore.put() db testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -816,7 +816,7 @@ export default function kvStoreBackupPromiseJsunittest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVStoreBackupPromiseEtsApiTest_1900
+     * @tc.number ArkUIX_SUB_DDM_DKV_KVBACKUP_PUT_PROMISE_0300
      * @tc.desc   Test Js Api SingleKvStore.put() db testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

@@ -90,7 +90,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore003
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_2000
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore003
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -117,7 +117,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore004
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_2100
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore004
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 004
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -141,7 +141,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore008
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_2500
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore008
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 008
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -167,7 +167,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore014
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_3100
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore014
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 014
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -192,7 +192,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore015
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_3200
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore015
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 015
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -217,7 +217,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerGetKVStore016
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_3300
+     * @tc.number ArkUIX_testEtsKVManagerGetKVStore016
      * @tc.desc   Test Js Api KVManager.GetKVStore testcase 016
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -242,7 +242,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerCloseKVStore001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0400
+     * @tc.number ArkUIX_testEtsKVManagerCloseKVStore001
      * @tc.desc   Test Js Api KVManager.CloseKVStore testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -269,7 +269,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVManagerDeleteKVStore001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0900
+     * @tc.number ArkUIX_testEtsKVManagerDeleteKVStore001
      * @tc.desc   Test Js Api KVManager.DeleteKVStore testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -290,7 +290,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVStorePut001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0200
+     * @tc.number ArkUIX_testEtsKVStorePut001
      * @tc.desc   Test Js Api KVManager.Put testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -314,7 +314,7 @@ export default function kvManagerPromiseStageTest(){
 
     /**
      * @tc.name   ArkUIX_testEtsKVStoreDelete001
-     * @tc.number SUB_DistributedData_KVStore_SDK_KVStoreEtsApiTest_0300
+     * @tc.number ArkUIX_testEtsKVStoreDelete001
      * @tc.desc   Test Js Api KVManager.Delete testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

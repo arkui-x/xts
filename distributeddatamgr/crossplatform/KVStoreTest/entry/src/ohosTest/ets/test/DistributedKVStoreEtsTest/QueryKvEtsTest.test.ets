@@ -21,7 +21,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0100
      * @tc.desc   Test Js Api Query.reset() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -48,7 +48,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8400
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0200
      * @tc.desc   Test Js Api Query.reset() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -81,7 +81,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_RESET_PROMISE_0300
      * @tc.desc   Test Js Api Query.reset() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -108,7 +108,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1600
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0100
      * @tc.desc   Test Js Api Query.equalTo() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -135,7 +135,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1700
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0200
      * @tc.desc   Test Js Api Query.equalTo() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -159,7 +159,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1800
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_EQUALTO_PROMISE_0300
      * @tc.desc   Test Js Api Query.equalTo() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -182,7 +182,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5800
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0100
      * @tc.desc   Test Js Api Query.notEqualTo() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -209,7 +209,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5900
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0200
      * @tc.desc   Test Js Api Query.notEqualTo() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -235,7 +235,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTEQUALTO_PROMISE_0300
      * @tc.desc   Test Js Api Query.notEqualTo() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -258,7 +258,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_2300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0100
      * @tc.desc   Test Js Api Query.greaterThan() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -285,7 +285,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_2400
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0200
      * @tc.desc   Test Js Api Query.GreatThan() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -311,7 +311,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_2500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GREATERTHAN_PROMISE_0300
      * @tc.desc   Test Js Api Query.GreatThan() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -334,7 +334,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LESSTHAN_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_4700
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LESSTHAN_PROMISE_0300
      * @tc.desc   Test Js Api Query.LessThan() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -356,7 +356,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GREATETHANOREQUALTO_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_2800
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GREATETHANOREQUALTO_PROMISE_0300
      * @tc.desc   Test Js Api Query.GreaterThanOrEqualTo() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -379,7 +379,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LESSTHANOREQUALTO_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LESSTHANOREQUALTO_PROMISE_0300
      * @tc.desc   Test Js Api Query.LessThanOrEqualTo() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -401,7 +401,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISNULL_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_4200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISNULL_PROMISE_0100
      * @tc.desc   Test Js Api Query.IsNull() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -426,7 +426,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISNULL_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_4300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISNULL_PROMISE_0200
      * @tc.desc   Test Js Api Query.IsNull() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -450,7 +450,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISNUMBER_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_3000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISNUMBER_PROMISE_0200
      * @tc.desc   Test Js Api Query.InNumber() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -477,7 +477,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISNUMBER_PROMISE_0600
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_3300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISNUMBER_PROMISE_0600
      * @tc.desc   Test Js Api Query.InNumber() testcase 006
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -516,7 +516,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISSTRING_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_3400
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISSTRING_PROMISE_0100
      * @tc.desc   Test Js Api Query.InString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -541,7 +541,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ISSTRING_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_3500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ISSTRING_PROMISE_0200
      * @tc.desc   Test Js Api Query.InString() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -567,7 +567,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTINNUMBER_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTINNUMBER_PROMISE_0100
      * @tc.desc   Test Js Api Query.NotInNumber() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -592,7 +592,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTINNUMBER_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTINNUMBER_PROMISE_0200
      * @tc.desc   Test Js Api Query.NotInNumber() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -616,7 +616,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTINSTRING_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTINSTRING_PROMISE_0100
      * @tc.desc   Test Js Api Query.NotInString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -641,7 +641,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTINSTRING_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6600
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTINSTRING_PROMISE_0200
      * @tc.desc   Test Js Api Query.NotInString() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -665,7 +665,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LIKE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5100
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LIKE_PROMISE_0100
      * @tc.desc   Test Js Api Query.Like() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -690,7 +690,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LIKE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LIKE_PROMISE_0200
      * @tc.desc   Test Js Api Query.Like() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -714,7 +714,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_UNLIKE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_9000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_UNLIKE_PROMISE_0100
      * @tc.desc   Test Js Api Query.Unlike() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -738,7 +738,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_UNLIKE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_9100
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_UNLIKE_PROMISE_0200
      * @tc.desc   Test Js Api Query.Unlike() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -762,7 +762,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0100
      * @tc.desc   Test Js Api Query.And() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -788,7 +788,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_0200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0200
      * @tc.desc   Test Js Api Query.And() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -812,7 +812,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_0300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_AND_PROMISE_0300
      * @tc.desc   Test Js Api Query.And() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -836,7 +836,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6800
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0100
      * @tc.desc   Test Js Api Query.Or() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -862,7 +862,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_6900
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0200
      * @tc.desc   Test Js Api Query.Or() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -887,7 +887,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_7000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_OR_PROMISE_0300
      * @tc.desc   Test Js Api Query.Or() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -913,7 +913,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYASC_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_7200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYASC_PROMISE_0100
      * @tc.desc   Test Js Api Query.OrderByAsc() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -938,7 +938,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYASC_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_7300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYASC_PROMISE_0200
      * @tc.desc   Test Js Api Query.OrderByAsc() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -962,7 +962,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYDESC_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_7600
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYDESC_PROMISE_0100
      * @tc.desc   Test Js Api Query.OrderByDesc() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -987,7 +987,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYDESC_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_7700
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ORDERBYDESC_PROMISE_0200
      * @tc.desc   Test Js Api Query.OrderByDesc() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1011,7 +1011,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LIMIT_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5400
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LIMIT_PROMISE_0100
      * @tc.desc   Test Js Api Query.Limit() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1036,7 +1036,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_LIMIT_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_5500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_LIMIT_PROMISE_0200
      * @tc.desc   Test Js Api Query.Limit() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1061,7 +1061,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTNULL_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_3900
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTNULL_PROMISE_0100
      * @tc.desc   Test Js Api Query.IsNotNull() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1085,7 +1085,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_NOTNULL_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_4000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_NOTNULL_PROMISE_0200
      * @tc.desc   Test Js Api Query.IsNotNull() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1109,7 +1109,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_BEGINGROUP_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_BEGINGROUP_PROMISE_0100
      * @tc.desc   Test Js Api Query.BeginGroup() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1135,7 +1135,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_BEGINGROUP_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_BEGINGROUP_PROMISE_0200
      * @tc.desc   Test Js Api Query.BeginGroup() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1163,7 +1163,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ENDGROUP_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1200
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ENDGROUP_PROMISE_0100
      * @tc.desc   Test Js Api Query.EndGroup() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1188,7 +1188,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_ENDGROUP_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_ENDGROUP_PROMISE_0200
      * @tc.desc   Test Js Api Query.EndGroup() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1214,7 +1214,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_PREFIXKEY_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_PREFIXKEY_PROMISE_0100
      * @tc.desc   Test Js Api Query.PrefixKey() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1238,7 +1238,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_PREFIXKEY_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8100
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_PREFIXKEY_PROMISE_0200
      * @tc.desc   Test Js Api Query.PrefixKey() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1261,7 +1261,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_SETSUGGESTINDEX_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8700
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_SETSUGGESTINDEX_PROMISE_0100
      * @tc.desc   Test Js Api Query.SetSuggestIndex() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1285,7 +1285,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_SETSUGGESTINDEX_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_8800
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_SETSUGGESTINDEX_PROMISE_0200
      * @tc.desc   Test Js Api Query.SetSuggestIndex() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1308,7 +1308,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GETSQLLIKE_PROMISE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_1900
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GETSQLLIKE_PROMISE_0100
      * @tc.desc   Test Js Api Query.GetSqlLike() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1334,7 +1334,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_GETSQLLIKE_PROMISE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_2000
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_GETSQLLIKE_PROMISE_0200
      * @tc.desc   Test Js Api Query.GetSqlLike() testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -1364,7 +1364,7 @@ export default function queryTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_QUERY_SCHEMA_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVQueryEtsApiTest_9300
+     * @tc.number ArkUIX_SUB_DDM_DKV_QUERY_SCHEMA_0100
      * @tc.desc   Test Js Api Schema.constructor() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST

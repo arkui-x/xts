@@ -83,7 +83,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0100
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0100
      * @tc.desc   Test Js Api Schema.ToJsonString() testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -118,7 +118,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0300
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0300
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0300
      * @tc.desc   Test Js Api Schema.ToJsonString() testcase 003
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -168,7 +168,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0400
-     * @tc.number SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0400
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0400
      * @tc.desc   SUB_DDM_DKV_SCHEMA_TOJSONSTRING_0400
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -215,7 +215,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_ROOT_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0500
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_ROOT_0100
      * @tc.desc   Test Js Api Schema.root testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -237,7 +237,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_INDEXES_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0600
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_INDEXES_0100
      * @tc.desc   Test Js Api Schema.indexes testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -257,7 +257,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_MODE_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0700
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_MODE_0100
      * @tc.desc   Test Js Api Schema.mode testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -278,7 +278,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_MODE_0200
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0800
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_MODE_0200
      * @tc.desc   Test Js Api Schema.mode testcase 002
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
@@ -299,7 +299,7 @@ export default function schemaTest(){
 
     /**
      * @tc.name   ArkUIX_SUB_DDM_DKV_SCHEMA_SKIP_0100
-     * @tc.number SUB_DistributedData_KVStore_SDK_DisKVSchemaEtsApiTest_0900
+     * @tc.number ArkUIX_SUB_DDM_DKV_SCHEMA_SKIP_0100
      * @tc.desc   Test Js Api Schema.skip testcase 001
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
