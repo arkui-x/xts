@@ -35,83 +35,106 @@ class MultiWorkerTester {
     caseName: string,
     testType: string,
     workerCount: number,
-    testParams?: WorkerTestParams[]
+    testParams?: WorkerTestParams[],
+    timeout: number = 30000
   ): Promise<boolean[]> {
-    return new Promise<boolean[]>((resolve) => {
-      const workers: worker.ThreadWorker[] = [];
-      const testResults: boolean[] = [];
-      let completedCount: number = 0;
+    const workers: worker.ThreadWorker[] = [];
+    const testResults: boolean[] = [];
+    let completedCount: number = 0;
 
+    const timeoutPromise = new Promise<boolean[]>((_, reject) => {
+      setTimeout(() => {
+        workers.forEach(w => {
+          try {
+            w.terminate();
+          } catch (e) {
+            console.error(`Failed to terminate worker during timeout: ${e}`);
+          }
+        });
+        reject(new Error(`Test ${caseName} timeout after ${timeout}ms`));
+      }, timeout);
+    });
+
+    const testPromise = new Promise<boolean[]>((resolve) => {
       for (let i: number = 0; i < workerCount; i++) {
         const workerName: string = `${caseName}_Worker${i + 1}`;
-        const workerInstance: worker.ThreadWorker = new worker.ThreadWorker(
-          './../workers/socketWorker.ts',
-          { name: workerName }
-        );
 
-        workers.push(workerInstance);
+        try {
+          const workerInstance: worker.ThreadWorker = new worker.ThreadWorker(
+            './../workers/socketWorker.ts',
+            { name: workerName }
+          );
 
-        workerInstance.onmessage = (event: ThreadWorkerEvent): void => {
-          const data: WorkerMessageData = event.data;
+          workers.push(workerInstance);
 
-          if (data.type === 'testResult' && data.testId === `${caseName}_${i}`) {
-            testResults.push(data.success);
-            completedCount++;
-
-            if (data.success) {
-              console.info(`${workerName} test success`);
-            } else {
-              console.error(`${workerName} test fail: ${data.error}`);
+          const cleanup = () => {
+            try {
+              workerInstance.terminate();
+            } catch (e) {
+              console.error(`Failed to terminate worker: ${e}`);
             }
+          };
 
-            workerInstance.terminate();
+          workerInstance.onmessage = (event: ThreadWorkerEvent): void => {
+            const data: WorkerMessageData = event.data;
+
+            if (data.type === 'testResult' && data.testId === `${caseName}_${i}`) {
+              testResults.push(data.success);
+              completedCount++;
+              cleanup();
+
+              if (data.success) {
+                console.info(`${workerName} test success`);
+              } else {
+                console.error(`${workerName} test fail: ${data.error}`);
+              }
+
+              if (completedCount === workerCount) {
+                console.info(`${caseName} all Worker test completed`);
+                resolve(testResults);
+              }
+            }
+          };
+
+          workerInstance.onerror = (error): void => {
+            console.error(`${workerName} Worker occurred error:`, error);
+            testResults.push(false);
+            completedCount++;
+            cleanup();
 
             if (completedCount === workerCount) {
-              console.info(`${caseName} all Worker test completed`);
               resolve(testResults);
             }
-          }
-        };
+          };
 
-        workerInstance.onerror = (): void => {
-          console.error(`${workerName} Worker occurred error`);
+          const params: WorkerTestParams = testParams && testParams[i] ? testParams[i] : {};
+          const message: WorkerTestMessage = {
+            type: 'runSocketTest',
+            testType: testType,
+            testName: caseName,
+            testId: `${caseName}_${i}`,
+            workerName: workerName,
+            port: params.port,
+            serverPort: params.serverPort,
+            bindPort: params.bindPort
+          };
+          workerInstance.postMessage(message);
+
+          console.info(`${workerName} started`);
+
+        } catch (error) {
+          console.error(`Failed to create worker ${workerName}:`, error);
           testResults.push(false);
           completedCount++;
-          workerInstance.terminate();
 
           if (completedCount === workerCount) {
             resolve(testResults);
           }
-        };
-
-        const params: WorkerTestParams = testParams && testParams[i] ? testParams[i] : {};
-        const message: WorkerTestMessage = {
-          type: 'runSocketTest',
-          testType: testType,
-          testName: caseName,
-          testId: `${caseName}_${i}`,
-          workerName: workerName,
-          port: params.port,
-          serverPort: params.serverPort,
-          bindPort: params.bindPort
-        };
-        workerInstance.postMessage(message);
-      }
-
-      console.info(`${caseName} start ${workerCount} Worker thread`);
-
-      setTimeout((): void => {
-        if (completedCount < workerCount) {
-          console.warn(`${caseName} timeout，stop all Worker`);
-          workers.forEach((w: worker.ThreadWorker) => w.terminate());
-          while (completedCount < workerCount) {
-            testResults.push(false);
-            completedCount++;
-          }
-          resolve(testResults);
         }
-      }, 20000);
+      }
     });
+
+    return Promise.race([testPromise, timeoutPromise]);
   }
 }
 

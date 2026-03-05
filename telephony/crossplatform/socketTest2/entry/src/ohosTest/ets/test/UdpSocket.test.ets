@@ -13,21 +13,11 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size ,beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-
-const ERR_CODE_PARAMETER_ERROR = 401;
-const ERR_TCPSOCKET_INVALID_FD = 2303601;
-const ERR_TCPSOCKET_NOT_CONNECTED = 2303602;
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
-const ERR_ADDRESS_NOT_AVAILABLE = 2303199;
-const ERR_BAD_FILE_DESCRIPTOR = 2303109;
-const ERR_CODE_CERT_ERROR = -1;
-const ERR_CODE_BIND_ERROR = 2303600;
-const ERR_TCPExtraOptions_FIRST_PARAM_ERROR = 401;
-const ERR_REQUEST_ADDRESS_ERROR = 2303199;
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 function sleep(ms:number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -37,6 +27,9 @@ export default function UdpSocketTest() {
   describe('UdpSocketTest', () => {
     beforeEach(async () => {
       await sleep(500);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -54,13 +47,13 @@ export default function UdpSocketTest() {
         let udp: socket.UDPSocket = socket.constructUDPSocketInstance();
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 0
+          port: getNextPort()
         }
 
-        udp.bind(bindAddr).then(() => {
-          udp.getLocalAddress().then((localAddress: socket.NetAddress) => {
-            expect(localAddress != null).assertTrue();
+        await udp.bind(bindAddr).then(async () => {
+          await udp.getLocalAddress().then((localAddress: socket.NetAddress) => {
             console.info(`${caseName} success`);
+            expect(localAddress != null).assertTrue();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
@@ -70,8 +63,8 @@ export default function UdpSocketTest() {
           expect().assertFail();
         }).finally(() => {
           udp.close();
+          done();
         });
-        done();
       })
 
     /**
@@ -91,7 +84,7 @@ export default function UdpSocketTest() {
           udp = socket.constructUDPSocketInstance();
           await udp.bind({
             address: '0.0.0.0',
-            port: 0
+            port: getNextPort()
           });
           await udp.close();
           try {
@@ -101,7 +94,7 @@ export default function UdpSocketTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
           }
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -125,12 +118,12 @@ export default function UdpSocketTest() {
         let udp: socket.UDPSocket = socket.constructUDPSocketInstance();
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 0
+          port: getNextPort()
         }
-        udp.bind(bindAddr).then(() => {
-          udp.getSocketFd().then((fd: number) => {
-            expect(fd >= 0).assertTrue();
+        await udp.bind(bindAddr).then(async () => {
+          await udp.getSocketFd().then((fd: number) => {
             console.info(`${caseName} success`);
+            expect(fd >= 0).assertTrue();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
@@ -140,9 +133,8 @@ export default function UdpSocketTest() {
           expect().assertFail();
         }).finally(() => {
           udp.close();
+          done();
         });
-        done();
       })
-
   })
 }

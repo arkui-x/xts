@@ -13,13 +13,10 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size, beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-
-const ERR_CODE_PARAMETER_ERROR = 401;
-const ERR_TCPSOCKET_INVALID_FD = 2303601;
-const ERR_TCPSOCKET_NOT_CONNECTED = 2303602;
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -29,6 +26,9 @@ export default function SocketTest() {
   describe('SocketTest', () => {
     beforeEach(async () => {
       await sleep(1000);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -69,49 +69,66 @@ export default function SocketTest() {
         const caseName: string = 'ArKUIX_Socket_ConstructTLSSocketInstance_0100';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
+        const port = getNextPort();
         let listenAddr: socket.NetAddress = {
           address: "127.0.0.1",
-          port: 12345,
+          port: port,
           family: 1
         }
         let listenAddrSer: socket.NetAddress = {
           address: "0.0.0.0",
-          port: 12345,
+          port: port,
           family: 1
         }
         let options: socket.TCPConnectOptions = {
           address: listenAddr,
           timeout: 6000
         }
-        tcp.bind(listenAddrSer);
-        tcpServer.listen(listenAddrSer, (err: BusinessError) => {
-          if (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-          }
-          try {
-            tcpServer.on('connect', () => {
-              try {
-                let tls: socket.TLSSocket = socket.constructTLSSocketInstance(tcp);
-                expect(tls != null).assertTrue();
-                tcp.close();
-                tcpServer.close();
-                done();
-              } catch (err) {
-                console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-                expect().assertFail();
+        try {
+          await new Promise<void>((resolve, reject) => {
+            tcpServer!.listen(listenAddrSer, (err: BusinessError) => {
+              if (err) {
+                reject(err);
+              } else {
+                setTimeout(resolve, 500);
               }
             });
-
-            tcp.connect(options, (err: BusinessError) => {
-              if (err) {
-                console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+          });
+          const connectPromise = new Promise<void>((resolve, reject) => {
+            tcpServer!.on('connect', () => {
+              try {
+                let tls: socket.TLSSocket = socket.constructTLSSocketInstance(tcp!);
+                expect(tls != null).assertTrue();
+                resolve();
+              } catch (err) {
+                reject(err);
               }
-            })
-          } catch (err) {
-            console.info('connect success err' + JSON.stringify(err.code));
+            });
+            setTimeout(() => reject(new Error('connect timeout')), 7000);
+          });
+
+          await new Promise<void>((resolve, reject) => {
+            tcp!.connect(options, (err: BusinessError) => {
+              if (err) {
+                reject(err);
+              } else {
+                setTimeout(resolve, 500);
+              }
+            });
+          });
+          await connectPromise;
+        } catch (err) {
+          console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+          expect().assertFail();
+        } finally {
+          if (tcp) {
+            tcp.close();
           }
-        })
-        done();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        }
       })
 
     /**
@@ -132,7 +149,7 @@ export default function SocketTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         }
         done();
       })
@@ -155,7 +172,7 @@ export default function SocketTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         }
         done();
       })
@@ -179,7 +196,7 @@ export default function SocketTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_TCPSOCKET_INVALID_FD).assertTrue();
+          expect(errCode === SocketErrorCodes.ERR_TCPSOCKET_INVALID_FD).assertTrue();
         }
         done();
       })
@@ -199,7 +216,7 @@ export default function SocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         const bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8081
+          port: getNextPort()
         };
         tcp.bind(bindAddr, (err: BusinessError) => {
           if (err) {
@@ -214,7 +231,7 @@ export default function SocketTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_TCPSOCKET_NOT_CONNECTED).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_TCPSOCKET_NOT_CONNECTED).assertTrue();
             tcp.close();
           }
         });

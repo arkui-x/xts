@@ -13,162 +13,10 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size, beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-
-const ERR_CODE_PARAMETER_ERROR = 401;
-
-const serverKey = "-----BEGIN PRIVATE KEY-----\n" +
-  "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDPiA+8aicqihRj\n" +
-  "vlVSMA9yNVMm+51oqi2mPWGMYUtEI3hH8hN/+IexHYsfpWQc/1yW6f2yie5Omdnw\n" +
-  "4tDK2EaJFk8yJMZ/rH+LyPIpuLCkvkMPn1s4nWdY9XR+UWib5WNJ3oTAu4lkHX03\n" +
-  "BuOiH0LP3hQoN6auWQRNGlHpU1Oxi58pDxOFQBrDB4Gh3RAZHxN4Vt437JJExNWo\n" +
-  "O5qJfWR4zrFq3Mo2vBkOnFAkUvlwe+yWoAnIAkxF+WZlSY7aHD/t9SPuiuzWW2WW\n" +
-  "jU+eM0joQIYAoKsuLrIR832PRykRJFgO4+mQ77l79v8GZQrwfscPbLgcL9Aub3ec\n" +
-  "YqqcjcRzAgMBAAECggEAAs4+GDf/K44OVILgOGo56ztZUm+YYy/ZyiOOTA2MrPEl\n" +
-  "0SMurE4512Uk2lqsDdBN+iRTr7Q5qopd7enDFNrzqSrKC01/+X3lg4hF7dZ3XOLN\n" +
-  "mUp4Oz21hfhbiNGk7madfwQpG0ntw5K6fKH1Nd3iU1kXQKvv7u95JWmzrcnYmc/Z\n" +
-  "LYY6g3MPl+nu4Q0BAiZxvdPr05UK4c87zFi9q85wGE3La12JSuCZmpTDk5wLI1IU\n" +
-  "L/RWwM7fH3fi0G1s4v18ItVHikMebQYxu5FY16+zjXBxUN9PmcnBnO7dyqNeweo4\n" +
-  "/txl5jBkpJGIZ0PD+79ADhr7rQC0Ml0bwcCOqrebgQKBgQDnZXAsQC74ITLA8f2b\n" +
-  "2ImpN4CE7hkwXXgRd8tFetC3CeHULUe6Ym7GbHZKUEm/w0nxvxtrlp520E/DgGdX\n" +
-  "fzlcvxuhlDLFwonbFyzo+tFbIPMbrBWh+Af42w3SSkVTZFdXgYlVapCSMiP8jJU4\n" +
-  "h/dm3q6PiE6tUQ/mO0sBR+eFkwKBgQDlmQd9CINA+mIajTvlwsOtNWCPwJ4VYJ7w\n" +
-  "Oq9Q2qJN3nzV+InkXnIq/xSkDxbg3faZv6xJfcc/sOR/jY4LUPR56tQzUOhsYacj\n" +
-  "IErmoOnzOk0yeVifuFwPsmyu4UbG21NienWE9Jb3n+CZElKjvbLGFUhVp/7W2q9H\n" +
-  "vXZP+BwRoQKBgQCPnTqQjElagShB7i8r4aoW1zaxyiDiDrDtjn8foUkWwVBi4rOI\n" +
-  "73y3NCv6lXggR3GGU8kN7k5tiX5n5TK+cFzGvmnEz/jvGn16+BhMhRcYywt3mkdW\n" +
-  "3lz8S+B5KtV6G2XGDsSQufH+epYxMYOPsXuQYhbPSJckJJKMnzI/GkSMdwKBgQCQ\n" +
-  "zZvYcqb9MyzuXAbb2KM6uYBmCXBqQR7cmdZ6IvncLKcE+BRXkG1myqvE8LNYLQVb\n" +
-  "YHSTgR1KARGLlMZyQqN9xOoCV1PPDyOvVq2GmRQTz8BiRf/r9AUz7S74eKH/xtHn\n" +
-  "OR6nNO+FyzKGt/SgyoJWxZNyWlqyPQfxMf/NXciuIQKBgQCCQtmzzA8dmyby6DYg\n" +
-  "lGPW8EpTgVnfPAUizjxMBkstUDXHAdwirzsNfSUozDqmtxXXHZapS8NfS8L7tp2P\n" +
-  "ivZJwhAUbbikswDfVjJwvue8EJk0tszG/BLCb/ZdhqcqxgYXOkXjubOezBYEFvxn\n" +
-  "eg6zAVvVOwHa4AKBCl+SvmR71g==\n" +
-  "-----END PRIVATE KEY-----";
-
-const serverCert = "-----BEGIN CERTIFICATE-----\n" +
-  "MIID0TCCArmgAwIBAgIUHA4CIFAuWbLoulj/cpg9vczmlf8wDQYJKoZIhvcNAQEL\n" +
-  "BQAwVzELMAkGA1UEBhMCQ04xEDAOBgNVBAgMB0JlaWppbmcxEDAOBgNVBAcMB0Jl\n" +
-  "aWppbmcxDTALBgNVBAoMBFRlc3QxFTATBgNVBAMMDFRlc3QgUm9vdCBDQTAeFw0y\n" +
-  "NjAxMDYxMjEwNTlaFw0yNzAxMDYxMjEwNTlaMFQxCzAJBgNVBAYTAkNOMRAwDgYD\n" +
-  "VQQIDAdCZWlqaW5nMRAwDgYDVQQHDAdCZWlqaW5nMQ0wCwYDVQQKDARUZXN0MRIw\n" +
-  "EAYDVQQDDAlsb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB\n" +
-  "AQDPiA+8aicqihRjvlVSMA9yNVMm+51oqi2mPWGMYUtEI3hH8hN/+IexHYsfpWQc\n" +
-  "/1yW6f2yie5Omdnw4tDK2EaJFk8yJMZ/rH+LyPIpuLCkvkMPn1s4nWdY9XR+UWib\n" +
-  "5WNJ3oTAu4lkHX03BuOiH0LP3hQoN6auWQRNGlHpU1Oxi58pDxOFQBrDB4Gh3RAZ\n" +
-  "HxN4Vt437JJExNWoO5qJfWR4zrFq3Mo2vBkOnFAkUvlwe+yWoAnIAkxF+WZlSY7a\n" +
-  "HD/t9SPuiuzWW2WWjU+eM0joQIYAoKsuLrIR832PRykRJFgO4+mQ77l79v8GZQrw\n" +
-  "fscPbLgcL9Aub3ecYqqcjcRzAgMBAAGjgZcwgZQwHwYDVR0jBBgwFoAU3DfV2Kw4\n" +
-  "OaYTJ//HGWJ3JuduItQwCQYDVR0TBAIwADALBgNVHQ8EBAMCBaAwEwYDVR0lBAww\n" +
-  "CgYIKwYBBQUHAwEwJQYDVR0RBB4wHIIJbG9jYWxob3N0ggkxMjcuMC4wLjGHBH8A\n" +
-  "AAEwHQYDVR0OBBYEFAw5EcIws/LuPZu9g4026GkNU9HIMA0GCSqGSIb3DQEBCwUA\n" +
-  "A4IBAQAzO2CMGNv/Jv+fP/CYNxfEedPGk3uw7C6EvbWJkJwzqx4SvIdRHQo4LLE0\n" +
-  "LX7bDgick42XgYLrfSCN2A9P7TSvovW3XbnfaP0Agj25sSgAIk8dQncsBdn2T7ij\n" +
-  "FM7JIYE+9QvrsI1c3iVFDYSFo/XEeAfpbqpgLYn9NqMADbrOS/PWQOeUqen4PbHn\n" +
-  "iiaOLBlsST7ISMuyYJ0ksrbMQ67dLmX5KU23O0i+FzOUFbcQhQ0KAapOpSSurulR\n" +
-  "7fdDHWNTabP2irxP224SBXafFhiNl1pYj6g/YQqKqBPyWn6Uuh3lUsHOqEPTq+8O\n" +
-  "SE80pgihK1U71BIKwFLo/kZLw33t\n" +
-  "-----END CERTIFICATE-----";
-
-const serverCa = "-----BEGIN CERTIFICATE-----\n" +
-  "MIIDjzCCAnegAwIBAgIUTZJFIjQhbxr4OyWhfsDmKZ4qDG4wDQYJKoZIhvcNAQEL\n" +
-  "BQAwVzELMAkGA1UEBhMCQ04xEDAOBgNVBAgMB0JlaWppbmcxEDAOBgNVBAcMB0Jl\n" +
-  "aWppbmcxDTALBgNVBAoMBFRlc3QxFTATBgNVBAMMDFRlc3QgUm9vdCBDQTAeFw0y\n" +
-  "NjAxMDYxMjEwNThaFw0yNzAxMDYxMjEwNThaMFcxCzAJBgNVBAYTAkNOMRAwDgYD\n" +
-  "VQQIDAdCZWlqaW5nMRAwDgYDVQQHDAdCZWlqaW5nMQ0wCwYDVQQKDARUZXN0MRUw\n" +
-  "EwYDVQQDDAxUZXN0IFJvb3QgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\n" +
-  "AoIBAQCuFYxb3d2KI4ZRd8wSS7zlogU4SvXIC51X0ZOqExYrIgw44f82CJe/d2qY\n" +
-  "H65V0jlCVPIZLjvJTm9g5ZZJGEbN2+bwBIRdjXYfF12YgTJ/LZrfH8yXKJKSI9Kn\n" +
-  "0dt9LZmplgVQ0QL0V7eP6Ssh6PERtOjhoILcuQRb3C743NX8aWEXSqSvzlyOF94h\n" +
-  "EcmvSVBypQholI80RlLiRqt891FFl4iytCeX852GATijDZTnh4lhqAwUbxJYZqRP\n" +
-  "Re0MkZkMvwiEUTbgcBV3Blf+dfyvAVkEpzy5nfp+tIQocibp/BKaRxYcQ/dX0Qgj\n" +
-  "hHIZEZbJNe++KaudxTm3JOinnaP3AgMBAAGjUzBRMB0GA1UdDgQWBBTcN9XYrDg5\n" +
-  "phMn/8cZYncm524i1DAfBgNVHSMEGDAWgBTcN9XYrDg5phMn/8cZYncm524i1DAP\n" +
-  "BgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQASSCJzImASDI62knlP\n" +
-  "otn1CNEi93x/DFxWFJ6W4mZqXqU3WyE7LMcLT8ThgcJLe/teRrHL3tbaT3D50jYO\n" +
-  "qw4wQ53IyRBtBHMr6fpMropsugivVqP/iVJnfCSTeJJSiC5DBtQi+SFRNtUBlRON\n" +
-  "oRquaT2vx0AOPrxW3dpuCo58EpF1LANa24zm605xtxyMKLHoV+5PP1FMlPhMPmmW\n" +
-  "I/lSrsOmEeb4POsk0tQYXhV/7EPRDIl6bYq5VjspzQjCjhCoxfLnhvyWawsLksKU\n" +
-  "yNowJPZlpHGXQghc/LNCOvKad6Q+l8wBIQkP9bb9cm3JliJs5Gr7mwHAR9Q3Vm+n\n" +
-  "LMQ3\n" +
-  "-----END CERTIFICATE-----";
-
-const clientKey = "-----BEGIN PRIVATE KEY-----\n" +
-  "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYDkYnDDRzVUgb\n" +
-  "EA81Ln1KshmtfGt3vFkIlQ7e5mJ0D65IvjHBwa8JvWwENctUVd6m3mivwHmXqD0p\n" +
-  "NqA88cSSlPAxwczdayMDQnjBMq3k9itLX5n1LH22T3Sp4mesXddvhJn5OZO8rcsB\n" +
-  "le+8FtCOZfU4mSP2moljrktec81aCmiJ7AlF25F4NMiVomOSUKX3T0GaUpO4BsyM\n" +
-  "annl/A9CVNzezET1DJKaeQjoHiouYGjkO4Mhp8mc1vcOpHzumo+zOQF9Nod8SkQx\n" +
-  "upVaTfKzGAKp4hcNoblGFWFm8ilamymSQ9MpvdFoacovQ+hYsTdO3RkMSfls+CRG\n" +
-  "k6dS7wH3AgMBAAECggEAasPm+83Gr4Whm6n8ceHWzU4kbTwSGTmsX5bVIeYEGelT\n" +
-  "zSObj+1Hs4707UGuCC9k1t4KKmt5Sq27B340gdlRM8RAy73CoFock7RJ2uLR1tak\n" +
-  "/1qvSF4jgy9Rbc/xPlajKrsCoYtHy9GwA0kWDkLR7cRJgR4ADRFBuk37daHRBOA9\n" +
-  "23BSfMweCoW1VlV7cAjvvoLybBNPtp+Gsjgc1wnTGHnCHQtn4tye/llQk2z+L/ui\n" +
-  "BkqinvQFQK11gCEbx0hsXqNir7tBM2qPKn5661eAURNtoMwZLHKxHr13y9sYkPBv\n" +
-  "rUG2CZ9pXnfPGtMP949Em4c4wpjuHBCW2ajqyAomIQKBgQD754OoA0JNedCu8Zvu\n" +
-  "xKIvu8QQS8JKUtK5Zy9z/Wz7X3zzK+RsYKzcmwi5L1U4q/OfIC9JtFU/QGy4VRWW\n" +
-  "95m+t21GivDT6fzbg6yYDkZFr21fdPobLrKMxgKbtqBwkzarAg6MMbBrSsBbzLOC\n" +
-  "IvoyNEzHcBAXAotibPROs2vSIQKBgQDbkYykxhwMISyK5mQjNM/llmhWSAI7UUQE\n" +
-  "JOl0CVm9Okh/9lRJxhhG0kW5nLv7jXwyzRLge1ouyV5n/bJL7etESDeWm3JcKL92\n" +
-  "VsPZ7K7pchkmCWmPIumUpnA97fw2aL2ku+MGlwB8i+6X6mb84LWHUBKPOrkjRT09\n" +
-  "BTECBM0BFwKBgENsGtPsU2GzOgSpDEhi/tnx0q9d55nHAzm2gX/1E6dQTnwzgkbz\n" +
-  "tTCymioenhu2AlXT4nRCvRJZ5v+LXmTyzoa6R5g69exyU0hZvOdR4sMiCg8jmxGN\n" +
-  "dSKymN4eimC3NkmdGlGxtvtwnX20k1NAk2C+mNJEjznpZ28npFgwM6qhAoGBANKB\n" +
-  "iMWw6dL3Oy0wFXFrgKYsvXt7LiiQkRUoDmohTNgOuNN15vmT4lKD5jU9/zv9OcW6\n" +
-  "tw5hNOUGSmyI3hfN0nF0i1bpUYrpxiY+qSaVtFw798Bv5bRFVIwfxhyZveSsJqV5\n" +
-  "PP9kZiMCRY2APZzUEzXXnvOS6UzXZQ7Lm2DEGYehAoGBAIcuayGgnnhQj2had+vM\n" +
-  "gWlgqL/XdP537Dx5cYeJAXWj1zZctfJlK/wQyLmqgKPVYwZkOVWDuh98tp5EHL0V\n" +
-  "GkcsykOpfnckCYqb3ws7t6WhLpc3JhK9/AeBDK5WpJ5v4MVeLZ3oWFFDUmOCxIjg\n" +
-  "q2JawMGN61h3rUFntMErIwdA\n" +
-  "-----END PRIVATE KEY-----";
-
-const clientCert = "-----BEGIN CERTIFICATE-----\n" +
-  "MIIDqTCCApGgAwIBAgIUHA4CIFAuWbLoulj/cpg9vczmlgAwDQYJKoZIhvcNAQEL\n" +
-  "BQAwVzELMAkGA1UEBhMCQ04xEDAOBgNVBAgMB0JlaWppbmcxEDAOBgNVBAcMB0Jl\n" +
-  "aWppbmcxDTALBgNVBAoMBFRlc3QxFTATBgNVBAMMDFRlc3QgUm9vdCBDQTAeFw0y\n" +
-  "NjAxMDYxMjEwNTlaFw0yNzAxMDYxMjEwNTlaMFUxCzAJBgNVBAYTAkNOMRAwDgYD\n" +
-  "VQQIDAdCZWlqaW5nMRAwDgYDVQQHDAdCZWlqaW5nMQ0wCwYDVQQKDARUZXN0MRMw\n" +
-  "EQYDVQQDDAppb3MtY2xpZW50MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\n" +
-  "AQEA2A5GJww0c1VIGxAPNS59SrIZrXxrd7xZCJUO3uZidA+uSL4xwcGvCb1sBDXL\n" +
-  "VFXept5or8B5l6g9KTagPPHEkpTwMcHM3WsjA0J4wTKt5PYrS1+Z9Sx9tk90qeJn\n" +
-  "rF3Xb4SZ+TmTvK3LAZXvvBbQjmX1OJkj9pqJY65LXnPNWgpoiewJRduReDTIlaJj\n" +
-  "klCl909BmlKTuAbMjGp55fwPQlTc3sxE9QySmnkI6B4qLmBo5DuDIafJnNb3DqR8\n" +
-  "7pqPszkBfTaHfEpEMbqVWk3ysxgCqeIXDaG5RhVhZvIpWpspkkPTKb3RaGnKL0Po\n" +
-  "WLE3Tt0ZDEn5bPgkRpOnUu8B9wIDAQABo28wbTAfBgNVHSMEGDAWgBTcN9XYrDg5\n" +
-  "phMn/8cZYncm524i1DAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDATBgNVHSUEDDAK\n" +
-  "BggrBgEFBQcDAjAdBgNVHQ4EFgQU4K1vNUcxx0oMN7ASYH/i+f49u3QwDQYJKoZI\n" +
-  "hvcNAQELBQADggEBAGKQc34pEnaRuNqDjLYab4p9RcII04juB6kD5jvfygG2Jroo\n" +
-  "Sj8nIFbB9tjMcooB/Qj/kTyDe8b+NTPCfiMW+0T844G46499UwYmiT0ES3EpvQuJ\n" +
-  "hebhN6BGKR0uYv9LGT5OpALRoFgy1MgeTKXzgnLowHke6rnmiTNjRgCzdg0PNlbL\n" +
-  "Jpm2c1hGBGSbZdnZDFHrnJgdxJ8Ug4K+M5MGpGg1/+vnWDUm8eNc8s9xF8+wuIMb\n" +
-  "hRzr1gPfizFpS3ppZDT0gDgX7tzaxgY89MMSn+PnThNOSlOpTElJm46zR1Smgfb4\n" +
-  "81UCjol84/TbVJkSNtC30skaU+GnIJ81PIsBQF0=\n" +
-  "-----END CERTIFICATE-----";
-
-const clientCa = "-----BEGIN CERTIFICATE-----\n" +
-  "MIIDjzCCAnegAwIBAgIUTZJFIjQhbxr4OyWhfsDmKZ4qDG4wDQYJKoZIhvcNAQEL\n" +
-  "BQAwVzELMAkGA1UEBhMCQ04xEDAOBgNVBAgMB0JlaWppbmcxEDAOBgNVBAcMB0Jl\n" +
-  "aWppbmcxDTALBgNVBAoMBFRlc3QxFTATBgNVBAMMDFRlc3QgUm9vdCBDQTAeFw0y\n" +
-  "NjAxMDYxMjEwNThaFw0yNzAxMDYxMjEwNThaMFcxCzAJBgNVBAYTAkNOMRAwDgYD\n" +
-  "VQQIDAdCZWlqaW5nMRAwDgYDVQQHDAdCZWlqaW5nMQ0wCwYDVQQKDARUZXN0MRUw\n" +
-  "EwYDVQQDDAxUZXN0IFJvb3QgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\n" +
-  "AoIBAQCuFYxb3d2KI4ZRd8wSS7zlogU4SvXIC51X0ZOqExYrIgw44f82CJe/d2qY\n" +
-  "H65V0jlCVPIZLjvJTm9g5ZZJGEbN2+bwBIRdjXYfF12YgTJ/LZrfH8yXKJKSI9Kn\n" +
-  "0dt9LZmplgVQ0QL0V7eP6Ssh6PERtOjhoILcuQRb3C743NX8aWEXSqSvzlyOF94h\n" +
-  "EcmvSVBypQholI80RlLiRqt891FFl4iytCeX852GATijDZTnh4lhqAwUbxJYZqRP\n" +
-  "Re0MkZkMvwiEUTbgcBV3Blf+dfyvAVkEpzy5nfp+tIQocibp/BKaRxYcQ/dX0Qgj\n" +
-  "hHIZEZbJNe++KaudxTm3JOinnaP3AgMBAAGjUzBRMB0GA1UdDgQWBBTcN9XYrDg5\n" +
-  "phMn/8cZYncm524i1DAfBgNVHSMEGDAWgBTcN9XYrDg5phMn/8cZYncm524i1DAP\n" +
-  "BgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQASSCJzImASDI62knlP\n" +
-  "otn1CNEi93x/DFxWFJ6W4mZqXqU3WyE7LMcLT8ThgcJLe/teRrHL3tbaT3D50jYO\n" +
-  "qw4wQ53IyRBtBHMr6fpMropsugivVqP/iVJnfCSTeJJSiC5DBtQi+SFRNtUBlRON\n" +
-  "oRquaT2vx0AOPrxW3dpuCo58EpF1LANa24zm605xtxyMKLHoV+5PP1FMlPhMPmmW\n" +
-  "I/lSrsOmEeb4POsk0tQYXhV/7EPRDIl6bYq5VjspzQjCjhCoxfLnhvyWawsLksKU\n" +
-  "yNowJPZlpHGXQghc/LNCOvKad6Q+l8wBIQkP9bb9cm3JliJs5Gr7mwHAR9Q3Vm+n\n" +
-  "LMQ3\n" +
-  "-----END CERTIFICATE-----";
+import { serverKey, serverCert, serverCa, clientKey, clientCert, clientCa, getNextPort, PortManager, SocketErrorCodes, sleep, netAddress} from './public_util'
 
 const tlsSecureConfig: socket.TLSSecureOptions = {
   key: serverKey,
@@ -180,11 +28,6 @@ const tlsSecureConfig: socket.TLSSecureOptions = {
   signatureAlgorithms: "rsa_pss_rsae_sha256:ECDSA+SHA256",
   cipherSuite: "AES256-SHA256",
   isBidirectionalAuthentication: true,
-};
-
-const netAddress: socket.NetAddress = {
-  address: '0.0.0.0',
-  port: 8080
 };
 
 const tlsConnectOptions: socket.TLSConnectOptions = {
@@ -216,14 +59,13 @@ const connectOptions: socket.TLSConnectOptions = {
   ALPNProtocols: ["spdy/1", "http/1.1"],
 };
 
-function sleep(ms: number) {
-  return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
-}
-
 export default function TLSSocketConnectionTest_2() {
   describe('TLSSocketConnectionTest_2', () => {
     beforeEach(async () => {
       await sleep(500);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -254,13 +96,14 @@ export default function TLSSocketConnectionTest_2() {
           testCompleted = true;
         };
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30001
+            port: port
           };
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30001
+            port: port
           };
           await tlsClient.bind(netAddress);
           console.info(`${caseName} bind success`);
@@ -332,14 +175,15 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30002
+            port: port
           };
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30002
+            port: port
           };
 
           await (async (): Promise<void> => {
@@ -361,7 +205,7 @@ export default function TLSSocketConnectionTest_2() {
                     clientConn.getRemoteCertificate(undefined);
                   } catch (err) {
                     const errCode = Number(err.code);
-                    expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+                    expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                     reject(err);
                   }
                 });
@@ -422,14 +266,15 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30003
+            port: port
           };
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30003
+            port: port
           };
 
           await (async (): Promise<void> => {
@@ -451,7 +296,7 @@ export default function TLSSocketConnectionTest_2() {
                     clientConn.getRemoteCertificate(null);
                   } catch (err) {
                     const errCode = Number(err.code);
-                    expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+                    expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                     reject(err);
                   }
                 });
@@ -512,14 +357,15 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30004
+            port: port
           };
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30004
+            port: port
           };
 
           await (async (): Promise<void> => {
@@ -607,14 +453,15 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30005
+            port: port
           };
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30005
+            port: port
           };
 
           await (async (): Promise<void> => {
@@ -693,13 +540,14 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30006
+            port: port
           };
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30006
+            port: port
           };
 
           const tlsSecureOptions: socket.TLSSecureOptions = {
@@ -825,9 +673,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 10001
+            port: port
           };
 
           const tlsSecureOptions: socket.TLSSecureOptions = {
@@ -860,7 +709,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 10001
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -957,9 +806,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 10002
+            port: port
           };
 
           const tlsSecureOptions: socket.TLSSecureOptions = {
@@ -992,7 +842,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 10002
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1087,9 +937,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 10003
+            port: port
           };
 
           const tlsSecureOptions: socket.TLSSecureOptions = {
@@ -1122,7 +973,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 10003
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1220,9 +1071,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 16666
+            port: port
           };
           const tlsSecureOptions: socket.TLSSecureOptions = {
             key: tlsSecureConfig.key,
@@ -1254,7 +1106,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 16666
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1352,9 +1204,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 16667
+            port: port
           };
           const tlsSecureOptions: socket.TLSSecureOptions = {
             key: tlsSecureConfig.key,
@@ -1386,7 +1239,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 16667
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1412,13 +1265,13 @@ export default function TLSSocketConnectionTest_2() {
 
               try {
                 clientConn.getCipherSuite(undefined);
-                console.warn(`${caseName} getCipherSuite(undefined) success`);
+                console.info(`${caseName} getCipherSuite(undefined) success`);
                 expect().assertFail();
                 done();
               } catch (err) {
                 console.error(`${caseName} GetCipherSuite error(undefined parameter): ${err.code} - ${err.message}`);
                 const errCode = Number(err.code);
-                expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -1473,9 +1326,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 16668
+            port: port
           };
           const tlsSecureOptions: socket.TLSSecureOptions = {
             key: tlsSecureConfig.key,
@@ -1507,7 +1361,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 16668
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1533,13 +1387,13 @@ export default function TLSSocketConnectionTest_2() {
 
               try {
                 clientConn.getCipherSuite(null);
-                console.warn(`${caseName} getCipherSuite(undefined) success`);
+                console.info(`${caseName} getCipherSuite(undefined) success`);
                 expect().assertFail();
                 done();
               } catch (err) {
                 console.error(`${caseName} GetCipherSuite error(undefined parameter): ${err.code} - ${err.message}`);
                 const errCode = Number(err.code);
-                expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -1594,9 +1448,10 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 16669
+            port: port
           };
           const tlsSecureOptions: socket.TLSSecureOptions = {
             key: tlsSecureConfig.key,
@@ -1628,7 +1483,7 @@ export default function TLSSocketConnectionTest_2() {
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 16669
+            port: port
           };
 
           const connectOptions: socket.TLSConnectOptions = {
@@ -1654,7 +1509,7 @@ export default function TLSSocketConnectionTest_2() {
               let getCipherSuite = false;
               try {
                 clientConn.getCipherSuite();
-                console.warn(`${caseName} getCipherSuite(undefined) success`);
+                console.info(`${caseName} getCipherSuite(undefined) success`);
                 getCipherSuite = true;
                 expect(getCipherSuite).assertTrue();
                 done();
@@ -1716,7 +1571,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 17000
+            port: getNextPort()
           };
           const tlsSecureOptions: socket.TLSSecureOptions = {
             key: tlsSecureConfig.key,
@@ -1836,7 +1691,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50014
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -1890,12 +1745,12 @@ export default function TLSSocketConnectionTest_2() {
                         resolve();
                       }, 500);
                     }).catch(() => {
-                      console.info(`${caseName} close error`);
+                      console.error(`${caseName} close error`);
                       resolve();
                     });
                   }, 100);
                 }).catch((): void => {
-                  console.info(`${caseName} client connect error`);
+                  console.error(`${caseName} client connect error`);
                   resolve();
                 });
               });
@@ -1930,13 +1785,14 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50015
+            port: port
           };
           const netAddressServer: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 50015
+            port: port
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddressServer,
@@ -1970,7 +1826,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2024,13 +1880,14 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50015
+            port: port
           };
           const netAddressServer: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 50015
+            port: port
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddressServer,
@@ -2064,7 +1921,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2118,13 +1975,14 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50015
+            port: port
           };
           const netAddressServer: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 50015
+            port: port
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddressServer,
@@ -2157,7 +2015,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2211,13 +2069,14 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50015
+            port: port
           };
           const netAddressServer: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 50015
+            port: port
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddressServer,
@@ -2250,7 +2109,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2306,7 +2165,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50019
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2360,12 +2219,12 @@ export default function TLSSocketConnectionTest_2() {
                         resolve();
                       }, 500);
                     }).catch(() => {
-                      console.info(`${caseName} close error`);
+                      console.error(`${caseName} close error`);
                       resolve();
                     });
                   }, 100);
                 }).catch((): void => {
-                  console.info(`${caseName} client connect error`);
+                  console.error(`${caseName} client connect error`);
                   resolve();
                 });
               });
@@ -2402,7 +2261,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50020
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2433,7 +2292,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2478,7 +2337,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50021
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2509,7 +2368,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2554,7 +2413,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50022
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2585,7 +2444,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2630,7 +2489,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50023
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2661,7 +2520,7 @@ export default function TLSSocketConnectionTest_2() {
               } catch (err) {
                 console.error(`${caseName} on close fail: ${(err as BusinessError).code}
               - ${(err as BusinessError).message}`);
-                expect(err.code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                expect(err.code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                 done();
               }
             });
@@ -2706,7 +2565,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50024
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2761,12 +2620,12 @@ export default function TLSSocketConnectionTest_2() {
                         resolve();
                       }, 500);
                     }).catch(() => {
-                      console.info(`${caseName} close error`);
+                      console.error(`${caseName} close error`);
                       resolve();
                     });
                   }, 100);
                 }).catch((): void => {
-                  console.info(`${caseName} client connect error`);
+                  console.error(`${caseName} client connect error`);
                   resolve();
                 });
               });
@@ -2804,7 +2663,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50025
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2865,12 +2724,12 @@ export default function TLSSocketConnectionTest_2() {
                         resolve();
                       }, 500);
                     }).catch(() => {
-                      console.info(`${caseName} close error`);
+                      console.error(`${caseName} close error`);
                       resolve();
                     });
                   }, 100);
                 }).catch((): void => {
-                  console.info(`${caseName} client connect error`);
+                  console.error(`${caseName} client connect error`);
                   resolve();
                 });
               });
@@ -2907,7 +2766,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50026
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -2984,7 +2843,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50027
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -3071,14 +2930,15 @@ export default function TLSSocketConnectionTest_2() {
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 30001
+            port: port
           };
 
           const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 30001
+            port: port
           };
 
           await (async (): Promise<void> => {
@@ -3155,7 +3015,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50029
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -3184,14 +3044,14 @@ export default function TLSSocketConnectionTest_2() {
               clientConn.getSignatureAlgorithms((err: BusinessError | null, sigAlgos: Array<string>) => {
                 try {
                   clientConn.getSignatureAlgorithms(undefined);
-                  console.warn(`${caseName} Call getSignatureAlgorithms with undefined callback
+                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback
                   no exception (unexpected)`);
                   expect().assertFail();
                   done();
                 } catch (err) {
-                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
+                  console.error(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
                   (expected): ${(err as BusinessError).code}`);
-                  expect((err as BusinessError).code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                  expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                   done();
                 }
               });
@@ -3247,7 +3107,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50030
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -3276,14 +3136,14 @@ export default function TLSSocketConnectionTest_2() {
               clientConn.getSignatureAlgorithms((err: BusinessError | null, sigAlgos: Array<string>) => {
                 try {
                   clientConn.getSignatureAlgorithms(null);
-                  console.warn(`${caseName} Call getSignatureAlgorithms with undefined callback
+                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback
                   no exception (unexpected)`);
                   expect().assertFail();
                   done();
                 } catch (err) {
-                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
+                  console.error(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
                   (expected): ${(err as BusinessError).code}`);
-                  expect((err as BusinessError).code == ERR_CODE_PARAMETER_ERROR).assertTrue();
+                  expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
                   done();
                 }
               });
@@ -3340,7 +3200,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50031
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -3370,13 +3230,13 @@ export default function TLSSocketConnectionTest_2() {
                 let getSignatureAlgorithms = false;
                 try {
                   clientConn.getSignatureAlgorithms();
-                  console.warn(`${caseName} Call getSignatureAlgorithms with undefined callback
+                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback
                   no exception (unexpected)`);
                   getSignatureAlgorithms = true;
                   expect(getSignatureAlgorithms).assertTrue();
                   done();
                 } catch (err) {
-                  console.info(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
+                  console.error(`${caseName} Call getSignatureAlgorithms with undefined callback throw exception
                   (expected): ${(err as BusinessError).code}`);
                   expect().assertFail();
                   done();
@@ -3436,7 +3296,7 @@ export default function TLSSocketConnectionTest_2() {
         try {
           const netAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 50032
+            port: getNextPort()
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,

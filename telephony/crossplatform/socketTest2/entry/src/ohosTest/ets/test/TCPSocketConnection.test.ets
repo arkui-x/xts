@@ -13,13 +13,11 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size ,beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-
-const ERR_CODE_PARAMETER_ERROR = 401;
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 function sleep(ms:number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -29,6 +27,9 @@ export default function TCPSocketConnectionTest() {
   describe('TCPSocketConnectionTest', () => {
     beforeEach(async () => {
       await sleep(500);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -48,11 +49,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14000,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -77,7 +78,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -103,11 +104,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14001,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -118,20 +119,20 @@ export default function TCPSocketConnectionTest() {
             };
             client.send(tcpSendOption, (err: BusinessError) => {
               if (err) {
-                console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+                console.error(`${caseName} fail err:${JSON.stringify(err)}`);
                 expect().assertFail();
+                tcpServer.off('connect');
                 done();
               } else {
                 console.info(`${caseName} success`);
                 expect(tcpSendOption.data == " ").assertTrue();
+                tcpServer.off('connect');
                 done();
               }
-              tcpServer.off('connect');
-              done();
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -157,11 +158,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14002,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -174,18 +175,18 @@ export default function TCPSocketConnectionTest() {
               if (err) {
                 console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
                 expect().assertFail();
+                tcpServer.off('connect');
                 done();
               } else {
                 console.info(`${caseName} success`);
                 expect(tcpSendOption.data == "11111").assertTrue();
+                tcpServer.off('connect');
                 done();
               }
-              tcpServer.off('connect');
-              done();
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -211,11 +212,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14003,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -240,7 +241,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -266,11 +267,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14004,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -295,7 +296,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -321,11 +322,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14005,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -350,7 +351,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -376,11 +377,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14006,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -405,7 +406,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -431,11 +432,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14007,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -460,7 +461,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -486,11 +487,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14008,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -515,7 +516,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -541,11 +542,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14009,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -570,7 +571,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -596,11 +597,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14010,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -625,7 +626,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -651,11 +652,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14011,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -680,7 +681,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -706,11 +707,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14012,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -722,12 +723,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -753,11 +754,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14013,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -769,12 +770,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -800,11 +801,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14014,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -818,12 +819,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -849,11 +850,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14015,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -867,12 +868,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -898,11 +899,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14016,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -926,7 +927,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -952,11 +953,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14018,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -981,7 +982,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1007,11 +1008,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14019,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1036,7 +1037,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1062,11 +1063,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14020,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1091,7 +1092,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1117,11 +1118,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14021,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1147,7 +1148,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1173,11 +1174,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14022,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1203,7 +1204,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1229,11 +1230,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14023,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1259,7 +1260,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1285,11 +1286,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14024,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1315,7 +1316,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1341,11 +1342,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14025,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1371,7 +1372,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1397,11 +1398,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14026,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1427,7 +1428,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1453,11 +1454,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14027,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1483,7 +1484,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1509,11 +1510,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14028,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1542,7 +1543,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1568,11 +1569,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14029,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1598,7 +1599,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1624,7 +1625,7 @@ export default function TCPSocketConnectionTest() {
         try {
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14030,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress);
@@ -1637,7 +1638,7 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
@@ -1666,7 +1667,7 @@ export default function TCPSocketConnectionTest() {
         try {
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14031,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress);
@@ -1679,7 +1680,7 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               tcp.close();
               tcpServer.close();
               done();
@@ -1710,11 +1711,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14033,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1741,7 +1742,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1767,11 +1768,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14034,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1782,7 +1783,7 @@ export default function TCPSocketConnectionTest() {
             };
             client.send(tcpSendOption, (err: BusinessError) => {
               if (err) {
-                console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+                console.error(`${caseName} fail err:${JSON.stringify(err)}`);
                 expect().assertFail();
                 done();
               } else {
@@ -1797,7 +1798,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1823,11 +1824,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14035,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1843,7 +1844,7 @@ export default function TCPSocketConnectionTest() {
               expect(send).assertTrue();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               done();
             }).finally(() => {
@@ -1855,7 +1856,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1881,11 +1882,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14036,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1893,7 +1894,7 @@ export default function TCPSocketConnectionTest() {
           tcpServer.on('connect', async (client: socket.TCPSocketConnection) => {
             client.close((err: BusinessError) => {
               if (err) {
-                console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+                console.error(`${caseName} fail err:${JSON.stringify(err)}`);
                 expect().assertFail();
                 done();
               } else {
@@ -1908,7 +1909,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1934,11 +1935,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14037,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1949,7 +1950,7 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               client.close();
               tcp.close();
               tcpServer.close();
@@ -1957,7 +1958,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -1983,11 +1984,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14038,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -1998,7 +1999,7 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               client.close();
               tcp.close();
               tcpServer.close();
@@ -2006,7 +2007,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2032,11 +2033,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14039,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2049,7 +2050,7 @@ export default function TCPSocketConnectionTest() {
               expect(close).assertTrue();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               done();
             }).finally(() => {
@@ -2060,7 +2061,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2086,11 +2087,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14041,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2103,7 +2104,7 @@ export default function TCPSocketConnectionTest() {
               expect(close).assertTrue();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               done();
             }).finally(() => {
@@ -2114,7 +2115,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2140,12 +2141,12 @@ export default function TCPSocketConnectionTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 14043,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2153,7 +2154,7 @@ export default function TCPSocketConnectionTest() {
           tcpServer.on('connect', async (client: socket.TCPSocketConnection) => {
             client.getRemoteAddress((err: BusinessError, data: socket.NetAddress) => {
               if (err) {
-                console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+                console.error(`${caseName} fail err:${JSON.stringify(err)}`);
                 expect().assertFail();
                 done();
               } else {
@@ -2166,7 +2167,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2194,12 +2195,12 @@ export default function TCPSocketConnectionTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 14044,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2210,12 +2211,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2243,12 +2244,12 @@ export default function TCPSocketConnectionTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 14045,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2259,14 +2260,14 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               client.close();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2294,12 +2295,12 @@ export default function TCPSocketConnectionTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 14046,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2310,7 +2311,7 @@ export default function TCPSocketConnectionTest() {
               expect(data != null).assertTrue();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               done();
             }).finally(() => {
@@ -2320,7 +2321,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2349,12 +2350,12 @@ export default function TCPSocketConnectionTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 14048,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2365,7 +2366,7 @@ export default function TCPSocketConnectionTest() {
               expect(data != null).assertTrue();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               done();
             }).finally(() => {
@@ -2375,7 +2376,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2405,11 +2406,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14050,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2422,7 +2423,7 @@ export default function TCPSocketConnectionTest() {
               tcpServer.close();
               done();
             }).catch((err: BusinessError) => {
-              console.info(`${caseName} fail err:${JSON.stringify(err)}`);
+              console.error(`${caseName} fail err:${JSON.stringify(err)}`);
               expect().assertFail();
               tcp.close();
               tcpServer.close();
@@ -2435,7 +2436,7 @@ export default function TCPSocketConnectionTest() {
             });
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2461,11 +2462,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14051,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2484,14 +2485,14 @@ export default function TCPSocketConnectionTest() {
               await tcpServer.off('connect');
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
               tcp.close();
               tcpServer.close();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2517,7 +2518,7 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14055,
+            port: getNextPort(),
             family: 1
           };
           let tcpConnectOptions: socket.TCPConnectOptions = {
@@ -2599,11 +2600,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14052,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2618,12 +2619,12 @@ export default function TCPSocketConnectionTest() {
             };
             client.on('close', callback);
             await client.close().catch((err: BusinessError) => {
-              console.info('fail to close' + err.code.toString());
+              console.error('fail to close' + err.code.toString());
             });
             done();
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2649,11 +2650,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14053,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2668,12 +2669,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               tcpServer.off('connect');
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -2681,7 +2682,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2707,11 +2708,11 @@ export default function TCPSocketConnectionTest() {
         try {
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14054,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2726,12 +2727,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2761,11 +2762,11 @@ export default function TCPSocketConnectionTest() {
         try {
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14055,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2778,12 +2779,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2813,11 +2814,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14056,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2830,12 +2831,12 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               tcpServer.off('connect');
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -2843,7 +2844,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2869,11 +2870,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14057,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2887,13 +2888,13 @@ export default function TCPSocketConnectionTest() {
             client.on('close', callback);
             client.off('close', callback);
             await client.close().catch((err: BusinessError) => {
-              console.info('fail to close' + err.code.toString());
+              console.error('fail to close' + err.code.toString());
             });
             expect(true).assertTrue();
             done();
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2919,11 +2920,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14058,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -2941,11 +2942,11 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -2953,7 +2954,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -2979,11 +2980,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14059,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -3001,11 +3002,11 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -3013,7 +3014,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -3039,11 +3040,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14060,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -3061,11 +3062,11 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -3073,7 +3074,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -3099,11 +3100,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14061,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -3121,11 +3122,11 @@ export default function TCPSocketConnectionTest() {
             } catch (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
               done();
             } finally {
               await client.close().catch((err: BusinessError) => {
-                console.info('fail to close' + err.code.toString());
+                console.error('fail to close' + err.code.toString());
               });
               tcp.close();
               tcpServer.close();
@@ -3133,7 +3134,7 @@ export default function TCPSocketConnectionTest() {
             }
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -3159,11 +3160,11 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14062,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -3177,13 +3178,13 @@ export default function TCPSocketConnectionTest() {
             client.on('close', callback);
             client.off('close');
             await client.close().catch((err: BusinessError) => {
-              console.info('fail to close' + err.code.toString());
+              console.error('fail to close' + err.code.toString());
             });
             expect(true).assertTrue();
             done();
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
@@ -3209,11 +3210,12 @@ export default function TCPSocketConnectionTest() {
           let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 14063,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
+            expect().assertFail();
           });
           let tcpConnectOptions: socket.TCPConnectOptions = {
             address: listenAddress
@@ -3231,16 +3233,18 @@ export default function TCPSocketConnectionTest() {
             };
             client.on('close', callback1);
             client.on('close', callback2);
-            client.off('close', callback1);
             client.off('close');
             await client.close().catch((err: BusinessError) => {
-              console.info('fail to close' + err.code.toString());
+              console.error('fail to close' + err.code.toString());
+              expect().assertFail();
             });
             expect(true).assertTrue();
             done();
           });
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
+            expect().assertFail();
+            done();
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);

@@ -13,13 +13,12 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size ,beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
-
-function sleep(ms:number) {
+function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
 }
 
@@ -27,6 +26,9 @@ export default function TCPSocketTest() {
   describe('TCPSocketTest', () => {
     beforeEach(async () => {
       await sleep(500);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -45,19 +47,21 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr);
+        await tcp.bind(bindAddr);
         try {
-          tcp.getSocketFd((err: BusinessError, data: number) => {
-            expect(err == null).assertTrue();
+          await tcp.getSocketFd((err: BusinessError, data: number) => {
             console.info(`${caseName} success`);
+            expect(err == null).assertTrue();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
         } finally {
-          tcp.close();
+          if (tcp) {
+            tcp.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -75,26 +79,31 @@ export default function TCPSocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.bind(netAddress);
-        tcp.connect(tcpconnectoptions);
+        await tcp.bind(netAddress);
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+          done();
+        });
         try {
-          tcp.getSocketFd((err: BusinessError, data: number) => {
-            expect(err == null).assertTrue();
+          await tcp.getSocketFd((err: BusinessError, data: number) => {
             console.info(`${caseName} success`);
+            expect(err == null).assertTrue();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
         } finally {
-          tcp.close();
+          if (tcp) {
+            tcp.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -110,20 +119,19 @@ export default function TCPSocketTest() {
       async (done: Function) => {
         const caseName: string = 'ArKUIX_TCPSocket_GetSocketFd_0300';
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
-
         let bindAddr: socket.NetAddress = {
           address: '999.999.999.999',
-          port: 8088
+          port: getNextPort(),
         };
-        tcp.bind(bindAddr, (bindErr: BusinessError) => {
+        await tcp.bind(bindAddr, (bindErr: BusinessError) => {
           if (bindErr) {
             tcp.getSocketFd((err: BusinessError, data: number) => {
               if (err) {
                 console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
                 expect().assertFail();
               } else {
-                expect(data == undefined).assertTrue();
                 console.info(`${caseName} success`);
+                expect(data == undefined).assertTrue();
               }
               tcp.close();
               done();
@@ -135,7 +143,6 @@ export default function TCPSocketTest() {
             done();
           }
         });
-
       })
 
 
@@ -154,34 +161,25 @@ export default function TCPSocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 9999
+          port: getNextPort(),
         };
-
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
-          timeout: 1000
+          timeout: 6000
         };
-
-        tcp.connect(tcpconnectoptions, (connectErr: BusinessError) => {
-          if (connectErr) {
-            tcp.close((closeErr: BusinessError) => {
-              if (!closeErr) {
-                tcp.getSocketFd((err: BusinessError, data: number) => {
-                  if (data == undefined) {
-                    expect(data).assertUndefined();
-                    console.info(`${caseName} success`);
-                    tcp.close();
-                  } else {
-                    console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-                    expect().assertFail();
-                    tcp.close();
-                  }
-                });
-              }
-            });
+        tcp.getSocketFd((err: BusinessError, data: number) => {
+          if (data == undefined) {
+            console.info(`${caseName} success`);
+            expect(data).assertUndefined();
+            tcp.close();
+            done();
+          } else {
+            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+            expect().assertFail();
+            tcp.close();
+            done();
           }
         });
-        done();
       })
 
     /**
@@ -200,32 +198,36 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.connect(tcpconnectoptions);
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+          done();
+        });
         try {
-          tcp.getSocketFd().then((data: number) => {
-            expect(data != undefined).assertTrue();
+          await tcp.getSocketFd().then((data: number) => {
             console.info(`${caseName} success`);
-            tcp.close();
+            expect(data != undefined).assertTrue();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-            tcp.close();
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
+        } finally {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -244,28 +246,31 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.connect(tcpconnectoptions);
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+        });
         let getSocketFd = false;
         try {
           tcp.getSocketFd(undefined);
           getSocketFd = true;
           console.info(`${caseName} success`);
           expect(getSocketFd).assertTrue;
-          tcp.close();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
+        } finally {
+          if (tcp) {
+            tcp.close();
+          }
           done();
         }
       })
@@ -286,28 +291,31 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.connect(tcpconnectoptions);
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+        });
         let getSocketFd = false;
         try {
           tcp.getSocketFd(null);
           getSocketFd = true;
           console.info(`${caseName} success`);
           expect(getSocketFd).assertTrue;
-          tcp.close();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
+        } finally {
+          if (tcp) {
+            tcp.close();
+          }
           done();
         }
       })
@@ -328,17 +336,19 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         tcp.getSocketFd().then((data: number) => {
-          expect(data != undefined).assertTrue();
           console.info(`${caseName} success`);
-          tcp.close();
+          expect(data != undefined).assertTrue();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
-        });
-        done();
+        }).finally(() => {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -354,25 +364,29 @@ export default function TCPSocketTest() {
       async (done: Function) => {
         const caseName: string = 'ArKUIX_TCPSocket_GetSocketFd_0900';
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
+        let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 65529
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
-          timeout: 6000
+          timeout: 3000
         }
-        tcp.connect(tcpconnectoptions)
+        tcpServer.listen(netAddress);
+        await tcp.connect(tcpconnectoptions)
         tcp.getSocketFd().then((data: number) => {
-          expect(data != undefined).assertTrue();
           console.info(`${caseName} success`);
-          tcp.close();
+          expect(data != undefined).assertTrue();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
-        });
-        done();
+        }).finally(() => {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -390,28 +404,29 @@ export default function TCPSocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let bindAddr: socket.NetAddress = {
           address: '999.999.999.999',
-          port: 65530
+          port: getNextPort(),
         }
-
-        tcp.bind(bindAddr, (bindErr: BusinessError) => {
+        await tcp.bind(bindAddr, (bindErr: BusinessError) => {
           if (bindErr) {
             tcp.getSocketFd().then((data: number) => {
               if (data == undefined) {
-                expect(data).assertUndefined();
                 console.info(`${caseName} success`);
-                tcp.close();
+                expect(data).assertUndefined();
               } else {
                 expect().assertFail();
-                tcp.close();
               }
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               expect().assertFail();
-              tcp.close();
-            });
+              done();
+            }).finally(() => {
+              if (tcp) {
+                tcp.close();
+              }
+              done();
+            })
           }
         });
-        done();
       })
 
     /**
@@ -429,37 +444,36 @@ export default function TCPSocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 65531
+          port: getNextPort(),
         };
-
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 1000
         };
-
-        tcp.connect(tcpconnectoptions, (connectErr: BusinessError) => {
+        await tcp.connect(tcpconnectoptions, (connectErr: BusinessError) => {
           if (connectErr) {
             tcp.close((closeErr: BusinessError) => {
               if (!closeErr) {
                 tcp.getSocketFd().then((data: number) => {
                   if (data == undefined) {
-                    expect(data).assertUndefined();
                     console.info(`${caseName} success`);
-                    tcp.close();
+                    expect(data).assertUndefined();
                   } else {
                     expect().assertFail();
-                    tcp.close();
                   }
                 }).catch((err: BusinessError) => {
                   console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
                   expect().assertFail();
-                  tcp.close();
-                });
+                }).finally(() => {
+                  if (tcp) {
+                    tcp.close();
+                  }
+                  done();
+                })
               }
             });
           }
         });
-        done();
       })
 
     /**
@@ -478,29 +492,33 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 65532
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.connect(tcpconnectoptions)
-
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+          done();
+        });
         try {
           tcp.getSocketFd((err: BusinessError, data: number) => {
-            expect(err == null).assertTrue();
             console.info(`${caseName} success`);
-            tcp.close();
+            expect(err == null).assertTrue();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
+        } finally {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -519,26 +537,31 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
         }
-        tcp.bind(bindAddr)
+        await tcp.bind(bindAddr)
         let netAddress: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 65533
+          port: getNextPort(),
         }
         let tcpconnectoptions: socket.TCPConnectOptions = {
           address: netAddress,
           timeout: 6000
         }
-        tcp.connect(tcpconnectoptions)
+        await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+          console.error('fail to connect' + err.code.toString());
+          done();
+        });
         tcp.getSocketFd().then((data: number) => {
-          expect(data != null).assertTrue();
           console.info(`${caseName} success`);
-          tcp.close();
+          expect(data != null).assertTrue();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcp.close();
-        });
-        done();
+        }).finally(() => {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -558,30 +581,36 @@ export default function TCPSocketTest() {
           let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 65534,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress);
-          let tcpConnectOptions: socket.TCPConnectOptions = {
+          let tcpconnectoptions: socket.TCPConnectOptions = {
             address: listenAddress,
           };
-          await tcp.connect(tcpConnectOptions);
+          await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+            console.error('fail to connect' + err.code.toString());
+            done();
+          });
           try {
             tcp.getSocketFd((err: BusinessError, data: number) => {
-              expect(err == null).assertTrue();
               console.info(`${caseName} success`);
-              tcp.close();
+              expect(err == null).assertTrue();
             })
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-            tcp.close();
+          } finally {
+            if (tcp) {
+              tcp.close();
+            }
+            done();
           }
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+          done();
         }
-        done();
       })
 
     /**
@@ -596,22 +625,24 @@ export default function TCPSocketTest() {
     it('ArKUIX_TCPSocket_GetSocketFd_1500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
         const caseName: string = 'ArKUIX_TCPSocket_GetSocketFd_1500';
+        let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
+        let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
+        let listenAddress: socket.NetAddress = {
+          address: '127.0.0.1',
+          port: getNextPort(),
+          family: 1
+        };
         try {
-          let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
-          let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
-          let listenAddress: socket.NetAddress = {
-            address: '127.0.0.1',
-            port: 4063,
-            family: 1
-          };
           await tcpServer.listen(listenAddress);
-          let tcpConnectOptions: socket.TCPConnectOptions = {
+          let tcpconnectoptions: socket.TCPConnectOptions = {
             address: listenAddress,
           };
-          await tcp.connect(tcpConnectOptions);
-          tcp.getSocketFd().then((data: number) => {
-            expect(data != null).assertTrue();
+          await tcp.connect(tcpconnectoptions).catch((err: BusinessError) => {
+            console.error('fail to connect' + err.code.toString());
+          });
+          await tcp.getSocketFd().then((data: number) => {
             console.info(`${caseName} success`);
+            expect(data != null).assertTrue();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
@@ -619,8 +650,12 @@ export default function TCPSocketTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -639,13 +674,13 @@ export default function TCPSocketTest() {
         let tcp: socket.TCPSocket = socket.constructTCPSocketInstance();
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
-        tcp.bind(bindAddr).then(() => {
+        await tcp.bind(bindAddr).then(() => {
           tcp.getLocalAddress().then((localAddress: socket.NetAddress) => {
-            expect(localAddress != null).assertTrue();
             console.info(`${caseName} success`);
+            expect(localAddress != null).assertTrue();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
@@ -653,8 +688,12 @@ export default function TCPSocketTest() {
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -673,23 +712,26 @@ export default function TCPSocketTest() {
         let bindAddr: socket.NetAddress = {
           address: '0.0.0.0',
           family: 1,
-          port: 8080
+          port: getNextPort(),
         }
-        tcp.bind(bindAddr).then(() => {
+        await tcp.bind(bindAddr).then(() => {
           tcp.close().then(() => {
             tcp.getLocalAddress().then((localAddress: socket.NetAddress) => {
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
             });
           });
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcp) {
+            tcp.close();
+          }
+          done();
+        })
       })
-
   })
 }

@@ -17,8 +17,7 @@ import { describe, it, expect, Level, TestType, Size, beforeEach, afterEach } fr
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -115,7 +114,7 @@ export default function LocalSocketConnectionTest() {
                 expect().assertFail();
               }).catch((err: BusinessError) => {
                 const errCode = Number(err.code);
-                expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+                expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
               })
             }
           });

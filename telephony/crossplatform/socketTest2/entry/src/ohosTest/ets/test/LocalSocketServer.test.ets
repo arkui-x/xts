@@ -17,14 +17,12 @@ import { describe, it, expect, Level, TestType, Size, beforeEach } from '@ohos/h
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 import deviceInfo from '@ohos.deviceInfo';
 
 let platform: string = deviceInfo.osFullName.split(' ')[0];
 let isiOS: boolean = platform.includes("iOS");
-
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
-const ERR_NET_BAD_FILE_DESCRIPTOR_IOS = 2301005;
 
 function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -50,7 +48,13 @@ export default function LocalSocketServerTest() {
         const caseName: string = 'ArKUIX_LocalSocketServer_GetLocalAddress_0100';
         try {
           let server: socket.LocalSocketServer = socket.constructLocalSocketServerInstance();
-          const context = AppStorage.get<common.UIAbilityContext>("Context") as common.Context;
+          const context = AppStorage.get<common.UIAbilityContext>("Context");
+          if (!context) {
+            console.error(`${caseName} failed: Context not available in AppStorage`);
+            expect().assertFail();
+            done();
+            return;
+          }
           let randomSuffix = Math.random().toString(36).substring(2, 10);
           let sandboxPath: string = context.filesDir + '/' + randomSuffix;
           let listenAddr: socket.LocalAddress = {
@@ -92,7 +96,7 @@ export default function LocalSocketServerTest() {
           const context = AppStorage.get<common.UIAbilityContext>("Context") as common.Context;
           let randomSuffix = Math.random().toString(36).substring(2, 10);
           let sandboxPath: string = context.filesDir + '/' + randomSuffix;
-          console.log(sandboxPath);
+          console.info(sandboxPath);
           let listenAddr: socket.LocalAddress = {
             address: sandboxPath
           }
@@ -108,11 +112,11 @@ export default function LocalSocketServerTest() {
             if (isiOS) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR_IOS).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR || errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR_IOS).assertTrue();
             } else {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
             }
           }
         } catch (err) {
@@ -145,7 +149,7 @@ export default function LocalSocketServerTest() {
             address: sandboxPath
           };
           await localserver.listen(addr).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
             expect().assertFail();
           });
 
