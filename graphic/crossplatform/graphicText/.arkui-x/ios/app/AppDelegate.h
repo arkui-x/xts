@@ -23,4 +23,4 @@
 @property (nonatomic, strong) UIWindow *window;
 
 @end
-
+#endif /* APPDELEGATE_H */
