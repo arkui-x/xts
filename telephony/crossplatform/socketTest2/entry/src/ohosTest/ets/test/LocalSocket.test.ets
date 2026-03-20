@@ -17,14 +17,12 @@ import { describe, it, expect, Level, TestType, Size, beforeEach } from '@ohos/h
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
+import { getNextPort, PortManager, SocketErrorCodes } from './TCPSocketServer.test';
 
 import deviceInfo from '@ohos.deviceInfo';
 
 let platform: string = deviceInfo.osFullName.split(' ')[0];
 let isiOS: boolean = platform.includes("iOS");
-
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
-const ERR_NET_BAD_FILE_DESCRIPTOR_IOS = 2301005;
 
 function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
@@ -50,15 +48,21 @@ export default function LocalSocketTest() {
         const caseName: string = 'ArKUIX_LocalSocket_GetLocalAddress_0100';
         let client: socket.LocalSocket = socket.constructLocalSocketInstance();
 
-        const context = AppStorage.get<common.UIAbilityContext>("Context") as common.Context;
+        const context = AppStorage.get<common.UIAbilityContext>("Context");
+        if (!context) {
+          console.error(`${caseName} failed: Context not available in AppStorage`);
+          expect().assertFail();
+          done();
+          return;
+        }
         let randomSuffix = Math.random().toString(36).substring(2, 10);
         let sandboxPath: string = context.filesDir + randomSuffix;
 
         let address: socket.LocalAddress = {
           address: sandboxPath
         }
-        await client.bind(address).then(() => {
-          client.getLocalAddress().then((localPath: string) => {
+        await client.bind(address).then(async () => {
+          await client.getLocalAddress().then((localPath: string) => {
             console.info("getLocalAddress success, localPath：" + JSON.stringify(localPath));
             expect(localPath != null).assertTrue();
           }).catch((err: BusinessError) => {
@@ -70,8 +74,8 @@ export default function LocalSocketTest() {
           expect().assertFail();
         }).finally(() => {
           client.close();
+          done();
         });
-        done();
       })
 
     /**
@@ -89,10 +93,16 @@ export default function LocalSocketTest() {
         let client: socket.LocalSocket;
         try {
           client = socket.constructLocalSocketInstance();
-          const context = AppStorage.get<common.UIAbilityContext>("Context") as common.Context;
+          const context = AppStorage.get<common.UIAbilityContext>("Context");
+          if (!context) {
+            console.error(`${caseName} failed: Context not available in AppStorage`);
+            expect().assertFail();
+            done();
+            return;
+          }
           let randomSuffix = Math.random().toString(36).substring(2, 10);
           let sandboxPath: string = context.filesDir + randomSuffix;
-          console.log(sandboxPath);
+          console.info(sandboxPath);
           let address: socket.LocalAddress = {
             address: sandboxPath
           }
@@ -106,11 +116,11 @@ export default function LocalSocketTest() {
             if (isiOS) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR_IOS).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR || errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR_IOS).assertTrue();
             } else {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
             }
           }
         } catch (err) {

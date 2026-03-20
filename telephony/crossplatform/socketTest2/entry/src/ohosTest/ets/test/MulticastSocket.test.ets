@@ -67,7 +67,7 @@ export default function MulticastSocketTest() {
           }
         } catch (err) {
           const error = err as BusinessError;
-          console.info(`fail: ${error.code} - ${error.message}`);
+          console.error(`fail: ${error.code} - ${error.message}`);
         } finally {
           if (multicastSocket) {
             await multicastSocket.close();

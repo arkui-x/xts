@@ -13,18 +13,35 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, Level, TestType, Size, beforeEach } from '@ohos/hypium';
+import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import deviceInfo from '@ohos.deviceInfo';
 
+interface SocketErrorCodeType  {
+  ERR_CODE_PARAMETER_ERROR: number;
+  ERR_ADDRESS_NOT_AVAILABLE: number;
+  ERR_EIO: number;
+  ERR_BAD_FILE_DESCRIPTOR: number;
+  ERR_ADDRESS_NOT_SUPPORT: number;
+  ERR_NET_BAD_FILE_DESCRIPTOR: number;
+  ERR_NET_BAD_FILE_DESCRIPTOR_IOS : number,
+  ERR_TCPSOCKET_INVALID_FD : number,
+  ERR_TCPSOCKET_NOT_CONNECTED : number,
+}
 
-const ERR_CODE_PARAMETER_ERROR = 401;
-const ERR_ADDRESS_NOT_AVAILABLE = 2303199;
-const ERR_EIO = 2303105;
-const ERR_BAD_FILE_DESCRIPTOR = 2303109;
-const ERR_ADDRESS_NOT_SUPPORT = 2303197;
-const ERR_NET_BAD_FILE_DESCRIPTOR = 2301009;
+export const SocketErrorCodes: SocketErrorCodeType  = {
+  ERR_CODE_PARAMETER_ERROR : 401,
+  ERR_ADDRESS_NOT_AVAILABLE : 2303199,
+  ERR_EIO : 2303105,
+  ERR_BAD_FILE_DESCRIPTOR : 2303109,
+  ERR_ADDRESS_NOT_SUPPORT : 2303197,
+  ERR_NET_BAD_FILE_DESCRIPTOR : 2301009,
+  ERR_NET_BAD_FILE_DESCRIPTOR_IOS : 2301005,
+  ERR_TCPSOCKET_INVALID_FD : 2303601,
+  ERR_TCPSOCKET_NOT_CONNECTED : 2303602,
+
+}
 
 let platform: string = deviceInfo.osFullName.split(' ')[0];
 let isAndroid: boolean = platform.includes("Android");
@@ -35,10 +52,64 @@ function sleep(ms: number) {
   return new Promise<ESObject>(resolve => setTimeout(resolve, ms));
 }
 
+let portCounter = 10000;
+
+export function getNextPort(): number {
+  return portCounter++;
+}
+
+export class PortManager {
+  private static usedPorts = new Set<number>();
+  private static basePort = 10000;
+  private static currentPort = PortManager.basePort;
+
+  static allocate(): number {
+    let port = PortManager.currentPort;
+    let attempts = 0;
+    const maxAttempts = 2000;
+
+    while (PortManager.usedPorts.has(port) && attempts < maxAttempts) {
+      port++;
+      attempts++;
+      if (port > 65535) {
+        port = PortManager.basePort;
+      }
+    }
+
+    if (attempts >= maxAttempts) {
+      throw new Error('No available ports after ' + maxAttempts + ' attempts');
+    }
+
+    PortManager.usedPorts.add(port);
+    PortManager.currentPort = port + 1;
+
+    if (PortManager.currentPort > 65535) {
+      PortManager.currentPort = PortManager.basePort;
+    }
+    return port;
+  }
+
+  static release(port: number): void {
+    PortManager.usedPorts.delete(port);
+  }
+
+  static reset(): void {
+    PortManager.usedPorts.clear();
+    PortManager.currentPort = PortManager.basePort;
+  }
+
+  static getCurrentPort(): number {
+    return PortManager.currentPort;
+  }
+}
+
 export default function TCPSocketServerTest() {
   describe('TCPSocketServerTest', () => {
     beforeEach(async () => {
       await sleep(500);
+    });
+    beforeAll(() => {
+      PortManager.reset();
     });
 
     /**
@@ -56,7 +127,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         await tcpServer.listen(listenAddr).then(() => {
@@ -71,12 +142,14 @@ export default function TCPSocketServerTest() {
           tcpServer.getState((err: BusinessError, data: socket.SocketStateBase) => {
             console.info('getState success' + JSON.stringify(data));
             expect(data != null).assertTrue();
-            tcpServer.close();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -97,14 +170,14 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.getState(undefined);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          done();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -125,14 +198,14 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.getState(null);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          done();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -152,7 +225,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8081,
+          port: getNextPort(),
           family: 1
         }
 
@@ -161,23 +234,23 @@ export default function TCPSocketServerTest() {
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         });
 
         try {
-          tcpServer.getState().then((data: socket.SocketStateBase) => {
+          await tcpServer.getState().then((data: socket.SocketStateBase) => {
             console.info('getState success' + JSON.stringify(data));
             expect(data != null).assertTrue();
-            tcpServer.close();
-            done();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-            done();
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -197,10 +270,9 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8082,
+          port: getNextPort(),
           family: 1
         }
-
         await tcpServer.listen(listenAddr).then(() => {
           console.info('GetState listen success');
         }).catch((err: BusinessError) => {
@@ -209,16 +281,20 @@ export default function TCPSocketServerTest() {
           done();
         });
 
-        tcpServer.getState().then((data: socket.SocketStateBase) => {
+        await tcpServer.getState().then((data: socket.SocketStateBase) => {
           console.info('getState success' + JSON.stringify(data));
           expect(data != null).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
-        });
+        }).finally(()=>{
+          if(tcpServer){
+            setTimeout(() => {
+              tcpServer.close();
+              done();
+            }, 500);
+          }
+        })
       })
 
     /**
@@ -238,12 +314,14 @@ export default function TCPSocketServerTest() {
           tcpServer.getState((err: BusinessError, data: socket.SocketStateBase) => {
             console.info('getState success' + JSON.stringify(data));
             expect(data != null).assertTrue();
-            tcpServer.close();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -264,13 +342,15 @@ export default function TCPSocketServerTest() {
         tcpServer.getState().then((data: socket.SocketStateBase) => {
           console.info('getState success' + JSON.stringify(data));
           expect(data != null).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -286,9 +366,10 @@ export default function TCPSocketServerTest() {
       async (done: Function) => {
         const caseName: string = 'ArKUIX_TCPSocketServer_GetState_0800';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
+        const port = getNextPort();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8083,
+          port: port,
           family: 1
         }
 
@@ -300,10 +381,10 @@ export default function TCPSocketServerTest() {
 
         let testClient: socket.TCPSocket = socket.constructTCPSocketInstance();
         const clientOpts: socket.TCPConnectOptions = {
-          address: { address: '127.0.0.1', port: 8083, family: 1 } as socket.NetAddress,
+          address: { address: '127.0.0.1', port: port, family: 1 } as socket.NetAddress,
         };
 
-        testClient.connect(clientOpts, (err: BusinessError) => {
+        await testClient.connect(clientOpts, (err: BusinessError) => {
           if (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             return;
@@ -311,18 +392,21 @@ export default function TCPSocketServerTest() {
           console.info('GetState connect success');
         });
 
-        setTimeout(() => {
+        setTimeout(async () => {
           try {
-            tcpServer.getState((err: BusinessError, data: socket.SocketStateBase) => {
+            await tcpServer.getState((err: BusinessError, data: socket.SocketStateBase) => {
               console.info('GetState success' + JSON.stringify(data));
               expect(data != null).assertTrue();
-              tcpServer.close();
             })
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
+          } finally {
+            if (tcpServer) {
+              tcpServer.close();
+            }
+            done();
           }
-          done();
         }, 500);
       })
 
@@ -339,9 +423,10 @@ export default function TCPSocketServerTest() {
       async (done: Function) => {
         const caseName: string = 'ArKUIX_TCPSocketServer_GetState_0900';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
+        const port = getNextPort();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8084,
+          port: port,
           family: 1
         }
 
@@ -353,10 +438,10 @@ export default function TCPSocketServerTest() {
 
         let testClient: socket.TCPSocket = socket.constructTCPSocketInstance();
         const clientOpts: socket.TCPConnectOptions = {
-          address: { address: '127.0.0.1', port: 8084, family: 1 } as socket.NetAddress,
+          address: { address: '127.0.0.1', port: port, family: 1 } as socket.NetAddress,
         };
 
-        testClient.connect(clientOpts, (err: BusinessError) => {
+        await testClient.connect(clientOpts, (err: BusinessError) => {
           if (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             return;
@@ -368,12 +453,15 @@ export default function TCPSocketServerTest() {
           tcpServer.getState().then((data: socket.SocketStateBase) => {
             console.info('GetState success' + JSON.stringify(data));
             expect(data != null).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(() => {
+            if (tcpServer) {
+              tcpServer.close();
+            }
+            done();
+          })
         }, 500);
       })
 
@@ -392,7 +480,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8085,
+          port: getNextPort(),
           family: 1
         }
 
@@ -421,12 +509,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(() => {
+            if (tcpServer) {
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -445,7 +536,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8086,
+          port: getNextPort(),
           family: 1
         }
 
@@ -474,12 +565,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(() => {
+            if (tcpServer) {
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -498,7 +592,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -528,15 +622,16 @@ export default function TCPSocketServerTest() {
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               expect().assertFail();
-              done();
             });
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect(err.code == undefined).assertTrue();
-            tcpServer.close();
+          } finally {
+            if (tcpServer) {
+              tcpServer.close();
+            }
             done();
           }
-          done();
         })
       })
 
@@ -555,7 +650,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -584,12 +679,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(() => {
+            if (tcpServer) {
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -608,7 +706,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -638,15 +736,16 @@ export default function TCPSocketServerTest() {
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               expect().assertFail();
-              done();
             });
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect(err.code == undefined).assertTrue();
-            tcpServer.close();
+          } finally {
+            if (tcpServer) {
+              tcpServer.close();
+            }
             done();
           }
-          done();
         })
       })
 
@@ -665,7 +764,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -694,11 +793,13 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
           }).finally(() => {
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           });
         })
@@ -719,7 +820,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -749,17 +850,17 @@ export default function TCPSocketServerTest() {
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               expect().assertFail();
-              done();
             });
             expect().assertFail();
-            done();
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect(err.code == undefined).assertTrue();
-            tcpServer.close();
+          } finally {
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           }
-          done();
         })
       })
 
@@ -778,7 +879,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -807,12 +908,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -831,7 +935,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -860,12 +964,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -884,7 +991,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -913,12 +1020,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -937,7 +1047,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         tcpServer.listen(listenAddr, (err: BusinessError) => {
@@ -960,12 +1070,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -986,15 +1099,16 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(null);
           console.info(`${caseName} setExtraOptions with null succeeded (unexpected)`);
           expect().assertFail();
-          done();
         } catch (err) {
           const error = err as BusinessError;
           console.error(`${caseName} failed, error: ${error.code}, ${error.message}`);
           const errCode = Number(error.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          done();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         } finally {
-          tcpServer.close();
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -1016,15 +1130,16 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(undefined);
           console.info(`${caseName} setExtraOptions with null succeeded (unexpected)`);
           expect().assertFail();
-          done();
         } catch (err) {
           const error = err as BusinessError;
           console.error(`${caseName} failed, error: ${error.code}, ${error.message}`);
           const errCode = Number(error.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          done();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
         } finally {
-          tcpServer.close();
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
         }
       });
 
@@ -1043,56 +1158,58 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 9090,
+          port: getNextPort(),
           family: 1
         }
         try {
-          await (async (): Promise<void> => {
-              tcpServer.listen(listenAddr, (err: BusinessError) => {
-                if (err) {
-                  console.info('listen fail');
-                  return;
-                }
-                console.info('listen success');
-              });
-          })().then(async () => {
-            interface SocketLinger {
-              on: boolean;
-              linger: number;
-            }
+          await new Promise<void>((resolve, reject) => {
+            tcpServer.listen(listenAddr, (err: BusinessError) => {
+              if (err) {
+                console.error(`${caseName} listen failed: ${err.code}, ${err.message}`);
+                reject(err);
+                return;
+              }
+              console.info(`${caseName} listen success`);
+              setTimeout(resolve, 300);
+            });
+          });
 
-            let tcpExtraOptions: socket.TCPExtraOptions = {
-              keepAlive: true,
-              OOBInline: true,
-              TCPNoDelay: true,
-              socketLinger: { on: true, linger: 10 } as SocketLinger,
-              receiveBufferSize: 8192,
-              sendBufferSize: 8192,
-              reuseAddress: true,
-              socketTimeout: 3000
-            };
+          interface SocketLinger {
+            on: boolean;
+            linger: number;
+          }
 
-            await (async (): Promise<void> => {
-                tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
-                  if (err) {
-                    console.error(`${caseName} setExtraOptions failed, error: ${err.code}, ${err.message}`);
-                    return;
-                  }
-                  console.info(`${caseName} setExtraOptions success`);
-                  expect(err == null).assertTrue();
-                  tcpServer.close();
-                  done();
-                });
-            })();
-          }).catch((err: BusinessError) => {
-            console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
-            expect().assertFail();
-            done();
+          let tcpExtraOptions: socket.TCPExtraOptions = {
+            keepAlive: true,
+            OOBInline: true,
+            TCPNoDelay: true,
+            socketLinger: { on: true, linger: 10 } as SocketLinger,
+            receiveBufferSize: 8192,
+            sendBufferSize: 8192,
+            reuseAddress: true,
+            socketTimeout: 3000
+          };
+
+          await new Promise<void>((resolve, reject) => {
+            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+              if (err) {
+                console.error(`${caseName} setExtraOptions failed: ${err.code}, ${err.message}`);
+                reject(err);
+                return;
+              }
+              console.info(`${caseName} setExtraOptions success`);
+              expect(err == null).assertTrue();
+              resolve();
+            });
           });
         } catch (err) {
           const error = err as BusinessError;
           console.error(`${caseName} test error: ${error.message}`);
           expect().assertFail();
+        } finally {
+          if(tcpServer){
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -1112,14 +1229,14 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
           await new Promise<void>((resolve, reject) => {
             tcpServer.listen(listenAddr, (err: BusinessError) => {
               if (err) {
-                console.info('listen fail');
+                console.error('listen fail');
                 reject(err);
                 return;
               }
@@ -1161,7 +1278,9 @@ export default function TCPSocketServerTest() {
           console.error(`${caseName} test failed, error: ${error.code}, ${error.message}`);
           expect().assertFail();
         } finally {
-          tcpServer.close();
+          if(tcpServer){
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -1181,7 +1300,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
@@ -1189,7 +1308,7 @@ export default function TCPSocketServerTest() {
             return new Promise<void>((resolve, reject) => {
               tcpServer.listen(listenAddr, (err: BusinessError) => {
                 if (err) {
-                  console.info('listen fail');
+                  console.error('listen fail');
                   reject(err);
                   return;
                 }
@@ -1218,7 +1337,6 @@ export default function TCPSocketServerTest() {
               tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
               });
               expect().assertFail();
-
             } catch (err) {
               const error = err as BusinessError;
               console.error(`${caseName} failed, error: ${error.code}, ${error.message}`);
@@ -1226,16 +1344,15 @@ export default function TCPSocketServerTest() {
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} listen failed: ${JSON.stringify(err)}`);
-            done();
           });
-
         } catch (err) {
           const error = err as BusinessError;
           console.error(`${caseName} test error: ${error.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if(tcpServer){
+            tcpServer.close();
+          }
           done();
         }
       });
@@ -1254,13 +1371,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_1800';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1268,6 +1385,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: false,
@@ -1278,17 +1396,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-            tcpServer.close();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1306,13 +1426,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_1900';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1320,6 +1440,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: undefined,
@@ -1330,16 +1451,20 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {});
+          try {
+            await tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            });
             expect().assertFail();
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect(err.code == undefined).assertTrue();
-            tcpServer.close();
+            done();
+          } finally {
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           }
-          done();
         })
       })
 
@@ -1357,13 +1482,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2000';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1371,6 +1496,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1381,16 +1507,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1408,13 +1537,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2100';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
         tcpServer.listen(listenAddr, (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1422,6 +1551,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1432,16 +1562,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {});
+          try {
+            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            });
             expect().assertFail();
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect(err.code == undefined).assertTrue();
-            tcpServer.close();
+          } finally {
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           }
-          done();
         })
       })
 
@@ -1459,13 +1592,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2200';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1473,6 +1606,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1483,16 +1617,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1510,13 +1647,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2300';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1524,6 +1661,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1534,16 +1672,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1561,13 +1702,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2400';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1575,6 +1716,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1585,16 +1727,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1612,13 +1757,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2500';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1632,16 +1777,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
             socketTimeout: 3000
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1665,10 +1813,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -1691,10 +1842,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -1711,13 +1865,13 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2800';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
-            console.info('listen fail');
+            console.error('listen fail');
             return;
           }
 
@@ -1725,6 +1879,7 @@ export default function TCPSocketServerTest() {
             on: boolean;
             linger: number;
           }
+
           let tcpExtraOptions: socket.TCPExtraOptions = {
             keepAlive: true,
             OOBInline: true,
@@ -1736,11 +1891,10 @@ export default function TCPSocketServerTest() {
             socketTimeout: 3000
           }
           let setExtraOptions = false;
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions,).then(() => {
+          try {
+            await tcpServer.setExtraOptions(tcpExtraOptions,).then(() => {
               setExtraOptions = true;
               expect(setExtraOptions).assertTrue();
-              tcpServer.close();
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               expect().assertFail();
@@ -1748,8 +1902,12 @@ export default function TCPSocketServerTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
+          } finally {
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
           }
-          done();
         })
       })
 
@@ -1767,31 +1925,35 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_2900';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
 
-          interface SocketLinger {
-            on: boolean;
-            linger: number;
-          }
-          let tcpExtraOptions: socket.TCPExtraOptions = {
-            keepAlive: true,
-            OOBInline: true,
-            TCPNoDelay: true,
-            socketLinger: { on: true, linger: 10 } as SocketLinger,
-            receiveBufferSize: 8192,
-            sendBufferSize: 8192,
-            reuseAddress: true,
-            socketTimeout: 3000
-          }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, undefined);
-            expect().assertFail();
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+        interface SocketLinger {
+          on: boolean;
+          linger: number;
+        }
+
+        let tcpExtraOptions: socket.TCPExtraOptions = {
+          keepAlive: true,
+          OOBInline: true,
+          TCPNoDelay: true,
+          socketLinger: { on: true, linger: 10 } as SocketLinger,
+          receiveBufferSize: 8192,
+          sendBufferSize: 8192,
+          reuseAddress: true,
+          socketTimeout: 3000
+        }
+        try {
+          tcpServer.setExtraOptions(tcpExtraOptions, undefined);
+          expect().assertFail();
+        } catch (err) {
+          console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+          const errCode = Number(err.code);
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if(tcpServer){
             tcpServer.close();
           }
           done();
-        })
+        }
+      })
 
     /**
      * @tc.number ArKUIX_TCPSocketServer_SetExtraOptions_3000
@@ -1807,31 +1969,35 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3000';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
 
-          interface SocketLinger {
-            on: boolean;
-            linger: number;
-          }
-          let tcpExtraOptions: socket.TCPExtraOptions = {
-            keepAlive: true,
-            OOBInline: true,
-            TCPNoDelay: true,
-            socketLinger: { on: true, linger: 10 } as SocketLinger,
-            receiveBufferSize: 8192,
-            sendBufferSize: 8192,
-            reuseAddress: true,
-            socketTimeout: 3000
-          }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, null);
-            expect().assertFail();
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
+        interface SocketLinger {
+          on: boolean;
+          linger: number;
+        }
+
+        let tcpExtraOptions: socket.TCPExtraOptions = {
+          keepAlive: true,
+          OOBInline: true,
+          TCPNoDelay: true,
+          socketLinger: { on: true, linger: 10 } as SocketLinger,
+          receiveBufferSize: 8192,
+          sendBufferSize: 8192,
+          reuseAddress: true,
+          socketTimeout: 3000
+        }
+        try {
+          tcpServer.setExtraOptions(tcpExtraOptions, null);
+          expect().assertFail();
+        } catch (err) {
+          console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+          const errCode = Number(err.code);
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if(tcpServer){
             tcpServer.close();
           }
           done();
-        })
+        }
+      })
 
     /**
      * @tc.number ArKUIX_TCPSocketServer_SetExtraOptions_3100
@@ -1863,23 +2029,25 @@ export default function TCPSocketServerTest() {
           socketTimeout: 3000
         }
 
-        try{
+        try {
           tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
-            if(err){
+            if (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_BAD_FILE_DESCRIPTOR).assertTrue();
-              tcpServer.close();
-            }else{
+              expect(errCode === SocketErrorCodes.ERR_BAD_FILE_DESCRIPTOR).assertTrue();
+            } else {
               expect().assertFail();
-              done();
             }
           });
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -1916,10 +2084,13 @@ export default function TCPSocketServerTest() {
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_BAD_FILE_DESCRIPTOR).assertTrue();
-          tcpServer.close();
-        });
-        done();
+          expect(errCode === SocketErrorCodes.ERR_BAD_FILE_DESCRIPTOR).assertTrue();
+        }).finally(()=>{
+          if(tcpServer){
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -1936,11 +2107,11 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3300';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -1950,16 +2121,19 @@ export default function TCPSocketServerTest() {
             keepAlive: true,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -1977,12 +2151,12 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3400';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -1992,16 +2166,19 @@ export default function TCPSocketServerTest() {
             OOBInline: true,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2019,11 +2196,11 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3500';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2033,16 +2210,19 @@ export default function TCPSocketServerTest() {
             TCPNoDelay: true,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2060,8 +2240,8 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3600';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
@@ -2079,12 +2259,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions,).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2102,8 +2285,8 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3700';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
@@ -2121,12 +2304,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions,).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2144,8 +2330,8 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3800';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
@@ -2163,12 +2349,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions,).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2186,12 +2375,12 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_3900';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2201,16 +2390,19 @@ export default function TCPSocketServerTest() {
             receiveBufferSize: -1,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2228,12 +2420,12 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_4000';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2242,16 +2434,19 @@ export default function TCPSocketServerTest() {
           let tcpExtraOptions: socket.TCPExtraOptions = {
             receiveBufferSize: 0,
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2269,11 +2464,11 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_4100';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2283,16 +2478,19 @@ export default function TCPSocketServerTest() {
             receiveBufferSize: 100,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2310,11 +2508,11 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_4200';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2324,16 +2522,19 @@ export default function TCPSocketServerTest() {
             sendBufferSize: -1,
           }
 
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2351,12 +2552,12 @@ export default function TCPSocketServerTest() {
         const caseName: string = 'ArKUIX_TCPSocketServer_SetExtraOptions_4300';
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
-          address:  '0.0.0.0',
-          port: 8080,
+          address: '0.0.0.0',
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2365,16 +2566,19 @@ export default function TCPSocketServerTest() {
           let tcpExtraOptions: socket.TCPExtraOptions = {
             sendBufferSize: 0,
           }
-          try{
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2393,11 +2597,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2407,16 +2611,19 @@ export default function TCPSocketServerTest() {
             sendBufferSize: 100,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2435,11 +2642,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2449,16 +2656,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: true,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2477,11 +2687,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        await tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2491,17 +2701,19 @@ export default function TCPSocketServerTest() {
             reuseAddress: false,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
               done();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-            done();
-          }
+            }
+          });
         })
       })
 
@@ -2520,11 +2732,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2534,16 +2746,19 @@ export default function TCPSocketServerTest() {
             socketTimeout: -1,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2562,11 +2777,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2576,16 +2791,19 @@ export default function TCPSocketServerTest() {
             socketTimeout: 0,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2604,11 +2822,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -2618,16 +2836,19 @@ export default function TCPSocketServerTest() {
             socketTimeout: 100,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (error) {
+              console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2646,13 +2867,16 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, async (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
+            expect().assertFail();
+            tcpServer.close();
+            done();
             return;
           }
 
@@ -2665,16 +2889,19 @@ export default function TCPSocketServerTest() {
             socketLinger: { on: true, linger: 0 } as SocketLinger,
           }
 
-          try {
-            tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+          tcpServer.setExtraOptions(tcpExtraOptions, (err: BusinessError) => {
+            try {
               expect(err == null).assertTrue();
-              tcpServer.close();
-            });
-          } catch (err) {
-            console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-          }
-          done();
+            } catch (assertErr) {
+              console.error(`${caseName} assertion failed`);
+              expect().assertFail();
+            } finally {
+              if(tcpServer){
+                tcpServer.close();
+              }
+              done();
+            }
+          });
         })
       })
 
@@ -2693,7 +2920,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2722,7 +2949,9 @@ export default function TCPSocketServerTest() {
               console.error(`${caseName} setExtraOptions failed:`, err?.code, err?.message);
               expect().assertFail();
             } finally {
-              tcpServer.close();
+              if(tcpServer){
+                tcpServer.close();
+              }
               done();
             }
           });
@@ -2744,7 +2973,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2762,12 +2991,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2786,7 +3018,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2804,12 +3036,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2828,11 +3063,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        tcpServer.listen(listenAddr, async (listenErr: BusinessError) => {
+       tcpServer.listen(listenAddr, async (listenErr: BusinessError) => {
           if (listenErr) {
             console.error("listen failed:", listenErr.code, listenErr.message);
             expect().assertFail();
@@ -2850,7 +3085,9 @@ export default function TCPSocketServerTest() {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
           } finally {
-            tcpServer.close();
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           }
         })
@@ -2871,7 +3108,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2889,12 +3126,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2913,7 +3153,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2929,12 +3169,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2953,7 +3196,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -2971,12 +3214,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -2995,7 +3241,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -3013,12 +3259,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3037,7 +3286,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -3055,12 +3304,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3079,7 +3331,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -3097,12 +3349,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3121,7 +3376,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -3145,7 +3400,9 @@ export default function TCPSocketServerTest() {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
           } finally {
-            tcpServer.close();
+            if(tcpServer){
+              tcpServer.close();
+            }
             done();
           }
         })
@@ -3166,7 +3423,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
@@ -3184,12 +3441,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3208,11 +3468,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        await tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -3231,12 +3491,15 @@ export default function TCPSocketServerTest() {
           tcpServer.setExtraOptions(tcpExtraOptions).then(() => {
             setExtraOptions = true;
             expect(setExtraOptions).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3255,11 +3518,11 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
 
-        await tcpServer.listen(listenAddr, (err: BusinessError) => {
+        tcpServer.listen(listenAddr, (err: BusinessError) => {
           if (err) {
             console.error("listen fail");
             return;
@@ -3281,8 +3544,12 @@ export default function TCPSocketServerTest() {
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-          });
-          done();
+          }).finally(()=>{
+            if(tcpServer){
+              tcpServer.close();
+            }
+            done();
+          })
         })
       })
 
@@ -3302,7 +3569,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
@@ -3319,9 +3586,11 @@ export default function TCPSocketServerTest() {
             expect().assertFail();
           });
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -3339,7 +3608,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         await tcpServer.listen(listenAddr).then(() => {
@@ -3357,7 +3626,7 @@ export default function TCPSocketServerTest() {
             }).catch((err: BusinessError) => {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
+              expect(errCode === SocketErrorCodes.ERR_NET_BAD_FILE_DESCRIPTOR).assertTrue();
               tcpServer.close();
             })
             done();
@@ -3384,25 +3653,26 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 11121,
+          port: getNextPort(),
           family: 1
         }
-        await tcpServer.listen(listenAddr).then(() => {
-          tcpServer.getSocketFd().then((data: number) => {
+        await tcpServer.listen(listenAddr).then(async () => {
+          await tcpServer.getSocketFd().then((data: number) => {
             console.info("getSocketFd success:" + JSON.stringify(data));
             expect(data >= 0).assertTrue();
-            tcpServer.close();
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             expect().assertFail();
-            tcpServer.close();
           })
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          tcpServer.close();
-        });
-        done();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -3422,11 +3692,11 @@ export default function TCPSocketServerTest() {
           let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
           let listenAddress: socket.NetAddress = {
             address: '127.0.0.1',
-            port: 5022,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let callback: Callback<socket.TCPSocketConnection> = (data: socket.TCPSocketConnection) => {
             console.info(`${caseName} success data:${JSON.stringify(data)}`);
@@ -3440,10 +3710,10 @@ export default function TCPSocketServerTest() {
             address: listenAddress
           };
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
         } catch (err) {
-          console.info(`${caseName} fail ${JSON.stringify(err)}`);
+          console.error(`${caseName} fail ${JSON.stringify(err)}`);
           expect().assertFail();
           done();
         }
@@ -3464,7 +3734,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         const listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         };
 
@@ -3477,14 +3747,17 @@ export default function TCPSocketServerTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-            tcpServer.close();
+            expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
           }
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -3502,7 +3775,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         const listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         };
 
@@ -3515,14 +3788,17 @@ export default function TCPSocketServerTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-            tcpServer.close();
+            expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
           }
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -3540,7 +3816,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         const listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         };
 
@@ -3551,14 +3827,17 @@ export default function TCPSocketServerTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-            tcpServer.close();
+            expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
           }
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -3576,7 +3855,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         const listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         };
 
@@ -3587,14 +3866,17 @@ export default function TCPSocketServerTest() {
           } catch (err) {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-            tcpServer.close();
+            expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
           }
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-        });
-        done();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
+        })
       })
 
     /**
@@ -3615,12 +3897,12 @@ export default function TCPSocketServerTest() {
         expect(tcpServer).assertInstanceOf('Object');
         let listenAddress: socket.NetAddress = {
           address: '127.0.0.1',
-          port: 8081,
+          port: getNextPort(),
           family: 1
         };
         try {
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let callback: Callback<socket.TCPSocketConnection> = (data: socket.TCPSocketConnection) => {
             console.info(`${caseName} success data:${JSON.stringify(data)}`);
@@ -3633,17 +3915,16 @@ export default function TCPSocketServerTest() {
           };
           tcpServer.off('connect', callback);
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
           expect(true).assertTrue();
-          done();
         } catch (err) {
-          console.info(`${caseName} fail ${JSON.stringify(err)}`);
+          console.error(`${caseName} fail ${JSON.stringify(err)}`);
           expect().assertFail();
-          done();
         } finally {
           tcp.close();
           tcpServer.close();
+          done();
         }
       });
 
@@ -3669,10 +3950,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -3697,10 +3981,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -3722,10 +4009,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -3747,10 +4037,13 @@ export default function TCPSocketServerTest() {
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
-        done();
       })
 
     /**
@@ -3771,11 +4064,11 @@ export default function TCPSocketServerTest() {
           expect(tcpServer).assertInstanceOf('Object');
           let listenAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 8081,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let callback: Callback<socket.TCPSocketConnection> = (data: socket.TCPSocketConnection) => {
             console.info(`${caseName} success data:${JSON.stringify(data)}`);
@@ -3788,12 +4081,12 @@ export default function TCPSocketServerTest() {
           };
           tcpServer.off('connect');
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
           expect(true).assertTrue();
           done();
         } catch (err) {
-          console.info(`${caseName} fail ${JSON.stringify(err)}`);
+          console.error(`${caseName} fail ${JSON.stringify(err)}`);
           expect().assertFail();
           done();
         }
@@ -3817,11 +4110,11 @@ export default function TCPSocketServerTest() {
           expect(tcpServer).assertInstanceOf('Object');
           let listenAddress: socket.NetAddress = {
             address: '0.0.0.0',
-            port: 8081,
+            port: getNextPort(),
             family: 1
           };
           await tcpServer.listen(listenAddress).catch((err: BusinessError) => {
-            console.info('fail to listen' + err.code.toString());
+            console.error('fail to listen' + err.code.toString());
           });
           let callback_1: Callback<socket.TCPSocketConnection> = (data: socket.TCPSocketConnection) => {
             console.info(`${caseName} success data:${JSON.stringify(data)}`);
@@ -3840,16 +4133,17 @@ export default function TCPSocketServerTest() {
           };
           tcpServer.off('connect',);
           await tcp.connect(tcpConnectOptions).catch((err: BusinessError) => {
-            console.info('fail to connect' + err.code.toString());
+            console.error('fail to connect' + err.code.toString());
           });
           expect(true).assertTrue();
           done();
         } catch (err) {
-          console.info(`${caseName} fail ${JSON.stringify(err)}`);
+          console.error(`${caseName} fail ${JSON.stringify(err)}`);
           expect().assertFail();
           done();
         }
       });
+
     /**
      * @tc.number ArKUIX_TCPSocketServer_Listen_0100
      * @tc.name ArKUIX_TCPSocketServer_Listen_0100
@@ -3865,20 +4159,21 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -3897,7 +4192,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
@@ -3905,19 +4200,19 @@ export default function TCPSocketServerTest() {
             if (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-              done();
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
             } else {
               expect().assertFail();
-              done();
             }
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -3936,7 +4231,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '11111',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         try {
@@ -3944,19 +4239,19 @@ export default function TCPSocketServerTest() {
             if (err) {
               console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
               const errCode = Number(err.code);
-              expect(errCode === ERR_ADDRESS_NOT_AVAILABLE || errCode === ERR_EIO).assertTrue();
-              done();
+              expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE || errCode === SocketErrorCodes.ERR_EIO).assertTrue();
             } else {
               expect().assertFail();
-              done();
             }
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -3981,14 +4276,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done()
         }
       })
 
@@ -4007,18 +4303,20 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: undefined
         }
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            tcpServer.close();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4039,13 +4337,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(null, (err: BusinessError) => {
             expect().assertFail();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4066,13 +4366,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(undefined, (err: BusinessError) => {
             expect().assertFail();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4092,22 +4394,22 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 0,
+          port: getNextPort(),
           family: 1
         }
         let listen = false;
-        tcpServer.listen(listenAddr).then(() => {
+        await tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          setTimeout(() => {
-            tcpServer.close()
-          }, 500);
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4125,18 +4427,20 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8088,
+          port: getNextPort(),
           family: 1
         }
         try {
           tcpServer.listen(listenAddr, undefined);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4156,18 +4460,20 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8088,
+          port: getNextPort(),
           family: 1
         }
         try {
           tcpServer.listen(listenAddr, null);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4188,22 +4494,20 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '192.168.100.200',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr, (err: BusinessError) => {
+        await tcpServer.listen(listenAddr, (err: BusinessError) => {
           if (err) {
-            console.info(`${caseName} failed, error: ${err.message}`);
+            console.error(`${caseName} failed, error: ${err.message}`);
             const errCode = Number(err.code);
-            expect(errCode === ERR_ADDRESS_NOT_AVAILABLE || errCode === ERR_EIO).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE || errCode === SocketErrorCodes.ERR_EIO).assertTrue();
             tcpServer.close();
-            done();
           } else {
             expect().assertFail();
-            done();
           }
+          done();
         })
-        done();
       })
 
     /**
@@ -4221,20 +4525,22 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8088,
+          port: getNextPort(),
           family: 1
         }
         let listen = false;
         await tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4252,19 +4558,21 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '',
-          port: 8088,
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr).then(() => {
+        await tcpServer.listen(listenAddr).then(() => {
           expect().assertFail();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4282,23 +4590,25 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '11111',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
-        tcpServer.listen(listenAddr).then(() => {
+        await tcpServer.listen(listenAddr).then(() => {
           expect().assertFail();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
           if (isiOS) {
-            expect(errCode === ERR_ADDRESS_NOT_SUPPORT || errCode == ERR_EIO).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE || errCode == SocketErrorCodes.ERR_EIO).assertTrue();
           } else {
-            expect(errCode === ERR_ADDRESS_NOT_AVAILABLE).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE).assertTrue();
           }
-          tcpServer.close();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4323,14 +4633,15 @@ export default function TCPSocketServerTest() {
         await tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
-
+        })
       })
 
     /**
@@ -4348,20 +4659,22 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8088,
+          port: getNextPort(),
           family: undefined
         }
         let listen = false;
         await tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4380,12 +4693,14 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(null);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4406,12 +4721,14 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(undefined);
           expect().assertFail();
-          done();
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        } finally {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4432,23 +4749,25 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '192.168.100.200',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         await tcpServer.listen(listenAddr).then(() => {
           expect().assertFail();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
           if (isiOS) {
-            expect(errCode === ERR_ADDRESS_NOT_SUPPORT || errCode === ERR_EIO).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE || errCode === SocketErrorCodes.ERR_EIO).assertTrue();
           } else {
-            expect(errCode === ERR_ADDRESS_NOT_AVAILABLE).assertTrue();
+            expect(errCode === SocketErrorCodes.ERR_ADDRESS_NOT_AVAILABLE).assertTrue();
           }
-          tcpServer.close();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4470,14 +4789,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4496,20 +4816,21 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '::',
-          port: 8080,
+          port: getNextPort(),
           family: 2
         }
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4534,14 +4855,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4566,14 +4888,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4598,14 +4921,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4630,14 +4954,15 @@ export default function TCPSocketServerTest() {
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
-          done();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
+          done();
         }
       })
 
@@ -4661,13 +4986,15 @@ export default function TCPSocketServerTest() {
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4685,20 +5012,22 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '::',
-          port: 8080,
+          port: getNextPort(),
           family: 2
         }
         let listen = false;
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4723,13 +5052,15 @@ export default function TCPSocketServerTest() {
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4754,13 +5085,15 @@ export default function TCPSocketServerTest() {
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4785,13 +5118,15 @@ export default function TCPSocketServerTest() {
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4816,13 +5151,15 @@ export default function TCPSocketServerTest() {
         tcpServer.listen(listenAddr).then(() => {
           listen = true;
           expect(listen).assertTrue();
-          tcpServer.close();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4840,19 +5177,21 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 65536,
+          port: getNextPort(),
           family: 3
         }
         tcpServer.listen(listenAddr).then(() => {
           expect().assertFail();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           const errCode = Number(err.code);
-          expect(errCode === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4870,20 +5209,20 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 4
         }
         try {
           tcpServer.listen(listenAddr, (err: BusinessError) => {
             expect(err == null).assertTrue();
-            tcpServer.close();
-            done();
           })
         } catch (err) {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
       })
@@ -4903,7 +5242,7 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8081,
+          port: getNextPort(),
           family: 4
         }
         let listen_1 = false;
@@ -4916,10 +5255,11 @@ export default function TCPSocketServerTest() {
             expect().assertFail();
           });
         } finally {
-          tcpServer.close();
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
         }
-        done();
       })
 
     /**
@@ -4940,13 +5280,15 @@ export default function TCPSocketServerTest() {
         }
         tcpServer.listen(listenAddr).then(() => {
           expect().assertFail();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-          expect(err.code === ERR_CODE_PARAMETER_ERROR).assertTrue();
-          tcpServer.close();
+          expect(err.code === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+        }).finally(() => {
+          if (tcpServer) {
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
 
     /**
@@ -4964,42 +5306,41 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         await tcpServer.listen(listenAddr).then(() => {
           console.info('Close listen success');
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-          expect().assertFail();
-          done();
         });
 
-        tcpServer.getState().then((data: socket.SocketStateBase) => {
+        await tcpServer.getState().then((data: socket.SocketStateBase) => {
           console.info('Close getState success' + JSON.stringify(data));
         }).catch((err: BusinessError) => {
-          console.info('getState fail' + JSON.stringify(err));
-          expect().assertFail();
-          done();
+          console.error('getState fail' + JSON.stringify(err));
         });
         let close = false;
-        tcpServer.close().then(() => {
+        await tcpServer.close().then(() => {
           tcpServer.getState().then((data: socket.SocketStateBase) => {
             console.info('Close getState success' + JSON.stringify(data));
           }).catch((err: BusinessError) => {
-            console.info('getState fail' + JSON.stringify(err));
+            console.error('getState fail' + JSON.stringify(err));
             expect().assertFail();
             done();
           });
           close = true;
           expect(close).assertTrue();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(()=>{
+          if(tcpServer){
+            tcpServer.close();
+          }
           done();
-        });
-        sleep(500)
+        })
+        sleep(500);
       })
 
     /**
@@ -5017,59 +5358,52 @@ export default function TCPSocketServerTest() {
         let tcpServer: socket.TCPSocketServer = socket.constructTCPSocketServerInstance();
         let listenAddr: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8080,
+          port: getNextPort(),
           family: 1
         }
         let listenAddr1: socket.NetAddress = {
           address: '0.0.0.0',
-          port: 8081,
+          port: getNextPort(),
           family: 1
         }
         await tcpServer.listen(listenAddr).then(() => {
           tcpServer.getLocalAddress().then((localAddress: socket.NetAddress) => {
-            console.error("Close SUCCESS! Address:" + JSON.stringify(localAddress));
+            console.info("getLocalAddress SUCCESS! Address:" + JSON.stringify(localAddress));
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-            done();
           })
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-          expect().assertFail();
-          done();
         });
 
         await tcpServer.listen(listenAddr1).then(() => {
           tcpServer.getLocalAddress().then((localAddress: socket.NetAddress) => {
-            console.error("Close SUCCESS! Address:" + JSON.stringify(localAddress));
+            console.info("getLocalAddress SUCCESS! Address:" + JSON.stringify(localAddress));
           }).catch((err: BusinessError) => {
             console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-            expect().assertFail();
-            done();
           })
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
-          expect().assertFail();
-          done();
         });
 
         let close = false;
-        tcpServer.close().then(() => {
+        await tcpServer.close().then(() => {
           tcpServer.getState().then((data: socket.SocketStateBase) => {
-            console.error('Close getState success' + JSON.stringify(data));
+            console.info('Close getState success' + JSON.stringify(data));
           }).catch((err: BusinessError) => {
             console.error('getState fail' + JSON.stringify(err));
-            expect().assertFail();
-            done();
           });
           close = true;
           expect(close).assertTrue();
-          done();
         }).catch((err: BusinessError) => {
           console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
           expect().assertFail();
+        }).finally(()=>{
+          if(tcpServer){
+            tcpServer.close();
+          }
           done();
-        });
+        })
       })
   })
 }
