@@ -1,0 +1,21 @@
+{
+  "src": [
+    "pages/SliderEnableHapticFeedbackTest",
+    "pages/SearchEnableHapticFeedBackTest",
+    "pages/TextEnableHapticFeedbackTest",
+    "pages/TextInputEnableHapticFeedbackTest",
+    "pages/TextAreaEnableHapticFeedbackTest",
+    "pages/RichEditorEnableHapticFeedbackTest",
+    "pages/AlphabetIndexerEnableHapticFeedbackTest",
+    "pages/WebEnableHapticFeedbackTest",
+    "pages/UIPickerComponentEnableHapticFeedbackTest",
+    "pages/TextPickerEnableHapticFeedbackTest",
+    "pages/TimePickerEnableHapticFeedbackTest",
+    "pages/DatePickerEnableHapticFeedbackTest",
+    "pages/TextPickerDialogEnableHapticFeedback",
+    "pages/TimePickerDialogEnableHapticFeedback",
+    "pages/DatePickerDialogEnableHapticFeedback",
+    "pages/ImageDragEnableHapticFeedbackTest",
+    "pages/Index"
+  ]
+}
