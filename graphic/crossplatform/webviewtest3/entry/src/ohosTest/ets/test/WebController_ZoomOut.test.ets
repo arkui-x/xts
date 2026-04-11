@@ -193,15 +193,19 @@ export default function WebController_ZoomOut() {
       // 输入w3c标签
       // step1: userScale
       let textInputUserScale: Component = await driver.findComponent(ON.id('userScale'))
-      await textInputUserScale.click();
-      await driver.delayMs(600);
-      await textInputUserScale.inputText('yes');
+      await driver.delayMs(500)
+      expect(textInputUserScale != null).assertTrue()
+      await textInputUserScale.click()
+      await driver.delayMs(500)
+      await textInputUserScale.inputText('yes')
 
       // step2: maxScale
       let maxScaleTextInput: Component = await driver.findComponent(ON.id('maxScale'))
-      await maxScaleTextInput.click();
-      await driver.delayMs(600);
-      await maxScaleTextInput.inputText('2.0');
+      await driver.delayMs(500)
+      expect(maxScaleTextInput != null).assertTrue()
+      await maxScaleTextInput.click()
+      await driver.delayMs(500)
+      await maxScaleTextInput.inputText('2.0')
 
       // 点击重置
       const resetW3cButton: Component = await driver.findComponent(ON.id('resetW3c'));
