@@ -322,29 +322,29 @@ export default function TLSSocketServerTest1() {
         };
         await tlsServer.listen(listenOptions).then(() => {
           console.info("listen callback success");
+        }).catch((err: BusinessError) => {
+          console.error("failed: " + JSON.stringify(err));
           (async (): Promise<void> => {
             return new Promise<void>((resolve, reject) => {
               try {
                 tlsServer?.getProtocol((err: BusinessError, data: string) => {
                   if (PlatformDetector.isIOS() && err.code === 2303105) {
                     expect().assertTrue();
+                    done();
                     return;
                   }
                   if (err) {
                     console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
                     expect().assertFail();
-                    done();
                   } else {
                     console.info(`${caseName} getProtocol result: ${data}`);
                     expect(data == 'TLSv1.2').assertTrue();
                     done();
                   }
-                }
-                )
+                })
               } catch (err) {
                 console.error(`${caseName} failed, error: ${err.code}, ${err.message}`);
                 expect().assertFail();
-                done();
               }
             });
           })().then(async () => {
@@ -354,9 +354,8 @@ export default function TLSSocketServerTest1() {
             expect().assertFail();
             done();
           });
-        }).catch((err: BusinessError) => {
-          console.error("failed: " + JSON.stringify(err));
         });
+        done();
       })
 
     /**
