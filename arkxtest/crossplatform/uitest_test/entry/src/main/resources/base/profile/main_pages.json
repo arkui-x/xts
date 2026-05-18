@@ -1,0 +1,12 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/drag",
+    "pages/waitForComponent",
+    "pages/screenCapture",
+    "pages/waitForIdle",
+    "pages/isComponentPresentWhenLongClick",
+    "pages/setDisplayRotation",
+    "pages/getDisplaySize"
+  ]
+}

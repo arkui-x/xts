@@ -1,0 +1,27 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+
+    ]
+  },
+  "production": {
+    "addedSysCaps": [],
+    "removedSysCaps": [
+      "SystemCapability.Multimedia.Media.AVTranscoder",
+      "SystemCapability.Communication.FusionConnectivity.Core",
+      "SystemCapability.Communication.Bluetooth.Core",
+      "SystemCapability.Ability.AgentRuntime.Core",
+      "SystemCapability.DistributedHardware.DeviceManager",
+      "SystemCapability.Multimedia.Drm.Core",
+      "SystemCapability.Advertising.Ads",
+      "SystemCapability.Applications.IntelligentScene",
+      "SystemCapability.Customization.EnterpriseDeviceManager"
+]
+  }
+}
