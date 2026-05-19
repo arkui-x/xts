@@ -14,7 +14,7 @@
  */
 
 import hilog from '@ohos.hilog';
-import { describe, beforeAll, afterEach, it, expect, Level, TestType, Size } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, it, expect, Level, TestType, Size } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
@@ -26,29 +26,54 @@ const WAIT_PAGE_READY_MS_1000 = 1000;
 const WAIT_PAGE_READY_MS_3000 = 3000;
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
+async function createGetDisplaySizeDriver(bundleName: string): Promise<Driver> {
+  const want: Want = {
+    bundleName: bundleName,
+    abilityName: 'EntryAbility',
+    moduleName: 'entry'
+  };
+  await delegator.startAbility(want);
+  hilog.info(0x0000, TAG, 'start getDisplaySizeTest APP success');
+  const driver = await Driver.create();
+  await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+  return driver;
+}
+
 export default function getDisplaySizeTest() {
   describe('getDisplaySizeTest', () => {
     let driver: Driver;
+    let bundleName = '';
+    let shouldRestartApp = false;
+
+    const runGetDisplaySizeCase = async (action: () => Promise<void>): Promise<void> => {
+      try {
+        await action();
+      } catch (error) {
+        shouldRestartApp = true;
+        if (error instanceof Error) {
+          throw error;
+        } else {
+          throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
+        }
+      }
+    };
 
     beforeAll(async () => {
       // start app
       hilog.info(0x0000, TAG, 'beforeAll start getDisplaySizeTest APP');
-      const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+      bundleName = abilityDelegatorRegistry.getArguments().bundleName;
       hilog.info(0x0000, TAG, `beforeAll bundleName: ${bundleName}`);
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility',
-        moduleName: "entry"
-      }
-      await delegator.startAbility(want);
-      hilog.info(0x0000, TAG, 'beforeAll start getDisplaySizeTest APP success');
-      driver = await Driver.create();
-      await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+      driver = await createGetDisplaySizeDriver(bundleName);
     });
 
-    afterEach(async () => {
-        await sleep(WAIT_PAGE_READY_MS_500);
-    })
+    beforeEach(async () => {
+      if (!shouldRestartApp) {
+        return;
+      }
+      hilog.info(0x0000, TAG, 'beforeEach restart getDisplaySizeTest APP after previous failure');
+      driver = await createGetDisplaySizeDriver(bundleName);
+      shouldRestartApp = false;
+    });
 
     /**
      * @tc.number ArkUIX_ArkTS_UiTest_getDisplaySize_0100
@@ -61,20 +86,22 @@ export default function getDisplaySizeTest() {
      */
     it('ArkUIX_ArkTS_UiTest_getDisplaySize_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       try {
-        await driver.delayMs(WAIT_PAGE_READY_MS_1000);
-        let inButton = await waitForComponentById(driver, 'indexGetDisplaySizeNavButton');
-        if (!inButton) {
-          throw new Error('[UiTest_ETS] not find getDisplaySize button');
-        }
-        await inButton.click();
-        let backButton = await waitForComponentById(driver, 'getDisplaySizeBackButton');
-        if (!backButton) {
-          throw new Error('[UiTest_ETS] getDisplaySize page not ready after click');
-        }
-        const size = await driver.getDisplaySize();
-        console.info(`GetDisplaySizeTest size: ${size.x} x ${size.y}`);
-        expect(size.x > 0).assertTrue();
-        expect(size.y > 0).assertTrue();
+        await runGetDisplaySizeCase(async () => {
+          await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+          let inButton = await waitForComponentById(driver, 'indexGetDisplaySizeNavButton');
+          if (!inButton) {
+            throw new Error('[UiTest_ETS] not find getDisplaySize button');
+          }
+          await inButton.click();
+          let backButton = await waitForComponentById(driver, 'getDisplaySizeBackButton');
+          if (!backButton) {
+            throw new Error('[UiTest_ETS] getDisplaySize page not ready after click');
+          }
+          const size = await driver.getDisplaySize();
+          console.info(`GetDisplaySizeTest size: ${size.x} x ${size.y}`);
+          expect(size.x > 0).assertTrue();
+          expect(size.y > 0).assertTrue();
+        });
       } catch (error) {
         console.error('getDisplaySize failed: ' + JSON.stringify(error));
         expect().assertFail();
@@ -92,10 +119,12 @@ export default function getDisplaySizeTest() {
      */
     it('ArkUIX_ArkTS_UiTest_getDisplaySize_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
       try {
-        const size = await driver.getDisplaySize(0);
-        console.info(`GetDisplaySizeTest size: ${size.x} x ${size.y}`);
-        expect(size.x > 0).assertTrue();
-        expect(size.y > 0).assertTrue();
+        await runGetDisplaySizeCase(async () => {
+          const size = await driver.getDisplaySize(0);
+          console.info(`GetDisplaySizeTest size: ${size.x} x ${size.y}`);
+          expect(size.x > 0).assertTrue();
+          expect(size.y > 0).assertTrue();
+        });
       } catch (error) {
         console.error('getDisplaySize failed: ' + JSON.stringify(error));
         expect().assertFail();
@@ -113,41 +142,43 @@ export default function getDisplaySizeTest() {
      */
     it('ArkUIX_ArkTS_UiTest_getDisplaySize_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
       try {
-        let errorCaught: boolean = false;
-        let errorMsg: string = '';
-        let errorCode: number | undefined = undefined;
+        await runGetDisplaySizeCase(async () => {
+          let errorCaught: boolean = false;
+          let errorMsg: string = '';
+          let errorCode: number | undefined = undefined;
 
-        interface ErrorWithCode {
-          code?: number;
-          message?: string;
-        }
-
-        try {
-          await driver.getDisplaySize(1000);
-        } catch (error) {
-          errorCaught = true;
-          if (error && typeof error === 'object' && error !== null) {
-            const keys = Object.keys(error);
-            if (keys.indexOf('message') !== -1) {
-              errorMsg = (error as ErrorWithCode).message || '';
-            }
-            if (keys.indexOf('code') !== -1) {
-              errorCode = (error as ErrorWithCode).code;
-            }
-
-            console.info('getDisplaySize error object:', JSON.stringify(error));
+          interface ErrorWithCode {
+            code?: number;
+            message?: string;
           }
-        }
-        console.info('getDisplaySize errorMsg:', errorMsg);
-        expect(errorCaught).assertTrue();
-        expect(errorCode === 17000007 || errorMsg.includes('17000007')).assertTrue();
 
-        await driver.delayMs(WAIT_PAGE_READY_MS_3000);
-        let backButton = await waitForComponentById(driver, 'getDisplaySizeBackButton');
-        if (!backButton) {
-          throw new Error('[UiTest_ETS] not find back button');
-        }
-        await backButton.click();
+          try {
+            await driver.getDisplaySize(1000);
+          } catch (error) {
+            errorCaught = true;
+            if (error && typeof error === 'object' && error !== null) {
+              const keys = Object.keys(error);
+              if (keys.indexOf('message') !== -1) {
+                errorMsg = (error as ErrorWithCode).message || '';
+              }
+              if (keys.indexOf('code') !== -1) {
+                errorCode = (error as ErrorWithCode).code;
+              }
+
+              console.info('getDisplaySize error object:', JSON.stringify(error));
+            }
+          }
+          console.info('getDisplaySize errorMsg:', errorMsg);
+          expect(errorCaught).assertTrue();
+          expect(errorCode === 17000007).assertTrue();
+
+          await driver.delayMs(WAIT_PAGE_READY_MS_3000);
+          let backButton = await waitForComponentById(driver, 'getDisplaySizeBackButton');
+          if (!backButton) {
+            throw new Error('[UiTest_ETS] not find back button');
+          }
+          await backButton.click();
+        });
       } catch (error) {
         console.error('getDisplaySize failed: ' + JSON.stringify(error));
         expect().assertFail();
