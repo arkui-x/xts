@@ -14,7 +14,7 @@
  */
 
 import hilog from '@ohos.hilog';
-import { describe, beforeAll, afterEach, it, expect, Level, TestType, Size } from '@ohos/hypium';
+import { describe, beforeAll, beforeEach, afterEach, it, expect, Level, TestType, Size } from '@ohos/hypium';
 import { Driver, ON } from '@ohos.UiTest';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
@@ -82,6 +82,19 @@ interface UiTestComponent {
 }
 
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+
+async function createDragDriver(bundleName: string): Promise<Driver> {
+  const want: Want = {
+    bundleName: bundleName,
+    abilityName: 'EntryAbility',
+    moduleName: 'entry'
+  };
+  await delegator.startAbility(want);
+  hilog.info(0x0000, TAG, 'start dragTest APP success');
+  const driver = await Driver.create();
+  await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+  return driver;
+}
 
 function getBoundsCenter(bounds: UiBounds): DragPoint {
   return {
@@ -190,27 +203,44 @@ async function executeCenteredDrag(driver: Driver, speed: number | null | undefi
 export default function dragTest() {
   describe('dragTest', () => {
     let driver: Driver;
+    let bundleName = '';
+    let shouldRestartApp = false;
+
+    const runDragCase = async (action: () => Promise<void>): Promise<void> => {
+      try {
+        await action();
+      } catch (error) {
+        shouldRestartApp = true;
+        if (error instanceof Error) {
+          throw error;
+        } else {
+          throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
+        }
+      }
+    };
 
     beforeAll(async () => {
       // start app
       hilog.info(0x0000, TAG, 'beforeAll start dragTest APP');
-      const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+      bundleName = abilityDelegatorRegistry.getArguments().bundleName;
       hilog.info(0x0000, TAG, `beforeAll bundleName: ${bundleName}`);
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility',
-        moduleName: "entry"
+      driver = await createDragDriver(bundleName);
+    });
+
+    beforeEach(async () => {
+      if (!shouldRestartApp) {
+        return;
       }
-      await delegator.startAbility(want);
-      hilog.info(0x0000, TAG, 'beforeAll start dragTest APP success');
-      driver = await Driver.create();
-      await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+      hilog.info(0x0000, TAG, 'beforeEach restart dragTest APP after previous failure');
+      driver = await createDragDriver(bundleName);
+      shouldRestartApp = false;
     });
 
     afterEach(async () => {
       try {
         await clickDragBackButton(driver, BackButtonBehavior.OPTIONAL);
       } catch (error) {
+        shouldRestartApp = true;
         console.log(`${TAG} afterEach cleanup ignored: ${JSON.stringify(error)}`);
       }
       await sleep(WAIT_PAGE_READY_MS_1000);
@@ -226,52 +256,52 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      await openDragPage(driver);
-      // Verify the initial state
-      let dragResult = await waitForComponentById(driver, 'dragResultText');
-      if (!dragResult) {
-        throw new Error(TAG + ' not find dragResultText');
-      }
-      let dragText = await dragResult.getText();
-      expect(dragText).assertEqual('未拖拽');
+      await runDragCase(async () => {
+        await openDragPage(driver);
+        // Verify the initial state
+        let dragResult = await waitForComponentById(driver, 'dragResultText');
+        if (!dragResult) {
+          throw new Error(TAG + ' not find dragResultText');
+        }
+        let dragText = await dragResult.getText();
+        expect(dragText).assertEqual('未拖拽');
 
-      // Get the coordinates of the drag source and drop target
-      const centerPoints = await getDragCenterPoints(driver);
-      const sourceBounds = centerPoints.sourceBounds;
-      const targetBounds = centerPoints.targetBounds;
-      console.log(`${TAG} Source bounds: ${JSON.stringify(sourceBounds)}`);
-      console.log(`${TAG} Target bounds: ${JSON.stringify(targetBounds)}`);
+        // Get the coordinates of the drag source and drop target
+        const centerPoints = await getDragCenterPoints(driver);
+        const sourceBounds = centerPoints.sourceBounds;
+        const targetBounds = centerPoints.targetBounds;
+        console.log(`${TAG} Source bounds: ${JSON.stringify(sourceBounds)}`);
+        console.log(`${TAG} Target bounds: ${JSON.stringify(targetBounds)}`);
 
-      const startX = centerPoints.start.x;
-      const startY = centerPoints.start.y;
-      const endX = centerPoints.end.x;
-      const endY = centerPoints.end.y;
+        const startX = centerPoints.start.x;
+        const startY = centerPoints.start.y;
+        const endX = centerPoints.end.x;
+        const endY = centerPoints.end.y;
 
-      console.log(`${TAG} Drag from (${startX}, ${startY}) to (${endX}, ${endY})`);
-      await driver.drag(startX, startY, endX, endY, BASIC_DRAG_SPEED);
-      console.log(TAG + ' Drag operation completed');
-      await sleep(WAIT_PAGE_READY_MS_1000);
+        console.log(`${TAG} Drag from (${startX}, ${startY}) to (${endX}, ${endY})`);
+        await driver.drag(startX, startY, endX, endY, BASIC_DRAG_SPEED);
+        console.log(TAG + ' Drag operation completed');
+        await sleep(WAIT_PAGE_READY_MS_1000);
 
-      // Verify the drag result
-      dragResult = await waitForComponentById(driver, 'dragResultText');
-      if (!dragResult) {
-        throw new Error(TAG + ' not find dragResultText after drag');
-      }
-      console.log(TAG + ' dragResult 1');
-      await sleep(WAIT_PAGE_READY_MS_500);
-      await verifyDragSuccess(driver);
-      console.log(TAG + 'getText 1');
-      await sleep(WAIT_PAGE_READY_MS_500);
-      // Verify that the drop zone text also changed
-      const dropZoneAfter = await waitForComponentById(driver, 'dragDropZone');
-      await sleep(WAIT_PAGE_READY_MS_500);
-      if (dropZoneAfter) {
-        const dropText = await dropZoneAfter.getText();
+        // Verify the drag result
+        dragResult = await waitForComponentById(driver, 'dragResultText');
+        if (!dragResult) {
+          throw new Error(TAG + ' not find dragResultText after drag');
+        }
+        console.log(TAG + ' dragResult 1');
         await sleep(WAIT_PAGE_READY_MS_500);
-        console.log(TAG + `Drop zone text after drag: ${dropText}`);
-      }
-
-      // Exit the test page
+        await verifyDragSuccess(driver);
+        console.log(TAG + 'getText 1');
+        await sleep(WAIT_PAGE_READY_MS_500);
+        // Verify that the drop zone text also changed
+        const dropZoneAfter = await waitForComponentById(driver, 'dragDropZone');
+        await sleep(WAIT_PAGE_READY_MS_500);
+        if (dropZoneAfter) {
+          const dropText = await dropZoneAfter.getText();
+          await sleep(WAIT_PAGE_READY_MS_500);
+          console.log(TAG + `Drop zone text after drag: ${dropText}`);
+        }
+      });
     });
 
     /**
@@ -284,31 +314,32 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      await openDragPage(driver);
-      let dragResult = await waitForComponentById(driver, 'dragResultText');
-      if (!dragResult) {
-        throw new Error(TAG + ' not find dragResultText');
-      }
-      let dragText = await dragResult.getText();
-      expect(dragText).assertEqual('未拖拽');
+      await runDragCase(async () => {
+        await openDragPage(driver);
+        let dragResult = await waitForComponentById(driver, 'dragResultText');
+        if (!dragResult) {
+          throw new Error(TAG + ' not find dragResultText');
+        }
+        let dragText = await dragResult.getText();
+        expect(dragText).assertEqual('未拖拽');
 
-      const targets = await getDragTargets(driver);
-      const sourceBounds = await targets.dragSource.getBounds();
-      const targetBounds = await targets.dropZone.getBounds();
+        const targets = await getDragTargets(driver);
+        const sourceBounds = await targets.dragSource.getBounds();
+        const targetBounds = await targets.dropZone.getBounds();
 
-      // Diagonal drag: use the upper-left corner of the source component as the start point
-      // and the lower-right corner of the target component as the end point
-      const startX = sourceBounds.left + DIAGONAL_DRAG_OFFSET_PX;
-      const startY = sourceBounds.top + DIAGONAL_DRAG_OFFSET_PX;
-      const endX = targetBounds.right - DIAGONAL_DRAG_OFFSET_PX;
-      const endY = targetBounds.bottom - DIAGONAL_DRAG_OFFSET_PX;
+        // Diagonal drag: use the upper-left corner of the source component as the start point
+        // and the lower-right corner of the target component as the end point
+        const startX = sourceBounds.left + DIAGONAL_DRAG_OFFSET_PX;
+        const startY = sourceBounds.top + DIAGONAL_DRAG_OFFSET_PX;
+        const endX = targetBounds.right - DIAGONAL_DRAG_OFFSET_PX;
+        const endY = targetBounds.bottom - DIAGONAL_DRAG_OFFSET_PX;
 
-      console.log(`${TAG} Diagonal drag from (${startX}, ${startY}) to (${endX}, ${endY})`);
-      await driver.drag(startX, startY, endX, endY, WAIT_PAGE_READY_MS_1000);
-      await sleep(WAIT_PAGE_READY_MS_1000);
+        console.log(`${TAG} Diagonal drag from (${startX}, ${startY}) to (${endX}, ${endY})`);
+        await driver.drag(startX, startY, endX, endY, WAIT_PAGE_READY_MS_1000);
+        await sleep(WAIT_PAGE_READY_MS_1000);
 
-      await verifyDragSuccess(driver);
-
+        await verifyDragSuccess(driver);
+      });
     });
 
     /**
@@ -321,18 +352,19 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      await openDragPage(driver);
-      const centerPoints = await getDragCenterPoints(driver);
-      const startX = centerPoints.start.x;
-      const startY = centerPoints.start.y;
-      const endX = centerPoints.end.x;
-      const endY = centerPoints.end.y;
+      await runDragCase(async () => {
+        await openDragPage(driver);
+        const centerPoints = await getDragCenterPoints(driver);
+        const startX = centerPoints.start.x;
+        const startY = centerPoints.start.y;
+        const endX = centerPoints.end.x;
+        const endY = centerPoints.end.y;
 
-      await driver.drag(startX, startY, endX, endY, HIGH_SPEED_DRAG);
-      await sleep(WAIT_PAGE_READY_MS_1000);
+        await driver.drag(startX, startY, endX, endY, HIGH_SPEED_DRAG);
+        await sleep(WAIT_PAGE_READY_MS_1000);
 
-      await verifyDragSuccess(driver);
-
+        await verifyDragSuccess(driver);
+      });
     });
 
     /**
@@ -345,47 +377,49 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL4, async () => {
-      const speedTestCases: DragSpeedTestCase[] = [
-        {
-          speed: MIN_SPEED_FALLBACK_CASE,
-          shouldThrow: false,
-          description: 'should default to 600'
-        },
-        {
-          speed: MAX_SPEED_FALLBACK_CASE,
-          shouldThrow: false,
-          description: 'should default to 600'
-        },
-        {
-          speed: INVALID_NEGATIVE_SPEED,
-          shouldThrow: true,
-          expectedCode: BAD_PARAMETER_ERROR_CODE,
-          description: 'should throw 401 error'
-        }
-      ];
-
-      for (const testCase of speedTestCases) {
-        await openDragPage(driver);
-        try {
-          console.log(`${TAG} Test speed = ${testCase.speed} (${testCase.description})`);
-          if (testCase.shouldThrow) {
-            await assertDragError(
-              async () => {
-                await executeCenteredDrag(driver, testCase.speed);
-                await sleep(WAIT_PAGE_READY_MS_1000);
-              },
-              testCase.expectedCode ?? BAD_PARAMETER_ERROR_CODE,
-              TAG + ' Expected drag invalid speed error'
-            );
-          } else {
-            await executeCenteredDrag(driver, testCase.speed);
-            await sleep(WAIT_PAGE_READY_MS_1000);
-            await verifyDragSuccess(driver);
+      await runDragCase(async () => {
+        const speedTestCases: DragSpeedTestCase[] = [
+          {
+            speed: MIN_SPEED_FALLBACK_CASE,
+            shouldThrow: false,
+            description: 'should default to 600'
+          },
+          {
+            speed: MAX_SPEED_FALLBACK_CASE,
+            shouldThrow: false,
+            description: 'should default to 600'
+          },
+          {
+            speed: INVALID_NEGATIVE_SPEED,
+            shouldThrow: true,
+            expectedCode: BAD_PARAMETER_ERROR_CODE,
+            description: 'should throw 401 error'
           }
-        } finally {
-          await sleep(WAIT_PAGE_READY_MS_500);
+        ];
+
+        for (const testCase of speedTestCases) {
+          await openDragPage(driver);
+          try {
+            console.log(`${TAG} Test speed = ${testCase.speed} (${testCase.description})`);
+            if (testCase.shouldThrow) {
+              await assertDragError(
+                async () => {
+                  await executeCenteredDrag(driver, testCase.speed);
+                  await sleep(WAIT_PAGE_READY_MS_1000);
+                },
+                testCase.expectedCode ?? BAD_PARAMETER_ERROR_CODE,
+                TAG + ' Expected drag invalid speed error'
+              );
+            } else {
+              await executeCenteredDrag(driver, testCase.speed);
+              await sleep(WAIT_PAGE_READY_MS_1000);
+              await verifyDragSuccess(driver);
+            }
+          } finally {
+            await sleep(WAIT_PAGE_READY_MS_500);
+          }
         }
-      }
+      });
     });
 
     /**
@@ -398,37 +432,39 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await openDragPage(driver);
-      const centerPoints = await getDragCenterPoints(driver);
-      const startX = centerPoints.start.x;
-      const startY = centerPoints.start.y;
-      const endX = centerPoints.end.x;
-      const endY = centerPoints.end.y;
+      await runDragCase(async () => {
+        await openDragPage(driver);
+        const centerPoints = await getDragCenterPoints(driver);
+        const startX = centerPoints.start.x;
+        const startY = centerPoints.start.y;
+        const endX = centerPoints.end.x;
+        const endY = centerPoints.end.y;
 
-      // speed = null
-      console.log(TAG + 'Test speed = null (should default to 600)');
-      await driver.drag(startX, startY, endX, endY, null);
-      await sleep(WAIT_PAGE_READY_MS_1000);
-      await verifyDragSuccess(driver);
+        // speed = null
+        console.log(TAG + 'Test speed = null (should default to 600)');
+        await driver.drag(startX, startY, endX, endY, null);
+        await sleep(WAIT_PAGE_READY_MS_1000);
+        await verifyDragSuccess(driver);
 
-      await sleep(WAIT_PAGE_READY_MS_500);
+        await sleep(WAIT_PAGE_READY_MS_500);
 
-      await openDragPage(driver);
+        await openDragPage(driver);
 
-      // Get coordinates again
-      const centerPoints2 = await getDragCenterPoints(driver);
-      const startX2 = centerPoints2.start.x;
-      const startY2 = centerPoints2.start.y;
-      const endX2 = centerPoints2.end.x;
-      const endY2 = centerPoints2.end.y;
+        // Get coordinates again
+        const centerPoints2 = await getDragCenterPoints(driver);
+        const startX2 = centerPoints2.start.x;
+        const startY2 = centerPoints2.start.y;
+        const endX2 = centerPoints2.end.x;
+        const endY2 = centerPoints2.end.y;
 
-      // speed = undefined
-      console.log(TAG + 'Test speed = undefined (should default to 600)');
-      await driver.drag(startX2, startY2, endX2, endY2, undefined);
-      await sleep(WAIT_PAGE_READY_MS_1000);
-      await verifyDragSuccess(driver);
+        // speed = undefined
+        console.log(TAG + 'Test speed = undefined (should default to 600)');
+        await driver.drag(startX2, startY2, endX2, endY2, undefined);
+        await sleep(WAIT_PAGE_READY_MS_1000);
+        await verifyDragSuccess(driver);
 
-      await sleep(WAIT_PAGE_READY_MS_500);
+        await sleep(WAIT_PAGE_READY_MS_500);
+      });
     });
 
     /**
@@ -441,13 +477,15 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL4, async () => {
-      await assertDragError(
-        async () => {
-          await driver.drag(-1, 100, 200, 300, 600);
-        },
-        BAD_PARAMETER_ERROR_CODE,
-        TAG + ' Expected drag invalid coordinate error'
-      );
+      await runDragCase(async () => {
+        await assertDragError(
+          async () => {
+            await driver.drag(-1, 100, 200, 300, 600);
+          },
+          BAD_PARAMETER_ERROR_CODE,
+          TAG + ' Expected drag invalid coordinate error'
+        );
+      });
     });
     /**
      * @tc.number ArkUIX_ArkTS_UiTest_drag_0700
@@ -459,13 +497,15 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL4, async () => {
-      await assertDragError(
-        async () => {
-          await driver.drag(100.5, 200, 300, 400, 600);
-        },
-        BAD_PARAMETER_ERROR_CODE,
-        TAG + ' Expected drag invalid coordinate(decimal) error'
-      );
+      await runDragCase(async () => {
+        await assertDragError(
+          async () => {
+            await driver.drag(100.5, 200, 300, 400, 600);
+          },
+          BAD_PARAMETER_ERROR_CODE,
+          TAG + ' Expected drag invalid coordinate(decimal) error'
+        );
+      });
     });
 
     /**
@@ -478,13 +518,15 @@ export default function dragTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_drag_0800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL4, async () => {
-      await assertDragError(
-        async () => {
-          await driver.drag(100, 200, 300, 400, 600.5);
-        },
-        BAD_PARAMETER_ERROR_CODE,
-        TAG + ' Expected drag invalid speed(decimal) error'
-      );
+      await runDragCase(async () => {
+        await assertDragError(
+          async () => {
+            await driver.drag(100, 200, 300, 400, 600.5);
+          },
+          BAD_PARAMETER_ERROR_CODE,
+          TAG + ' Expected drag invalid speed(decimal) error'
+        );
+      });
     });
   })
 }

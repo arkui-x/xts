@@ -107,29 +107,54 @@ async function exitWaitForComponentPage(driver: Driver): Promise<void> {
   }
 }
 
+async function createWaitForComponentDriver(bundleName: string): Promise<Driver> {
+  const want: Want = {
+    bundleName: bundleName,
+    abilityName: 'EntryAbility',
+    moduleName: 'entry'
+  };
+  await delegator.startAbility(want);
+  hilog.info(0x0000, TAG, 'start waitForComponentTest APP success');
+  const driver = await Driver.create();
+  await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+  return driver;
+}
+
 export default function waitForComponentTest() {
   describe('waitForComponentTest', () => {
     let driver: Driver;
+    let bundleName = '';
+    let shouldRestartApp = false;
+
+    const runWaitForComponentCase = async (action: WaitForComponentAction): Promise<void> => {
+      try {
+        await action();
+      } catch (error) {
+        shouldRestartApp = true;
+        if (error instanceof Error) {
+          throw error;
+        } else {
+          throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
+        }
+      }
+    };
 
     beforeAll(async () => {
       // start app
       hilog.info(0x0000, TAG, 'beforeAll start waitForComponentTest APP');
-      const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+      bundleName = abilityDelegatorRegistry.getArguments().bundleName;
       hilog.info(0x0000, TAG, `beforeAll bundleName: ${bundleName}`);
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility',
-        moduleName: "entry"
-      }
-      await delegator.startAbility(want);
-      hilog.info(0x0000, TAG, 'beforeAll start waitForComponentTest APP success');
-      driver = await Driver.create();
-      await driver.delayMs(WAIT_PAGE_READY_MS_1000);
+      driver = await createWaitForComponentDriver(bundleName);
     });
 
     beforeEach(async () => {
-        await sleep(WAIT_PAGE_READY_MS_500);
-    })
+      if (!shouldRestartApp) {
+        return;
+      }
+      hilog.info(0x0000, TAG, 'beforeEach restart waitForComponentTest APP after previous failure');
+      driver = await createWaitForComponentDriver(bundleName);
+      shouldRestartApp = false;
+    });
 
     /**
      * @tc.number ArkUIX_ArkTS_UiTest_waitForComponent_0100
@@ -142,7 +167,8 @@ export default function waitForComponentTest() {
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       try {
-        await withWaitForComponentPage(driver, async () => {
+        await runWaitForComponentCase(async () => {
+          await withWaitForComponentPage(driver, async () => {
           const component1 = await driver.waitForComponent(ON.id('waitForComponentButtonA'), WAIT_TIMEOUT);
           const found1: boolean = component1 !== undefined && component1 !== null;
           console.info(`[UiTest_ETS] found btnA=${found1}`);
@@ -170,6 +196,7 @@ export default function waitForComponentTest() {
           }
           expect(found2).assertFalse();
           await driver.delayMs(WAIT_PAGE_READY_MS_3000);
+          });
         });
 
       } catch (error) {
@@ -189,11 +216,13 @@ export default function waitForComponentTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await withWaitForComponentPage(driver, async () => {
-        // 1. When the control exists, it should return immediately Component
-        let component: object | null = null;
-        component = await driver.waitForComponent(ON.id('waitForComponentButtonA'), 0);
-        expect(component !== null && component !== undefined).assertTrue();
+      await runWaitForComponentCase(async () => {
+        await withWaitForComponentPage(driver, async () => {
+          // 1. When the control exists, it should return immediately Component
+          let component: object | null = null;
+          component = await driver.waitForComponent(ON.id('waitForComponentButtonA'), 0);
+          expect(component !== null && component !== undefined).assertTrue();
+        });
       });
     });
 
@@ -207,15 +236,16 @@ export default function waitForComponentTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await withWaitForComponentPage(driver, async () => {
-        const errorInfo = await captureWaitForComponentError(driver, ON.id('waitForComponentButtonA'), 1000.5);
-        const errorCode = errorInfo?.code;
-        const errorMsg = errorInfo?.message || '';
-        console.info('waitForComponent time=1000.5 errorCode:', JSON.stringify(errorCode));
-        console.info('waitForComponent time=1000.5 errorMsg:', errorMsg);
-        expect(errorInfo !== null).assertTrue();
-        expect(errorCode === 401 || errorMsg.includes('401') || errorMsg.includes('Parameter error') ||
-        errorMsg.includes('Expect integer')).assertTrue();
+      await runWaitForComponentCase(async () => {
+        await withWaitForComponentPage(driver, async () => {
+          const errorInfo = await captureWaitForComponentError(driver, ON.id('waitForComponentButtonA'), 1000.5);
+          const errorCode = errorInfo?.code;
+          const errorMsg = errorInfo?.message || '';
+          console.info('waitForComponent time=1000.5 errorCode:', JSON.stringify(errorCode));
+          console.info('waitForComponent time=1000.5 errorMsg:', errorMsg);
+          expect(errorInfo !== null).assertTrue();
+          expect(errorCode === 401 ).assertTrue();
+        });
       });
     });
 
@@ -229,14 +259,16 @@ export default function waitForComponentTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await withWaitForComponentPage(driver, async () => {
-        const errorInfo = await captureWaitForComponentNullError(driver, 1000);
-        const errorCode = errorInfo?.code;
-        const errorMsg = errorInfo?.message || '';
-        console.info('waitForComponent on=null errorCode:', JSON.stringify(errorCode));
-        console.info('waitForComponent on=null errorMsg:', errorMsg);
-        expect(errorInfo !== null).assertTrue();
-        expect(errorCode === 401 || errorMsg.includes('401')).assertTrue();
+      await runWaitForComponentCase(async () => {
+        await withWaitForComponentPage(driver, async () => {
+          const errorInfo = await captureWaitForComponentNullError(driver, 1000);
+          const errorCode = errorInfo?.code;
+          const errorMsg = errorInfo?.message || '';
+          console.info('waitForComponent on=null errorCode:', JSON.stringify(errorCode));
+          console.info('waitForComponent on=null errorMsg:', errorMsg);
+          expect(errorInfo !== null).assertTrue();
+          expect(errorCode === 401).assertTrue();
+        });
       });
     });
 
@@ -250,14 +282,16 @@ export default function waitForComponentTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await withWaitForComponentPage(driver, async () => {
-        const errorInfo = await captureWaitForComponentUndefinedError(driver, 1000);
-        const errorCode = errorInfo?.code;
-        const errorMsg = errorInfo?.message || '';
-        console.info('waitForComponent on=undefined errorCode:', JSON.stringify(errorCode));
-        console.info('waitForComponent on=undefined errorMsg:', errorMsg);
-        expect(errorInfo !== null).assertTrue();
-        expect(errorCode === 401 || errorMsg.includes('401')).assertTrue();
+      await runWaitForComponentCase(async () => {
+        await withWaitForComponentPage(driver, async () => {
+          const errorInfo = await captureWaitForComponentUndefinedError(driver, 1000);
+          const errorCode = errorInfo?.code;
+          const errorMsg = errorInfo?.message || '';
+          console.info('waitForComponent on=undefined errorCode:', JSON.stringify(errorCode));
+          console.info('waitForComponent on=undefined errorMsg:', errorMsg);
+          expect(errorInfo !== null).assertTrue();
+          expect(errorCode === 401 ).assertTrue();
+        });
       });
     });
 
@@ -271,14 +305,16 @@ export default function waitForComponentTest() {
      * @tc.require
      */
     it('ArkUIX_ArkTS_UiTest_waitForComponent_0600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, async () => {
-      await withWaitForComponentPage(driver, async () => {
-        const errorInfo = await captureWaitForComponentError(driver, ON.id('waitForComponentButtonA'), -1);
-        const errorCode = errorInfo?.code;
-        const errorMsg = errorInfo?.message || '';
-        console.info('waitForComponent time=-1 errorCode:', JSON.stringify(errorCode));
-        console.info('waitForComponent time=-1 errorMsg:', errorMsg);
-        expect(errorInfo !== null).assertTrue();
-        expect(errorCode === 401 || errorMsg.includes('401')).assertTrue();
+      await runWaitForComponentCase(async () => {
+        await withWaitForComponentPage(driver, async () => {
+          const errorInfo = await captureWaitForComponentError(driver, ON.id('waitForComponentButtonA'), -1);
+          const errorCode = errorInfo?.code;
+          const errorMsg = errorInfo?.message || '';
+          console.info('waitForComponent time=-1 errorCode:', JSON.stringify(errorCode));
+          console.info('waitForComponent time=-1 errorMsg:', errorMsg);
+          expect(errorInfo !== null).assertTrue();
+          expect(errorCode === 401 ).assertTrue();
+        });
       });
     });
   })
