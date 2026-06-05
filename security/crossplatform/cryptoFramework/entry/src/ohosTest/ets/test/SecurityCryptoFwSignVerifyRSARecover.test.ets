@@ -696,7 +696,7 @@ export default function SecurityCryptoFwSignRecoverRSARecoverTestUnit() {
      */
     it("SUB_Security_CryptoFramework_RSASignRecover_Func_2600", 0, async (done: Function) => {
       let dataLen: number = 128;
-      let algName: string = "ECC_BrainPoolP256t1"
+      let algName: string = "DSA1024"
       let rawData: cryptoFramework.DataBlob = await commonUtil.createData(dataLen);
       let generator: cryptoFramework.AsyKeyGenerator = cryptoFramework.createAsyKeyGenerator(algName)
       let keyPair: cryptoFramework.KeyPair = await generator.generateKeyPair();
