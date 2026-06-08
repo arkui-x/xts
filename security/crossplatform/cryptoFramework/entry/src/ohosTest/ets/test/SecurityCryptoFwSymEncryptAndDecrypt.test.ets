@@ -861,7 +861,7 @@ export default function SecurityCryptoFwSymEncryptAndDecryptTestUnit() {
         let algName: string = "SM4_128";
         let symKey: cryptoFramework.SymKey = syncSymEncAndDecUtils.createSymKeySync(algName);
         let padding: string = "PKCS7";
-        let encAlgName: string = algName + "|XTS|" + padding;
+        let encAlgName: string = algName + "|XTSS|" + padding;
         let cipher = cryptoFramework.createCipher(encAlgName);
         let dataIv: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let paramSpec: cryptoFramework.IvParamsSpec = syncSymEncAndDecUtils.genIvParamsSpec(dataIv);
