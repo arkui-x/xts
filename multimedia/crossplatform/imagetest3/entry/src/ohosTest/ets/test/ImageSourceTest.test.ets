@@ -374,8 +374,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -410,8 +410,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -484,8 +484,8 @@ export default function ImageSourceTest() {
           expect(pixelMap.isEditable).assertTrue()
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain('Create PixelMap error')
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -592,8 +592,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980109")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -702,8 +702,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -738,8 +738,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -958,8 +958,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -994,8 +994,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1030,8 +1030,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1104,8 +1104,8 @@ export default function ImageSourceTest() {
           expect(pixelMap.isEditable).assertTrue()
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain('Create PixelMap error')
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1212,8 +1212,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980109")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1322,8 +1322,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1358,8 +1358,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1615,8 +1615,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1651,8 +1651,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1725,8 +1725,8 @@ export default function ImageSourceTest() {
           expect(pixelMap.isEditable).assertTrue()
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain('Create PixelMap error')
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1833,8 +1833,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980109")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1943,8 +1943,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1979,8 +1979,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2236,8 +2236,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2272,8 +2272,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2346,8 +2346,8 @@ export default function ImageSourceTest() {
           expect(pixelMap.isEditable).assertTrue()
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain('Create PixelMap error')
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980115")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2454,8 +2454,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980109")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2564,8 +2564,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2600,8 +2600,8 @@ export default function ImageSourceTest() {
         await imageSourceApi.createPixelMap(decodingOptions).then((pixelMap: image.PixelMap) => {
           expect().assertFail()
         }).catch((err: BusinessError) => {
-          console.info('err is ' + JSON.stringify(err))
-          expect(JSON.stringify(err)).assertContain("Create PixelMap error")
+          console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
+          expect(JSON.stringify(err.code)).assertEqual("62980116")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
