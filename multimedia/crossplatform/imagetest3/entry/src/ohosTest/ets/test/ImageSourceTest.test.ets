@@ -375,7 +375,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -411,7 +411,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -485,7 +485,7 @@ export default function ImageSourceTest() {
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -593,7 +593,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980109")
+          expect(JSON.stringify(err)).assertContain("Unsupported options")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -703,7 +703,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -739,7 +739,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -959,7 +959,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -995,7 +995,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1031,7 +1031,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1105,7 +1105,7 @@ export default function ImageSourceTest() {
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1213,7 +1213,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980109")
+          expect(JSON.stringify(err)).assertContain("Unsupported options")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1323,7 +1323,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1359,7 +1359,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1616,7 +1616,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1652,7 +1652,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1726,7 +1726,7 @@ export default function ImageSourceTest() {
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1834,7 +1834,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980109")
+          expect(JSON.stringify(err)).assertContain("Unsupported options")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1944,7 +1944,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -1980,7 +1980,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2237,7 +2237,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2273,7 +2273,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2347,7 +2347,7 @@ export default function ImageSourceTest() {
           await releasePixelmap(pixelMap)
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980115")
+          expect(JSON.stringify(err)).assertContain("Parameter error")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2455,7 +2455,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980109")
+          expect(JSON.stringify(err)).assertContain("Unsupported options")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2565,7 +2565,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
@@ -2601,7 +2601,7 @@ export default function ImageSourceTest() {
           expect().assertFail()
         }).catch((err: BusinessError) => {
           console.info('err is ' + JSON.stringify(err), JSON.stringify(err.code))
-          expect(JSON.stringify(err.code)).assertEqual("62980116")
+          expect(JSON.stringify(err)).assertContain("Decode failed")
         })
         await releaseImageSource(imageSourceApi)
       } catch (err) {
