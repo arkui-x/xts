@@ -1,0 +1,12 @@
+{
+  "devices": {
+    "general": ["default", "tablet"]
+  },
+  "production": {
+    "removedSysCaps": [
+      "SystemCapability.Ability.AgentRuntime.Core",
+      "SystemCapability.Multimedia.AVSession.AVInputCast",
+      "SystemCapability.HiviewDFX.HiRetrieval"
+    ]
+  }
+}
