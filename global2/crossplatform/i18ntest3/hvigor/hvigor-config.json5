@@ -1,7 +1,7 @@
 {
-  "modelVersion": "6.0.2",
+  "modelVersion": "26.0.0",
   "dependencies": {
-    "@ohos/hvigor-ohos-arkui-x-plugin": "4.22.2"
+    "@ohos/hvigor-ohos-arkui-x-plugin": "4.26.1"
   },
   "execution": {},
   "logging": {},
