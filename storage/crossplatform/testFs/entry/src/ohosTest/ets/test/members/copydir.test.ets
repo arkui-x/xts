@@ -47,6 +47,11 @@ export default function fileIOCopyDir() {
       let data = context.filesDir;
       let dpath = await data + '/' + testNum;
       try {
+        fileIO.rmdirSync(dpath);
+      } catch (e) {
+        console.log(testNum + 'failed to rmdirSync for ' + e.message + ', code: ' + e.code);
+      }
+      try {
         let ddpath1 = dpath + '/srcDir';
         let ddpath2 = dpath + '/destDir';
         let dddpath1 = ddpath1 + '/srcDir_first';
