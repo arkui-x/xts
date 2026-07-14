@@ -1,0 +1,26 @@
+<!-- fit_content.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Fit-Content</title>
+</head>
+<body>
+<div>
+    <div>
+        <p>这是一个测试字体大小的页面。</p>
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+    </div>
+</div>
+<p id="fontMeasure">字体大小测量</p>
+<script>
+    // 读取未显式设置 font-size 的元素实际计算字号，
+    // 该值由 webview 的 defaultFontSize 决定。
+    function getFontSize() {
+        let el = document.getElementById('fontMeasure');
+        return window.getComputedStyle(el).fontSize;
+    }
+</script>
+</body>
+</html>
