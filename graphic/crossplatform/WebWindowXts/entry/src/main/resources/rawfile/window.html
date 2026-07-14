@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<a href="#" onclick="openNewWindow('https://www.baidu.com')">打开新页面</a>
+<br><br>
+<a href="#" onclick="startTimerToOpen('https://www.baidu.com', 2)">定时器打开新窗口</a>
+<p id="timerStatus" style="display:none;">倒计时: <span id="countdown">2</span> 秒后打开新窗口...</p>
+
+<script type="text/javascript">
+    let countdownTimer = null;
+    
+    function openNewWindow(url) {
+      window.open(url, 'example');
+      return false;
+    }
+    
+    // 启动定时器，计时结束后打开新窗口
+    function startTimerToOpen(url, seconds) {
+        // 清除已存在的定时器
+        if (countdownTimer) {
+            clearInterval(countdownTimer);
+        }
+        
+        let countdown = seconds;
+        let statusElement = document.getElementById('timerStatus');
+        let countdownElement = document.getElementById('countdown');
+        
+        // 显示倒计时状态
+        statusElement.style.display = 'block';
+        countdownElement.textContent = countdown;
+        
+        countdownTimer = setInterval(function() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                statusElement.innerHTML = '<span style="color:green;font-weight:bold;">正在打开新窗口...</span>';
+                
+                try {
+                    window.open(url, '_blank', 'height=400,width=600,top=100,left=100');
+                } catch (e) {
+                    statusElement.innerHTML = '<span style="color:red;">window.open 异常: ' + e.message + '</span>';
+                }
+            }
+        }, 1000);
+        
+        return false;
+    }
+</script>
+</body>
+</html>

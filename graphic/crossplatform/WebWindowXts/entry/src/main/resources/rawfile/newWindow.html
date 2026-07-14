@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>New Window</title>
+</head>
+<body>
+<h3>New window content</h3>
+<p>This is the new window.</p>
+
+<button id="closeBtn" onclick="closeThisWindow()">Close This Window (call window.close)</button>
+
+<script>
+  // 父页面可通过 javascript:closeThisWindow() 调用此函数以触发 window.close()
+  function closeThisWindow() {
+    try {
+      window.close();
+    } catch (e) {
+      console.error('closeThisWindow failed', e);
+    }
+  }
+</script>
+</body>
+</html>
