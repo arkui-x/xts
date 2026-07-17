@@ -19,6 +19,7 @@ import fileIOFsync from "./members/fsync.test";
 import fileIOMkdir from "./members/mkdir.test";
 import fileIOMkdtemp from "./members/mkdtemp.test";
 import fileIOOpen from "./members/open.test";
+import fileIOOpenError from "./members/openError.test";
 import fileIORead from "./members/read.test";
 import fileIORename from "./members/rename.test";
 import fileIORmdir from "./members/rmdir.test";
@@ -67,6 +68,7 @@ export default function testsuite() {
   fileIOMkdir();
   fileIOMkdtemp();
   fileIOOpen();
+  fileIOOpenError();
   fileIORead();
   fileIORename();
   fileIORmdir();

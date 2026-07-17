@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-import { FILE_CONTENT, nextFileName, prepareFile, isIntNum, describe, it, expect, afterEach } from "../Common";
+import { FILE_CONTENT, nextFileName, prepareFile, isIntNum, describe, it, expect, afterEach, randomString } from "../Common";
 import fileIO from "@ohos.file.fs";
+import fileUri from "@ohos.file.fileuri";
 import { BusinessError } from "@kit.BasicServicesKit";
 
 async function sleep(ms: number): Promise<void> {
@@ -1115,6 +1116,1091 @@ export default function fileIOOpen() {
         fileIO.unlinkSync(fpath);
         console.log("fileIO_test_open_sync_012 has failed for " + e.message + ", code: " + e.code);
         expect(e.code == 13900008 && e.message == "Bad file descriptor").assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_2600
+     * @tc.name   : fileIO_test_open_async_026
+     * @tc.desc   : Test open() interfaces with file:// URI. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_async_026", 2, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_026");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let uri = fileUri.getUriFromPath(fpath);
+
+      try {
+        let file = await fileIO.open(uri, fileIO.OpenMode.READ_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        expect(file.path === fpath).assertTrue();
+        expect(file.name === fpath.split('/').pop()).assertTrue();
+        fileIO.read(file.fd, new ArrayBuffer(4096)).then((readLen) => {
+          expect(readLen == FILE_CONTENT.length).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        }).catch((err: BusinessError) => {
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          console.log("fileIO_test_open_async_026 read has failed for " + err.message + ", code: " + err.code);
+          expect(false).assertTrue();
+          done();
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_026 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_2700
+     * @tc.name   : fileIO_test_open_async_027
+     * @tc.desc   : Test open() interfaces with file:// URI. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_async_027", 2, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_027");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let uri = fileUri.getUriFromPath(fpath);
+
+      try {
+        fileIO.open(uri, fileIO.OpenMode.READ_ONLY, (err, file) => {
+          if (err) {
+            console.log("fileIO_test_open_async_027 error package: " + JSON.stringify(err));
+            expect(false).assertTrue();
+            fileIO.unlinkSync(fpath);
+            done();
+            return;
+          }
+          expect(isIntNum(file.fd)).assertTrue();
+          expect(file.path === fpath).assertTrue();
+          expect(file.name === fpath.split('/').pop()).assertTrue();
+          fileIO.read(file.fd, new ArrayBuffer(4096)).then((readLen) => {
+            expect(readLen == FILE_CONTENT.length).assertTrue();
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            done();
+          }).catch((readErr: BusinessError) => {
+            fileIO.closeSync(file);
+            fileIO.unlinkSync(fpath);
+            console.log("fileIO_test_open_async_027 read has failed for " + readErr.message + ", code: " + readErr.code);
+            expect(false).assertTrue();
+            done();
+          });
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_027 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+        fileIO.unlinkSync(fpath);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_1300
+     * @tc.name   : fileIO_test_open_sync_013
+     * @tc.desc   : Test openSync() interfaces with file:// URI.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_sync_013", 2, async () => {
+      let fpath = await nextFileName("fileIO_test_open_sync_013");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let uri = fileUri.getUriFromPath(fpath);
+
+      try {
+        let file = fileIO.openSync(uri, fileIO.OpenMode.READ_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        expect(file.path === fpath).assertTrue();
+        expect(file.name === fpath.split('/').pop()).assertTrue();
+        let readlen = fileIO.readSync(file.fd, new ArrayBuffer(4096));
+        expect(readlen == FILE_CONTENT.length).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+      } catch (e) {
+        console.log("fileIO_test_open_sync_013 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ERROR_001
+     * @tc.name   : fileIO_open_error_001
+     * @tc.desc   : Test open() interface with empty string path. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_open_error_001", 3, async () => {
+      try {
+        await fileIO.open("");
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_open_error_001 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ERROR_006
+     * @tc.name   : fileIO_open_error_006
+     * @tc.desc   : Test open() interface with empty string path. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_open_error_006", 3, async (done: Function) => {
+      try {
+        fileIO.open("", (err) => {
+          if (err) {
+            console.log("fileIO_open_error_006: " + err.message + ", code: " + err.code);
+            expect(err.code == 13900002).assertTrue();
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_open_error_006: " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ERROR_011
+     * @tc.name   : fileIO_open_error_011
+     * @tc.desc   : Test open() interface with empty string path. Callback with mode.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_open_error_011", 3, async (done: Function) => {
+      try {
+        fileIO.open("", 0, (err) => {
+          if (err) {
+            console.log("fileIO_open_error_011: " + err.message + ", code: " + err.code);
+            expect(err.code == 13900002).assertTrue();
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_open_error_011: " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_001
+     * @tc.name   : fileIO_openSync_error_001
+     * @tc.desc   : Test openSync() interface with empty string path.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_001", 3, async () => {
+      try {
+        fileIO.openSync("");
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_001: " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3200
+     * @tc.name   : fileIO_test_open_async_032
+     * @tc.desc   : Test open() interfaces. Promise with then/catch pattern.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_032", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_032");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      fileIO.open(fpath, fileIO.OpenMode.READ_ONLY).then((file) => {
+        expect(isIntNum(file.fd)).assertTrue();
+        return fileIO.read(file.fd, new ArrayBuffer(4096)).then((readLen) => {
+          expect(readLen == FILE_CONTENT.length).assertTrue();
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          done();
+        }).catch((readErr: BusinessError) => {
+          fileIO.closeSync(file);
+          fileIO.unlinkSync(fpath);
+          console.log("fileIO_test_open_async_032 read has failed for " + readErr.message + ", code: " + readErr.code);
+          expect(false).assertTrue();
+          done();
+        });
+      }).catch((err: BusinessError) => {
+        fileIO.unlinkSync(fpath);
+        console.log("fileIO_test_open_async_032 has failed for " + err.message + ", code: " + err.code);
+        expect(false).assertTrue();
+        done();
+      });
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ERROR_017
+     * @tc.name   : fileIO_open_error_017
+     * @tc.desc   : Test open() interface with file name too long. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_open_error_017", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_open_error_017");
+      let fpath1 = fpath + randomString(250);
+
+      try {
+        await fileIO.open(fpath1, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_open_error_017 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900030).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ERROR_018
+     * @tc.name   : fileIO_open_error_018
+     * @tc.desc   : Test open() interface with file name too long. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_open_error_018", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_open_error_018");
+      let fpath1 = fpath + randomString(250);
+
+      try {
+        fileIO.open(fpath1, fileIO.OpenMode.CREATE | fileIO.OpenMode.WRITE_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_open_error_018: " + err.message + ", code: " + err.code);
+            expect(err.code == 13900030).assertTrue();
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_open_error_018: " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_005
+     * @tc.name   : fileIO_openSync_error_005
+     * @tc.desc   : Test openSync() interface with file name too long.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_005", 3, async () => {
+      let fpath = await nextFileName("fileIO_openSync_error_005");
+      let fpath1 = fpath + randomString(250);
+
+      try {
+        fileIO.openSync(fpath1, fileIO.OpenMode.CREATE | fileIO.OpenMode.READ_WRITE);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_005 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900030).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3400
+     * @tc.name   : fileIO_test_open_async_034
+     * @tc.desc   : Test open() interfaces. mode=0o200000. Promise.then().catch().
+     * The path does not point to a directory, throw error.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_034", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_034");
+      expect(prepareFile(fpath, "")).assertTrue();
+
+      try {
+        fileIO.open(fpath, fileIO.OpenMode.DIR).then(() => {
+          expect(false).assertTrue();
+        }).catch((err: BusinessError) => {
+          fileIO.unlinkSync(fpath);
+          console.log("fileIO_test_open_async_034 error: {message: " + err.message + ", code: " + err.code + "}");
+          expect(err.code == 13900018).assertTrue();
+          done();
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_034 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3500
+     * @tc.name   : fileIO_test_open_async_035
+     * @tc.desc   : Test open() interfaces with file:// URI. mode=0o200000. Promise.
+     * The path does not point to a directory, throw error.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_035", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_035");
+      expect(prepareFile(fpath, "")).assertTrue();
+      let uri = fileUri.getUriFromPath(fpath);
+
+      try {
+        await fileIO.open(uri, fileIO.OpenMode.DIR);
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.unlinkSync(fpath);
+        console.log("fileIO_test_open_async_035 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900018).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3600
+     * @tc.name   : fileIO_test_open_async_036
+     * @tc.desc   : Test open() interfaces with file:// URI. Promise.
+     * The path refers to a directory, throw error.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_036", 3, async (done: Function) => {
+      let dpath = await nextFileName("fileIO_test_open_async_036");
+      fileIO.mkdirSync(dpath);
+      let uri = fileUri.getUriFromPath(dpath);
+
+      try {
+        await fileIO.open(uri, fileIO.OpenMode.READ_WRITE);
+        expect(false).assertTrue();
+      } catch (e) {
+        fileIO.rmdirSync(dpath);
+        console.log("fileIO_test_open_async_036 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900019).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3700
+     * @tc.name   : fileIO_test_open_async_037
+     * @tc.desc   : Test open() interfaces with unsupported URI scheme. Promise.
+     * Open with database:// URI, throw error.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_037", 3, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_037");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+      let uri = "database://" + fpath;
+
+      try {
+        await fileIO.open(uri, fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_037 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900020).assertTrue();
+        fileIO.unlinkSync(fpath);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3800
+     * @tc.name   : fileIO_test_open_async_038
+     * @tc.desc   : Test open() interfaces. mode=0o101. CREATE | WRITE_ONLY. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_async_038", 2, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_038");
+
+      try {
+        let file = await fileIO.open(fpath, fileIO.OpenMode.CREATE | fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log("fileIO_test_open_async_038 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_3900
+     * @tc.name   : fileIO_test_open_async_039
+     * @tc.desc   : Test open() interfaces. mode=0o1001. TRUNC | WRITE_ONLY. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_async_039", 2, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_039");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = await fileIO.open(fpath, fileIO.OpenMode.TRUNC | fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log("fileIO_test_open_async_039 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4000
+     * @tc.name   : fileIO_test_open_async_040
+     * @tc.desc   : Test open() interfaces. mode=0o2001. APPEND | WRITE_ONLY. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 2
+     */
+    it("fileIO_test_open_async_040", 2, async (done: Function) => {
+      let fpath = await nextFileName("fileIO_test_open_async_040");
+      expect(prepareFile(fpath, FILE_CONTENT)).assertTrue();
+
+      try {
+        let file = await fileIO.open(fpath, fileIO.OpenMode.APPEND | fileIO.OpenMode.WRITE_ONLY);
+        expect(isIntNum(file.fd)).assertTrue();
+        fileIO.closeSync(file);
+        fileIO.unlinkSync(fpath);
+        done();
+      } catch (e) {
+        console.log("fileIO_test_open_async_040 has failed for " + e.message + ", code: " + e.code);
+        expect(false).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4100
+     * @tc.name   : fileIO_test_open_async_041
+     * @tc.desc   : Test open() interfaces with relative path. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_041", 3, async (done: Function) => {
+      try {
+        await fileIO.open("../relative_test_file", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_041 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4200
+     * @tc.name   : fileIO_test_open_async_042
+     * @tc.desc   : Test open() interfaces with path starting with "://". Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_042", 3, async (done: Function) => {
+      try {
+        await fileIO.open("://invalidpath", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_042 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4300
+     * @tc.name   : fileIO_test_open_async_043
+     * @tc.desc   : Test open() interfaces with path ending with "://". Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_043", 3, async (done: Function) => {
+      try {
+        await fileIO.open("invalidpath://", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_043 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4400
+     * @tc.name   : fileIO_test_open_async_044
+     * @tc.desc   : Test open() interfaces with Windows-style path. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_044", 3, async (done: Function) => {
+      try {
+        await fileIO.open("C:\\Users\\test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_044 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4500
+     * @tc.name   : fileIO_test_open_async_045
+     * @tc.desc   : Test open() interfaces with uppercase FILE:// URI. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_045", 3, async (done: Function) => {
+      try {
+        await fileIO.open("FILE:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_045 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4600
+     * @tc.name   : fileIO_test_open_async_046
+     * @tc.desc   : Test open() interfaces with mixed-case File:// URI. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_046", 3, async (done: Function) => {
+      try {
+        await fileIO.open("File:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_046 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4700
+     * @tc.name   : fileIO_test_open_async_047
+     * @tc.desc   : Test open() interfaces with non-existent file URI. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_047", 3, async (done: Function) => {
+      try {
+        await fileIO.open("file:///data/local/tmp/non_existent_file_12345", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_047 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4800
+     * @tc.name   : fileIO_test_open_async_048
+     * @tc.desc   : Test open() interfaces with space string path. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_048", 3, async (done: Function) => {
+      try {
+        await fileIO.open("   ", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_048 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_4900
+     * @tc.name   : fileIO_test_open_async_049
+     * @tc.desc   : Test open() interfaces with file:// URI containing spaces. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_049", 3, async (done: Function) => {
+      try {
+        await fileIO.open("file://   ", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_049 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5000
+     * @tc.name   : fileIO_test_open_async_050
+     * @tc.desc   : Test open() interfaces with special characters and Chinese path. Promise.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_050", 3, async (done: Function) => {
+      try {
+        await fileIO.open("特殊字符@#$%^&*()test", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_test_open_async_050 has failed for " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5100
+     * @tc.name   : fileIO_test_open_async_051
+     * @tc.desc   : Test open() interfaces with relative path. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_051", 3, async (done: Function) => {
+      try {
+        fileIO.open("../relative_test_file", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_051: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_051: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5200
+     * @tc.name   : fileIO_test_open_async_052
+     * @tc.desc   : Test open() interfaces with path starting with "://". Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_052", 3, async (done: Function) => {
+      try {
+        fileIO.open("://invalidpath", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_052: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_052: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5300
+     * @tc.name   : fileIO_test_open_async_053
+     * @tc.desc   : Test open() interfaces with path ending with "://". Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_053", 3, async (done: Function) => {
+      try {
+        fileIO.open("invalidpath://", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_053: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_053: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5400
+     * @tc.name   : fileIO_test_open_async_054
+     * @tc.desc   : Test open() interfaces with Windows-style path. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_054", 3, async (done: Function) => {
+      try {
+        fileIO.open("C:\\Users\\test.txt", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_054: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_054: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5500
+     * @tc.name   : fileIO_test_open_async_055
+     * @tc.desc   : Test open() interfaces with uppercase FILE:// URI. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_055", 3, async (done: Function) => {
+      try {
+        fileIO.open("FILE:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_055: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_055: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5600
+     * @tc.name   : fileIO_test_open_async_056
+     * @tc.desc   : Test open() interfaces with mixed-case File:// URI. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_056", 3, async (done: Function) => {
+      try {
+        fileIO.open("File:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_056: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_056: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5700
+     * @tc.name   : fileIO_test_open_async_057
+     * @tc.desc   : Test open() interfaces with non-existent file URI. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_057", 3, async (done: Function) => {
+      try {
+        fileIO.open("file:///data/local/tmp/non_existent_file_12345", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_057: " + err.message + ", code: " + err.code);
+            expect(err.code == 13900002).assertTrue();
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_057: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5800
+     * @tc.name   : fileIO_test_open_async_058
+     * @tc.desc   : Test open() interfaces with space string path. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_058", 3, async (done: Function) => {
+      try {
+        fileIO.open("   ", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_058: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_058: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_5900
+     * @tc.name   : fileIO_test_open_async_059
+     * @tc.desc   : Test open() interfaces with file:// URI containing spaces. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_059", 3, async (done: Function) => {
+      try {
+        fileIO.open("file://   ", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_059: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_059: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_ASYNC_6000
+     * @tc.name   : fileIO_test_open_async_060
+     * @tc.desc   : Test open() interfaces with special characters and Chinese path. Callback.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_test_open_async_060", 3, async (done: Function) => {
+      try {
+        fileIO.open("特殊字符@#$%^&*()test", fileIO.OpenMode.READ_ONLY, (err) => {
+          if (err) {
+            console.log("fileIO_test_open_async_060: " + err.message + ", code: " + err.code);
+            done();
+          } else {
+            expect(false).assertTrue();
+            done();
+          }
+        });
+      } catch (e) {
+        console.log("fileIO_test_open_async_060: " + e.message + ", code: " + e.code);
+        done();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_016
+     * @tc.name   : fileIO_openSync_error_016
+     * @tc.desc   : Test openSync() interface with relative path.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_016", 3, () => {
+      try {
+        fileIO.openSync("../relative_test_file", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_016 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_017
+     * @tc.name   : fileIO_openSync_error_017
+     * @tc.desc   : Test openSync() interface with path starting with "://".
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_017", 3, () => {
+      try {
+        fileIO.openSync("://invalidpath", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_017 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_018
+     * @tc.name   : fileIO_openSync_error_018
+     * @tc.desc   : Test openSync() interface with path ending with "://".
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_018", 3, () => {
+      try {
+        fileIO.openSync("invalidpath://", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_018 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_019
+     * @tc.name   : fileIO_openSync_error_019
+     * @tc.desc   : Test openSync() interface with Windows-style path.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_019", 3, () => {
+      try {
+        fileIO.openSync("C:\\Users\\test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_019 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_020
+     * @tc.name   : fileIO_openSync_error_020
+     * @tc.desc   : Test openSync() interface with uppercase FILE:// URI.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_020", 3, () => {
+      try {
+        fileIO.openSync("FILE:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_020 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_021
+     * @tc.name   : fileIO_openSync_error_021
+     * @tc.desc   : Test openSync() interface with mixed-case File:// URI.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_021", 3, () => {
+      try {
+        fileIO.openSync("File:///data/local/tmp/test.txt", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_021 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_022
+     * @tc.name   : fileIO_openSync_error_022
+     * @tc.desc   : Test openSync() interface with non-existent file URI.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_022", 3, () => {
+      try {
+        fileIO.openSync("file:///data/local/tmp/non_existent_file_12345", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_022 has failed for " + e.message + ", code: " + e.code);
+        expect(e.code == 13900002).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_023
+     * @tc.name   : fileIO_openSync_error_023
+     * @tc.desc   : Test openSync() interface with space string path.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_023", 3, () => {
+      try {
+        fileIO.openSync("   ", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_023 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_024
+     * @tc.name   : fileIO_openSync_error_024
+     * @tc.desc   : Test openSync() interface with file:// URI containing spaces.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_024", 3, () => {
+      try {
+        fileIO.openSync("file://   ", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_024 has failed for " + e.message + ", code: " + e.code);
+      }
+    });
+
+    /**
+     * @tc.number : SUB_FM_TEST_FILEFS_OPEN_SYNC_ERROR_025
+     * @tc.name   : fileIO_openSync_error_025
+     * @tc.desc   : Test openSync() interface with special characters and Chinese path.
+     * @tc.size   : MediumTest
+     * @tc.type   : Function
+     * @tc.level  : Level 3
+     */
+    it("fileIO_openSync_error_025", 3, () => {
+      try {
+        fileIO.openSync("特殊字符@#$%^&*()test", fileIO.OpenMode.READ_ONLY);
+        expect(false).assertTrue();
+      } catch (e) {
+        console.log("fileIO_openSync_error_025 has failed for " + e.message + ", code: " + e.code);
       }
     });
   });
