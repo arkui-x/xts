@@ -68,7 +68,7 @@ export default function dispatchEventTest() {
         console.info(`${caseName} test start`);
         try {
           let count: number = 0;
-          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_1: boolean = false;
           let flag_1: boolean = false;
           workerInstance_1.onexit = (): void => {
@@ -80,7 +80,7 @@ export default function dispatchEventTest() {
             flag_1 = true;
             count++;
           });
-          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_2: boolean = false;
           let flag_2: boolean = false;
           workerInstance_2.onexit = (): void => {
@@ -136,7 +136,7 @@ export default function dispatchEventTest() {
         console.info(`${caseName} test start`);
         try {
           let count: number = 0;
-          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_1: boolean = false;
           let flag_1: boolean = false;
           workerInstance_1.onexit = (): void => {
@@ -152,7 +152,7 @@ export default function dispatchEventTest() {
             console.info(`${caseName}: dispatchEventSuccess_2 = ${dispatchEventSuccess_2}`);
             expectAssertTrue(dispatchEventSuccess_2);
           });
-          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_2: boolean = false;
           let flag_2: boolean = false;
           workerInstance_2.onexit = (): void => {
@@ -203,7 +203,7 @@ export default function dispatchEventTest() {
         console.info(`${caseName} test start`);
         try {
           let count: number = 0;
-          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_1: boolean = false;
           let flag_1: boolean = false;
           workerInstance_1.onexit = (): void => {
@@ -215,7 +215,7 @@ export default function dispatchEventTest() {
             flag_1 = true;
             count++;
           });
-          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_2: boolean = false;
           let flag_2: boolean = false;
           workerInstance_2.onexit = (): void => {
@@ -271,7 +271,7 @@ export default function dispatchEventTest() {
         console.info(`${caseName} test start`);
         try {
           let count: number = 0;
-          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_1: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_1: boolean = false;
           let flag_1: boolean = false;
           workerInstance_1.onexit = (): void => {
@@ -287,7 +287,7 @@ export default function dispatchEventTest() {
             console.info(`${caseName}: dispatchEventSuccess_2 = ${dispatchEventSuccess_2}`);
             expectAssertTrue(dispatchEventSuccess_2);
           });
-          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('@worker.ts');
+          let workerInstance_2: worker.ThreadWorker = new worker.ThreadWorker('./worker.ets');
           let isTerminate_2: boolean = false;
           let flag_2: boolean = false;
           workerInstance_2.onexit = (): void => {
