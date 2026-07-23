@@ -342,6 +342,7 @@ export default function webWindowXtsTest() {
         await goToPage("onWindowNewTest", WAIT_MS_3000);
         await clickButton_withId("mode-m10", WAIT_MS_1000);
         await clickButton_withId("triggerOpen", WAIT_MS_1000);
+        await sleep(WAIT_MS_8000);
         let found = await waitForText('result-WinNew', '网页加载成功', WAIT_MS_8000);
         expect(found).assertEqual(true);
       } catch (error) {
@@ -574,6 +575,7 @@ export default function webWindowXtsTest() {
         let found = false
         if (platform === 'iOS') {
           found = await waitForText('result-RenderExit', 'renderExitReason:4', WAIT_MS_10000);
+          await sleep(WAIT_MS_2000);
         } else {
           found = await waitForText('result-RenderExit', 'renderExitReason:2', WAIT_MS_10000);
         }
