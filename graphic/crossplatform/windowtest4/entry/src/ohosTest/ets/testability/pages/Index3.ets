@@ -1,0 +1,46 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2026. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@Entry
+@Component
+struct Index3 {
+  @State message: string = 'Index3'
+
+  aboutToAppear() {
+    console.log('aboutToAppear');
+  }
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .id('SUB_ARKUIX_Index3_Text_0010')
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button('next page')
+          .id('SUB_ARKUIX_Index3_Button_0010')
+          .type(ButtonType.Capsule)
+          .margin({ top: 20 })
+          .backgroundColor('#0D9FFB')
+          .width('35%')
+          .height('5%')
+          .onClick(() => {
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
