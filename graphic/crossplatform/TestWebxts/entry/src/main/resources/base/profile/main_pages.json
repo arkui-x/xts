@@ -1,0 +1,16 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/WebCookieManager1",
+    "pages/WebCookieManager2",
+    "pages/WebAttribute",
+    "pages/WebviewController",
+    "pages/runJavaScriptOnDocumentStart",
+    "pages/runJavaScriptOnDocumentEnd",
+    "pages/PutAcceptCookieEnabled",
+    "pages/PutAcceptThirdPartyCookieEnabled",
+    "pages/ClearAllCookiesTest",
+    "pages/ClearSessionCookieTest",
+    "pages/SslErrorInvalid"
+  ]
+}

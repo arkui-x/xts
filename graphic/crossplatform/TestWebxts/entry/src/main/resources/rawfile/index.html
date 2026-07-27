@@ -1,0 +1,23 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online 属性</title>
+</head>
+<body>
+<h1>online 属性</h1>
+<p id="demo"></p>
+<button onclick="func()">click</button>
+<script>
+    // 检测浏览器是否在线。
+    let online1 = navigator.onLine;
+    document.getElementById('demo').innerHTML = '浏览器在线：' + online1;
+    function func() {
+      let online2 = navigator.onLine;
+      document.getElementById('demo').innerHTML = '浏览器在线：' + online2;
+    }
+</script>
+</body>
+</html>
