@@ -138,7 +138,7 @@ export default function httpRequestJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequest_request Test end-----------------------");
@@ -246,7 +246,7 @@ export default function httpRequestJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           try {
             httpRequest.destroy();
@@ -441,7 +441,7 @@ export default function httpRequestJsunit() {
           httpRequest.destroy();
           done();
         });
-        httpRequest.request("https://app.4399.cn/", (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", (err, data) => {
           console.log(casename + " data: " + JSON.stringify(data) + " err: " + JSON.stringify(err));
         });
       } catch (error) {
