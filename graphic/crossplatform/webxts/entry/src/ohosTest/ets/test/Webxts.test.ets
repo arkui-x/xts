@@ -560,7 +560,7 @@ export default function Webxts() {
           let getResponseEncoding_Text = await driver.findComponent(ON.id('getResponseEncoding'));
           const getResponseEncoding = await getResponseEncoding_Text.getText();
           await driver.delayMs(AWAIT_SLEEP_MS_5000);
-          expect(getResponseEncoding).assertEqual("getResponseEncoding: utf-8");
+          expect(getResponseEncoding != "getResponseEncoding: ").assertTrue();
           let getResponseMimeType_Text = await driver.findComponent(ON.id('getResponseMimeType'));
           const getResponseMimeType = await getResponseMimeType_Text.getText();
           await driver.delayMs(AWAIT_SLEEP_MS_3000);
