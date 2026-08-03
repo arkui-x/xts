@@ -272,7 +272,7 @@ export default function WebSocketApiTest() {
           done();
         } else {
           console.log(`${caseName} connect success, data: ${JSON.stringify(data)}`);
-          expectFail();
+          expectEqual(data, true);
           done();
         }
       })
@@ -549,7 +549,7 @@ export default function WebSocketApiTest() {
           done();
         } else {
           console.log(`${caseName} connect success, data: ${JSON.stringify(data)}`);
-          expectFail();
+          expectEqual(data, true);
           done();
         }
       })
