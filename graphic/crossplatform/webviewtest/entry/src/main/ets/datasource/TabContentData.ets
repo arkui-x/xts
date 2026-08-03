@@ -3,7 +3,7 @@ import { MyTabContent } from '../beans/MyTabContent'
 const ALERT_TAB_CONTENT: MyTabContent = new MyTabContent('onAlert', 'index_alert.html', 'my_alert')
 const CONFIRM_TAB_CONTENT: MyTabContent = new MyTabContent('onConfirm', 'index_confirm.html', 'my_confirm')
 const PROMPT_TAB_CONTENT: MyTabContent = new MyTabContent('onPrompt', 'index_prompt.html', 'my_prompt')
-const HTTP_TAB_CONTENT: MyTabContent = new MyTabContent('onHttpAuthRequest', 'https://httpbin.org/basic-auth/2222/3333', '')
+const HTTP_TAB_CONTENT: MyTabContent = new MyTabContent('onHttpAuthRequest', 'https://testpages.eviltester.com/pages/auth/basic-auth/basic-auth-results.html', '')
 // const GEOLOCATION_TAB_CONTENT: MyTabContent = new MyTabContent('onGeolocationShow', 'index_geolocation.html', 'my_getLocation')
 const FILE_SELECTOR_TAB_CONTENT: MyTabContent = new MyTabContent('onShowFileSelector', 'index_file_selector.html', 'readFile')
 const PERMISSION_REQ_TAB_CONTENT: MyTabContent = new MyTabContent('onPermissionRequest', 'index_permission_req.html', 'getMedia')

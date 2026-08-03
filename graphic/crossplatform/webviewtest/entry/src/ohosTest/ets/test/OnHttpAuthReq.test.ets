@@ -83,7 +83,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs * 2);
         const MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         const text: string = await MESSAGE.getText();
-        expect(text).assertEqual('host: httpbin.org, realm: Fake Realm');
+        expect(text).assertEqual('host: testpages.eviltester.com, realm: ');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 success');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 test end');
       });
@@ -106,7 +106,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         let MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         let text: string = await MESSAGE.getText();
-        expect(text).assertEqual('save host: httpbin.org, realm: Fake Realm');
+        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
         const EXIST_HAC: Component = await driver.findComponent(ON.text('EXIST_HAC'));
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
@@ -150,7 +150,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         text = await MESSAGE.getText();
-        expect(text).assertEqual('save host: httpbin.org, realm: Fake Realm');
+        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
