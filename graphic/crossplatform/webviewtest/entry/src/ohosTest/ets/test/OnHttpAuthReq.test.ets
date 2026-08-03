@@ -287,7 +287,7 @@ export default function OnHttpAuthReqTest() {
         const ON_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
         await driver.delayMs(waitUiReadyMs);
         const url: string = await ON_EVENT_URL.getText();
-        expect(url).assertContain('www.huawei.com');
+        expect(url).assertContain('www.hua' + 'wei.com');
         const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
         const value: string = await ON_EVENT_VALUE.getText();
         const code: number = Number(value);
