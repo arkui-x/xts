@@ -137,7 +137,7 @@ export default function httpResponseJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.result != null).assertTrue();
           console.log("-----------------------HttpResponse result Test end-----------------------");
@@ -375,7 +375,7 @@ export default function httpResponseJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode != 0).assertTrue();
           console.log("-----------------------HttpResponse responseCode Test end-----------------------");
@@ -507,7 +507,7 @@ export default function httpResponseJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.header != null).assertTrue();
           console.log("-----------------------header result Test end-----------------------");
@@ -639,7 +639,7 @@ export default function httpResponseJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.cookies != null).assertTrue();
           console.log("-----------------------HttpResponse cookies Test end-----------------------");
