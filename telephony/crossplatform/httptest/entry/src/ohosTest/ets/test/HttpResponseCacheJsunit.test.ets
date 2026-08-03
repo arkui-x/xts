@@ -281,7 +281,7 @@ export default function HttpResponseCacheJsunit() {
             usingCache: true
           };
           let httpRequest = http.createHttp();
-          httpRequest.request("https://app.4399.cn/", httpRequestOptions).then(data => {
+          httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
             const httpResponseCache = http.createHttpResponseCache();
@@ -395,7 +395,7 @@ export default function HttpResponseCacheJsunit() {
             usingCache: true
           };
           let httpRequest = http.createHttp();
-          httpRequest.request("https://app.4399.cn/", httpRequestOptions).then(data => {
+          httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions).then(data => {
             console.log(caseName + JSON.stringify(data));
             expect(data.responseCode == 200).assertTrue();
             const httpResponseCache = http.createHttpResponseCache();

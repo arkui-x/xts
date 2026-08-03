@@ -73,8 +73,13 @@ workerPort.onmessage = async (message: any): Promise<void> => {
         case 'createWebSocketServer': {
           try {
             const server: webSocket.WebSocketServer = webSocket.createWebSocketServer();
-            resultData = { serverCreated: server !== null };
-            success = true;
+            if (server !== null) {
+              resultData = { serverCreated: true };
+              success = true;
+            } else {
+              errorMsg = 'createWebSocketServer returned null';
+              success = false;
+            }
           } catch (err) {
             const businessError: BusinessError = err as BusinessError;
             errorMsg = `createWebSocketServer fail: ${businessError.message}`;
@@ -93,12 +98,33 @@ workerPort.onmessage = async (message: any): Promise<void> => {
               maxConnectionsForOneClient: 4,
             };
 
-            const startResult = await server.start(serverConfig);
+            let startResult = false;
+            try {
+              startResult = await Promise.race([
+                server.start(serverConfig),
+                sleep(5000).then(() => {
+                  throw new Error('server.start() timeout after 5000ms');
+                })
+              ]);
+            } catch (timeoutErr) {
+              errorMsg = `WebSocket start timeout: ${timeoutErr.message}`;
+              break;
+            }
+
             resultData = { startSuccess: startResult };
             success = startResult;
 
             if (success) {
-              await server.stop();
+              try {
+                await Promise.race([
+                  server.stop(),
+                  sleep(3000).then(() => {
+                    throw new Error('server.stop() timeout after 3000ms');
+                  })
+                ]);
+              } catch (stopTimeoutErr) {
+                console.warn(`server.stop() timeout: ${stopTimeoutErr.message}`);
+              }
             } else {
               errorMsg = 'WebSocket start fail';
             }
@@ -120,18 +146,46 @@ workerPort.onmessage = async (message: any): Promise<void> => {
               maxConnectionsForOneClient: 4,
             };
 
-            const startResult = await server.start(serverConfig);
+            let startResult = false;
+            try {
+              startResult = await Promise.race([
+                server.start(serverConfig),
+                sleep(5000).then(() => {
+                  throw new Error('server.start() timeout after 5000ms');
+                })
+              ]);
+            } catch (timeoutErr) {
+              errorMsg = `WebSocketServer start timeout: ${timeoutErr.message}`;
+              break;
+            }
+
             if (!startResult) {
               errorMsg = 'WebSocketServer start fail';
               break;
             }
 
-            const stopResult = await server.stop();
-            resultData = { stopSuccess: stopResult };
-            success = stopResult;
-
-            if (!success) {
-              errorMsg = 'WebSocketServer stop fail';
+            let stopResult = false;
+            try {
+              stopResult = await Promise.race([
+                server.stop(),
+                sleep(3000).then(() => {
+                  throw new Error('server.stop() timeout after 3000ms');
+                })
+              ]);
+              if (stopResult) {
+                success = true;
+              } else {
+                errorMsg = 'WebSocketServer stop() returned false';
+                success = false;
+              }
+            } catch (stopTimeoutErr) {
+              errorMsg = `WebSocketServer stop timeout: ${stopTimeoutErr.message}`;
+              success = false;
+            } finally {
+              resultData = { stopSuccess: stopResult };
+              if (!success) {
+                errorMsg = errorMsg || 'WebSocketServer stop fail';
+              }
             }
           } catch (err) {
             const businessError: BusinessError = err as BusinessError;
@@ -778,7 +832,6 @@ workerPort.onmessage = async (message: any): Promise<void> => {
 
             for (const eventName of possibleErrorEvents) {
               try {
-                // @ts-ignore
                 server.on(eventName, (err: BusinessError) => {
                   console.info(`${data.workerName}Pass${eventName} Error in receiving the event:
                    ${JSON.stringify(err)}`);
@@ -796,7 +849,6 @@ workerPort.onmessage = async (message: any): Promise<void> => {
                 console.info('server connect:', client);
               });
 
-              // @ts-ignore
               server.on('message', (message: string | ArrayBuffer, client: webSocket.WebSocketConnection) => {
                 console.info('received message:', message);
               });
