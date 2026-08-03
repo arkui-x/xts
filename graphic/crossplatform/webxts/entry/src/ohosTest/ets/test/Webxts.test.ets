@@ -514,7 +514,7 @@ export default function Webxts() {
           let URL_Text = await driver.findComponent(ON.id("url"));
           const URL = await URL_Text.getText();
           await driver.delayMs(AWAIT_SLEEP_MS_3000);
-          expect(URL).assertEqual("url: https://gitee.com/openharmony/docs/blob/master/READE.md");
+          expect(URL).assertEqual("url: https://www.baidu.com/404");
           let isMainFrame_Text = await driver.findComponent(ON.id("isMainFrame"));
           const isMainFrame = await isMainFrame_Text.getText();
           await driver.delayMs(AWAIT_SLEEP_MS_2000);
