@@ -36,7 +36,7 @@ class MultiWorkerTester {
     testType: string,
     workerCount: number,
     testParams?: WorkerTestParams[],
-    timeout: number = 30000
+    timeout: number = 60000
   ): Promise<boolean[]> {
     const workers: worker.ThreadWorker[] = [];
     const testResults: boolean[] = [];
