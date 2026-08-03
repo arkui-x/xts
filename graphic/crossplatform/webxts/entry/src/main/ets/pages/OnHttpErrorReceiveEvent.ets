@@ -67,7 +67,7 @@ struct WebComponent {
           .id("getResponseDataEx")
         Text('getResponseIsReady: ' + this.getResponseIsReady)
           .id("getResponseIsReady")
-        Web({ src: 'https://gitee.com/openharmony/docs/blob/master/READE.md', controller: this.controller })
+        Web({ src: 'https://www.baidu.com/404', controller: this.controller })
           .onHttpErrorReceive((event: OnHttpErrorReceiveEvent) => {
             if (event) {
               this.url = event.request.getRequestUrl()
