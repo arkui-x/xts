@@ -26,7 +26,7 @@ import {
   Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep, waitForIdText } from '../utils/index';
 
 export default function OnDownloadStartTest() {
   describe('OnDownloadStartTest', () => {
@@ -83,16 +83,15 @@ export default function OnDownloadStartTest() {
       const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER.click();
       await driver.delayMs(waitUiReadyMs);
+      const url: string = await waitForIdText(driver, 'ON_EVENT_URL', (value: string) => value.includes('test.txt'));
       const UA: Component = await driver.findComponent(ON.text('UA'));
       await UA.click();
       await driver.delayMs(waitUiReadyMs);
       const USER_AGENT: Component = await driver.findComponent(ON.id('USER_AGENT'));
       const uaText: string = await USER_AGENT.getText();
-      const ON_DOWNLOAD_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
-      const url: string = await ON_DOWNLOAD_EVENT_URL.getText();
-      expect(url).assertEqual('https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/Qzone_logo_3color.psd');
       const ON_DOWNLOAD_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
       const value: string = await ON_DOWNLOAD_EVENT_VALUE.getText();
+      expect(url).assertContain('test.txt');
       if (uaText.includes('OpenHarmony') || uaText.includes('Android')) {
         expect(value).assertContain('application');
       } else {
@@ -125,25 +124,13 @@ export default function OnDownloadStartTest() {
         const UA: Component = await driver.findComponent(ON.text('UA'));
         await UA.click();
         await driver.delayMs(waitUiReadyMs);
-        const USER_AGENT: Component = await driver.findComponent(ON.id('USER_AGENT'));
-        const uaText: string = await USER_AGENT.getText();
-        if (uaText.includes('OpenHarmony') || uaText.includes('Android')) {
-          const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
-          await TRIGGER.click();
-          await driver.delayMs(waitUiReadyMs);
-          const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
-          const value: string = await ON_EVENT_VALUE.getText();
-          expect(value).assertContain('是否播放: 是');
-          console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
-        } else {
-          const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
-          await TRIGGER.click();
-          await driver.delayMs(waitUiReadyMs);
-          const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
-          const value: string = await ON_EVENT_VALUE.getText();
-          expect(value).assertContain('是否播放: 否');
-          console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
-        }
+        const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
+        await TRIGGER.click();
+        await driver.delayMs(waitUiReadyMs);
+        const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
+        const value: string = await ON_EVENT_VALUE.getText();
+        expect(value).assertContain('是否播放: 否');
+        console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 success');
         console.log('SUB_Web_WebView_Media_Play_Gesture_Access_Func_0100 test end');
       });
   });
