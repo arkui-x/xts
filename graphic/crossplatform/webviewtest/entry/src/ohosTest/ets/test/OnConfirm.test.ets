@@ -26,7 +26,7 @@ import {
   Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, stopAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog } from '../utils/index';
 
 export default function OnConfirmTest() {
   describe('OnConfirmTest', () => {
@@ -83,8 +83,7 @@ export default function OnConfirmTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const ON_CONFIRM_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
       const text: string = await ON_CONFIRM_EVENT_URL.getText();
@@ -109,8 +108,7 @@ export default function OnConfirmTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const ON_CONFIRM_EVENT_MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       const msg: string = await ON_CONFIRM_EVENT_MESSAGE.getText();
@@ -135,8 +133,7 @@ export default function OnConfirmTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const SECONDARY_BUTTON_CLICK: Component = await driver.findComponent(ON.id('ON_BUTTON_CLICK'));
       const text: string = await SECONDARY_BUTTON_CLICK.getText();
@@ -161,8 +158,7 @@ export default function OnConfirmTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const primaryButton: Component = await driver.findComponent(ON.text('cancel'));
-      await primaryButton.click();
+      await dismissDialog(driver);
       await driver.delayMs(waitUiReadyMs);
       const PRIMARY_BUTTON_CLICK: Component = await driver.findComponent(ON.id('ON_BUTTON_CLICK'));
       const text: string = await PRIMARY_BUTTON_CLICK.getText();
@@ -187,8 +183,7 @@ export default function OnConfirmTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
       const value: string = await ON_EVENT_VALUE.getText();

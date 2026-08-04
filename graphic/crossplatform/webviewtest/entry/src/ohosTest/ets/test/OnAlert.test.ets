@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, TestType, Level, Size } from '@ohos/hypium';
 import { Component, Driver, ON } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog } from '../utils/index';
 
 export default function OnAlertTest() {
   describe('OnAlertTest', () => {
@@ -76,8 +76,7 @@ export default function OnAlertTest() {
       const text: string = await ON_ALERT_EVENT_URL.getText();
       console.log(`SUB_Web_WebView_On_Alert_Func_0100 ON_ALERT_EVENT_URL: ${text}`);
       expect(text).assertEqual('index_alert.html');
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       console.log('SUB_Web_WebView_On_Alert_Func_0100 success');
       console.log('SUB_Web_WebView_On_Alert_Func_0100 test end');
     });
@@ -97,8 +96,7 @@ export default function OnAlertTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const ON_ALERT_EVENT_MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       const msg: string = await ON_ALERT_EVENT_MESSAGE.getText();
@@ -123,8 +121,7 @@ export default function OnAlertTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const SECONDARY_BUTTON_CLICK: Component = await driver.findComponent(ON.id('ON_BUTTON_CLICK'));
       const text: string = await SECONDARY_BUTTON_CLICK.getText();
@@ -149,8 +146,7 @@ export default function OnAlertTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const primaryButton: Component = await driver.findComponent(ON.text('cancel'));
-      await primaryButton.click();
+      await dismissDialog(driver);
       await driver.delayMs(waitUiReadyMs);
       const PRIMARY_BUTTON_CLICK: Component = await driver.findComponent(ON.id('ON_BUTTON_CLICK'));
       const text: string = await PRIMARY_BUTTON_CLICK.getText();
@@ -267,8 +263,7 @@ export default function OnAlertTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const secondaryButton: Component = await driver.findComponent(ON.text('ok'));
-      await secondaryButton.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
       const value: string = await ON_EVENT_VALUE.getText();

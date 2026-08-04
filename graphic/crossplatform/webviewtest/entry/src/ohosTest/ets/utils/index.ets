@@ -16,8 +16,10 @@
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { BusinessError } from '@ohos.base';
 import UIAbility from '@ohos.app.ability.UIAbility';
+import { Component, Driver, ON } from '@ohos.UiTest';
 
 export const waitUiReadyMs: number = 1500;
+export const dialogWaitMs: number = 3000;
 
 export function sleep(delay: number = 1000): Promise<void> {
   return new Promise((resolve: Function) => {
@@ -52,4 +54,40 @@ export async function startAbility(bundleName: string, abilityName: string): Pro
 export async function stopAbility(): Promise<void> {
   let topAbility: UIAbility = await delegator.getCurrentTopAbility();
   await topAbility.context.terminateSelf();
+}
+
+export async function clickDialogButton(driver: Driver, label: string): Promise<void> {
+  const variants: string[] = [label, label.toUpperCase()];
+  const deadline: number = Date.now() + dialogWaitMs;
+  while (Date.now() < deadline) {
+    for (const text of variants) {
+      const button: Component = await driver.findComponent(ON.text(text));
+      if (button) {
+        await button.click();
+        return;
+      }
+    }
+    await driver.delayMs(300);
+  }
+  throw new Error(`Dialog button not found: ${label}`);
+}
+
+export async function dismissDialog(driver: Driver): Promise<void> {
+  await driver.pressBack();
+  await driver.delayMs(waitUiReadyMs);
+}
+
+export async function waitForIdText(driver: Driver, id: string, matcher: (text: string) => boolean,
+  timeoutMs: number = dialogWaitMs): Promise<string> {
+  const deadline: number = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const component: Component = await driver.findComponent(ON.id(id));
+    const text: string = await component.getText();
+    if (matcher(text)) {
+      return text;
+    }
+    await driver.delayMs(300);
+  }
+  const component: Component = await driver.findComponent(ON.id(id));
+  return await component.getText();
 }
