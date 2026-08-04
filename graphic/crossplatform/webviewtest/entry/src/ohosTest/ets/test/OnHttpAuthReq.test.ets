@@ -281,6 +281,9 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_On_Http_Error_Receive_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        const CHANGE_TABS: Component = await driver.findComponent(ON.text('设置页签'));
+        await CHANGE_TABS.click();
+        await driver.delayMs(waitUiReadyMs);
         const ERROR_TAB: Component = await driver.findComponent(ON.text('Goto onHttpErrorReceive'));
         await ERROR_TAB.click();
         await driver.delayMs(2000);
