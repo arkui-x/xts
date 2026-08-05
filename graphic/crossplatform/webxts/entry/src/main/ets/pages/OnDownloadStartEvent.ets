@@ -30,6 +30,13 @@ struct WebComponent {
         .id("contentLength")
       Text('mimetype: ' + this.mimetype)
         .id("mimetype")
+      Button('start download')
+        .width(200)
+        .height(30)
+        .onClick(() => {
+          this.controller.runJavaScript('triggerDownload()');
+        })
+        .margin(5)
       Web({ src: $rawfile('OnDownloadStartEvent.html'), controller: this.controller })
         .onDownloadStart((event: OnDownloadStartEvent) => {
           if (event) {
