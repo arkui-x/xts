@@ -35,7 +35,7 @@ struct WebComponent {
         })
         .margin(5)
 
-      Web({ src: 'https://www.baidu.com/', controller: this.controller })
+      Web({ src: 'https://www.example.com/', controller: this.controller })
         .onPageBegin((event: OnPageBeginEvent) => {
           if (event) {
             this.str = event.url;
