@@ -9,19 +9,20 @@
 		<title>download</title>
 		<script type="text/javascript">
 			function triggerDownload() {
-				const anchor = document.getElementById('downloadFile');
+				const blob = new Blob(['webview onDownloadStart test'], { type: 'text/plain' });
+				const objectUrl = URL.createObjectURL(blob);
+				const anchor = document.createElement('a');
+				anchor.href = objectUrl;
+				anchor.download = 'test.txt';
+				anchor.style.display = 'none';
+				document.body.appendChild(anchor);
 				anchor.click();
+				document.body.removeChild(anchor);
+				URL.revokeObjectURL(objectUrl);
 			}
-			window.onload = triggerDownload;
 		</script>
 	</head>
 	<body>
 		<h1>WebView onDownloadStart Demo</h1>
-		<a
-			id="downloadFile"
-			href="https://mirrors.tuna.tsinghua.edu.cn/gnu/aspell/aspell-0.50-vc%2B%2B.diff.gz"
-			download="aspell-0.50-vc++.diff.gz"
-			>download</a
-		>
 	</body>
 </html>

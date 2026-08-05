@@ -671,12 +671,15 @@ export default function Webxts() {
         await driver.delayMs(AWAIT_SLEEP_MS_1000);
         let Button = await driver.findComponent(ON.text('OnDownloadStartEvent'));
         await Button.click();
-        await driver.delayMs(AWAIT_SLEEP_MS_7000);
+        await driver.delayMs(AWAIT_SLEEP_MS_3000);
+        let downloadBtn = await driver.findComponent(ON.text('start download'));
+        await downloadBtn.click();
+        await driver.delayMs(AWAIT_SLEEP_MS_3000);
         let URL_Text = await driver.findComponent(ON.id('url'));
         let URL = await URL_Text.getText();
         let userAgent_Text = await driver.findComponent(ON.id('userAgent'));
         let userAgent = await userAgent_Text.getText();
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 8; i++) {
           if (URL != 'url: ' && userAgent != 'userAgent: ') {
             break;
           }
