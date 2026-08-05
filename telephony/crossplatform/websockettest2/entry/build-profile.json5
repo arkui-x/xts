@@ -1,11 +1,6 @@
 {
   "apiType": 'stageMode',
   "buildOption": {
-    "sourceOption": {
-      "workers": [
-        "./src/ohosTest/ets/workers/WebSocketWorker.ts"
-      ]
-    },
     "arkOptions": {
       // "apPath": "./modules.ap"  /* Profile used for profile-guided optimization (PGO), a compiler optimization technique to improve app runtime performance. */
     }
