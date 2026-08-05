@@ -30,7 +30,7 @@ struct WebComponent {
         .id("contentLength")
       Text('mimetype: ' + this.mimetype)
         .id("mimetype")
-      Web({ src: 'https://mirrors.tuna.tsinghua.edu.cn/gnu/aspell/aspell-0.50-vc%2B%2B.diff.gz', controller: this.controller })
+      Web({ src: $rawfile('OnDownloadStartEvent.html'), controller: this.controller })
         .onDownloadStart((event: OnDownloadStartEvent) => {
           if (event) {
             this.url = event.url
