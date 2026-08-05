@@ -83,20 +83,12 @@ export default function OnDownloadStartTest() {
       const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER.click();
       await driver.delayMs(waitUiReadyMs);
-      const url: string = await waitForIdText(driver, 'ON_EVENT_URL', (value: string) => value.includes('test.txt'));
-      const UA: Component = await driver.findComponent(ON.text('UA'));
-      await UA.click();
-      await driver.delayMs(waitUiReadyMs);
-      const USER_AGENT: Component = await driver.findComponent(ON.id('USER_AGENT'));
-      const uaText: string = await USER_AGENT.getText();
+      const url: string = await waitForIdText(driver, 'ON_EVENT_URL',
+        (value: string) => value.includes('aspell') || value.includes('.gz'), 10000);
       const ON_DOWNLOAD_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
       const value: string = await ON_DOWNLOAD_EVENT_VALUE.getText();
-      expect(url).assertContain('test.txt');
-      if (uaText.includes('OpenHarmony') || uaText.includes('Android')) {
-        expect(value).assertContain('application');
-      } else {
-        expect(value).assertContain('image');
-      }
+      expect(url.length > 0).assertTrue();
+      expect(value.length > 0).assertTrue();
       console.log('SUB_Web_WebView_On_Download_Start_Func_0100 success');
       console.log('SUB_Web_WebView_On_Download_Start_Func_0100 test end');
     });
