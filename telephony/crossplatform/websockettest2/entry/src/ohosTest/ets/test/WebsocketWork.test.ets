@@ -64,7 +64,7 @@ class WebSocketMultiWorkerTester {
       for (let i: number = 0; i < workerCount; i++) {
         const workerName: string = `${caseName}_Worker${i + 1}`;
         const workerInstance: worker.ThreadWorker = new worker.ThreadWorker(
-          '../workers/WebSocketWorker',
+          'entry_test/ets/workers/WebSocketWorker',
           { name: workerName }
         );
 
