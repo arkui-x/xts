@@ -97,7 +97,6 @@ workerPort.onmessage = async (message: any): Promise<void> => {
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             };
-
             let startResult = false;
             try {
               startResult = await Promise.race([
@@ -145,7 +144,6 @@ workerPort.onmessage = async (message: any): Promise<void> => {
               maxConcurrentClientsNumber: 10,
               maxConnectionsForOneClient: 4,
             };
-
             let startResult = false;
             try {
               startResult = await Promise.race([
@@ -163,7 +161,6 @@ workerPort.onmessage = async (message: any): Promise<void> => {
               errorMsg = 'WebSocketServer start fail';
               break;
             }
-
             let stopResult = false;
             try {
               stopResult = await Promise.race([
@@ -832,6 +829,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
 
             for (const eventName of possibleErrorEvents) {
               try {
+                // @ts-ignore
                 server.on(eventName, (err: BusinessError) => {
                   console.info(`${data.workerName}Pass${eventName} Error in receiving the event:
                    ${JSON.stringify(err)}`);
@@ -849,6 +847,7 @@ workerPort.onmessage = async (message: any): Promise<void> => {
                 console.info('server connect:', client);
               });
 
+              // @ts-ignore
               server.on('message', (message: string | ArrayBuffer, client: webSocket.WebSocketConnection) => {
                 console.info('received message:', message);
               });
