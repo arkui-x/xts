@@ -21,7 +21,7 @@ struct WebComponent {
       Text('isTrue: ' + this.isTrue)
         .id('TAG')
 
-      Web({ src: 'https://httpbin.org/basic-auth/user/pass', controller: this.controller })
+      Web({ src: 'https://testpages.eviltester.com/pages/auth/basic-auth/basic-auth-results.html', controller: this.controller })
         .onHttpAuthRequest((event: OnHttpAuthRequestEvent) => {
           if (event) {
             this.isTrue = true;
@@ -42,10 +42,10 @@ struct WebComponent {
                     webview.WebDataBase.saveHttpAuthCredentials(
                       event.host,
                       event.realm,
-                      "user",
-                      "pass"
+                      "authorized",
+                      "password001"
                     )
-                    event.handler.confirm('user', 'pass');
+                    event.handler.confirm('authorized', 'password001');
                   }
                 }
               },

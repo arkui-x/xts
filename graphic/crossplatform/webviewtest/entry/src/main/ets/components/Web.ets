@@ -42,6 +42,9 @@ export struct WebContent {
       if (hasName && funcName === 'getType') {
         this.USER_AGENT = result;
       }
+      if (this.htmlName.includes('video') && funcName === 'getStatus') {
+        this.ON_EVENT_VALUE = result;
+      }
     } catch (resError) {
       let e: business_error.BusinessError = resError as business_error.BusinessError;
       console.error(`runJavaScript ErrorCode: ${e.code},  Message: ${e.message}`);
@@ -227,28 +230,23 @@ export struct WebContent {
             .width('100%')
             .height(5)
           // 4、使用应用侧的端口给另一个已经发送到html的端口发送消息。
-          Button('SendToHTML')
-            .onClick(async e => {
-              if (this.ports && this.ports.length == 2) {
-                const value: promptAction.ShowDialogSuccessResponse = await promptAction.showDialog({
-                  title: '请选择发送的消息',
-                  buttons: [
-                    {
-                      text: 'HelloArkTs',
-                      color: '#333333'
-                    },
-                    {
-                      text: 'HelloOH',
-                      color: '#333333'
-                    }
-                  ]
-                })
-                const index: number = value.index
-                const msg: web_webview.WebMessage = index ? 'HelloOH' : 'HelloArkTs'
+          Button('SendHelloArkTs')
+            .onClick(e => {
+              if (this.ports && this.ports.length == 2 && this.ports[1]) {
+                const msg: web_webview.WebMessage = 'HelloArkTs'
                 this.ON_EVENT_MESSAGE = `post message: ${msg}`
-                if (this.ports && this.ports[1]) {
-                  this.ports[1].postMessageEvent(msg);
-                }
+                this.ports[1].postMessageEvent(msg);
+              } else {
+                this.ON_EVENT_MESSAGE = 'msgPort is null, Please initialize first'
+              }
+            })
+            .size({ height: 20 })
+          Button('SendHelloOH')
+            .onClick(e => {
+              if (this.ports && this.ports.length == 2 && this.ports[1]) {
+                const msg: web_webview.WebMessage = 'HelloOH'
+                this.ON_EVENT_MESSAGE = `post message: ${msg}`
+                this.ports[1].postMessageEvent(msg);
               } else {
                 this.ON_EVENT_MESSAGE = 'msgPort is null, Please initialize first'
               }
@@ -283,20 +281,21 @@ export struct WebContent {
                 title: 'onAlert',
                 message: event.message,
                 primaryButton: {
-                  value: 'cancel',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
-                    event.result.handleCancel()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
                     event.result.handleConfirm()
                   }
                 },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
                 }
               })
@@ -311,20 +310,21 @@ export struct WebContent {
                 title: 'onConfirm',
                 message: event.message,
                 primaryButton: {
-                  value: 'cancel',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
-                    event.result.handleCancel()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
                     event.result.handleConfirm()
                   }
                 },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
                 }
               })
@@ -336,33 +336,28 @@ export struct WebContent {
               this.ON_EVENT_URL = 'index_prompt.html'
               this.ON_EVENT_MESSAGE = event.message
               this.ON_EVENT_VALUE = event.value
-              promptAction.showDialog({
+              AlertDialog.show({
                 title: 'onPrompt',
                 message: event.message,
-                buttons: [
-                  {
-                    text: 'cancel',
-                    color: '#409eff'
-                  },
-                  {
-                    text: 'ok',
-                    color: '#409eff'
+                primaryButton: {
+                  value: 'ok',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'OK_CLICKED'
+                    event.result.handlePromptConfirm(event.value)
                   }
-                ],
-
-              }, (err, data) => {
-                if (err) {
-                  return;
-                }
-                if (data.index === 0) {
+                },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
+                cancel: () => {
                   this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
-                } else {
-                  this.ON_BUTTON_CLICK = 'OK_CLICKED'
-                  event.result.handlePromptConfirm(event.value)
                 }
-                console.info('showDialog success callback, click button: ' + data.index);
-              });
+              })
             }
             return true
           })
@@ -395,13 +390,6 @@ export struct WebContent {
                 title: 'onPermissionRequest',
                 message: 'onPermissionRequest callback',
                 primaryButton: {
-                  value: 'deny',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'DENY_CLICKED'
-                    event.request.deny()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
@@ -410,11 +398,20 @@ export struct WebContent {
                     event.request.grant(resource)
                   }
                 },
+                secondaryButton: {
+                  value: 'deny',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'DENY_CLICKED'
+                    event.request.deny()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'DENY_CLICKED'
                   event.request.deny()
                 }
               })
             }
+            return true
           })
           .onPageVisible((event) => {
             if (this.htmlName.includes('page')) {

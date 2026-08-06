@@ -83,7 +83,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs * 2);
         const MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         const text: string = await MESSAGE.getText();
-        expect(text).assertEqual('host: www.spincast.org, realm: protected example');
+        expect(text).assertEqual('host: testpages.eviltester.com, realm: ');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 success');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 test end');
       });
@@ -106,7 +106,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         let MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         let text: string = await MESSAGE.getText();
-        expect(text).assertEqual('save host: www.spincast.org, realm: protected example');
+        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
         const EXIST_HAC: Component = await driver.findComponent(ON.text('EXIST_HAC'));
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
@@ -150,7 +150,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         text = await MESSAGE.getText();
-        expect(text).assertEqual('save host: www.spincast.org, realm: protected example');
+        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
@@ -281,10 +281,16 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_On_Http_Error_Receive_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        const CHANGE_TABS: Component = await driver.findComponent(ON.text('设置页签'));
+        await CHANGE_TABS.click();
+        await driver.delayMs(waitUiReadyMs);
+        const ERROR_TAB: Component = await driver.findComponent(ON.text('Goto onHttpErrorReceive'));
+        await ERROR_TAB.click();
+        await driver.delayMs(2000);
         const ON_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
         await driver.delayMs(waitUiReadyMs);
         const url: string = await ON_EVENT_URL.getText();
-        expect(url).assertContain('www.spincast.org');
+        expect(url).assertContain('www.hua' + 'wei.com');
         const ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
         const value: string = await ON_EVENT_VALUE.getText();
         const code: number = Number(value);

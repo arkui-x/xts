@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<title>download</title>
+		<script type="text/javascript">
+			function triggerDownload() {
+				const blob = new Blob(['webview onDownloadStart test'], { type: 'text/plain' });
+				const objectUrl = URL.createObjectURL(blob);
+				const anchor = document.createElement('a');
+				anchor.href = objectUrl;
+				anchor.download = 'test.txt';
+				anchor.style.display = 'none';
+				document.body.appendChild(anchor);
+				anchor.click();
+				document.body.removeChild(anchor);
+				URL.revokeObjectURL(objectUrl);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>WebView onDownloadStart Demo</h1>
+	</body>
+</html>
