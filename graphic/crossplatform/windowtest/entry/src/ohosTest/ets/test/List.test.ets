@@ -15,8 +15,10 @@
 
 import Window from './windowTest.test'
 import WindowStage from './WindowStage.test'
+import keyboardHeightTest from './KeyboardHeightTest.test'
 
 export default function testsuite() {
   Window();
   WindowStage();
+  keyboardHeightTest()
 }

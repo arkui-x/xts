@@ -16,32 +16,33 @@
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
-    console.log('aboutToAppear');
+  @State message: string = 'Keyboard Page'
+  @State inputValue: string = ''
+  controller: TextInputController = new TextInputController()
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(40)
+          .fontWeight(FontWeight.Bold)
+        TextInput({ placeholder: '点击弹出键盘', text: this.inputValue, controller: this.controller })
+          .id('keyboardInput')
+          .width('80%')
+          .height(50)
+          .margin({ top: 30 })
+          .onChange((value: string) => {
+            this.inputValue = value
+          })
+        Button('收起键盘')
+          .id('closeKeyboardBtn')
+          .margin({ top: 20 })
+          .onClick(() => {
+            this.controller.stopEditing()
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
   }
- @State message: string = 'Hello World'
-   build() {
-         Row() {
-           Column() {
-             Text(this.message)
-               .fontSize(50)
-               .fontWeight(FontWeight.Bold)
-             Button() {
-               Text('next page')
-                 .fontSize(20)
-                 .fontWeight(FontWeight.Bold)
-             }.type(ButtonType.Capsule)
-             .margin({
-               top: 20
-             })
-             .backgroundColor('#0D9FFB')
-             .width('35%')
-             .height('5%')
-             .onClick(()=>{
-             })
-           }
-             .width('100%')
-         }
-             .height('100%')
-   }
- }
+}
