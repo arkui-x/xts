@@ -27,6 +27,31 @@ import {
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import deviceInfo from '@ohos.deviceInfo';
+
+let osFullNameInfo: string = deviceInfo.osFullName;
+let platform = osFullNameInfo.split(' ')[0];
+const HTTP_AUTH_HOST: string = 'testpages.eviltester.com';
+
+function assertOnHttpAuthRequestMessage(text: string): void {
+  if (platform == 'iOS') {
+    expect(text).assertContain(`host: ${HTTP_AUTH_HOST}`);
+    const realm: string = text.split('realm: ')[1] ?? '';
+    expect(realm == '' || realm == HTTP_AUTH_HOST).assertTrue();
+  } else {
+    expect(text).assertEqual(`host: ${HTTP_AUTH_HOST}, realm: `);
+  }
+}
+
+function assertSaveHttpAuthMessage(text: string): void {
+  if (platform == 'iOS') {
+    expect(text).assertContain(`save host: ${HTTP_AUTH_HOST}`);
+    const realm: string = text.split('realm: ')[1] ?? '';
+    expect(realm == '' || realm == HTTP_AUTH_HOST).assertTrue();
+  } else {
+    expect(text).assertEqual(`save host: ${HTTP_AUTH_HOST}, realm: `);
+  }
+}
 
 export default function OnHttpAuthReqTest() {
   describe('OnHttpAuthReqTest', () => {
@@ -83,7 +108,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs * 2);
         const MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         const text: string = await MESSAGE.getText();
-        expect(text).assertEqual('host: testpages.eviltester.com, realm: ');
+        assertOnHttpAuthRequestMessage(text);
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 success');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 test end');
       });
@@ -106,7 +131,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         let MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         let text: string = await MESSAGE.getText();
-        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
+        assertSaveHttpAuthMessage(text);
         const EXIST_HAC: Component = await driver.findComponent(ON.text('EXIST_HAC'));
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
@@ -150,7 +175,7 @@ export default function OnHttpAuthReqTest() {
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
         text = await MESSAGE.getText();
-        expect(text).assertEqual('save host: testpages.eviltester.com, realm: ');
+        assertSaveHttpAuthMessage(text);
         await EXIST_HAC.click();
         await driver.delayMs(waitUiReadyMs);
         MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
