@@ -9,16 +9,12 @@
 		<title>download</title>
 		<script type="text/javascript">
 			function triggerDownload() {
-				const blob = new Blob(['webview onDownloadStart test'], { type: 'text/plain' });
-				const objectUrl = URL.createObjectURL(blob);
 				const anchor = document.createElement('a');
-				anchor.href = objectUrl;
-				anchor.download = 'test.txt';
-				anchor.style.display = 'none';
+				anchor.href = 'https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/Qzone_logo_3color.psd';
+				anchor.download = 'Qzone_logo_3color.psd';
 				document.body.appendChild(anchor);
 				anchor.click();
 				document.body.removeChild(anchor);
-				URL.revokeObjectURL(objectUrl);
 			}
 		</script>
 	</head>
