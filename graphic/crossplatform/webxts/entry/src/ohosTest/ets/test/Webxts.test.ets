@@ -709,7 +709,7 @@ export default function Webxts() {
         if (platform != 'iOS') {
           expect(mimetype.length > 'mimetype: '.length).assertTrue();
         } else {
-          expect(mimetype).assertEqual("mimetype: application/x-gzip");
+          expect(mimetype).assertEqual("mimetype: image/vnd.adobe.photoshop");
         }
       } catch (error) {
         expect().assertFail()
