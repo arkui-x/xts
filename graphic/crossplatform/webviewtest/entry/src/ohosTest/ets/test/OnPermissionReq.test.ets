@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, TestType, Level, Size } from '@ohos/hypium';
 import { Driver, Component, ON } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog, handleIosSystemDialogs, waitForIdText } from '../utils/index';
 
 export default function OnPermissionTest() {
   describe('OnPermissionTest', () => {
@@ -73,10 +73,12 @@ export default function OnPermissionTest() {
         const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
         await TRIGGER_BUTTON.click();
         await driver.delayMs(waitUiReadyMs);
+        await handleIosSystemDialogs(driver);
+        await driver.delayMs(waitUiReadyMs);
         await dismissDialog(driver);
         await driver.delayMs(waitUiReadyMs);
-        const ON_PROMPT_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
-        const text: string = await ON_PROMPT_EVENT_URL.getText();
+        const text: string = await waitForIdText(driver, 'ON_EVENT_URL',
+          (value: string) => value === 'index_permission_req.html', 10000);
         console.log(`SUB_Web_WebView_On_Permission_Request_Func_0100 ON_PROMPT_EVENT_URL: ${text}`);
         expect(text).assertEqual('index_permission_req.html');
         console.log('SUB_Web_WebView_On_Permission_Request_Func_0100 success');

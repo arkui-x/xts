@@ -26,7 +26,7 @@ import {
   Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, stopAbility, waitUiReadyMs, sleep, handleIosSystemDialogs, waitForIdText } from '../utils/index';
 import deviceInfo from '@ohos.deviceInfo';
 
 let osFullNameInfo: string = deviceInfo.osFullName;
@@ -76,6 +76,8 @@ export default function OnHttpAuthReqTest() {
       const TAB: Component = await driver.findComponent(ON.text('Goto onHttpAuthRequest'));
       await TAB.click();
       await driver.delayMs(2000);
+      await handleIosSystemDialogs(driver);
+      await driver.delayMs(waitUiReadyMs);
     });
 
     /**
@@ -106,8 +108,8 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs * 2);
-        const MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
-        const text: string = await MESSAGE.getText();
+        const text: string = await waitForIdText(driver, 'ON_EVENT_MESSAGE',
+          (value: string) => value.includes(`host: ${HTTP_AUTH_HOST}`), 10000);
         assertOnHttpAuthRequestMessage(text);
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 success');
         console.log('SUB_Web_WebView_On_Http_Auth_Request_Func_0100 test end');
