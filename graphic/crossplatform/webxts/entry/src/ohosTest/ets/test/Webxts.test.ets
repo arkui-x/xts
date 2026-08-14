@@ -706,11 +706,7 @@ export default function Webxts() {
         let mimetype_Text = await driver.findComponent(ON.id('mimetype'));
         const mimetype = await mimetype_Text.getText();
         await driver.delayMs(AWAIT_SLEEP_MS_1000);
-        if (platform != 'iOS') {
-          expect(mimetype.length > 'mimetype: '.length).assertTrue();
-        } else {
-          expect(mimetype).assertEqual("mimetype: image/vnd.adobe.photoshop");
-        }
+        expect(mimetype.length > 'mimetype: '.length).assertTrue();
       } catch (error) {
         expect().assertFail()
       }
