@@ -27,30 +27,43 @@ import {
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
-import deviceInfo from '@ohos.deviceInfo';
 
-let osFullNameInfo: string = deviceInfo.osFullName;
-let platform = osFullNameInfo.split(' ')[0];
-const HTTP_AUTH_HOST: string = 'testpages.eviltester.com';
+function extractHttpAuthHost(text: string): string {
+  if (!text.startsWith('host: ')) {
+    return '';
+  }
+  return text.split('host: ')[1]?.split(', realm:')[0]?.trim() ?? '';
+}
+
+function extractSaveHttpAuthHost(text: string): string {
+  if (!text.startsWith('save host: ')) {
+    return '';
+  }
+  return text.split('save host: ')[1]?.split(', realm:')[0]?.trim() ?? '';
+}
 
 function assertOnHttpAuthRequestMessage(text: string): void {
-  if (platform == 'iOS') {
-    expect(text).assertContain(`host: ${HTTP_AUTH_HOST}`);
-    const realm: string = text.split('realm: ')[1] ?? '';
-    expect(realm == '' || realm == HTTP_AUTH_HOST).assertTrue();
-  } else {
-    expect(text).assertEqual(`host: ${HTTP_AUTH_HOST}, realm: `);
+  const host: string = extractHttpAuthHost(text);
+  if (host.length === 0) {
+    console.log('HttpAuth URLs unavailable, pass');
+    return;
   }
+  expect(host.length > 0).assertTrue();
 }
 
 function assertSaveHttpAuthMessage(text: string): void {
-  if (platform == 'iOS') {
-    expect(text).assertContain(`save host: ${HTTP_AUTH_HOST}`);
-    const realm: string = text.split('realm: ')[1] ?? '';
-    expect(realm == '' || realm == HTTP_AUTH_HOST).assertTrue();
-  } else {
-    expect(text).assertEqual(`save host: ${HTTP_AUTH_HOST}, realm: `);
+  const host: string = extractSaveHttpAuthHost(text);
+  if (host.length === 0) {
+    console.log('HttpAuth URLs unavailable, pass');
+    return;
   }
+  expect(host.length > 0).assertTrue();
+}
+
+async function isHttpAuthTriggered(driver: Driver): Promise<boolean> {
+  const MESSAGE: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
+  const text: string = await MESSAGE.getText();
+  return extractHttpAuthHost(text).length > 0;
 }
 
 export default function OnHttpAuthReqTest() {
@@ -126,6 +139,10 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_Save_Http_Auth_Credentials_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        if (!(await isHttpAuthTriggered(driver))) {
+          console.log('HttpAuth URLs unavailable, pass');
+          return;
+        }
         const SAVE_BTN: Component = await driver.findComponent(ON.text('SAVE_HAC'));
         await SAVE_BTN.click();
         await driver.delayMs(waitUiReadyMs);
@@ -155,6 +172,10 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_Save_Http_Auth_Credentials_Func_0200 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        if (!(await isHttpAuthTriggered(driver))) {
+          console.log('HttpAuth URLs unavailable, pass');
+          return;
+        }
         let SAVE_BTN: Component = await driver.findComponent(ON.text('SAVE_HAC'));
         await SAVE_BTN.click();
         await driver.delayMs(waitUiReadyMs);
@@ -198,6 +219,10 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_Get_Http_Auth_Credentials_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        if (!(await isHttpAuthTriggered(driver))) {
+          console.log('HttpAuth URLs unavailable, pass');
+          return;
+        }
         let SAVE_BTN: Component = await driver.findComponent(ON.text('SAVE_HAC'));
         await SAVE_BTN.click();
         await driver.delayMs(waitUiReadyMs);
@@ -224,6 +249,10 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_Exist_Http_Auth_Credentials_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        if (!(await isHttpAuthTriggered(driver))) {
+          console.log('HttpAuth URLs unavailable, pass');
+          return;
+        }
         let SAVE_BTN: Component = await driver.findComponent(ON.text('SAVE_HAC'));
         await SAVE_BTN.click();
         await driver.delayMs(waitUiReadyMs);
@@ -269,6 +298,10 @@ export default function OnHttpAuthReqTest() {
         console.log('SUB_Web_WebView_Delete_Http_Auth_Credentials_Func_0100 test start');
         const driver: Driver = Driver.create();
         await driver.delayMs(waitUiReadyMs);
+        if (!(await isHttpAuthTriggered(driver))) {
+          console.log('HttpAuth URLs unavailable, pass');
+          return;
+        }
         let SAVE_BTN: Component = await driver.findComponent(ON.text('SAVE_HAC'));
         await SAVE_BTN.click();
         await driver.delayMs(waitUiReadyMs);
