@@ -17,6 +17,19 @@ import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 import { BusinessError } from '@ohos.base';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import { Component, Driver, ON } from '@ohos.UiTest';
+import deviceInfo from '@ohos.deviceInfo';
+
+const platform: string = deviceInfo.osFullName.split(' ')[0];
+const IOS_SYSTEM_DIALOG_BUTTONS: string[] = [
+  'Allow',
+  '允许',
+  'OK',
+  '好',
+  'WLAN & Cellular Data',
+  'WLAN & Cellular',
+  '无线局域网与蜂窝网络',
+  '无线局域网与蜂窝数据',
+];
 
 export const waitUiReadyMs: number = 1500;
 export const dialogWaitMs: number = 3000;
@@ -56,6 +69,33 @@ export async function stopAbility(): Promise<void> {
   await topAbility.context.terminateSelf();
 }
 
+export async function clickIfExist(driver: Driver, labels: string[],
+  timeoutMs: number = dialogWaitMs): Promise<boolean> {
+  const deadline: number = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    for (const label of labels) {
+      const variants: string[] = [label, label.toUpperCase(), label.toLowerCase()];
+      for (const text of variants) {
+        const button: Component = await driver.findComponent(ON.text(text));
+        if (button) {
+          await button.click();
+          await driver.delayMs(waitUiReadyMs);
+          return true;
+        }
+      }
+    }
+    await driver.delayMs(300);
+  }
+  return false;
+}
+
+export async function handleIosSystemDialogs(driver: Driver): Promise<void> {
+  if (platform != 'iOS') {
+    return;
+  }
+  await clickIfExist(driver, IOS_SYSTEM_DIALOG_BUTTONS);
+}
+
 export async function clickDialogButton(driver: Driver, label: string): Promise<void> {
   const variants: string[] = [label, label.toUpperCase()];
   const deadline: number = Date.now() + dialogWaitMs;
@@ -81,13 +121,20 @@ export async function waitForIdText(driver: Driver, id: string, matcher: (text: 
   timeoutMs: number = dialogWaitMs): Promise<string> {
   const deadline: number = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
+    await handleIosSystemDialogs(driver);
     const component: Component = await driver.findComponent(ON.id(id));
-    const text: string = await component.getText();
-    if (matcher(text)) {
-      return text;
+    if (component) {
+      const text: string = await component.getText();
+      if (matcher(text)) {
+        return text;
+      }
     }
     await driver.delayMs(300);
   }
+  await handleIosSystemDialogs(driver);
   const component: Component = await driver.findComponent(ON.id(id));
-  return await component.getText();
+  if (component) {
+    return await component.getText();
+  }
+  return '';
 }
