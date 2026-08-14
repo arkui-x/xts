@@ -4,6 +4,12 @@ import { BusinessError } from '@ohos.base';
 import promptAction from '@ohos.promptAction';
 import fs from '@ohos.file.fs';
 
+const HTTP_AUTH_URLS: string[] = [
+  'https://testpages.eviltester.com/pages/auth/basic-auth/basic-auth-results.html',
+  'https://httpbin.org/basic-auth/user/passwd',
+  'http://httpbin.org/basic-auth/user/passwd',
+];
+
 @Component
 export struct WebContent {
   @Prop funcName: string = ''
@@ -20,7 +26,9 @@ export struct WebContent {
   @State fileUri: string = ''
   @State host: string = ''
   @State realm: string = ''
+  @State httpAuthUrlIndex: number = 0
   @State ports: web_webview.WebMessagePort[] = []
+  httpAuthReceived: boolean = false
   controller: web_webview.WebviewController = new web_webview.WebviewController()
   textController: TextInputController = new TextInputController()
 
@@ -30,8 +38,25 @@ export struct WebContent {
     .width('100%')
   }
 
+  isHttpAuthTab(): boolean {
+    return this.htmlName.includes('eviltester') || this.htmlName.includes('basic-auth') ||
+      HTTP_AUTH_URLS.includes(this.htmlName);
+  }
+
+  tryNextHttpAuthUrl(): void {
+    if (this.httpAuthReceived || this.httpAuthUrlIndex >= HTTP_AUTH_URLS.length - 1) {
+      return;
+    }
+    this.httpAuthUrlIndex++;
+    this.controller.loadUrl(HTTP_AUTH_URLS[this.httpAuthUrlIndex]);
+  }
+
   aboutToAppear() {
-    this.url = !this.htmlName.includes('http') ? $rawfile(this.htmlName) : this.htmlName
+    if (this.isHttpAuthTab()) {
+      this.url = HTTP_AUTH_URLS[0];
+    } else {
+      this.url = !this.htmlName.includes('http') ? $rawfile(this.htmlName) : this.htmlName;
+    }
   }
 
   async runJSFunc(funcName: string, controller: web_webview.WebviewController) {
@@ -363,6 +388,7 @@ export struct WebContent {
           })
           .onHttpAuthRequest((event) => {
             if (event) {
+              this.httpAuthReceived = true;
               this.ON_EVENT_MESSAGE = `host: ${event.host}, realm: ${event.realm}`
               this.host = event.host
               this.realm = event.realm
@@ -372,6 +398,10 @@ export struct WebContent {
           })
           .onHttpErrorReceive((event) => {
             if (event) {
+              if (this.isHttpAuthTab() && !this.httpAuthReceived) {
+                this.tryNextHttpAuthUrl();
+                return;
+              }
               this.ON_EVENT_URL = event.request.getRequestUrl()
               this.ON_EVENT_VALUE = event.response.getResponseCode().toString()
             }
