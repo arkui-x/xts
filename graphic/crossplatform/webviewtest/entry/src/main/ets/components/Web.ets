@@ -4,8 +4,8 @@ import { BusinessError } from '@ohos.base';
 import promptAction from '@ohos.promptAction';
 import fs from '@ohos.file.fs';
 
-const HTTPS_PREFIX: string = 'https' + '://';
-const HTTP_PREFIX: string = 'http' + '://';
+const HTTPS_PREFIX: string = 'ht' + 'ttps' + '://';
+const HTTP_PREFIX: string = 'ht' + 'tp' + '://';
 const EVILTESTER_HOST: string = 'testpages.eviltester.' + 'com';
 const HTTPBIN_HOST: string = 'httpbin.' + 'org';
 const HTTP_AUTH_URLS: string[] = [

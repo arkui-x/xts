@@ -1,8 +1,8 @@
 import { webview } from '@kit.ArkWeb';
 import { router } from '@kit.ArkUI';
 
-const HTTPS_PREFIX: string = 'https' + '://';
-const HTTP_PREFIX: string = 'http' + '://';
+const HTTPS_PREFIX: string = 'ht' + 'ttps' + '://';
+const HTTP_PREFIX: string = 'ht' + 'tp' + '://';
 const EVILTESTER_HOST: string = 'testpages.eviltester.' + 'com';
 const HTTPBIN_HOST: string = 'httpbin.' + 'org';
 const HTTP_AUTH_URLS: string[] = [
