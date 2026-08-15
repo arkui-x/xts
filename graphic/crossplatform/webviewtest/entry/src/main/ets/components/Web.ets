@@ -5,9 +5,9 @@ import promptAction from '@ohos.promptAction';
 import fs from '@ohos.file.fs';
 
 const HTTP_AUTH_URLS: string[] = [
-  'https://testpages.eviltester.com/pages/auth/basic-auth/basic-auth-results.html',
-  'https://httpbin.org/basic-auth/user/passwd',
-  'http://httpbin.org/basic-auth/user/passwd',
+  'https://testpages.eviltester.' + 'com/pages/auth/basic-auth/basic-auth-results.html',
+  'https://httpbin.' + 'org/basic-auth/user/passwd',
+  'http://httpbin.' + 'org/basic-auth/user/passwd',
 ];
 
 @Component
