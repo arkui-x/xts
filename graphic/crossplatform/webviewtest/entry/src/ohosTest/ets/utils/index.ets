@@ -14,12 +14,14 @@
  */
 
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import { Component, Driver, ON } from '@ohos.UiTest';
 
 export const waitUiReadyMs: number = 1500;
 export const dialogWaitMs: number = 3000;
+export const permissionWaitMs: number = 5000;
 
 export function sleep(delay: number = 1000): Promise<void> {
   return new Promise((resolve: Function) => {
@@ -54,6 +56,21 @@ export async function startAbility(bundleName: string, abilityName: string): Pro
 export async function stopAbility(): Promise<void> {
   let topAbility: UIAbility = await delegator.getCurrentTopAbility();
   await topAbility.context.terminateSelf();
+}
+
+/**
+ * 应用拉起后立即申请测试所需权限，系统权限弹窗在用例执行前出现并处理，
+ * 避免弹窗出现在用例执行中途导致 UiTest 自动化失败。
+ */
+export async function requestPermissions(): Promise<void> {
+  const topAbility: UIAbility = await delegator.getCurrentTopAbility();
+  const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+  try {
+    await atManager.requestPermissionsFromUser(topAbility.context,
+      ['ohos.permission.CAMERA', 'ohos.permission.MICROPHONE']);
+  } catch (err) {
+    console.error(`requestPermissionsFromUser failed: ${JSON.stringify(err)}`);
+  }
 }
 
 export async function clickDialogButton(driver: Driver, label: string): Promise<void> {

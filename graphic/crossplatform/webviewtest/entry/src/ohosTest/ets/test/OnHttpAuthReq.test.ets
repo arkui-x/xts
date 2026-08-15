@@ -26,7 +26,7 @@ import {
   Size
 } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, stopAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, stopAbility, waitUiReadyMs, permissionWaitMs, requestPermissions, sleep } from '../utils/index';
 
 function extractHttpAuthHost(text: string): string {
   if (!text.startsWith('host: ')) {
@@ -75,6 +75,9 @@ export default function OnHttpAuthReqTest() {
       await startAbility('com.example.webviewtest', 'EntryAbility');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
+      // 应用拉起后申请权限，等待系统权限弹窗处理完成，避免弹窗出现在用例执行中
+      await requestPermissions();
+      await driver.delayMs(permissionWaitMs);
     });
 
     /**
