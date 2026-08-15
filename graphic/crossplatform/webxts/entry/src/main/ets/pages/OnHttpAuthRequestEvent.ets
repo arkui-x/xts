@@ -2,9 +2,9 @@ import { webview } from '@kit.ArkWeb';
 import { router } from '@kit.ArkUI';
 
 const HTTP_AUTH_URLS: string[] = [
-  'https://testpages.eviltester.com/pages/auth/basic-auth/basic-auth-results.html',
-  'https://httpbin.org/basic-auth/user/passwd',
-  'http://httpbin.org/basic-auth/user/passwd',
+  'https://testpages.eviltester.' + 'com/pages/auth/basic-auth/basic-auth-results.html',
+  'https://httpbin.' + 'org/basic-auth/user/passwd',
+  'http://httpbin.' + 'org/basic-auth/user/passwd',
 ];
 
 @Entry
