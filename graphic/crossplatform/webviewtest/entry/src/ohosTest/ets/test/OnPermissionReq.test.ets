@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, TestType, Level, Size } from '@ohos/hypium';
 import { Driver, Component, ON } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep, clickDialogButton, dismissDialog, permissionWaitMs, requestPermissions } from '../utils/index';
 
 export default function OnPermissionTest() {
   describe('OnPermissionTest', () => {
@@ -26,6 +26,9 @@ export default function OnPermissionTest() {
       await startAbility('com.example.webviewtest', 'EntryAbility');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
+      // 应用拉起后申请权限，等待系统权限弹窗处理完成，避免弹窗出现在用例执行中
+      await requestPermissions();
+      await driver.delayMs(permissionWaitMs);
     });
 
     /**
