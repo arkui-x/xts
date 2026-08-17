@@ -33,6 +33,9 @@ async function sleep(time: number) {
 export default function windowVerificationProblemTest() {
   describe('window_verification_problem_test', async () => {
     console.log('describe window_verification_problem_test start!!!');
+    afterEach(async () => {
+      await sleep(500)
+    })
 
     /**
      * @tc.number : SUB_GRAPHIC_Display_OffAdd_RepeatOff_0100

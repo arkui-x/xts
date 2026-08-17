@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect, TestType, Size, Level } from "@ohos/hypium";
+import { describe, beforeAll, afterEach, it, expect, TestType, Size, Level } from "@ohos/hypium";
 import ohosWindow from '@ohos.window';
 import display from '@ohos.display';
 import { BusinessError } from '@ohos.base';
@@ -64,6 +64,9 @@ export default function windowCallbackTest() {
     beforeAll(async () => {
       windowStage = AppStorage.get('windowStage') as window.WindowStage;
       abilityStorage = AppStorage.get('localStorage') as LocalStorage;
+    })
+    afterEach(async () => {
+      await sleep(500)
     })
 
     /**
