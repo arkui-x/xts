@@ -45,7 +45,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testTriggerCombineKeys_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -92,7 +92,7 @@ export default function uiTestThreeTest() {
      */
     it('testTriggerCombineKeysSpecialCharacters_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -139,7 +139,7 @@ export default function uiTestThreeTest() {
      */
     it('testTriggerCombineKeysError_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -172,7 +172,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testGetBounds_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -196,7 +196,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testGetBoundsSmall_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -225,7 +225,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testGetBoundsHalfImage_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -254,7 +254,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testGetBoundsLarge_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -284,7 +284,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPointerMatrixCreate_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
       let navigationPage: Component = await driver.findComponent(ON.text('NavigationPage'))
@@ -307,7 +307,7 @@ export default function uiTestThreeTest() {
      */
     it('testPointerMatrixCreateError_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
         let navigationPage: Component = await driver.findComponent(ON.text('NavigationPage'))
@@ -333,7 +333,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testSetPoint_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -377,7 +377,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testSetPointUnorderedSteps_011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -425,7 +425,7 @@ export default function uiTestThreeTest() {
      */
     it('testSetPointExceptionParameter_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -459,7 +459,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testSetPointCoincide_013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -495,7 +495,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testSetPointOut_014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -539,7 +539,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchOut_015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -578,7 +578,7 @@ export default function uiTestThreeTest() {
      */
     it('testPinchOutExceptionParameter_016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -607,7 +607,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchOutLessThanOne_017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -646,7 +646,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchOutManyTimes_018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -694,7 +694,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchOutInvalid_019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -729,7 +729,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchIn_020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -768,7 +768,7 @@ export default function uiTestThreeTest() {
      */
     it('testPinchInExceptionParameter_021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -797,7 +797,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchInGreaterThanOne_022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -836,7 +836,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchInManyTimes_023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -882,7 +882,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testPinchInInvalid_024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -917,7 +917,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testFindcomponents_025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -941,7 +941,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testFindcomponentsZero_026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -964,7 +964,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testScrollSearch_027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -990,7 +990,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testScrollSearchAbsent_028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -1017,7 +1017,7 @@ export default function uiTestThreeTest() {
      */
     it('testInjectMultiPointerAction_029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -1062,7 +1062,7 @@ export default function uiTestThreeTest() {
      */
     it('testInjectMultiPointerActionNoOperation_030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -1097,7 +1097,7 @@ export default function uiTestThreeTest() {
      */
     it('testInjectMultiPointerActionExceptionParameter_031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -1142,7 +1142,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testMultiFingerRotation_032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -1178,7 +1178,7 @@ export default function uiTestThreeTest() {
      * @tc.level     : Level 0
      */
     it('testTriggerKey_033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
