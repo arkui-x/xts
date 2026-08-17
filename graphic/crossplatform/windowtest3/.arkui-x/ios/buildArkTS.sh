@@ -11,9 +11,9 @@ if [ "$scriptBuildFlag" = "false" ]; then
   exit 0
 fi
 
-project_path="D:\Smj\9.28\format\XTS\graphic"
-ohpm_path="D:\DevEco\DevEco Studio\tools\ohpm\bin\ohpm"
-arkuiXSdkPath="D:\Smj\arkui-x\20\arkui-x"
+project_path="/Users/xyuguo/Desktop/guoxyu/00-gitCode/00-XTS/xts/graphic/crossplatform/windowtest3"
+ohpm_path="/Applications/deveco-studio.app/Contents/tools/ohpm/bin/ohpm"
+arkuiXSdkPath="/Users/xyuguo/Desktop/guoxyu/000_Env/Ark-X_SDK/26.0.0/arkui-x"
 
 # You can change the module name you want to compile.
 moduleLists=entry
@@ -32,7 +32,7 @@ ios_systemRes_path="$project_path/.arkui-x/ios/arkui-x/systemres"
 
 cd $project_path
 $ohpm_path update
-
+chmod 755 hvigorw
 ./hvigorw default@CompileArkTS -p module=$moduleLists
 IFS=',' read -ra folders <<< "$moduleLists"
 

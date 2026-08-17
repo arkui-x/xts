@@ -61,6 +61,9 @@ export default function WindowLifecycle() {
     beforeAll(() => {
       windowStage = AppStorage.get('windowStage') as window.WindowStage;
     });
+    afterEach(async () => {
+      await sleep(500)
+    });
 
     /**
      * @tc.number : SUB_GRAPHIC_WindowStage_OffWindowStageEvent_RepeatOff_0100

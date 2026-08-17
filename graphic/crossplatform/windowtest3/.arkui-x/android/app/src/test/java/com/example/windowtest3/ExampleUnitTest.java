@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.graphic;
+package com.example.windowtest3;
 
 import org.junit.Test;
 
