@@ -14,12 +14,14 @@
  */
 
 import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import { Component, Driver, ON } from '@ohos.UiTest';
 
 export const waitUiReadyMs: number = 1500;
 export const dialogWaitMs: number = 3000;
+export const permissionWaitMs: number = 5000;
 
 export function sleep(delay: number = 1000): Promise<void> {
   return new Promise((resolve: Function) => {
@@ -56,6 +58,21 @@ export async function stopAbility(): Promise<void> {
   await topAbility.context.terminateSelf();
 }
 
+/**
+ * 应用拉起后立即申请测试所需权限，系统权限弹窗在用例执行前出现并处理，
+ * 避免弹窗出现在用例执行中途导致 UiTest 自动化失败。
+ */
+export async function requestPermissions(): Promise<void> {
+  const topAbility: UIAbility = await delegator.getCurrentTopAbility();
+  const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+  try {
+    await atManager.requestPermissionsFromUser(topAbility.context,
+      ['ohos.permission.CAMERA', 'ohos.permission.MICROPHONE']);
+  } catch (err) {
+    console.error(`requestPermissionsFromUser failed: ${JSON.stringify(err)}`);
+  }
+}
+
 export async function clickDialogButton(driver: Driver, label: string): Promise<void> {
   const variants: string[] = [label, label.toUpperCase()];
   const deadline: number = Date.now() + dialogWaitMs;
@@ -82,12 +99,17 @@ export async function waitForIdText(driver: Driver, id: string, matcher: (text: 
   const deadline: number = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     const component: Component = await driver.findComponent(ON.id(id));
-    const text: string = await component.getText();
-    if (matcher(text)) {
-      return text;
+    if (component) {
+      const text: string = await component.getText();
+      if (matcher(text)) {
+        return text;
+      }
     }
     await driver.delayMs(300);
   }
   const component: Component = await driver.findComponent(ON.id(id));
-  return await component.getText();
+  if (component) {
+    return await component.getText();
+  }
+  return '';
 }
