@@ -17,6 +17,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, Level
 import { Driver, ON } from '@ohos.UiTest'
 import deviceInfo from '@ohos.deviceInfo'
 import window from '@ohos.window'
+import display from '@ohos.display'
 import { BusinessError } from '@ohos.base'
 
 import { LONG_STRING, WAIT_READY_MS_2000, WAIT_READY_MS_300, WAIT_READY_MS_700 } from './Constant'
@@ -27,6 +28,70 @@ let platform: string = deviceInfo.osFullName.split(' ')[0]
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+type WindowGetter = () => Promise<window.Window> | window.Window
+
+/**
+ * Common template for setPreferredOrientation test cases.
+ * @param caseName     test case name (with trailing space)
+ * @param windowGetter window getter function
+ * @param orientation  preferred orientation to set
+ * @param expected     expected value of getPreferredOrientation()
+ * @param destroyAfter whether to destroy the window at the end (true for sub window)
+ * @param checkDisplay whether to verify display orientation unchanged (true for sub window)
+ * @param done         hypium done callback
+ */
+async function testOrientation(
+  caseName: string,
+  windowGetter: WindowGetter,
+  orientation: window.Orientation,
+  expected: number,
+  destroyAfter: boolean,
+  checkDisplay: boolean,
+  done: Function
+): Promise<void> {
+  console.info(TAG + caseName + 'START')
+  let tempWnd: window.Window | undefined = undefined
+  try {
+    tempWnd = await windowGetter()
+    if (!tempWnd) {
+      console.error(TAG + caseName + ' tempWnd is null or undefined')
+      expect().assertFail()
+      done()
+      return
+    }
+    let beforeOrientation: number | undefined = undefined
+    if (checkDisplay) {
+      beforeOrientation = display.getDefaultDisplaySync().orientation
+    }
+    await tempWnd.setPreferredOrientation(orientation)
+    await sleep(WAIT_READY_MS_700)
+    let CurrentOrientation = tempWnd.getPreferredOrientation()
+    console.info(TAG + caseName + ' CurrentOrientation: ' + CurrentOrientation)
+    expect(CurrentOrientation).assertEqual(expected)
+    if (checkDisplay) {
+      let afterOrientation = display.getDefaultDisplaySync().orientation
+      expect(afterOrientation).assertEqual(beforeOrientation)
+    }
+    console.info(TAG + caseName + 'END')
+    await tempWnd.setPreferredOrientation(window.Orientation.PORTRAIT)
+    if (destroyAfter) {
+      await tempWnd.destroyWindow()
+    }
+    await sleep(WAIT_READY_MS_2000)
+    done()
+  } catch (e) {
+    console.error(TAG + caseName + 'catch error for ' + JSON.stringify(e))
+    if (tempWnd) {
+      await tempWnd.setPreferredOrientation(window.Orientation.PORTRAIT)
+      if (destroyAfter) {
+        await tempWnd.destroyWindow()
+      }
+    }
+    expect().assertFail()
+    done()
+  }
 }
 
 export default function WindowsTest1() {
@@ -1853,6 +1918,916 @@ export default function WindowsTest1() {
           console.info(TAG + caseName + 'END')
           done()
         }
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_1700
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_1700
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_1700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_1700 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION,
+          5,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_1800
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_1800
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_1800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_1800 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_PORTRAIT,
+          6,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_1900
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_1900
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_1900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_1900 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE,
+          7,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2000
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2000
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2000 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_RESTRICTED,
+          8,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2100
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2100
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2100 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_PORTRAIT_RESTRICTED,
+          9,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2200
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2200
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2200 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE_RESTRICTED,
+          10,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2300
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2300
+     * @tc.desc Test setPreferredOrientation of API function, value is LOCKED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2300 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.LOCKED,
+          11,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2400
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2400
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_UNSPECIFIED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2400 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.AUTO_ROTATION_UNSPECIFIED,
+          12,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2500
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2500
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2500 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.USER_ROTATION_PORTRAIT,
+          13,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2600
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2600
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2600 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.USER_ROTATION_LANDSCAPE,
+          14,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2700
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2700
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2700 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.USER_ROTATION_PORTRAIT_INVERTED,
+          15,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2800
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2800
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2800 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.USER_ROTATION_LANDSCAPE_INVERTED,
+          16,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_2900
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_2900
+     * @tc.desc Test setPreferredOrientation of API function, value is FOLLOW_DESKTOP
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_2900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_2900 '
+        await testOrientation(
+          caseName,
+          () => windowStage!.getMainWindowSync(),
+          window.Orientation.FOLLOW_DESKTOP,
+          17,
+          false,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3000
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3000
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3000 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION,
+          5,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3100
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3100
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3100 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_PORTRAIT,
+          6,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3200
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3200
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3200 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE,
+          7,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3300
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3300
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3300 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_RESTRICTED,
+          8,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3400
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3400
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3400 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_PORTRAIT_RESTRICTED,
+          9,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3500
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3500
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3500 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE_RESTRICTED,
+          10,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3600
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3600
+     * @tc.desc Test setPreferredOrientation of API function, value is LOCKED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3600 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.LOCKED,
+          11,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3700
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3700
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_UNSPECIFIED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3700 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.AUTO_ROTATION_UNSPECIFIED,
+          12,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3800
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3800
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3800 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.USER_ROTATION_PORTRAIT,
+          13,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_3900
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_3900
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_3900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_3900 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.USER_ROTATION_LANDSCAPE,
+          14,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4000
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4000
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4000 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.USER_ROTATION_PORTRAIT_INVERTED,
+          15,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4100
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4100
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4100 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.USER_ROTATION_LANDSCAPE_INVERTED,
+          16,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4200
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4200
+     * @tc.desc Test setPreferredOrientation of API function, value is FOLLOW_DESKTOP
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4200 '
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindow(caseName),
+          window.Orientation.FOLLOW_DESKTOP,
+          17,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4300
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4300
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4300 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION,
+          5,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4400
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4400
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4400 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_PORTRAIT,
+          6,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4500
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4500
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4500 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE,
+          7,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4600
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4600
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4600 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_RESTRICTED,
+          8,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4700
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4700
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_PORTRAIT_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4700', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4700 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_PORTRAIT_RESTRICTED,
+          9,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4800
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4800
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_LANDSCAPE_RESTRICTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4800', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4800 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_LANDSCAPE_RESTRICTED,
+          10,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_4900
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_4900
+     * @tc.desc Test setPreferredOrientation of API function, value is LOCKED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_4900', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_4900 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.LOCKED,
+          11,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5000
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5000
+     * @tc.desc Test setPreferredOrientation of API function, value is AUTO_ROTATION_UNSPECIFIED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5000 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.AUTO_ROTATION_UNSPECIFIED,
+          12,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5100
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5100
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5100 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.USER_ROTATION_PORTRAIT,
+          13,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5200
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5200
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5200 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.USER_ROTATION_LANDSCAPE,
+          14,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5300
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5300
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_PORTRAIT_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5300 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.USER_ROTATION_PORTRAIT_INVERTED,
+          15,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5400
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5400
+     * @tc.desc Test setPreferredOrientation of API function, value is USER_ROTATION_LANDSCAPE_INVERTED
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5400 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.USER_ROTATION_LANDSCAPE_INVERTED,
+          16,
+          true,
+          false,
+          done
+        )
+      })
+
+    /**
+     * @tc.number ArkUIX_Windows_setPreferredOrientation_5500
+     * @tc.name ArkUIX_Windows_setPreferredOrientation_5500
+     * @tc.desc Test setPreferredOrientation of API function, value is FOLLOW_DESKTOP
+     * @tc.size MEDIUM
+     * @tc.type Function
+     * @tc.level Level 3
+     */
+    it('ArkUIX_Windows_setPreferredOrientation_5500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3,
+      async (done: Function) => {
+        const caseName = 'ArkUIX_Windows_setPreferredOrientation_5500 '
+        let options: window.SubWindowOptions = {
+          title: 'Sub Window title',
+          decorEnabled: true
+        }
+        await testOrientation(
+          caseName,
+          () => windowStage.createSubWindowWithOptions(caseName, options),
+          window.Orientation.FOLLOW_DESKTOP,
+          17,
+          true,
+          false,
+          done
+        )
       })
 
     /**
