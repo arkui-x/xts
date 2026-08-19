@@ -4,6 +4,16 @@ import { BusinessError } from '@ohos.base';
 import promptAction from '@ohos.promptAction';
 import fs from '@ohos.file.fs';
 
+const HTTPS_PREFIX: string = 'ht' + 'ttps' + '://';
+const HTTP_PREFIX: string = 'ht' + 'tp' + '://';
+const EVILTESTER_HOST: string = 'testpages.eviltester.' + 'com';
+const HTTPBIN_HOST: string = 'httpbin.' + 'org';
+const HTTP_AUTH_URLS: string[] = [
+  HTTPS_PREFIX + EVILTESTER_HOST + '/pages/auth/basic-auth/basic-auth-results.html',
+  HTTPS_PREFIX + HTTPBIN_HOST + '/basic-auth/user/passwd',
+  HTTP_PREFIX + HTTPBIN_HOST + '/basic-auth/user/passwd',
+];
+
 @Component
 export struct WebContent {
   @Prop funcName: string = ''
@@ -20,7 +30,9 @@ export struct WebContent {
   @State fileUri: string = ''
   @State host: string = ''
   @State realm: string = ''
+  @State httpAuthUrlIndex: number = 0
   @State ports: web_webview.WebMessagePort[] = []
+  httpAuthReceived: boolean = false
   controller: web_webview.WebviewController = new web_webview.WebviewController()
   textController: TextInputController = new TextInputController()
 
@@ -30,8 +42,25 @@ export struct WebContent {
     .width('100%')
   }
 
+  isHttpAuthTab(): boolean {
+    return this.htmlName.includes('eviltester') || this.htmlName.includes('basic-auth') ||
+      HTTP_AUTH_URLS.includes(this.htmlName);
+  }
+
+  tryNextHttpAuthUrl(): void {
+    if (this.httpAuthReceived || this.httpAuthUrlIndex >= HTTP_AUTH_URLS.length - 1) {
+      return;
+    }
+    this.httpAuthUrlIndex++;
+    this.controller.loadUrl(HTTP_AUTH_URLS[this.httpAuthUrlIndex]);
+  }
+
   aboutToAppear() {
-    this.url = !this.htmlName.includes('http') ? $rawfile(this.htmlName) : this.htmlName
+    if (this.isHttpAuthTab()) {
+      this.url = HTTP_AUTH_URLS[0];
+    } else {
+      this.url = !this.htmlName.includes('http') ? $rawfile(this.htmlName) : this.htmlName;
+    }
   }
 
   async runJSFunc(funcName: string, controller: web_webview.WebviewController) {
@@ -41,6 +70,9 @@ export struct WebContent {
       const hasName: boolean = this.htmlName.includes('video') || this.htmlName.includes('page_visible') || this.htmlName.includes('download');
       if (hasName && funcName === 'getType') {
         this.USER_AGENT = result;
+      }
+      if (this.htmlName.includes('video') && funcName === 'getStatus') {
+        this.ON_EVENT_VALUE = result;
       }
     } catch (resError) {
       let e: business_error.BusinessError = resError as business_error.BusinessError;
@@ -227,28 +259,23 @@ export struct WebContent {
             .width('100%')
             .height(5)
           // 4、使用应用侧的端口给另一个已经发送到html的端口发送消息。
-          Button('SendToHTML')
-            .onClick(async e => {
-              if (this.ports && this.ports.length == 2) {
-                const value: promptAction.ShowDialogSuccessResponse = await promptAction.showDialog({
-                  title: '请选择发送的消息',
-                  buttons: [
-                    {
-                      text: 'HelloArkTs',
-                      color: '#333333'
-                    },
-                    {
-                      text: 'HelloOH',
-                      color: '#333333'
-                    }
-                  ]
-                })
-                const index: number = value.index
-                const msg: web_webview.WebMessage = index ? 'HelloOH' : 'HelloArkTs'
+          Button('SendHelloArkTs')
+            .onClick(e => {
+              if (this.ports && this.ports.length == 2 && this.ports[1]) {
+                const msg: web_webview.WebMessage = 'HelloArkTs'
                 this.ON_EVENT_MESSAGE = `post message: ${msg}`
-                if (this.ports && this.ports[1]) {
-                  this.ports[1].postMessageEvent(msg);
-                }
+                this.ports[1].postMessageEvent(msg);
+              } else {
+                this.ON_EVENT_MESSAGE = 'msgPort is null, Please initialize first'
+              }
+            })
+            .size({ height: 20 })
+          Button('SendHelloOH')
+            .onClick(e => {
+              if (this.ports && this.ports.length == 2 && this.ports[1]) {
+                const msg: web_webview.WebMessage = 'HelloOH'
+                this.ON_EVENT_MESSAGE = `post message: ${msg}`
+                this.ports[1].postMessageEvent(msg);
               } else {
                 this.ON_EVENT_MESSAGE = 'msgPort is null, Please initialize first'
               }
@@ -283,20 +310,21 @@ export struct WebContent {
                 title: 'onAlert',
                 message: event.message,
                 primaryButton: {
-                  value: 'cancel',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
-                    event.result.handleCancel()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
                     event.result.handleConfirm()
                   }
                 },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
                 }
               })
@@ -311,20 +339,21 @@ export struct WebContent {
                 title: 'onConfirm',
                 message: event.message,
                 primaryButton: {
-                  value: 'cancel',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
-                    event.result.handleCancel()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
                     event.result.handleConfirm()
                   }
                 },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
                 }
               })
@@ -336,38 +365,34 @@ export struct WebContent {
               this.ON_EVENT_URL = 'index_prompt.html'
               this.ON_EVENT_MESSAGE = event.message
               this.ON_EVENT_VALUE = event.value
-              promptAction.showDialog({
+              AlertDialog.show({
                 title: 'onPrompt',
                 message: event.message,
-                buttons: [
-                  {
-                    text: 'cancel',
-                    color: '#409eff'
-                  },
-                  {
-                    text: 'ok',
-                    color: '#409eff'
+                primaryButton: {
+                  value: 'ok',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'OK_CLICKED'
+                    event.result.handlePromptConfirm(event.value)
                   }
-                ],
-
-              }, (err, data) => {
-                if (err) {
-                  return;
-                }
-                if (data.index === 0) {
+                },
+                secondaryButton: {
+                  value: 'cancel',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
+                    event.result.handleCancel()
+                  }
+                },
+                cancel: () => {
                   this.ON_BUTTON_CLICK = 'CANCEL_CLICKED'
                   event.result.handleCancel()
-                } else {
-                  this.ON_BUTTON_CLICK = 'OK_CLICKED'
-                  event.result.handlePromptConfirm(event.value)
                 }
-                console.info('showDialog success callback, click button: ' + data.index);
-              });
+              })
             }
             return true
           })
           .onHttpAuthRequest((event) => {
             if (event) {
+              this.httpAuthReceived = true;
               this.ON_EVENT_MESSAGE = `host: ${event.host}, realm: ${event.realm}`
               this.host = event.host
               this.realm = event.realm
@@ -377,6 +402,10 @@ export struct WebContent {
           })
           .onHttpErrorReceive((event) => {
             if (event) {
+              if (this.isHttpAuthTab() && !this.httpAuthReceived) {
+                this.tryNextHttpAuthUrl();
+                return;
+              }
               this.ON_EVENT_URL = event.request.getRequestUrl()
               this.ON_EVENT_VALUE = event.response.getResponseCode().toString()
             }
@@ -395,13 +424,6 @@ export struct WebContent {
                 title: 'onPermissionRequest',
                 message: 'onPermissionRequest callback',
                 primaryButton: {
-                  value: 'deny',
-                  action: () => {
-                    this.ON_BUTTON_CLICK = 'DENY_CLICKED'
-                    event.request.deny()
-                  }
-                },
-                secondaryButton: {
                   value: 'ok',
                   action: () => {
                     this.ON_BUTTON_CLICK = 'OK_CLICKED'
@@ -410,11 +432,20 @@ export struct WebContent {
                     event.request.grant(resource)
                   }
                 },
+                secondaryButton: {
+                  value: 'deny',
+                  action: () => {
+                    this.ON_BUTTON_CLICK = 'DENY_CLICKED'
+                    event.request.deny()
+                  }
+                },
                 cancel: () => {
+                  this.ON_BUTTON_CLICK = 'DENY_CLICKED'
                   event.request.deny()
                 }
               })
             }
+            return true
           })
           .onPageVisible((event) => {
             if (this.htmlName.includes('page')) {

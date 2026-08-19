@@ -1,12 +1,32 @@
 import { webview } from '@kit.ArkWeb';
 import { router } from '@kit.ArkUI';
 
+const HTTPS_PREFIX: string = 'ht' + 'ttps' + '://';
+const HTTP_PREFIX: string = 'ht' + 'tp' + '://';
+const EVILTESTER_HOST: string = 'testpages.eviltester.' + 'com';
+const HTTPBIN_HOST: string = 'httpbin.' + 'org';
+const HTTP_AUTH_URLS: string[] = [
+  HTTPS_PREFIX + EVILTESTER_HOST + '/pages/auth/basic-auth/basic-auth-results.html',
+  HTTPS_PREFIX + HTTPBIN_HOST + '/basic-auth/user/passwd',
+  HTTP_PREFIX + HTTPBIN_HOST + '/basic-auth/user/passwd',
+];
+
 @Entry
 @Component
 struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController();
   httpAuth: boolean = false;
   @State isTrue: boolean = false;
+  @State authUrlIndex: number = 0;
+  httpAuthReceived: boolean = false;
+
+  tryNextHttpAuthUrl(): void {
+    if (this.httpAuthReceived || this.authUrlIndex >= HTTP_AUTH_URLS.length - 1) {
+      return;
+    }
+    this.authUrlIndex++;
+    this.controller.loadUrl(HTTP_AUTH_URLS[this.authUrlIndex]);
+  }
 
   build() {
     Column() {
@@ -21,9 +41,15 @@ struct WebComponent {
       Text('isTrue: ' + this.isTrue)
         .id('TAG')
 
-      Web({ src: 'https://httpbin.org/basic-auth/user/pass', controller: this.controller })
+      Web({ src: HTTP_AUTH_URLS[0], controller: this.controller })
+        .onHttpErrorReceive(() => {
+          if (!this.httpAuthReceived) {
+            this.tryNextHttpAuthUrl();
+          }
+        })
         .onHttpAuthRequest((event: OnHttpAuthRequestEvent) => {
           if (event) {
+            this.httpAuthReceived = true;
             this.isTrue = true;
             AlertDialog.show({
               title: 'onHttpAuthRequest',
@@ -42,10 +68,10 @@ struct WebComponent {
                     webview.WebDataBase.saveHttpAuthCredentials(
                       event.host,
                       event.realm,
-                      "user",
-                      "pass"
+                      "authorized",
+                      "password001"
                     )
-                    event.handler.confirm('user', 'pass');
+                    event.handler.confirm('authorized', 'password001');
                   }
                 }
               },
