@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll, Level, TestType, Size, } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
-import { startAbility, waitUiReadyMs, sleep } from '../utils/index';
+import { startAbility, waitUiReadyMs, sleep, clickDialogButton, waitForIdText } from '../utils/index';
 
 export default function OnPageVisibleTest() {
   describe('OnPageVisibleTest', () => {
@@ -69,8 +69,7 @@ export default function OnPageVisibleTest() {
       console.log('SUB_Web_WebView_On_Page_Visible_Func_0100 test start');
       const driver: Driver = Driver.create();
       await driver.delayMs(waitUiReadyMs);
-      const ON_PAGE_VISIBLE_EVENT_URL: Component = await driver.findComponent(ON.id('ON_EVENT_URL'));
-      const text: string = await ON_PAGE_VISIBLE_EVENT_URL.getText();
+      const text: string = await waitForIdText(driver, 'ON_EVENT_URL', (value: string) => value.includes('onPageVisible'));
       console.log(`SUB_Web_WebView_On_Page_Visible_Func_0100 ON_PAGE_VISIBLE_EVENT_URL: ${text}`);
       expect(text).assertContain('onPageVisible');
       console.log('SUB_Web_WebView_On_Page_Visible_Func_0100 success');
@@ -92,8 +91,7 @@ export default function OnPageVisibleTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const OK_BUTTON: Component = await driver.findComponent(ON.text('ok'));
-      await OK_BUTTON.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const PAGE_VISIBLE_MSG: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       const msg: string = await PAGE_VISIBLE_MSG.getText();
@@ -118,8 +116,7 @@ export default function OnPageVisibleTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const OK_BUTTON: Component = await driver.findComponent(ON.text('ok'));
-      await OK_BUTTON.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const BUTTON_CLICKED: Component = await driver.findComponent(ON.id('ON_BUTTON_CLICK'));
       const BUTTON_CLICKED_TEXT = await BUTTON_CLICKED.getText();
@@ -146,8 +143,7 @@ export default function OnPageVisibleTest() {
       const TRIGGER_BUTTON: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER_BUTTON.click();
       await driver.delayMs(waitUiReadyMs);
-      const OK_BUTTON: Component = await driver.findComponent(ON.text('ok'));
-      await OK_BUTTON.click();
+      await clickDialogButton(driver, 'ok');
       await driver.delayMs(waitUiReadyMs);
       const TRIGGER: Component = await driver.findComponent(ON.text('TRIGGER'));
       await TRIGGER.click();

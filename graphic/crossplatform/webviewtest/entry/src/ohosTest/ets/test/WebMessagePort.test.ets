@@ -123,11 +123,8 @@ export default function WebMessagePortTest() {
       const POST_MSG: Component = await driver.findComponent(ON.text('postMessage'));
       await POST_MSG.click();
       await driver.delayMs(waitUiReadyMs);
-      const SEND: Component = await driver.findComponent(ON.text('SendToHTML'));
+      const SEND: Component = await driver.findComponent(ON.text('SendHelloArkTs'));
       await SEND.click();
-      await driver.delayMs(waitUiReadyMs);
-      const postMsg: Component = await driver.findComponent(ON.text('HelloArkTs'));
-      await postMsg.click();
       await driver.delayMs(waitUiReadyMs);
       const ON_EVENT_MSG: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       const msg: string = await ON_EVENT_MSG.getText();
@@ -157,11 +154,8 @@ export default function WebMessagePortTest() {
       const POST_MSG: Component = await driver.findComponent(ON.text('postMessage'));
       await POST_MSG.click();
       await driver.delayMs(waitUiReadyMs);
-      const SEND: Component = await driver.findComponent(ON.text('SendToHTML'));
+      const SEND: Component = await driver.findComponent(ON.text('SendHelloOH'));
       await SEND.click();
-      await driver.delayMs(waitUiReadyMs);
-      const postMsg: Component = await driver.findComponent(ON.text('HelloOH'));
-      await postMsg.click();
       await driver.delayMs(waitUiReadyMs);
       const ON_EVENT_MSG: Component = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       const msg: string = await ON_EVENT_MSG.getText();
@@ -231,11 +225,8 @@ export default function WebMessagePortTest() {
       let ON_EVENT_VALUE: Component = await driver.findComponent(ON.id('ON_EVENT_VALUE'));
       let value: string = await ON_EVENT_VALUE.getText();
       expect(value).assertEqual('Got msg from HTML:message from HTML');
-      const SEND: Component = await driver.findComponent(ON.text('SendToHTML'));
+      const SEND: Component = await driver.findComponent(ON.text('SendHelloOH'));
       await SEND.click();
-      await driver.delayMs(waitUiReadyMs);
-      const postMsg: Component = await driver.findComponent(ON.text('HelloOH'));
-      await postMsg.click();
       await driver.delayMs(waitUiReadyMs);
       ON_EVENT_MESSAGE = await driver.findComponent(ON.id('ON_EVENT_MESSAGE'));
       msg = await ON_EVENT_MESSAGE.getText();

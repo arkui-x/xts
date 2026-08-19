@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<title>download</title>
+		<script type="text/javascript">
+			function triggerDownload() {
+				const anchor = document.createElement('a');
+				anchor.href = 'https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/Qzone_logo_3color.psd';
+				anchor.download = 'Qzone_logo_3color.psd';
+				document.body.appendChild(anchor);
+				anchor.click();
+				document.body.removeChild(anchor);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>WebView onDownloadStart Demo</h1>
+	</body>
+</html>
