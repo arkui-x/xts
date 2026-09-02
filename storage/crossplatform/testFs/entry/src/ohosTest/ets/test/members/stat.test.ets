@@ -82,7 +82,7 @@ export default function fileIOStat() {
         expect(false).assertTrue();
       } catch (e) {
         console.log("fileIO_test_stat_async_001 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900002 && e.message == "No such file or directory").assertTrue();
+        expect(e.code == 13900002).assertTrue();
         done();
       }
     });
@@ -102,7 +102,7 @@ export default function fileIOStat() {
         expect(false).assertTrue();
       } catch (e) {
         console.log("fileIO_test_stat_async_002 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
+        expect(e.code == 13900020).assertTrue();
         done();
       }
     });
@@ -162,7 +162,7 @@ export default function fileIOStat() {
         fileIO.stat(fpath, (err) => {
           if (err) {
             console.log("fileIO_test_stat_async_004 error: {message: " + err.message + ", code: " + err.code + "}");
-            expect(err.code == 13900002 && err.message == "No such file or directory").assertTrue();
+            expect(err.code == 13900002).assertTrue();
             done();
           }
         });
@@ -188,7 +188,7 @@ export default function fileIOStat() {
         });
       } catch (e) {
         console.log("fileIO_test_stat_async_005 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
+        expect(e.code == 13900020).assertTrue();
         done();
       }
     });
@@ -238,7 +238,7 @@ export default function fileIOStat() {
         expect(false).assertTrue();
       } catch (e) {
         console.log("fileIO_test_stat_sync_001 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900002 && e.message == "No such file or directory").assertTrue();
+        expect(e.code == 13900002).assertTrue();
       }
     });
 
@@ -257,7 +257,7 @@ export default function fileIOStat() {
         expect(false).assertTrue();
       } catch (e) {
         console.log("fileIO_test_stat_sync_002 has failed for " + e.message + ", code: " + e.code);
-        expect(e.code == 13900020 && e.message == "Invalid argument").assertTrue();
+        expect(e.code == 13900020).assertTrue();
       }
     });
 

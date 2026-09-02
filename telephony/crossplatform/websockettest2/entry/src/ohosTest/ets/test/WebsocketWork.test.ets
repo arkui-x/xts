@@ -233,6 +233,7 @@ export default function WebSocketMultiWorkerTest() {
         const testParams: WorkerTestParams[] = [
           { port: 9011 },
           { port: 9012 },
+          { port: 9013 },
         ];
 
         const results: boolean[] = await WebSocketMultiWorkerTester.runMultiWorkerTest(

@@ -112,7 +112,7 @@ export default function HttpRequestOptionsJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_method Test end-----------------------");
@@ -535,7 +535,7 @@ export default function HttpRequestOptionsJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           try {
             expect(true).assertTrue();
@@ -747,7 +747,7 @@ export default function HttpRequestOptionsJsunit() {
           usingProtocol: http.HttpProtocol.HTTP1_1
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           expect(data.responseCode == 200).assertTrue();
           console.log("-----------------------HttpRequestOptions_usingProtocol Test end-----------------------");

@@ -1,4 +1,4 @@
-package com.example.uitest;
+package com.example.uitestenhance;
 
 import org.junit.Test;
 

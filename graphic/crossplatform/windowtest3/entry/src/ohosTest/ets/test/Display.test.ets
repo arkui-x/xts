@@ -12,11 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, Level, TestType, Size } from '@ohos/hypium';
+import { describe, afterEach, it, expect, Level, TestType, Size } from '@ohos/hypium';
 import display from '@ohos.display';
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 export default function display_test() {
   describe('display_test', () => {
+    afterEach(async () => {
+      await sleep(500)
+    })
 
     /**
      * @tc.number : SUB_GRAPHIC_Display_Orientation_Enum_0100

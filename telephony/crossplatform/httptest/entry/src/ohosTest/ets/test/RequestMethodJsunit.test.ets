@@ -112,8 +112,8 @@ export default function requestMethodJsunit() {
      * @tc.type: Method
      * @tc.level: level 2
      */
-    it("testTelephonyHttpRequestMethodOptions002", 0, async (done: Function) => {
-      let casename = 'testTelephonyHttpRequestMethodOptions002';
+    it("testTelephonyHttpRequestMethodOptions003", 0, async (done: Function) => {
+      let casename = 'testTelephonyHttpRequestMethodOptions003';
       console.log("-----------------------HttpRequestMethod_options Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -124,7 +124,7 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_options Test end-----------------------");
@@ -132,7 +132,7 @@ export default function requestMethodJsunit() {
           done();
         });
       } catch (error) {
-        console.log("testTelephonyHttpRequestMethodOptions001 : error = " + error);
+        console.log("testTelephonyHttpRequestMethodOptions003 : error = " + error);
         ExpectFail();
         done();
       }
@@ -228,7 +228,7 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_GET Test end-----------------------");
@@ -369,8 +369,8 @@ export default function requestMethodJsunit() {
      * @tc.type: Method
      * @tc.level: level 2
      */
-    it("testTelephonyHttpRequestMethodTrace001", 0, async (done: Function) => {
-      let casename = "testTelephonyHttpRequestMethodTrace001";
+    it("testTelephonyHttpRequestMethodTrace002", 0, async (done: Function) => {
+      let casename = "testTelephonyHttpRequestMethodTrace002";
       console.log("-----------------------HttpRequestMethod_TRACE_01 Test is starting-----------------------");
       try {
         let httpRequestOptions: http.HttpRequestOptions = {
@@ -500,7 +500,7 @@ export default function requestMethodJsunit() {
           return;
         }
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_PUT Test end-----------------------");
@@ -603,8 +603,7 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        //httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
-        httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://httpbin.moyufangge.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_head Test end-----------------------");
@@ -638,7 +637,7 @@ export default function requestMethodJsunit() {
         };
         let httpRequest = http.createHttp();
         //httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
-        httpRequest.request("https://www.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE Test end-----------------------");
@@ -672,7 +671,7 @@ export default function requestMethodJsunit() {
         };
         let httpRequest = http.createHttp();
         // httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
-        httpRequest.request("https://www.4399.cn/", httpRequestOptions).then(data => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions).then(data => {
           console.log(casename + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE_01 Test end-----------------------");
@@ -709,7 +708,7 @@ export default function requestMethodJsunit() {
           connectTimeout: 60000
         };
         let httpRequest = http.createHttp();
-        httpRequest.request("https://app.4399.cn/", httpRequestOptions, (err, data) => {
+        httpRequest.request("https://www.baidu.com/", httpRequestOptions, (err, data) => {
           console.log(casename + JSON.stringify(err) + " data: " + JSON.stringify(data));
           ExpectTrue(data.responseCode == 200);
           console.log("-----------------------HttpRequestMethod_DELETE Test end-----------------------");
