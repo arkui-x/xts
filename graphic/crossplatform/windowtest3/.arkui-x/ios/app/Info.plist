@@ -9,9 +9,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>graphic</string>
+	<string>windowtest3</string>
 	<key>CFBundleDisplayName</key>
-	<string>Graphic</string>
+	<string>Windowtest3</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>
@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.example.graphic</string>
+				<string>com.example.windowtest3</string>
 			</array>
 		</dict>
 	</array>

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.graphic;
+package com.example.windowtest3;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -32,7 +32,7 @@ public class EntryEntryAbilityActivity extends StageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("HiHelloWorld", "EntryEntryAbilityActivity");
-        setInstanceName("com.example.graphic:entry:EntryAbility:");
+        setInstanceName("com.example.windowtest3:entry:EntryAbility:");
         super.onCreate(savedInstanceState);
     }
 }

@@ -9,9 +9,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
-	<string>uitest</string>
+	<string>uitestenhance</string>
 	<key>CFBundleDisplayName</key>
-	<string>Uitest</string>
+	<string>Uitestenhance</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>
@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.example.uitest</string>
+				<string>com.example.uitestenhance</string>
 			</array>
 		</dict>
 	</array>
