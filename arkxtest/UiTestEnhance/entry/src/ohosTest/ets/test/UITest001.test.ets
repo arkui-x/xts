@@ -45,7 +45,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_findComponent_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(1000)
 
@@ -74,7 +74,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_within_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -103,7 +103,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_within_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -132,7 +132,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_within_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -162,7 +162,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_within_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -191,7 +191,7 @@ export default function UITest001() {
      * @tc.level     : Level 0
      */
     it('Test_within_0600', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 

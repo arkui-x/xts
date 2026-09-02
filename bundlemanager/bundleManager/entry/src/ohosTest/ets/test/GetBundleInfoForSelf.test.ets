@@ -152,7 +152,7 @@ export default function getBundleInfoForSelfTest() {
             expect(data.appInfo.descriptionResource.id).assertEqual(data.appInfo.descriptionId);
           } else if (platform === 'Android' || platform === 'iOS') {
             expect(data.appInfo.removable).assertFalse();
-            expect(data.appInfo.accessTokenId).assertEqual(0);
+            expect(data.appInfo.accessTokenId).assertEqual(1);
             expect(data.appInfo.uid).assertEqual(-1);
             expect(data.appInfo.iconResource.bundleName).assertEqual("");
             expect(data.appInfo.iconResource.moduleName).assertEqual("");
@@ -662,7 +662,7 @@ export default function getBundleInfoForSelfTest() {
             expect(data.appInfo.descriptionResource.id).assertEqual(data.appInfo.descriptionId);
           } else if (platform === 'Android' || platform === 'iOS') {
             expect(data.appInfo.removable).assertFalse();
-            expect(data.appInfo.accessTokenId).assertEqual(0);
+            expect(data.appInfo.accessTokenId).assertEqual(1);
             expect(data.appInfo.uid).assertEqual(-1);
             expect(data.appInfo.iconResource.bundleName).assertEqual("");
             expect(data.appInfo.iconResource.moduleName).assertEqual("");
@@ -1095,7 +1095,7 @@ export default function getBundleInfoForSelfTest() {
           expect(data.appInfo.descriptionResource.id).assertEqual(data.appInfo.descriptionId);
         } else if (platform === 'Android' || platform === 'iOS') {
           expect(data.appInfo.removable).assertFalse();
-          expect(data.appInfo.accessTokenId).assertEqual(0);
+          expect(data.appInfo.accessTokenId).assertEqual(1);
           expect(data.appInfo.uid).assertEqual(-1);
           expect(data.appInfo.iconResource.bundleName).assertEqual("");
           expect(data.appInfo.iconResource.moduleName).assertEqual("");

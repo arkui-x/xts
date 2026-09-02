@@ -45,7 +45,7 @@ export default function UITest003() {
      * @tc.level     : Level 0
      */
     it('Test_isAfter_0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -75,7 +75,7 @@ export default function UITest003() {
      * @tc.level     : Level 0
      */
     it('Test_isAfter_0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -104,7 +104,7 @@ export default function UITest003() {
      * @tc.level     : Level 0
      */
     it('Test_isAfter_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -132,7 +132,7 @@ export default function UITest003() {
      * @tc.level     : Level 0
      */
     it('Test_isAfter_0400', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -161,7 +161,7 @@ export default function UITest003() {
      * @tc.level     : Level 0
      */
     it('Test_isAfter_0500', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
