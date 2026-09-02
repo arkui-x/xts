@@ -16,10 +16,17 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level
 import display from '@ohos.display';
 import window from '@ohos.window';
 
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export default function displayTest() {
   console.log('describe displayTest start!!!')
 
   describe('displayTest', () => {
+    afterEach(async () => {
+      await sleep(500)
+    })
 
     /**
      * @tc.number : SUB_GRAPHIC_Display_FoldAngleChange_On_Off_0100

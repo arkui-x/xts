@@ -44,7 +44,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testFlingFromTopToBottom_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -72,7 +72,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testFlingFromDownUp_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -102,7 +102,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testFlingFromLeftToRight_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -130,7 +130,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testFlingFromRightToLeft_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -161,7 +161,7 @@ export default function uiTestTwoTest() {
      */
     it('testFlingFromTopToBottomExceptionParameter_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -189,7 +189,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testInputText_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -219,7 +219,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testInputTextChinese_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -250,7 +250,7 @@ export default function uiTestTwoTest() {
      */
     it('testInputTextSpecialCharacters_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -281,7 +281,7 @@ export default function uiTestTwoTest() {
      */
     it('testInputTextCapitalization_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 
@@ -311,7 +311,7 @@ export default function uiTestTwoTest() {
      * @tc.level     : Level 0
      */
     it('testInputTextHalfInputBox_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      await startAbility('com.example.uitest', 'EntryAbility')
+      await startAbility('com.example.uitestenhance', 'EntryAbility')
       let driver: Driver = Driver.create()
       await driver.delayMs(waitUiReadyMs)
 
@@ -342,7 +342,7 @@ export default function uiTestTwoTest() {
      */
     it('testTriggerKeyExceptionParameter_012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
       async (done: Function) => {
-        await startAbility('com.example.uitest', 'EntryAbility')
+        await startAbility('com.example.uitestenhance', 'EntryAbility')
         let driver: Driver = Driver.create()
         await driver.delayMs(waitUiReadyMs)
 

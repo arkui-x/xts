@@ -12,12 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, beforeAll, it, expect, TestType, Size, Level } from "@ohos/hypium";
+import { describe, beforeAll, afterEach, it, expect, TestType, Size, Level } from "@ohos/hypium";
 import ohosWindow from '@ohos.window';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import settings from '@ohos.settings';
 import window from "@ohos.window";
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 // export default function windowRichSceneTest(context: common.UIAbilityContext, windowStage: ohosWindow.WindowStage) {
 export default function windowRichSceneTest() {
@@ -27,6 +31,9 @@ export default function windowRichSceneTest() {
     // let isPCStatus: string = '';
     beforeAll(() => {
       windowStage = AppStorage.get('windowStage') as window.WindowStage;
+    })
+    afterEach(async () => {
+      await sleep(500)
     })
 
     /**
