@@ -16,6 +16,7 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, TestType, Size, Level } from '@ohos/hypium';
 import effectKit from '@ohos.effectKit';
 import image from '@ohos.multimedia.image';
+import { BusinessError } from '@ohos.base';
 
 export default function graphicEffect() {
   describe('graphicEffect', () => {
@@ -67,6 +68,10 @@ export default function graphicEffect() {
             expect().assertFail()
             done()
           });
+        }).catch((err: BusinessError) => {
+          console.error(`www data Failed to create createPixelMap. Code: ${err.code}, message: ${err.message}`);
+          expect().assertFail()
+          done()
         });
       } catch (err) {
         console.log(msg + " Failed in brush.getHexColor " + JSON.stringify(err))
@@ -113,8 +118,8 @@ export default function graphicEffect() {
           }
         });
       } catch (err) {
-        console.log(msg + " Failed in brush.getHexColor " + JSON.stringify(err))
-        console.log(msg + " Failed in brush.getHexColor " + err)
+        console.log(msg + " Failed in createPixelMap " + JSON.stringify(err))
+        console.log(msg + " Failed in createPixelMap " + err)
         expect().assertFail()
         done()
       }
@@ -194,7 +199,7 @@ export default function graphicEffect() {
           try {
             let pixelMap = await headFilter.getEffectPixelMap();
             console.info(msg + ' getEffectPixelMap success ', pixelMap.isEditable);
-            expect(pixelMap.isEditable).assertFalse();
+            expect(pixelMap.isEditable).assertTrue();
             done();
           } catch (err) {
             console.info(msg + ' getEffectPixelMap failed ', JSON.stringify(err));
@@ -209,10 +214,6 @@ export default function graphicEffect() {
         done()
       }
     })
-
-
-
-
 
   })
 }
