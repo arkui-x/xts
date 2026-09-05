@@ -228,6 +228,31 @@ export default function audioCapturerTest() {
     })
 
     /**
+     * @tc.number : SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100
+     * @tc.name   : on_off_audioInterrupt
+     * @tc.desc   : Test on_off_audioInterrupt
+     * @tc.level  : Level 0
+     */
+    it('SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100', 0, async (done: Function) => {
+      try{
+        audioCapturer = await createAudioCapturerPromise(audioCapturer, audioCapturerOptions);
+        audioCapturer.on('audioInterrupt', (interruptEvent: audio.InterruptEvent) => {
+          console.info('Current callback audioInterrupt');
+        });
+        audioCapturer.off('audioInterrupt');
+        await sleep(waitReadyMs_300);
+        await audioCapturer.release();
+        done();
+      }
+      catch (error) {
+        console.error('SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100 error' + error.message);
+        expect().assertFail();
+        done();
+      }
+      await sleep(waitReadyMs_600);
+      done();
+    })
+    /**
      * @tc.number : SUB_ArkUIX_Audio_capturerOnReadData_Func_0100
      * @tc.name   : capturer.on('readData')
      * @tc.desc   : Test capturer.on('readData') - Callback
