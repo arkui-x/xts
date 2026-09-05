@@ -269,44 +269,22 @@ export default function audioStreamManagerTest() {
     })
     /**
      * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0400
-     * @tc.name   : isActiveSync_ACCESSIBILITY
-     * @tc.desc   : Test isActiveSync
-     * @tc.level  : Level 0
-     */
-    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0400', 0, async (done: Function) => {
-      console.log(`Callback: isActive ACCESSIBILITY:NOTE:audio NOT PLAYING as ACCESSIBILITY for the test case to PASS`);
-      try {
-        let data = audioStreamManager.isActiveSync(audio.AudioVolumeType.ACCESSIBILITY)
-        if (data == false) {
-          console.log(`Func_0400 Callback: isActive: ACCESSIBILITY: TRUE: PASS:${data}`);
-        } else {
-          console.log(`Func_0400 Callback: isActive: ACCESSIBILITY: TRUE: FAIL: ${data}`);
-          expect(false).assertTrue();
-        }
-      } catch (error) {
-        console.error(`Func_0400 Callback : ACCESSIBILITY : isActive: failed  ${error.message}`);
-        expect().assertFail();
-      }
-      done();
-    })
-    /**
-     * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0500
      * @tc.name   : isActiveSync_VOICE_ASSISTANT
      * @tc.desc   : Test isActiveSync
      * @tc.level  : Level 0
      */
-    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0500', 0, async (done: Function) => {
+    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0400', 0, async (done: Function) => {
       console.log(`Callback : isActive VOICE_ASSISTANT: NOTE: audio NOT PLAYING as MEDIA for the test case to PASS`);
       try {
         let data = audioStreamManager.isActiveSync(audio.AudioVolumeType.VOICE_ASSISTANT)
         if (data == false) {
-          console.log(`Func_0500 Callback: isActive: Media: TRUE: PASS:${data}`);
+          console.log(`Func_0400 Callback: isActive: Media: TRUE: PASS:${data}`);
         } else {
-          console.log(`Func_0500 Callback: isActive: Media: TRUE: FAIL: ${data}`);
+          console.log(`Func_0400 Callback: isActive: Media: TRUE: FAIL: ${data}`);
           expect(false).assertTrue();
         }
       } catch (error) {
-        console.error(`Func_0500 Callback : Media : isActive: failed  ${error.message}`);
+        console.error(`Func_0400 Callback : Media : isActive: failed  ${error.message}`);
         expect().assertFail();
       }
       done();
