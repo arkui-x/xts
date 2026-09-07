@@ -174,8 +174,8 @@ export default function audioManagerTest() {
       }
     })
     /**
-     * @tc.name   SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100
-     * @tc.number getPreferOutputDeviceForRendererInfo
+     * @tc.number   SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100
+     * @tc.name getPreferOutputDeviceForRendererInfo
      * @tc.desc   : Test getPreferOutputDeviceForRendererInfo
      * @tc.level  : Level 0
      */
@@ -196,8 +196,8 @@ export default function audioManagerTest() {
       }
     })
     /**
-     * @tc.name   SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100
-     * @tc.number getPreferredInputDeviceForCapturerInfo
+     * @tc.number   SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100
+     * @tc.name getPreferredInputDeviceForCapturerInfo
      * @tc.desc   : Test getPreferredInputDeviceForCapturerInfo
      * @tc.level  : Level 0
      */

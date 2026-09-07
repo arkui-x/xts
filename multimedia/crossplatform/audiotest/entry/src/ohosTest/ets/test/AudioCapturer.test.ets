@@ -242,12 +242,10 @@ export default function audioCapturerTest() {
         audioCapturer.off('audioInterrupt');
         await sleep(waitReadyMs_300);
         await audioCapturer.release();
-        done();
       }
       catch (error) {
         console.error('SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100 error' + error.message);
         expect().assertFail();
-        done();
       }
       await sleep(waitReadyMs_600);
       done();
