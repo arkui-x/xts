@@ -57,6 +57,7 @@ import drawingTsCanvasPart4Test from './canvasPart4.test'
 import drawingTsCanvasTest_ from './static/canvas_.test'
 import drawingTsCanvasPart2Test_ from './static/canvasPart2_.test'
 import penPart2Test_ from './static/penPart2_.test'
+import graphicEffect from './graphicEffect.test'
 
 export default function testsuite() {
   brushTestPart2()
@@ -102,4 +103,5 @@ export default function testsuite() {
   drawingTsCanvasTest_()
   drawingTsCanvasPart2Test_()
   penPart2Test_()
+  graphicEffect()
 }
