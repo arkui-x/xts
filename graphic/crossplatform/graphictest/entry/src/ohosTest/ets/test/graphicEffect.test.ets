@@ -74,8 +74,8 @@ export default function graphicEffect() {
           done()
         });
       } catch (err) {
-        console.log(msg + " Failed in brush.getHexColor " + JSON.stringify(err))
-        console.log(msg + " Failed in brush.getHexColor " + err)
+        console.error(msg + " Failed in createColorPicker  " + JSON.stringify(err))
+        console.error(msg + " Failed in createColorPicker  " + err)
         expect().assertFail()
         done()
       }
@@ -112,14 +112,14 @@ export default function graphicEffect() {
             console.info(msg + ' blur success ');
             done();
           } catch (err) {
-            console.info(msg + ' blur failed ', JSON.stringify(err));
+            console.error(msg + ' blur failed ', JSON.stringify(err));
             expect().assertFail()
             done();
           }
         });
       } catch (err) {
-        console.log(msg + " Failed in createPixelMap " + JSON.stringify(err))
-        console.log(msg + " Failed in createPixelMap " + err)
+        console.error(msg + " Failed in createPixelMap " + JSON.stringify(err))
+        console.error(msg + " Failed in createPixelMap " + err)
         expect().assertFail()
         done()
       }
@@ -157,14 +157,14 @@ export default function graphicEffect() {
             expect(pixelMap.isEditable).assertTrue();
             done();
           } catch (err) {
-            console.info(msg + ' getEffectPixelMap failed ', JSON.stringify(err));
+            console.error(msg + ' getEffectPixelMap failed ', JSON.stringify(err));
             expect().assertFail()
             done();
           }
         });
       } catch (err) {
-        console.log(msg + " Failed in brush.getHexColor " + JSON.stringify(err))
-        console.log(msg + " Failed in brush.getHexColor " + err)
+        console.error(msg + " Failed in createPixelMap " + JSON.stringify(err))
+        console.error(msg + " Failed in createPixelMap " + err)
         expect().assertFail()
         done()
       }
@@ -202,14 +202,14 @@ export default function graphicEffect() {
             expect(pixelMap.isEditable).assertTrue();
             done();
           } catch (err) {
-            console.info(msg + ' getEffectPixelMap failed ', JSON.stringify(err));
+            console.error(msg + ' getEffectPixelMap failed ', JSON.stringify(err));
             expect().assertFail()
             done();
           }
         });
       } catch (err) {
-        console.log(msg + " Failed in getEffectPixelMap " + JSON.stringify(err))
-        console.log(msg + " Failed in getEffectPixelMap " + err)
+        console.error(msg + " Failed in getEffectPixelMap " + JSON.stringify(err))
+        console.error(msg + " Failed in getEffectPixelMap " + err)
         expect().assertFail()
         done()
       }
