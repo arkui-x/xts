@@ -17,10 +17,12 @@ import DialogAndLifecycleTest from './DialogAndLifecycleTest.test'
 import Window from './windowTest.test'
 import WindowStage from './WindowStage.test'
 import keyboardHeightTest from './KeyboardHeightTest.test'
+import SpecificSystemBarTest from './SpecificSystemBarTest.test'
 
 export default function testsuite() {
   DialogAndLifecycleTest();
   Window();
   WindowStage();
-  keyboardHeightTest()
+  keyboardHeightTest();
+  SpecificSystemBarTest()
 }
