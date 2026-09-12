@@ -51,6 +51,17 @@ export default function requestCacheDownloadStateSecretUnitTest() {
       done();
     });
 
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+    });
+
     console.info('====>requestCacheDownloadJSTest Test start');
     /**
      * @tc.name   SUB_Request_cacheDownload_stateSecret_0100

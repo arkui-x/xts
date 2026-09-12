@@ -31,6 +31,17 @@ export default function requestCacheDownloadOnOffUnitTest() {
       done();
     });
 
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+    });
+
     /**
      * @tc.name   SUB_Request_cacheDownload_ListeningSuccess_0100
      * @tc.number SUB_Request_cacheDownload_ListeningSuccess_0100

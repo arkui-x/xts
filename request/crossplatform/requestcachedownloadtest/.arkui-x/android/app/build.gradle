@@ -6,30 +6,6 @@ android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
-
-    //Select whether you want to execute the compile arkts script.
-    def configBuildFlag = false
-
-    task ArkTSBuildTask {
-      preBuild.dependsOn ArkTSBuildTask
-      doLast {
-        if (configBuildFlag) {
-          def os = System.getProperty("os.name").toLowerCase()
-          if (os.contains("win")) {
-            exec {
-              commandLine 'cmd', '/c', '.\\buildArkTS'
-              workingDir file( project.projectDir.getAbsolutePath() + '\\..' )
-            }
-          } else {
-            exec {
-              commandLine 'sh', '-c', 'chmod +x ./buildArkTS && ./buildArkTS'
-              workingDir file( project.projectDir.getAbsolutePath() + '/..' )
-            }
-          }
-        }
-      }
-    }
-
     defaultConfig {
         applicationId "com.example.requestcachedownloadtest"
         minSdkVersion 26
@@ -61,6 +37,29 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    // The ArkUI-X runtime resolves module assets by the "name" field of each
+    // module.json (e.g. "entry_test"), while hvigor emits the ohosTest assets
+    // under "entryTest". Mirror the directory with the module name so that
+    // am start with --es moduleName entry_test can locate the test bundle.
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def copyEntryTestAssets = tasks.register("copyEntryTestAssetsFor${variant.name.capitalize()}") {
+                doLast {
+                    def assetsDir = file("${projectDir}/src/main/assets/arkui-x")
+                    def src = new File(assetsDir, "entryTest")
+                    def dst = new File(assetsDir, "entry_test")
+                    if (src.isDirectory()) {
+                        copy {
+                            from src
+                            into dst
+                        }
+                    }
+                }
+            }
+            output.processResources.dependsOn copyEntryTestAssets
         }
     }
 

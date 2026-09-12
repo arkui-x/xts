@@ -44,6 +44,17 @@ export default function requestCacheDownloadSpecialTest() {
       done();
     });
 
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+    });
+
     console.info('====>requestCacheDownloadSpecialJSTest Test start');
     /**
      * @tc.name   SUB_Request_cacheDownload_maintenance_1400

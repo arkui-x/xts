@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Entry_testTestAbilityActivity"
+            android:exported="true"
+            android:configChanges="orientation|keyboard|layoutDirection|screenSize|screenLayout|uiMode|smallestScreenSize|density" />
     </application>
 
 </manifest>

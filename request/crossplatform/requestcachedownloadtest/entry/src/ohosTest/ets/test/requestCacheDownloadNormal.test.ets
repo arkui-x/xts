@@ -21,6 +21,17 @@ export default function requestCacheDownloadNormalUnitTest() {
   describe('requestCacheDownloadNormalJSTest', () => {
     console.info('====>requestCacheDownloadNormalJSTest Test start');
 
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+    });
+
     // =====================================================================
     // The two cases below are commented out: platform semantics gap, arkui-x
     // on iOS cannot express the "no network permission -> 201" scenario.
@@ -41,7 +52,7 @@ export default function requestCacheDownloadNormalUnitTest() {
     //      (see Download() in cache_download_module.cpp), so they never throw
     //      201.
     //   3) iOS does have a checkable "wireless data" authorization
-    //      (CoreTelephony cellular data restricted state), but XTS runs on the
+    //      (CoreTelephony.CTCellularData.restrictedState), but XTS runs on the
     //      simulator which has no cellular modem: the state stays unknown/
     //      notRestricted and the prompt never fires. Its semantics are also
     //      cellular-only and it is a one-time prompt, so it cannot be replayed

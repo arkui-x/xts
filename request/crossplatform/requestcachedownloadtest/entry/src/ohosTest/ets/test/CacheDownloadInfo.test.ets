@@ -51,6 +51,13 @@ export default function cacheDownloadInfo() {
       if (server) {
         await server.serverClose();
       }
+      try {
+        cacheDownload.clearMemoryCache();
+        cacheDownload.clearFileCache();
+        console.info('afterAll cache cleanup success');
+      } catch (err) {
+        console.info('afterAll cache cleanup err:' + JSON.stringify(err));
+      }
     });
     beforeEach(() => {
       console.info('beforeEach called');
@@ -2297,6 +2304,9 @@ export default function cacheDownloadInfo() {
         // 验证 callbackB 只在第一次被调用（在注销前），callbackA 被调用多次
         expect(cbString.startsWith("ba")).assertTrue();
         expect(downloadCounter >= 2).assertTrue();
+        // Remove the still-registered callbackA so its late error events
+        // cannot leak into subsequent cases sharing this URL.
+        cacheDownload.offDownloadError(url, callbackA);
       } catch (err) {
         console.error('testDownloadError012 download error:', (err as Error).message);
         expect(false).assertTrue();
@@ -2352,6 +2362,12 @@ export default function cacheDownloadInfo() {
       );
 
       try {
+        // Clean up any error callbacks left registered on this URL by earlier
+        // cases (callbacks persist across downloads in cacheDownload). A late
+        // error event from testDownloadError012's downloads would otherwise
+        // fire this case's callbackB an extra time and break the abb sequence.
+        cacheDownload.offDownloadError(url);
+
         // 注册回调
         cacheDownload.onDownloadError(url, cbError1);
         cacheDownload.onDownloadError(url, callbackB);
