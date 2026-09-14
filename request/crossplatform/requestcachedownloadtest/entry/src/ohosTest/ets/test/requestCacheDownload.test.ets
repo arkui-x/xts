@@ -17,9 +17,26 @@ import cacheDownload from "@ohos.request.cacheDownload";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { WifiConnectStatus } from '../common/WifiConnectStatus';
+import Server from '../common/Server';
 
 export default function requestCacheDownloadUnitTest() {
   describe('requestCacheDownloadJSTest', () => {
+
+    /**
+     * beforeAll: start the local HTTP server once for the whole suite.
+     * The ArkUI-X port serves 127.0.0.1 URLs from an in-app ArkTS TCP server
+     * (Android no longer ships the Java NanoHTTPD one), so the first suite
+     * must ensure it is listening before any case downloads.
+     */
+    beforeAll(async (): Promise<void> => {
+      try {
+        console.info('====>beforeAll startServer ');
+        await new Server().startServer();
+        console.info('====>beforeAll startServer success');
+      } catch (err) {
+        console.info('====>beforeAll startServer err: ' + JSON.stringify(err));
+      }
+    });
 
     /**
      * beforeEach: Prerequisites at the test case level, which are executed before each test case is executed.
@@ -81,6 +98,17 @@ export default function requestCacheDownloadUnitTest() {
           done();
         }
       }, 1000)
+    });
+
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
     });
 
     console.info('====>requestCacheDownloadJSTest Test start');

@@ -13,34 +13,46 @@
  * limitations under the License.
  */
 
-// Local HTTP server is provided by LocalHttpServer.java (NanoHTTPD) started in
-// MyApplication.onCreate(). The server listens on port 8080 and serves test content.
-// @ohos.net.socket is not available in ArkUI-X runtime, so the ArkTS-side Server
-// class just returns the fixed port that the Java server is listening on.
+// Local HTTP server for the cacheDownload XTS suite, implemented with the
+// @ohos.net.socket TCPSocketServer API so that Android and iOS share the same
+// ArkTS server (no platform-specific Java/ObjC server required).
+//
+// The actual server lives in HttpServerCore.ets (singleton); this class is the
+// compatibility wrapper used by RequestCacheDownloadHttp.test.ets, whose
+// beforeAll calls `new Server().startServer()` without awaiting the result,
+// so startServer() must never reject.
 
-const TAG = 'SOCKET_SERVER'
-const SERVER_PORT = 8080;
+import { HttpServerCore } from './HttpServerCore';
+
+const TAG = 'SOCKET_SERVER';
 
 export default class Server {
   async startServer(): Promise<number> {
-    console.info(TAG + '====>Server.startServer() - using Java NanoHTTPD on port ' + SERVER_PORT);
-    return SERVER_PORT;
+    try {
+      let port: number = await HttpServerCore.start();
+      console.info(TAG + '====>Server.startServer() success on port ' + port);
+      return port;
+    } catch (err) {
+      // Swallow the failure: the caller does not await this promise and an
+      // unhandled rejection would abort the suite before the first case runs.
+      console.info(TAG + '====>Server.startServer() failed: ' + JSON.stringify(err));
+      return 0;
+    }
   }
 
   getPort(): number {
-    return SERVER_PORT;
+    return HttpServerCore.getPort();
   }
 
   getBaseUrl(): string {
-    return `http://127.0.0.1:${SERVER_PORT}`;
+    return HttpServerCore.getBaseUrl();
   }
 
   async serverClose() {
-    console.info(TAG + '====>Server.serverClose() - no-op (Java server managed by Application)');
+    await HttpServerCore.close();
   }
 
   async serverForceClose() {
-    console.info(TAG + '====>Server.serverForceClose() - no-op');
+    await HttpServerCore.forceClose();
   }
 }
-

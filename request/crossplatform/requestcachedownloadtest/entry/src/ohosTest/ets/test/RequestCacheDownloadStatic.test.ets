@@ -69,8 +69,21 @@ export default function requestCacheDownloadStaticTest() {
     /**
      * afterAll: Test suite-level cleanup condition, which is executed after the test suite is executed.
      */
-    afterAll((): void => {
-      console.info('====>afterAll: Test suite-level cleanup condition is executed');
+    afterAll(async (): Promise<void> => {
+      console.info('====>afterAll: cleanup caches and flush stdout');
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+      // Sleep 3s to allow stdout pipe to flush all OHOS_REPORT_STATUS reports
+      // before hypium writes "Tests run" which triggers ace CLI process.exit()
+      // and subsequent SIGKILL that truncates unflushed stdout.
+      await Utils.msSleep(3000);
+      console.info('====>afterAll: stdout flush wait complete');
     });
 
 

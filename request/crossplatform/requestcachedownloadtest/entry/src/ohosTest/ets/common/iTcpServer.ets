@@ -13,44 +13,43 @@
  * limitations under the License.
  */
 
-// Local HTTP server is provided by LocalHttpServer.java (NanoHTTPD) started in
-// MyApplication.onCreate(). The server listens on port 8080 and serves test content.
-// @ohos.net.socket is not available in ArkUI-X runtime, so the ArkTS-side Server
-// class just returns the fixed port that the Java server is listening on.
+// Local HTTP server for the cacheDownload XTS suite, implemented with the
+// @ohos.net.socket TCPSocketServer API so that Android and iOS share the same
+// ArkTS server (no platform-specific Java/ObjC server required).
+//
+// Structured after the OHOS native requestAgentTaskTest iTcpServer.ets: a
+// singleton server whose serverStart() resolves with the actual listening
+// port once listen() has completed. The routing is shared with Server.ets
+// through HttpServerCore.ets.
 
-interface NetAddress {
-  address: string;
-  port: number;
-  family?: number;
-}
-
-const SERVER_PORT = 8080;
+import { HttpServerCore } from './HttpServerCore';
 
 export default class Server {
-  private myPort: number = SERVER_PORT;
+  private myPort: number = 0;
 
+  /**
+   * Start (or reuse) the singleton server on 127.0.0.1:8080.
+   * @returns the actual listening port (8080 on success)
+   */
   async serverStart(): Promise<number> {
-    console.info('====>iTcpServer.serverStart() - using Java NanoHTTPD on port ' + SERVER_PORT);
-    this.myPort = SERVER_PORT;
-    return SERVER_PORT;
+    let port: number = await HttpServerCore.start();
+    this.myPort = port;
+    return port;
   }
 
   getPort(): number {
-    return this.myPort;
+    return this.myPort !== 0 ? this.myPort : HttpServerCore.getPort();
   }
 
   getBaseUrl(): string {
-    return `http://127.0.0.1:${this.myPort}`;
+    return HttpServerCore.getBaseUrl();
   }
 
   async serverClose() {
-    console.info('====>iTcpServer.serverClose() - no-op (Java server managed by Application)');
-    this.myPort = SERVER_PORT;
+    await HttpServerCore.close();
   }
 
   async serverForceClose() {
-    console.info('====>iTcpServer.serverForceClose() - no-op');
-    this.myPort = SERVER_PORT;
+    await HttpServerCore.forceClose();
   }
 }
-

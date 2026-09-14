@@ -2,11 +2,7 @@ package com.example.requestcachedownloadtest;
 
 import android.util.Log;
 
-import java.io.IOException;
-
 import ohos.stage.ability.adapter.StageApplication;
-
-import fi.iki.elonen.NanoHTTPD;
 
 /**
  * Example ace application class, which will load ArkUI-X application instance.
@@ -26,15 +22,8 @@ public class MyApplication extends StageApplication {
         super.onCreate();
         Log.e(LOG_TAG, "MyApplication onCreate");
 
-        // Start local HTTP server for cacheDownload XTS testing.
-        // Provides real HTTP responses on http://127.0.0.1:8080 so tests
-        // exercise the clean HttpURLConnection path in the plugin.
-        try {
-            LocalHttpServer server = new LocalHttpServer();
-            server.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
-            Log.i(LOG_TAG, "LocalHttpServer started on port " + LocalHttpServer.PORT);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "LocalHttpServer failed to start: " + e.getMessage());
-        }
+        // The local HTTP server for cacheDownload XTS testing is now implemented
+        // in ArkTS with @ohos.net.socket (HttpServerCore.ets) and started from the
+        // test suite's beforeAll, so Android and iOS share the same server.
     }
 }

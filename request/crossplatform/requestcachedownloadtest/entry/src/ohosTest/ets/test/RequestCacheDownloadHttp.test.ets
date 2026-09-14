@@ -56,6 +56,17 @@ export default function requestCacheDownloadHttpUnitTest() {
       done();
     });
 
+    afterAll(async (): Promise<void> => {
+      try {
+        cacheDownload.clearMemoryCache();
+        console.info('====>afterAll clearMemoryCache success');
+        cacheDownload.clearFileCache();
+        console.info('====>afterAll clearFileCache success');
+      } catch (err) {
+        console.info('====>afterAll cleanup err:' + JSON.stringify(err));
+      }
+    });
+
     console.info('====>requestCacheDownloadHttpJSTest Test start');
     /**
      * @tc.name   SUB_Request_cacheDownload_httpHeaders_0100
@@ -239,6 +250,7 @@ export default function requestCacheDownloadHttpUnitTest() {
         console.info('====>SUB_Request_cacheDownload_httpHeaders_0500 setFileCacheSize success.');
         let path: string = cacheDir + '/preload_caches/' +
           'd30a576c0318716717366ab932e3d7dfbc4009a5bc10176403b60892912f070e_F';
+        new Date();
         let url: string = 'http://127.0.0.1:8080';
         let downloadOptions = new cacheDownloadOptions();
         downloadOptions.headers = {'test5': ':"!@#$%^&*`<>(){}[]'};

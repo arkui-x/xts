@@ -5,10 +5,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 23,
-        "compatibleSdkVersion": 23,
+        "compileSdkVersion": "26.0.0",
+        "compatibleSdkVersion": 18,
         "runtimeOS": "OpenHarmony",
-        "targetSdkVersion": 23
       }
     ],
     "buildModeSet": [
