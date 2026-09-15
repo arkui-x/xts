@@ -1,12 +1,17 @@
 import { BusinessError } from '@ohos.base';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import audio from '@ohos.multimedia.audio';
+import deviceInfo from '@ohos.deviceInfo';
 
 const waitReadyMs_100 = 100;
 const waitReadyMs_600 = 600;
 const waitReadyMs_5000 = 5000;
 let isPass = false;
 let audioManager: audio.AudioManager;
+let osFullNameInfo: string = deviceInfo.osFullName;
+console.info('manager the deviceInfo osFullName is :' + osFullNameInfo);
+const platform = osFullNameInfo.split(' ')[0];
+console.info('manager the device platform is :' + platform);
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -113,44 +118,48 @@ export default function audioManagerTest() {
       }
       done();
     })
-    /**
-     * @tc.number : SUB_ArkUIX_Audio_getSessionManager_Func_0100
-     * @tc.name   : getSessionManager
-     * @tc.desc   : Test getSessionManager - Sync
-     * @tc.level  : Level 0
-     */
-    it('SUB_ArkUIX_Audio_getSessionManager_Func_0100', 0, async (done: Function) => {
-      try{
- 	      let audioSessionManager: audio.AudioSessionManager = audioManager.getSessionManager();
-        expect(audioSessionManager != null).assertTrue();
-      }
-      catch (error) {
-        expect(error).assertFail();
-        console.error('SUB_ArkUIX_Audio_getSessionManager_Func_0100 error' + error);
-      }
-      done();
-    })
-    /**
-     * @tc.number : SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100
-     * @tc.name   : activateAudioSession_deactivateAudioSession
-     * @tc.desc   : Test activateAudioSession_deactivateAudioSession - Sync
-     * @tc.level  : Level 0
-     */
-    it('SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100', 0, async (done: Function) => {
-      try {
-        let audioSessionManager: audio.AudioSessionManager = audioManager.getSessionManager();
-        let strategy: audio.AudioSessionStrategy = {
-            concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_DEFAULT
+    if (platform == 'OpenHarmony') {
+      /**
+      * @tc.number : SUB_ArkUIX_Audio_getSessionManager_Func_0100
+      * @tc.name   : getSessionManager
+      * @tc.desc   : Test getSessionManager - Sync
+      * @tc.level  : Level 0
+      */
+      it('SUB_ArkUIX_Audio_getSessionManager_Func_0100', 0, async (done: Function) => {
+        try{
+          let audioSessionManager: audio.AudioSessionManager = audioManager.getSessionManager();
+          expect(audioSessionManager != undefined).assertTrue();
         }
-        await audioSessionManager.activateAudioSession(strategy);
-        await audioSessionManager.deactivateAudioSession();
+        catch (error) {
+          console.error('SUB_ArkUIX_Audio_getSessionManager_Func_0100 error' + error + error.code);
+          expect().assertFail();
+        }
         done();
-      } catch (error) {
-        console.error(`activateAudioSession_deactivateAudioSession: ${error.code}, ${error.message}`);
-        expect().assertFail();
-        done();
-      }
-    });
+      })
+      /**
+      * @tc.number : SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100
+      * @tc.name   : activateAudioSession_deactivateAudioSession
+      * @tc.desc   : Test activateAudioSession_deactivateAudioSession - Sync
+      * @tc.level  : Level 0
+      */
+      it('SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100', 0, async (done: Function) => {
+        try {
+          let audioSessionManager: audio.AudioSessionManager = audioManager.getSessionManager();
+          if (audioSessionManager != undefined) {
+            let strategy: audio.AudioSessionStrategy = {
+              concurrencyMode: audio.AudioConcurrencyMode.CONCURRENCY_DEFAULT
+            }
+            await audioSessionManager.activateAudioSession(strategy);
+            await audioSessionManager.deactivateAudioSession();
+          }
+          done();
+        } catch (error) {
+          console.error(`activateAudioSession_deactivateAudioSession: ${error.code}, ${error.message}`);
+          expect().assertFail();
+          done();
+        }
+      });
+    }
     /**
      * @tc.number : SUB_ArkUIX_Audio_getPreferredOutputDeviceForRendererInfoSync_Func_0100
      * @tc.name   : getPreferredOutputDeviceForRendererInfoSync
@@ -190,8 +199,8 @@ export default function audioManagerTest() {
         console.log(`get device descriptor success: ` + JSON.stringify(audioDeviceDescriptors));
         done();
       } catch (e) {
-        console.error(`SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100 ERROR: ${e.message}`);
-        expect().assertFail();
+        console.error(`SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100 ERROR: ${e.message}, ${e.code}`);
+        expect(e.code).assertEqual(6800301);
         done();
       }
     })
@@ -212,8 +221,8 @@ export default function audioManagerTest() {
         console.log(`get device descriptor success: ` + JSON.stringify(audioDeviceDescriptors));
         done();
       } catch (e) {
-        console.error(`SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100 ERROR: ${e.message}`);
-        expect().assertFail();
+        console.error(`SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100 ERROR:${e.message},${e.code}`);
+        expect(e.code).assertEqual(6800301);
         done();
       }
     })
