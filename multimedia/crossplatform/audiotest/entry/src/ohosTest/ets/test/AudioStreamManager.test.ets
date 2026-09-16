@@ -203,7 +203,7 @@ export default function audioStreamManagerTest() {
     })
     /**
      * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0100
-     * @tc.name   : isActiveSync_VOICE_CALL
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0100
      * @tc.desc   : Test isActiveSync
      * @tc.level  : Level 0
      */
@@ -225,7 +225,7 @@ export default function audioStreamManagerTest() {
     })
     /**
      * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0200
-     * @tc.name   : isActiveSync_RINGTONE
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0200
      * @tc.desc   : Test isActiveSync
      * @tc.level  : Level 0
      */
@@ -247,7 +247,7 @@ export default function audioStreamManagerTest() {
     })
     /**
      * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0300
-     * @tc.name   : isActiveSync_ALARM
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0300
      * @tc.desc   : Test isActiveSync
      * @tc.level  : Level 0
      */

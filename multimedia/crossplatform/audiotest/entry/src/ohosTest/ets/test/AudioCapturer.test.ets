@@ -229,7 +229,7 @@ export default function audioCapturerTest() {
 
     /**
      * @tc.number : SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100
-     * @tc.name   : on_off_audioInterrupt
+     * @tc.name   : SUB_ArkUIX_Audio_capturer_on_off_audioInterrupt_Func_0100
      * @tc.desc   : Test on_off_audioInterrupt
      * @tc.level  : Level 0
      */

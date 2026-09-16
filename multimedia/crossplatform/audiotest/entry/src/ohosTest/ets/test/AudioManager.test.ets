@@ -121,7 +121,7 @@ export default function audioManagerTest() {
     if (platform == 'OpenHarmony') {
       /**
       * @tc.number : SUB_ArkUIX_Audio_getSessionManager_Func_0100
-      * @tc.name   : getSessionManager
+      * @tc.name   : SUB_ArkUIX_Audio_getSessionManager_Func_0100
       * @tc.desc   : Test getSessionManager - Sync
       * @tc.level  : Level 0
       */
@@ -138,7 +138,7 @@ export default function audioManagerTest() {
       })
       /**
       * @tc.number : SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100
-      * @tc.name   : activateAudioSession_deactivateAudioSession
+      * @tc.name   : SUB_ArkUIX_Audio_activateAudioSession_deactivateAudioSession_Func_0100
       * @tc.desc   : Test activateAudioSession_deactivateAudioSession - Sync
       * @tc.level  : Level 0
       */
@@ -162,7 +162,7 @@ export default function audioManagerTest() {
     }
     /**
      * @tc.number : SUB_ArkUIX_Audio_getPreferredOutputDeviceForRendererInfoSync_Func_0100
-     * @tc.name   : getPreferredOutputDeviceForRendererInfoSync
+     * @tc.name   : SUB_ArkUIX_Audio_getPreferredOutputDeviceForRendererInfoSync_Func_0100
      * @tc.desc   : Test getPreferredOutputDeviceForRendererInfoSync - Sync
      * @tc.level  : Level 0
      */
@@ -184,7 +184,7 @@ export default function audioManagerTest() {
     })
     /**
      * @tc.number   SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100
-     * @tc.name getPreferOutputDeviceForRendererInfo
+     * @tc.name SUB_ArkUIX_Audio_getPreferOutputDeviceForRendererInfo_Func_0100
      * @tc.desc   : Test getPreferOutputDeviceForRendererInfo
      * @tc.level  : Level 0
      */
@@ -206,7 +206,7 @@ export default function audioManagerTest() {
     })
     /**
      * @tc.number   SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100
-     * @tc.name getPreferredInputDeviceForCapturerInfo
+     * @tc.name SUB_ArkUIX_Audio_getPreferredInputDeviceForCapturerInfo_Func_0100
      * @tc.desc   : Test getPreferredInputDeviceForCapturerInfo
      * @tc.level  : Level 0
      */
