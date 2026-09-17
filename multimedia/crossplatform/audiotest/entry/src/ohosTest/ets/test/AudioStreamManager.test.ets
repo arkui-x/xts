@@ -201,7 +201,72 @@ export default function audioStreamManagerTest() {
         await stopPromise(audioRenderer);
       }
     })
-
+    /**
+     * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0100
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0100
+     * @tc.desc   : Test isActiveSync
+     * @tc.level  : Level 0
+     */
+    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0100', 0, async (done: Function) => {
+      console.log(`Callback : isActive VOICE_CALL: NOTE: audio NOT PLAYING as VOICE_CALL for the test case to PASS`);
+      try {
+        let data = audioStreamManager.isActiveSync(audio.AudioVolumeType.VOICE_CALL)
+        if (data == false) {
+          console.log(`Func_0100 Callback: isActive: VOICE_CALL: TRUE: PASS:${data}`);
+        } else {
+          console.log(`Func_0100 Callback: isActive: VOICE_CALL: TRUE: FAIL: ${data}`);
+          expect(false).assertTrue();
+        }
+      } catch (error) {
+        console.error(`Func_0100 Callback : VOICE_CALL : isActive: failed  ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    })
+    /**
+     * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0200
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0200
+     * @tc.desc   : Test isActiveSync
+     * @tc.level  : Level 0
+     */
+    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0200', 0, async (done: Function) => {
+      console.log(`Callback : isActive RINGTONE: NOTE: audio NOT PLAYING as RINGTONE for the test case to PASS`);
+      try {
+        let data = audioStreamManager.isActiveSync(audio.AudioVolumeType.RINGTONE)
+        if (data == false) {
+          console.log(`Func_0200 Callback: isActive: RINGTONE: TRUE: PASS:${data}`);
+        } else {
+          console.log(`Func_0200 Callback: isActive: RINGTONE: TRUE: FAIL: ${data}`);
+          expect(false).assertTrue();
+        }
+      } catch (error) {
+        console.error(`Func_0200 Callback : RINGTONE : isActive: failed  ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    })
+    /**
+     * @tc.number : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0300
+     * @tc.name   : SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0300
+     * @tc.desc   : Test isActiveSync
+     * @tc.level  : Level 0
+     */
+    it('SUB_ArkUIX_Audio_StreamManager_IsActiveSync_Func_0300', 0, async (done: Function) => {
+      console.log(`Callback : isActive ALARM: NOTE: audio NOT PLAYING as ALARM for the test case to PASS`);
+      try {
+        let data = audioStreamManager.isActiveSync(audio.AudioVolumeType.ALARM)
+        if (data == false) {
+          console.log(`Func_0300 Callback: isActive: ALARM: TRUE: PASS:${data}`);
+        } else {
+          console.log(`Func_0300 Callback: isActive: ALARM: TRUE: FAIL: ${data}`);
+          expect(false).assertTrue();
+        }
+      } catch (error) {
+        console.error(`Func_0300 Callback : ALARM : isActive: failed  ${error.message}`);
+        expect().assertFail();
+      }
+      done();
+    })
     /**
      * @tc.number : SUB_ArkUIX_Audio_getCurrentAudioCapturerInfoArray_Func_0100
      * @tc.name   : getCurrentAudioCapturerInfoArray
