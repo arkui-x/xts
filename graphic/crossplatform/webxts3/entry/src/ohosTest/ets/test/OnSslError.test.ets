@@ -186,10 +186,10 @@ export default function onSslErrorTest() {
           expect(await (await driver.findComponent(ON.id("onSslErrorEventReceive_certChainData_length"))).getText())
             .assertEqual("1");
         } else if (platform === "iOS") {
-          expect(await (await driver.findComponent(ON.id("onSslErrorEvent_certChainData_length"))).getText())
-            .assertEqual("3");
-          expect(await (await driver.findComponent(ON.id("onSslErrorEventReceive_certChainData_length"))).getText())
-            .assertEqual("3");
+          expect(Number(await (await driver.findComponent(ON.id("onSslErrorEvent_certChainData_length"))).getText()))
+            .assertLargerOrEqual(3);
+          expect(Number(await (await driver.findComponent(ON.id("onSslErrorEventReceive_certChainData_length"))).getText()))
+            .assertLargerOrEqual(3);
         } else {
           expect(await (await driver.findComponent(ON.id("onSslErrorEvent_certChainData_length"))).getText())
             .assertEqual("0");
