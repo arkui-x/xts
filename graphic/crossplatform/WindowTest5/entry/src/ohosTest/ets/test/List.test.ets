@@ -15,8 +15,10 @@
 
 import WindowEnvBasic from './WindowEnvBasic.test'
 import WindowProperty from './WindowProperty.test'
+import SpecificSystemBarTest from './SpecificSystemBarTest.test'
 
 export default function testsuite() {
   WindowEnvBasic();
   WindowProperty();
+  SpecificSystemBarTest();
 }
