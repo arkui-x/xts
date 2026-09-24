@@ -226,6 +226,7 @@ export default function WindowProperty() {
           console.log(msgStr + 'getWindowDensityInfo threw BusinessError: code=' + bizErr.code +
             ', message=' + bizErr.message);
           expect(bizErr.code).assertEqual(1300002);
+          expect(bizErr.message != null && bizErr.message.length > 0).assertTrue();
         }
 
         done();
