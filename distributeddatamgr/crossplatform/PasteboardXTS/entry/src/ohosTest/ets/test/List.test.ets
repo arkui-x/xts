@@ -18,6 +18,7 @@ import pasteBoardTest from './pasteBoard.test'
 import pasteDataRecordTest from './pasteDataRecord.test'
 import systemPasteboardUnifiedTest from './systemPasteboardUnified.test'
 import pasteDataTest from './pasteData.test'
+import unifiedDataRecordTest from './unifiedDataRecord.test'
 
 export default function testsuite() {
   pasteBoardTest();
@@ -25,4 +26,5 @@ export default function testsuite() {
   pasteDataTest();
   systemPasteboardTest();
   systemPasteboardUnifiedTest();
+  unifiedDataRecordTest();
 }
