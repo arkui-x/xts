@@ -51,6 +51,11 @@ export default function SpecificSystemBarTest() {
     afterAll(async () => {
       try {
         let windowClass = windowStage.getMainWindowSync();
+        try {
+          await windowClass.restore();
+        } catch (restoreErr) {
+          console.warn(`SpecificSystemBarTest afterAll restore window failed (may not be minimized): ${JSON.stringify(restoreErr)}`);
+        }
         await windowClass.setWindowLayoutFullScreen(false);
         console.info('SpecificSystemBarTest afterAll restore environment success');
       } catch (exception) {
@@ -94,6 +99,9 @@ export default function SpecificSystemBarTest() {
      *                 are not cross-platform available, so on('windowStatusChange') delivering
      *                 the same WindowStatusType is used as the equivalent substitution.
      *                 Not supported on Android platform, pass and skip directly on Android.
+     *                 On PC/2in1/tablet, window status change is actively injected and at
+     *                 least one event is required; on other devices, status validation only
+     *                 runs when events are received during passive waiting.
      * @tc.size      : MediumTest
      * @tc.type      : Function
      * @tc.level     : Level 1
@@ -123,16 +131,25 @@ export default function SpecificSystemBarTest() {
             injected = true;
           } catch (err) {
             console.warn(`${caseName} Active injection failed, fallback to passive waiting. Cause: ${JSON.stringify(err)}`);
-            windowClass.restore().catch(() => {});
+            windowClass.restore().catch((restoreErr: Error) => {
+              console.error(`${caseName} restore fallback failed: ${JSON.stringify(restoreErr)}`);
+            });
             await sleep(1000);
           }
         } else {
           await sleep(1000);
         }
         windowClass.off('windowStatusChange', callback);
-        expect(receivedList.every(isValidWindowStatus)).assertTrue();
         if (injected) {
+          // Active minimize/restore injection succeeded, at least one event must be received.
+          expect(receivedList.length).assertLarger(0);
+          expect(receivedList.every(isValidWindowStatus)).assertTrue();
           expect(receivedList.includes(window.WindowStatusType.MINIMIZE)).assertTrue();
+        } else if (receivedList.length > 0) {
+          // Passive waiting received events, validate every window status.
+          expect(receivedList.every(isValidWindowStatus)).assertTrue();
+        } else {
+          console.warn(`${caseName} No windowStatusChange event received during passive waiting, skip status validation.`);
         }
         done();
       } catch (exception) {
