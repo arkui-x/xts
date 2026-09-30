@@ -14,7 +14,11 @@
  */
 
 import getBundleInfoForSelfTest from './GetBundleInfoForSelf.test'
+import applicationInfoTest from './ApplicationInfo.test'
+import abilityInfoTest from './AbilityInfo.test'
 
 export default function testsuite() {
   getBundleInfoForSelfTest()
+  applicationInfoTest()
+  abilityInfoTest()
 }
