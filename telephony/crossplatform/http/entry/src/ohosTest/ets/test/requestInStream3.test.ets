@@ -129,7 +129,7 @@ export default function requestInStream3() {
         let httpRequest = http.createHttp();
         await sleep(AWAIT_SLEEP_MS_1000)
         let options: http.HttpRequestOptions = {};
-        let promise = httpRequest.requestInStream("https://www.aol.com", options);
+        let promise = httpRequest.requestInStream("https://httpbin.moyufangge.com/status/403", options);
         await promise.then((data: number) => {
           console.info("ARKUIX_Http_requestInStream_PromiseWithOptions_0300 requestInStream OK!" + data);
           expect(data).assertEqual(403)
