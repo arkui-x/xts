@@ -62,7 +62,7 @@ export default function requestInStream1() {
       try {
         let httpRequest = http.createHttp();
         await sleep(AWAIT_SLEEP_MS_1000)
-        httpRequest.requestInStream("https://www.aol.com", (err: BusinessError, data: number) => {
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/status/403", (err: BusinessError, data: number) => {
           if (!err) {
             console.info("ARKUIX_Http_requestInStream_callback_0200 requestInStream OK! ResponseCode is " + data);
             expect(data).assertEqual(403)
