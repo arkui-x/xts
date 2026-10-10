@@ -135,6 +135,7 @@ export default function KeyboardHeightTest() {
           expect(input !== null).assertTrue();
           await input.click();
           console.info('clicked keyboardInput via UiTest');
+          await sleep(5000)
         } catch (uitestErr) {
           console.error('UiTest click keyboardInput error: ' + JSON.stringify(uitestErr));
         }
@@ -337,7 +338,7 @@ export default function KeyboardHeightTest() {
             if (dismissBtn !== null) {
               await dismissBtn.click();
               console.info('dismissed keyboard before trigger');
-              await driver.delayMs(300);
+              await driver.delayMs(3000);
             }
           } catch (dismissErr) {
             console.info('keyboard already dismissed before trigger');
@@ -347,6 +348,7 @@ export default function KeyboardHeightTest() {
             inputClicked = true;
             await input.click();
             console.info('clicked keyboardInput after off specific cbRemove');
+            await driver.delayMs(3000);
           }
         } catch (uitestErr) {
           console.error('UiTest click keyboardInput error: ' + JSON.stringify(uitestErr));
