@@ -250,6 +250,10 @@ let globalPort: number = 0;
 let globalIsRunning: boolean = false;
 let globalStarting: Promise<number> | null = null;
 let requestCounter: number = 0;
+// Per-URL request counts so tests can prove a re-download actually hit the
+// server (FORCE strategy) instead of relying on timing fields being different
+// (totalTime collisions over localhost made those assertions flaky).
+let urlRequestCounts: Map<string, number> = new Map<string, number>();
 let clientConnections: socket.TCPSocketConnection[] = [];
 
 let onConnectCallback = (client: socket.TCPSocketConnection) => {
@@ -263,6 +267,7 @@ let onConnectCallback = (client: socket.TCPSocketConnection) => {
 
       // Variable delay so same-URL downloads get different totalTime values.
       requestCounter++;
+      urlRequestCounts.set(request.path, (urlRequestCounts.get(request.path) ?? 0) + 1);
       let delay: number = 5 + (requestCounter % VARIABLE_DELAY_MAX) * 3;
       await sleep(delay);
 
@@ -348,6 +353,16 @@ export class HttpServerCore {
 
   static getPort(): number {
     return globalPort;
+  }
+
+  /**
+   * Number of requests the running server has served for the given URL path
+   * (e.g. '/test_picture_1.jpg'). Lets tests assert that a download() call
+   * really produced a new server request (FORCE re-download) deterministically,
+   * instead of comparing millisecond-precision timing fields.
+   */
+  static getRequestCount(path: string): number {
+    return urlRequestCounts.get(path) ?? 0;
   }
 
   static getBaseUrl(): string {

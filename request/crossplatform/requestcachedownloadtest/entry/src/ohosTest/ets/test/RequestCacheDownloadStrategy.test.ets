@@ -17,6 +17,7 @@ import cacheDownload from "@ohos.request.cacheDownload";
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level } from '@ohos/hypium';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { WifiConnectStatus } from '../common/WifiConnectStatus';
+import { HttpServerCore } from '../common/HttpServerCore';
 
 export default function requestCacheDownloadStrategyUnitTest() {
   describe('requestCacheDownloadStrategyJSTest', () => {
@@ -233,6 +234,8 @@ export default function requestCacheDownloadStrategyUnitTest() {
         let downloadInfo1: cacheDownload.DownloadInfo | undefined;
         downloadInfo1 = cacheDownload.getDownloadInfo(url);
         console.info(`====>SUB_Request_cacheDownload_cacheStrategy_0400 getDownloadInfo1 success: ${JSON.stringify(downloadInfo1)}`);
+        let serverRequestCount1: number = HttpServerCore.getRequestCount('/test_picture_1.jpg');
+        console.info("====>SUB_Request_cacheDownload_cacheStrategy_0400 serverRequestCount1: " + serverRequestCount1);
         cacheDownload.download(url, cacheDownloadOptions);
         console.info("====>SUB_Request_cacheDownload_cacheStrategy_0400 getDownloadInfo first success");
         let t = setTimeout(() => {
@@ -243,7 +246,15 @@ export default function requestCacheDownloadStrategyUnitTest() {
             let downloadInfo2: cacheDownload.DownloadInfo | undefined;
             downloadInfo2 = cacheDownload.getDownloadInfo(url);
             console.info(`====>SUB_Request_cacheDownload_cacheStrategy_0400 getDownloadInfo2 success: ${JSON.stringify(downloadInfo2)}`);
-            expect(JSON.stringify(downloadInfo1) !== JSON.stringify(downloadInfo2)).assertTrue();
+            expect(downloadInfo2 !== undefined).assertTrue();
+            // Non-enum strategy values are normalized to FORCE: must
+            // re-download. Comparing JSON/timing strings is flaky: over
+            // localhost two downloads can collide on every
+            // millisecond-truncated field (observed totalTime collision in the
+            // wild, all-zero dns/connect/firstSend fields on some devices).
+            let serverRequestCount2: number = HttpServerCore.getRequestCount('/test_picture_1.jpg');
+            console.info("====>SUB_Request_cacheDownload_cacheStrategy_0400 serverRequestCount2: " + serverRequestCount2);
+            expect(serverRequestCount2 === serverRequestCount1 + 1).assertTrue();
             done();
           }catch (err) {
             console.info("====>SUB_Request_cacheDownload_cacheStrategy_0400 err: " + JSON.stringify(err));
