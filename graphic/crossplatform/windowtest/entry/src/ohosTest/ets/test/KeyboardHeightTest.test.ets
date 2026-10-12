@@ -135,7 +135,7 @@ export default function KeyboardHeightTest() {
           expect(input !== null).assertTrue();
           await input.click();
           console.info('clicked keyboardInput via UiTest');
-          await sleep(5000)
+          await driver.delayMs(3000);
         } catch (uitestErr) {
           console.error('UiTest click keyboardInput error: ' + JSON.stringify(uitestErr));
         }
