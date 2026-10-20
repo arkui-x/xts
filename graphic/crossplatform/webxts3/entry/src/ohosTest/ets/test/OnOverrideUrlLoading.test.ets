@@ -131,7 +131,7 @@ export default function onOverrideUrlLoadingTest() {
 
           let result = await (await driver.findComponent(ON.id("callbackLogs"))).getText();
           expect(result).assertContain("触发回调");
-          expect(result).assertContain("iana.org/domains/example");
+          expect(result).assertContain("iana.org/help/example-domains");
           expect(result).assertContain("是否拦截：是");
           expect(result).not().assertContain("页面加载完成");
         } catch (error) {
