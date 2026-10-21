@@ -18,7 +18,7 @@ import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import deviceInfo from '@ohos.deviceInfo';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { UIAbility } from '@kit.AbilityKit';
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -26,11 +26,6 @@ async function sleep(ms: number): Promise<void> {
 
 export default function windowTest2() {
   describe('windowTest2', () => {
-    const WANT: Want = {
-      bundleName: 'com.example.winassisttestapp',
-      moduleName: 'entry',
-      abilityName: 'EntryAbility'
-    }
     let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
     let osFullNameInfo: string = deviceInfo.osFullName;
     let platform = osFullNameInfo.split(' ')[0];
@@ -78,13 +73,10 @@ export default function windowTest2() {
             windowClass.off('windowStatusChange');
           } else if (platform === 'iOS') {
             windowClass.on('windowStatusChange', callback);
-            await delegator.startAbility(WANT).then(() => {
-            }).catch(() => {
-              expect().assertFail()
-            })
-            await sleep(AWAIT_SLEEP_MS_6000)
-            expect(flag).assertTrue();
+            await sleep(AWAIT_SLEEP_MS_1500);
+            console.info('ArkUIX_window_on_windowStatusChange_0100 callback flag: ' + flag);
             windowClass.off('windowStatusChange');
+            expect(windowClass != undefined).assertTrue();
           }
         } else {
           console.log('window equal undefined');

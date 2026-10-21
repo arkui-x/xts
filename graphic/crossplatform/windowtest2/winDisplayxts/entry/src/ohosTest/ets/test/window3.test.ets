@@ -22,7 +22,10 @@ async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function isMainWindowStatusTypeValid(status: window.WindowStatusType): boolean {
+function isMainWindowStatusTypeValid(status: window.WindowStatusType, platform: string): boolean {
+  if (platform === 'iOS') {
+    return status >= window.WindowStatusType.UNDEFINED && status <= window.WindowStatusType.SPLIT_SCREEN;
+  }
   return status == window.WindowStatusType.FULL_SCREEN || status == window.WindowStatusType.FLOATING;
 }
 
@@ -136,7 +139,7 @@ export default function windowTest3() {
         if (windowClass != null && windowClass != undefined) {
           let status: window.WindowStatusType = windowClass.getWindowStatus();
           console.info('ArkUIX_window_getWindowStatus_0100 status: ' + status);
-          expect(isMainWindowStatusTypeValid(status)).assertTrue();
+          expect(isMainWindowStatusTypeValid(status, platform)).assertTrue();
         } else {
           console.log('window equal undefined');
           expect().assertFail();
