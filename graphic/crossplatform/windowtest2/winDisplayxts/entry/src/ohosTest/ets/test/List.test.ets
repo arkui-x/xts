@@ -16,9 +16,11 @@
 import displayTest from './display.test'
 import windowTest from './window.test'
 import windowTest2 from './window2.test'
+import windowTest3 from './window3.test'
 
 export default function testsuite() {
   displayTest();
   windowTest();	
   windowTest2();
+  windowTest3();
 }
