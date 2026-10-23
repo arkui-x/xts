@@ -1,0 +1,29 @@
+package com.example.requestcachedownloadtest;
+
+import android.util.Log;
+
+import ohos.stage.ability.adapter.StageApplication;
+
+/**
+ * Example ace application class, which will load ArkUI-X application instance.
+ * StageApplication is provided by ArkUI-X
+ * @see <a href=
+ * "https://gitee.com/arkui-crossplatform/doc/blob/master/contribute/tutorial/how-to-build-Android-app.md">
+ * to build android library</a>
+ */
+public class MyApplication extends StageApplication {
+    private static final String LOG_TAG = "HiHelloWorld";
+
+    private static final String RES_NAME = "res";
+
+    @Override
+    public void onCreate() {
+        Log.e(LOG_TAG, "MyApplication");
+        super.onCreate();
+        Log.e(LOG_TAG, "MyApplication onCreate");
+
+        // The local HTTP server for cacheDownload XTS testing is now implemented
+        // in ArkTS with @ohos.net.socket (HttpServerCore.ets) and started from the
+        // test suite's beforeAll, so Android and iOS share the same server.
+    }
+}
