@@ -409,7 +409,7 @@ export default function geolocationNoPermissionTest() {
       try {
         let location = geoLocationm.getLastLocation()
       } catch (error){
-        expect(error.code).assertEqual(201);
+        expect(error.code).assertEqual("201");
         console.error("getLastLocation: error=" + JSON.stringify(error));
       }
       done();
