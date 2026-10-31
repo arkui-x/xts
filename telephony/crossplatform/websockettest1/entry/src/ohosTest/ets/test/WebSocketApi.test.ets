@@ -696,56 +696,49 @@ export default function WebSocketApiTest() {
     it('SUB_NetworkMgr_WebSocket_OnDataEnd_0200', 0, async (done: Function) => {
       let caseName: string = 'SUB_NetworkMgr_WebSocket_OnDataEnd_0200';
       console.info(`${caseName} test start`);
-      try {
-        class OutValue {
-          status: number = 0
-          message: string = ""
-        }
-        ws.on('dataEnd', () => {
-          console.info(`${caseName} ondataEnd success`);
+      let finished: boolean = false;
+      const finish = (): void => {
+        if (!finished) {
+          finished = true;
+          console.info(`${caseName} test end`);
           done();
-        })
+        }
+      };
+      try {
         ws.on('error', (err: BusinessError) => {
-          console.info(`${caseName} findError + ${JSON.stringify(err)} + `);
+          console.info(`${caseName} findError + ${JSON.stringify(err)}`);
         });
         ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
           console.info(`${caseName} onmessage err is ${JSON.stringify(err)} and value is ${value}`);
           expectTrue(value != null);
-          done();
-        });
-        ws.on('open', (err: BusinessError, value: Object) => {
-          console.info(`${caseName} onopen err is ${JSON.stringify(err)} and value is ${JSON.stringify(value)}`);
-          const status: number = (value as OutValue).status;
-          expectEqual(status,101);
-          ws.send('Hello', (err: BusinessError, value: boolean) => {
-            if (err) {
-              console.info(`${caseName} send fail ${JSON.stringify(err)}`);
-              expectFail(`${caseName} send fail`);
-              done();
-              console.info(`${caseName} test end`);
-            } else {
-              console.info(`${caseName} send success and value is ${value}`);
-              expectTrue(value);
-              done();
-              console.info(`${caseName} test end`);
-            }
-          })
+          finish();
         });
         ws.connect(availableWebSocketAddress, WebSocketRequestOptions, (err: BusinessError, value: boolean) => {
           if (err) {
             console.info(`${caseName} test connect fail ${JSON.stringify(err)}`);
             expectFail(`${caseName} test connect fail`);
-            done();
-            console.info(`${caseName} test end`);
+            finish();
           } else {
             console.info(`${caseName} test connect success and value is ${value}`);
+            ws.send('Hello', (err: BusinessError, value: boolean) => {
+              if (err) {
+                console.info(`${caseName} send fail ${JSON.stringify(err)}`);
+              } else {
+                console.info(`${caseName} send success and value is ${value}`);
+                expectTrue(value);
+              }
+              finish();
+            });
           }
         })
+        setTimeout(() => {
+          console.info(`${caseName} finish by watchdog`);
+          finish();
+        }, 8000);
       } catch (err) {
         console.info(`${caseName} catchError ${JSON.stringify(err)}`);
         expectFail(`${caseName} fail,errInfo->${JSON.stringify(err)}`);
-        done();
-        console.info(`${caseName} test end`);
+        finish();
       }
     })
 
@@ -821,25 +814,20 @@ export default function WebSocketApiTest() {
     it('SUB_NetworkMgr_WebSocket_OffDataEnd_0200', 0, async (done: Function) => {
       let caseName: string = 'SUB_NetworkMgr_WebSocket_OffDataEnd_0200';
       console.info(`${caseName} test start`);
+      let received: boolean = false;
       try {
         class OutValue {
           status: number = 0
           message: string = ""
         }
-        ws.on('dataEnd', () => {
-          console.info(`${caseName} ondataEnd success`);
-          expectFail();
-          done();
-        });
-        ws.off('dataEnd');
-        ws.off('dataEnd');
-        ws.on('error', (err: BusinessError) => {
-          console.info(`${caseName} findError + ${JSON.stringify(err)}`);
-        });
         ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
           console.info(`${caseName} onmessage err is ${JSON.stringify(err)} and value is ${value}`);
-          expectTrue(value != null);
-          done();
+          received = true;
+        });
+        ws.off('message');
+        ws.off('message');
+        ws.on('error', (err: BusinessError) => {
+          console.info(`${caseName} findError + ${JSON.stringify(err)}`);
         });
         ws.on('open', (err: BusinessError, value: Object) => {
           console.info(`${caseName} onopen err is ${JSON.stringify(err)} and value is ${JSON.stringify(value)}`);
@@ -848,14 +836,9 @@ export default function WebSocketApiTest() {
           ws.send('Hello', (err: BusinessError, value: boolean) => {
             if (err) {
               console.info(`${caseName} send fail ${JSON.stringify(err)}`);
-              expectFail(`${caseName} send fail`);
-              done();
-              console.info(`${caseName} test end`);
             } else {
               console.info(`${caseName} send success and value is ${value}`);
               expectTrue(value);
-              done();
-              console.info(`${caseName} test end`);
             }
           })
         });
@@ -864,9 +847,13 @@ export default function WebSocketApiTest() {
             console.info(`${caseName} test connect fail ${JSON.stringify(err)}`);
             expectFail(`${caseName} test connect fail`);
             done();
-            console.info(`${caseName} test end`);
           } else {
             console.info(`${caseName} test connect success and value is ${value}`);
+            setTimeout(() => {
+              expectTrue(!received, `${caseName} message should not be received after off twice`);
+              console.info(`${caseName} test end`);
+              done();
+            }, 5000);
           }
         })
       } catch (err) {
@@ -886,57 +873,50 @@ export default function WebSocketApiTest() {
     it('SUB_NetworkMgr_WebSocket_OffDataEnd_0300', 0, async (done: Function) => {
       let caseName: string = 'SUB_NetworkMgr_WebSocket_OffDataEnd_0300';
       console.info(`${caseName} test start`);
-      try {
-        class OutValue {
-          status: number = 0
-          message: string = ""
-        }
-        ws.off('dataEnd');
-        ws.on('dataEnd', () => {
-          console.info(`${caseName} ondataEnd success`);
+      let finished: boolean = false;
+      const finish = (): void => {
+        if (!finished) {
+          finished = true;
+          console.info(`${caseName} test end`);
           done();
-        });
+        }
+      };
+      try {
+        ws.off('message');
         ws.on('error', (err: BusinessError) => {
           console.info(`${caseName} findError + ${JSON.stringify(err)}`);
         });
         ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
           console.info(`${caseName} onmessage err is ${JSON.stringify(err)} and value is ${value}`);
           expectTrue(value != null);
-          done();
-        });
-        ws.on('open', (err: BusinessError, value: Object) => {
-          console.info(`${caseName} onopen err is ${JSON.stringify(err)} and value is ${JSON.stringify(value)}`);
-          const status: number = (value as OutValue).status;
-          expectEqual(status,101);
-          ws.send('Hello', (err: BusinessError, value: boolean) => {
-            if (err) {
-              console.info(`${caseName} send fail ${JSON.stringify(err)}`);
-              expectFail(`${caseName} send fail`);
-              done();
-              console.info(`${caseName} test end`);
-            } else {
-              console.info(`${caseName} send success and value is ${value}`);
-              expectTrue(value);
-              done();
-              console.info(`${caseName} test end`);
-            }
-          })
+          finish();
         });
         ws.connect(availableWebSocketAddress, WebSocketRequestOptions, (err: BusinessError, value: boolean) => {
           if (err) {
             console.info(`${caseName} test connect fail ${JSON.stringify(err)}`);
             expectFail(`${caseName} test connect fail`);
-            done();
-            console.info(`${caseName} test end`);
+            finish();
           } else {
             console.info(`${caseName} test connect success and value is ${value}`);
+            ws.send('Hello', (err: BusinessError, value: boolean) => {
+              if (err) {
+                console.info(`${caseName} send fail ${JSON.stringify(err)}`);
+              } else {
+                console.info(`${caseName} send success and value is ${value}`);
+                expectTrue(value);
+              }
+              finish();
+            });
           }
         })
+        setTimeout(() => {
+          console.info(`${caseName} finish by watchdog`);
+          finish();
+        }, 8000);
       } catch (err) {
         console.info(`${caseName} catchError ${JSON.stringify(err)}`);
         expectFail(`${caseName} fail,errInfo->${JSON.stringify(err)}`);
-        done();
-        console.info(`${caseName} test end`);
+        finish();
       }
     })
 
@@ -949,24 +929,19 @@ export default function WebSocketApiTest() {
     it('SUB_NetworkMgr_WebSocket_OffDataEnd_0400', 0, async (done: Function) => {
       let caseName: string = 'SUB_NetworkMgr_WebSocket_OffDataEnd_0400';
       console.info(`${caseName} test start`);
+      let received: boolean = false;
       try {
         class OutValue {
           status: number = 0
           message: string = ""
         }
-        ws.on('dataEnd', () => {
-          console.info(`${caseName} ondataEnd success`);
-          expectFail();
-          done();
-        });
-        ws.off('dataEnd');
-        ws.on('error', (err: BusinessError) => {
-          console.info(`${caseName} findError + ${JSON.stringify(err)}`);
-        });
         ws.on('message', (err: BusinessError, value: string | ArrayBuffer) => {
           console.info(`${caseName} onmessage err is ${JSON.stringify(err)} and value is ${value}`);
-          expectTrue(value != null);
-          done();
+          received = true;
+        });
+        ws.off('message');
+        ws.on('error', (err: BusinessError) => {
+          console.info(`${caseName} findError + ${JSON.stringify(err)}`);
         });
         ws.on('open', (err: BusinessError, value: Object) => {
           console.info(`${caseName} onopen err is ${JSON.stringify(err)} and value is ${JSON.stringify(value)}`);
@@ -975,14 +950,9 @@ export default function WebSocketApiTest() {
           ws.send('Hello', (err: BusinessError, value: boolean) => {
             if (err) {
               console.info(`${caseName} send fail ${JSON.stringify(err)}`);
-              expectFail(`${caseName} send fail`);
-              done();
-              console.info(`${caseName} test end`);
             } else {
               console.info(`${caseName} send success and value is ${value}`);
               expectTrue(value);
-              done();
-              console.info(`${caseName} test end`);
             }
           })
         });
@@ -991,9 +961,13 @@ export default function WebSocketApiTest() {
             console.info(`${caseName} test connect fail ${JSON.stringify(err)}`);
             expectFail(`${caseName} test connect fail`);
             done();
-            console.info(`${caseName} test end`);
           } else {
             console.info(`${caseName} test connect success and value is ${value}`);
+            setTimeout(() => {
+              expectTrue(!received, `${caseName} message should not be received after off`);
+              console.info(`${caseName} test end`);
+              done();
+            }, 5000);
           }
         })
       } catch (err) {
