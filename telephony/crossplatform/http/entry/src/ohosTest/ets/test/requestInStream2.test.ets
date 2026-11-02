@@ -695,7 +695,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP1_1,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_1900 requestInStream OK! ResponseCode is " +
@@ -731,7 +731,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP2,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2000 requestInStream OK! ResponseCode is " +
@@ -767,7 +767,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.PUT,
           usingProtocol: http.HttpProtocol.HTTP3,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2100 requestInStream OK! ResponseCode is " +
@@ -804,7 +804,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP1_1,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2200 requestInStream OK! ResponseCode is " +
@@ -840,7 +840,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP2,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2300 requestInStream OK! ResponseCode is " +
@@ -876,7 +876,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.DELETE,
           usingProtocol: http.HttpProtocol.HTTP3,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2400 requestInStream OK! ResponseCode is " +
@@ -913,7 +913,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP1_1,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2500 requestInStream OK! ResponseCode is " +
@@ -949,7 +949,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP2,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2600 requestInStream OK! ResponseCode is " +
@@ -985,7 +985,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.TRACE,
           usingProtocol: http.HttpProtocol.HTTP3,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2700 requestInStream OK! ResponseCode is " +
@@ -1022,7 +1022,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP1_1,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2800 requestInStream OK! ResponseCode is " +
@@ -1058,7 +1058,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP2,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_2900 requestInStream OK! ResponseCode is " +
@@ -1094,7 +1094,7 @@ export default function requestInStream2() {
           method: http.RequestMethod.CONNECT,
           usingProtocol: http.HttpProtocol.HTTP3,
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3000 requestInStream OK! ResponseCode is " +
@@ -1206,7 +1206,7 @@ export default function requestInStream2() {
           },
           header: "content-type': 'application/json",
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3300 requestInStream OK! ResponseCode is " +
@@ -1242,7 +1242,7 @@ export default function requestInStream2() {
           extraData: 'testInformation测试',
           header: "content-type': 'application/x-www-form-urlencoded",
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3400 requestInStream OK! ResponseCode is " +
@@ -1278,7 +1278,7 @@ export default function requestInStream2() {
           extraData: 'testInformation测试',
           header: "content-type': 'text/xml",
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3500 requestInStream OK! ResponseCode is " +
@@ -1313,7 +1313,7 @@ export default function requestInStream2() {
         let options: http.HttpRequestOptions = {
           extraData: ''
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_3600 requestInStream OK! ResponseCode is " +
@@ -2325,7 +2325,7 @@ export default function requestInStream2() {
             certType: http.CertType.P12,
           },
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_6500 requestInStream OK! ResponseCode is " +
@@ -2373,7 +2373,7 @@ export default function requestInStream2() {
             certType: http.CertType.P12,
           },
         };
-        httpRequest.requestInStream("https://httpbin.org/anything", options,
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", options,
           (err: BusinessError<void>, data: number) => {
             if (!err) {
               console.info("ARKUIX_Http_requestInStream_CallBackWithOptions_6600 requestInStream OK! ResponseCode is " +
@@ -2886,7 +2886,7 @@ export default function requestInStream2() {
       try {
         let httpRequest: http.HttpRequest = http.createHttp();
         await sleep(AWAIT_SLEEP_MS_1000)
-        httpRequest.requestInStream("https://httpbin.org/anything", {
+        httpRequest.requestInStream("https://httpbin.moyufangge.com/anything", {
           method: http.RequestMethod.POST,
           header: {
             "Content-type": "multipart/form-data",
