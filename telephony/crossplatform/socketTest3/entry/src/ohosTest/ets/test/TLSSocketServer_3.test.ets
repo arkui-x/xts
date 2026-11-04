@@ -16,7 +16,7 @@
 import { describe, it, expect, Level, TestType, Size, beforeEach, beforeAll } from '@ohos/hypium';
 import { socket } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { serverKey, serverCert, serverCa, clientKey, clientCert, clientCa, getNextPort, PortManager, SocketErrorCodes, sleep, netAddress, PlatformDetector} from './public_util'
+import { serverKey, serverCert, serverCa, clientKey, clientCert, clientCa, getNextPort, PortManager, SocketErrorCodes, sleep, netAddress} from './public_util'
 
 const tlsSecureConfig: socket.TLSSecureOptions = {
   key: serverKey,
@@ -2412,22 +2412,17 @@ export default function TLSSocketServerTest3() {
                 console.error(`${caseName} listen fail: ${err.code} - ${err.message}`);
                 resolve();
               });
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling on with invalid type to avoid potential native crash`);
-                expect(true).assertTrue();
-              } else {
-                try {
-                  tlsServer.on(null, (err: BusinessError) => {
-                    console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
-                    expect().assertFail();
-                    done();
-                  });
-                } catch (err) {
-                  console.error(`${caseName} on error fail: ${err.code} - ${err.message}`)
-                  const errCode = Number(err.code);
-                  expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              try {
+                tlsServer.on(null, (err: BusinessError) => {
+                  console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
+                  expect().assertFail();
                   done();
-                }
+                });
+              } catch (err) {
+                console.error(`${caseName} on error fail: ${err.code} - ${err.message}`)
+                const errCode = Number(err.code);
+                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+                done();
               }
             });
           })().then(async () => {
@@ -2488,22 +2483,17 @@ export default function TLSSocketServerTest3() {
                 console.error(`${caseName} listen fail: ${err.code} - ${err.message}`);
                 resolve();
               });
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling on with invalid type to avoid potential native crash`);
-                expect(true).assertTrue();
-              } else {
-                try {
-                  tlsServer.on(undefined, (err: BusinessError) => {
-                    console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
-                    expect().assertFail();
-                    done();
-                  });
-                } catch (err) {
-                  console.error(`${caseName} on error fail: ${err.code} - ${err.message}`)
-                  const errCode = Number(err.code);
-                  expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              try {
+                tlsServer.on(undefined, (err: BusinessError) => {
+                  console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
+                  expect().assertFail();
                   done();
-                }
+                });
+              } catch (err) {
+                console.error(`${caseName} on error fail: ${err.code} - ${err.message}`)
+                const errCode = Number(err.code);
+                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+                done();
               }
 
             });
@@ -2567,12 +2557,7 @@ export default function TLSSocketServerTest3() {
               });
               try {
                 tlsServer.on('error', undefined);
-                if (PlatformDetector.isIOS()) {
-                  console.info(`${caseName} on iOS platform, on accepted the invalid callback without exception`);
-                  expect(true).assertTrue();
-                } else {
-                  expect().assertFail();
-                }
+                expect().assertFail();
                 done();
               } catch (err) {
                 console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
@@ -2642,12 +2627,7 @@ export default function TLSSocketServerTest3() {
               });
               try {
                 tlsServer.on('error', null);
-                if (PlatformDetector.isIOS()) {
-                  console.info(`${caseName} on iOS platform, on accepted the invalid callback without exception`);
-                  expect(true).assertTrue();
-                } else {
-                  expect().assertFail();
-                }
+                expect().assertFail();
                 done();
               } catch (err) {
                 console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
@@ -3017,11 +2997,6 @@ export default function TLSSocketServerTest3() {
               done();
             });
             (async (): Promise<void> => {
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling off with invalid type to avoid native crash`);
-                expect(true).assertTrue();
-                return;
-              }
               try {
                 tlsServer.off(null, (err: BusinessError) => {
                   console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
@@ -3045,22 +3020,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -3118,11 +3079,6 @@ export default function TLSSocketServerTest3() {
             });
 
             (async (): Promise<void> => {
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling off with invalid type to avoid native crash`);
-                expect(true).assertTrue();
-                return;
-              }
               try {
                 tlsServer.off(undefined, (err: BusinessError) => {
                   console.error(`${caseName} TLS server error event was detected: ${err.code} - ${err.message}`);
@@ -3147,22 +3103,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -3220,11 +3162,6 @@ export default function TLSSocketServerTest3() {
             });
 
             (async (): Promise<void> => {
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling off with invalid callback to avoid native crash`);
-                expect(true).assertTrue();
-                return;
-              }
               try {
                 tlsServer.off('error', undefined);
                 expect().assertFail();
@@ -3246,22 +3183,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -3319,11 +3242,6 @@ export default function TLSSocketServerTest3() {
             });
 
             (async (): Promise<void> => {
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, skip calling off with invalid callback to avoid native crash`);
-                expect(true).assertTrue();
-                return;
-              }
               try {
                 tlsServer.off('error', null);
                 expect().assertFail();
@@ -3346,22 +3264,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -3797,22 +3701,17 @@ export default function TLSSocketServerTest3() {
         try {
           await (async (): Promise<void> => {
           })().then(async () => {
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling on with invalid type to avoid potential native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.on(null, (conn: socket.TLSSocketConnection) => {
-                  console.info(`${caseName} on connect success`);
-                  expect().assertFail();
-                  done();
-                });
-              } catch (err) {
-                console.error(`${caseName} v: ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                const errCode = Number(err.code);
-                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+            try {
+              tlsServer.on(null, (conn: socket.TLSSocketConnection) => {
+                console.info(`${caseName} on connect success`);
+                expect().assertFail();
                 done();
-              }
+              });
+            } catch (err) {
+              console.error(`${caseName} v: ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
+              const errCode = Number(err.code);
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -3852,22 +3751,17 @@ export default function TLSSocketServerTest3() {
           };
           await (async (): Promise<void> => {
           })().then(async () => {
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling on with invalid type to avoid potential native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.on(undefined, (conn: socket.TLSSocketConnection) => {
-                  console.info(`${caseName} on connect success`);
-                  expect().assertFail();
-                  done();
-                });
-              } catch (err) {
-                console.error(`${caseName} v: ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                const errCode = Number(err.code);
-                expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+            try {
+              tlsServer.on(undefined, (conn: socket.TLSSocketConnection) => {
+                console.info(`${caseName} on connect success`);
+                expect().assertFail();
                 done();
-              }
+              });
+            } catch (err) {
+              console.error(`${caseName} v: ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
+              const errCode = Number(err.code);
+              expect(errCode === SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -3906,12 +3800,7 @@ export default function TLSSocketServerTest3() {
             try {
               tlsServer.on('connect', undefined);
               console.info(`${caseName} on connect success`);
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, on accepted the invalid callback without exception`);
-                expect(true).assertTrue();
-              } else {
-                expect().assertFail();
-              }
+              expect().assertFail();
               done();
             } catch (err) {
               console.error(`${caseName} on connect fail:
@@ -3958,12 +3847,7 @@ export default function TLSSocketServerTest3() {
             try {
               tlsServer.on('connect', null);
               console.info(`${caseName} on connect success`);
-              if (PlatformDetector.isIOS()) {
-                console.info(`${caseName} on iOS platform, on accepted the invalid callback without exception`);
-                expect(true).assertTrue();
-              } else {
-                expect().assertFail();
-              }
+              expect().assertFail();
               done();
             } catch (err) {
               console.error(`${caseName} on connect fail:
@@ -4302,21 +4186,16 @@ export default function TLSSocketServerTest3() {
             tlsServer.on('connect', connectCallback);
             console.info(`${caseName} success to subscribe connect event`);
 
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling off with invalid type to avoid native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.off(null, connectCallback);
-                console.info(`${caseName} pass null parameter`);
-                expect().assertFail();
-                done();
-              } catch (err) {
-                console.error(`${caseName} off to cancel connect event:
+            try {
+              tlsServer.off(null, connectCallback);
+              console.info(`${caseName} pass null parameter`);
+              expect().assertFail();
+              done();
+            } catch (err) {
+              console.error(`${caseName} off to cancel connect event:
             ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
-                done();
-              }
+              expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -4329,22 +4208,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -4397,21 +4262,16 @@ export default function TLSSocketServerTest3() {
           })().then(async () => {
             tlsServer.on('connect', connectCallback);
             console.info(`${caseName} success to subscribe connect event`);
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling off with invalid type to avoid native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.off(undefined, connectCallback);
-                console.info(`${caseName} pass null parameter`);
-                expect().assertFail();
-                done();
-              } catch (err) {
-                console.error(`${caseName} off to cancel connect event:
+            try {
+              tlsServer.off(undefined, connectCallback);
+              console.info(`${caseName} pass null parameter`);
+              expect().assertFail();
+              done();
+            } catch (err) {
+              console.error(`${caseName} off to cancel connect event:
             ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
-                done();
-              }
+              expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -4424,22 +4284,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -4493,21 +4339,16 @@ export default function TLSSocketServerTest3() {
             tlsServer.on('connect', connectCallback);
             console.info(`${caseName} success to subscribe connect event`);
 
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling off with invalid callback to avoid native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.off('connect', null);
-                console.info(`${caseName} pass null callback parameter`);
-                expect().assertFail();
-                done();
-              } catch (err) {
-                console.error(`${caseName} off to cancel connect event:
+            try {
+              tlsServer.off('connect', null);
+              console.info(`${caseName} pass null callback parameter`);
+              expect().assertFail();
+              done();
+            } catch (err) {
+              console.error(`${caseName} off to cancel connect event:
             ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
-                done();
-              }
+              expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -4521,22 +4362,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
@@ -4590,21 +4417,16 @@ export default function TLSSocketServerTest3() {
           })().then(async () => {
             tlsServer.on('connect', connectCallback);
             console.info(`${caseName} success to subscribe connect event`);
-            if (PlatformDetector.isIOS()) {
-              console.info(`${caseName} on iOS platform, skip calling off with invalid callback to avoid native crash`);
-              expect(true).assertTrue();
-            } else {
-              try {
-                tlsServer.off('connect', undefined);
-                console.info(`${caseName} pass null callback parameter`);
-                expect().assertFail();
-                done();
-              } catch (err) {
-                console.error(`${caseName} off to cancel connect event:
+            try {
+              tlsServer.off('connect', undefined);
+              console.info(`${caseName} pass null callback parameter`);
+              expect().assertFail();
+              done();
+            } catch (err) {
+              console.error(`${caseName} off to cancel connect event:
             ${(err as BusinessError).code} - ${(err as BusinessError).message}`);
-                expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
-                done();
-              }
+              expect((err as BusinessError).code == SocketErrorCodes.ERR_CODE_PARAMETER_ERROR).assertTrue();
+              done();
             }
           }).catch((err: BusinessError) => {
             console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
@@ -4617,22 +4439,8 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          try {
-            await sleep(500);
-            await Promise.race([
-              Promise.all([
-                tlsServer.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
-                }),
-                tlsClient.close().catch((err: BusinessError) => {
-                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
-                })
-              ]),
-              sleep(1500)
-            ]);
-          } catch (err) {
-            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
-          }
+          tlsServer.close();
+          tlsClient.close();
           done();
         }
       });
