@@ -3045,8 +3045,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -3133,8 +3147,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -3218,8 +3246,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -3304,8 +3346,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -4273,8 +4329,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -4354,8 +4424,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -4437,8 +4521,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
@@ -4519,8 +4617,22 @@ export default function TLSSocketServerTest3() {
           expect().assertFail();
           done();
         } finally {
-          tlsServer.close();
-          tlsClient.close();
+          try {
+            await sleep(500);
+            await Promise.race([
+              Promise.all([
+                tlsServer.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsServer fail: ${err.code} - ${err.message}`);
+                }),
+                tlsClient.close().catch((err: BusinessError) => {
+                  console.error(`${caseName} close tlsClient fail: ${err.code} - ${err.message}`);
+                })
+              ]),
+              sleep(1500)
+            ]);
+          } catch (err) {
+            console.error(`${caseName} teardown error: ${JSON.stringify(err)}`);
+          }
           done();
         }
       });
