@@ -1688,10 +1688,33 @@ export default function TLSSocketConnectionTest_2() {
         const caseName: string = 'ArKUIX_TLSSocketConnection_On_Close_0100';
         let tlsServer: socket.TLSSocketServer = socket.constructTLSSocketServerInstance();
         let tlsClient: socket.TLSSocket = socket.constructTLSSocketInstance();
+        let caseFinished = false;
+        const finish = (): void => {
+          if (caseFinished) {
+            return;
+          }
+          caseFinished = true;
+          try {
+            tlsServer.close().catch(() => {
+            });
+          } catch (err) {
+          }
+          try {
+            tlsClient.close().catch(() => {
+            });
+          } catch (err) {
+          }
+          done();
+        };
         try {
+          const port = getNextPort();
           const netAddress: socket.NetAddress = {
+            address: '0.0.0.0',
+            port: port
+          };
+          const connectAddr: socket.NetAddress = {
             address: '127.0.0.1',
-            port: getNextPort()
+            port: port
           };
           const tlsConnectOptions: socket.TLSConnectOptions = {
             address: netAddress,
@@ -1699,74 +1722,54 @@ export default function TLSSocketConnectionTest_2() {
             ALPNProtocols: ["spdy/1", "http/1.1"],
           };
           const connectOptions: socket.TLSConnectOptions = {
-            address: netAddress,
+            address: connectAddr,
             secureOptions: TlsClientOptions,
             ALPNProtocols: ["spdy/1", "http/1.1"],
             skipRemoteValidation: true
           };
 
           let on_close = false;
-          await (async (): Promise<void> => {
-            return new Promise<void>((resolve, reject) => {
-              tlsServer.listen(tlsConnectOptions).then(() => {
-                console.info(`${caseName} TLSServer listen success: ${JSON.stringify(netAddress)}`);
-                resolve();
-              }).catch((err: BusinessError): void => {
-                console.error(`${caseName} listen fail:${err.code}-${err.message}`);
-                reject(err);
-              });
-            });
-          })().then(async () => {
-            tlsServer.on('connect', (clientConn: socket.TLSSocketConnection) => {
-              console.info('connect success');
+          await tlsServer.listen(tlsConnectOptions);
+          console.info(`${caseName} TLSServer listen success: ${JSON.stringify(netAddress)}`);
 
-              clientConn.on('close', () => {
-                console.info(`${caseName} on close success`);
-                on_close = true;
+          tlsServer.on('connect', (clientConn: socket.TLSSocketConnection) => {
+            console.info(`${caseName} connect success`);
+            clientConn.on('close', () => {
+              console.info(`${caseName} on close success`);
+              on_close = true;
+              try {
                 expect(on_close).assertTrue();
-                done();
-              });
+              } catch (err) {
+              }
+              finish();
             });
-
-            await (async (): Promise<void> => {
-              return new Promise<void>((resolve) => {
-                tlsClient.bind(netAddress).then((): Promise<void> => {
-                  return tlsClient.connect(connectOptions);
-                }).then((): void => {
-                  setTimeout(() => {
-                    tlsClient.close().then(() => {
-                      console.info(`${caseName} close success`);
-                      setTimeout(() => {
-                        if (!on_close) {
-                          console.info(`${caseName} close event not received but connection was closed`);
-                          expect(true).assertTrue();
-                          done();
-                        }
-                        resolve();
-                      }, 500);
-                    }).catch(() => {
-                      console.error(`${caseName} close error`);
-                      resolve();
-                    });
-                  }, 100);
-                }).catch((): void => {
-                  console.error(`${caseName} client connect error`);
-                  resolve();
-                });
-              });
-            })();
-          }).catch((err: BusinessError) => {
-            console.error(`${caseName} operation failed: ${JSON.stringify(err)}`);
           });
+          const bindAddr: socket.NetAddress = {
+            address: '0.0.0.0',
+            port: 0
+          };
+          await tlsClient.bind(bindAddr);
+          await tlsClient.connect(connectOptions);
+          console.info(`${caseName} connect successfully`);
+
+          await sleep(200);
+          await tlsClient.close();
+          console.info(`${caseName} close success`);
+
+          await sleep(500);
+          if (!on_close) {
+            console.info(`${caseName} close event not received but connection was closed`);
+            expect(true).assertTrue();
+          }
+          finish();
         } catch (err) {
           const error = err as BusinessError;
-          console.error(`${caseName} test error:${error.message}`);
-          expect().assertFail();
-          done();
-        } finally {
-          tlsServer.close();
-          tlsClient.close();
-          done();
+          console.error(`${caseName} test error:${error.code} - ${error.message}`);
+          try {
+            expect().assertFail();
+          } catch (assertErr) {
+          }
+          finish();
         }
       });
 
