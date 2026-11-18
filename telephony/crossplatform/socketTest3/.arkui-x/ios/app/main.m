@@ -14,9 +14,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <signal.h>
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {
+    // iOS 默认对 SIGPIPE 执行终止进程；socket/TLS 关闭时向已断开的对端写 close_notify
+    // 会触发 EPIPE -> SIGPIPE，直接杀掉 App。必须忽略该信号。
+    signal(SIGPIPE, SIG_IGN);
     NSString * appDelegateClassName;
     @autoreleasepool {
         // Setup code that might create autoreleased objects goes here.
